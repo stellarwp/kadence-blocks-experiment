@@ -10,13 +10,14 @@
 namespace KadenceWP\KadenceBlocks\Blocks;
 
 use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
+use KadenceWP\KadenceBlocks\Blocks\KBS\Section;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * The provider for all Admin related functionality.
+ * The provider for all Block related functionality.
  *
  * @since 0.1.0
  *
@@ -28,11 +29,9 @@ class Provider extends Service_Provider {
 	 * {@inheritdoc}
 	 */
 	public function register(): void {
-		// Register the Blocks.
-		add_action( 'init', $this->container->callback( AB_Block::class, 'ab_testing_block' ) );
-		add_action( 'init', $this->container->callback( AB_Block::class, 'register_scripts' ) );
-		add_action( 'wp_footer', $this->container->callback( AB_Block::class, 'ab_test_data_enqueue' ), 9 );
-		add_action( 'wp_enqueue_scripts', $this->container->callback( AB_Block::class, 'frontend_inline_css' ), 19 );
-		add_filter( 'kadence_blocks_frontend_build_css', $this->container->callback( AB_Block::class, 'output_css_when_rendered_outside_post_content' ) );
+		$this->container->singleton( Section::class, Section::class );
+		add_action( 'init', $this->container->callback( Section::class, 'on_init' ), 20 );
+		// Register the editor scripts.
+		add_action( 'init', $this->container->callback( Editor_Assets::class, 'on_init_editor_assets' ), 10 );
 	}
 }

@@ -59,6 +59,7 @@ class Core {
 	 * @var array<int,string>
 	 */
 	private $providers = [
+		Frontend\Provider::class,
 		Blocks\Provider::class,
 	];
 	/**
@@ -112,8 +113,6 @@ class Core {
 	 * @return void
 	 */
 	public function init(): void {
-
-		$this->container->setVar( self::PLUGIN_FILE, $this->plugin_file );
 
 		// Register all providers.
 		foreach ( $this->providers as $class ) {

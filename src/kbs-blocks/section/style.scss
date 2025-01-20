@@ -1,0 +1,12 @@
+/**
+ * #.# Styles
+ *
+ * CSS for both Frontend+Backend.
+ */
+
+.kbs-section {
+    display: flex;
+    flex-direction: 'var(--kbs-section-direction', 'column )';
+	min-width: 0;
+	min-height: 0;
+}

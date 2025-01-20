@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles all functionality related to the A/B Testing Block
+ * Handles all functionality related to the KBS Blocks.
  *
  * @since 0.1.1
  *
@@ -11,8 +11,12 @@ declare( strict_types=1 );
 
 namespace KadenceWP\KadenceBlocks\Blocks;
 
+use KadenceWP\KadenceBlocks\Container;
+use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
+use function kbs_get_asset_file;
+
 /**
- * Handles all functionality related to the A/B Testing Block.
+ * Handles all functionality related to the KBS Blocks..
  *
  * @since 0.1.1
  *
@@ -24,7 +28,7 @@ class Abstract_Block {
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'kadence';
+	protected $namespace = 'kbs';
 
 	/**
 	 * Block name within this namespace.
@@ -32,6 +36,20 @@ class Abstract_Block {
 	 * @var string
 	 */
 	protected $block_name = '';
+
+	/**
+	 * Block determines if style needs to be loaded for block.
+	 *
+	 * @var string
+	 */
+	protected $has_editor_style = true;
+
+	/**
+	 * Block determines if style needs to be loaded for block.
+	 *
+	 * @var string
+	 */
+	protected $has_editor_script = true;
 
 	/**
 	 * Block determines if style needs to be loaded for block.
@@ -58,6 +76,7 @@ class Abstract_Block {
 	/**
 	 * Cache for default attributes by block name.
 	 * Stored as: blockName => attributes
+	 *
 	 * @var array
 	 */
 	protected $default_attributes_cache = [];
@@ -98,11 +117,17 @@ class Abstract_Block {
 	];
 
 	/**
-	 * Class Constructor.
+	 * The container instance.
+	 *
+	 * @var Container
 	 */
-	public function __construct() {
-		add_action( 'init', array( $this, 'on_init' ), 20 );
-		add_filter( 'kadence_blocks_blocks_to_generate_post_css', array( $this, 'add_block_to_post_generate_css' ) );
+	protected Container $container;
+
+	/**
+	 * @param  Container $container The container instance.
+	 */
+	public function __construct( Container $container ) {
+		$this->container = $container;
 	}
 
 	/**
@@ -110,13 +135,45 @@ class Abstract_Block {
 	 */
 	public function on_init() {
 		if ( $this->should_register() ) {
+			$block_asset_meta = kbs_get_asset_file( 'dist/kbs-' . $this->block_name );
+			$handle           = $this->namespace . '-' . $this->block_name;
+			$editor_handle    = $handle . '-editor';
+			$args = [
+				'render_callback' => [ $this, 'render_css' ],
+			];
+			// Register the block.
+			if ( $this->has_editor_script ) {
+				wp_register_script(
+					$editor_handle,
+					KADENCE_BLOCKS_URL . 'dist/kbs-' . $this->block_name . '.js',
+					$block_asset_meta['dependencies'],
+					$block_asset_meta['version'],
+					true
+				);
+				wp_set_script_translations( $editor_handle, 'kadence-blocks' );
+				$args['editor_script'] = $editor_handle;
+			}
+			if ( $this->has_editor_style ) {
+				wp_register_style(
+					$editor_handle,
+					KADENCE_BLOCKS_URL . 'dist/kbs-' . $this->block_name . '.css',
+					[],
+					$block_asset_meta['version']
+				);
+				$args['editor_style'] = $editor_handle;
+			}
+			if ( $this->has_style ) {
+				wp_register_style(
+					$handle,
+					KADENCE_BLOCKS_URL . 'dist/style-kbs-' . $this->block_name . '.css',
+					[],
+					$block_asset_meta['version']
+				);
+				$args['style'] = $handle;
+			}
 			register_block_type(
-				KADENCE_BLOCKS_PATH . 'dist/blocks/' . $this->block_name . '/block.json',
-				array(
-					'render_callback' => array( $this, 'render_css' ),
-					'editor_script'   => 'kadence-blocks-' . $this->block_name,
-					'editor_style'    => 'kadence-blocks-' . $this->block_name,
-				)
+				KADENCE_BLOCKS_PATH . 'dist/kbs-blocks/' . $this->block_name . '/block.json',
+				$args
 			);
 		}
 	}
@@ -129,7 +186,7 @@ class Abstract_Block {
 	public function add_block_to_post_generate_css( $block_class_array ) {
 		if ( $this->should_register() ) {
 			if ( ! isset( $block_class_array[ $this->namespace . '/' . $this->block_name ] ) ) {
-				$block_class_array[ $this->namespace . '/' . $this->block_name ] = 'Kadence_Blocks_' . str_replace( ' ', '_', ucwords( str_replace( '-', ' ', $this->block_name ) ) ) . '_Block';
+				$block_class_array[ $this->namespace . '/' . $this->block_name ] = 'KadenceWP\KadenceBlocks\Blocks\KBS_Blocks\/' . str_replace( ' ', '_', ucwords( str_replace( '-', ' ', $this->block_name ) ) );
 			}
 		}
 
@@ -160,7 +217,7 @@ class Abstract_Block {
 	 */
 	public function render_styles_footer( $name, $css ) {
 		if ( ! is_admin() && ! wp_style_is( $name, 'done' ) && ! is_feed() ) {
-			wp_register_style( $name, false, array(), false );
+			wp_register_style( $name, false, [], false );
 			wp_add_inline_style( $name, $css );
 			wp_enqueue_style( $name );
 		}
@@ -220,25 +277,26 @@ class Abstract_Block {
 	 * @param boolean $inline true or false based on when called.
 	 */
 	public function render_scripts( $attributes, $inline = false ) {
+		$handle = $this->namespace . '-' . $this->block_name;
 		if ( $this->has_style ) {
-			if ( ! wp_style_is( 'kadence-blocks-' . $this->block_name, 'enqueued' ) ) {
-				$this->enqueue_style( 'kadence-blocks-' . $this->block_name );
+			if ( ! wp_style_is( $handle, 'enqueued' ) ) {
+				$this->enqueue_style( $handle );
 				if ( $inline ) {
-					$this->should_render_inline_stylesheet( 'kadence-blocks-' . $this->block_name );
+					$this->should_render_inline_stylesheet( $handle );
 				}
 			}
 		}
 		if ( $this->has_script ) {
-			if ( ! wp_script_is( 'kadence-blocks-' . $this->block_name, 'enqueued' ) ) {
-				$this->enqueue_script( 'kadence-blocks-' . $this->block_name );
+			if ( ! wp_script_is( $handle, 'enqueued' ) ) {
+				$this->enqueue_script( $handle );
 			}
 		}
 	}
 	/**
 	 * Render Block CSS
 	 *
-	 * @param array $attributes the blocks attribtues.
-	 * @param string $content the blocks content.
+	 * @param array    $attributes the blocks attribtues.
+	 * @param string   $content the blocks content.
 	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 */
 	public function render_css( $attributes, $content, $block_instance ) {
@@ -252,9 +310,9 @@ class Abstract_Block {
 			$unique_id = ! empty( $attributes['uniqueID'] ) ? $attributes['uniqueID'] : '';
 		}
 		if ( ! empty( $unique_id ) ) {
-			$unique_id = str_replace( '/', '-', $unique_id );
+			$unique_id       = str_replace( '/', '-', $unique_id );
 			$unique_style_id = apply_filters( 'kadence_blocks_build_render_unique_id', $unique_id, $this->block_name, $attributes );
-			$css_class = Kadence_Blocks_CSS::get_instance();
+			$css_class	     = $this->container->get( CSS_Engine::class );
 
 			if ( in_array( $this->block_name, $this->supports_merged_defaults ) ) {
 				$attributes = $this->get_attributes_with_defaults( $unique_id . get_locale(), $attributes, false );
@@ -265,13 +323,13 @@ class Abstract_Block {
 
 			$content = $this->build_html( $attributes, $unique_id, $content, $block_instance );
 			if ( ! $css_class->has_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
-				$css        = $this->build_css( $attributes, $css_class, $unique_id, $unique_style_id );
+				$css = $this->build_css( $attributes, $css_class, $unique_id, $unique_style_id );
 				if ( ! empty( $css ) && ! wp_is_block_theme() ) {
 					$this->do_inline_styles( $content, $unique_style_id, $css );
 				}
 			} elseif ( ! wp_is_block_theme() && ! $css_class->has_header_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
 				// Some plugins run render block without outputing the content, this makes it so css can be rebuilt.
-				$css        = $this->build_css( $attributes, $css_class, $unique_id, $unique_style_id );
+				$css = $this->build_css( $attributes, $css_class, $unique_id, $unique_style_id );
 				if ( ! empty( $css ) ) {
 					$this->do_inline_styles( $content, $unique_style_id, $css );
 				}
@@ -295,7 +353,7 @@ class Abstract_Block {
 	/**
 	 * Builds CSS for block.
 	 *
-	 * @param array $attributes the blocks attributes.
+	 * @param array  $attributes the blocks attributes.
 	 * @param string $css the css class for blocks.
 	 * @param string $unique_id the blocks attr ID.
 	 * @param string $unique_style_id the blocks alternate ID for queries.
@@ -310,7 +368,7 @@ class Abstract_Block {
 	 * @param $attributes
 	 * @param $unique_id
 	 * @param $content
-	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param WP_Block   $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 *
 	 * @return mixed
 	 */
@@ -329,7 +387,7 @@ class Abstract_Block {
 		if ( apply_filters( 'kadence_blocks_check_if_rest', false ) && kadence_blocks_is_rest() ) {
 			return;
 		}
-		wp_register_style( 'kadence-blocks-' . $this->block_name, KADENCE_BLOCKS_URL . 'dist/style-blocks-' . $this->block_name . '.css', array(), KADENCE_BLOCKS_VERSION );
+		wp_register_style( $handle, KADENCE_BLOCKS_URL . 'dist/style-kbs-' . $this->block_name . '.css', [], KADENCE_BLOCKS_VERSION );
 	}
 
 	/**
@@ -360,7 +418,7 @@ class Abstract_Block {
 	 * Get this blocks preset, defaults to the block preset.
 	 *
 	 * @param string $cache_key The cache key (usually unique id).
-	 * @param array $attributes The block's attributes.
+	 * @param array  $attributes The block's attributes.
 	 * @param string $block_name The name of the block.
 	 * @return array
 	 */
@@ -385,13 +443,13 @@ class Abstract_Block {
 	protected function get_block_default_attributes() {
 		$block_name = 'kadence/' . $this->block_name;
 		if ( ! isset( $this->default_attributes_cache[ $block_name ] ) ) {
-			$registry = WP_Block_Type_Registry::get_instance()->get_registered( $block_name );
+			$registry           = WP_Block_Type_Registry::get_instance()->get_registered( $block_name );
 			$default_attributes = [];
 
 			if ( $registry && property_exists( $registry, 'attributes' ) && ! empty( $registry->attributes ) ) {
 				foreach ( $registry->attributes as $key => $value ) {
 					if ( isset( $value['default'] ) ) {
-						$default_attributes[$key] = $value['default'];
+						$default_attributes[ $key ] = $value['default'];
 					}
 				}
 			}
@@ -400,6 +458,49 @@ class Abstract_Block {
 		}
 
 		return $this->default_attributes_cache[ $block_name ];
+	}
+
+	/**
+	 * Add Custom CSS for block.
+	 *
+	 * @param array  $attributes the blocks attributes.
+	 * @param string $css the css class for blocks.
+	 * @param string $unique_id the blocks attr ID.
+	 * @param string $unique_style_id the blocks alternate ID for queries.
+	 */
+	public function add_custom_css( $attributes, $css, $root_selector ) {
+		
+		if ( ! empty( $attributes['kbsCSS'] ) ) {
+			$css->add_css_string( str_replace( 'selector', $root_selector, $attributes['kbsCSS'] ) );
+		}
+		return $css;
+	}
+
+	/**
+	 * Gets the HTML tag from the attributes.
+	 * If the tag provided isn't allowed, return the default value.
+	 *
+	 * @param array  $attributes Array of the blocks attributes.
+	 * @param string $tag_key Offest on $attributes where the tag is set.
+	 * @param string $default Default tag to use if $tag_key attribue is undefined or invalid.
+	 * @param array  $allowed_tags Array of allowed tags.
+	 * @param string $level_key If defined, we'll assume heading tags are allowed.
+	 *
+	 * @return string
+	 */
+	public function get_html_tag( $attributes, $tag_key, $default, $allowed_tags = [], $level_key = '' ) {
+
+		if ( ! empty( $attributes[ $tag_key ] ) && in_array( $attributes[ $tag_key ], $allowed_tags ) ) {
+
+			if ( $attributes[ $tag_key ] === 'heading' ) {
+				$level = ! empty( $attributes[ $level_key ] ) ? $attributes[ $level_key ] : 2;
+				return 'h' . $level;
+			}
+
+			return $attributes[ $tag_key ];
+		}
+
+		return $default;
 	}
 
 
@@ -418,6 +519,6 @@ class Abstract_Block {
 	 * @return string|null
 	 */
 	protected function get_pro_version() {
-		return defined('KBP_VERSION') ? KBP_VERSION : null;
+		return defined( 'KBP_VERSION' ) ? KBP_VERSION : null;
 	}
 }

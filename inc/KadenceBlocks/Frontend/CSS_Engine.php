@@ -3,7 +3,7 @@
  * Creates minified css via PHP.
  */
 
-namespace KadenceWP\KadenceBlocks\CSS_Generator;
+namespace KadenceWP\KadenceBlocks\Frontend;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class to create a minified css output.
  */
-class CSS_Builder {
+class CSS_Engine {
 
 	/**
 	 * CSS to enqueue

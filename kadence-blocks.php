@@ -24,6 +24,8 @@ define( 'KADENCE_BLOCKS_VERSION', '3.4.7' );
 
 require_once plugin_dir_path( __FILE__ ) . 'vendor/vendor-prefixed/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+require_once plugin_dir_path( __FILE__ ) . '/inc/functions/helper-functions.php';
+require_once plugin_dir_path( __FILE__ ) . '/inc/functions/app.php';
 
 use KadenceWP\KadenceBlocks\App;
 use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Container\ContainerAdapter;
@@ -32,6 +34,17 @@ use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Core as Telemetry;
 use KadenceWP\KadenceBlocks\StellarWP\Uplink\Config as UplinkConfig;
 use KadenceWP\KadenceBlocks\StellarWP\Uplink\Register;
 use KadenceWP\KadenceBlocks\StellarWP\Uplink\Uplink;
+
+// Get the plugin's singleton instance.
+$core = kbs_plugin();
+
+add_action(
+	'plugins_loaded',
+	static function () use ( $core ): void {
+		// Fully boot the plugin and its service providers.
+		$core->init();
+	}
+);
 
 /**
  * Add a check before redirecting.
@@ -179,7 +192,7 @@ function kadence_blocks_init(): void {
 		0
 	);
 }
-add_action( 'plugins_loaded', 'kadence_blocks_init', 1 );
+// add_action( 'plugins_loaded', 'kadence_blocks_init', 1 );
 
 /**
  * Load the plugin textdomain
@@ -187,4 +200,4 @@ add_action( 'plugins_loaded', 'kadence_blocks_init', 1 );
 function kadence_blocks_lang(): void {
 	load_plugin_textdomain( 'kadence-blocks', false, basename( dirname( __FILE__ ) ) . '/languages' );
 }
-add_action( 'init', 'kadence_blocks_lang' );
+// add_action( 'init', 'kadence_blocks_lang' );

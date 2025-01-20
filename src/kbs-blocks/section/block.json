@@ -7,8 +7,13 @@
 	"textdomain": "kadence-blocks",
 	"attributes": {
 		"uniqueID": {
-			"type": "string",
-			"default": ""
+			"type": "string"
+		},
+		"anchor": {
+			"type": "string"
+		},
+		"preset": {
+			"type": "array"
 		},
 		"color": {
 			"type": "object"
@@ -43,416 +48,42 @@
 		"direction": {
 			"type": "object"
 		},
-		"zIndex": {
-			"type": "number",
-			"default": ""
+		"wrap": {
+			"type": "object"
 		},
-		"collapseOrder": {
+		"gap": {
+			"type": "object"
+		},
+		"grow": {
+			"type": "object"
+		},
+		"zIndex": {
 			"type": "number"
 		},
-		"noCustomDefaults": {
-			"type": "boolean",
-			"default": false
+		"order": {
+			"type": "object"
+		},
+		"basis": {
+			"type": "object"
+		},
+		"width": {
+			"type": "object"
+		},
+		"height": {
+			"type": "object"
 		},
 		"templateLock": {
 			"type": ["string", "boolean"],
 			"enum": ["all", "insert", "contentOnly", false]
 		},
-		"direction": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"justifyContent": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"wrapContent": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"gutter": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"gutterUnit": {
-			"type": "string",
-			"default": "px"
-		},
-		"gutterVariable": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"rowGap": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"rowGapUnit": {
-			"type": "string",
-			"default": "px"
-		},
-		"rowGapVariable": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"flexBasis": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"flexBasisUnit": {
-			"type": "string",
-			"default": "px"
-		},
-		"verticalAlignment": {
-			"type": "string"
-		},
-		"verticalAlignmentTablet": {
-			"type": "string"
-		},
-		"verticalAlignmentMobile": {
-			"type": "string"
-		},
-		"backgroundImgHover": {
-			"type": "array",
-			"default": [
-				{
-					"bgImg": "",
-					"bgImgID": "",
-					"bgImgSize": "cover",
-					"bgImgPosition": "center center",
-					"bgImgAttachment": "scroll",
-					"bgImgRepeat": "no-repeat"
-				}
-			]
-		},
-		"backgroundHover": {
-			"type": "string",
-			"default": ""
-		},
-		"overlayOpacity": {
-			"type": "number",
-			"default": 0.3
-		},
-		"overlay": {
-			"type": "string",
-			"default": ""
-		},
-		"overlayImg": {
-			"type": "array",
-			"default": [
-				{
-					"bgImg": "",
-					"bgImgID": "",
-					"bgImgSize": "cover",
-					"bgImgPosition": "center center",
-					"bgImgAttachment": "scroll",
-					"bgImgRepeat": "no-repeat"
-				}
-			]
-		},
-		"overlayHoverOpacity": {
-			"type": "number",
-			"default": ""
-		},
-		"overlayHover": {
-			"type": "string",
-			"default": ""
-		},
-		"overlayImgHover": {
-			"type": "array",
-			"default": [
-				{
-					"bgImg": "",
-					"bgImgID": "",
-					"bgImgSize": "cover",
-					"bgImgPosition": "center center",
-					"bgImgAttachment": "scroll",
-					"bgImgRepeat": "no-repeat"
-				}
-			]
-		},
-		"borderHover": {
-			"type": "string",
-			"default": ""
-		},
-		"borderHoverWidth": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"tabletBorderHoverWidth": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"mobileBorderHoverWidth": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"borderHoverRadius": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"displayHoverShadow": {
-			"type": "boolean",
-			"default": false
-		},
-		"shadowHover": {
-			"type": "array",
-			"default": [
-				{
-					"color": "#000000",
-					"opacity": 0.2,
-					"spread": 0,
-					"blur": 14,
-					"hOffset": 0,
-					"vOffset": 0,
-					"inset": false
-				}
-			]
-		},
-		"textColorHover": {
-			"type": "string",
-			"default": ""
-		},
-		"linkColorHover": {
-			"type": "string",
-			"default": ""
-		},
-		"linkHoverColorHover": {
-			"type": "string",
-			"default": ""
-		},
 		"link": {
-			"type": "string",
-			"default": ""
+			"type": "string"
 		},
-		"linkTitle": {
-			"type": "string",
-			"default": ""
-		},
-		"linkTarget": {
-			"type": "boolean",
-			"default": false
-		},
-		"linkNoFollow": {
-			"type": "boolean",
-			"default": false
-		},
-		"linkSponsored": {
-			"type": "boolean",
-			"default": false
-		},
-		"maxWidth": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"maxWidthUnit": {
-			"type": "string",
-			"default": "px"
-		},
-		"maxWidthTabletUnit": {
-			"type": "string",
-			"default": ""
-		},
-		"maxWidthMobileUnit": {
-			"type": "string",
-			"default": ""
-		},
-		"height": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"heightUnit": {
-			"type": "string",
-			"default": "px"
+		"linkExtras": {
+			"type": "object"
 		},
 		"htmlTag": {
-			"type": "string",
-			"default": "div"
-		},
-		"inQueryBlock": {
-			"type": "boolean",
-			"default": false
-		},
-		"overlayType": {
-			"type": "string",
-			"default": "normal"
-		},
-		"sticky": {
-			"type": "boolean",
-			"default": false
-		},
-		"stickyOffset": {
-			"type": "array",
-			"default": ["", "", ""]
-		},
-		"stickyOffsetUnit": {
-			"type": "string",
-			"default": "px"
-		},
-		"align": {
-			"type": "string",
-			"default": ""
-		},
-		"padding": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"tabletPadding": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"mobilePadding": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"margin": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"tabletMargin": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"mobileMargin": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"backgroundType": {
-			"type": "string",
-			"default": "normal"
-		},
-		"backgroundHoverType": {
-			"type": "string",
-			"default": "normal"
-		},
-		"gradient": {
-			"type": "string",
-			"default": ""
-		},
-		"gradientHover": {
-			"type": "string",
-			"default": ""
-		},
-		"overlayGradient": {
-			"type": "string",
-			"default": ""
-		},
-		"overlayGradientHover": {
-			"type": "string",
-			"default": ""
-		},
-		"overlayHoverType": {
-			"type": "string",
-			"default": "normal"
-		},
-		"tabletBorderRadius": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"mobileBorderRadius": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"borderRadiusUnit": {
-			"type": "string",
-			"default": "px"
-		},
-		"tabletBorderHoverRadius": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"mobileBorderHoverRadius": {
-			"type": "array",
-			"default": ["", "", "", ""]
-		},
-		"borderHoverRadiusUnit": {
-			"type": "string",
-			"default": "px"
-		},
-		"borderStyle": {
-			"type": "array",
-			"default": [
-				{
-					"top": ["", "", ""],
-					"right": ["", "", ""],
-					"bottom": ["", "", ""],
-					"left": ["", "", ""],
-					"unit": "px"
-				}
-			]
-		},
-		"tabletBorderStyle": {
-			"type": "array",
-			"default": [
-				{
-					"top": ["", "", ""],
-					"right": ["", "", ""],
-					"bottom": ["", "", ""],
-					"left": ["", "", ""],
-					"unit": "px"
-				}
-			]
-		},
-		"mobileBorderStyle": {
-			"type": "array",
-			"default": [
-				{
-					"top": ["", "", ""],
-					"right": ["", "", ""],
-					"bottom": ["", "", ""],
-					"left": ["", "", ""],
-					"unit": "px"
-				}
-			]
-		},
-		"borderHoverStyle": {
-			"type": "array",
-			"default": [
-				{
-					"top": ["", "", ""],
-					"right": ["", "", ""],
-					"bottom": ["", "", ""],
-					"left": ["", "", ""],
-					"unit": "px"
-				}
-			]
-		},
-		"tabletBorderHoverStyle": {
-			"type": "array",
-			"default": [
-				{
-					"top": ["", "", ""],
-					"right": ["", "", ""],
-					"bottom": ["", "", ""],
-					"left": ["", "", ""],
-					"unit": "px"
-				}
-			]
-		},
-		"mobileBorderHoverStyle": {
-			"type": "array",
-			"default": [
-				{
-					"top": ["", "", ""],
-					"right": ["", "", ""],
-					"bottom": ["", "", ""],
-					"left": ["", "", ""],
-					"unit": "px"
-				}
-			]
-		},
-		"gridArea": {
-			"type": "string",
-			"default": ""
-		},
-		"overlayBlendMode": {
 			"type": "string"
-		},
-		"hoverOverlayBlendMode": {
-			"type": "string"
-		},
-		"flexGrow": {
-			"type": "array",
-			"default": ["", "", ""]
 		}
 	},
 	"supports": {
@@ -472,6 +103,6 @@
 			}
 		}
 	},
-	"editorStyle": "kbs-section",
+	"editorStyle": "kbs-section-editor",
 	"style": "kbs-section"
 }

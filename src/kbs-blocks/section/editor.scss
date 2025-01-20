@@ -1,0 +1,11 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+ // Remove WP margin added to all blocks.
+.wp-block-kbs-section {
+	margin-top: 0;
+	margin-bottom: 0;
+}
