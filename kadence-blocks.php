@@ -36,12 +36,12 @@ use KadenceWP\KadenceBlocks\StellarWP\Uplink\Register;
 use KadenceWP\KadenceBlocks\StellarWP\Uplink\Uplink;
 
 // Get the plugin's singleton instance.
-$core = kbs_plugin();
+
 
 add_action(
 	'plugins_loaded',
-	static function () use ( $core ): void {
-		// Fully boot the plugin and its service providers.
+	static function (): void {
+		$core = kbs_plugin();
 		$core->init();
 	}
 );

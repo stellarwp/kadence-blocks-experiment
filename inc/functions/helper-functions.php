@@ -1,8 +1,6 @@
 <?php
 /**
- * Handles all functionality related to the A/B Testing Block
- *
- * @since 0.1.1
+ * Helper functions.
  *
  * @package KadenceWP\KadenceBlocks
  */
