@@ -118,7 +118,7 @@ export default function SectionToolbar(props) {
 					onChange={(value) => setAttributes({ align: value })}
 				/>
 			)}
-			<BlockVerticalAlignmentToolbar
+			{/* <BlockVerticalAlignmentToolbar
 				value={actualVerticalAlign === 'middle' ? 'center' : actualVerticalAlign}
 				controls={['top', 'center', 'bottom', 'stretch']}
 				onChange={(value) => {
@@ -134,14 +134,14 @@ export default function SectionToolbar(props) {
 						setAttributes({ verticalAlignment: '' });
 					}
 				}}
-			/>
-			<CopyPasteAttributes
+			/> */}
+			{/* <CopyPasteAttributes
 				attributes={attributes}
 				excludedAttrs={nonTransAttrs}
 				defaultAttributes={metadata.attributes}
 				blockSlug={metadata.name}
 				onPaste={(attributesToPaste) => setAttributes(attributesToPaste)}
-			/>
+			/> */}
 		</BlockControls>
 	);
 }

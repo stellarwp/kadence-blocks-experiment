@@ -1,0 +1,22 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+ // Remove WP margin added to all blocks.
+.wp-block-kbs-container {
+	margin-top: 0;
+	margin-bottom: 0;
+	box-sizing: border-box;
+	&.kbs-only-appender {
+		.block-list-appender.wp-block {
+			padding: 6px;
+			outline: 1px dashed #d5dadf;
+			box-shadow: none;
+		}
+	}
+	* {
+		box-sizing: border-box;
+	}
+}

@@ -10,7 +10,7 @@
 namespace KadenceWP\KadenceBlocks\Blocks;
 
 use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
-use KadenceWP\KadenceBlocks\Blocks\KBS\Section;
+use KadenceWP\KadenceBlocks\Blocks\KBS\Container;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -29,8 +29,8 @@ class Provider extends Service_Provider {
 	 * {@inheritdoc}
 	 */
 	public function register(): void {
-		$this->container->singleton( Section::class, Section::class );
-		add_action( 'init', $this->container->callback( Section::class, 'on_init' ), 20 );
+		$this->container->singleton( Container::class, Container::class );
+		add_action( 'init', $this->container->callback( Container::class, 'on_init' ), 20 );
 		// Register the editor scripts.
 		add_action( 'init', $this->container->callback( Editor_Assets::class, 'on_init_editor_assets' ), 10 );
 	}

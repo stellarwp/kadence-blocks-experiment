@@ -1,9 +1,9 @@
 {
 	"apiVersion": 3,
-	"title": "Section",
-	"name": "kbs/section",
+	"title": "Container",
+	"name": "kbs/container",
 	"category": "kadence-blocks",
-	"usesContext": ["postId", "queryId", "kadence/dynamicSource", "kadence/repeaterRowData", "kadence/repeaterRow"],
+	"usesContext": ["postId", "queryId", "kbs/globalStyles", "kadence/dynamicSource", "kadence/repeaterRowData", "kadence/repeaterRow"],
 	"textdomain": "kadence-blocks",
 	"attributes": {
 		"uniqueID": {

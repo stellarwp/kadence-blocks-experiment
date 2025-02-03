@@ -44,7 +44,7 @@ import { applyFilters } from '@wordpress/hooks';
 /**
  * Build the section edit.
  */
-export default function SectionEdit(props) {
+export default function ContainerEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
 	const {
 		uniqueID,
@@ -93,9 +93,10 @@ export default function SectionEdit(props) {
 	}, []);
 
 	const previewDirection = 'vertical';
-	const classes = classnames( 'kbs-section',{
+	const classes = classnames( 'kbs-container',{
 		[className]: className,
-		[`kbs-section-${uniqueID}`]: uniqueID,
+		[`kbs-container-${uniqueID}`]: uniqueID,
+		[ 'kbs-only-appender' ]: ! hasInnerBlocks,
 	});
 	const blockProps = useBlockProps({
 		className: classes,
@@ -112,8 +113,10 @@ export default function SectionEdit(props) {
 			allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
 		}
 	);
+	// console.log('RenderEdit', { props, attributes, clientId, context, className, hasInnerBlocks, inRowBlock, inFormBlock, blockProps, innerBlocksProps });
 	return (
 		<div {...blockProps}>
+			<Inspector {...props} />
 			{/* <Toolbar {...props} />
 			<Inspector {...props} />
 			<Styles {...props} /> */}

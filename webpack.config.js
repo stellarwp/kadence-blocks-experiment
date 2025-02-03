@@ -56,9 +56,9 @@ module.exports = {
 		'extension-image-picker': './src/extension/image-picker/index.js',
 		// 'admin-kadence-home': './src/home.js',
 		// 'header-visual-builder': './src/header-visual-builder.js',
-		'kbs-components': './src/kbs-packages/components/src/index.js',
+		kbsComponents: './src/kbs-packages/components/src/index.js',
 		kbsHelpers: './src/kbs-packages/helpers/src/index.js',
-		'kbs-section': './src/kbs-blocks/section/index.js',
+		'kbs-container': './src/kbs-blocks/container/index.js',
 	},
 	output: {
 		...defaultConfig.output,

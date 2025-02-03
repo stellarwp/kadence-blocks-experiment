@@ -6,7 +6,7 @@
 
 .kbs-section {
     display: flex;
-    flex-direction: 'var(--kbs-section-direction', 'column )';
+    flex-direction: 'var(--kbs-cont-direction, column )';
 	min-width: 0;
 	min-height: 0;
 }

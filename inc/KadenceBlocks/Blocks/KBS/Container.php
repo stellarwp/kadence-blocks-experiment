@@ -1,6 +1,6 @@
 <?php
 /**
- * Class to Build the KBS Section Block.
+ * Class to Build the KBS Container Block.
  *
  * @package Kadence Blocks
  */
@@ -20,21 +20,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @category class
  */
-class Section extends Abstract_Block {
+class Container extends Abstract_Block {
 
 	/**
 	 * Block name within this namespace.
 	 *
 	 * @var string
 	 */
-	protected $block_name = 'section';
+	protected $block_name = 'container';
 
 	/**
 	 * Block name within this namespace.
 	 *
 	 * @var string
 	 */
-	protected $root_selector_class = 'kbs-section';
+	protected $root_selector_class = 'kbs-container';
 
 	/**
 	 * Allowed HTML tags for front end output
