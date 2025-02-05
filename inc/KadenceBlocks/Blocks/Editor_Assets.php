@@ -68,5 +68,16 @@ class Editor_Assets {
 		wp_register_script( 'kadence-kbsComponents', KADENCE_BLOCKS_URL . 'dist/kbsComponents.js', array_merge( $kadence_components_meta['dependencies'], [ 'wp-api', 'kadence-extension-stores', 'kadence-blocks-js' ] ), $kadence_components_meta['version'], true );
 		wp_register_style( 'kadence-kbsComponents', KADENCE_BLOCKS_URL . 'dist/kbsComponents.css', [ 'wp-edit-blocks' ], $kadence_components_meta['version'] );
 		wp_set_script_translations( 'kadence-kbsComponents', 'kadence-blocks' );
+
+		$blocks = [
+			'container',
+		];
+		foreach ( $blocks as $block ) {
+			$meta   = kbs_get_asset_file( sprintf( 'dist/kbs-%s', $block ) );
+			$handle = sprintf( 'kbs-%s', $block );
+
+			wp_register_style( $handle, sprintf( '%sdist/kbs-%s.css', KADENCE_BLOCKS_URL, $block ), [ 'wp-edit-blocks', 'kadence-components', 'kadence-kbsComponents' ], $meta['version'] );
+			wp_set_script_translations( $handle, 'kadence-blocks' );
+		}
 	}
 }
