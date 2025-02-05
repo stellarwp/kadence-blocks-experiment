@@ -18,6 +18,7 @@ import {
 } from '@kadence/kbsComponents';
 import {
 	CopyPasteAttributes,
+	KadencePanelBody,
 } from '@kadence/components';
 
 /**
@@ -67,13 +68,19 @@ export default function InspectorGeneral(props) {
 	);
 	return (
 		<>
-			<RadioButtonControl
-				label={__('Direction', 'kadence-blocks')}
-				attributes={ attributes }
-				setAttributes={ setAttributes }
-				attributeName={ 'direction' }
-				type={'flex-direction'}
-			/>
+			<KadencePanelBody
+				title={__('Flex Settings', 'kadence-blocks')}
+				panelName={'kbs-container-flex-settings'}
+			>
+				<RadioButtonControl
+					label={__('Direction', 'kadence-blocks')}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					attributeName={ 'direction' }
+					type={'flex-direction'}
+					placeholder={ { 'desktop': 'row' } }
+				/>
+			</KadencePanelBody>
 		</>
 	);
 }

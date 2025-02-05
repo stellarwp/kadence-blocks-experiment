@@ -13,7 +13,8 @@ import { map } from 'lodash';
 import { capitalizeFirstLetter } from '@kadence/helpers';
 import { getDeviceValue, getDeviceAttributeSlug } from '@kadence/kbsHelpers';
 
-import DeviceSwitchControl from '../device-switch-control';
+import TitleBar from '../title-bar';
+import RadioButtonUI from './ui';
 
 import {
 	arrowUp,
@@ -63,12 +64,12 @@ export default function RadioButtonControl( {
 	const desktopValue = getDeviceValue( attributeName, attributes, 'Desktop' );
 	const tabletValue = getDeviceValue( attributeName, attributes, 'Tablet' );
 	const mobileValue = getDeviceValue( attributeName, attributes, 'Mobile' );
-	const placeholderDesktop = ( placeholder?.['Desktop'] ? placeholder['Desktop'] : '' );
-	const placeholderTablet = ( placeholder?.['Tablet'] ? placeholder['Tablet'] : placeholderDesktop );
-	const placeholderMobile = ( placeholder?.['Mobile'] ? placeholder['Mobile'] : placeholderTablet );
+	const placeholderDesktop = ( placeholder?.desktop ? placeholder.desktop : '' );
+	const placeholderTablet = ( placeholder?.['tablet'] ? placeholder['tablet'] : placeholderDesktop );
+	const placeholderMobile = ( placeholder?.['mobile'] ? placeholder['mobile'] : placeholderTablet );
 	const inheritedDesktop = placeholderDesktop;
 	const inheritedTablet = ( desktopValue ? desktopValue : placeholderTablet );
-	const inheritedMobile = ( tabletValue ? tabletValue : ( desktopValue ? desktopValue : placeholderTablet ) );
+	const inheritedMobile = ( tabletValue ? tabletValue : ( desktopValue ? desktopValue : placeholderMobile ) );
 	const onReset = () => {
 		let resetValue = null;
 		if ( defaultValue ) {
@@ -94,14 +95,14 @@ export default function RadioButtonControl( {
 		}
 	};
 
-	let alignmentControls = '';
-	let UIComponent = AlignmentToolbar;
+	let controls = '';
+	let UIComponent = RadioButtonUI;
 	if ( type === 'justify' ) {
 		UIComponent = JustifyToolbar;
 	} else if ( type === 'vertical' ) {
 		UIComponent = BlockVerticalAlignmentToolbar;
 	} else if ( 'flex-direction' ) {
-		alignmentControls = [
+		controls = [
 			{
 				icon: arrowRight,
 				title: __( 'Horizontal Direction', 'kadence-blocks' ),
@@ -124,7 +125,7 @@ export default function RadioButtonControl( {
 			},
 		]
 	} else if ( type === 'vertical-column' ) {
-		alignmentControls = [
+		controls = [
 			{
 				icon: alignTop,
 				title: __( 'Top', 'kadence-blocks' ),
@@ -147,7 +148,7 @@ export default function RadioButtonControl( {
 			},
 		]
 	} else if ( type === 'orientation-column' ) {
-		alignmentControls = [
+		controls = [
 			{
 				icon: arrowDown,
 				title: __( 'Vertical Direction', 'kadence-blocks' ),
@@ -171,7 +172,7 @@ export default function RadioButtonControl( {
 		]
 	} else if ( type === 'justify-align' ) {
 		if ( reverse ) {
-			alignmentControls = [
+			controls = [
 				{
 					icon: justifyRight,
 					title: __( 'Start', 'kadence-blocks' ),
@@ -194,7 +195,7 @@ export default function RadioButtonControl( {
 				},
 			]
 		} else {
-			alignmentControls = [
+			controls = [
 				{
 					icon: justifyLeft,
 					title: __( 'Start', 'kadence-blocks' ),
@@ -219,7 +220,7 @@ export default function RadioButtonControl( {
 		}
 	} else if ( type === 'justify-column' ) {
 		if ( reverse ) {
-			alignmentControls = [
+			controls = [
 				{
 					icon: justifyRight,
 					title: __( 'Start', 'kadence-blocks' ),
@@ -252,7 +253,7 @@ export default function RadioButtonControl( {
 				},
 			]
 		} else {
-			alignmentControls = [
+			controls = [
 				{
 					icon: justifyLeft,
 					title: __( 'Start', 'kadence-blocks' ),
@@ -287,7 +288,7 @@ export default function RadioButtonControl( {
 		}
 	} else if ( type === 'justify-vertical' ) {
 		if ( reverse ) {
-			alignmentControls = [
+			controls = [
 				{
 					icon: alignBottom,
 					title: __( 'Bottom', 'kadence-blocks' ),
@@ -320,7 +321,7 @@ export default function RadioButtonControl( {
 				},
 			]
 		} else {
-			alignmentControls = [
+			controls = [
 				{
 					icon: alignTop,
 					title: __( 'Top', 'kadence-blocks' ),
@@ -361,7 +362,7 @@ export default function RadioButtonControl( {
 			inherited={ ( inheritedMobile ? inheritedMobile : '' ) }
 			isCollapsed={ isCollapsed }
 			onChange={ ( itemValue ) => onChange( itemValue, 'Mobile' ) }
-			alignmentControls={ alignmentControls ? alignmentControls : undefined }
+			controls={ controls ? controls : undefined }
 		/>
 	);
 	output.Tablet = (
@@ -370,7 +371,7 @@ export default function RadioButtonControl( {
 			inherited={ ( inheritedTablet ? inheritedTablet : '' ) }
 			isCollapsed={ isCollapsed }
 			onChange={ ( itemValue ) => onChange( itemValue, 'Tablet' ) }
-			alignmentControls={ alignmentControls ? alignmentControls : undefined }
+			controls={ controls ? controls : undefined }
 		/>
 	);
 	output.Desktop = (
@@ -379,33 +380,17 @@ export default function RadioButtonControl( {
 			inherited={ ( inheritedDesktop ? inheritedDesktop : '' ) }
 			isCollapsed={ isCollapsed }
 			onChange={ ( itemValue ) => onChange( itemValue, 'Desktop' ) }
-			alignmentControls={ alignmentControls ? alignmentControls : undefined }
+			controls={ controls ? controls : undefined }
 		/>
 	);
 	return (
 		<div className={ `components-base-control kbs-control kbs-radio-control kbs-radio-control-${ type }` }>
-			<div className="kbs-control-title-bar">
-				{ reset && (
-					<Button
-						className="kbs-clear-button"
-						size='small'
-						variant='secondary'
-						onClick={() => {
-							if (typeof reset === 'function') {
-								reset();
-							} else {
-								onReset();
-							}
-						}}
-					>
-						{ __( 'Clear', 'kadence-blocks' ) }
-					</Button>
-				) }
-				{ label && (
-					<span className="kbs-control-title">{ label }</span>
-				) }
-				<DeviceSwitchControl />
-			</div>
+			<TitleBar
+				label={ label }
+				reset={ reset }
+				onReset={ onReset }
+				hasDeviceControls={true}
+			/>
 			<div className="kbs-control-inner">
 				{ ( output[ deviceType ] ? output[ deviceType ] : output.Desktop ) }
 			</div>

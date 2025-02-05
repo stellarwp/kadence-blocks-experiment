@@ -11,7 +11,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { map } from 'lodash';
 import { capitalizeFirstLetter } from '@kadence/helpers';
-
+import { mobile, tablet, desktop } from '@wordpress/icons'
 import {
 	Dashicon,
 	Button,
@@ -32,24 +32,24 @@ export default function DeviceSwitchControl( ) {
 		{
 			name: 'Desktop',
 			key: 'desktop',
-			icon: <Dashicon icon="desktop" />,
+			icon: desktop,
 			itemClass: 'kbs-desk-size',
 		},
 		{
 			name: 'Tablet',
 			key: 'tablet',
-			icon: <Dashicon icon="tablet" />,
+			icon: tablet,
 			itemClass: 'kbs-tablet-size',
 		},
 		{
 			name: 'Mobile',
 			key: 'mobile',
-			icon: <Dashicon icon="smartphone" />,
+			icon: mobile,
 			itemClass: 'kbs-mobile-size',
 		},
 	];
 	return (
-		<ButtonGroup className="kbs-device-options" aria-label={ __( 'Select Device', 'kadence-blocks' ) }>
+		<ButtonGroup className="kbs-device-options kbs-device-button-group" aria-label={ __( 'Select Device', 'kadence-blocks' ) }>
 			{ map( devices, ( { name, key, icon, itemClass } ) => (
 				<Button
 					key={ key }

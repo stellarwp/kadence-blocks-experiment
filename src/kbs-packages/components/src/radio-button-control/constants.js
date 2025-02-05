@@ -8,7 +8,12 @@ import {
 	ButtonGroup,
 	Path, SVG
 } from '@wordpress/components';
-
+import { __ } from '@wordpress/i18n';
+import { 
+	alignLeft as textAlignLeft,
+	alignRight as textAlignRight,
+	alignCenter as textAlignCenter,
+} from '@wordpress/icons';
 /**
  * Internal block libraries
  */
@@ -81,3 +86,21 @@ export const spaceEvenly = (
 		<Path d="M25.637 18.017H33.637V30.017H25.637z"/>
     </SVG>
 );
+
+export const TEXT_ALIGNMENT_OPTIONS = [
+	{
+		icon: textAlignLeft,
+		title: __( 'Align text left', 'kadence-blocks' ),
+		align: 'left',
+	},
+	{
+		icon: textAlignCenter,
+		title: __( 'Align text center', 'kadence-blocks' ),
+		align: 'center',
+	},
+	{
+		icon: textAlignRight,
+		title: __( 'Align text right', 'kadence-blocks' ),
+		align: 'right',
+	},
+];
