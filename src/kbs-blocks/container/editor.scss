@@ -4,6 +4,8 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
+ // Get the style.scss file
+ @import './style.scss';
  // Remove WP margin added to all blocks.
 .wp-block-kbs-container {
 	margin-top: 0;

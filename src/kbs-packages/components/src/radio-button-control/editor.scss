@@ -4,18 +4,19 @@
 	display:flex;
 	border: 1px solid var(--kb-border-color, #859cb6);
     min-height: 38px;
+	justify-content: space-between;
 	.components-button{
 
 		&.is-inherited {
 			&:before {
 				box-shadow: inset 0 0 0 1px var(--kb-subtle-background, #edf2f7), 0 0 0 var(--wp-admin-border-width-focus) var(--kb-border-color, #859cb6);
 				outline: 2px solid #0000;
-				background:var(--kb-subtle-background, #edf2f7);
+				background:var(--kb-subtle-background, #eaf3f5);
 			}
 			&:hover:before, &:focus:before {
 				box-shadow: inset 0 0 0 1px #fff, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
 				outline: 2px solid #0000;
-				background:var(--kb-subtle-focus-background, #a0aec0);
+				background:var(--kb-subtle-focus-background, #d9e7ec);
 			}
 		}
 	}

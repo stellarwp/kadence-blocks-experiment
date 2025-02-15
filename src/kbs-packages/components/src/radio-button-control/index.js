@@ -57,10 +57,8 @@ export default function RadioButtonControl( {
 	type = 'textAlign',
 	reverse = false,
 	reset = true,
+	previewDevice,
 } ) {
-	const deviceType = useSelect( ( select ) => {
-		return select( 'kadenceblocks/data' ).getPreviewDeviceType();
-	}, [] );
 	const desktopValue = getDeviceValue( attributeName, attributes, 'Desktop' );
 	const tabletValue = getDeviceValue( attributeName, attributes, 'Tablet' );
 	const mobileValue = getDeviceValue( attributeName, attributes, 'Mobile' );
@@ -71,7 +69,7 @@ export default function RadioButtonControl( {
 	const inheritedTablet = ( desktopValue ? desktopValue : placeholderTablet );
 	const inheritedMobile = ( tabletValue ? tabletValue : ( desktopValue ? desktopValue : placeholderMobile ) );
 	const onReset = () => {
-		let resetValue = null;
+		let resetValue = undefined;
 		if ( defaultValue ) {
 			resetValue = defaultValue;
 		}
@@ -81,7 +79,8 @@ export default function RadioButtonControl( {
 		if ( customOnChange ) {
 			customOnChange( value, device );
 		} else {
-			const newAttributes = { ...attributes };
+			// Deep clone the attributes object to trigger an update.
+			const newAttributes = JSON.parse( JSON.stringify( attributes ) );
 			if ( 'all' === device ) {
 				newAttributes[ attributeName ] = value;
 			} else {
@@ -101,27 +100,27 @@ export default function RadioButtonControl( {
 		UIComponent = JustifyToolbar;
 	} else if ( type === 'vertical' ) {
 		UIComponent = BlockVerticalAlignmentToolbar;
-	} else if ( 'flex-direction' ) {
+	} else if ( type === 'flex-direction' ) {
 		controls = [
-			{
-				icon: arrowRight,
-				title: __( 'Horizontal Direction', 'kadence-blocks' ),
-				align: 'row',
-			},
 			{
 				icon: arrowDown,
 				title: __( 'Vertical Direction', 'kadence-blocks' ),
 				align: 'column',
 			},
 			{
-				icon: arrowLeft,
-				title: __( 'Horizontal Reverse', 'kadence-blocks' ),
-				align: 'row-reverse',
+				icon: arrowRight,
+				title: __( 'Horizontal Direction', 'kadence-blocks' ),
+				align: 'row',
 			},
 			{
 				icon: arrowUp,
 				title: __( 'Vertical Reverse', 'kadence-blocks' ),
 				align: 'column-reverse',
+			},
+			{
+				icon: arrowLeft,
+				title: __( 'Horizontal Reverse', 'kadence-blocks' ),
+				align: 'row-reverse',
 			},
 		]
 	} else if ( type === 'vertical-column' ) {
@@ -392,7 +391,7 @@ export default function RadioButtonControl( {
 				hasDeviceControls={true}
 			/>
 			<div className="kbs-control-inner">
-				{ ( output[ deviceType ] ? output[ deviceType ] : output.Desktop ) }
+				{ ( output[ previewDevice ] ? output[ previewDevice ] : output.Desktop ) }
 			</div>
 		</div>
 	);

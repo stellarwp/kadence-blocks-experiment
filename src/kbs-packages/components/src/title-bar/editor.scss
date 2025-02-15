@@ -12,8 +12,9 @@
 	}
 	.kbs-reset-wrap {
 		overflow: hidden;
-		width: 20px;
-		.kbs-reset-button {
+		width: 24px;
+		padding: 0 2px;
+		.components-button.kbs-reset-button {
 			background: transparent;
 			border: 0;
 			box-shadow: none;
@@ -22,11 +23,20 @@
 			font-size: 18px;
 			height: auto;
 			height: 18px;
-			margin: 0 0 0 -20px;
+			margin: 0 0 0 -22px;
 			min-width: 20px;
 			outline: 0;
 			padding: 0;
 			width: 20px;
+			svg {
+				width: 1em;
+				height: 1em;
+			}
+		}
+	}
+	&:hover {
+		.kbs-reset-wrap .components-button.kbs-reset-button {
+			margin: 0 0 0 0;
 		}
 	}
 }

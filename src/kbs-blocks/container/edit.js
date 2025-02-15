@@ -15,6 +15,7 @@ import { debounce } from 'lodash';
  */
 import {
 	uniqueIdHelper,
+	getPreviewValue,
 } from '@kadence/kbsHelpers';
 
 import metadata from './block.json';
@@ -51,6 +52,14 @@ export default function ContainerEdit(props) {
 		templateLock,
 		align,
 	} = attributes;
+	const { previewDevice } = useSelect(
+		(select) => {
+			return {
+				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+			};
+		},
+		[clientId]
+	);
 	const { hasInnerBlocks, inRowBlock, inFormBlock } = useSelect(
 		(select) => {
 			const { getBlock, getBlockRootClientId, getBlockParentsByBlockName, getBlocksByClientId } =
@@ -92,7 +101,7 @@ export default function ContainerEdit(props) {
 		}
 	}, []);
 
-	const previewDirection = 'vertical';
+	const previewDirection = getPreviewValue( 'direction', attributes, previewDevice );
 	const classes = classnames( 'kbs-container',{
 		[className]: className,
 		[`kbs-container-${uniqueID}`]: uniqueID,
@@ -116,10 +125,11 @@ export default function ContainerEdit(props) {
 	// console.log('RenderEdit', { props, attributes, clientId, context, className, hasInnerBlocks, inRowBlock, inFormBlock, blockProps, innerBlocksProps });
 	return (
 		<div {...blockProps}>
-			<Inspector {...props} />
+			<Inspector {...{ previewDevice, ...props }} />
 			{/* <Toolbar {...props} />
 			<Inspector {...props} />
-			<Styles {...props} /> */}
+			*/}
+			<Styles {...{ previewDevice, ...props }} />
 			<Fragment {...innerBlocksProps} />
 			{/* <SpacingVisualizer
 				style={{

@@ -6,7 +6,8 @@ export default function getDeviceAttributeSlug(device) {
 	if ( ! device ) {
 		return deviceSlug;
 	}
-
+	// make lowercase
+	device = device.toLowerCase();
 	switch ( device ) {
 		case 'tablet':
 			deviceSlug = 'td';

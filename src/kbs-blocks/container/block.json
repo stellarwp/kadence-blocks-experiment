@@ -12,6 +12,13 @@
 		"anchor": {
 			"type": "string"
 		},
+		"direction": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-direction",
+			"inherit": { "desktop": "column" },
+			"property": "flex-direction",
+			"type": "object"
+		},
 		"preset": {
 			"type": "array"
 		},
@@ -43,9 +50,6 @@
 			"type": "object"
 		},
 		"justify": {
-			"type": "object"
-		},
-		"direction": {
 			"type": "object"
 		},
 		"wrap": {
@@ -94,14 +98,16 @@
 		"ktanimateswipe": true,
 		"ktdynamic": true,
 		"kbcss": true,
-		"kbMetadata": true,
-		"kbsStyles": {
-			"color": {
-				"text": true,
-				"link": true,
-				"linkHover": true
-			}
-		}
+		"kbMetadata": true
+	},
+	"renderStyles": {
+		"flex-direction": "direction",
+		"justify-content": "justify",
+		"align-items": "alignItems",
+		"align-content": "alignContent",
+		"gap": "gap",
+		"wrap": "wrap",
+		"flex-wrap": "wrap"
 	},
 	"editorStyle": "kbs-section-editor",
 	"style": "kbs-section"

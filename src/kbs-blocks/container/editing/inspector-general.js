@@ -48,24 +48,7 @@ import { ToggleControl, SelectControl, ToolbarGroup, ExternalLink } from '@wordp
  * Build the section edit.
  */
 export default function InspectorGeneral(props) {
-	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
-	const {
-		direction,
-	} = attributes;
-	const { previewDevice } = useSelect(
-		(select) => {
-			return {
-				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-			};
-		},
-		[clientId]
-	);
-	const previewDirection = getPreviewSize(
-		previewDevice,
-		direction && '' !== direction[0] ? direction[0] : 'vertical',
-		direction && '' !== direction[1] ? direction[1] : '',
-		direction && '' !== direction[2] ? direction[2] : ''
-	);
+	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className } = props;
 	return (
 		<>
 			<KadencePanelBody
@@ -77,8 +60,9 @@ export default function InspectorGeneral(props) {
 					attributes={ attributes }
 					setAttributes={ setAttributes }
 					attributeName={ 'direction' }
-					type={'flex-direction'}
-					placeholder={ { 'desktop': 'row' } }
+					type={ metadata.attributes['direction'].property }
+					placeholder={  metadata.attributes['direction'].inherit }
+					previewDevice={ previewDevice }
 				/>
 			</KadencePanelBody>
 		</>
