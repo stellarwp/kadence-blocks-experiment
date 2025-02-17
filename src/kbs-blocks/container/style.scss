@@ -7,6 +7,12 @@
 .kbs-container {
     display: flex;
     flex-direction: var(--kbs-cont-direction, column );
+	justify-content: var(--kbs-cont-justify, initial );
+	align-items: var(--kbs-cont-align-items, initial );
+	align-content: var(--kbs-cont-align-content, initial );
+	flex-wrap: var(--kbs-cont-wrap, wrap );
 	min-width: 0;
 	min-height: 0;
+	column-gap: var(--kbs-cont-column-gap, initial );
+	row-gap: var(--kbs-cont-row-gap, initial );
 }

@@ -215,6 +215,7 @@ class CSS_Engine {
 	 * Spacing variables used in string based padding / margin.
 	 */
 	protected $spacing_sizes = array(
+		'none' => 'var(--global-kb-spacing-none, 0rem )',
 		'ss-auto' => 'var(--global-kb-spacing-auto, auto)',
 		'xxs' => 'var(--global-kb-spacing-xxs, 0.5rem)',
 		'xs' => 'var(--global-kb-spacing-xs, 1rem)',
@@ -856,6 +857,12 @@ class CSS_Engine {
 		}
 		switch ( $attributes_meta['property'] ) {
 			case 'flex-direction':
+			case 'flex-wrap':
+			case 'align-content':
+			case 'align-items':
+			case 'justify-content':
+			case 'row-gap':
+			case 'column-gap':
 				$this->array_string_property( $attributes_meta['selector'], $merged_attribute );
 				break;
 		}
@@ -880,12 +887,11 @@ class CSS_Engine {
 			if ( 'desktop' !== $device_name ) {
 				$this->set_media_state( $device_name );
 			}
-			$this->add_property( $selector, $value_array[ $device_slug ] );
+			$this->add_property( $selector, $this->get_variable_value( $value_array[ $device_slug ] ) );
 		}
 		$this->set_media_state( 'desktop' );
 		return $this;
 	}
-
 	/**
 	 * Generates the color output.
 	 *
@@ -1195,7 +1201,7 @@ class CSS_Engine {
 			return $this->spacing_sizes[$value];
 		}
 
-		return 0;
+		return $value;
 	}
 
 	/**

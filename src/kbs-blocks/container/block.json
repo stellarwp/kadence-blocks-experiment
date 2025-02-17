@@ -12,6 +12,9 @@
 		"anchor": {
 			"type": "string"
 		},
+		"preset": {
+			"type": "array"
+		},
 		"htmlTag": {
 			"type": "string",
 			"initial": "section"
@@ -23,8 +26,46 @@
 			"property": "flex-direction",
 			"type": "object"
 		},
-		"preset": {
-			"type": "array"
+		"justify": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-justify",
+			"initial": { "desktop": "initial" },
+			"property": "justify-content",
+			"type": "object"
+		},
+		"alignContent": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-align-content",
+			"initial": { "desktop": "initial" },
+			"property": "align-content",
+			"type": "object"
+		},
+		"alignItems": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-align-items",
+			"initial": { "desktop": "initial" },
+			"property": "align-items",
+			"type": "object"
+		},
+		"wrap": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-wrap",
+			"initial": { "desktop": "initial" },
+			"property": "flex-wrap",
+			"type": "object"
+		},
+		"columnGap": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-column-gap",
+			"initial": { "desktop": "xs" },
+			"property": "column-gap",
+			"type": "object"
+		},
+		"rowGap": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-row-gap",
+			"property": "row-gap",
+			"type": "object"
 		},
 		"color": {
 			"type": "object"
@@ -45,21 +86,6 @@
 			"type": "object"
 		},
 		"visibility": {
-			"type": "object"
-		},
-		"alignContent": {
-			"type": "object"
-		},
-		"alignItems": {
-			"type": "object"
-		},
-		"justify": {
-			"type": "object"
-		},
-		"wrap": {
-			"type": "object"
-		},
-		"gap": {
 			"type": "object"
 		},
 		"grow": {

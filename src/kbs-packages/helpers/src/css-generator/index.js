@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-
+import { SPACING_SIZES_MAP } from '../constants';
 /**
  * CSS Generator class for building CSS strings
  */
@@ -38,6 +38,12 @@ class CSSGenerator {
             }
             switch ( meta.property ) {
                 case 'flex-direction':
+                case 'flex-wrap':
+                case 'align-content':
+                case 'align-items':
+                case 'justify-content':
+                case 'row-gap':
+                case 'column-gap':
                     this.renderStringProperty( mergedAttribute, meta.selector, previewDevice );
                     break;
             }
@@ -67,9 +73,8 @@ class CSSGenerator {
      */
     getInitialWithDeviceSlugs( initialAttribute ) {
         if ( ! initialAttribute ) {
-            return [];
+            return {};
         }
-        console.log( 'initialAttribute', initialAttribute );
         // Loop through initialAttribute object and replace the device key with the device slugs.
         const initialAttributeWithDeviceSlugs = {};
         Object.keys(initialAttribute).forEach(key => {
@@ -103,7 +108,7 @@ class CSSGenerator {
         return undefined !== attributeValue?.[desktop] && '' !== attributeValue?.[desktop] && null !== attributeValue?.[desktop] ? attributeValue?.[desktop] : '';
     }
     /**
-     * Render the flex direction
+     * Render the property as a string
      * @param {string} attributeValue - The value of the attribute
      * @param {string} selector - The CSS selector
      * @param {string} previewDevice - The preview device
@@ -113,7 +118,7 @@ class CSSGenerator {
         if ( ! propertyValue ) {
             return this;
         }
-        this.add( { [ selector ]: propertyValue } );
+        this.add( { [ selector ]: this.getSizingOutput( propertyValue ) } );
     }
     /**
      * Add CSS properties to the current selector
@@ -151,6 +156,30 @@ class CSSGenerator {
             css += this._generateRuleString(selector, properties);
         });
         return css;
+    }
+    /**
+     * Get the spacing option output
+     * @param {string} value - The value of the attribute
+     * @returns {string} - The spacing option output
+     */
+    getSizingOutput(value) {
+        if (undefined === value) {
+            return '';
+        }
+        if (!SPACING_SIZES_MAP) {
+            return value;
+        }
+        if (value === '0') {
+            return '0';
+        }
+        if (value === 0) {
+            return '0';
+        }
+        const found = SPACING_SIZES_MAP.find((option) => option.value === value);
+        if (!found) {
+            return value;
+        }
+        return found.output;
     }
 
     /**
