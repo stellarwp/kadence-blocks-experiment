@@ -27,11 +27,9 @@ class CSSGenerator {
      */
     addAttribute( key, meta, props ) {
         const { attributes, previewDevice } = props;
-        if ( ! attributes ) {
-            return this;
-        }
+        const mergedAttribute = this.mergeInitialAttribute( meta, ( attributes?.[ key ] || {} ) );
         // Check if the attribute exists in the attributes object
-        if ( attributes?.[ key ] ) {
+        if ( mergedAttribute ) {
             if ( ! meta?.property ) {
                 return this;
             }
@@ -40,14 +38,46 @@ class CSSGenerator {
             }
             switch ( meta.property ) {
                 case 'flex-direction':
-                    this.renderStringProperty( attributes[ key ], meta.selector, previewDevice );
+                    this.renderStringProperty( mergedAttribute, meta.selector, previewDevice );
                     break;
             }
-            console.log( 'key', key );
-            console.log( 'attributes[ key ]', attributes[ key ] );
-            console.log( 'meta', meta );
         }
         return this;
+    }
+    /**
+     * Merge the initial attribute
+     * @param {Object} meta - The metadata of the attribute
+     * @param {Object} attributeValue - The value of the attribute
+     * @returns {Object} - The merged attribute
+     */
+    mergeInitialAttribute( meta, attributeValue ) {
+        if ( ! meta || ! attributeValue ) {
+            return null;
+        }
+        if ( meta?.initial ) {
+            const initialAttribute = this.getInitialWithDeviceSlugs( meta.initial );
+            return { ...initialAttribute, ...attributeValue };
+        }
+        return attributeValue;
+    }
+    /**
+     * Get the initial attribute with device slugs
+     * @param {Object} initialAttribute - The initial attribute
+     * @returns {Object} - The initial attribute with device slugs
+     */
+    getInitialWithDeviceSlugs( initialAttribute ) {
+        if ( ! initialAttribute ) {
+            return [];
+        }
+        console.log( 'initialAttribute', initialAttribute );
+        // Loop through initialAttribute object and replace the device key with the device slugs.
+        const initialAttributeWithDeviceSlugs = {};
+        Object.keys(initialAttribute).forEach(key => {
+            const deviceSlug = getDeviceAttributeSlug(key);
+            initialAttributeWithDeviceSlugs[deviceSlug] = initialAttribute[key];
+        });
+
+        return initialAttributeWithDeviceSlugs;
     }
     /**
      * Get the preview property
