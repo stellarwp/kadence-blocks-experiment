@@ -40,7 +40,7 @@ class CSSGenerator {
             }
             switch ( meta.property ) {
                 case 'flex-direction':
-                    this.renderFlexDirection( attributes[ key ], meta.selector, previewDevice );
+                    this.renderStringProperty( attributes[ key ], meta.selector, previewDevice );
                     break;
             }
             console.log( 'key', key );
@@ -78,8 +78,8 @@ class CSSGenerator {
      * @param {string} selector - The CSS selector
      * @param {string} previewDevice - The preview device
      */
-    renderFlexDirection( attributeValue, selector, previewDevice ) {
-        const propertyValue = this.getPreviewProperty( attributeValue, previewDevice );
+    renderStringProperty( attributeValue, selector, previewDevice ) {
+        const propertyValue = String( this.getPreviewProperty( attributeValue, previewDevice ) );
         if ( ! propertyValue ) {
             return this;
         }

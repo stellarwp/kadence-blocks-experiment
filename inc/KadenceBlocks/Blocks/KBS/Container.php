@@ -50,10 +50,16 @@ class Container extends Abstract_Block {
 	 * @param string $css the css class for blocks.
 	 * @param string $unique_id the blocks attr ID.
 	 * @param string $unique_style_id the blocks alternate ID for queries.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 */
-	public function build_css( $attributes, $css, $unique_id, $unique_style_id ) {
+	public function build_css( $attributes, $css, $unique_id, $unique_style_id, $block_instance ) {
+		// print_r( $block_instance );
+		//print_r( $block_instance->block_type );
 		$css->set_style_id( 'kbs-' . $this->block_name . $unique_style_id );
 		$root_selector = '.' . $this->root_selector_class . $unique_id;
+		$css->set_selector( $root_selector );
+
+		//$css->add_attribute( $root_selector, 'display', 'flex' );
 
 		$css = $this->add_custom_css( $attributes, $css, $root_selector );
 

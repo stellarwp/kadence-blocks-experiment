@@ -144,8 +144,6 @@ class CSS_Engine {
 		'transition-duration',
 		'transition-property',
 		'transition-timing-function',
-		'flex',
-		'content',
 	);
 
 	/**
@@ -198,6 +196,18 @@ class CSS_Engine {
 	 * The singleton instance
 	 */
 	private static $instance = null;
+
+
+	/**
+	 * The device slugs
+	 * 
+	 * @var array
+	 */
+	protected $device_slugs = array(
+		'desktop' => 'dt',
+		'tablet' => 'tb',
+		'mobile' => 'mb',
+	);
 
 	/**
 	 * Spacing variables used in string based padding / margin.
@@ -276,14 +286,14 @@ class CSS_Engine {
 				}
 			}
 			if ( ! empty( $output ) ) {
-				wp_register_style( 'kadence_ab_test_css', false );
-				wp_enqueue_style( 'kadence_ab_test_css' );
-				wp_add_inline_style( 'kadence_ab_test_css', $output );
+				wp_register_style( 'kbs_css', false );
+				wp_enqueue_style( 'kbs_css' );
+				wp_add_inline_style( 'kbs_css', $output );
 			}
 			if ( ! empty( $custom_output ) ) {
-				wp_register_style( 'kadence_ab_test_custom_css', false );
-				wp_enqueue_style( 'kadence_ab_test_custom_css' );
-				wp_add_inline_style( 'kadence_ab_test_custom_css', $custom_output );
+				wp_register_style( 'kbs_custom_css', false );
+				wp_enqueue_style( 'kbs_custom_css' );
+				wp_add_inline_style( 'kbs_custom_css', $custom_output );
 			}
 		}
 	}
@@ -755,6 +765,53 @@ class CSS_Engine {
 	}
 
 	/**
+	 * Add properties to the css output based on the attributes.
+	 *
+	 * @param array $attributes an array of attributes.
+	 * @return $this
+	 */
+	public function add_attribute( $key, $meta, $attributes ) {
+		if ( ! isset( $attributes[ $key ] ) ) {
+			return $this;
+		}
+		if ( ! isset( $meta['property'] ) ) {
+			return $this;
+		}
+		if ( ! isset( $meta['selector'] ) ) {
+			return $this;
+		}
+		switch ( $meta['property'] ) {
+			case 'flex-direction':
+				$this->array_string_property( $meta['selector'], $attributes[ $key ] );
+				break;
+		}
+		return $this;
+	}
+
+	/**
+	 * Add a string property to the css output.
+	 *
+	 * @param string $selector the selector to add the property to.
+	 * @param string $value the value of the property.
+	 * @return $this
+	 */
+	public function array_string_property( $selector, $value_array ) {
+		if ( ! is_array( $value_array ) ) {
+			return $this;
+		}
+		foreach ( $this->device_slugs as $device_name => $device_slug ) {
+			if ( empty( $value_array[ $device_slug ] ) ) {
+				continue;
+			}
+			if ( 'desktop' !== $device_name ) {
+				$this->set_media_state( $device_name );
+			}
+			$this->add_property( $selector, $value_array[ $device_slug ] );
+		}
+		$this->set_media_state( 'desktop' );
+		return $this;
+	}
+	/**
 	 * Generates the font family output.
 	 *
 	 * @param array $font an array of font settings.
@@ -823,11 +880,8 @@ class CSS_Engine {
 		if ( empty( $font ) ) {
 			return false;
 		}
-		if ( ! is_array( $font ) ) {
+		if ( ! is_object( $font ) ) {
 			return false;
-		}
-		if ( isset( $font[0] ) && is_array( $font[0] ) && ! empty( $font[0] ) ) {
-			$font = $font[0];
 		}
 		$size_type = ( isset( $font['sizeType'] ) && ! empty( $font['sizeType'] ) ? $font['sizeType'] : 'px' );
 		$line_type = ( isset( $font['lineType'] ) ? $font['lineType'] : '' );
