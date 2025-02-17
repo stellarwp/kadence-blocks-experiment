@@ -60,8 +60,8 @@ export default function InspectorGeneral(props) {
 					attributes={ attributes }
 					setAttributes={ setAttributes }
 					attributeName={ 'direction' }
-					type={ metadata.attributes['direction'].property }
-					placeholder={  metadata.attributes['direction'].inherit }
+					type={ metadata?.attributes?.direction?.property }
+					initial={ metadata?.attributes?.direction?.initial }
 					previewDevice={ previewDevice }
 				/>
 			</KadencePanelBody>

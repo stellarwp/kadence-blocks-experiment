@@ -29,8 +29,10 @@ class Provider extends Service_Provider {
 	 * {@inheritdoc}
 	 */
 	public function register(): void {
-		$this->container->singleton( Container::class, Container::class );
+		$this->container->bind( Container::class, new Container( $this->container ) );
 		add_action( 'init', $this->container->callback( Container::class, 'on_init' ), 20 );
+		add_filter( 'kbs_blocks_to_generate_post_css', $this->container->callback( Container::class, 'register_blocks_to_generate_post_css' ) );
+		add_action( 'kbs_blocks_generate_post_css_kbs/container', $this->container->callback( Container::class, 'output_head_data' ), 10, 2 );
 		// Register the editor scripts.
 		add_action( 'init', $this->container->callback( Editor_Assets::class, 'on_init_editor_assets' ), 10 );
 	}

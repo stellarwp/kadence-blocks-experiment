@@ -11,7 +11,7 @@ namespace KadenceWP\KadenceBlocks;
 
 use InvalidArgumentException;
 use RuntimeException;
-use KadenceWP\KadenceBlocks\StellarWP\ContainerContract\ContainerInterface;
+use KadenceWP\KadenceBlocks\StellarWP\ContainerContract\ContainerInterface as StellarContainerInterface;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -72,10 +72,7 @@ class Core {
 	) {
 		$this->plugin_file = $plugin_file;
 		$this->container   = $container;
-		$this->container->singleton( \KadenceWP\KadenceBlocks\Psr\Container\ContainerInterface::class, $this->container );
-		$this->container->singleton( KadenceWP\KadenceBlocks\Psr\Container\ContainerInterface::class, $this->container );
-		$this->container->singleton( ContainerInterface::class, $this->container );
-
+		$this->container->singleton( StellarContainerInterface::class, $this->container );
 		// Set container variables available to pre bootstrap providers.
 		$this->container->setVar( self::PLUGIN_FILE, $this->plugin_file );
 	}

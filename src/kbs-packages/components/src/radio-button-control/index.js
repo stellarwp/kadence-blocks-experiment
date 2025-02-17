@@ -50,7 +50,7 @@ export default function RadioButtonControl( {
 	defaultValue,
 	attributeName,
 	options,
-	placeholder,
+	initial,
 	attributes,
 	setAttributes,
 	isCollapsed = false,
@@ -62,12 +62,12 @@ export default function RadioButtonControl( {
 	const desktopValue = getDeviceValue( attributeName, attributes, 'Desktop' );
 	const tabletValue = getDeviceValue( attributeName, attributes, 'Tablet' );
 	const mobileValue = getDeviceValue( attributeName, attributes, 'Mobile' );
-	const placeholderDesktop = ( placeholder?.desktop ? placeholder.desktop : '' );
-	const placeholderTablet = ( placeholder?.['tablet'] ? placeholder['tablet'] : placeholderDesktop );
-	const placeholderMobile = ( placeholder?.['mobile'] ? placeholder['mobile'] : placeholderTablet );
-	const inheritedDesktop = placeholderDesktop;
-	const inheritedTablet = ( desktopValue ? desktopValue : placeholderTablet );
-	const inheritedMobile = ( tabletValue ? tabletValue : ( desktopValue ? desktopValue : placeholderMobile ) );
+	const initialDesktop = ( initial?.desktop ? initial.desktop : '' );
+	const initialTablet = ( initial?.tablet ? initial.tablet : initialDesktop );
+	const initialMobile = ( initial?.mobile ? initial.mobile : initialTablet );
+	const inheritedDesktop = initialDesktop;
+	const inheritedTablet = ( desktopValue ? desktopValue : initialTablet );
+	const inheritedMobile = ( tabletValue ? tabletValue : ( desktopValue ? desktopValue : initialMobile ) );
 	const onReset = () => {
 		let resetValue = undefined;
 		if ( defaultValue ) {

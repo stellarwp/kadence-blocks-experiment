@@ -12,10 +12,14 @@
 		"anchor": {
 			"type": "string"
 		},
+		"htmlTag": {
+			"type": "string",
+			"initial": "section"
+		},
 		"direction": {
 			"renderCSS": true,
 			"selector": "--kbs-cont-direction",
-			"inherit": { "desktop": "column" },
+			"initial": { "desktop": "column" },
 			"property": "flex-direction",
 			"type": "object"
 		},
@@ -85,9 +89,6 @@
 		},
 		"linkExtras": {
 			"type": "object"
-		},
-		"htmlTag": {
-			"type": "string"
 		}
 	},
 	"supports": {

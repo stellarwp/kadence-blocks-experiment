@@ -81,27 +81,6 @@ class Abstract_Block {
 	 */
 	protected $default_attributes_cache = [];
 
-	/**
-	 * Allow us to enable merged defaults on blocks individually.
-	 * Considered setting this as a property within each block, but it's easier to see an exhaustive list here.
-	 * Eventually all blocks will be supported.
-	 *
-	 * @var array
-	 */
-	protected $supports_merged_defaults = [
-		'navigation',
-		'navigation-link',
-		'header',
-		'navigation-list',
-		'singlebtn',
-		'header-row',
-		'off-canvas-trigger',
-		'off-canvas',
-		'header-column',
-		'search',
-		'identity',
-		'table',
-	];
 	
 	/**
 	 * Allow us to enable merged defaults on blocks individually.
@@ -128,7 +107,6 @@ class Abstract_Block {
 	 */
 	public function __construct( Container $container ) {
 		$this->container = $container;
-		add_filter( 'kbs_blocks_to_generate_post_css', [ $this, 'add_block_to_post_generate_css' ] );
 	}
 
 	/**
@@ -139,7 +117,7 @@ class Abstract_Block {
 			$block_asset_meta = kbs_get_asset_file( 'dist/kbs-' . $this->block_name );
 			$handle           = $this->namespace . '-' . $this->block_name;
 			$editor_handle    = $handle . '-editor';
-			$args = [
+			$args             = [
 				'render_callback' => [ $this, 'render_css' ],
 			];
 			// Register the block.
@@ -184,10 +162,10 @@ class Abstract_Block {
 	 *
 	 * @param array $block_class_array the blocks that are registered to be rendered.
 	 */
-	public function add_block_to_post_generate_css( $block_class_array ) {
+	public function register_blocks_to_generate_post_css( $block_class_array ) {
 		if ( $this->should_register() ) {
 			if ( ! isset( $block_class_array[ $this->namespace . '/' . $this->block_name ] ) ) {
-				$block_class_array[ $this->namespace . '/' . $this->block_name ] = '\KadenceWP\KadenceBlocks\Blocks\KBS\/' . str_replace( ' ', '_', ucwords( str_replace( '-', ' ', $this->block_name ) ) );
+				$block_class_array[ $this->namespace . '/' . $this->block_name ] = '\KadenceWP\KadenceBlocks\Blocks\KBS\\' . str_replace( ' ', '_', ucwords( str_replace( '-', ' ', $this->block_name ) ) );
 			}
 		}
 
@@ -242,9 +220,9 @@ class Abstract_Block {
 	 * Render Block CSS in Page Head.
 	 *
 	 * @param array $block the block data.
-	 * @param array $block_type the block type data.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 */
-	public function output_head_data( $block, $block_type ) {
+	public function output_head_data( $block, $block_instance ) {
 		if ( isset( $block['attrs'] ) && is_array( $block['attrs'] ) ) {
 			$attributes = $block['attrs'];
 			if ( in_array( $this->block_name, $this->is_cpt_block ) ) {
@@ -257,9 +235,6 @@ class Abstract_Block {
 			}
 			if ( ! empty( $unique_id ) ) {
 				$unique_id = str_replace( '/', '-', $unique_id );
-				if ( in_array( $this->block_name, $this->supports_merged_defaults ) ) {
-					$attributes = $this->get_attributes_with_defaults( $unique_id, $attributes );
-				}
 				// Check and enqueue stylesheets and scripts if needed.
 				$this->render_scripts( $attributes, false );
 
@@ -267,7 +242,7 @@ class Abstract_Block {
 				if ( ! $css_class->has_styles( 'kb-' . $this->block_name . $unique_id ) && apply_filters( 'kadence_blocks_render_head_css', true, $this->block_name, $attributes ) ) {
 					// Filter attributes for easier dynamic css.
 					$attributes = apply_filters( 'kadence_blocks_' . $this->block_name . '_render_block_attributes', $attributes );
-					$this->build_css( $attributes, $css_class, $unique_id, $unique_id, $block_type );
+					$this->build_css( $attributes, $css_class, $unique_id, $unique_id, $block_instance );
 				}
 			}
 		}
@@ -314,11 +289,7 @@ class Abstract_Block {
 		if ( ! empty( $unique_id ) ) {
 			$unique_id       = str_replace( '/', '-', $unique_id );
 			$unique_style_id = apply_filters( 'kadence_blocks_build_render_unique_id', $unique_id, $this->block_name, $attributes );
-			$css_class	     = $this->container->get( CSS_Engine::class );
-
-			if ( in_array( $this->block_name, $this->supports_merged_defaults ) ) {
-				$attributes = $this->get_attributes_with_defaults( $unique_id . get_locale(), $attributes, false );
-			}
+			$css_class       = $this->container->get( CSS_Engine::class );
 
 			// If filter didn't run in header (which would have enqueued the specific css id ) then filter attributes for easier dynamic css.
 			$attributes = apply_filters( 'kadence_blocks_' . str_replace( '-', '_', $this->block_name ) . '_render_block_attributes', $attributes, $block_instance );
@@ -343,6 +314,10 @@ class Abstract_Block {
 
 	/**
 	 * Potentially prepend inline style to the content, unless it needs to get moved off to the footer.
+	 *
+	 * @param string $content the blocks content.
+	 * @param string $unique_style_id the blocks alternate ID for queries.
+	 * @param string $css the css class for blocks.
 	 */
 	public function do_inline_styles( &$content, $unique_style_id, $css ) {
 		if ( apply_filters( 'kadence_blocks_render_styles_footer', $this->block_name == 'data' || $this->block_name == 'slide' ) ) {
@@ -355,11 +330,11 @@ class Abstract_Block {
 	/**
 	 * Builds CSS for block.
 	 *
-	 * @param array  $attributes the blocks attributes.
-	 * @param string $css the css class for blocks.
-	 * @param string $unique_id the blocks attr ID.
-	 * @param string $unique_style_id the blocks alternate ID for queries.
-	 * @param WP_Block   $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param array    $attributes the blocks attributes.
+	 * @param string   $css the css class for blocks.
+	 * @param string   $unique_id the blocks attr ID.
+	 * @param string   $unique_style_id the blocks alternate ID for queries.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 */
 	public function build_css( $attributes, $css, $unique_id, $unique_style_id, $block_instance ) {
 		return '';
@@ -368,10 +343,10 @@ class Abstract_Block {
 	/**
 	 * Build HTML for dynamic blocks
 	 *
-	 * @param $attributes
-	 * @param $unique_id
-	 * @param $content
-	 * @param WP_Block   $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param array    $attributes the blocks attributes.
+	 * @param string   $unique_id the blocks attr ID.
+	 * @param string   $content the blocks content.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 *
 	 * @return mixed
 	 */
@@ -382,7 +357,7 @@ class Abstract_Block {
 	/**
 	 * Registers scripts and styles.
 	 */
-	public function register_scripts() {
+	public function register_scripts( $handle ) {
 		// If in the backend, bail out.
 		if ( is_admin() ) {
 			return;
@@ -400,7 +375,7 @@ class Abstract_Block {
 	 */
 	public function enqueue_script( $handle ) {
 		if ( ! wp_script_is( $handle, 'registered' ) ) {
-			$this->register_scripts();
+			$this->register_scripts( $handle );
 		}
 		wp_enqueue_script( $handle );
 	}
@@ -412,7 +387,7 @@ class Abstract_Block {
 	 */
 	public function enqueue_style( $handle ) {
 		if ( ! wp_style_is( $handle, 'registered' ) ) {
-			$this->register_scripts();
+			$this->register_scripts( $handle );
 		}
 		wp_enqueue_style( $handle );
 	}
@@ -464,49 +439,56 @@ class Abstract_Block {
 	}
 
 	/**
+	 * Get an initial attribute from the block instance.
+	 *
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param string $attribute_name The name of the attribute to get.
+	 * @param string $default The default value to return if the attribute is not found.
+	 * @return string
+	 */
+	public function get_initial_attribute( $block_instance, $attribute_name, $default ) {
+		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
+			$attributes = $block_instance->block_type->attributes;
+			if ( isset( $attributes[ $attribute_name ]['initial'] ) && $attributes[ $attribute_name ]['initial'] ) {
+				return $attributes[ $attribute_name ]['initial'];
+			}
+		}
+		return $default;
+	}
+
+	/**
 	 * Add Custom CSS for block.
 	 *
 	 * @param array  $attributes the blocks attributes.
 	 * @param string $css the css class for blocks.
-	 * @param string $unique_id the blocks attr ID.
-	 * @param string $unique_style_id the blocks alternate ID for queries.
+	 * @param string $root_selector the selector for the block.
 	 */
 	public function add_custom_css( $attributes, $css, $root_selector ) {
-		
 		if ( ! empty( $attributes['kbsCSS'] ) ) {
 			$css->add_css_string( str_replace( 'selector', $root_selector, $attributes['kbsCSS'] ) );
 		}
 		return $css;
 	}
-
 	/**
 	 * Gets the HTML tag from the attributes.
 	 * If the tag provided isn't allowed, return the default value.
 	 *
 	 * @param array  $attributes Array of the blocks attributes.
 	 * @param string $tag_key Offest on $attributes where the tag is set.
-	 * @param string $default Default tag to use if $tag_key attribue is undefined or invalid.
+	 * @param string $initial Default tag to use if $tag_key attribue is undefined or invalid.
 	 * @param array  $allowed_tags Array of allowed tags.
-	 * @param string $level_key If defined, we'll assume heading tags are allowed.
 	 *
 	 * @return string
 	 */
-	public function get_html_tag( $attributes, $tag_key, $default, $allowed_tags = [], $level_key = '' ) {
+	public function get_html_tag( $attributes, $tag_key, $initial, $allowed_tags = [] ) {
 
 		if ( ! empty( $attributes[ $tag_key ] ) && in_array( $attributes[ $tag_key ], $allowed_tags ) ) {
-
-			if ( $attributes[ $tag_key ] === 'heading' ) {
-				$level = ! empty( $attributes[ $level_key ] ) ? $attributes[ $level_key ] : 2;
-				return 'h' . $level;
-			}
 
 			return $attributes[ $tag_key ];
 		}
 
-		return $default;
+		return $initial;
 	}
-
-
 	/**
 	 * Retuurn if this block should register itself. (can override for things like blocks in two plugins)
 	 * 
