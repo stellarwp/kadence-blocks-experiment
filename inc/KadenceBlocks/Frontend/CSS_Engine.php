@@ -259,7 +259,7 @@ class CSS_Engine {
 	 * constructor
 	 */
 	public function __construct() {
-		// print_r( 'CSS_Engine:construct' );
+		add_action( 'wp_enqueue_scripts', [ $this, 'frontend_block_css' ], 180 );
 	}
 
 	/**
@@ -793,7 +793,7 @@ class CSS_Engine {
 	 * Merge the initial attribute with the attribute value.
 	 *
 	 * @param array $attributes_meta The meta of the attribute.
-	 * @param string $attribute_value The value of the attribute.
+	 * @param array $attribute_value The value of the attribute.
 	 * @return array
 	 */
 	public function merge_initial_attribute( $attributes_meta, $attribute_value ) {
@@ -841,9 +841,6 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function add_attribute( $key, $attributes, $block_instance, $attributes_meta = [] ) {
-		if ( ! isset( $attributes[ $key ] ) ) {
-			return $this;
-		}
 		if ( empty( $attributes_meta ) ) {
 			$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
 		}
@@ -853,7 +850,10 @@ class CSS_Engine {
 		if ( ! isset( $attributes_meta['selector'] ) ) {
 			return $this;
 		}
-		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, $attributes[ $key ] );
+		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
+		if ( empty( $merged_attribute ) ) {
+			return $this;
+		}
 		switch ( $attributes_meta['property'] ) {
 			case 'flex-direction':
 				$this->array_string_property( $attributes_meta['selector'], $merged_attribute );

@@ -103,10 +103,19 @@ class Abstract_Block {
 	protected Container $container;
 
 	/**
-	 * @param  Container $container The container instance.
+	 * The CSS engine instance.
+	 *
+	 * @var CSS_Engine
 	 */
-	public function __construct( Container $container ) {
+	protected CSS_Engine $css_engine;
+
+	/**
+	 * @param  Container $container The container instance.
+	 * @param  CSS_Engine $css_engine The CSS engine instance.
+	 */
+	public function __construct( Container $container, CSS_Engine $css_engine ) {
 		$this->container = $container;
+		$this->css_engine = $css_engine;
 	}
 
 	/**
@@ -238,11 +247,10 @@ class Abstract_Block {
 				// Check and enqueue stylesheets and scripts if needed.
 				$this->render_scripts( $attributes, false );
 
-				$css_class = $this->container->get( CSS_Engine::class );
-				if ( ! $css_class->has_styles( 'kb-' . $this->block_name . $unique_id ) && apply_filters( 'kadence_blocks_render_head_css', true, $this->block_name, $attributes ) ) {
+				if ( ! $this->css_engine->has_styles( 'kb-' . $this->block_name . $unique_id ) && apply_filters( 'kadence_blocks_render_head_css', true, $this->block_name, $attributes ) ) {
 					// Filter attributes for easier dynamic css.
 					$attributes = apply_filters( 'kadence_blocks_' . $this->block_name . '_render_block_attributes', $attributes );
-					$this->build_css( $attributes, $css_class, $unique_id, $unique_id, $block_instance );
+					$this->build_css( $attributes, $this->css_engine, $unique_id, $unique_id, $block_instance );
 				}
 			}
 		}
@@ -289,20 +297,19 @@ class Abstract_Block {
 		if ( ! empty( $unique_id ) ) {
 			$unique_id       = str_replace( '/', '-', $unique_id );
 			$unique_style_id = apply_filters( 'kadence_blocks_build_render_unique_id', $unique_id, $this->block_name, $attributes );
-			$css_class       = $this->container->get( CSS_Engine::class );
 
 			// If filter didn't run in header (which would have enqueued the specific css id ) then filter attributes for easier dynamic css.
 			$attributes = apply_filters( 'kadence_blocks_' . str_replace( '-', '_', $this->block_name ) . '_render_block_attributes', $attributes, $block_instance );
 
 			$content = $this->build_html( $attributes, $unique_id, $content, $block_instance );
-			if ( ! $css_class->has_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
-				$css = $this->build_css( $attributes, $css_class, $unique_id, $unique_style_id, $block_instance );
+			if ( ! $this->css_engine->has_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
+				$css = $this->build_css( $attributes, $this->css_engine, $unique_id, $unique_style_id, $block_instance );
 				if ( ! empty( $css ) && ! wp_is_block_theme() ) {
 					$this->do_inline_styles( $content, $unique_style_id, $css );
 				}
-			} elseif ( ! wp_is_block_theme() && ! $css_class->has_header_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
+			} elseif ( ! wp_is_block_theme() && ! $this->css_engine->has_header_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
 				// Some plugins run render block without outputing the content, this makes it so css can be rebuilt.
-				$css = $this->build_css( $attributes, $css_class, $unique_id, $unique_style_id, $block_instance );
+				$css = $this->build_css( $attributes, $this->css_engine, $unique_id, $unique_style_id, $block_instance );
 				if ( ! empty( $css ) ) {
 					$this->do_inline_styles( $content, $unique_style_id, $css );
 				}

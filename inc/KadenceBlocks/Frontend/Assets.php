@@ -34,7 +34,7 @@ class Assets {
 	 * Outputs css for blocks in the post content when using a classic theme.
 	 */
 	public function post_blocks_css() {
-		if ( has_blocks( get_the_ID() ) ) {
+		if ( ! wp_is_block_theme() && has_blocks( get_the_ID() ) ) {
 			global $post;
 			if ( ! is_object( $post ) ) {
 				return;
@@ -72,8 +72,6 @@ class Assets {
 				if ( isset( $kbs_blocks[ $block['blockName'] ] ) ) {
 					$block_type           = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 					do_action( 'kbs_blocks_generate_post_css_' . $block['blockName'], $block, $block_type );
-					// $block_class_instance = kbs_plugin()->container()->get( KBS_Container::class );
-					// $block_class_instance->output_head_data( $block, $block_type );
 				}
 			}
 			if ( ! empty( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {
@@ -96,8 +94,6 @@ class Assets {
 				if ( isset( $kbs_blocks[ $block['blockName'] ] ) ) {
 					$block_type           = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 					do_action( 'kbs_blocks_generate_post_css_' . $block['blockName'], $block, $block_type );
-					// $block_class_instance = $this->container->get( $kbs_blocks[ $block['blockName'] ] );
-					// $block_class_instance->output_head_data( $block, $block_type );
 				}
 			}
 			if ( ! empty( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {

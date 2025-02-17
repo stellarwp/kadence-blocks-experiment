@@ -11,7 +11,7 @@ namespace KadenceWP\KadenceBlocks\Blocks;
 
 use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
 use KadenceWP\KadenceBlocks\Blocks\KBS\Container;
-
+use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -29,7 +29,10 @@ class Provider extends Service_Provider {
 	 * {@inheritdoc}
 	 */
 	public function register(): void {
-		$this->container->bind( Container::class, new Container( $this->container ) );
+		$this->container->when( Container::class )
+			->needs( CSS_Engine::class )
+			->give( $this->container->get( CSS_Engine::class ) );
+		$this->container->singleton( Container::class, Container::class );
 		add_action( 'init', $this->container->callback( Container::class, 'on_init' ), 20 );
 		add_filter( 'kbs_blocks_to_generate_post_css', $this->container->callback( Container::class, 'register_blocks_to_generate_post_css' ) );
 		add_action( 'kbs_blocks_generate_post_css_kbs/container', $this->container->callback( Container::class, 'output_head_data' ), 10, 2 );
