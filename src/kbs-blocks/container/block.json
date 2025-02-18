@@ -43,7 +43,7 @@
 		"alignItems": {
 			"renderCSS": true,
 			"selector": "--kbs-cont-align-items",
-			"initial": { "desktop": "initial" },
+			"initial": { "desktop": "stretch" },
 			"property": "align-items",
 			"type": "object"
 		},

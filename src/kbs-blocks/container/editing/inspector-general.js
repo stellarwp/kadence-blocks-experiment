@@ -80,6 +80,15 @@ export default function InspectorGeneral(props) {
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
 				/>
+				<RadioButtonControl
+					label={__('Alignment', 'kadence-blocks')}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					attributeName={ 'alignItems' }
+					meta={ metadata?.attributes?.alignItems }
+					previewDevice={ previewDevice }
+					previewDirection={ previewDirection }
+				/>
 			</KadencePanelBody>
 		</>
 	);

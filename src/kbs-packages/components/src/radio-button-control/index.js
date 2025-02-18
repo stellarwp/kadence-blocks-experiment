@@ -132,31 +132,45 @@ export default function RadioButtonControl( {
 			]
 			break;
 		case 'justify-content':
-			console.log( 'previewDirection', previewDirection );
 			switch ( previewDirection ) {
 				case 'column':
 					controls = [
 						{
-							icon: justifyLeft,
+							icon: alignTop,
 							title: __( 'Start', 'kadence-blocks' ),
 							align: 'flex-start',
 						},
 						{
-							icon: justifyCenter,
+							icon: alignCenter,
 							title: __( 'Center', 'kadence-blocks' ),
 							align: 'center',
 						},
 						{
-							icon: justifyRight,
+							icon: alignBottom,
 							title: __( 'End', 'kadence-blocks' ),
 							align: 'flex-end',
 						},
 						{
-							icon: justifyStretch,
+							icon: alignStretch,
 							title: __( 'Stretch', 'kadence-blocks' ),
 							align: 'stretch',
 						},
-					]
+						{
+							icon: verticalSpaceBetween,
+							title: __( 'Space Between', 'kadence-blocks' ),
+							align: 'space-between',
+						},
+						{
+							icon: verticalSpaceAround,
+							title: __( 'Space Around', 'kadence-blocks' ),
+							align: 'space-around',
+						},
+						{
+							icon: verticalSpaceEvenly,
+							title: __( 'Space Evenly', 'kadence-blocks' ),
+							align: 'space-evenly',
+						},
+					];
 					break;
 				case 'column-reverse':
 					controls = [
@@ -216,7 +230,142 @@ export default function RadioButtonControl( {
 						},
 					]
 					break;
+				case 'row-reverse':
+					controls = [
+						{
+							icon: justifyRight,
+							title: __( 'Start', 'kadence-blocks' ),
+							align: 'flex-start',
+						},
+						{
+							icon: justifyCenter,
+							title: __( 'Center', 'kadence-blocks' ),
+							align: 'center',
+						},
+						{
+							icon: justifyLeft,
+							title: __( 'End', 'kadence-blocks' ),
+							align: 'flex-end',
+						},
+						{
+							icon: justifySpaceBetween,
+							title: __( 'Space Between', 'kadence-blocks' ),
+							align: 'space-between',
+						},
+						{
+							icon: spaceAround,
+							title: __( 'Space Around', 'kadence-blocks' ),
+							align: 'space-around',
+						},
+						{
+							icon: spaceEvenly,
+							title: __( 'Space Evenly', 'kadence-blocks' ),
+							align: 'space-evenly',
+						},
+					]
+					break;
 			}
+			break;
+		case 'align-items':
+			switch ( previewDirection ) {
+				case 'column':
+					controls = [
+						{
+							icon: justifyStretch,
+							title: __( 'Stretch', 'kadence-blocks' ),
+							align: 'stretch',
+						},
+						{
+							icon: justifyLeft,
+							title: __( 'Start', 'kadence-blocks' ),
+							align: 'flex-start',
+						},
+						{
+							icon: justifyCenter,
+							title: __( 'Center', 'kadence-blocks' ),
+							align: 'center',
+						},
+						{
+							icon: justifyRight,
+							title: __( 'End', 'kadence-blocks' ),
+							align: 'flex-end',
+						},
+					]
+				break;
+				case 'column-reverse':
+					controls = [
+						{
+							icon: justifyStretch,
+							title: __( 'Stretch', 'kadence-blocks' ),
+							align: 'stretch',
+						},
+						{
+							icon: justifyLeft,
+							title: __( 'End', 'kadence-blocks' ),
+							align: 'flex-end',
+						},
+						{
+							icon: justifyCenter,
+							title: __( 'Center', 'kadence-blocks' ),
+							align: 'center',
+						},
+						{
+							icon: justifyRight,
+							title: __( 'Start', 'kadence-blocks' ),
+							align: 'flex-start',
+						},
+					]
+					break;
+				case 'row':
+					controls = [
+						{
+							icon: alignStretch,
+							title: __( 'Stretch', 'kadence-blocks' ),
+							align: 'stretch',
+						},
+						{
+							icon: alignTop,
+							title: __( 'Start', 'kadence-blocks' ),
+							align: 'flex-start',
+						},
+						{
+							icon: alignCenter,
+							title: __( 'Center', 'kadence-blocks' ),
+							align: 'center',
+						},
+						{
+							icon: alignBottom,
+							title: __( 'End', 'kadence-blocks' ),
+							align: 'flex-end',
+						},
+					]
+					break;
+				case 'row-reverse':
+					controls = [
+						{
+							icon: alignStretch,
+							title: __( 'Stretch', 'kadence-blocks' ),
+							align: 'stretch',
+						},
+						{
+							icon: alignBottom,
+							title: __( 'End', 'kadence-blocks' ),
+							align: 'flex-end',
+						},
+						{
+							icon: alignCenter,
+							title: __( 'Center', 'kadence-blocks' ),
+							align: 'center',
+						},
+						{
+							icon: alignTop,
+							title: __( 'Start', 'kadence-blocks' ),
+							align: 'flex-start',
+						},
+					]
+					break;
+			}
+			break;
 	}
 	const output = {};
 	output.Mobile = (
