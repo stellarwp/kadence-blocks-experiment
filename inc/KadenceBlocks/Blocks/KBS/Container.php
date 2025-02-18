@@ -46,11 +46,11 @@ class Container extends Abstract_Block {
 	/**
 	 * Builds CSS for block.
 	 *
-	 * @param array  $attributes the blocks attributes.
+	 * @param array      $attributes the blocks attributes.
 	 * @param CSS_Engine $css the css class for blocks.
-	 * @param string $unique_id the blocks attr ID.
-	 * @param string $unique_style_id the blocks alternate ID for queries.
-	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param string     $unique_id the blocks attr ID.
+	 * @param string     $unique_style_id the blocks alternate ID for queries.
+	 * @param WP_Block   $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 */
 	public function build_css( $attributes, $css, $unique_id, $unique_style_id, $block_instance ) {
 		$css->set_style_id( 'kbs-' . $this->block_name . $unique_style_id );

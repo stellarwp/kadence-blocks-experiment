@@ -89,6 +89,15 @@ export default function InspectorGeneral(props) {
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
 				/>
+				<RadioButtonControl
+					label={__('Wrap', 'kadence-blocks')}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					attributeName={ 'wrap' }
+					meta={ metadata?.attributes?.wrap }
+					previewDevice={ previewDevice }
+					previewDirection={ previewDirection }
+				/>
 			</KadencePanelBody>
 		</>
 	);

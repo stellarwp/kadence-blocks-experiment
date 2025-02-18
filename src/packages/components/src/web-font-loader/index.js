@@ -3,7 +3,8 @@ if ( ktgooglefonts === undefined ) {
 }
 import { Component } from '@wordpress/element';
 import PropTypes from "prop-types";
-import WebFont from "webfontloader";
+// TODO: Add WebFont back in
+// import WebFont from "webfontloader";
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 const statuses = {

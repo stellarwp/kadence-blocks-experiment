@@ -1,6 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import WebFont from "webfontloader";
+// TODO: Add WebFont back in
+// import WebFont from "webfontloader";
 const statuses = {
 	inactive: 'inactive',
 	active: 'active',

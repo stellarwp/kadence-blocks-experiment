@@ -7,7 +7,7 @@ namespace KadenceWP\KadenceBlocks\Frontend;
 
 use KadenceWP\KadenceBlocks\Container;
 use WP_Block_Type_Registry;
-use KadenceWP\KadenceBlocks\Blocks\KBS\Container as KBS_Container;
+use function wp_register_block_metadata_collection;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -29,6 +29,21 @@ class Assets {
 	 */
 	public function __construct( Container $container ) {
 		$this->container = $container;
+	}
+	/**
+	 * Register the block metadata manifest.
+	 * Introduced in WP 6.7 to improve performance of block registration.
+	 */
+	public function register_block_metadata_manifest() {
+		if (
+			function_exists( 'wp_register_block_metadata_collection' )
+			&& file_exists( KADENCE_BLOCKS_PATH . 'dist/kbs-blocks/blocks-manifest.php' )
+		) {
+			wp_register_block_metadata_collection(
+				KADENCE_BLOCKS_PATH . 'dist/kbs-blocks/',
+				KADENCE_BLOCKS_PATH . 'dist/kbs-blocks/blocks-manifest.php'
+			);
+		}
 	}
 	/**
 	 * Outputs css for blocks in the post content when using a classic theme.
@@ -70,7 +85,7 @@ class Assets {
 		foreach ( $blocks as $indexkey => $block ) {
 			if ( ! is_object( $block ) && is_array( $block ) && isset( $block['blockName'] ) ) {
 				if ( isset( $kbs_blocks[ $block['blockName'] ] ) ) {
-					$block_type           = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+					$block_type = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 					do_action( 'kbs_blocks_generate_post_css_' . $block['blockName'], $block, $block_type );
 				}
 			}
@@ -92,7 +107,7 @@ class Assets {
 		foreach ( $blocks as $indexkey => $block ) {
 			if ( ! is_object( $block ) && is_array( $block ) && isset( $block['blockName'] ) ) {
 				if ( isset( $kbs_blocks[ $block['blockName'] ] ) ) {
-					$block_type           = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+					$block_type = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 					do_action( 'kbs_blocks_generate_post_css_' . $block['blockName'], $block, $block_type );
 				}
 			}

@@ -50,7 +50,7 @@
 		"wrap": {
 			"renderCSS": true,
 			"selector": "--kbs-cont-wrap",
-			"initial": { "desktop": "initial" },
+			"initial": { "desktop": "wrap" },
 			"property": "flex-wrap",
 			"type": "object"
 		},
@@ -127,15 +127,6 @@
 		"kbcss": true,
 		"kbMetadata": true,
 		"align": [ "wide", "full" ]
-	},
-	"renderStyles": {
-		"flex-direction": "direction",
-		"justify-content": "justify",
-		"align-items": "alignItems",
-		"align-content": "alignContent",
-		"gap": "gap",
-		"wrap": "wrap",
-		"flex-wrap": "wrap"
 	},
 	"editorStyle": "kbs-section-editor",
 	"style": "kbs-section"

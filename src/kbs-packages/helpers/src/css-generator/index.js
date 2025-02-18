@@ -1,5 +1,6 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { SPACING_SIZES_MAP } from '../constants';
+import { merge } from 'lodash';
 /**
  * CSS Generator class for building CSS strings
  */
@@ -62,7 +63,7 @@ class CSSGenerator {
         }
         if ( meta?.initial ) {
             const initialAttribute = this.getInitialWithDeviceSlugs( meta.initial );
-            return { ...initialAttribute, ...attributeValue };
+            return merge( initialAttribute, attributeValue );
         }
         return attributeValue;
     }

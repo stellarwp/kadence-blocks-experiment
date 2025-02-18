@@ -1,3 +1,4 @@
+import { merge } from 'lodash';
 import { useMemo } from '@wordpress/element';
 
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
@@ -21,7 +22,7 @@ function mergeInitialValue( attributeMeta, attributeValue ) {
 	}
 	if ( attributeMeta?.initial ) {
 		const initialAttribute = getInitialWithDeviceSlugs( attributeMeta.initial );
-		return { ...initialAttribute, ...attributeValue };
+		return merge( initialAttribute, attributeValue );
 	}
 	return attributeValue;
 }

@@ -15,7 +15,7 @@ import { getDeviceValue, getDeviceAttributeSlug } from '@kadence/kbsHelpers';
 
 import TitleBar from '../title-bar';
 import RadioButtonUI from './ui';
-
+import RadioTextButtonUI from './ui-text';
 import {
 	arrowUp,
 	arrowLeft,
@@ -35,7 +35,7 @@ import {
 } from '@wordpress/components';
 import { AlignmentToolbar, JustifyToolbar, BlockVerticalAlignmentToolbar } from '@wordpress/blockEditor';
 
-import { alignBottom, alignCenter, alignTop, alignStretch, verticalSpaceBetween, verticalSpaceEvenly, verticalSpaceAround, spaceAround, spaceEvenly } from './constants';
+import { alignBottom, alignCenter, alignTop, alignStretch, verticalSpaceBetween, verticalSpaceEvenly, verticalSpaceAround, spaceAround, spaceEvenly, wrap, nowrap } from './constants';
 
 
 import './editor.scss';
@@ -55,7 +55,6 @@ export default function RadioButtonControl( {
 	setAttributes,
 	isCollapsed = false,
 	type = 'textAlign',
-	reverse = false,
 	reset = true,
 	previewDevice,
 	meta,
@@ -106,6 +105,21 @@ export default function RadioButtonControl( {
 			break;
 		case 'vertical':
 			UIComponent = BlockVerticalAlignmentToolbar;
+			break;
+		case 'flex-wrap':
+			UIComponent = RadioTextButtonUI;
+			controls = [
+				{
+					icon: wrap,
+					title: __( 'Wrap', 'kadence-blocks' ),
+					align: 'wrap',
+				},
+				{
+					icon: nowrap,
+					title: __( 'No Wrap', 'kadence-blocks' ),
+					align: 'nowrap',
+				},
+			];
 			break;
 		case 'flex-direction':
 			controls = [

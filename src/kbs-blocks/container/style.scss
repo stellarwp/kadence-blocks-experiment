@@ -10,7 +10,7 @@
 	justify-content: var(--kbs-cont-justify, initial );
 	align-items: var(--kbs-cont-align-items, initial );
 	align-content: var(--kbs-cont-align-content, initial );
-	flex-wrap: var(--kbs-cont-wrap, wrap );
+	flex-wrap: var(--kbs-cont-wrap, initial );
 	min-width: 0;
 	min-height: 0;
 	column-gap: var(--kbs-cont-column-gap, initial );

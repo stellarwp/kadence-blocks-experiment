@@ -44,5 +44,15 @@
 				}
 			}
 		}
+		&.kadence-radio-button-control__group {
+			.components-button {
+				max-width:100%;
+				justify-content: center;
+				svg {
+					margin-left: 0;
+					margin-right: 0;
+				}
+			}
+		}
 	}
 }
