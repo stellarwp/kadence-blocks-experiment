@@ -29,7 +29,7 @@
 		"justify": {
 			"renderCSS": true,
 			"selector": "--kbs-cont-justify",
-			"initial": { "desktop": "initial" },
+			"initial": { "desktop": "flex-start" },
 			"property": "justify-content",
 			"type": "object"
 		},
@@ -115,6 +115,12 @@
 		},
 		"linkExtras": {
 			"type": "object"
+		},
+		"layout": {
+			"type": "object",
+			"default": {
+				"type": "flex"
+			}
 		}
 	},
 	"supports": {
@@ -125,7 +131,20 @@
 		"ktanimateswipe": true,
 		"ktdynamic": true,
 		"kbcss": true,
-		"kbMetadata": true
+		"kbMetadata": true,
+		"align": [ "wide", "full" ],
+		"layout": {
+			"allowEditing": false,
+			"allowInheriting": false,
+			"allowSizingOnChildren": false,
+			"allowVerticalAlignment": false,
+			"allowJustification": false,
+			"allowOrientation": false,
+			"allowCustomContentAndWideSize": false,
+			"default": {
+				"type": "flex"
+			}
+		}
 	},
 	"renderStyles": {
 		"flex-direction": "direction",
