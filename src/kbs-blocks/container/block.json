@@ -115,12 +115,6 @@
 		},
 		"linkExtras": {
 			"type": "object"
-		},
-		"layout": {
-			"type": "object",
-			"default": {
-				"type": "flex"
-			}
 		}
 	},
 	"supports": {
@@ -132,19 +126,7 @@
 		"ktdynamic": true,
 		"kbcss": true,
 		"kbMetadata": true,
-		"align": [ "wide", "full" ],
-		"layout": {
-			"allowEditing": false,
-			"allowInheriting": false,
-			"allowSizingOnChildren": false,
-			"allowVerticalAlignment": false,
-			"allowJustification": false,
-			"allowOrientation": false,
-			"allowCustomContentAndWideSize": false,
-			"default": {
-				"type": "flex"
-			}
-		}
+		"align": [ "wide", "full" ]
 	},
 	"renderStyles": {
 		"flex-direction": "direction",
