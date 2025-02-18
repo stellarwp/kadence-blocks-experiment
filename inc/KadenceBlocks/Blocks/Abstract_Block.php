@@ -110,11 +110,11 @@ class Abstract_Block {
 	protected CSS_Engine $css_engine;
 
 	/**
-	 * @param  Container $container The container instance.
+	 * @param  Container  $container The container instance.
 	 * @param  CSS_Engine $css_engine The CSS engine instance.
 	 */
 	public function __construct( Container $container, CSS_Engine $css_engine ) {
-		$this->container = $container;
+		$this->container  = $container;
 		$this->css_engine = $css_engine;
 	}
 
@@ -228,7 +228,7 @@ class Abstract_Block {
 	/**
 	 * Render Block CSS in Page Head.
 	 *
-	 * @param array $block the block data.
+	 * @param array    $block the block data.
 	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 */
 	public function output_head_data( $block, $block_instance ) {
@@ -449,8 +449,8 @@ class Abstract_Block {
 	 * Get an initial attribute from the block instance.
 	 *
 	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
-	 * @param string $attribute_name The name of the attribute to get.
-	 * @param string $default The default value to return if the attribute is not found.
+	 * @param string   $attribute_name The name of the attribute to get.
+	 * @param string   $default The default value to return if the attribute is not found.
 	 * @return string
 	 */
 	public function get_initial_attribute( $block_instance, $attribute_name, $default ) {
