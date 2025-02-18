@@ -101,7 +101,7 @@ export default function ContainerEdit(props) {
 		}
 	}, []);
 
-	const previewDirection = getPreviewValue( 'direction', attributes, previewDevice );
+	const previewDirection = getPreviewValue( 'direction', attributes, metadata, previewDevice );
 	const classes = classnames( 'kbs-container',{
 		[className]: className,
 		[`kbs-container-${uniqueID}`]: uniqueID,
@@ -114,7 +114,7 @@ export default function ContainerEdit(props) {
 	const innerBlocksProps = useInnerBlocksProps(
 		{
 			orientation:
-				previewDirection === 'horizontal' || previewDirection === 'horizontal-reverse'
+				previewDirection === 'row' || previewDirection === 'row-reverse'
 					? 'horizontal'
 					: 'vertical',
 			templateLock,

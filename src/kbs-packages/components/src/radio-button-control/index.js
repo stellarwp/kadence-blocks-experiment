@@ -58,13 +58,17 @@ export default function RadioButtonControl( {
 	reverse = false,
 	reset = true,
 	previewDevice,
+	meta,
+	previewDirection = 'column',
 } ) {
+	const radioType = meta?.property ? meta?.property : type;
+	const initialValue = meta?.initial ? meta?.initial : initial;
 	const desktopValue = getDeviceValue( attributeName, attributes, 'Desktop' );
 	const tabletValue = getDeviceValue( attributeName, attributes, 'Tablet' );
 	const mobileValue = getDeviceValue( attributeName, attributes, 'Mobile' );
-	const initialDesktop = ( initial?.desktop ? initial.desktop : '' );
-	const initialTablet = ( initial?.tablet ? initial.tablet : initialDesktop );
-	const initialMobile = ( initial?.mobile ? initial.mobile : initialTablet );
+	const initialDesktop = ( initialValue?.desktop ? initialValue.desktop : '' );
+	const initialTablet = ( initialValue?.tablet ? initialValue.tablet : initialDesktop );
+	const initialMobile = ( initialValue?.mobile ? initialValue.mobile : initialTablet );
 	const inheritedDesktop = initialDesktop;
 	const inheritedTablet = ( desktopValue ? desktopValue : initialTablet );
 	const inheritedMobile = ( tabletValue ? tabletValue : ( desktopValue ? desktopValue : initialMobile ) );
@@ -96,263 +100,123 @@ export default function RadioButtonControl( {
 
 	let controls = '';
 	let UIComponent = RadioButtonUI;
-	if ( type === 'justify' ) {
-		UIComponent = JustifyToolbar;
-	} else if ( type === 'vertical' ) {
-		UIComponent = BlockVerticalAlignmentToolbar;
-	} else if ( type === 'flex-direction' ) {
-		controls = [
-			{
-				icon: arrowDown,
-				title: __( 'Vertical Direction', 'kadence-blocks' ),
-				align: 'column',
-			},
-			{
-				icon: arrowRight,
-				title: __( 'Horizontal Direction', 'kadence-blocks' ),
-				align: 'row',
-			},
-			{
-				icon: arrowUp,
-				title: __( 'Vertical Reverse', 'kadence-blocks' ),
-				align: 'column-reverse',
-			},
-			{
-				icon: arrowLeft,
-				title: __( 'Horizontal Reverse', 'kadence-blocks' ),
-				align: 'row-reverse',
-			},
-		]
-	} else if ( type === 'vertical-column' ) {
-		controls = [
-			{
-				icon: alignTop,
-				title: __( 'Top', 'kadence-blocks' ),
-				align: 'top',
-			},
-			{
-				icon: alignCenter,
-				title: __( 'Middle', 'kadence-blocks' ),
-				align: 'middle',
-			},
-			{
-				icon: alignBottom,
-				title: __( 'Bottom', 'kadence-blocks' ),
-				align: 'bottom',
-			},
-			{
-				icon: alignStretch,
-				title: __( 'Stretch', 'kadence-blocks' ),
-				align: 'stretch',
-			},
-		]
-	} else if ( type === 'orientation-column' ) {
-		controls = [
-			{
-				icon: arrowDown,
-				title: __( 'Vertical Direction', 'kadence-blocks' ),
-				align: 'vertical',
-			},
-			{
-				icon: arrowRight,
-				title: __( 'Horizontal Direction', 'kadence-blocks' ),
-				align: 'horizontal',
-			},
-			{
-				icon: arrowUp,
-				title: __( 'Vertical Reverse', 'kadence-blocks' ),
-				align: 'vertical-reverse',
-			},
-			{
-				icon: arrowLeft,
-				title: __( 'Horizontal Reverse', 'kadence-blocks' ),
-				align: 'horizontal-reverse',
-			},
-		]
-	} else if ( type === 'justify-align' ) {
-		if ( reverse ) {
+	switch ( radioType ) {
+		case 'justify':
+			UIComponent = JustifyToolbar;
+			break;
+		case 'vertical':
+			UIComponent = BlockVerticalAlignmentToolbar;
+			break;
+		case 'flex-direction':
 			controls = [
 				{
-					icon: justifyRight,
-					title: __( 'Start', 'kadence-blocks' ),
-					align: 'flex-start',
+					icon: arrowDown,
+					title: __( 'Vertical Direction', 'kadence-blocks' ),
+					align: 'column',
 				},
 				{
-					icon: justifyCenter,
-					title: __( 'Center', 'kadence-blocks' ),
-					align: 'center',
+					icon: arrowRight,
+					title: __( 'Horizontal Direction', 'kadence-blocks' ),
+					align: 'row',
 				},
 				{
-					icon: justifyLeft,
-					title: __( 'End', 'kadence-blocks' ),
-					align: 'flex-end',
+					icon: arrowUp,
+					title: __( 'Vertical Reverse', 'kadence-blocks' ),
+					align: 'column-reverse',
 				},
 				{
-					icon: justifyStretch,
-					title: __( 'Stretch', 'kadence-blocks' ),
-					align: 'stretch',
+					icon: arrowLeft,
+					title: __( 'Horizontal Reverse', 'kadence-blocks' ),
+					align: 'row-reverse',
 				},
 			]
-		} else {
-			controls = [
-				{
-					icon: justifyLeft,
-					title: __( 'Start', 'kadence-blocks' ),
-					align: 'flex-start',
-				},
-				{
-					icon: justifyCenter,
-					title: __( 'Center', 'kadence-blocks' ),
-					align: 'center',
-				},
-				{
-					icon: justifyRight,
-					title: __( 'End', 'kadence-blocks' ),
-					align: 'flex-end',
-				},
-				{
-					icon: justifyStretch,
-					title: __( 'Stretch', 'kadence-blocks' ),
-					align: 'stretch',
-				},
-			]
-		}
-	} else if ( type === 'justify-column' ) {
-		if ( reverse ) {
-			controls = [
-				{
-					icon: justifyRight,
-					title: __( 'Start', 'kadence-blocks' ),
-					align: 'flex-start',
-				},
-				{
-					icon: justifyCenter,
-					title: __( 'Center', 'kadence-blocks' ),
-					align: 'center',
-				},
-				{
-					icon: justifyLeft,
-					title: __( 'End', 'kadence-blocks' ),
-					align: 'flex-end',
-				},
-				{
-					icon: justifySpaceBetween,
-					title: __( 'Space Between', 'kadence-blocks' ),
-					align: 'space-between',
-				},
-				{
-					icon: spaceAround,
-					title: __( 'Space Around', 'kadence-blocks' ),
-					align: 'space-around',
-				},
-				{
-					icon: spaceEvenly,
-					title: __( 'Space Evenly', 'kadence-blocks' ),
-					align: 'space-evenly',
-				},
-			]
-		} else {
-			controls = [
-				{
-					icon: justifyLeft,
-					title: __( 'Start', 'kadence-blocks' ),
-					align: 'flex-start',
-				},
-				{
-					icon: justifyCenter,
-					title: __( 'Center', 'kadence-blocks' ),
-					align: 'center',
-				},
-				{
-					icon: justifyRight,
-					title: __( 'End', 'kadence-blocks' ),
-					align: 'flex-end',
-				},
-				{
-					icon: justifySpaceBetween,
-					title: __( 'Space Between', 'kadence-blocks' ),
-					align: 'space-between',
-				},
-				{
-					icon: spaceAround,
-					title: __( 'Space Around', 'kadence-blocks' ),
-					align: 'space-around',
-				},
-				{
-					icon: spaceEvenly,
-					title: __( 'Space Evenly', 'kadence-blocks' ),
-					align: 'space-evenly',
-				},
-			]
-		}
-	} else if ( type === 'justify-vertical' ) {
-		if ( reverse ) {
-			controls = [
-				{
-					icon: alignBottom,
-					title: __( 'Bottom', 'kadence-blocks' ),
-					align: 'top',
-				},
-				{
-					icon: alignCenter,
-					title: __( 'Middle', 'kadence-blocks' ),
-					align: 'middle',
-				},
-				{
-					icon: alignTop,
-					title: __( 'Top', 'kadence-blocks' ),
-					align: 'bottom',
-				},
-				{
-					icon: verticalSpaceBetween,
-					title: __( 'Space Between', 'kadence-blocks' ),
-					align: 'space-between',
-				},
-				{
-					icon: verticalSpaceAround,
-					title: __( 'Space Around', 'kadence-blocks' ),
-					align: 'space-around',
-				},
-				{
-					icon: verticalSpaceEvenly,
-					title: __( 'Space Evenly', 'kadence-blocks' ),
-					align: 'space-evenly',
-				},
-			]
-		} else {
-			controls = [
-				{
-					icon: alignTop,
-					title: __( 'Top', 'kadence-blocks' ),
-					align: 'top',
-				},
-				{
-					icon: alignCenter,
-					title: __( 'Middle', 'kadence-blocks' ),
-					align: 'middle',
-				},
-				{
-					icon: alignBottom,
-					title: __( 'Bottom', 'kadence-blocks' ),
-					align: 'bottom',
-				},
-				{
-					icon: verticalSpaceBetween,
-					title: __( 'Space Between', 'kadence-blocks' ),
-					align: 'space-between',
-				},
-				{
-					icon: verticalSpaceAround,
-					title: __( 'Space Around', 'kadence-blocks' ),
-					align: 'space-around',
-				},
-				{
-					icon: verticalSpaceEvenly,
-					title: __( 'Space Evenly', 'kadence-blocks' ),
-					align: 'space-evenly',
-				},
-			]
-		}
+			break;
+		case 'justify-content':
+			console.log( 'previewDirection', previewDirection );
+			switch ( previewDirection ) {
+				case 'column':
+					controls = [
+						{
+							icon: justifyLeft,
+							title: __( 'Start', 'kadence-blocks' ),
+							align: 'flex-start',
+						},
+						{
+							icon: justifyCenter,
+							title: __( 'Center', 'kadence-blocks' ),
+							align: 'center',
+						},
+						{
+							icon: justifyRight,
+							title: __( 'End', 'kadence-blocks' ),
+							align: 'flex-end',
+						},
+						{
+							icon: justifyStretch,
+							title: __( 'Stretch', 'kadence-blocks' ),
+							align: 'stretch',
+						},
+					]
+					break;
+				case 'column-reverse':
+					controls = [
+						{
+							icon: justifyRight,
+							title: __( 'Start', 'kadence-blocks' ),
+							align: 'flex-start',
+						},
+						{
+							icon: justifyCenter,
+							title: __( 'Center', 'kadence-blocks' ),
+							align: 'center',
+						},
+						{
+							icon: justifyLeft,
+							title: __( 'End', 'kadence-blocks' ),
+							align: 'flex-end',
+						},
+						{
+							icon: justifyStretch,
+							title: __( 'Stretch', 'kadence-blocks' ),
+							align: 'stretch',
+						},
+					]
+					break;
+				case 'row':
+					controls = [
+						{
+							icon: justifyLeft,
+							title: __( 'Start', 'kadence-blocks' ),
+							align: 'flex-start',
+						},
+						{
+							icon: justifyCenter,
+							title: __( 'Center', 'kadence-blocks' ),
+							align: 'center',
+						},
+						{
+							icon: justifyRight,
+							title: __( 'End', 'kadence-blocks' ),
+							align: 'flex-end',
+						},
+						{
+							icon: justifySpaceBetween,
+							title: __( 'Space Between', 'kadence-blocks' ),
+							align: 'space-between',
+						},
+						{
+							icon: spaceAround,
+							title: __( 'Space Around', 'kadence-blocks' ),
+							align: 'space-around',
+						},
+						{
+							icon: spaceEvenly,
+							title: __( 'Space Evenly', 'kadence-blocks' ),
+							align: 'space-evenly',
+						},
+					]
+					break;
+			}
 	}
 	const output = {};
 	output.Mobile = (
@@ -383,7 +247,7 @@ export default function RadioButtonControl( {
 		/>
 	);
 	return (
-		<div className={ `components-base-control kbs-control kbs-radio-control kbs-radio-control-${ type }` }>
+		<div className={ `components-base-control kbs-control kbs-radio-control kbs-radio-control-${ radioType }` }>
 			<TitleBar
 				label={ label }
 				reset={ reset }

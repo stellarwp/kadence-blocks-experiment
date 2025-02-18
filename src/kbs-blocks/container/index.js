@@ -14,7 +14,7 @@ import{ SECTION_ICON } from './constants';
 import edit from './edit';
 import metadata from './block.json';
 
-registerBlockType('kbs/column', {
+registerBlockType('kbs/container', {
 	...metadata,
 	title: _x('Container', 'block title', 'kadence-blocks'),
 	description: __('A container to style a section of content.', 'kadence-blocks'),

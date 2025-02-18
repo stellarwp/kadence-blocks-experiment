@@ -16,6 +16,13 @@ import { debounce } from 'lodash';
 import {
 	RadioButtonControl,
 } from '@kadence/kbsComponents';
+/**
+ * Kadence Helpers.
+ */
+import {
+	uniqueIdHelper,
+	getPreviewValue,
+} from '@kadence/kbsHelpers';
 import {
 	CopyPasteAttributes,
 	KadencePanelBody,
@@ -49,6 +56,7 @@ import { ToggleControl, SelectControl, ToolbarGroup, ExternalLink } from '@wordp
  */
 export default function InspectorGeneral(props) {
 	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className } = props;
+	const previewDirection = getPreviewValue( 'direction', attributes, metadata, previewDevice );
 	return (
 		<>
 			<KadencePanelBody
@@ -60,9 +68,17 @@ export default function InspectorGeneral(props) {
 					attributes={ attributes }
 					setAttributes={ setAttributes }
 					attributeName={ 'direction' }
-					type={ metadata?.attributes?.direction?.property }
-					initial={ metadata?.attributes?.direction?.initial }
 					previewDevice={ previewDevice }
+					meta={ metadata?.attributes?.direction }
+				/>
+				<RadioButtonControl
+					label={__('Justify Content', 'kadence-blocks')}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					attributeName={ 'justify' }
+					meta={ metadata?.attributes?.justify }
+					previewDevice={ previewDevice }
+					previewDirection={ previewDirection }
 				/>
 			</KadencePanelBody>
 		</>
