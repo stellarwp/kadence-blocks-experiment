@@ -45,7 +45,6 @@ class CSSGenerator {
                 case 'justify-content':
                 case 'row-gap':
                 case 'column-gap':
-                case 'font-family':
                     this.renderStringProperty( mergedAttribute, meta.selector, previewDevice );
                     break;
             }
