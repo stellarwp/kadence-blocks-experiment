@@ -1,6 +1,6 @@
 import { getPreviewSize, KadenceColorOutput, getSpacingOptionOutput } from '@kadence/helpers';
 import { useRef, useMemo } from '@wordpress/element';
-import { cssGenerator } from '@kadence/kbsHelpers';
+import { cssGenerator, getGoogleFontUrl } from '@kadence/kbsHelpers';
 import metadata from '../block.json';
 
 export default function Styles(props) {
@@ -24,5 +24,17 @@ export default function Styles(props) {
 		return output;
 	}, [attributes, previewDevice]);
 
-	return <style>{cssOutput}</style>;
+	const googleFontUrl = useMemo(() => {
+		if (!metadata.attributes) {
+			return '';
+		}
+		return getGoogleFontUrl(attributes, metadata.attributes);
+	}, [attributes]);
+
+	return (
+		<>
+			{googleFontUrl && <link href={googleFontUrl} rel="stylesheet" />}
+			<style>{cssOutput}</style>
+		</>
+	);
 }

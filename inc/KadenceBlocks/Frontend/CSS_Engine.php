@@ -863,6 +863,8 @@ class CSS_Engine {
 			case 'justify-content':
 			case 'row-gap':
 			case 'column-gap':
+			case 'font-family':
+			case 'font-weight':
 				$this->array_string_property( $attributes_meta['selector'], $merged_attribute );
 				break;
 		}

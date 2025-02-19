@@ -5,6 +5,7 @@ import './editor.scss';
 
 export { default as KBSPanelBody } from './panel-body';
 export { default as RadioButtonControl } from './radio-button-control';
+export { default as SelectControl } from './select-control';
 
 // export { default as PopColorControl } from './pop-color-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';

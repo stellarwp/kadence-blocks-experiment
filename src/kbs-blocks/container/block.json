@@ -115,6 +115,19 @@
 		},
 		"linkExtras": {
 			"type": "object"
+		},
+		"fontFamily": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-font-family",
+			"property": "font-family",
+			"type": "object",
+			"initial": { "desktop": "Helvetica, sans-serif" }
+		},
+		"fontWeight": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-font-weight",
+			"property": "font-weight",
+			"type": "object"
 		}
 	},
 	"supports": {

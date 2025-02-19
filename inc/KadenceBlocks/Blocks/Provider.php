@@ -12,6 +12,7 @@ namespace KadenceWP\KadenceBlocks\Blocks;
 use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
 use KadenceWP\KadenceBlocks\Blocks\KBS\Container;
 use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
+use KadenceWP\KadenceBlocks\Frontend\Font_Engine;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -32,6 +33,9 @@ class Provider extends Service_Provider {
 		$this->container->when( Container::class )
 			->needs( CSS_Engine::class )
 			->give( $this->container->get( CSS_Engine::class ) );
+		$this->container->when( Container::class )
+			->needs( Font_Engine::class )
+			->give( $this->container->get( Font_Engine::class ) );
 		$this->container->singleton( Container::class, Container::class );
 		add_action( 'init', $this->container->callback( Container::class, 'on_init' ), 20 );
 		add_filter( 'kbs_blocks_to_generate_post_css', $this->container->callback( Container::class, 'register_blocks_to_generate_post_css' ) );

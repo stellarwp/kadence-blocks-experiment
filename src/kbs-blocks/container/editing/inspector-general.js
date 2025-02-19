@@ -15,6 +15,8 @@ import { debounce } from 'lodash';
  */
 import {
 	RadioButtonControl,
+	SelectControl,
+
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -49,7 +51,7 @@ import {
 	BlockControls,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { ToggleControl, SelectControl, ToolbarGroup, ExternalLink } from '@wordpress/components';
+import { ToggleControl, ToolbarGroup, ExternalLink } from '@wordpress/components';
 
 /**
  * Build the section edit.
@@ -98,6 +100,22 @@ export default function InspectorGeneral(props) {
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
 				/>
+			</KadencePanelBody>
+
+			<KadencePanelBody
+				title={__('Typography Settings', 'kadence-blocks')}
+				panelName={'kb-container-typography'}
+			>
+				<SelectControl
+					label={__('Font Family', 'kadence-blocks')}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					attributeName={ 'fontFamily' }
+					meta={ metadata?.attributes?.fontFamily }
+					previewDevice={ previewDevice }
+					initial={ metadata?.attributes?.fontFamily?.initial }
+				/>
+
 			</KadencePanelBody>
 		</>
 	);
