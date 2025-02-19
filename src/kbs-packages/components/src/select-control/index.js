@@ -17,45 +17,21 @@ import Select from 'react-select';
  */
 import { getDeviceValue, getDeviceAttributeSlug, getFontOptions } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
+import { DOT_STYLES, FONT_WEIGHT_OPTIONS } from './constants';
 import './editor.scss';
-
-// Dot styling helper
-const dot = (color = 'var(--kb-border-color, rgba(8, 115, 230, 0.55))') => ({
-	alignItems: 'center',
-	display: 'flex',
-	':before': {
-		backgroundColor: color,
-		borderRadius: '8px',
-		content: '" "',
-		display: 'block',
-		marginRight: '6px',
-		height: '10px',
-		width: '10px',
-	},
-});
 
 // Custom styles for the Select component
 const getCustomStyles = (isInherited) => ({
 	placeholder: (styles) => ({ 
 		...styles, 
 		...(isInherited ? {
-			...dot(),
+			...DOT_STYLES,
 			color: 'var(--kb-text-color-opacity, rgba(0, 0, 0, 0.6))'
 		} : {
 			color: 'var(--kb-text-color-opacity, rgba(0, 0, 0, 1.0))'
 		}),	}),
 });
 
-// Font Weight Options
-const FONT_WEIGHT_OPTIONS = [
-	{ label: __('Default', 'kadence-blocks'), value: '' },
-	{ label: __('Light (300)', 'kadence-blocks'), value: '300' },
-	{ label: __('Regular (400)', 'kadence-blocks'), value: '400' },
-	{ label: __('Medium (500)', 'kadence-blocks'), value: '500' },
-	{ label: __('Semi Bold (600)', 'kadence-blocks'), value: '600' },
-	{ label: __('Bold (700)', 'kadence-blocks'), value: '700' },
-	{ label: __('Extra Bold (800)', 'kadence-blocks'), value: '800' },
-];
 
 /**
  * Build the Font Select control
