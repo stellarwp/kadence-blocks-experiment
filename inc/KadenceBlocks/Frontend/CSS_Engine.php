@@ -837,7 +837,7 @@ class CSS_Engine {
 					continue;
 				}
 
-				if( $attributes_meta['property'] === 'typography' ) {
+				if( in_array( $attributes_meta['property'], $this->complex_attributes ) ) {
 					$this->add_complex_attribute( $key, $attributes, $block_instance, $attributes_meta );
 				} else {
 					$this->add_attribute( $key, $attributes, $block_instance, $attributes_meta );
@@ -908,7 +908,7 @@ class CSS_Engine {
 			return $this;
 		}
 
-		switch ( in_array( $attributes_meta['property'], $this->complex_attributes ) ) {
+		switch ( $attributes_meta['property'] ) {
 			case 'typography':
 				$typography_properties = array(
 					array( 'key' => 'fontFamily', 'selector' => $attributes_meta['selector'] . '-font-family' ),
