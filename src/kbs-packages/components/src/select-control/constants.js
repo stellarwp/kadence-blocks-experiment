@@ -19,16 +19,3 @@ export const DOT_STYLES = {
 		width: '10px',
 	},
 };
-
-/**
- * Font Weight Options for select control
- */
-export const FONT_WEIGHT_OPTIONS = [
-	{ label: __('Default', 'kadence-blocks'), value: '' },
-	{ label: __('Light (300)', 'kadence-blocks'), value: '300' },
-	{ label: __('Regular (400)', 'kadence-blocks'), value: '400' },
-	{ label: __('Medium (500)', 'kadence-blocks'), value: '500' },
-	{ label: __('Semi Bold (600)', 'kadence-blocks'), value: '600' },
-	{ label: __('Bold (700)', 'kadence-blocks'), value: '700' },
-	{ label: __('Extra Bold (800)', 'kadence-blocks'), value: '800' },
-]; 

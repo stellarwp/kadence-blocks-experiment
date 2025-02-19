@@ -17,7 +17,7 @@ import Select from 'react-select';
  */
 import { getDeviceValue, getDeviceAttributeSlug, handleAttributeChange, getFontOptions, getFontWeightOptions } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
-import { DOT_STYLES, FONT_WEIGHT_OPTIONS } from './constants';
+import { DOT_STYLES } from './constants';
 import './editor.scss';
 
 // Custom styles for the Select component
