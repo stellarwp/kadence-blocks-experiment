@@ -14,6 +14,7 @@ import { debounce } from 'lodash';
  * Kadence Components.
  */
 import {
+	ToolsPanelBody,
 	RadioButtonControl,
 } from '@kadence/kbsComponents';
 /**
@@ -59,7 +60,7 @@ export default function InspectorGeneral(props) {
 	const previewDirection = getPreviewValue( 'direction', attributes, metadata, previewDevice );
 	return (
 		<>
-			<KadencePanelBody
+			<ToolsPanelBody
 				title={__('Flex Settings', 'kadence-blocks')}
 				panelName={'kbs-container-flex-settings'}
 			>
@@ -98,7 +99,7 @@ export default function InspectorGeneral(props) {
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
 				/>
-			</KadencePanelBody>
+			</ToolsPanelBody>
 		</>
 	);
 }

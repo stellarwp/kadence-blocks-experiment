@@ -3,7 +3,7 @@
  */
 import './editor.scss';
 
-export { default as KBSPanelBody } from './panel-body';
+export { default as ToolsPanelBody } from './tools-panel-body';
 export { default as RadioButtonControl } from './radio-button-control';
 
 // export { default as PopColorControl } from './pop-color-control';

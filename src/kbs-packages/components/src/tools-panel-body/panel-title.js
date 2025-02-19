@@ -6,6 +6,7 @@ import { compose } from '@wordpress/compose'
 import { withSelect, withDispatch } from '@wordpress/data'
 import { showSettings } from '@kadence/helpers';
 import { get } from 'lodash';
+import { forwardRef, useRef } from '@wordpress/element';
 
 const proSvg = <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style={ { paddingTop: '1px' } }>
 	<rect width="20" height="16" fill="#0073e6" rx="3" ry="3"></rect>
@@ -20,7 +21,71 @@ const proSvg = <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" st
 	</text>
 </svg>;
 
-function KBSPanelBody( {
+const PanelTitle = forwardRef(
+	(
+		{
+			tools,
+			isToggle = true,
+			isOpened,
+			icon,
+			title,
+			...props
+		}
+	) => {
+		if ( ! title ) {
+			return null;
+		}
+
+		return (
+			<h2 className="components-panel__body-title">
+				{ isToggle && (
+					<Button
+						__next40pxDefaultSize
+						className="components-panel__body-toggle"
+						aria-expanded={ isOpened }
+						ref={ ref }
+						{ ...props }
+					>
+						{ /*
+						Firefox + NVDA don't announce aria-expanded because the browser
+						repaints the whole element, so this wrapping span hides that.
+					*/ }
+						<span aria-hidden="true">
+							<Icon
+								className="components-panel__arrow"
+								icon={ isOpened ? chevronUp : chevronDown }
+							/>
+						</span>
+						{ title }
+						{ icon && (
+							<Icon
+								icon={ icon }
+								className="components-panel__icon"
+								size={ 20 }
+							/>
+						) }
+					</Button>
+				) }
+				{ ! isToggle && (
+					<span className="components-panel__body-title-text">
+						{ title }
+						{ icon && (
+							<Icon
+								icon={ icon }
+								className="components-panel__icon"
+								size={ 20 }
+							/>
+						) }
+					</span>
+				) }
+				{ tools && (
+					{ tools }
+				) }
+			</h2>
+		);
+	}
+);
+function ToolsPanelBody( {
 		children,
 		title,
 		initialOpen = true,
@@ -80,4 +145,4 @@ export default compose([
 			},
 		}
 	})
-])(KBSPanelBody)
+])(ToolsPanelBody)
