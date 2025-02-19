@@ -41,8 +41,6 @@ const groupFontAttributes = (attributes, attributesMeta) => {
         };
     });
 
-    console.log(fontGroups);
-
     return fontGroups;
 };
 

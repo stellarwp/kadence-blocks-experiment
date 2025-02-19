@@ -11,7 +11,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { map } from 'lodash';
 import { capitalizeFirstLetter } from '@kadence/helpers';
-import { getDeviceValue, getDeviceAttributeSlug } from '@kadence/kbsHelpers';
+import { getDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 
 import TitleBar from '../title-bar';
 import RadioButtonUI from './ui';
@@ -78,23 +78,16 @@ export default function RadioButtonControl( {
 		}
 		onChange( resetValue, 'all' );
 	}
-	const onChange = ( value, device ) => {
-		if ( customOnChange ) {
-			customOnChange( value, device );
-		} else {
-			// Deep clone the attributes object to trigger an update.
-			const newAttributes = JSON.parse( JSON.stringify( attributes ) );
-			if ( 'all' === device ) {
-				newAttributes[ attributeName ] = value;
-			} else {
-				const deviceSlug = getDeviceAttributeSlug( device );
-				if ( ! newAttributes[ attributeName ] ) {
-					newAttributes[ attributeName ] = {};
-				}
-				newAttributes[ attributeName ][ deviceSlug ] = value;
-			}
-			setAttributes( newAttributes );
-		}
+	const onChange = (value, device, type) => {
+		handleAttributeChange(
+			value,
+			device,
+			attributeName,
+			attributes,
+			setAttributes,
+			customOnChange,
+			type
+		);
 	};
 
 	let controls = '';
