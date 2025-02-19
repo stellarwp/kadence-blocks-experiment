@@ -119,6 +119,7 @@
 		"typography": {
 			"renderCSS": true,
 			"property": "typography",
+			"selector": "--kbs-cont",
 			"initial": {
 				"desktop": { 
 					"fontFamily": "Helvetica, sans-serif",

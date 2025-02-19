@@ -1,0 +1,29 @@
+import SelectControl from '../select-control';
+import { __ } from '@wordpress/i18n';
+
+export default function Typography({ label, attributes, setAttributes, meta, previewDevice, attributeName }) {
+
+    return (
+        <div>
+            <SelectControl
+                label={__('Font Family', 'kadence-blocks')}
+                attributes={attributes}
+                setAttributes={setAttributes}
+                attributeName={ attributeName }
+                meta={meta}
+                previewDevice={previewDevice}
+                type="fontFamily"
+            />
+
+            <SelectControl
+                label={__('Font Weight', 'kadence-blocks')}
+                attributes={attributes}
+                setAttributes={setAttributes}
+                attributeName={ attributeName }
+                meta={meta}
+                previewDevice={previewDevice}
+                type="fontWeight"
+            />
+        </div>
+    );
+}

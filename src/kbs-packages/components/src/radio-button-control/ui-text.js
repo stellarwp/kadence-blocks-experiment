@@ -31,7 +31,7 @@ function RadioTextButtonUI( {
 	const activeControl = controls.find(
 		( control ) => control.align === value || ( !value && control.align === inherited )
 	);
-	console.log( 'activeControl', activeControl );
+	// console.log( 'activeControl', activeControl );
 
 	function setIcon() {
 		if ( activeControl ) {

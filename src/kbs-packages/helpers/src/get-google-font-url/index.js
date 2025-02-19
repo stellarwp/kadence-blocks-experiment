@@ -3,16 +3,6 @@
  */
 
 /**
- * Get the suffix part of an attribute name (part after the underscore)
- * @param {string} attributeName - The full attribute name
- * @returns {string} The attribute suffix or empty string if no suffix
- */
-const getAttributeSuffix = (attributeName) => {
-    const parts = attributeName.split('_');
-    return parts.length > 1 ? parts[1] : '';
-};
-
-/**
  * Group font attributes by their suffix
  * @param {Object} attributes - Block attributes
  * @param {Object} attributesMeta - Block attributes metadata
@@ -21,31 +11,37 @@ const getAttributeSuffix = (attributeName) => {
 const groupFontAttributes = (attributes, attributesMeta) => {
     const fontGroups = {};
 
-    // Find all font-family and font-weight attributes
+    // Find all typography attributes
     Object.entries(attributesMeta).forEach(([key, meta]) => {
         if (!meta.renderCSS || !meta.property) {
             return;
         }
 
-        if (meta.property !== 'font-family' && meta.property !== 'font-weight') {
+        if (meta.property !== 'typography') {
             return;
         }
 
-        const suffix = getAttributeSuffix(key);
-        const groupKey = suffix || 'default';
-
-        if (!fontGroups[groupKey]) {
-            fontGroups[groupKey] = {};
+        if (!attributes[key]) {
+            return;
         }
 
-        if (meta.property === 'font-family') {
-            fontGroups[groupKey].family = attributes[key];
-            fontGroups[groupKey].familyMeta = meta;
-        } else if (meta.property === 'font-weight') {
-            fontGroups[groupKey].weight = attributes[key];
-            fontGroups[groupKey].weightMeta = meta;
-        }
+        const typography = attributes[key];
+        
+        fontGroups[key] = {
+            family: {
+                dt: typography?.dt?.fontFamily,
+                td: typography?.td?.fontFamily,
+                mb: typography?.mb?.fontFamily
+            },
+            weight: {
+                dt: typography?.dt?.fontWeight || '400',
+                td: typography?.td?.fontWeight || '400',
+                mb: typography?.mb?.fontWeight || '400'
+            }
+        };
     });
+
+    console.log(fontGroups);
 
     return fontGroups;
 };
@@ -72,36 +68,39 @@ const buildGoogleFontURL = (fontGroups) => {
 
     // Process each font group
     Object.values(fontGroups).forEach(group => {
-        // Get font family for all device sizes
-        const fontFamilies = [
-            group.family?.dt,
-            group.family?.td,
-            group.family?.mb
-        ].filter(Boolean);
+        // Create a mapping of font families to their device sizes
+        const deviceFonts = {
+            dt: { family: group.family?.dt, weight: group.weight?.dt },
+            td: { family: group.family?.td, weight: group.weight?.td },
+            mb: { family: group.family?.mb, weight: group.weight?.mb }
+        };
 
-        // Get weights for all device sizes
-        const weights = [
-            group.weight?.dt, 
-            group.weight?.td,
-            group.weight?.mb,
-            '400' // Default weight
-        ].filter(Boolean);
+        // For each device size, if it has a weight but no family, find the closest parent's family
+        ['mb', 'td', 'dt'].forEach((device, index, devices) => {
+            if (deviceFonts[device].weight && !deviceFonts[device].family) {
+                // Look for closest parent with a font family
+                for (let i = index + 1; i < devices.length; i++) {
+                    if (deviceFonts[devices[i]].family) {
+                        deviceFonts[device].family = deviceFonts[devices[i]].family;
+                        break;
+                    }
+                }
+            }
+        });
 
-        // Process each font family
-        fontFamilies.forEach(fontFamily => {
-            if (!isGoogleFont(fontFamily)) {
+        // Process fonts for each device size
+        Object.values(deviceFonts).forEach(({ family, weight }) => {
+            if (!family || !isGoogleFont(family)) {
                 return;
             }
 
-            if (fonts.has(fontFamily)) {
-                const existingWeights = fonts.get(fontFamily);
-                weights.forEach(weight => {
-                    if (!existingWeights.includes(weight)) {
-                        existingWeights.push(weight);
-                    }
-                });
+            if (fonts.has(family)) {
+                const existingWeights = fonts.get(family);
+                if (weight && !existingWeights.includes(weight)) {
+                    existingWeights.push(weight);
+                }
             } else {
-                fonts.set(fontFamily, [...new Set(weights)]);
+                fonts.set(family, weight ? [weight] : ['400']);
             }
         });
     });
@@ -113,7 +112,7 @@ const buildGoogleFontURL = (fontGroups) => {
     // Build the URL
     const familyStrings = [];
     fonts.forEach((weights, family) => {
-        const weightString = weights.join(',');
+        const weightString = [...new Set(weights)].join(',');
         familyStrings.push(`${family.replace(/ /g, '+')}:${weightString}`);
     });
 

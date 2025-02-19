@@ -111,45 +111,68 @@ class Font_Engine {
 			return;
 		}
 
-		$font_groups = $this->group_font_attributes( $attributes, $attributes_meta );
-		$fonts = [];
+        $font_attributes = [];
+        $fonts = [];
 
-		foreach ( $font_groups as $group ) {
-			if ( empty( $group['family'] ) ) {
-				continue;
-			}
+        foreach( $attributes_meta as $key => $meta ) {
+            if( empty( $meta['renderCSS'] ) || empty( $meta['property'] ) ) {
+                continue;
+            }
+            
+            if( $meta['property'] === 'typography' && !empty( $attributes[ $meta['property'] ] ) ) {
+                $font_attributes[] = $attributes[ $meta['property'] ];
+            }
+        }
+		foreach ( $font_attributes as $group ) {
+			// Get font families for each device size
+			$dt_font = $group['dt']['fontFamily'] ?? null;
+			$td_font = $group['td']['fontFamily'] ?? $dt_font; // Fallback to desktop
+			$mb_font = $group['mb']['fontFamily'] ?? $td_font ?? $dt_font; // Fallback to tablet or desktop
 
-			$font_families = array_filter( [
-				$group['family']['dt'] ?? null,
-				$group['family']['td'] ?? null,
-				$group['family']['mb'] ?? null,
-			] );
+			// Get weights for each device size
+			$dt_weight = $group['dt']['fontWeight'] ?? '400';
+			$td_weight = $group['td']['fontWeight'] ?? '400';
+			$mb_weight = $group['mb']['fontWeight'] ?? '400';
 
-			$weights = array_filter( [
-				$group['weight']['dt'] ?? null,
-				$group['weight']['td'] ?? null,
-				$group['weight']['mb'] ?? null,
-				'400', // Default weight
-			] );
-
-			foreach ( $font_families as $font_family ) {
-				if ( ! $this->is_google_font( $font_family ) ) {
-					continue;
-				}
-
-				$key = str_replace( ' ', '+', $font_family );
+			// Process desktop font and weight
+			if ( $dt_font && $this->is_google_font( $dt_font ) ) {
+				$key = str_replace( ' ', '+', $dt_font );
 				if ( ! isset( $fonts[ $key ] ) ) {
 					$fonts[ $key ] = [
-						'fontfamily'   => $font_family,
-						'fontvariants' => array_unique( $weights ),
+						'fontfamily'   => $dt_font,
+						'fontvariants' => [ $dt_weight ],
 					];
 				} else {
-					$fonts[ $key ]['fontvariants'] = array_unique( 
-						array_merge( 
-							$fonts[ $key ]['fontvariants'],
-							$weights
-						)
-					);
+					$fonts[ $key ]['fontvariants'][] = $dt_weight;
+					$fonts[ $key ]['fontvariants'] = array_unique( $fonts[ $key ]['fontvariants'] );
+				}
+			}
+
+			// Process tablet font and weight
+			if ( $td_font && $this->is_google_font( $td_font ) ) {
+				$key = str_replace( ' ', '+', $td_font );
+				if ( ! isset( $fonts[ $key ] ) ) {
+					$fonts[ $key ] = [
+						'fontfamily'   => $td_font,
+						'fontvariants' => [ $td_weight ],
+					];
+				} else {
+					$fonts[ $key ]['fontvariants'][] = $td_weight;
+					$fonts[ $key ]['fontvariants'] = array_unique( $fonts[ $key ]['fontvariants'] );
+				}
+			}
+
+			// Process mobile font and weight
+			if ( $mb_font && $this->is_google_font( $mb_font ) ) {
+				$key = str_replace( ' ', '+', $mb_font );
+				if ( ! isset( $fonts[ $key ] ) ) {
+					$fonts[ $key ] = [
+						'fontfamily'   => $mb_font,
+						'fontvariants' => [ $mb_weight ],
+					];
+				} else {
+					$fonts[ $key ]['fontvariants'][] = $mb_weight;
+					$fonts[ $key ]['fontvariants'] = array_unique( $fonts[ $key ]['fontvariants'] );
 				}
 			}
 		}
@@ -157,59 +180,6 @@ class Font_Engine {
 		if ( ! empty( $fonts ) ) {
 			$this->add_fonts( $fonts );
 		}
-	}
-
-	/**
-	 * Get Google Font URL from block attributes
-	 * This is kept for backwards compatibility but fonts should be processed through process_block_fonts
-	 *
-	 * @param array $attributes Block attributes.
-	 * @param array $attributes_meta Block attributes metadata.
-	 * @return string The Google Font URL.
-	 * @deprecated Use process_block_fonts() instead
-	 */
-	public function get_google_font_url( array $attributes, array $attributes_meta ): string {
-		if ( empty( $attributes ) || empty( $attributes_meta ) ) {
-			return '';
-		}
-
-		$font_groups = $this->group_font_attributes( $attributes, $attributes_meta );
-		$fonts = [];
-
-		foreach ( $font_groups as $group ) {
-			if ( empty( $group['family'] ) ) {
-				continue;
-			}
-
-			$font_families = array_filter( [
-				$group['family']['dt'] ?? null,
-				$group['family']['td'] ?? null,
-				$group['family']['mb'] ?? null,
-			] );
-
-			$weights = array_filter( [
-				$group['weight']['dt'] ?? null,
-				$group['weight']['td'] ?? null,
-				$group['weight']['mb'] ?? null,
-				'400', // Default weight
-			] );
-
-			foreach ( $font_families as $font_family ) {
-				if ( ! $this->is_google_font( $font_family ) ) {
-					continue;
-				}
-
-				$fonts[ $font_family ] = isset( $fonts[ $font_family ] )
-					? array_unique( array_merge( $fonts[ $font_family ], $weights ) )
-					: array_unique( $weights );
-			}
-		}
-
-		if ( empty( $fonts ) ) {
-			return '';
-		}
-
-		return $this->build_google_fonts_url( $fonts );
 	}
 
 	/**
@@ -266,44 +236,6 @@ class Font_Engine {
 	protected function get_attribute_suffix( string $attribute_name ): string {
 		$parts = explode( '_', $attribute_name );
 		return count( $parts ) > 1 ? $parts[1] : '';
-	}
-
-	/**
-	 * Group font attributes by their suffix
-	 *
-	 * @param array $attributes Block attributes.
-	 * @param array $attributes_meta Block attributes metadata.
-	 * @return array Grouped font attributes.
-	 */
-	protected function group_font_attributes( array $attributes, array $attributes_meta ): array {
-		$font_groups = [];
-
-		foreach ( $attributes_meta as $key => $meta ) {
-			if ( empty( $meta['renderCSS'] ) || empty( $meta['property'] ) ) {
-				continue;
-			}
-
-			if ( $meta['property'] !== 'font-family' && $meta['property'] !== 'font-weight' ) {
-				continue;
-			}
-
-			$suffix = $this->get_attribute_suffix( $key );
-			$group_key = $suffix ?: 'default';
-
-			if ( ! isset( $font_groups[ $group_key ] ) ) {
-				$font_groups[ $group_key ] = [];
-			}
-
-			if ( $meta['property'] === 'font-family' ) {
-				$font_groups[ $group_key ]['family'] = $attributes[ $key ] ?? null;
-				$font_groups[ $group_key ]['familyMeta'] = $meta;
-			} elseif ( $meta['property'] === 'font-weight' ) {
-				$font_groups[ $group_key ]['weight'] = $attributes[ $key ] ?? null;
-				$font_groups[ $group_key ]['weightMeta'] = $meta;
-			}
-		}
-
-		return $font_groups;
 	}
 
 	/**

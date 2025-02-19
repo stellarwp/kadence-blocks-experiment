@@ -15,7 +15,7 @@ import Select from 'react-select';
 /**
  * Internal dependencies
  */
-import { getDeviceValue, getDeviceAttributeSlug, getFontOptions } from '@kadence/kbsHelpers';
+import { getDeviceValue, getDeviceAttributeSlug, handleAttributeChange, getFontOptions, getFontWeightOptions } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES, FONT_WEIGHT_OPTIONS } from './constants';
 import './editor.scss';
@@ -52,40 +52,46 @@ export default function SelectControl({
 	initial,
 	meta,
 }) {
-	const desktopValue = getDeviceValue(attributeName, attributes, 'Desktop');
-	const tabletValue = getDeviceValue(attributeName, attributes, 'Tablet');
-	const mobileValue = getDeviceValue(attributeName, attributes, 'Mobile');
+	const desktopValue = getDeviceValue(attributeName, attributes, 'Desktop', type);
+	const tabletValue = getDeviceValue(attributeName, attributes, 'Tablet', type);
+	const mobileValue = getDeviceValue(attributeName, attributes, 'Mobile', type);
 
 	const initialValue = meta?.initial ?? initial;
 	const initialDesktop = initialValue?.desktop ?? '';
 	const initialTablet = initialValue?.tablet ?? initialDesktop;
 	const initialMobile = initialValue?.mobile ?? initialTablet;
+	
+	const currentValue = previewDevice === 'Desktop' ? desktopValue : previewDevice === 'Tablet' ? tabletValue : mobileValue;
+	const isCurrentValueInherited = currentValue === '';
+	const options = (() => {
+		switch (type) {
+			case 'fontFamily':
+				return getFontOptions();
+			case 'fontWeight':
+				const previewDeviceSlug = getDeviceAttributeSlug(previewDevice);
+				const fontFamily = attributes?.[attributeName]?.[previewDeviceSlug]?.fontFamily;
+				const availableWeights = getFontWeightOptions(fontFamily);
+				
+				// If the current weight is not in the available weights, set it to '400' or first available
+				const weightExists = availableWeights.some(option => option.value === currentValue);
+				if( !weightExists ){
+					const newWeight = availableWeights.find(option => option.value === '400')?.value || availableWeights[0]?.value;
+					handleAttributeChange(
+						newWeight,
+						previewDevice,
+						attributeName,
+						attributes,
+						setAttributes,
+						customOnChange,
+						'fontWeight'
+					);
+				}
 
-	const isInherited = (device) => {
-		const deviceValues = {
-			Desktop: desktopValue,
-			Tablet: tabletValue,
-			Mobile: mobileValue,
-		};
-		return deviceValues[device] === '';
-	};
-
-	const getValueForDevice = (device) => {
-		switch (device) {
-			case 'Desktop':
-				return desktopValue ?? initialDesktop;
-			case 'Tablet':
-				return tabletValue ?? (desktopValue || initialTablet);
-			case 'Mobile':
-				return mobileValue ?? (tabletValue || desktopValue || initialMobile);
+				return availableWeights;
 			default:
-				return '';
+				return [];
 		}
-	};
-
-	const currentValue = getValueForDevice(previewDevice);
-	const isCurrentValueInherited = isInherited(previewDevice);
-	const options = type === 'fontFamily' ? getFontOptions() : FONT_WEIGHT_OPTIONS;
+	})();
 
 	const findOptionByValue = (value) => {
 		if (!value) return null;
@@ -98,50 +104,30 @@ export default function SelectControl({
 		return options.find(option => option.value === value);
 	};
 
-	const getInheritedPlaceholderLabel = () => {
-		if (!isCurrentValueInherited) {
-			const matchingOption = findOptionByValue(currentValue);
-			return matchingOption ? matchingOption.label : currentValue;
-		}
-
-		const inheritedValues = {
+	const inheritedPlaceholderLabel = !isCurrentValueInherited 
+		? (findOptionByValue(currentValue)?.label || currentValue)
+		: (findOptionByValue({
 			Mobile: tabletValue || desktopValue || initialMobile,
 			Tablet: desktopValue || initialTablet,
 			Desktop: initialDesktop,
-		};
-
-		const inheritedValue = inheritedValues[previewDevice] ?? '';
-		const inheritedOption = findOptionByValue(inheritedValue);
-
-		return inheritedOption 
-			? `${inheritedOption.label}`
-			: __('Default', 'kadence-blocks');
-	};
-
-	const inheritedPlaceholderLabel = getInheritedPlaceholderLabel();
+		}[previewDevice] ?? '')?.label || __('Default', 'kadence-blocks'));
 
 	const onReset = () => {
-		onChange(defaultValue ?? undefined, 'all');
+		onChange(defaultValue ?? undefined, 'all', type);
 	};
 	
-	const onChange = ( value, device ) => {
-		if ( customOnChange ) {
-			customOnChange( value, device );
-		} else {
-			// Deep clone the attributes object to trigger an update.
-			const newAttributes = JSON.parse( JSON.stringify( attributes ) );
-			if ( 'all' === device ) {
-				newAttributes[ attributeName ] = value;
-			} else {
-				const deviceSlug = getDeviceAttributeSlug( device );
-				if ( ! newAttributes[ attributeName ] ) {
-					newAttributes[ attributeName ] = {};
-				}
-				newAttributes[ attributeName ][ deviceSlug ] = value;
-			}
-			setAttributes( newAttributes );
-		}
+	const onChange = (value, device, type) => {
+		handleAttributeChange(
+			value,
+			device,
+			attributeName,
+			attributes,
+			setAttributes,
+			customOnChange,
+			type
+		);
 	};
+	
 
 	const customStyles = getCustomStyles(isCurrentValueInherited);
 
@@ -160,7 +146,7 @@ export default function SelectControl({
 					key={previewDevice}
 					value={currentValue}
 					options={options}
-					onChange={(selectedOption) => onChange(selectedOption.value, previewDevice)}
+					onChange={(selectedOption) => onChange(selectedOption.value, previewDevice, type)}
 					className="kb-font-select"
 					styles={customStyles}
 					placeholder={inheritedPlaceholderLabel}
