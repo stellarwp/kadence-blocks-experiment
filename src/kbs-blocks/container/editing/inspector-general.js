@@ -15,8 +15,7 @@ import { debounce } from 'lodash';
  */
 import {
 	RadioButtonControl,
-	SelectControl,
-
+	Typography
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -106,14 +105,14 @@ export default function InspectorGeneral(props) {
 				title={__('Typography Settings', 'kadence-blocks')}
 				panelName={'kb-container-typography'}
 			>
-				<SelectControl
-					label={__('Font Family', 'kadence-blocks')}
+
+				<Typography
+					label={__('Typography', 'kadence-blocks')}
 					attributes={ attributes }
 					setAttributes={ setAttributes }
-					attributeName={ 'fontFamily' }
-					meta={ metadata?.attributes?.fontFamily }
+					meta={ metadata?.attributes?.typography }
 					previewDevice={ previewDevice }
-					initial={ metadata?.attributes?.fontFamily?.initial }
+					attributeName={ 'typography' }
 				/>
 
 			</KadencePanelBody>

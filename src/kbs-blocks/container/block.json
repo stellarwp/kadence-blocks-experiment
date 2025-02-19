@@ -116,17 +116,15 @@
 		"linkExtras": {
 			"type": "object"
 		},
-		"fontFamily": {
+		"typography": {
 			"renderCSS": true,
-			"selector": "--kbs-cont-font-family",
-			"property": "font-family",
-			"type": "object",
-			"initial": { "desktop": "Helvetica, sans-serif" }
-		},
-		"fontWeight": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-font-weight",
-			"property": "font-weight",
+			"property": "typography",
+			"initial": {
+				"desktop": { 
+					"fontFamily": "Helvetica, sans-serif",
+					"fontWeight": "400"
+				}
+			},
 			"type": "object"
 		}
 	},
