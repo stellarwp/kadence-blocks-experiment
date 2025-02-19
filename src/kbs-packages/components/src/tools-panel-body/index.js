@@ -112,7 +112,7 @@ export default function ToolsPanelBody( {
 							</MenuGroup>
 							<MenuGroup label={ __( 'Reset Component Settings', 'kadence-blocks' ) }>
 								<MenuItem
-									aria-disabled={ ! canResetAll }
+									disabled={ ! canResetAll }
 									variant="tertiary"
 									onClick={ () => {
 										if ( canResetAll ) {

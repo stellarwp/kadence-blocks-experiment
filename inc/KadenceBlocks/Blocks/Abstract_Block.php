@@ -11,7 +11,6 @@ declare( strict_types=1 );
 
 namespace KadenceWP\KadenceBlocks\Blocks;
 
-use KadenceWP\KadenceBlocks\Container;
 use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
 use function kbs_get_asset_file;
 
@@ -96,13 +95,6 @@ class Abstract_Block {
 	];
 
 	/**
-	 * The container instance.
-	 *
-	 * @var Container
-	 */
-	protected Container $container;
-
-	/**
 	 * The CSS engine instance.
 	 *
 	 * @var CSS_Engine
@@ -110,11 +102,11 @@ class Abstract_Block {
 	protected CSS_Engine $css_engine;
 
 	/**
-	 * @param  Container  $container The container instance.
-	 * @param  CSS_Engine $css_engine The CSS engine instance.
+	 * Constructor for abstract block.
+	 * 
+	 * @param CSS_Engine $css_engine The CSS engine instance.
 	 */
-	public function __construct( Container $container, CSS_Engine $css_engine ) {
-		$this->container  = $container;
+	public function __construct( CSS_Engine $css_engine ) {
 		$this->css_engine = $css_engine;
 	}
 

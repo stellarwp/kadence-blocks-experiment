@@ -5,7 +5,6 @@
 
 namespace KadenceWP\KadenceBlocks\Frontend;
 
-use KadenceWP\KadenceBlocks\Container;
 use WP_Block_Type_Registry;
 use function wp_register_block_metadata_collection;
 
@@ -17,19 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class to create a minified css output.
  */
 class Assets {
-	/**
-	 * The container instance.
-	 *
-	 * @var Container
-	 */
-	protected Container $container;
-
-	/**
-	 * @param  Container $container The container instance.
-	 */
-	public function __construct( Container $container ) {
-		$this->container = $container;
-	}
 	/**
 	 * Register the block metadata manifest.
 	 * Introduced in WP 6.7 to improve performance of block registration.
