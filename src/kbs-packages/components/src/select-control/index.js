@@ -15,7 +15,7 @@ import Select from 'react-select';
 /**
  * Internal dependencies
  */
-import { getDeviceValue, getDeviceAttributeSlug, handleAttributeChange, getFontOptions, getFontWeightOptions } from '@kadence/kbsHelpers';
+import { getDeviceValue, getInheritedDeviceValue, getDeviceAttributeSlug, handleAttributeChange, getFontOptions, getFontWeightOptions } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
 import './editor.scss';
@@ -52,17 +52,13 @@ export default function SelectControl({
 	initial,
 	meta,
 }) {
-	const desktopValue = getDeviceValue(attributeName, attributes, 'Desktop', type);
-	const tabletValue = getDeviceValue(attributeName, attributes, 'Tablet', type);
-	const mobileValue = getDeviceValue(attributeName, attributes, 'Mobile', type);
 
-	const initialValue = meta?.initial ?? initial;
-	const initialDesktop = initialValue?.desktop ?? '';
-	const initialTablet = initialValue?.tablet ?? initialDesktop;
-	const initialMobile = initialValue?.mobile ?? initialTablet;
-	
-	const currentValue = previewDevice === 'Desktop' ? desktopValue : previewDevice === 'Tablet' ? tabletValue : mobileValue;
+	const initialValue = meta?.initial ? meta?.initial : initial;
+	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, meta, type);	
+	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta?.property);
 	const isCurrentValueInherited = currentValue === '';
+	const customStyles = getCustomStyles(isCurrentValueInherited);
+
 	const options = (() => {
 		switch (type) {
 			case 'fontFamily':
@@ -73,19 +69,19 @@ export default function SelectControl({
 				const availableWeights = getFontWeightOptions(fontFamily);
 				
 				// If the current weight is not in the available weights, set it to '400' or first available
-				const weightExists = availableWeights.some(option => option.value === currentValue);
-				if( !weightExists ){
-					const newWeight = availableWeights.find(option => option.value === '400')?.value || availableWeights[0]?.value;
-					handleAttributeChange(
-						newWeight,
-						previewDevice,
-						attributeName,
-						attributes,
-						setAttributes,
-						customOnChange,
-						'fontWeight'
-					);
-				}
+				// const weightExists = availableWeights.some(option => option.value === currentValue);
+				// if( !weightExists ){
+				// 	const newWeight = availableWeights.find(option => option.value === '400')?.value || availableWeights[0]?.value;
+				// 	handleAttributeChange(
+				// 		newWeight,
+				// 		previewDevice,
+				// 		attributeName,
+				// 		attributes,
+				// 		setAttributes,
+				// 		customOnChange,
+				// 		'fontWeight'
+				// 	);
+				// }
 
 				return availableWeights;
 			default:
@@ -106,11 +102,8 @@ export default function SelectControl({
 
 	const inheritedPlaceholderLabel = !isCurrentValueInherited 
 		? (findOptionByValue(currentValue)?.label || currentValue)
-		: (findOptionByValue({
-			Mobile: tabletValue || desktopValue || initialMobile,
-			Tablet: desktopValue || initialTablet,
-			Desktop: initialDesktop,
-		}[previewDevice] ?? '')?.label || __('Default', 'kadence-blocks'));
+		: (findOptionByValue(inheritedValue.fontFamily)?.label || __('Default', 'kadence-blocks'));
+
 
 	const onReset = () => {
 		onChange(defaultValue ?? undefined, 'all', type);
@@ -124,12 +117,11 @@ export default function SelectControl({
 			attributes,
 			setAttributes,
 			customOnChange,
-			type
+			type,
+			meta
 		);
 	};
-	
 
-	const customStyles = getCustomStyles(isCurrentValueInherited);
 
 	return (
 		<div className={`components-base-control kb-${type}-select-control`}>

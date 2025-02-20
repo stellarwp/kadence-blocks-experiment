@@ -1,4 +1,3 @@
-export const COMPLEX_TYPES = [
-    'fontFamily',
-    'fontWeight'
+export const COMPLEX_PROPERTIES = [
+    'typography',
 ];

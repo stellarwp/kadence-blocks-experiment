@@ -15,7 +15,7 @@ export default function Typography({ label, attributes, setAttributes, meta, pre
                 type="fontFamily"
             />
 
-            <SelectControl
+            {/* <SelectControl
                 label={__('Font Weight', 'kadence-blocks')}
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -23,7 +23,7 @@ export default function Typography({ label, attributes, setAttributes, meta, pre
                 meta={meta}
                 previewDevice={previewDevice}
                 type="fontWeight"
-            />
+            /> */}
         </div>
     );
 }

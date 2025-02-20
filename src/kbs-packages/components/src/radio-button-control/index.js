@@ -76,7 +76,8 @@ export default function RadioButtonControl( {
 			attributes,
 			setAttributes,
 			customOnChange,
-			type
+			type,
+			meta
 		);
 	};
 

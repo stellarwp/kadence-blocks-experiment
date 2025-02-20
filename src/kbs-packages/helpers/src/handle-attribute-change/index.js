@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { COMPLEX_TYPES } from './constants';
+import { COMPLEX_PROPERTIES } from './constants';
 
 /**
  * Helper function to handle attribute changes in Kadence controls
@@ -19,7 +19,8 @@ export const handleAttributeChange = (
 	attributes,
 	setAttributes,
 	customOnChange,
-	type
+	type,
+    meta
 ) => {
 	if (customOnChange) {
 		customOnChange(value, device, type);
@@ -28,7 +29,8 @@ export const handleAttributeChange = (
 
 	// Deep clone the attributes object to trigger an update
 	const newAttributes = JSON.parse(JSON.stringify(attributes));
-	const isComplexType = COMPLEX_TYPES.includes(type);
+	const isComplexType = COMPLEX_PROPERTIES.includes( meta?.property );
+	const deviceOptions = kadence_blocks_params?.responsive_device_options || [];
 
 	// Handle simple 'all' device case first
 	if (device === 'all') {
@@ -36,10 +38,10 @@ export const handleAttributeChange = (
 			newAttributes[attributeName] = value;
 		} else {
 			// Set value for all devices for complex types
-			const deviceValues = ['dt', 'td', 'mb'].reduce((acc, deviceSlug) => ({
+			const deviceValues = deviceOptions.reduce((acc, deviceOption) => ({
 				...acc,
-				[deviceSlug]: {
-					...newAttributes[attributeName]?.[deviceSlug],
+				[deviceOption.key]: {
+					...newAttributes[attributeName]?.[deviceOption.key],
 					[type]: value
 				}
 			}), {});

@@ -1,9 +1,10 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { COMPLEX_TYPES } from '../handle-attribute-change/constants';
+import { COMPLEX_PROPERTIES } from '../handle-attribute-change/constants';
 /**
  * Simple get a device attribute value.
  */
-export default function getDeviceValue( attributeName, attributes, device, type ) {
+export default function getDeviceValue( attributeName, attributes, device, meta, type ) {
+	
 	const deviceSlug = getDeviceAttributeSlug( device );
 	let deviceValue = '';
 	if ( ! attributeName ) {
@@ -19,7 +20,7 @@ export default function getDeviceValue( attributeName, attributes, device, type 
 		return deviceValue;
 	}
 
-	if( COMPLEX_TYPES.includes( type ) ) {
+	if( COMPLEX_PROPERTIES.includes( meta?.property ) ) {
 		return attributes?.[attributeName]?.[deviceSlug]?.[type] ?? '';
 	}
 
