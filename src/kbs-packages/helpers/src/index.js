@@ -1,6 +1,7 @@
 
 export { default as uniqueIdHelper } from './unique-id-helper';
 export { default as getDeviceValue } from './get-device-value';
+export { default as getInheritedDeviceValue } from './get-inherited-device-value';
 export { default as getDeviceAttributeSlug } from './get-device-attribute-slug';
 export { default as cssGenerator } from './css-generator';
 export { default as getPreviewValue } from './get-preview-value';

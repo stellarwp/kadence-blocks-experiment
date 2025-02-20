@@ -8,13 +8,9 @@ export default function getDeviceAttributeSlug(device) {
 	}
 	// make lowercase
 	device = device.toLowerCase();
-	switch ( device ) {
-		case 'tablet':
-			deviceSlug = 'td';
-			break;
-		case 'mobile':
-			deviceSlug = 'mb';
-			break;
+	
+	if( kadence_blocks_params.responsive_device_options.find( option => option.key === device ) ){
+		deviceSlug = kadence_blocks_params.responsive_device_options.find( option => option.key === device ).attributeSlug;
 	}
 	return deviceSlug;
 }

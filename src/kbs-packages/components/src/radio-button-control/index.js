@@ -7,11 +7,12 @@
  * Internal block libraries
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useState, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { map } from 'lodash';
 import { capitalizeFirstLetter } from '@kadence/helpers';
-import { getDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
+import { getDeviceValue, getInheritedDeviceValue } from '@kadence/kbsHelpers';
+import { handleAttributeChange } from '@kadence/kbsHelpers';
 
 import TitleBar from '../title-bar';
 import RadioButtonUI from './ui';
@@ -37,9 +38,7 @@ import { AlignmentToolbar, JustifyToolbar, BlockVerticalAlignmentToolbar } from 
 
 import { alignBottom, alignCenter, alignTop, alignStretch, verticalSpaceBetween, verticalSpaceEvenly, verticalSpaceAround, spaceAround, spaceEvenly, wrap, nowrap } from './constants';
 
-
 import './editor.scss';
-
 
 /**
  * Build the Radio Button control.
@@ -62,15 +61,6 @@ export default function RadioButtonControl( {
 } ) {
 	const radioType = meta?.property ? meta?.property : type;
 	const initialValue = meta?.initial ? meta?.initial : initial;
-	const desktopValue = getDeviceValue( attributeName, attributes, 'Desktop' );
-	const tabletValue = getDeviceValue( attributeName, attributes, 'Tablet' );
-	const mobileValue = getDeviceValue( attributeName, attributes, 'Mobile' );
-	const initialDesktop = ( initialValue?.desktop ? initialValue.desktop : '' );
-	const initialTablet = ( initialValue?.tablet ? initialValue.tablet : initialDesktop );
-	const initialMobile = ( initialValue?.mobile ? initialValue.mobile : initialTablet );
-	const inheritedDesktop = initialDesktop;
-	const inheritedTablet = ( desktopValue ? desktopValue : initialTablet );
-	const inheritedMobile = ( tabletValue ? tabletValue : ( desktopValue ? desktopValue : initialMobile ) );
 	const onReset = () => {
 		let resetValue = undefined;
 		if ( defaultValue ) {
@@ -374,34 +364,10 @@ export default function RadioButtonControl( {
 			}
 			break;
 	}
-	const output = {};
-	output.Mobile = (
-		<UIComponent
-			value={ ( mobileValue ? mobileValue : '' ) }
-			inherited={ ( inheritedMobile ? inheritedMobile : '' ) }
-			isCollapsed={ isCollapsed }
-			onChange={ ( itemValue ) => onChange( itemValue, 'Mobile' ) }
-			controls={ controls ? controls : undefined }
-		/>
-	);
-	output.Tablet = (
-		<UIComponent
-			value={ ( tabletValue ? tabletValue : '' ) }
-			inherited={ ( inheritedTablet ? inheritedTablet : '' ) }
-			isCollapsed={ isCollapsed }
-			onChange={ ( itemValue ) => onChange( itemValue, 'Tablet' ) }
-			controls={ controls ? controls : undefined }
-		/>
-	);
-	output.Desktop = (
-		<UIComponent
-			value={ ( desktopValue ? desktopValue : '' ) }
-			inherited={ ( inheritedDesktop ? inheritedDesktop : '' ) }
-			isCollapsed={ isCollapsed }
-			onChange={ ( itemValue ) => onChange( itemValue, 'Desktop' ) }
-			controls={ controls ? controls : undefined }
-		/>
-	);
+
+	const currentValue = getDeviceValue(attributeName, attributes, previewDevice);
+	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue);
+
 	return (
 		<div className={ `components-base-control kbs-control kbs-radio-control kbs-radio-control-${ radioType }` }>
 			<TitleBar
@@ -411,7 +377,13 @@ export default function RadioButtonControl( {
 				hasDeviceControls={true}
 			/>
 			<div className="kbs-control-inner">
-				{ ( output[ previewDevice ] ? output[ previewDevice ] : output.Desktop ) }
+				<UIComponent
+					value={ currentValue }
+					inherited={ inheritedValue }
+					isCollapsed={ isCollapsed }
+					onChange={ ( itemValue ) => onChange( itemValue, previewDevice ) }
+					controls={ controls ? controls : undefined }
+				/>
 			</div>
 		</div>
 	);

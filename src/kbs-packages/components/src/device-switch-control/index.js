@@ -1,25 +1,30 @@
 /**
- * Responsive Range Component
- *
+ * Responsive Device Switch Component
  */
 
 /**
  * Internal block libraries
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { map } from 'lodash';
 import { capitalizeFirstLetter } from '@kadence/helpers';
-import { mobile, tablet, desktop } from '@wordpress/icons'
+import { mobile, tablet, desktop } from '@wordpress/icons';
 import {
 	Dashicon,
 	Button,
 	ButtonGroup,
 } from '@wordpress/components';
 import './editor.scss';
+
+const availableIcons = {
+	desktop,
+	tablet,
+	mobile,
+};
 /**
- * Build the Radio Button control.
+ * Build the Device Switch control.
  */
 export default function DeviceSwitchControl( ) {
 	const {
@@ -27,27 +32,18 @@ export default function DeviceSwitchControl( ) {
 	} = useDispatch( 'kadenceblocks/data' );
 	const deviceType = useSelect( ( select ) => {
 		return select( 'kadenceblocks/data' ).getPreviewDeviceType();
-	}, [] );	
-	const devices = [
-		{
-			name: 'Desktop',
-			key: 'desktop',
-			icon: desktop,
-			itemClass: 'kbs-desk-size',
-		},
-		{
-			name: 'Tablet',
-			key: 'tablet',
-			icon: tablet,
-			itemClass: 'kbs-tablet-size',
-		},
-		{
-			name: 'Mobile',
-			key: 'mobile',
-			icon: mobile,
-			itemClass: 'kbs-mobile-size',
-		},
-	];
+	}, [] );
+
+	const devices = useMemo( () => {
+		if ( kadence_blocks_params.responsive_device_options && kadence_blocks_params.responsive_device_options.length > 0 ) {
+			return kadence_blocks_params.responsive_device_options.map(device => ({
+				...device,
+				icon: typeof device.icon === 'string' && availableIcons[device.icon] ? availableIcons[device.icon] : desktop
+			}));
+		}
+		return [];
+	}, [ kadence_blocks_params.responsive_device_options ] );
+	
 	return (
 		<ButtonGroup className="kbs-device-options kbs-device-button-group" aria-label={ __( 'Select Device', 'kadence-blocks' ) }>
 			{ map( devices, ( { name, key, icon, itemClass } ) => (
