@@ -2,139 +2,134 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Get standard font options
  * @returns {Array} Array of standard font options
  */
 export const getStandardFontOptions = () => [
-	{ label: 'Default', value: '', google: false },
-	{ label: 'Arial, Helvetica, sans-serif', value: 'Arial, Helvetica, sans-serif', google: false },
-	{ label: '"Arial Black", Gadget, sans-serif', value: '"Arial Black", Gadget, sans-serif', google: false },
-	{ label: 'Helvetica, sans-serif', value: 'Helvetica, sans-serif', google: false },
-	{ label: '"Comic Sans MS", cursive, sans-serif', value: '"Comic Sans MS", cursive, sans-serif', google: false },
-	{ label: 'Impact, Charcoal, sans-serif', value: 'Impact, Charcoal, sans-serif', google: false },
-	{ label: '"Lucida Sans Unicode", "Lucida Grande", sans-serif', value: '"Lucida Sans Unicode", "Lucida Grande", sans-serif', google: false },
-	{ label: 'Tahoma, Geneva, sans-serif', value: 'Tahoma, Geneva, sans-serif', google: false },
-	{ label: '"Trebuchet MS", Helvetica, sans-serif', value: '"Trebuchet MS", Helvetica, sans-serif', google: false },
-	{ label: 'Verdana, Geneva, sans-serif', value: 'Verdana, Geneva, sans-serif', google: false },
-	{ label: 'Georgia, serif', value: 'Georgia, serif', google: false },
-	{ label: '"Palatino Linotype", "Book Antiqua", Palatino, serif', value: '"Palatino Linotype", "Book Antiqua", Palatino, serif', google: false },
-	{ label: '"Times New Roman", Times, serif', value: '"Times New Roman", Times, serif', google: false },
-	{ label: 'Courier, monospace', value: 'Courier, monospace', google: false },
-	{ label: '"Lucida Console", Monaco, monospace', value: '"Lucida Console", Monaco, monospace', google: false },
+	{ label: 'Default', value: '', source: 'system' },
+	{ label: 'Arial, Helvetica, sans-serif', value: 'Arial, Helvetica, sans-serif', source: 'system' },
+	{ label: '"Arial Black", Gadget, sans-serif', value: '"Arial Black", Gadget, sans-serif', source: 'system' },
+	{ label: 'Helvetica, sans-serif', value: 'Helvetica, sans-serif', source: 'system' },
+	{ label: '"Comic Sans MS", cursive, sans-serif', value: '"Comic Sans MS", cursive, sans-serif', source: 'system' },
+	{ label: 'Impact, Charcoal, sans-serif', value: 'Impact, Charcoal, sans-serif', source: 'system' },
+	{ label: '"Lucida Sans Unicode", "Lucida Grande", sans-serif', value: '"Lucida Sans Unicode", "Lucida Grande", sans-serif', source: 'system' },
+	{ label: 'Tahoma, Geneva, sans-serif', value: 'Tahoma, Geneva, sans-serif', source: 'system' },
+	{ label: '"Trebuchet MS", Helvetica, sans-serif', value: '"Trebuchet MS", Helvetica, sans-serif', source: 'system' },
+	{ label: 'Verdana, Geneva, sans-serif', value: 'Verdana, Geneva, sans-serif', source: 'system' },
+	{ label: 'Georgia, serif', value: 'Georgia, serif', source: 'system' },
+	{ label: '"Palatino Linotype", "Book Antiqua", Palatino, serif', value: '"Palatino Linotype", "Book Antiqua", Palatino, serif', source: 'system' },
+	{ label: '"Times New Roman", Times, serif', value: '"Times New Roman", Times, serif', source: 'system' },
+	{ label: 'Courier, monospace', value: 'Courier, monospace', source: 'system' },
+	{ label: '"Lucida Console", Monaco, monospace', value: '"Lucida Console", Monaco, monospace', source: 'system' },
 ];
 
 /**
- * Get theme font options if Kadence theme is active
- * @returns {Array} Array of theme font options
- */
-export const getThemeFontOptions = () => {
-	const isKadenceT = (typeof kadence_blocks_params !== 'undefined' && kadence_blocks_params?.isKadenceT);
-	if (!isKadenceT) return [];
-
-	return [
-		{ label: 'Inherit Heading Font Family', value: 'var( --global-heading-font-family, inherit )', google: false },
-		{ label: 'Inherit Body Font Family', value: 'var( --global-body-font-family, inherit )', google: false },
-	];
-};
-
-/**
- * Get Google font options from kadence_blocks_params
- * @returns {Array} Array of Google font options
- */
-export const getGoogleFontOptions = () => {
-	if (typeof kadence_blocks_params === 'undefined' || !kadence_blocks_params.g_font_names) {
-		return [];
-	}
-
-	return kadence_blocks_params.g_font_names.map((name) => ({
-		label: name,
-		value: name,
-		google: true
-	}));
-};
-
-/**
- * Get custom font options from kadence_blocks_params
- * @returns {Array} Array of custom font options
- */
-export const getCustomFontOptions = () => {
-	if (typeof kadence_blocks_params === 'undefined' || !kadence_blocks_params.c_fonts) {
-		return [];
-	}
-
-	return Object.keys(kadence_blocks_params.c_fonts).map(font => {
-		const name = kadence_blocks_params.c_fonts[font].name;
-		const weights = Object.keys(kadence_blocks_params.c_fonts[font].weights).map(weight => ({
-			value: kadence_blocks_params.c_fonts[font].weights[weight],
-			label: kadence_blocks_params.c_fonts[font].weights[weight],
-		}));
-		const styles = Object.keys(kadence_blocks_params.c_fonts[font].styles).map(style => ({
-			value: kadence_blocks_params.c_fonts[font].weights[style],
-			label: kadence_blocks_params.c_fonts[font].weights[style],
-		}));
-
-		return {
-			label: name,
-			value: name,
-			google: false,
-			weights,
-			styles,
-		};
-	});
-};
-
-/**
  * Get all font options grouped by type
- * @returns {Array} Array of font option groups
+ * @returns {Object} Object containing font options array and loading state
  */
-export const getFontOptions = () => {
+export const useFontOptions = () => {
+	const { fonts, loaded } = useSelect((select) => {
+		const { getFonts, areFontsLoaded } = select('kadenceblocks/data');
+		const fontData = getFonts();
+		return {
+			fonts: fontData,
+			loaded: areFontsLoaded()
+		};
+	}, []);
+
+	const { fetchFonts } = useDispatch('kadenceblocks/data');
+
+	useEffect(() => {
+		if (!loaded) {
+			fetchFonts();
+		}
+	}, [loaded, fetchFonts]);
+
 	let options = [];
 
+	// If not loaded yet, return standard fonts at minimum
+	if (!loaded) {
+		return {
+            fontOptions: [],
+			isLoadingFonts: true
+		};
+	} else {
+        // Add standard fonts
+        options.push({
+            type: 'group',
+            label: __('Standard Fonts', 'kadence-blocks'),
+            options: getStandardFontOptions(),
+        });
+    }
+
 	// Add theme fonts if available
-	const themeFonts = getThemeFontOptions();
-	if (themeFonts.length) {
-		options.push({
-			type: 'group',
-			label: __('Theme Global Fonts', 'kadence-blocks'),
-			options: themeFonts,
-		});
+	if (fonts?.theme) {
+		const themeOptions = Object.entries(fonts.theme).map(([family, data]) => ({
+			label: family,
+			value: family,
+			source: 'theme',
+			google: false,
+			weights: data.styles,
+			isVariable: data.is_variable
+		}));
+		
+		if (themeOptions.length) {
+			options.push({
+				type: 'group',
+				label: __('Theme Global Fonts', 'kadence-blocks'),
+				options: themeOptions,
+			});
+		}
 	}
 
 	// Add custom fonts if available
-	const customFonts = getCustomFontOptions();
-	if (customFonts.length) {
-		options.push({
-			type: 'group',
-			label: __('Custom Fonts', 'kadence-blocks'),
-			options: customFonts,
-		});
-	}
+	if (fonts?.custom) {
+		const customOptions = Object.entries(fonts.custom).map(([family, data]) => ({
+			label: family,
+			value: family,
+			source: 'kadence_custom',
+			google: false,
+			weights: data.styles,
+			isVariable: data.is_variable
+		}));
 
-	// Add standard fonts
-	options.push({
-		type: 'group',
-		label: __('Standard Fonts', 'kadence-blocks'),
-		options: getStandardFontOptions(),
-	});
+		if (customOptions.length) {
+			options.push({
+				type: 'group',
+				label: __('Custom Fonts', 'kadence-blocks'),
+				options: customOptions,
+			});
+		}
+	}
 
 	// Add Google fonts
-	const googleFonts = getGoogleFontOptions();
-	if (googleFonts.length) {
-		options.push({
-			type: 'group',
-			label: __('Google Fonts', 'kadence-blocks'),
-			options: googleFonts,
-		});
+	if (fonts?.google) {
+		const googleOptions = Object.entries(fonts.google).map(([family, data]) => ({
+			label: data.family,
+			value: family,
+			source: 'google',
+			google: true,
+			weights: data.styles,
+			isVariable: data.is_variable
+		}));
+
+		if (googleOptions.length) {
+			options.push({
+				type: 'group',
+				label: __('Google Fonts', 'kadence-blocks'),
+				options: googleOptions,
+			});
+		}
 	}
 
-	// Allow filtering of font options
-	if (typeof window.wp !== 'undefined' && window.wp.hooks) {
-		options = window.wp.hooks.applyFilters('kadence.typography_options', options);
-	}
-
-	return options;
+	return {
+		fontOptions: options,
+		isLoadingFonts: !loaded
+	};
 };
 
 /**
@@ -209,33 +204,3 @@ export const getFontWeightOptions = (fontFamily, fontGroup = '') => {
 
 	return standardWeights;
 };
-
-/**
- * Get font style options for a specific font
- * @param {string} fontFamily The font family to get styles for
- * @returns {Array} Array of font style options
- */
-export const getFontStyleOptions = (fontFamily) => {
-	const standardStyles = [
-		{ value: 'normal', label: __('Normal', 'kadence-blocks') },
-		{ value: 'italic', label: __('Italic', 'kadence-blocks') },
-	];
-
-	// Google fonts
-	if (typeof kadence_blocks_params !== 'undefined' && kadence_blocks_params.g_fonts && kadence_blocks_params.g_fonts[fontFamily]) {
-		return kadence_blocks_params.g_fonts[fontFamily].i.map(opt => ({
-			label: __(`${opt.charAt(0).toUpperCase()}${opt.slice(1)}`, 'kadence-blocks'),
-			value: opt
-		}));
-	}
-
-	// Custom fonts
-	if (typeof kadence_blocks_params !== 'undefined' && kadence_blocks_params.c_fonts) {
-		const customFont = Object.values(kadence_blocks_params.c_fonts).find(font => font.name === fontFamily);
-		if (customFont?.styles) {
-			return customFont.styles;
-		}
-	}
-
-	return standardStyles;
-}; 

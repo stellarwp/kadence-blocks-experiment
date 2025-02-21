@@ -1,5 +1,6 @@
 import { createReduxStore, register, createRegistrySelector, createRegistryControl } from '@wordpress/data';
 import { get } from 'lodash';
+import apiFetch from '@wordpress/api-fetch';
 
 const DEFAULT_STATE = {
 	previewDevice: 'Desktop',
@@ -12,6 +13,13 @@ const DEFAULT_STATE = {
 	imagePickerMultiSelection: [],
 	imagePickerResults: {},
 	imagePickerDownloadedImages: [],
+	fonts: {
+		standard: [],
+		google: [],
+		theme: [],
+		custom: [],
+		loaded: false
+	}
 };
 
 const actions = {
@@ -126,6 +134,41 @@ const actions = {
 			images,
 		};
 	},
+	*setFonts(fonts) {
+		return {
+			type: 'SET_FONTS',
+			fonts
+		};
+	},
+	*fetchFonts() {
+		const path = '/kb-fonts/v1/fonts';
+		try {
+			const response = yield {
+				type: 'API_FETCH',
+				request: { path }
+			};
+			return {
+				type: 'SET_FONTS',
+				fonts: {
+					google: response?.google || [],
+					theme: response?.theme_json || [],
+					custom: response?.kadence_custom || [],
+					loaded: true
+				}
+			};
+		} catch (error) {
+			console.error('Error fetching fonts:', error);
+			return {
+				type: 'SET_FONTS',
+				fonts: {
+					google: [],
+					theme: [],
+					custom: [],
+					loaded: true
+				}
+			};
+		}
+	}
 };
 
 const controls = {
@@ -150,6 +193,9 @@ const controls = {
 				return false;
 			}
 	),
+	API_FETCH({ request }) {
+		return apiFetch(request);
+	},
 };
 
 const getPreviewDeviceType = createRegistrySelector((select) => (state) => {
@@ -302,6 +348,15 @@ const store = createReduxStore('kadenceblocks/data', {
 					...state,
 					imagePickerDownloadedImages: action.images,
 				};
+			case 'SET_FONTS':
+				return {
+					...state,
+					fonts: {
+						...state.fonts,
+						...action.fonts,
+						loaded: true
+					}
+				};
 			default:
 				return state;
 		}
@@ -418,6 +473,12 @@ const store = createReduxStore('kadenceblocks/data', {
 			const { imagePickerDownloadedImages } = state;
 			return imagePickerDownloadedImages;
 		},
+		getFonts(state) {
+			return state.fonts;
+		},
+		areFontsLoaded(state) {
+			return state.fonts.loaded;
+		}
 	},
 });
 

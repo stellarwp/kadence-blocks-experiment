@@ -93,9 +93,6 @@ class Editor_Assets {
 			'kadence-blocks-js',
 			'kadence_blocks_params',
 			[
-				'g_fonts'                => $this->get_all_google_fonts(),
-				'g_font_names'           => file_exists( $gfont_names_path ) ? include $gfont_names_path : [],
-				'c_fonts'                => apply_filters( 'kadence_blocks_custom_fonts', [] ),
 				'responsive_device_options'  => $this->get_responsive_device_options(),
 			]
 		);
@@ -137,25 +134,5 @@ class Editor_Assets {
 		}
 
 		return $responsive_device_options;
-	}
-
-	/**
-	 * Get an array font weight options.
-	 */
-	public function get_all_google_fonts() {
-		if ( is_null( self::$google_fonts ) ) {
-			self::$google_fonts = file_exists( KADENCE_BLOCKS_PATH . 'includes/gfonts-array.php' ) ? include KADENCE_BLOCKS_PATH . 'includes/gfonts-array.php' : [];
-		}
-		return self::$google_fonts;
-	}
-	/**
-	 * Get an array font weight options.
-	 */
-	public function get_google_font_weights( $font ) {
-		$google_fonts = $this->get_all_google_fonts();
-		if ( isset( $google_fonts[ $font ]['w'] ) ) {
-			return $google_fonts[ $font ]['w'];
-		}
-		return '';
 	}
 }
