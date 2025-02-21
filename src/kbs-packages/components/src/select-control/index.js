@@ -15,23 +15,20 @@ import Select from 'react-select';
 /**
  * Internal dependencies
  */
-import { getDeviceValue, getInheritedDeviceValue, getDeviceAttributeSlug, handleAttributeChange, getFontOptions, getFontWeightOptions } from '@kadence/kbsHelpers';
+import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
+import { getPlaceholderLabel, useSelectOptions } from './helpers';
 import './editor.scss';
 
 // Custom styles for the Select component
 const getCustomStyles = (isInherited) => ({
-	placeholder: (styles) => ({ 
-		...styles, 
-		...(isInherited ? {
-			...DOT_STYLES,
-			color: 'var(--kb-text-color-opacity, rgba(0, 0, 0, 0.6))'
-		} : {
-			color: 'var(--kb-text-color-opacity, rgba(0, 0, 0, 1.0))'
-		}),	}),
+	placeholder: (styles) => ({
+		...styles,
+		...(isInherited && DOT_STYLES),
+		color: `var(--kb-text-color-opacity, rgba(0, 0, 0, ${isInherited ? 0.6 : 1.0}))`
+	}),
 });
-
 
 /**
  * Build the Font Select control
@@ -52,66 +49,43 @@ export default function SelectControl({
 	initial,
 	meta,
 }) {
-
 	const initialValue = meta?.initial ? meta?.initial : initial;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, meta, type);	
 	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta?.property);
 	const isCurrentValueInherited = currentValue === '';
 	const customStyles = getCustomStyles(isCurrentValueInherited);
+	
+	const { options, isLoadingOptions, loadingMessage } = useSelectOptions({
+		type,
+		attributes,
+		attributeName,
+		previewDevice,
+	});
 
-	const options = (() => {
-		switch (type) {
-			case 'fontFamily':
-				return getFontOptions();
-			case 'fontWeight':
-				const previewDeviceSlug = getDeviceAttributeSlug(previewDevice);
-				const fontFamily = attributes?.[attributeName]?.[previewDeviceSlug]?.fontFamily;
-				const availableWeights = getFontWeightOptions(fontFamily);
-				
-				// If the current weight is not in the available weights, set it to '400' or first available
-				// const weightExists = availableWeights.some(option => option.value === currentValue);
-				// if( !weightExists ){
-				// 	const newWeight = availableWeights.find(option => option.value === '400')?.value || availableWeights[0]?.value;
-				// 	handleAttributeChange(
-				// 		newWeight,
-				// 		previewDevice,
-				// 		attributeName,
-				// 		attributes,
-				// 		setAttributes,
-				// 		customOnChange,
-				// 		'fontWeight'
-				// 	);
-				// }
-
-				return availableWeights;
-			default:
-				return [];
-		}
-	})();
-
-	const findOptionByValue = (value) => {
-		if (!value) return null;
-
-		if (type === 'fontFamily') {
-			return options.reduce((found, group) => 
-				found || group.options.find(option => option.value === value), null);
-		}
-		
-		return options.find(option => option.value === value);
-	};
-
-	const inheritedPlaceholderLabel = !isCurrentValueInherited 
-		? (findOptionByValue(currentValue)?.label || currentValue)
-		: (findOptionByValue(inheritedValue.fontFamily)?.label || __('Default', 'kadence-blocks'));
-
+	const inheritedPlaceholderLabel = getPlaceholderLabel(currentValue, inheritedValue, type, options);
 
 	const onReset = () => {
 		onChange(defaultValue ?? undefined, 'all', type);
 	};
 	
 	const onChange = (value, device, type) => {
+		let updatedAttributes = value;
+
+		switch(type) {
+			case 'fontFamily': {
+				const selectedOption = options.flatMap(group => group.options).find(option => option.value === value);
+				updatedAttributes = {
+					[type]: value,
+					[type + 'Source']: selectedOption.source
+				};
+				break;
+			}
+			default:
+				break;
+		}
+
 		handleAttributeChange(
-			value,
+			updatedAttributes,
 			device,
 			attributeName,
 			attributes,
@@ -121,7 +95,6 @@ export default function SelectControl({
 			meta
 		);
 	};
-
 
 	return (
 		<div className={`components-base-control kb-${type}-select-control`}>
@@ -143,22 +116,11 @@ export default function SelectControl({
 					styles={customStyles}
 					placeholder={inheritedPlaceholderLabel}
 					isSearchable={true}
+					isLoading={isLoadingOptions}
+					loadingMessage={ () => loadingMessage}
 					onReset={onReset}
 					noOptionsMessage={() => __('No results match your search', 'kadence-blocks')}
 				/>
-				{isCurrentValueInherited && (
-					<div 
-						className="kb-font-select-inherited-label"
-						style={{
-							fontSize: '11px',
-							color: 'var(--kb-text-color-opacity, rgba(0, 0, 0, 0.6))',
-							marginTop: '4px',
-							fontStyle: 'italic',
-						}}
-					>
-						{__('Inherited value', 'kadence-blocks')}
-					</div>
-				)}
 			</div>
 		</div>
 	);
