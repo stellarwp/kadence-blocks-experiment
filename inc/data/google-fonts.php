@@ -2,7 +2,7 @@
 
 // This file is auto-generated. Do not edit manually.
 return array (
-  '42dot sans' => 
+  '42dot Sans' => 
   array (
     'family' => '42dot Sans',
     'variants' => 
@@ -26,7 +26,7 @@ return array (
       ),
     ),
   ),
-  'abeezee' => 
+  'ABeeZee' => 
   array (
     'family' => 'ABeeZee',
     'variants' => 
@@ -45,7 +45,7 @@ return array (
     array (
     ),
   ),
-  'adlam display' => 
+  'ADLaM Display' => 
   array (
     'family' => 'ADLaM Display',
     'variants' => 
@@ -64,7 +64,7 @@ return array (
     array (
     ),
   ),
-  'ar one sans' => 
+  'AR One Sans' => 
   array (
     'family' => 'AR One Sans',
     'variants' => 
@@ -95,7 +95,7 @@ return array (
       ),
     ),
   ),
-  'abel' => 
+  'Abel' => 
   array (
     'family' => 'Abel',
     'variants' => 
@@ -112,7 +112,7 @@ return array (
     array (
     ),
   ),
-  'abhaya libre' => 
+  'Abhaya Libre' => 
   array (
     'family' => 'Abhaya Libre',
     'variants' => 
@@ -135,7 +135,7 @@ return array (
     array (
     ),
   ),
-  'aboreto' => 
+  'Aboreto' => 
   array (
     'family' => 'Aboreto',
     'variants' => 
@@ -153,7 +153,7 @@ return array (
     array (
     ),
   ),
-  'abril fatface' => 
+  'Abril Fatface' => 
   array (
     'family' => 'Abril Fatface',
     'variants' => 
@@ -171,7 +171,7 @@ return array (
     array (
     ),
   ),
-  'abyssinica sil' => 
+  'Abyssinica SIL' => 
   array (
     'family' => 'Abyssinica SIL',
     'variants' => 
@@ -190,7 +190,7 @@ return array (
     array (
     ),
   ),
-  'aclonica' => 
+  'Aclonica' => 
   array (
     'family' => 'Aclonica',
     'variants' => 
@@ -208,7 +208,7 @@ return array (
     array (
     ),
   ),
-  'acme' => 
+  'Acme' => 
   array (
     'family' => 'Acme',
     'variants' => 
@@ -225,7 +225,7 @@ return array (
     array (
     ),
   ),
-  'actor' => 
+  'Actor' => 
   array (
     'family' => 'Actor',
     'variants' => 
@@ -242,7 +242,7 @@ return array (
     array (
     ),
   ),
-  'adamina' => 
+  'Adamina' => 
   array (
     'family' => 'Adamina',
     'variants' => 
@@ -259,7 +259,7 @@ return array (
     array (
     ),
   ),
-  'advent pro' => 
+  'Advent Pro' => 
   array (
     'family' => 'Advent Pro',
     'variants' => 
@@ -293,7 +293,7 @@ return array (
       ),
     ),
   ),
-  'afacad' => 
+  'Afacad' => 
   array (
     'family' => 'Afacad',
     'variants' => 
@@ -322,7 +322,7 @@ return array (
       ),
     ),
   ),
-  'afacad flux' => 
+  'Afacad Flux' => 
   array (
     'family' => 'Afacad Flux',
     'variants' => 
@@ -353,7 +353,7 @@ return array (
       ),
     ),
   ),
-  'agbalumo' => 
+  'Agbalumo' => 
   array (
     'family' => 'Agbalumo',
     'variants' => 
@@ -373,7 +373,7 @@ return array (
     array (
     ),
   ),
-  'agdasima' => 
+  'Agdasima' => 
   array (
     'family' => 'Agdasima',
     'variants' => 
@@ -392,7 +392,7 @@ return array (
     array (
     ),
   ),
-  'agu display' => 
+  'Agu Display' => 
   array (
     'family' => 'Agu Display',
     'variants' => 
@@ -417,7 +417,7 @@ return array (
       ),
     ),
   ),
-  'aguafina script' => 
+  'Aguafina Script' => 
   array (
     'family' => 'Aguafina Script',
     'variants' => 
@@ -435,7 +435,7 @@ return array (
     array (
     ),
   ),
-  'akatab' => 
+  'Akatab' => 
   array (
     'family' => 'Akatab',
     'variants' => 
@@ -459,7 +459,7 @@ return array (
     array (
     ),
   ),
-  'akaya kanadaka' => 
+  'Akaya Kanadaka' => 
   array (
     'family' => 'Akaya Kanadaka',
     'variants' => 
@@ -478,7 +478,7 @@ return array (
     array (
     ),
   ),
-  'akaya telivigala' => 
+  'Akaya Telivigala' => 
   array (
     'family' => 'Akaya Telivigala',
     'variants' => 
@@ -497,7 +497,7 @@ return array (
     array (
     ),
   ),
-  'akronim' => 
+  'Akronim' => 
   array (
     'family' => 'Akronim',
     'variants' => 
@@ -515,7 +515,7 @@ return array (
     array (
     ),
   ),
-  'akshar' => 
+  'Akshar' => 
   array (
     'family' => 'Akshar',
     'variants' => 
@@ -540,7 +540,7 @@ return array (
       ),
     ),
   ),
-  'aladin' => 
+  'Aladin' => 
   array (
     'family' => 'Aladin',
     'variants' => 
@@ -558,7 +558,7 @@ return array (
     array (
     ),
   ),
-  'alata' => 
+  'Alata' => 
   array (
     'family' => 'Alata',
     'variants' => 
@@ -577,7 +577,7 @@ return array (
     array (
     ),
   ),
-  'alatsi' => 
+  'Alatsi' => 
   array (
     'family' => 'Alatsi',
     'variants' => 
@@ -597,7 +597,7 @@ return array (
     array (
     ),
   ),
-  'albert sans' => 
+  'Albert Sans' => 
   array (
     'family' => 'Albert Sans',
     'variants' => 
@@ -622,7 +622,7 @@ return array (
       ),
     ),
   ),
-  'aldrich' => 
+  'Aldrich' => 
   array (
     'family' => 'Aldrich',
     'variants' => 
@@ -639,7 +639,7 @@ return array (
     array (
     ),
   ),
-  'alef' => 
+  'Alef' => 
   array (
     'family' => 'Alef',
     'variants' => 
@@ -659,7 +659,7 @@ return array (
     array (
     ),
   ),
-  'alegreya' => 
+  'Alegreya' => 
   array (
     'family' => 'Alegreya',
     'variants' => 
@@ -689,7 +689,7 @@ return array (
       ),
     ),
   ),
-  'alegreya sc' => 
+  'Alegreya SC' => 
   array (
     'family' => 'Alegreya SC',
     'variants' => 
@@ -721,7 +721,7 @@ return array (
     array (
     ),
   ),
-  'alegreya sans' => 
+  'Alegreya Sans' => 
   array (
     'family' => 'Alegreya Sans',
     'variants' => 
@@ -757,7 +757,7 @@ return array (
     array (
     ),
   ),
-  'alegreya sans sc' => 
+  'Alegreya Sans SC' => 
   array (
     'family' => 'Alegreya Sans SC',
     'variants' => 
@@ -793,7 +793,7 @@ return array (
     array (
     ),
   ),
-  'aleo' => 
+  'Aleo' => 
   array (
     'family' => 'Aleo',
     'variants' => 
@@ -819,7 +819,7 @@ return array (
       ),
     ),
   ),
-  'alex brush' => 
+  'Alex Brush' => 
   array (
     'family' => 'Alex Brush',
     'variants' => 
@@ -838,7 +838,7 @@ return array (
     array (
     ),
   ),
-  'alexandria' => 
+  'Alexandria' => 
   array (
     'family' => 'Alexandria',
     'variants' => 
@@ -864,7 +864,7 @@ return array (
       ),
     ),
   ),
-  'alfa slab one' => 
+  'Alfa Slab One' => 
   array (
     'family' => 'Alfa Slab One',
     'variants' => 
@@ -883,7 +883,7 @@ return array (
     array (
     ),
   ),
-  'alice' => 
+  'Alice' => 
   array (
     'family' => 'Alice',
     'variants' => 
@@ -903,7 +903,7 @@ return array (
     array (
     ),
   ),
-  'alike' => 
+  'Alike' => 
   array (
     'family' => 'Alike',
     'variants' => 
@@ -923,7 +923,7 @@ return array (
     array (
     ),
   ),
-  'alike angular' => 
+  'Alike Angular' => 
   array (
     'family' => 'Alike Angular',
     'variants' => 
@@ -943,7 +943,7 @@ return array (
     array (
     ),
   ),
-  'alkalami' => 
+  'Alkalami' => 
   array (
     'family' => 'Alkalami',
     'variants' => 
@@ -962,7 +962,7 @@ return array (
     array (
     ),
   ),
-  'alkatra' => 
+  'Alkatra' => 
   array (
     'family' => 'Alkatra',
     'variants' => 
@@ -989,7 +989,7 @@ return array (
       ),
     ),
   ),
-  'allan' => 
+  'Allan' => 
   array (
     'family' => 'Allan',
     'variants' => 
@@ -1008,7 +1008,7 @@ return array (
     array (
     ),
   ),
-  'allerta' => 
+  'Allerta' => 
   array (
     'family' => 'Allerta',
     'variants' => 
@@ -1025,7 +1025,7 @@ return array (
     array (
     ),
   ),
-  'allerta stencil' => 
+  'Allerta Stencil' => 
   array (
     'family' => 'Allerta Stencil',
     'variants' => 
@@ -1042,7 +1042,7 @@ return array (
     array (
     ),
   ),
-  'allison' => 
+  'Allison' => 
   array (
     'family' => 'Allison',
     'variants' => 
@@ -1061,7 +1061,7 @@ return array (
     array (
     ),
   ),
-  'allura' => 
+  'Allura' => 
   array (
     'family' => 'Allura',
     'variants' => 
@@ -1080,7 +1080,7 @@ return array (
     array (
     ),
   ),
-  'almarai' => 
+  'Almarai' => 
   array (
     'family' => 'Almarai',
     'variants' => 
@@ -1101,7 +1101,7 @@ return array (
     array (
     ),
   ),
-  'almendra' => 
+  'Almendra' => 
   array (
     'family' => 'Almendra',
     'variants' => 
@@ -1122,7 +1122,7 @@ return array (
     array (
     ),
   ),
-  'almendra display' => 
+  'Almendra Display' => 
   array (
     'family' => 'Almendra Display',
     'variants' => 
@@ -1140,7 +1140,7 @@ return array (
     array (
     ),
   ),
-  'almendra sc' => 
+  'Almendra SC' => 
   array (
     'family' => 'Almendra SC',
     'variants' => 
@@ -1157,7 +1157,7 @@ return array (
     array (
     ),
   ),
-  'alumni sans' => 
+  'Alumni Sans' => 
   array (
     'family' => 'Alumni Sans',
     'variants' => 
@@ -1185,7 +1185,7 @@ return array (
       ),
     ),
   ),
-  'alumni sans collegiate one' => 
+  'Alumni Sans Collegiate One' => 
   array (
     'family' => 'Alumni Sans Collegiate One',
     'variants' => 
@@ -1206,7 +1206,7 @@ return array (
     array (
     ),
   ),
-  'alumni sans inline one' => 
+  'Alumni Sans Inline One' => 
   array (
     'family' => 'Alumni Sans Inline One',
     'variants' => 
@@ -1226,7 +1226,7 @@ return array (
     array (
     ),
   ),
-  'alumni sans pinstripe' => 
+  'Alumni Sans Pinstripe' => 
   array (
     'family' => 'Alumni Sans Pinstripe',
     'variants' => 
@@ -1248,7 +1248,7 @@ return array (
     array (
     ),
   ),
-  'amarante' => 
+  'Amarante' => 
   array (
     'family' => 'Amarante',
     'variants' => 
@@ -1266,7 +1266,7 @@ return array (
     array (
     ),
   ),
-  'amaranth' => 
+  'Amaranth' => 
   array (
     'family' => 'Amaranth',
     'variants' => 
@@ -1286,7 +1286,7 @@ return array (
     array (
     ),
   ),
-  'amatic sc' => 
+  'Amatic SC' => 
   array (
     'family' => 'Amatic SC',
     'variants' => 
@@ -1308,7 +1308,7 @@ return array (
     array (
     ),
   ),
-  'amethysta' => 
+  'Amethysta' => 
   array (
     'family' => 'Amethysta',
     'variants' => 
@@ -1325,7 +1325,7 @@ return array (
     array (
     ),
   ),
-  'amiko' => 
+  'Amiko' => 
   array (
     'family' => 'Amiko',
     'variants' => 
@@ -1346,7 +1346,7 @@ return array (
     array (
     ),
   ),
-  'amiri' => 
+  'Amiri' => 
   array (
     'family' => 'Amiri',
     'variants' => 
@@ -1368,7 +1368,7 @@ return array (
     array (
     ),
   ),
-  'amiri quran' => 
+  'Amiri Quran' => 
   array (
     'family' => 'Amiri Quran',
     'variants' => 
@@ -1386,7 +1386,7 @@ return array (
     array (
     ),
   ),
-  'amita' => 
+  'Amita' => 
   array (
     'family' => 'Amita',
     'variants' => 
@@ -1406,7 +1406,7 @@ return array (
     array (
     ),
   ),
-  'anaheim' => 
+  'Anaheim' => 
   array (
     'family' => 'Anaheim',
     'variants' => 
@@ -1431,7 +1431,7 @@ return array (
       ),
     ),
   ),
-  'andada pro' => 
+  'Andada Pro' => 
   array (
     'family' => 'Andada Pro',
     'variants' => 
@@ -1457,7 +1457,7 @@ return array (
       ),
     ),
   ),
-  'andika' => 
+  'Andika' => 
   array (
     'family' => 'Andika',
     'variants' => 
@@ -1481,7 +1481,7 @@ return array (
     array (
     ),
   ),
-  'anek bangla' => 
+  'Anek Bangla' => 
   array (
     'family' => 'Anek Bangla',
     'variants' => 
@@ -1512,7 +1512,7 @@ return array (
       ),
     ),
   ),
-  'anek devanagari' => 
+  'Anek Devanagari' => 
   array (
     'family' => 'Anek Devanagari',
     'variants' => 
@@ -1543,7 +1543,7 @@ return array (
       ),
     ),
   ),
-  'anek gujarati' => 
+  'Anek Gujarati' => 
   array (
     'family' => 'Anek Gujarati',
     'variants' => 
@@ -1574,7 +1574,7 @@ return array (
       ),
     ),
   ),
-  'anek gurmukhi' => 
+  'Anek Gurmukhi' => 
   array (
     'family' => 'Anek Gurmukhi',
     'variants' => 
@@ -1605,7 +1605,7 @@ return array (
       ),
     ),
   ),
-  'anek kannada' => 
+  'Anek Kannada' => 
   array (
     'family' => 'Anek Kannada',
     'variants' => 
@@ -1636,7 +1636,7 @@ return array (
       ),
     ),
   ),
-  'anek latin' => 
+  'Anek Latin' => 
   array (
     'family' => 'Anek Latin',
     'variants' => 
@@ -1667,7 +1667,7 @@ return array (
       ),
     ),
   ),
-  'anek malayalam' => 
+  'Anek Malayalam' => 
   array (
     'family' => 'Anek Malayalam',
     'variants' => 
@@ -1698,7 +1698,7 @@ return array (
       ),
     ),
   ),
-  'anek odia' => 
+  'Anek Odia' => 
   array (
     'family' => 'Anek Odia',
     'variants' => 
@@ -1729,7 +1729,7 @@ return array (
       ),
     ),
   ),
-  'anek tamil' => 
+  'Anek Tamil' => 
   array (
     'family' => 'Anek Tamil',
     'variants' => 
@@ -1760,7 +1760,7 @@ return array (
       ),
     ),
   ),
-  'anek telugu' => 
+  'Anek Telugu' => 
   array (
     'family' => 'Anek Telugu',
     'variants' => 
@@ -1791,7 +1791,7 @@ return array (
       ),
     ),
   ),
-  'angkor' => 
+  'Angkor' => 
   array (
     'family' => 'Angkor',
     'variants' => 
@@ -1809,7 +1809,7 @@ return array (
     array (
     ),
   ),
-  'annapurna sil' => 
+  'Annapurna SIL' => 
   array (
     'family' => 'Annapurna SIL',
     'variants' => 
@@ -1831,7 +1831,7 @@ return array (
     array (
     ),
   ),
-  'annie use your telescope' => 
+  'Annie Use Your Telescope' => 
   array (
     'family' => 'Annie Use Your Telescope',
     'variants' => 
@@ -1849,7 +1849,7 @@ return array (
     array (
     ),
   ),
-  'anonymous pro' => 
+  'Anonymous Pro' => 
   array (
     'family' => 'Anonymous Pro',
     'variants' => 
@@ -1872,7 +1872,7 @@ return array (
     array (
     ),
   ),
-  'anta' => 
+  'Anta' => 
   array (
     'family' => 'Anta',
     'variants' => 
@@ -1892,7 +1892,7 @@ return array (
     array (
     ),
   ),
-  'antic' => 
+  'Antic' => 
   array (
     'family' => 'Antic',
     'variants' => 
@@ -1909,7 +1909,7 @@ return array (
     array (
     ),
   ),
-  'antic didone' => 
+  'Antic Didone' => 
   array (
     'family' => 'Antic Didone',
     'variants' => 
@@ -1926,7 +1926,7 @@ return array (
     array (
     ),
   ),
-  'antic slab' => 
+  'Antic Slab' => 
   array (
     'family' => 'Antic Slab',
     'variants' => 
@@ -1943,7 +1943,7 @@ return array (
     array (
     ),
   ),
-  'anton' => 
+  'Anton' => 
   array (
     'family' => 'Anton',
     'variants' => 
@@ -1962,7 +1962,7 @@ return array (
     array (
     ),
   ),
-  'anton sc' => 
+  'Anton SC' => 
   array (
     'family' => 'Anton SC',
     'variants' => 
@@ -1981,7 +1981,7 @@ return array (
     array (
     ),
   ),
-  'antonio' => 
+  'Antonio' => 
   array (
     'family' => 'Antonio',
     'variants' => 
@@ -2005,7 +2005,7 @@ return array (
       ),
     ),
   ),
-  'anuphan' => 
+  'Anuphan' => 
   array (
     'family' => 'Anuphan',
     'variants' => 
@@ -2031,7 +2031,7 @@ return array (
       ),
     ),
   ),
-  'anybody' => 
+  'Anybody' => 
   array (
     'family' => 'Anybody',
     'variants' => 
@@ -2063,7 +2063,7 @@ return array (
       ),
     ),
   ),
-  'aoboshi one' => 
+  'Aoboshi One' => 
   array (
     'family' => 'Aoboshi One',
     'variants' => 
@@ -2082,7 +2082,7 @@ return array (
     array (
     ),
   ),
-  'arapey' => 
+  'Arapey' => 
   array (
     'family' => 'Arapey',
     'variants' => 
@@ -2100,7 +2100,7 @@ return array (
     array (
     ),
   ),
-  'arbutus' => 
+  'Arbutus' => 
   array (
     'family' => 'Arbutus',
     'variants' => 
@@ -2118,7 +2118,7 @@ return array (
     array (
     ),
   ),
-  'arbutus slab' => 
+  'Arbutus Slab' => 
   array (
     'family' => 'Arbutus Slab',
     'variants' => 
@@ -2136,7 +2136,7 @@ return array (
     array (
     ),
   ),
-  'architects daughter' => 
+  'Architects Daughter' => 
   array (
     'family' => 'Architects Daughter',
     'variants' => 
@@ -2154,7 +2154,7 @@ return array (
     array (
     ),
   ),
-  'archivo' => 
+  'Archivo' => 
   array (
     'family' => 'Archivo',
     'variants' => 
@@ -2186,7 +2186,7 @@ return array (
       ),
     ),
   ),
-  'archivo black' => 
+  'Archivo Black' => 
   array (
     'family' => 'Archivo Black',
     'variants' => 
@@ -2204,7 +2204,7 @@ return array (
     array (
     ),
   ),
-  'archivo narrow' => 
+  'Archivo Narrow' => 
   array (
     'family' => 'Archivo Narrow',
     'variants' => 
@@ -2230,7 +2230,7 @@ return array (
       ),
     ),
   ),
-  'are you serious' => 
+  'Are You Serious' => 
   array (
     'family' => 'Are You Serious',
     'variants' => 
@@ -2249,7 +2249,7 @@ return array (
     array (
     ),
   ),
-  'aref ruqaa' => 
+  'Aref Ruqaa' => 
   array (
     'family' => 'Aref Ruqaa',
     'variants' => 
@@ -2269,7 +2269,7 @@ return array (
     array (
     ),
   ),
-  'aref ruqaa ink' => 
+  'Aref Ruqaa Ink' => 
   array (
     'family' => 'Aref Ruqaa Ink',
     'variants' => 
@@ -2289,7 +2289,7 @@ return array (
     array (
     ),
   ),
-  'arima' => 
+  'Arima' => 
   array (
     'family' => 'Arima',
     'variants' => 
@@ -2318,7 +2318,7 @@ return array (
       ),
     ),
   ),
-  'arimo' => 
+  'Arimo' => 
   array (
     'family' => 'Arimo',
     'variants' => 
@@ -2349,7 +2349,7 @@ return array (
       ),
     ),
   ),
-  'arizonia' => 
+  'Arizonia' => 
   array (
     'family' => 'Arizonia',
     'variants' => 
@@ -2368,7 +2368,7 @@ return array (
     array (
     ),
   ),
-  'armata' => 
+  'Armata' => 
   array (
     'family' => 'Armata',
     'variants' => 
@@ -2386,7 +2386,7 @@ return array (
     array (
     ),
   ),
-  'arsenal' => 
+  'Arsenal' => 
   array (
     'family' => 'Arsenal',
     'variants' => 
@@ -2410,7 +2410,7 @@ return array (
     array (
     ),
   ),
-  'arsenal sc' => 
+  'Arsenal SC' => 
   array (
     'family' => 'Arsenal SC',
     'variants' => 
@@ -2434,7 +2434,7 @@ return array (
     array (
     ),
   ),
-  'artifika' => 
+  'Artifika' => 
   array (
     'family' => 'Artifika',
     'variants' => 
@@ -2451,7 +2451,7 @@ return array (
     array (
     ),
   ),
-  'arvo' => 
+  'Arvo' => 
   array (
     'family' => 'Arvo',
     'variants' => 
@@ -2471,7 +2471,7 @@ return array (
     array (
     ),
   ),
-  'arya' => 
+  'Arya' => 
   array (
     'family' => 'Arya',
     'variants' => 
@@ -2491,7 +2491,7 @@ return array (
     array (
     ),
   ),
-  'asap' => 
+  'Asap' => 
   array (
     'family' => 'Asap',
     'variants' => 
@@ -2523,7 +2523,7 @@ return array (
       ),
     ),
   ),
-  'asap condensed' => 
+  'Asap Condensed' => 
   array (
     'family' => 'Asap Condensed',
     'variants' => 
@@ -2557,7 +2557,7 @@ return array (
     array (
     ),
   ),
-  'asar' => 
+  'Asar' => 
   array (
     'family' => 'Asar',
     'variants' => 
@@ -2576,7 +2576,7 @@ return array (
     array (
     ),
   ),
-  'asset' => 
+  'Asset' => 
   array (
     'family' => 'Asset',
     'variants' => 
@@ -2597,7 +2597,7 @@ return array (
     array (
     ),
   ),
-  'assistant' => 
+  'Assistant' => 
   array (
     'family' => 'Assistant',
     'variants' => 
@@ -2622,7 +2622,7 @@ return array (
       ),
     ),
   ),
-  'astloch' => 
+  'Astloch' => 
   array (
     'family' => 'Astloch',
     'variants' => 
@@ -2640,7 +2640,7 @@ return array (
     array (
     ),
   ),
-  'asul' => 
+  'Asul' => 
   array (
     'family' => 'Asul',
     'variants' => 
@@ -2658,7 +2658,7 @@ return array (
     array (
     ),
   ),
-  'athiti' => 
+  'Athiti' => 
   array (
     'family' => 'Athiti',
     'variants' => 
@@ -2683,7 +2683,7 @@ return array (
     array (
     ),
   ),
-  'atkinson hyperlegible' => 
+  'Atkinson Hyperlegible' => 
   array (
     'family' => 'Atkinson Hyperlegible',
     'variants' => 
@@ -2704,7 +2704,7 @@ return array (
     array (
     ),
   ),
-  'atma' => 
+  'Atma' => 
   array (
     'family' => 'Atma',
     'variants' => 
@@ -2727,7 +2727,7 @@ return array (
     array (
     ),
   ),
-  'atomic age' => 
+  'Atomic Age' => 
   array (
     'family' => 'Atomic Age',
     'variants' => 
@@ -2745,7 +2745,7 @@ return array (
     array (
     ),
   ),
-  'aubrey' => 
+  'Aubrey' => 
   array (
     'family' => 'Aubrey',
     'variants' => 
@@ -2762,7 +2762,7 @@ return array (
     array (
     ),
   ),
-  'audiowide' => 
+  'Audiowide' => 
   array (
     'family' => 'Audiowide',
     'variants' => 
@@ -2780,7 +2780,7 @@ return array (
     array (
     ),
   ),
-  'autour one' => 
+  'Autour One' => 
   array (
     'family' => 'Autour One',
     'variants' => 
@@ -2798,7 +2798,7 @@ return array (
     array (
     ),
   ),
-  'average' => 
+  'Average' => 
   array (
     'family' => 'Average',
     'variants' => 
@@ -2816,7 +2816,7 @@ return array (
     array (
     ),
   ),
-  'average sans' => 
+  'Average Sans' => 
   array (
     'family' => 'Average Sans',
     'variants' => 
@@ -2834,7 +2834,7 @@ return array (
     array (
     ),
   ),
-  'averia gruesa libre' => 
+  'Averia Gruesa Libre' => 
   array (
     'family' => 'Averia Gruesa Libre',
     'variants' => 
@@ -2852,7 +2852,7 @@ return array (
     array (
     ),
   ),
-  'averia libre' => 
+  'Averia Libre' => 
   array (
     'family' => 'Averia Libre',
     'variants' => 
@@ -2874,7 +2874,7 @@ return array (
     array (
     ),
   ),
-  'averia sans libre' => 
+  'Averia Sans Libre' => 
   array (
     'family' => 'Averia Sans Libre',
     'variants' => 
@@ -2896,7 +2896,7 @@ return array (
     array (
     ),
   ),
-  'averia serif libre' => 
+  'Averia Serif Libre' => 
   array (
     'family' => 'Averia Serif Libre',
     'variants' => 
@@ -2918,7 +2918,7 @@ return array (
     array (
     ),
   ),
-  'azeret mono' => 
+  'Azeret Mono' => 
   array (
     'family' => 'Azeret Mono',
     'variants' => 
@@ -2943,7 +2943,7 @@ return array (
       ),
     ),
   ),
-  'b612' => 
+  'B612' => 
   array (
     'family' => 'B612',
     'variants' => 
@@ -2963,7 +2963,7 @@ return array (
     array (
     ),
   ),
-  'b612 mono' => 
+  'B612 Mono' => 
   array (
     'family' => 'B612 Mono',
     'variants' => 
@@ -2983,7 +2983,7 @@ return array (
     array (
     ),
   ),
-  'biz udgothic' => 
+  'BIZ UDGothic' => 
   array (
     'family' => 'BIZ UDGothic',
     'variants' => 
@@ -3005,7 +3005,7 @@ return array (
     array (
     ),
   ),
-  'biz udmincho' => 
+  'BIZ UDMincho' => 
   array (
     'family' => 'BIZ UDMincho',
     'variants' => 
@@ -3027,7 +3027,7 @@ return array (
     array (
     ),
   ),
-  'biz udpgothic' => 
+  'BIZ UDPGothic' => 
   array (
     'family' => 'BIZ UDPGothic',
     'variants' => 
@@ -3049,7 +3049,7 @@ return array (
     array (
     ),
   ),
-  'biz udpmincho' => 
+  'BIZ UDPMincho' => 
   array (
     'family' => 'BIZ UDPMincho',
     'variants' => 
@@ -3071,7 +3071,7 @@ return array (
     array (
     ),
   ),
-  'babylonica' => 
+  'Babylonica' => 
   array (
     'family' => 'Babylonica',
     'variants' => 
@@ -3090,7 +3090,7 @@ return array (
     array (
     ),
   ),
-  'bacasime antique' => 
+  'Bacasime Antique' => 
   array (
     'family' => 'Bacasime Antique',
     'variants' => 
@@ -3108,7 +3108,7 @@ return array (
     array (
     ),
   ),
-  'bad script' => 
+  'Bad Script' => 
   array (
     'family' => 'Bad Script',
     'variants' => 
@@ -3129,7 +3129,7 @@ return array (
     array (
     ),
   ),
-  'badeen display' => 
+  'Badeen Display' => 
   array (
     'family' => 'Badeen Display',
     'variants' => 
@@ -3148,7 +3148,7 @@ return array (
     array (
     ),
   ),
-  'bagel fat one' => 
+  'Bagel Fat One' => 
   array (
     'family' => 'Bagel Fat One',
     'variants' => 
@@ -3167,7 +3167,7 @@ return array (
     array (
     ),
   ),
-  'bahiana' => 
+  'Bahiana' => 
   array (
     'family' => 'Bahiana',
     'variants' => 
@@ -3185,7 +3185,7 @@ return array (
     array (
     ),
   ),
-  'bahianita' => 
+  'Bahianita' => 
   array (
     'family' => 'Bahianita',
     'variants' => 
@@ -3204,7 +3204,7 @@ return array (
     array (
     ),
   ),
-  'bai jamjuree' => 
+  'Bai Jamjuree' => 
   array (
     'family' => 'Bai Jamjuree',
     'variants' => 
@@ -3235,7 +3235,7 @@ return array (
     array (
     ),
   ),
-  'bakbak one' => 
+  'Bakbak One' => 
   array (
     'family' => 'Bakbak One',
     'variants' => 
@@ -3254,7 +3254,7 @@ return array (
     array (
     ),
   ),
-  'ballet' => 
+  'Ballet' => 
   array (
     'family' => 'Ballet',
     'variants' => 
@@ -3279,7 +3279,7 @@ return array (
       ),
     ),
   ),
-  'baloo 2' => 
+  'Baloo 2' => 
   array (
     'family' => 'Baloo 2',
     'variants' => 
@@ -3305,7 +3305,7 @@ return array (
       ),
     ),
   ),
-  'baloo bhai 2' => 
+  'Baloo Bhai 2' => 
   array (
     'family' => 'Baloo Bhai 2',
     'variants' => 
@@ -3331,7 +3331,7 @@ return array (
       ),
     ),
   ),
-  'baloo bhaijaan 2' => 
+  'Baloo Bhaijaan 2' => 
   array (
     'family' => 'Baloo Bhaijaan 2',
     'variants' => 
@@ -3357,7 +3357,7 @@ return array (
       ),
     ),
   ),
-  'baloo bhaina 2' => 
+  'Baloo Bhaina 2' => 
   array (
     'family' => 'Baloo Bhaina 2',
     'variants' => 
@@ -3383,7 +3383,7 @@ return array (
       ),
     ),
   ),
-  'baloo chettan 2' => 
+  'Baloo Chettan 2' => 
   array (
     'family' => 'Baloo Chettan 2',
     'variants' => 
@@ -3409,7 +3409,7 @@ return array (
       ),
     ),
   ),
-  'baloo da 2' => 
+  'Baloo Da 2' => 
   array (
     'family' => 'Baloo Da 2',
     'variants' => 
@@ -3435,7 +3435,7 @@ return array (
       ),
     ),
   ),
-  'baloo paaji 2' => 
+  'Baloo Paaji 2' => 
   array (
     'family' => 'Baloo Paaji 2',
     'variants' => 
@@ -3461,7 +3461,7 @@ return array (
       ),
     ),
   ),
-  'baloo tamma 2' => 
+  'Baloo Tamma 2' => 
   array (
     'family' => 'Baloo Tamma 2',
     'variants' => 
@@ -3487,7 +3487,7 @@ return array (
       ),
     ),
   ),
-  'baloo tammudu 2' => 
+  'Baloo Tammudu 2' => 
   array (
     'family' => 'Baloo Tammudu 2',
     'variants' => 
@@ -3513,7 +3513,7 @@ return array (
       ),
     ),
   ),
-  'baloo thambi 2' => 
+  'Baloo Thambi 2' => 
   array (
     'family' => 'Baloo Thambi 2',
     'variants' => 
@@ -3539,7 +3539,7 @@ return array (
       ),
     ),
   ),
-  'balsamiq sans' => 
+  'Balsamiq Sans' => 
   array (
     'family' => 'Balsamiq Sans',
     'variants' => 
@@ -3562,7 +3562,7 @@ return array (
     array (
     ),
   ),
-  'balthazar' => 
+  'Balthazar' => 
   array (
     'family' => 'Balthazar',
     'variants' => 
@@ -3579,7 +3579,7 @@ return array (
     array (
     ),
   ),
-  'bangers' => 
+  'Bangers' => 
   array (
     'family' => 'Bangers',
     'variants' => 
@@ -3598,7 +3598,7 @@ return array (
     array (
     ),
   ),
-  'barlow' => 
+  'Barlow' => 
   array (
     'family' => 'Barlow',
     'variants' => 
@@ -3634,7 +3634,7 @@ return array (
     array (
     ),
   ),
-  'barlow condensed' => 
+  'Barlow Condensed' => 
   array (
     'family' => 'Barlow Condensed',
     'variants' => 
@@ -3670,7 +3670,7 @@ return array (
     array (
     ),
   ),
-  'barlow semi condensed' => 
+  'Barlow Semi Condensed' => 
   array (
     'family' => 'Barlow Semi Condensed',
     'variants' => 
@@ -3706,7 +3706,7 @@ return array (
     array (
     ),
   ),
-  'barriecito' => 
+  'Barriecito' => 
   array (
     'family' => 'Barriecito',
     'variants' => 
@@ -3725,7 +3725,7 @@ return array (
     array (
     ),
   ),
-  'barrio' => 
+  'Barrio' => 
   array (
     'family' => 'Barrio',
     'variants' => 
@@ -3743,7 +3743,7 @@ return array (
     array (
     ),
   ),
-  'basic' => 
+  'Basic' => 
   array (
     'family' => 'Basic',
     'variants' => 
@@ -3761,7 +3761,7 @@ return array (
     array (
     ),
   ),
-  'baskervville' => 
+  'Baskervville' => 
   array (
     'family' => 'Baskervville',
     'variants' => 
@@ -3780,7 +3780,7 @@ return array (
     array (
     ),
   ),
-  'baskervville sc' => 
+  'Baskervville SC' => 
   array (
     'family' => 'Baskervville SC',
     'variants' => 
@@ -3798,7 +3798,7 @@ return array (
     array (
     ),
   ),
-  'battambang' => 
+  'Battambang' => 
   array (
     'family' => 'Battambang',
     'variants' => 
@@ -3820,7 +3820,7 @@ return array (
     array (
     ),
   ),
-  'baumans' => 
+  'Baumans' => 
   array (
     'family' => 'Baumans',
     'variants' => 
@@ -3837,7 +3837,7 @@ return array (
     array (
     ),
   ),
-  'bayon' => 
+  'Bayon' => 
   array (
     'family' => 'Bayon',
     'variants' => 
@@ -3855,7 +3855,7 @@ return array (
     array (
     ),
   ),
-  'be vietnam pro' => 
+  'Be Vietnam Pro' => 
   array (
     'family' => 'Be Vietnam Pro',
     'variants' => 
@@ -3891,7 +3891,7 @@ return array (
     array (
     ),
   ),
-  'beau rivage' => 
+  'Beau Rivage' => 
   array (
     'family' => 'Beau Rivage',
     'variants' => 
@@ -3910,7 +3910,7 @@ return array (
     array (
     ),
   ),
-  'bebas neue' => 
+  'Bebas Neue' => 
   array (
     'family' => 'Bebas Neue',
     'variants' => 
@@ -3928,7 +3928,7 @@ return array (
     array (
     ),
   ),
-  'beiruti' => 
+  'Beiruti' => 
   array (
     'family' => 'Beiruti',
     'variants' => 
@@ -3954,7 +3954,7 @@ return array (
       ),
     ),
   ),
-  'belanosima' => 
+  'Belanosima' => 
   array (
     'family' => 'Belanosima',
     'variants' => 
@@ -3974,7 +3974,7 @@ return array (
     array (
     ),
   ),
-  'belgrano' => 
+  'Belgrano' => 
   array (
     'family' => 'Belgrano',
     'variants' => 
@@ -3991,7 +3991,7 @@ return array (
     array (
     ),
   ),
-  'bellefair' => 
+  'Bellefair' => 
   array (
     'family' => 'Bellefair',
     'variants' => 
@@ -4010,7 +4010,7 @@ return array (
     array (
     ),
   ),
-  'belleza' => 
+  'Belleza' => 
   array (
     'family' => 'Belleza',
     'variants' => 
@@ -4028,7 +4028,7 @@ return array (
     array (
     ),
   ),
-  'bellota' => 
+  'Bellota' => 
   array (
     'family' => 'Bellota',
     'variants' => 
@@ -4053,7 +4053,7 @@ return array (
     array (
     ),
   ),
-  'bellota text' => 
+  'Bellota Text' => 
   array (
     'family' => 'Bellota Text',
     'variants' => 
@@ -4078,7 +4078,7 @@ return array (
     array (
     ),
   ),
-  'benchnine' => 
+  'BenchNine' => 
   array (
     'family' => 'BenchNine',
     'variants' => 
@@ -4098,7 +4098,7 @@ return array (
     array (
     ),
   ),
-  'benne' => 
+  'Benne' => 
   array (
     'family' => 'Benne',
     'variants' => 
@@ -4117,7 +4117,7 @@ return array (
     array (
     ),
   ),
-  'bentham' => 
+  'Bentham' => 
   array (
     'family' => 'Bentham',
     'variants' => 
@@ -4135,7 +4135,7 @@ return array (
     array (
     ),
   ),
-  'berkshire swash' => 
+  'Berkshire Swash' => 
   array (
     'family' => 'Berkshire Swash',
     'variants' => 
@@ -4153,7 +4153,7 @@ return array (
     array (
     ),
   ),
-  'besley' => 
+  'Besley' => 
   array (
     'family' => 'Besley',
     'variants' => 
@@ -4178,7 +4178,7 @@ return array (
       ),
     ),
   ),
-  'beth ellen' => 
+  'Beth Ellen' => 
   array (
     'family' => 'Beth Ellen',
     'variants' => 
@@ -4195,7 +4195,7 @@ return array (
     array (
     ),
   ),
-  'bevan' => 
+  'Bevan' => 
   array (
     'family' => 'Bevan',
     'variants' => 
@@ -4215,7 +4215,7 @@ return array (
     array (
     ),
   ),
-  'bhutuka expanded one' => 
+  'BhuTuka Expanded One' => 
   array (
     'family' => 'BhuTuka Expanded One',
     'variants' => 
@@ -4234,7 +4234,7 @@ return array (
     array (
     ),
   ),
-  'big shoulders display' => 
+  'Big Shoulders Display' => 
   array (
     'family' => 'Big Shoulders Display',
     'variants' => 
@@ -4259,7 +4259,7 @@ return array (
       ),
     ),
   ),
-  'big shoulders inline display' => 
+  'Big Shoulders Inline Display' => 
   array (
     'family' => 'Big Shoulders Inline Display',
     'variants' => 
@@ -4284,7 +4284,7 @@ return array (
       ),
     ),
   ),
-  'big shoulders inline text' => 
+  'Big Shoulders Inline Text' => 
   array (
     'family' => 'Big Shoulders Inline Text',
     'variants' => 
@@ -4309,7 +4309,7 @@ return array (
       ),
     ),
   ),
-  'big shoulders stencil display' => 
+  'Big Shoulders Stencil Display' => 
   array (
     'family' => 'Big Shoulders Stencil Display',
     'variants' => 
@@ -4334,7 +4334,7 @@ return array (
       ),
     ),
   ),
-  'big shoulders stencil text' => 
+  'Big Shoulders Stencil Text' => 
   array (
     'family' => 'Big Shoulders Stencil Text',
     'variants' => 
@@ -4359,7 +4359,7 @@ return array (
       ),
     ),
   ),
-  'big shoulders text' => 
+  'Big Shoulders Text' => 
   array (
     'family' => 'Big Shoulders Text',
     'variants' => 
@@ -4384,7 +4384,7 @@ return array (
       ),
     ),
   ),
-  'bigelow rules' => 
+  'Bigelow Rules' => 
   array (
     'family' => 'Bigelow Rules',
     'variants' => 
@@ -4402,7 +4402,7 @@ return array (
     array (
     ),
   ),
-  'bigshot one' => 
+  'Bigshot One' => 
   array (
     'family' => 'Bigshot One',
     'variants' => 
@@ -4419,7 +4419,7 @@ return array (
     array (
     ),
   ),
-  'bilbo' => 
+  'Bilbo' => 
   array (
     'family' => 'Bilbo',
     'variants' => 
@@ -4438,7 +4438,7 @@ return array (
     array (
     ),
   ),
-  'bilbo swash caps' => 
+  'Bilbo Swash Caps' => 
   array (
     'family' => 'Bilbo Swash Caps',
     'variants' => 
@@ -4456,7 +4456,7 @@ return array (
     array (
     ),
   ),
-  'biorhyme' => 
+  'BioRhyme' => 
   array (
     'family' => 'BioRhyme',
     'variants' => 
@@ -4486,7 +4486,7 @@ return array (
       ),
     ),
   ),
-  'biorhyme expanded' => 
+  'BioRhyme Expanded' => 
   array (
     'family' => 'BioRhyme Expanded',
     'variants' => 
@@ -4508,7 +4508,7 @@ return array (
     array (
     ),
   ),
-  'birthstone' => 
+  'Birthstone' => 
   array (
     'family' => 'Birthstone',
     'variants' => 
@@ -4527,7 +4527,7 @@ return array (
     array (
     ),
   ),
-  'birthstone bounce' => 
+  'Birthstone Bounce' => 
   array (
     'family' => 'Birthstone Bounce',
     'variants' => 
@@ -4547,7 +4547,7 @@ return array (
     array (
     ),
   ),
-  'biryani' => 
+  'Biryani' => 
   array (
     'family' => 'Biryani',
     'variants' => 
@@ -4572,7 +4572,7 @@ return array (
     array (
     ),
   ),
-  'bitter' => 
+  'Bitter' => 
   array (
     'family' => 'Bitter',
     'variants' => 
@@ -4600,7 +4600,7 @@ return array (
       ),
     ),
   ),
-  'black and white picture' => 
+  'Black And White Picture' => 
   array (
     'family' => 'Black And White Picture',
     'variants' => 
@@ -4618,7 +4618,7 @@ return array (
     array (
     ),
   ),
-  'black han sans' => 
+  'Black Han Sans' => 
   array (
     'family' => 'Black Han Sans',
     'variants' => 
@@ -4636,7 +4636,7 @@ return array (
     array (
     ),
   ),
-  'black ops one' => 
+  'Black Ops One' => 
   array (
     'family' => 'Black Ops One',
     'variants' => 
@@ -4656,7 +4656,7 @@ return array (
     array (
     ),
   ),
-  'blaka' => 
+  'Blaka' => 
   array (
     'family' => 'Blaka',
     'variants' => 
@@ -4675,7 +4675,7 @@ return array (
     array (
     ),
   ),
-  'blaka hollow' => 
+  'Blaka Hollow' => 
   array (
     'family' => 'Blaka Hollow',
     'variants' => 
@@ -4694,7 +4694,7 @@ return array (
     array (
     ),
   ),
-  'blaka ink' => 
+  'Blaka Ink' => 
   array (
     'family' => 'Blaka Ink',
     'variants' => 
@@ -4713,7 +4713,7 @@ return array (
     array (
     ),
   ),
-  'blinker' => 
+  'Blinker' => 
   array (
     'family' => 'Blinker',
     'variants' => 
@@ -4738,7 +4738,7 @@ return array (
     array (
     ),
   ),
-  'bodoni moda' => 
+  'Bodoni Moda' => 
   array (
     'family' => 'Bodoni Moda',
     'variants' => 
@@ -4771,7 +4771,7 @@ return array (
       ),
     ),
   ),
-  'bodoni moda sc' => 
+  'Bodoni Moda SC' => 
   array (
     'family' => 'Bodoni Moda SC',
     'variants' => 
@@ -4804,7 +4804,7 @@ return array (
       ),
     ),
   ),
-  'bokor' => 
+  'Bokor' => 
   array (
     'family' => 'Bokor',
     'variants' => 
@@ -4822,7 +4822,7 @@ return array (
     array (
     ),
   ),
-  'bona nova' => 
+  'Bona Nova' => 
   array (
     'family' => 'Bona Nova',
     'variants' => 
@@ -4847,7 +4847,7 @@ return array (
     array (
     ),
   ),
-  'bona nova sc' => 
+  'Bona Nova SC' => 
   array (
     'family' => 'Bona Nova SC',
     'variants' => 
@@ -4872,7 +4872,7 @@ return array (
     array (
     ),
   ),
-  'bonbon' => 
+  'Bonbon' => 
   array (
     'family' => 'Bonbon',
     'variants' => 
@@ -4889,7 +4889,7 @@ return array (
     array (
     ),
   ),
-  'bonheur royale' => 
+  'Bonheur Royale' => 
   array (
     'family' => 'Bonheur Royale',
     'variants' => 
@@ -4908,7 +4908,7 @@ return array (
     array (
     ),
   ),
-  'boogaloo' => 
+  'Boogaloo' => 
   array (
     'family' => 'Boogaloo',
     'variants' => 
@@ -4925,7 +4925,7 @@ return array (
     array (
     ),
   ),
-  'borel' => 
+  'Borel' => 
   array (
     'family' => 'Borel',
     'variants' => 
@@ -4946,7 +4946,7 @@ return array (
     array (
     ),
   ),
-  'bowlby one' => 
+  'Bowlby One' => 
   array (
     'family' => 'Bowlby One',
     'variants' => 
@@ -4963,7 +4963,7 @@ return array (
     array (
     ),
   ),
-  'bowlby one sc' => 
+  'Bowlby One SC' => 
   array (
     'family' => 'Bowlby One SC',
     'variants' => 
@@ -4981,7 +4981,7 @@ return array (
     array (
     ),
   ),
-  'braah one' => 
+  'Braah One' => 
   array (
     'family' => 'Braah One',
     'variants' => 
@@ -5001,7 +5001,7 @@ return array (
     array (
     ),
   ),
-  'brawler' => 
+  'Brawler' => 
   array (
     'family' => 'Brawler',
     'variants' => 
@@ -5019,7 +5019,7 @@ return array (
     array (
     ),
   ),
-  'bree serif' => 
+  'Bree Serif' => 
   array (
     'family' => 'Bree Serif',
     'variants' => 
@@ -5037,7 +5037,7 @@ return array (
     array (
     ),
   ),
-  'bricolage grotesque' => 
+  'Bricolage Grotesque' => 
   array (
     'family' => 'Bricolage Grotesque',
     'variants' => 
@@ -5074,7 +5074,7 @@ return array (
       ),
     ),
   ),
-  'bruno ace' => 
+  'Bruno Ace' => 
   array (
     'family' => 'Bruno Ace',
     'variants' => 
@@ -5092,7 +5092,7 @@ return array (
     array (
     ),
   ),
-  'bruno ace sc' => 
+  'Bruno Ace SC' => 
   array (
     'family' => 'Bruno Ace SC',
     'variants' => 
@@ -5110,7 +5110,7 @@ return array (
     array (
     ),
   ),
-  'brygada 1918' => 
+  'Brygada 1918' => 
   array (
     'family' => 'Brygada 1918',
     'variants' => 
@@ -5139,7 +5139,7 @@ return array (
       ),
     ),
   ),
-  'bubblegum sans' => 
+  'Bubblegum Sans' => 
   array (
     'family' => 'Bubblegum Sans',
     'variants' => 
@@ -5157,7 +5157,7 @@ return array (
     array (
     ),
   ),
-  'bubbler one' => 
+  'Bubbler One' => 
   array (
     'family' => 'Bubbler One',
     'variants' => 
@@ -5175,7 +5175,7 @@ return array (
     array (
     ),
   ),
-  'buda' => 
+  'Buda' => 
   array (
     'family' => 'Buda',
     'variants' => 
@@ -5192,7 +5192,7 @@ return array (
     array (
     ),
   ),
-  'buenard' => 
+  'Buenard' => 
   array (
     'family' => 'Buenard',
     'variants' => 
@@ -5211,7 +5211,7 @@ return array (
     array (
     ),
   ),
-  'bungee' => 
+  'Bungee' => 
   array (
     'family' => 'Bungee',
     'variants' => 
@@ -5230,7 +5230,7 @@ return array (
     array (
     ),
   ),
-  'bungee hairline' => 
+  'Bungee Hairline' => 
   array (
     'family' => 'Bungee Hairline',
     'variants' => 
@@ -5249,7 +5249,7 @@ return array (
     array (
     ),
   ),
-  'bungee inline' => 
+  'Bungee Inline' => 
   array (
     'family' => 'Bungee Inline',
     'variants' => 
@@ -5268,7 +5268,7 @@ return array (
     array (
     ),
   ),
-  'bungee outline' => 
+  'Bungee Outline' => 
   array (
     'family' => 'Bungee Outline',
     'variants' => 
@@ -5287,7 +5287,7 @@ return array (
     array (
     ),
   ),
-  'bungee shade' => 
+  'Bungee Shade' => 
   array (
     'family' => 'Bungee Shade',
     'variants' => 
@@ -5306,7 +5306,7 @@ return array (
     array (
     ),
   ),
-  'bungee spice' => 
+  'Bungee Spice' => 
   array (
     'family' => 'Bungee Spice',
     'variants' => 
@@ -5325,7 +5325,7 @@ return array (
     array (
     ),
   ),
-  'bungee tint' => 
+  'Bungee Tint' => 
   array (
     'family' => 'Bungee Tint',
     'variants' => 
@@ -5344,7 +5344,7 @@ return array (
     array (
     ),
   ),
-  'butcherman' => 
+  'Butcherman' => 
   array (
     'family' => 'Butcherman',
     'variants' => 
@@ -5362,7 +5362,7 @@ return array (
     array (
     ),
   ),
-  'butterfly kids' => 
+  'Butterfly Kids' => 
   array (
     'family' => 'Butterfly Kids',
     'variants' => 
@@ -5380,7 +5380,7 @@ return array (
     array (
     ),
   ),
-  'cabin' => 
+  'Cabin' => 
   array (
     'family' => 'Cabin',
     'variants' => 
@@ -5412,7 +5412,7 @@ return array (
       ),
     ),
   ),
-  'cabin condensed' => 
+  'Cabin Condensed' => 
   array (
     'family' => 'Cabin Condensed',
     'variants' => 
@@ -5434,7 +5434,7 @@ return array (
     array (
     ),
   ),
-  'cabin sketch' => 
+  'Cabin Sketch' => 
   array (
     'family' => 'Cabin Sketch',
     'variants' => 
@@ -5452,7 +5452,7 @@ return array (
     array (
     ),
   ),
-  'cactus classical serif' => 
+  'Cactus Classical Serif' => 
   array (
     'family' => 'Cactus Classical Serif',
     'variants' => 
@@ -5473,7 +5473,7 @@ return array (
     array (
     ),
   ),
-  'caesar dressing' => 
+  'Caesar Dressing' => 
   array (
     'family' => 'Caesar Dressing',
     'variants' => 
@@ -5490,7 +5490,7 @@ return array (
     array (
     ),
   ),
-  'cagliostro' => 
+  'Cagliostro' => 
   array (
     'family' => 'Cagliostro',
     'variants' => 
@@ -5507,7 +5507,7 @@ return array (
     array (
     ),
   ),
-  'cairo' => 
+  'Cairo' => 
   array (
     'family' => 'Cairo',
     'variants' => 
@@ -5538,7 +5538,7 @@ return array (
       ),
     ),
   ),
-  'cairo play' => 
+  'Cairo Play' => 
   array (
     'family' => 'Cairo Play',
     'variants' => 
@@ -5569,7 +5569,7 @@ return array (
       ),
     ),
   ),
-  'caladea' => 
+  'Caladea' => 
   array (
     'family' => 'Caladea',
     'variants' => 
@@ -5590,7 +5590,7 @@ return array (
     array (
     ),
   ),
-  'calistoga' => 
+  'Calistoga' => 
   array (
     'family' => 'Calistoga',
     'variants' => 
@@ -5609,7 +5609,7 @@ return array (
     array (
     ),
   ),
-  'calligraffitti' => 
+  'Calligraffitti' => 
   array (
     'family' => 'Calligraffitti',
     'variants' => 
@@ -5626,7 +5626,7 @@ return array (
     array (
     ),
   ),
-  'cambay' => 
+  'Cambay' => 
   array (
     'family' => 'Cambay',
     'variants' => 
@@ -5648,7 +5648,7 @@ return array (
     array (
     ),
   ),
-  'cambo' => 
+  'Cambo' => 
   array (
     'family' => 'Cambo',
     'variants' => 
@@ -5666,7 +5666,7 @@ return array (
     array (
     ),
   ),
-  'candal' => 
+  'Candal' => 
   array (
     'family' => 'Candal',
     'variants' => 
@@ -5683,7 +5683,7 @@ return array (
     array (
     ),
   ),
-  'cantarell' => 
+  'Cantarell' => 
   array (
     'family' => 'Cantarell',
     'variants' => 
@@ -5704,7 +5704,7 @@ return array (
     array (
     ),
   ),
-  'cantata one' => 
+  'Cantata One' => 
   array (
     'family' => 'Cantata One',
     'variants' => 
@@ -5722,7 +5722,7 @@ return array (
     array (
     ),
   ),
-  'cantora one' => 
+  'Cantora One' => 
   array (
     'family' => 'Cantora One',
     'variants' => 
@@ -5740,7 +5740,7 @@ return array (
     array (
     ),
   ),
-  'caprasimo' => 
+  'Caprasimo' => 
   array (
     'family' => 'Caprasimo',
     'variants' => 
@@ -5758,7 +5758,7 @@ return array (
     array (
     ),
   ),
-  'capriola' => 
+  'Capriola' => 
   array (
     'family' => 'Capriola',
     'variants' => 
@@ -5776,7 +5776,7 @@ return array (
     array (
     ),
   ),
-  'caramel' => 
+  'Caramel' => 
   array (
     'family' => 'Caramel',
     'variants' => 
@@ -5795,7 +5795,7 @@ return array (
     array (
     ),
   ),
-  'carattere' => 
+  'Carattere' => 
   array (
     'family' => 'Carattere',
     'variants' => 
@@ -5814,7 +5814,7 @@ return array (
     array (
     ),
   ),
-  'cardo' => 
+  'Cardo' => 
   array (
     'family' => 'Cardo',
     'variants' => 
@@ -5836,7 +5836,7 @@ return array (
     array (
     ),
   ),
-  'carlito' => 
+  'Carlito' => 
   array (
     'family' => 'Carlito',
     'variants' => 
@@ -5862,7 +5862,7 @@ return array (
     array (
     ),
   ),
-  'carme' => 
+  'Carme' => 
   array (
     'family' => 'Carme',
     'variants' => 
@@ -5879,7 +5879,7 @@ return array (
     array (
     ),
   ),
-  'carrois gothic' => 
+  'Carrois Gothic' => 
   array (
     'family' => 'Carrois Gothic',
     'variants' => 
@@ -5896,7 +5896,7 @@ return array (
     array (
     ),
   ),
-  'carrois gothic sc' => 
+  'Carrois Gothic SC' => 
   array (
     'family' => 'Carrois Gothic SC',
     'variants' => 
@@ -5913,7 +5913,7 @@ return array (
     array (
     ),
   ),
-  'carter one' => 
+  'Carter One' => 
   array (
     'family' => 'Carter One',
     'variants' => 
@@ -5930,7 +5930,7 @@ return array (
     array (
     ),
   ),
-  'castoro' => 
+  'Castoro' => 
   array (
     'family' => 'Castoro',
     'variants' => 
@@ -5949,7 +5949,7 @@ return array (
     array (
     ),
   ),
-  'castoro titling' => 
+  'Castoro Titling' => 
   array (
     'family' => 'Castoro Titling',
     'variants' => 
@@ -5967,7 +5967,7 @@ return array (
     array (
     ),
   ),
-  'catamaran' => 
+  'Catamaran' => 
   array (
     'family' => 'Catamaran',
     'variants' => 
@@ -5992,7 +5992,7 @@ return array (
       ),
     ),
   ),
-  'caudex' => 
+  'Caudex' => 
   array (
     'family' => 'Caudex',
     'variants' => 
@@ -6015,7 +6015,7 @@ return array (
     array (
     ),
   ),
-  'caveat' => 
+  'Caveat' => 
   array (
     'family' => 'Caveat',
     'variants' => 
@@ -6041,7 +6041,7 @@ return array (
       ),
     ),
   ),
-  'caveat brush' => 
+  'Caveat Brush' => 
   array (
     'family' => 'Caveat Brush',
     'variants' => 
@@ -6059,7 +6059,7 @@ return array (
     array (
     ),
   ),
-  'cedarville cursive' => 
+  'Cedarville Cursive' => 
   array (
     'family' => 'Cedarville Cursive',
     'variants' => 
@@ -6076,7 +6076,7 @@ return array (
     array (
     ),
   ),
-  'ceviche one' => 
+  'Ceviche One' => 
   array (
     'family' => 'Ceviche One',
     'variants' => 
@@ -6094,7 +6094,7 @@ return array (
     array (
     ),
   ),
-  'chakra petch' => 
+  'Chakra Petch' => 
   array (
     'family' => 'Chakra Petch',
     'variants' => 
@@ -6123,7 +6123,7 @@ return array (
     array (
     ),
   ),
-  'changa' => 
+  'Changa' => 
   array (
     'family' => 'Changa',
     'variants' => 
@@ -6148,7 +6148,7 @@ return array (
       ),
     ),
   ),
-  'changa one' => 
+  'Changa One' => 
   array (
     'family' => 'Changa One',
     'variants' => 
@@ -6166,7 +6166,7 @@ return array (
     array (
     ),
   ),
-  'chango' => 
+  'Chango' => 
   array (
     'family' => 'Chango',
     'variants' => 
@@ -6184,7 +6184,7 @@ return array (
     array (
     ),
   ),
-  'charis sil' => 
+  'Charis SIL' => 
   array (
     'family' => 'Charis SIL',
     'variants' => 
@@ -6208,7 +6208,7 @@ return array (
     array (
     ),
   ),
-  'charm' => 
+  'Charm' => 
   array (
     'family' => 'Charm',
     'variants' => 
@@ -6229,7 +6229,7 @@ return array (
     array (
     ),
   ),
-  'charmonman' => 
+  'Charmonman' => 
   array (
     'family' => 'Charmonman',
     'variants' => 
@@ -6250,7 +6250,7 @@ return array (
     array (
     ),
   ),
-  'chathura' => 
+  'Chathura' => 
   array (
     'family' => 'Chathura',
     'variants' => 
@@ -6272,7 +6272,7 @@ return array (
     array (
     ),
   ),
-  'chau philomene one' => 
+  'Chau Philomene One' => 
   array (
     'family' => 'Chau Philomene One',
     'variants' => 
@@ -6291,7 +6291,7 @@ return array (
     array (
     ),
   ),
-  'chela one' => 
+  'Chela One' => 
   array (
     'family' => 'Chela One',
     'variants' => 
@@ -6309,7 +6309,7 @@ return array (
     array (
     ),
   ),
-  'chelsea market' => 
+  'Chelsea Market' => 
   array (
     'family' => 'Chelsea Market',
     'variants' => 
@@ -6327,7 +6327,7 @@ return array (
     array (
     ),
   ),
-  'chenla' => 
+  'Chenla' => 
   array (
     'family' => 'Chenla',
     'variants' => 
@@ -6344,7 +6344,7 @@ return array (
     array (
     ),
   ),
-  'cherish' => 
+  'Cherish' => 
   array (
     'family' => 'Cherish',
     'variants' => 
@@ -6363,7 +6363,7 @@ return array (
     array (
     ),
   ),
-  'cherry bomb one' => 
+  'Cherry Bomb One' => 
   array (
     'family' => 'Cherry Bomb One',
     'variants' => 
@@ -6383,7 +6383,7 @@ return array (
     array (
     ),
   ),
-  'cherry cream soda' => 
+  'Cherry Cream Soda' => 
   array (
     'family' => 'Cherry Cream Soda',
     'variants' => 
@@ -6400,7 +6400,7 @@ return array (
     array (
     ),
   ),
-  'cherry swash' => 
+  'Cherry Swash' => 
   array (
     'family' => 'Cherry Swash',
     'variants' => 
@@ -6419,7 +6419,7 @@ return array (
     array (
     ),
   ),
-  'chewy' => 
+  'Chewy' => 
   array (
     'family' => 'Chewy',
     'variants' => 
@@ -6436,7 +6436,7 @@ return array (
     array (
     ),
   ),
-  'chicle' => 
+  'Chicle' => 
   array (
     'family' => 'Chicle',
     'variants' => 
@@ -6454,7 +6454,7 @@ return array (
     array (
     ),
   ),
-  'chilanka' => 
+  'Chilanka' => 
   array (
     'family' => 'Chilanka',
     'variants' => 
@@ -6473,7 +6473,7 @@ return array (
     array (
     ),
   ),
-  'chivo' => 
+  'Chivo' => 
   array (
     'family' => 'Chivo',
     'variants' => 
@@ -6499,7 +6499,7 @@ return array (
       ),
     ),
   ),
-  'chivo mono' => 
+  'Chivo Mono' => 
   array (
     'family' => 'Chivo Mono',
     'variants' => 
@@ -6525,7 +6525,7 @@ return array (
       ),
     ),
   ),
-  'chocolate classical sans' => 
+  'Chocolate Classical Sans' => 
   array (
     'family' => 'Chocolate Classical Sans',
     'variants' => 
@@ -6546,7 +6546,7 @@ return array (
     array (
     ),
   ),
-  'chokokutai' => 
+  'Chokokutai' => 
   array (
     'family' => 'Chokokutai',
     'variants' => 
@@ -6566,7 +6566,7 @@ return array (
     array (
     ),
   ),
-  'chonburi' => 
+  'Chonburi' => 
   array (
     'family' => 'Chonburi',
     'variants' => 
@@ -6586,7 +6586,7 @@ return array (
     array (
     ),
   ),
-  'cinzel' => 
+  'Cinzel' => 
   array (
     'family' => 'Cinzel',
     'variants' => 
@@ -6610,7 +6610,7 @@ return array (
       ),
     ),
   ),
-  'cinzel decorative' => 
+  'Cinzel Decorative' => 
   array (
     'family' => 'Cinzel Decorative',
     'variants' => 
@@ -6630,7 +6630,7 @@ return array (
     array (
     ),
   ),
-  'clicker script' => 
+  'Clicker Script' => 
   array (
     'family' => 'Clicker Script',
     'variants' => 
@@ -6648,7 +6648,7 @@ return array (
     array (
     ),
   ),
-  'climate crisis' => 
+  'Climate Crisis' => 
   array (
     'family' => 'Climate Crisis',
     'variants' => 
@@ -6672,7 +6672,7 @@ return array (
       ),
     ),
   ),
-  'coda' => 
+  'Coda' => 
   array (
     'family' => 'Coda',
     'variants' => 
@@ -6691,7 +6691,7 @@ return array (
     array (
     ),
   ),
-  'codystar' => 
+  'Codystar' => 
   array (
     'family' => 'Codystar',
     'variants' => 
@@ -6710,7 +6710,7 @@ return array (
     array (
     ),
   ),
-  'coiny' => 
+  'Coiny' => 
   array (
     'family' => 'Coiny',
     'variants' => 
@@ -6730,7 +6730,7 @@ return array (
     array (
     ),
   ),
-  'combo' => 
+  'Combo' => 
   array (
     'family' => 'Combo',
     'variants' => 
@@ -6748,7 +6748,7 @@ return array (
     array (
     ),
   ),
-  'comfortaa' => 
+  'Comfortaa' => 
   array (
     'family' => 'Comfortaa',
     'variants' => 
@@ -6776,7 +6776,7 @@ return array (
       ),
     ),
   ),
-  'comforter' => 
+  'Comforter' => 
   array (
     'family' => 'Comforter',
     'variants' => 
@@ -6796,7 +6796,7 @@ return array (
     array (
     ),
   ),
-  'comforter brush' => 
+  'Comforter Brush' => 
   array (
     'family' => 'Comforter Brush',
     'variants' => 
@@ -6816,7 +6816,7 @@ return array (
     array (
     ),
   ),
-  'comic neue' => 
+  'Comic Neue' => 
   array (
     'family' => 'Comic Neue',
     'variants' => 
@@ -6838,7 +6838,7 @@ return array (
     array (
     ),
   ),
-  'coming soon' => 
+  'Coming Soon' => 
   array (
     'family' => 'Coming Soon',
     'variants' => 
@@ -6855,7 +6855,7 @@ return array (
     array (
     ),
   ),
-  'comme' => 
+  'Comme' => 
   array (
     'family' => 'Comme',
     'variants' => 
@@ -6879,7 +6879,7 @@ return array (
       ),
     ),
   ),
-  'commissioner' => 
+  'Commissioner' => 
   array (
     'family' => 'Commissioner',
     'variants' => 
@@ -6925,7 +6925,7 @@ return array (
       ),
     ),
   ),
-  'concert one' => 
+  'Concert One' => 
   array (
     'family' => 'Concert One',
     'variants' => 
@@ -6943,7 +6943,7 @@ return array (
     array (
     ),
   ),
-  'condiment' => 
+  'Condiment' => 
   array (
     'family' => 'Condiment',
     'variants' => 
@@ -6961,7 +6961,7 @@ return array (
     array (
     ),
   ),
-  'content' => 
+  'Content' => 
   array (
     'family' => 'Content',
     'variants' => 
@@ -6979,7 +6979,7 @@ return array (
     array (
     ),
   ),
-  'contrail one' => 
+  'Contrail One' => 
   array (
     'family' => 'Contrail One',
     'variants' => 
@@ -6996,7 +6996,7 @@ return array (
     array (
     ),
   ),
-  'convergence' => 
+  'Convergence' => 
   array (
     'family' => 'Convergence',
     'variants' => 
@@ -7014,7 +7014,7 @@ return array (
     array (
     ),
   ),
-  'cookie' => 
+  'Cookie' => 
   array (
     'family' => 'Cookie',
     'variants' => 
@@ -7031,7 +7031,7 @@ return array (
     array (
     ),
   ),
-  'copse' => 
+  'Copse' => 
   array (
     'family' => 'Copse',
     'variants' => 
@@ -7048,7 +7048,7 @@ return array (
     array (
     ),
   ),
-  'corben' => 
+  'Corben' => 
   array (
     'family' => 'Corben',
     'variants' => 
@@ -7067,7 +7067,7 @@ return array (
     array (
     ),
   ),
-  'corinthia' => 
+  'Corinthia' => 
   array (
     'family' => 'Corinthia',
     'variants' => 
@@ -7087,7 +7087,7 @@ return array (
     array (
     ),
   ),
-  'cormorant' => 
+  'Cormorant' => 
   array (
     'family' => 'Cormorant',
     'variants' => 
@@ -7115,7 +7115,7 @@ return array (
       ),
     ),
   ),
-  'cormorant garamond' => 
+  'Cormorant Garamond' => 
   array (
     'family' => 'Cormorant Garamond',
     'variants' => 
@@ -7145,7 +7145,7 @@ return array (
     array (
     ),
   ),
-  'cormorant infant' => 
+  'Cormorant Infant' => 
   array (
     'family' => 'Cormorant Infant',
     'variants' => 
@@ -7175,7 +7175,7 @@ return array (
     array (
     ),
   ),
-  'cormorant sc' => 
+  'Cormorant SC' => 
   array (
     'family' => 'Cormorant SC',
     'variants' => 
@@ -7200,7 +7200,7 @@ return array (
     array (
     ),
   ),
-  'cormorant unicase' => 
+  'Cormorant Unicase' => 
   array (
     'family' => 'Cormorant Unicase',
     'variants' => 
@@ -7225,7 +7225,7 @@ return array (
     array (
     ),
   ),
-  'cormorant upright' => 
+  'Cormorant Upright' => 
   array (
     'family' => 'Cormorant Upright',
     'variants' => 
@@ -7248,7 +7248,7 @@ return array (
     array (
     ),
   ),
-  'courgette' => 
+  'Courgette' => 
   array (
     'family' => 'Courgette',
     'variants' => 
@@ -7266,7 +7266,7 @@ return array (
     array (
     ),
   ),
-  'courier prime' => 
+  'Courier Prime' => 
   array (
     'family' => 'Courier Prime',
     'variants' => 
@@ -7287,7 +7287,7 @@ return array (
     array (
     ),
   ),
-  'cousine' => 
+  'Cousine' => 
   array (
     'family' => 'Cousine',
     'variants' => 
@@ -7314,7 +7314,7 @@ return array (
     array (
     ),
   ),
-  'coustard' => 
+  'Coustard' => 
   array (
     'family' => 'Coustard',
     'variants' => 
@@ -7332,7 +7332,7 @@ return array (
     array (
     ),
   ),
-  'covered by your grace' => 
+  'Covered By Your Grace' => 
   array (
     'family' => 'Covered By Your Grace',
     'variants' => 
@@ -7350,7 +7350,7 @@ return array (
     array (
     ),
   ),
-  'crafty girls' => 
+  'Crafty Girls' => 
   array (
     'family' => 'Crafty Girls',
     'variants' => 
@@ -7367,7 +7367,7 @@ return array (
     array (
     ),
   ),
-  'creepster' => 
+  'Creepster' => 
   array (
     'family' => 'Creepster',
     'variants' => 
@@ -7384,7 +7384,7 @@ return array (
     array (
     ),
   ),
-  'crete round' => 
+  'Crete Round' => 
   array (
     'family' => 'Crete Round',
     'variants' => 
@@ -7403,7 +7403,7 @@ return array (
     array (
     ),
   ),
-  'crimson pro' => 
+  'Crimson Pro' => 
   array (
     'family' => 'Crimson Pro',
     'variants' => 
@@ -7429,7 +7429,7 @@ return array (
       ),
     ),
   ),
-  'crimson text' => 
+  'Crimson Text' => 
   array (
     'family' => 'Crimson Text',
     'variants' => 
@@ -7453,7 +7453,7 @@ return array (
     array (
     ),
   ),
-  'croissant one' => 
+  'Croissant One' => 
   array (
     'family' => 'Croissant One',
     'variants' => 
@@ -7471,7 +7471,7 @@ return array (
     array (
     ),
   ),
-  'crushed' => 
+  'Crushed' => 
   array (
     'family' => 'Crushed',
     'variants' => 
@@ -7489,7 +7489,7 @@ return array (
     array (
     ),
   ),
-  'cuprum' => 
+  'Cuprum' => 
   array (
     'family' => 'Cuprum',
     'variants' => 
@@ -7517,7 +7517,7 @@ return array (
       ),
     ),
   ),
-  'cute font' => 
+  'Cute Font' => 
   array (
     'family' => 'Cute Font',
     'variants' => 
@@ -7535,7 +7535,7 @@ return array (
     array (
     ),
   ),
-  'cutive' => 
+  'Cutive' => 
   array (
     'family' => 'Cutive',
     'variants' => 
@@ -7553,7 +7553,7 @@ return array (
     array (
     ),
   ),
-  'cutive mono' => 
+  'Cutive Mono' => 
   array (
     'family' => 'Cutive Mono',
     'variants' => 
@@ -7571,7 +7571,7 @@ return array (
     array (
     ),
   ),
-  'dm mono' => 
+  'DM Mono' => 
   array (
     'family' => 'DM Mono',
     'variants' => 
@@ -7594,7 +7594,7 @@ return array (
     array (
     ),
   ),
-  'dm sans' => 
+  'DM Sans' => 
   array (
     'family' => 'DM Sans',
     'variants' => 
@@ -7625,7 +7625,7 @@ return array (
       ),
     ),
   ),
-  'dm serif display' => 
+  'DM Serif Display' => 
   array (
     'family' => 'DM Serif Display',
     'variants' => 
@@ -7644,7 +7644,7 @@ return array (
     array (
     ),
   ),
-  'dm serif text' => 
+  'DM Serif Text' => 
   array (
     'family' => 'DM Serif Text',
     'variants' => 
@@ -7663,7 +7663,7 @@ return array (
     array (
     ),
   ),
-  'dai banna sil' => 
+  'Dai Banna SIL' => 
   array (
     'family' => 'Dai Banna SIL',
     'variants' => 
@@ -7691,7 +7691,7 @@ return array (
     array (
     ),
   ),
-  'damion' => 
+  'Damion' => 
   array (
     'family' => 'Damion',
     'variants' => 
@@ -7709,7 +7709,7 @@ return array (
     array (
     ),
   ),
-  'dancing script' => 
+  'Dancing Script' => 
   array (
     'family' => 'Dancing Script',
     'variants' => 
@@ -7734,7 +7734,7 @@ return array (
       ),
     ),
   ),
-  'danfo' => 
+  'Danfo' => 
   array (
     'family' => 'Danfo',
     'variants' => 
@@ -7759,7 +7759,7 @@ return array (
       ),
     ),
   ),
-  'dangrek' => 
+  'Dangrek' => 
   array (
     'family' => 'Dangrek',
     'variants' => 
@@ -7777,7 +7777,7 @@ return array (
     array (
     ),
   ),
-  'darker grotesque' => 
+  'Darker Grotesque' => 
   array (
     'family' => 'Darker Grotesque',
     'variants' => 
@@ -7802,7 +7802,7 @@ return array (
       ),
     ),
   ),
-  'darumadrop one' => 
+  'Darumadrop One' => 
   array (
     'family' => 'Darumadrop One',
     'variants' => 
@@ -7821,7 +7821,7 @@ return array (
     array (
     ),
   ),
-  'david libre' => 
+  'David Libre' => 
   array (
     'family' => 'David Libre',
     'variants' => 
@@ -7845,7 +7845,7 @@ return array (
     array (
     ),
   ),
-  'dawning of a new day' => 
+  'Dawning of a New Day' => 
   array (
     'family' => 'Dawning of a New Day',
     'variants' => 
@@ -7862,7 +7862,7 @@ return array (
     array (
     ),
   ),
-  'days one' => 
+  'Days One' => 
   array (
     'family' => 'Days One',
     'variants' => 
@@ -7879,7 +7879,7 @@ return array (
     array (
     ),
   ),
-  'dekko' => 
+  'Dekko' => 
   array (
     'family' => 'Dekko',
     'variants' => 
@@ -7898,7 +7898,7 @@ return array (
     array (
     ),
   ),
-  'dela gothic one' => 
+  'Dela Gothic One' => 
   array (
     'family' => 'Dela Gothic One',
     'variants' => 
@@ -7920,7 +7920,7 @@ return array (
     array (
     ),
   ),
-  'delicious handrawn' => 
+  'Delicious Handrawn' => 
   array (
     'family' => 'Delicious Handrawn',
     'variants' => 
@@ -7938,7 +7938,7 @@ return array (
     array (
     ),
   ),
-  'delius' => 
+  'Delius' => 
   array (
     'family' => 'Delius',
     'variants' => 
@@ -7955,7 +7955,7 @@ return array (
     array (
     ),
   ),
-  'delius swash caps' => 
+  'Delius Swash Caps' => 
   array (
     'family' => 'Delius Swash Caps',
     'variants' => 
@@ -7972,7 +7972,7 @@ return array (
     array (
     ),
   ),
-  'delius unicase' => 
+  'Delius Unicase' => 
   array (
     'family' => 'Delius Unicase',
     'variants' => 
@@ -7990,7 +7990,7 @@ return array (
     array (
     ),
   ),
-  'della respira' => 
+  'Della Respira' => 
   array (
     'family' => 'Della Respira',
     'variants' => 
@@ -8007,7 +8007,7 @@ return array (
     array (
     ),
   ),
-  'denk one' => 
+  'Denk One' => 
   array (
     'family' => 'Denk One',
     'variants' => 
@@ -8027,7 +8027,7 @@ return array (
     array (
     ),
   ),
-  'devonshire' => 
+  'Devonshire' => 
   array (
     'family' => 'Devonshire',
     'variants' => 
@@ -8045,7 +8045,7 @@ return array (
     array (
     ),
   ),
-  'dhurjati' => 
+  'Dhurjati' => 
   array (
     'family' => 'Dhurjati',
     'variants' => 
@@ -8063,7 +8063,7 @@ return array (
     array (
     ),
   ),
-  'didact gothic' => 
+  'Didact Gothic' => 
   array (
     'family' => 'Didact Gothic',
     'variants' => 
@@ -8085,7 +8085,7 @@ return array (
     array (
     ),
   ),
-  'diphylleia' => 
+  'Diphylleia' => 
   array (
     'family' => 'Diphylleia',
     'variants' => 
@@ -8104,7 +8104,7 @@ return array (
     array (
     ),
   ),
-  'diplomata' => 
+  'Diplomata' => 
   array (
     'family' => 'Diplomata',
     'variants' => 
@@ -8122,7 +8122,7 @@ return array (
     array (
     ),
   ),
-  'diplomata sc' => 
+  'Diplomata SC' => 
   array (
     'family' => 'Diplomata SC',
     'variants' => 
@@ -8140,7 +8140,7 @@ return array (
     array (
     ),
   ),
-  'do hyeon' => 
+  'Do Hyeon' => 
   array (
     'family' => 'Do Hyeon',
     'variants' => 
@@ -8158,7 +8158,7 @@ return array (
     array (
     ),
   ),
-  'dokdo' => 
+  'Dokdo' => 
   array (
     'family' => 'Dokdo',
     'variants' => 
@@ -8176,7 +8176,7 @@ return array (
     array (
     ),
   ),
-  'domine' => 
+  'Domine' => 
   array (
     'family' => 'Domine',
     'variants' => 
@@ -8200,7 +8200,7 @@ return array (
       ),
     ),
   ),
-  'donegal one' => 
+  'Donegal One' => 
   array (
     'family' => 'Donegal One',
     'variants' => 
@@ -8218,7 +8218,7 @@ return array (
     array (
     ),
   ),
-  'dongle' => 
+  'Dongle' => 
   array (
     'family' => 'Dongle',
     'variants' => 
@@ -8240,7 +8240,7 @@ return array (
     array (
     ),
   ),
-  'doppio one' => 
+  'Doppio One' => 
   array (
     'family' => 'Doppio One',
     'variants' => 
@@ -8258,7 +8258,7 @@ return array (
     array (
     ),
   ),
-  'dorsa' => 
+  'Dorsa' => 
   array (
     'family' => 'Dorsa',
     'variants' => 
@@ -8275,7 +8275,7 @@ return array (
     array (
     ),
   ),
-  'dosis' => 
+  'Dosis' => 
   array (
     'family' => 'Dosis',
     'variants' => 
@@ -8300,7 +8300,7 @@ return array (
       ),
     ),
   ),
-  'dotgothic16' => 
+  'DotGothic16' => 
   array (
     'family' => 'DotGothic16',
     'variants' => 
@@ -8320,7 +8320,7 @@ return array (
     array (
     ),
   ),
-  'doto' => 
+  'Doto' => 
   array (
     'family' => 'Doto',
     'variants' => 
@@ -8350,7 +8350,7 @@ return array (
       ),
     ),
   ),
-  'dr sugiyama' => 
+  'Dr Sugiyama' => 
   array (
     'family' => 'Dr Sugiyama',
     'variants' => 
@@ -8368,7 +8368,7 @@ return array (
     array (
     ),
   ),
-  'duru sans' => 
+  'Duru Sans' => 
   array (
     'family' => 'Duru Sans',
     'variants' => 
@@ -8386,7 +8386,7 @@ return array (
     array (
     ),
   ),
-  'dynapuff' => 
+  'DynaPuff' => 
   array (
     'family' => 'DynaPuff',
     'variants' => 
@@ -8417,7 +8417,7 @@ return array (
       ),
     ),
   ),
-  'dynalight' => 
+  'Dynalight' => 
   array (
     'family' => 'Dynalight',
     'variants' => 
@@ -8435,7 +8435,7 @@ return array (
     array (
     ),
   ),
-  'eb garamond' => 
+  'EB Garamond' => 
   array (
     'family' => 'EB Garamond',
     'variants' => 
@@ -8465,7 +8465,7 @@ return array (
       ),
     ),
   ),
-  'eagle lake' => 
+  'Eagle Lake' => 
   array (
     'family' => 'Eagle Lake',
     'variants' => 
@@ -8483,7 +8483,7 @@ return array (
     array (
     ),
   ),
-  'east sea dokdo' => 
+  'East Sea Dokdo' => 
   array (
     'family' => 'East Sea Dokdo',
     'variants' => 
@@ -8501,7 +8501,7 @@ return array (
     array (
     ),
   ),
-  'eater' => 
+  'Eater' => 
   array (
     'family' => 'Eater',
     'variants' => 
@@ -8519,7 +8519,7 @@ return array (
     array (
     ),
   ),
-  'economica' => 
+  'Economica' => 
   array (
     'family' => 'Economica',
     'variants' => 
@@ -8540,7 +8540,7 @@ return array (
     array (
     ),
   ),
-  'eczar' => 
+  'Eczar' => 
   array (
     'family' => 'Eczar',
     'variants' => 
@@ -8567,7 +8567,7 @@ return array (
       ),
     ),
   ),
-  'edu au vic wa nt arrows' => 
+  'Edu AU VIC WA NT Arrows' => 
   array (
     'family' => 'Edu AU VIC WA NT Arrows',
     'variants' => 
@@ -8591,7 +8591,7 @@ return array (
       ),
     ),
   ),
-  'edu au vic wa nt dots' => 
+  'Edu AU VIC WA NT Dots' => 
   array (
     'family' => 'Edu AU VIC WA NT Dots',
     'variants' => 
@@ -8615,7 +8615,7 @@ return array (
       ),
     ),
   ),
-  'edu au vic wa nt guides' => 
+  'Edu AU VIC WA NT Guides' => 
   array (
     'family' => 'Edu AU VIC WA NT Guides',
     'variants' => 
@@ -8639,7 +8639,7 @@ return array (
       ),
     ),
   ),
-  'edu au vic wa nt hand' => 
+  'Edu AU VIC WA NT Hand' => 
   array (
     'family' => 'Edu AU VIC WA NT Hand',
     'variants' => 
@@ -8663,7 +8663,7 @@ return array (
       ),
     ),
   ),
-  'edu au vic wa nt pre' => 
+  'Edu AU VIC WA NT Pre' => 
   array (
     'family' => 'Edu AU VIC WA NT Pre',
     'variants' => 
@@ -8687,7 +8687,7 @@ return array (
       ),
     ),
   ),
-  'edu nsw act foundation' => 
+  'Edu NSW ACT Foundation' => 
   array (
     'family' => 'Edu NSW ACT Foundation',
     'variants' => 
@@ -8710,7 +8710,7 @@ return array (
       ),
     ),
   ),
-  'edu qld beginner' => 
+  'Edu QLD Beginner' => 
   array (
     'family' => 'Edu QLD Beginner',
     'variants' => 
@@ -8733,7 +8733,7 @@ return array (
       ),
     ),
   ),
-  'edu sa beginner' => 
+  'Edu SA Beginner' => 
   array (
     'family' => 'Edu SA Beginner',
     'variants' => 
@@ -8756,7 +8756,7 @@ return array (
       ),
     ),
   ),
-  'edu tas beginner' => 
+  'Edu TAS Beginner' => 
   array (
     'family' => 'Edu TAS Beginner',
     'variants' => 
@@ -8779,7 +8779,7 @@ return array (
       ),
     ),
   ),
-  'edu vic wa nt beginner' => 
+  'Edu VIC WA NT Beginner' => 
   array (
     'family' => 'Edu VIC WA NT Beginner',
     'variants' => 
@@ -8802,7 +8802,7 @@ return array (
       ),
     ),
   ),
-  'el messiri' => 
+  'El Messiri' => 
   array (
     'family' => 'El Messiri',
     'variants' => 
@@ -8828,7 +8828,7 @@ return array (
       ),
     ),
   ),
-  'electrolize' => 
+  'Electrolize' => 
   array (
     'family' => 'Electrolize',
     'variants' => 
@@ -8845,7 +8845,7 @@ return array (
     array (
     ),
   ),
-  'elsie' => 
+  'Elsie' => 
   array (
     'family' => 'Elsie',
     'variants' => 
@@ -8864,7 +8864,7 @@ return array (
     array (
     ),
   ),
-  'elsie swash caps' => 
+  'Elsie Swash Caps' => 
   array (
     'family' => 'Elsie Swash Caps',
     'variants' => 
@@ -8883,7 +8883,7 @@ return array (
     array (
     ),
   ),
-  'emblema one' => 
+  'Emblema One' => 
   array (
     'family' => 'Emblema One',
     'variants' => 
@@ -8901,7 +8901,7 @@ return array (
     array (
     ),
   ),
-  'emilys candy' => 
+  'Emilys Candy' => 
   array (
     'family' => 'Emilys Candy',
     'variants' => 
@@ -8919,7 +8919,7 @@ return array (
     array (
     ),
   ),
-  'encode sans' => 
+  'Encode Sans' => 
   array (
     'family' => 'Encode Sans',
     'variants' => 
@@ -8950,7 +8950,7 @@ return array (
       ),
     ),
   ),
-  'encode sans condensed' => 
+  'Encode Sans Condensed' => 
   array (
     'family' => 'Encode Sans Condensed',
     'variants' => 
@@ -8977,7 +8977,7 @@ return array (
     array (
     ),
   ),
-  'encode sans expanded' => 
+  'Encode Sans Expanded' => 
   array (
     'family' => 'Encode Sans Expanded',
     'variants' => 
@@ -9004,7 +9004,7 @@ return array (
     array (
     ),
   ),
-  'encode sans sc' => 
+  'Encode Sans SC' => 
   array (
     'family' => 'Encode Sans SC',
     'variants' => 
@@ -9035,7 +9035,7 @@ return array (
       ),
     ),
   ),
-  'encode sans semi condensed' => 
+  'Encode Sans Semi Condensed' => 
   array (
     'family' => 'Encode Sans Semi Condensed',
     'variants' => 
@@ -9062,7 +9062,7 @@ return array (
     array (
     ),
   ),
-  'encode sans semi expanded' => 
+  'Encode Sans Semi Expanded' => 
   array (
     'family' => 'Encode Sans Semi Expanded',
     'variants' => 
@@ -9089,7 +9089,7 @@ return array (
     array (
     ),
   ),
-  'engagement' => 
+  'Engagement' => 
   array (
     'family' => 'Engagement',
     'variants' => 
@@ -9107,7 +9107,7 @@ return array (
     array (
     ),
   ),
-  'englebert' => 
+  'Englebert' => 
   array (
     'family' => 'Englebert',
     'variants' => 
@@ -9125,7 +9125,7 @@ return array (
     array (
     ),
   ),
-  'enriqueta' => 
+  'Enriqueta' => 
   array (
     'family' => 'Enriqueta',
     'variants' => 
@@ -9146,7 +9146,7 @@ return array (
     array (
     ),
   ),
-  'ephesis' => 
+  'Ephesis' => 
   array (
     'family' => 'Ephesis',
     'variants' => 
@@ -9165,7 +9165,7 @@ return array (
     array (
     ),
   ),
-  'epilogue' => 
+  'Epilogue' => 
   array (
     'family' => 'Epilogue',
     'variants' => 
@@ -9191,7 +9191,7 @@ return array (
       ),
     ),
   ),
-  'erica one' => 
+  'Erica One' => 
   array (
     'family' => 'Erica One',
     'variants' => 
@@ -9209,7 +9209,7 @@ return array (
     array (
     ),
   ),
-  'esteban' => 
+  'Esteban' => 
   array (
     'family' => 'Esteban',
     'variants' => 
@@ -9227,7 +9227,7 @@ return array (
     array (
     ),
   ),
-  'estonia' => 
+  'Estonia' => 
   array (
     'family' => 'Estonia',
     'variants' => 
@@ -9246,7 +9246,7 @@ return array (
     array (
     ),
   ),
-  'euphoria script' => 
+  'Euphoria Script' => 
   array (
     'family' => 'Euphoria Script',
     'variants' => 
@@ -9264,7 +9264,7 @@ return array (
     array (
     ),
   ),
-  'ewert' => 
+  'Ewert' => 
   array (
     'family' => 'Ewert',
     'variants' => 
@@ -9282,7 +9282,7 @@ return array (
     array (
     ),
   ),
-  'exo' => 
+  'Exo' => 
   array (
     'family' => 'Exo',
     'variants' => 
@@ -9308,7 +9308,7 @@ return array (
       ),
     ),
   ),
-  'exo 2' => 
+  'Exo 2' => 
   array (
     'family' => 'Exo 2',
     'variants' => 
@@ -9336,7 +9336,7 @@ return array (
       ),
     ),
   ),
-  'expletus sans' => 
+  'Expletus Sans' => 
   array (
     'family' => 'Expletus Sans',
     'variants' => 
@@ -9361,7 +9361,7 @@ return array (
       ),
     ),
   ),
-  'explora' => 
+  'Explora' => 
   array (
     'family' => 'Explora',
     'variants' => 
@@ -9381,7 +9381,7 @@ return array (
     array (
     ),
   ),
-  'faculty glyphic' => 
+  'Faculty Glyphic' => 
   array (
     'family' => 'Faculty Glyphic',
     'variants' => 
@@ -9399,7 +9399,7 @@ return array (
     array (
     ),
   ),
-  'fahkwang' => 
+  'Fahkwang' => 
   array (
     'family' => 'Fahkwang',
     'variants' => 
@@ -9430,7 +9430,7 @@ return array (
     array (
     ),
   ),
-  'familjen grotesk' => 
+  'Familjen Grotesk' => 
   array (
     'family' => 'Familjen Grotesk',
     'variants' => 
@@ -9456,7 +9456,7 @@ return array (
       ),
     ),
   ),
-  'fanwood text' => 
+  'Fanwood Text' => 
   array (
     'family' => 'Fanwood Text',
     'variants' => 
@@ -9475,7 +9475,7 @@ return array (
     array (
     ),
   ),
-  'farro' => 
+  'Farro' => 
   array (
     'family' => 'Farro',
     'variants' => 
@@ -9496,7 +9496,7 @@ return array (
     array (
     ),
   ),
-  'farsan' => 
+  'Farsan' => 
   array (
     'family' => 'Farsan',
     'variants' => 
@@ -9516,7 +9516,7 @@ return array (
     array (
     ),
   ),
-  'fascinate' => 
+  'Fascinate' => 
   array (
     'family' => 'Fascinate',
     'variants' => 
@@ -9534,7 +9534,7 @@ return array (
     array (
     ),
   ),
-  'fascinate inline' => 
+  'Fascinate Inline' => 
   array (
     'family' => 'Fascinate Inline',
     'variants' => 
@@ -9552,7 +9552,7 @@ return array (
     array (
     ),
   ),
-  'faster one' => 
+  'Faster One' => 
   array (
     'family' => 'Faster One',
     'variants' => 
@@ -9570,7 +9570,7 @@ return array (
     array (
     ),
   ),
-  'fasthand' => 
+  'Fasthand' => 
   array (
     'family' => 'Fasthand',
     'variants' => 
@@ -9588,7 +9588,7 @@ return array (
     array (
     ),
   ),
-  'fauna one' => 
+  'Fauna One' => 
   array (
     'family' => 'Fauna One',
     'variants' => 
@@ -9606,7 +9606,7 @@ return array (
     array (
     ),
   ),
-  'faustina' => 
+  'Faustina' => 
   array (
     'family' => 'Faustina',
     'variants' => 
@@ -9632,7 +9632,7 @@ return array (
       ),
     ),
   ),
-  'federant' => 
+  'Federant' => 
   array (
     'family' => 'Federant',
     'variants' => 
@@ -9649,7 +9649,7 @@ return array (
     array (
     ),
   ),
-  'federo' => 
+  'Federo' => 
   array (
     'family' => 'Federo',
     'variants' => 
@@ -9666,7 +9666,7 @@ return array (
     array (
     ),
   ),
-  'felipa' => 
+  'Felipa' => 
   array (
     'family' => 'Felipa',
     'variants' => 
@@ -9684,7 +9684,7 @@ return array (
     array (
     ),
   ),
-  'fenix' => 
+  'Fenix' => 
   array (
     'family' => 'Fenix',
     'variants' => 
@@ -9702,7 +9702,7 @@ return array (
     array (
     ),
   ),
-  'festive' => 
+  'Festive' => 
   array (
     'family' => 'Festive',
     'variants' => 
@@ -9721,7 +9721,7 @@ return array (
     array (
     ),
   ),
-  'figtree' => 
+  'Figtree' => 
   array (
     'family' => 'Figtree',
     'variants' => 
@@ -9746,7 +9746,7 @@ return array (
       ),
     ),
   ),
-  'finger paint' => 
+  'Finger Paint' => 
   array (
     'family' => 'Finger Paint',
     'variants' => 
@@ -9763,7 +9763,7 @@ return array (
     array (
     ),
   ),
-  'finlandica' => 
+  'Finlandica' => 
   array (
     'family' => 'Finlandica',
     'variants' => 
@@ -9790,7 +9790,7 @@ return array (
       ),
     ),
   ),
-  'fira code' => 
+  'Fira Code' => 
   array (
     'family' => 'Fira Code',
     'variants' => 
@@ -9818,7 +9818,7 @@ return array (
       ),
     ),
   ),
-  'fira mono' => 
+  'Fira Mono' => 
   array (
     'family' => 'Fira Mono',
     'variants' => 
@@ -9842,7 +9842,7 @@ return array (
     array (
     ),
   ),
-  'fira sans' => 
+  'Fira Sans' => 
   array (
     'family' => 'Fira Sans',
     'variants' => 
@@ -9882,7 +9882,7 @@ return array (
     array (
     ),
   ),
-  'fira sans condensed' => 
+  'Fira Sans Condensed' => 
   array (
     'family' => 'Fira Sans Condensed',
     'variants' => 
@@ -9922,7 +9922,7 @@ return array (
     array (
     ),
   ),
-  'fira sans extra condensed' => 
+  'Fira Sans Extra Condensed' => 
   array (
     'family' => 'Fira Sans Extra Condensed',
     'variants' => 
@@ -9962,7 +9962,7 @@ return array (
     array (
     ),
   ),
-  'fjalla one' => 
+  'Fjalla One' => 
   array (
     'family' => 'Fjalla One',
     'variants' => 
@@ -9982,7 +9982,7 @@ return array (
     array (
     ),
   ),
-  'fjord one' => 
+  'Fjord One' => 
   array (
     'family' => 'Fjord One',
     'variants' => 
@@ -9999,7 +9999,7 @@ return array (
     array (
     ),
   ),
-  'flamenco' => 
+  'Flamenco' => 
   array (
     'family' => 'Flamenco',
     'variants' => 
@@ -10017,7 +10017,7 @@ return array (
     array (
     ),
   ),
-  'flavors' => 
+  'Flavors' => 
   array (
     'family' => 'Flavors',
     'variants' => 
@@ -10035,7 +10035,7 @@ return array (
     array (
     ),
   ),
-  'fleur de leah' => 
+  'Fleur De Leah' => 
   array (
     'family' => 'Fleur De Leah',
     'variants' => 
@@ -10054,7 +10054,7 @@ return array (
     array (
     ),
   ),
-  'flow block' => 
+  'Flow Block' => 
   array (
     'family' => 'Flow Block',
     'variants' => 
@@ -10075,7 +10075,7 @@ return array (
     array (
     ),
   ),
-  'flow circular' => 
+  'Flow Circular' => 
   array (
     'family' => 'Flow Circular',
     'variants' => 
@@ -10096,7 +10096,7 @@ return array (
     array (
     ),
   ),
-  'flow rounded' => 
+  'Flow Rounded' => 
   array (
     'family' => 'Flow Rounded',
     'variants' => 
@@ -10117,7 +10117,7 @@ return array (
     array (
     ),
   ),
-  'foldit' => 
+  'Foldit' => 
   array (
     'family' => 'Foldit',
     'variants' => 
@@ -10142,7 +10142,7 @@ return array (
       ),
     ),
   ),
-  'fondamento' => 
+  'Fondamento' => 
   array (
     'family' => 'Fondamento',
     'variants' => 
@@ -10161,7 +10161,7 @@ return array (
     array (
     ),
   ),
-  'fontdiner swanky' => 
+  'Fontdiner Swanky' => 
   array (
     'family' => 'Fontdiner Swanky',
     'variants' => 
@@ -10178,7 +10178,7 @@ return array (
     array (
     ),
   ),
-  'forum' => 
+  'Forum' => 
   array (
     'family' => 'Forum',
     'variants' => 
@@ -10198,7 +10198,7 @@ return array (
     array (
     ),
   ),
-  'fragment mono' => 
+  'Fragment Mono' => 
   array (
     'family' => 'Fragment Mono',
     'variants' => 
@@ -10218,7 +10218,7 @@ return array (
     array (
     ),
   ),
-  'francois one' => 
+  'Francois One' => 
   array (
     'family' => 'Francois One',
     'variants' => 
@@ -10237,7 +10237,7 @@ return array (
     array (
     ),
   ),
-  'frank ruhl libre' => 
+  'Frank Ruhl Libre' => 
   array (
     'family' => 'Frank Ruhl Libre',
     'variants' => 
@@ -10262,7 +10262,7 @@ return array (
       ),
     ),
   ),
-  'fraunces' => 
+  'Fraunces' => 
   array (
     'family' => 'Fraunces',
     'variants' => 
@@ -10306,7 +10306,7 @@ return array (
       ),
     ),
   ),
-  'freckle face' => 
+  'Freckle Face' => 
   array (
     'family' => 'Freckle Face',
     'variants' => 
@@ -10324,7 +10324,7 @@ return array (
     array (
     ),
   ),
-  'fredericka the great' => 
+  'Fredericka the Great' => 
   array (
     'family' => 'Fredericka the Great',
     'variants' => 
@@ -10342,7 +10342,7 @@ return array (
     array (
     ),
   ),
-  'fredoka' => 
+  'Fredoka' => 
   array (
     'family' => 'Fredoka',
     'variants' => 
@@ -10373,7 +10373,7 @@ return array (
       ),
     ),
   ),
-  'freehand' => 
+  'Freehand' => 
   array (
     'family' => 'Freehand',
     'variants' => 
@@ -10391,7 +10391,7 @@ return array (
     array (
     ),
   ),
-  'freeman' => 
+  'Freeman' => 
   array (
     'family' => 'Freeman',
     'variants' => 
@@ -10410,7 +10410,7 @@ return array (
     array (
     ),
   ),
-  'fresca' => 
+  'Fresca' => 
   array (
     'family' => 'Fresca',
     'variants' => 
@@ -10428,7 +10428,7 @@ return array (
     array (
     ),
   ),
-  'frijole' => 
+  'Frijole' => 
   array (
     'family' => 'Frijole',
     'variants' => 
@@ -10445,7 +10445,7 @@ return array (
     array (
     ),
   ),
-  'fruktur' => 
+  'Fruktur' => 
   array (
     'family' => 'Fruktur',
     'variants' => 
@@ -10466,7 +10466,7 @@ return array (
     array (
     ),
   ),
-  'fugaz one' => 
+  'Fugaz One' => 
   array (
     'family' => 'Fugaz One',
     'variants' => 
@@ -10483,7 +10483,7 @@ return array (
     array (
     ),
   ),
-  'fuggles' => 
+  'Fuggles' => 
   array (
     'family' => 'Fuggles',
     'variants' => 
@@ -10502,7 +10502,7 @@ return array (
     array (
     ),
   ),
-  'funnel display' => 
+  'Funnel Display' => 
   array (
     'family' => 'Funnel Display',
     'variants' => 
@@ -10526,7 +10526,7 @@ return array (
       ),
     ),
   ),
-  'funnel sans' => 
+  'Funnel Sans' => 
   array (
     'family' => 'Funnel Sans',
     'variants' => 
@@ -10551,7 +10551,7 @@ return array (
       ),
     ),
   ),
-  'fustat' => 
+  'Fustat' => 
   array (
     'family' => 'Fustat',
     'variants' => 
@@ -10576,7 +10576,7 @@ return array (
       ),
     ),
   ),
-  'fuzzy bubbles' => 
+  'Fuzzy Bubbles' => 
   array (
     'family' => 'Fuzzy Bubbles',
     'variants' => 
@@ -10596,7 +10596,7 @@ return array (
     array (
     ),
   ),
-  'gfs didot' => 
+  'GFS Didot' => 
   array (
     'family' => 'GFS Didot',
     'variants' => 
@@ -10613,7 +10613,7 @@ return array (
     array (
     ),
   ),
-  'gfs neohellenic' => 
+  'GFS Neohellenic' => 
   array (
     'family' => 'GFS Neohellenic',
     'variants' => 
@@ -10633,7 +10633,7 @@ return array (
     array (
     ),
   ),
-  'ga maamli' => 
+  'Ga Maamli' => 
   array (
     'family' => 'Ga Maamli',
     'variants' => 
@@ -10652,7 +10652,7 @@ return array (
     array (
     ),
   ),
-  'gabarito' => 
+  'Gabarito' => 
   array (
     'family' => 'Gabarito',
     'variants' => 
@@ -10676,7 +10676,7 @@ return array (
       ),
     ),
   ),
-  'gabriela' => 
+  'Gabriela' => 
   array (
     'family' => 'Gabriela',
     'variants' => 
@@ -10696,7 +10696,7 @@ return array (
     array (
     ),
   ),
-  'gaegu' => 
+  'Gaegu' => 
   array (
     'family' => 'Gaegu',
     'variants' => 
@@ -10716,7 +10716,7 @@ return array (
     array (
     ),
   ),
-  'gafata' => 
+  'Gafata' => 
   array (
     'family' => 'Gafata',
     'variants' => 
@@ -10734,7 +10734,7 @@ return array (
     array (
     ),
   ),
-  'gajraj one' => 
+  'Gajraj One' => 
   array (
     'family' => 'Gajraj One',
     'variants' => 
@@ -10753,7 +10753,7 @@ return array (
     array (
     ),
   ),
-  'galada' => 
+  'Galada' => 
   array (
     'family' => 'Galada',
     'variants' => 
@@ -10771,7 +10771,7 @@ return array (
     array (
     ),
   ),
-  'galdeano' => 
+  'Galdeano' => 
   array (
     'family' => 'Galdeano',
     'variants' => 
@@ -10788,7 +10788,7 @@ return array (
     array (
     ),
   ),
-  'galindo' => 
+  'Galindo' => 
   array (
     'family' => 'Galindo',
     'variants' => 
@@ -10806,7 +10806,7 @@ return array (
     array (
     ),
   ),
-  'gamja flower' => 
+  'Gamja Flower' => 
   array (
     'family' => 'Gamja Flower',
     'variants' => 
@@ -10824,7 +10824,7 @@ return array (
     array (
     ),
   ),
-  'gantari' => 
+  'Gantari' => 
   array (
     'family' => 'Gantari',
     'variants' => 
@@ -10849,7 +10849,7 @@ return array (
       ),
     ),
   ),
-  'gasoek one' => 
+  'Gasoek One' => 
   array (
     'family' => 'Gasoek One',
     'variants' => 
@@ -10868,7 +10868,7 @@ return array (
     array (
     ),
   ),
-  'gayathri' => 
+  'Gayathri' => 
   array (
     'family' => 'Gayathri',
     'variants' => 
@@ -10888,7 +10888,7 @@ return array (
     array (
     ),
   ),
-  'geist' => 
+  'Geist' => 
   array (
     'family' => 'Geist',
     'variants' => 
@@ -10912,7 +10912,7 @@ return array (
       ),
     ),
   ),
-  'geist mono' => 
+  'Geist Mono' => 
   array (
     'family' => 'Geist Mono',
     'variants' => 
@@ -10936,7 +10936,7 @@ return array (
       ),
     ),
   ),
-  'gelasio' => 
+  'Gelasio' => 
   array (
     'family' => 'Gelasio',
     'variants' => 
@@ -10962,7 +10962,7 @@ return array (
       ),
     ),
   ),
-  'gemunu libre' => 
+  'Gemunu Libre' => 
   array (
     'family' => 'Gemunu Libre',
     'variants' => 
@@ -10987,7 +10987,7 @@ return array (
       ),
     ),
   ),
-  'genos' => 
+  'Genos' => 
   array (
     'family' => 'Genos',
     'variants' => 
@@ -11014,7 +11014,7 @@ return array (
       ),
     ),
   ),
-  'gentium book plus' => 
+  'Gentium Book Plus' => 
   array (
     'family' => 'Gentium Book Plus',
     'variants' => 
@@ -11040,7 +11040,7 @@ return array (
     array (
     ),
   ),
-  'gentium plus' => 
+  'Gentium Plus' => 
   array (
     'family' => 'Gentium Plus',
     'variants' => 
@@ -11066,7 +11066,7 @@ return array (
     array (
     ),
   ),
-  'geo' => 
+  'Geo' => 
   array (
     'family' => 'Geo',
     'variants' => 
@@ -11084,7 +11084,7 @@ return array (
     array (
     ),
   ),
-  'geologica' => 
+  'Geologica' => 
   array (
     'family' => 'Geologica',
     'variants' => 
@@ -11130,7 +11130,7 @@ return array (
       ),
     ),
   ),
-  'georama' => 
+  'Georama' => 
   array (
     'family' => 'Georama',
     'variants' => 
@@ -11162,7 +11162,7 @@ return array (
       ),
     ),
   ),
-  'geostar' => 
+  'Geostar' => 
   array (
     'family' => 'Geostar',
     'variants' => 
@@ -11179,7 +11179,7 @@ return array (
     array (
     ),
   ),
-  'geostar fill' => 
+  'Geostar Fill' => 
   array (
     'family' => 'Geostar Fill',
     'variants' => 
@@ -11196,7 +11196,7 @@ return array (
     array (
     ),
   ),
-  'germania one' => 
+  'Germania One' => 
   array (
     'family' => 'Germania One',
     'variants' => 
@@ -11213,7 +11213,7 @@ return array (
     array (
     ),
   ),
-  'gideon roman' => 
+  'Gideon Roman' => 
   array (
     'family' => 'Gideon Roman',
     'variants' => 
@@ -11232,7 +11232,7 @@ return array (
     array (
     ),
   ),
-  'gidugu' => 
+  'Gidugu' => 
   array (
     'family' => 'Gidugu',
     'variants' => 
@@ -11251,7 +11251,7 @@ return array (
     array (
     ),
   ),
-  'gilda display' => 
+  'Gilda Display' => 
   array (
     'family' => 'Gilda Display',
     'variants' => 
@@ -11269,7 +11269,7 @@ return array (
     array (
     ),
   ),
-  'girassol' => 
+  'Girassol' => 
   array (
     'family' => 'Girassol',
     'variants' => 
@@ -11287,7 +11287,7 @@ return array (
     array (
     ),
   ),
-  'give you glory' => 
+  'Give You Glory' => 
   array (
     'family' => 'Give You Glory',
     'variants' => 
@@ -11305,7 +11305,7 @@ return array (
     array (
     ),
   ),
-  'glass antiqua' => 
+  'Glass Antiqua' => 
   array (
     'family' => 'Glass Antiqua',
     'variants' => 
@@ -11323,7 +11323,7 @@ return array (
     array (
     ),
   ),
-  'glegoo' => 
+  'Glegoo' => 
   array (
     'family' => 'Glegoo',
     'variants' => 
@@ -11343,7 +11343,7 @@ return array (
     array (
     ),
   ),
-  'gloock' => 
+  'Gloock' => 
   array (
     'family' => 'Gloock',
     'variants' => 
@@ -11362,7 +11362,7 @@ return array (
     array (
     ),
   ),
-  'gloria hallelujah' => 
+  'Gloria Hallelujah' => 
   array (
     'family' => 'Gloria Hallelujah',
     'variants' => 
@@ -11380,7 +11380,7 @@ return array (
     array (
     ),
   ),
-  'glory' => 
+  'Glory' => 
   array (
     'family' => 'Glory',
     'variants' => 
@@ -11406,7 +11406,7 @@ return array (
       ),
     ),
   ),
-  'gluten' => 
+  'Gluten' => 
   array (
     'family' => 'Gluten',
     'variants' => 
@@ -11437,7 +11437,7 @@ return array (
       ),
     ),
   ),
-  'goblin one' => 
+  'Goblin One' => 
   array (
     'family' => 'Goblin One',
     'variants' => 
@@ -11454,7 +11454,7 @@ return array (
     array (
     ),
   ),
-  'gochi hand' => 
+  'Gochi Hand' => 
   array (
     'family' => 'Gochi Hand',
     'variants' => 
@@ -11471,7 +11471,7 @@ return array (
     array (
     ),
   ),
-  'goldman' => 
+  'Goldman' => 
   array (
     'family' => 'Goldman',
     'variants' => 
@@ -11491,7 +11491,7 @@ return array (
     array (
     ),
   ),
-  'golos text' => 
+  'Golos Text' => 
   array (
     'family' => 'Golos Text',
     'variants' => 
@@ -11517,7 +11517,7 @@ return array (
       ),
     ),
   ),
-  'gorditas' => 
+  'Gorditas' => 
   array (
     'family' => 'Gorditas',
     'variants' => 
@@ -11535,7 +11535,7 @@ return array (
     array (
     ),
   ),
-  'gothic a1' => 
+  'Gothic A1' => 
   array (
     'family' => 'Gothic A1',
     'variants' => 
@@ -11567,7 +11567,7 @@ return array (
     array (
     ),
   ),
-  'gotu' => 
+  'Gotu' => 
   array (
     'family' => 'Gotu',
     'variants' => 
@@ -11587,7 +11587,7 @@ return array (
     array (
     ),
   ),
-  'goudy bookletter 1911' => 
+  'Goudy Bookletter 1911' => 
   array (
     'family' => 'Goudy Bookletter 1911',
     'variants' => 
@@ -11604,7 +11604,7 @@ return array (
     array (
     ),
   ),
-  'gowun batang' => 
+  'Gowun Batang' => 
   array (
     'family' => 'Gowun Batang',
     'variants' => 
@@ -11625,7 +11625,7 @@ return array (
     array (
     ),
   ),
-  'gowun dodum' => 
+  'Gowun Dodum' => 
   array (
     'family' => 'Gowun Dodum',
     'variants' => 
@@ -11645,7 +11645,7 @@ return array (
     array (
     ),
   ),
-  'graduate' => 
+  'Graduate' => 
   array (
     'family' => 'Graduate',
     'variants' => 
@@ -11662,7 +11662,7 @@ return array (
     array (
     ),
   ),
-  'grand hotel' => 
+  'Grand Hotel' => 
   array (
     'family' => 'Grand Hotel',
     'variants' => 
@@ -11680,7 +11680,7 @@ return array (
     array (
     ),
   ),
-  'grandiflora one' => 
+  'Grandiflora One' => 
   array (
     'family' => 'Grandiflora One',
     'variants' => 
@@ -11699,7 +11699,7 @@ return array (
     array (
     ),
   ),
-  'grandstander' => 
+  'Grandstander' => 
   array (
     'family' => 'Grandstander',
     'variants' => 
@@ -11725,7 +11725,7 @@ return array (
       ),
     ),
   ),
-  'grape nuts' => 
+  'Grape Nuts' => 
   array (
     'family' => 'Grape Nuts',
     'variants' => 
@@ -11744,7 +11744,7 @@ return array (
     array (
     ),
   ),
-  'gravitas one' => 
+  'Gravitas One' => 
   array (
     'family' => 'Gravitas One',
     'variants' => 
@@ -11761,7 +11761,7 @@ return array (
     array (
     ),
   ),
-  'great vibes' => 
+  'Great Vibes' => 
   array (
     'family' => 'Great Vibes',
     'variants' => 
@@ -11783,7 +11783,7 @@ return array (
     array (
     ),
   ),
-  'grechen fuemen' => 
+  'Grechen Fuemen' => 
   array (
     'family' => 'Grechen Fuemen',
     'variants' => 
@@ -11802,7 +11802,7 @@ return array (
     array (
     ),
   ),
-  'grenze' => 
+  'Grenze' => 
   array (
     'family' => 'Grenze',
     'variants' => 
@@ -11838,7 +11838,7 @@ return array (
     array (
     ),
   ),
-  'grenze gotisch' => 
+  'Grenze Gotisch' => 
   array (
     'family' => 'Grenze Gotisch',
     'variants' => 
@@ -11863,7 +11863,7 @@ return array (
       ),
     ),
   ),
-  'grey qo' => 
+  'Grey Qo' => 
   array (
     'family' => 'Grey Qo',
     'variants' => 
@@ -11882,7 +11882,7 @@ return array (
     array (
     ),
   ),
-  'griffy' => 
+  'Griffy' => 
   array (
     'family' => 'Griffy',
     'variants' => 
@@ -11900,7 +11900,7 @@ return array (
     array (
     ),
   ),
-  'gruppo' => 
+  'Gruppo' => 
   array (
     'family' => 'Gruppo',
     'variants' => 
@@ -11918,7 +11918,7 @@ return array (
     array (
     ),
   ),
-  'gudea' => 
+  'Gudea' => 
   array (
     'family' => 'Gudea',
     'variants' => 
@@ -11938,7 +11938,7 @@ return array (
     array (
     ),
   ),
-  'gugi' => 
+  'Gugi' => 
   array (
     'family' => 'Gugi',
     'variants' => 
@@ -11956,7 +11956,7 @@ return array (
     array (
     ),
   ),
-  'gulzar' => 
+  'Gulzar' => 
   array (
     'family' => 'Gulzar',
     'variants' => 
@@ -11975,7 +11975,7 @@ return array (
     array (
     ),
   ),
-  'gupter' => 
+  'Gupter' => 
   array (
     'family' => 'Gupter',
     'variants' => 
@@ -11994,7 +11994,7 @@ return array (
     array (
     ),
   ),
-  'gurajada' => 
+  'Gurajada' => 
   array (
     'family' => 'Gurajada',
     'variants' => 
@@ -12013,7 +12013,7 @@ return array (
     array (
     ),
   ),
-  'gwendolyn' => 
+  'Gwendolyn' => 
   array (
     'family' => 'Gwendolyn',
     'variants' => 
@@ -12033,7 +12033,7 @@ return array (
     array (
     ),
   ),
-  'habibi' => 
+  'Habibi' => 
   array (
     'family' => 'Habibi',
     'variants' => 
@@ -12051,7 +12051,7 @@ return array (
     array (
     ),
   ),
-  'hachi maru pop' => 
+  'Hachi Maru Pop' => 
   array (
     'family' => 'Hachi Maru Pop',
     'variants' => 
@@ -12071,7 +12071,7 @@ return array (
     array (
     ),
   ),
-  'hahmlet' => 
+  'Hahmlet' => 
   array (
     'family' => 'Hahmlet',
     'variants' => 
@@ -12097,7 +12097,7 @@ return array (
       ),
     ),
   ),
-  'halant' => 
+  'Halant' => 
   array (
     'family' => 'Halant',
     'variants' => 
@@ -12120,7 +12120,7 @@ return array (
     array (
     ),
   ),
-  'hammersmith one' => 
+  'Hammersmith One' => 
   array (
     'family' => 'Hammersmith One',
     'variants' => 
@@ -12138,7 +12138,7 @@ return array (
     array (
     ),
   ),
-  'hanalei' => 
+  'Hanalei' => 
   array (
     'family' => 'Hanalei',
     'variants' => 
@@ -12156,7 +12156,7 @@ return array (
     array (
     ),
   ),
-  'hanalei fill' => 
+  'Hanalei Fill' => 
   array (
     'family' => 'Hanalei Fill',
     'variants' => 
@@ -12174,7 +12174,7 @@ return array (
     array (
     ),
   ),
-  'handjet' => 
+  'Handjet' => 
   array (
     'family' => 'Handjet',
     'variants' => 
@@ -12217,7 +12217,7 @@ return array (
       ),
     ),
   ),
-  'handlee' => 
+  'Handlee' => 
   array (
     'family' => 'Handlee',
     'variants' => 
@@ -12234,7 +12234,7 @@ return array (
     array (
     ),
   ),
-  'hanken grotesk' => 
+  'Hanken Grotesk' => 
   array (
     'family' => 'Hanken Grotesk',
     'variants' => 
@@ -12261,7 +12261,7 @@ return array (
       ),
     ),
   ),
-  'hanuman' => 
+  'Hanuman' => 
   array (
     'family' => 'Hanuman',
     'variants' => 
@@ -12283,7 +12283,7 @@ return array (
     array (
     ),
   ),
-  'happy monkey' => 
+  'Happy Monkey' => 
   array (
     'family' => 'Happy Monkey',
     'variants' => 
@@ -12301,7 +12301,7 @@ return array (
     array (
     ),
   ),
-  'harmattan' => 
+  'Harmattan' => 
   array (
     'family' => 'Harmattan',
     'variants' => 
@@ -12323,7 +12323,7 @@ return array (
     array (
     ),
   ),
-  'headland one' => 
+  'Headland One' => 
   array (
     'family' => 'Headland One',
     'variants' => 
@@ -12341,7 +12341,7 @@ return array (
     array (
     ),
   ),
-  'hedvig letters sans' => 
+  'Hedvig Letters Sans' => 
   array (
     'family' => 'Hedvig Letters Sans',
     'variants' => 
@@ -12361,7 +12361,7 @@ return array (
     array (
     ),
   ),
-  'hedvig letters serif' => 
+  'Hedvig Letters Serif' => 
   array (
     'family' => 'Hedvig Letters Serif',
     'variants' => 
@@ -12387,7 +12387,7 @@ return array (
       ),
     ),
   ),
-  'heebo' => 
+  'Heebo' => 
   array (
     'family' => 'Heebo',
     'variants' => 
@@ -12414,7 +12414,7 @@ return array (
       ),
     ),
   ),
-  'henny penny' => 
+  'Henny Penny' => 
   array (
     'family' => 'Henny Penny',
     'variants' => 
@@ -12431,7 +12431,7 @@ return array (
     array (
     ),
   ),
-  'hepta slab' => 
+  'Hepta Slab' => 
   array (
     'family' => 'Hepta Slab',
     'variants' => 
@@ -12456,7 +12456,7 @@ return array (
       ),
     ),
   ),
-  'herr von muellerhoff' => 
+  'Herr Von Muellerhoff' => 
   array (
     'family' => 'Herr Von Muellerhoff',
     'variants' => 
@@ -12474,7 +12474,7 @@ return array (
     array (
     ),
   ),
-  'hi melody' => 
+  'Hi Melody' => 
   array (
     'family' => 'Hi Melody',
     'variants' => 
@@ -12492,7 +12492,7 @@ return array (
     array (
     ),
   ),
-  'hina mincho' => 
+  'Hina Mincho' => 
   array (
     'family' => 'Hina Mincho',
     'variants' => 
@@ -12513,7 +12513,7 @@ return array (
     array (
     ),
   ),
-  'hind' => 
+  'Hind' => 
   array (
     'family' => 'Hind',
     'variants' => 
@@ -12536,7 +12536,7 @@ return array (
     array (
     ),
   ),
-  'hind guntur' => 
+  'Hind Guntur' => 
   array (
     'family' => 'Hind Guntur',
     'variants' => 
@@ -12559,7 +12559,7 @@ return array (
     array (
     ),
   ),
-  'hind madurai' => 
+  'Hind Madurai' => 
   array (
     'family' => 'Hind Madurai',
     'variants' => 
@@ -12582,7 +12582,7 @@ return array (
     array (
     ),
   ),
-  'hind mysuru' => 
+  'Hind Mysuru' => 
   array (
     'family' => 'Hind Mysuru',
     'variants' => 
@@ -12605,7 +12605,7 @@ return array (
     array (
     ),
   ),
-  'hind siliguri' => 
+  'Hind Siliguri' => 
   array (
     'family' => 'Hind Siliguri',
     'variants' => 
@@ -12628,7 +12628,7 @@ return array (
     array (
     ),
   ),
-  'hind vadodara' => 
+  'Hind Vadodara' => 
   array (
     'family' => 'Hind Vadodara',
     'variants' => 
@@ -12651,7 +12651,7 @@ return array (
     array (
     ),
   ),
-  'holtwood one sc' => 
+  'Holtwood One SC' => 
   array (
     'family' => 'Holtwood One SC',
     'variants' => 
@@ -12669,7 +12669,7 @@ return array (
     array (
     ),
   ),
-  'homemade apple' => 
+  'Homemade Apple' => 
   array (
     'family' => 'Homemade Apple',
     'variants' => 
@@ -12686,7 +12686,7 @@ return array (
     array (
     ),
   ),
-  'homenaje' => 
+  'Homenaje' => 
   array (
     'family' => 'Homenaje',
     'variants' => 
@@ -12703,7 +12703,7 @@ return array (
     array (
     ),
   ),
-  'honk' => 
+  'Honk' => 
   array (
     'family' => 'Honk',
     'variants' => 
@@ -12736,7 +12736,7 @@ return array (
       ),
     ),
   ),
-  'host grotesk' => 
+  'Host Grotesk' => 
   array (
     'family' => 'Host Grotesk',
     'variants' => 
@@ -12761,7 +12761,7 @@ return array (
       ),
     ),
   ),
-  'hubballi' => 
+  'Hubballi' => 
   array (
     'family' => 'Hubballi',
     'variants' => 
@@ -12780,7 +12780,7 @@ return array (
     array (
     ),
   ),
-  'hubot sans' => 
+  'Hubot Sans' => 
   array (
     'family' => 'Hubot Sans',
     'variants' => 
@@ -12812,7 +12812,7 @@ return array (
       ),
     ),
   ),
-  'hurricane' => 
+  'Hurricane' => 
   array (
     'family' => 'Hurricane',
     'variants' => 
@@ -12831,7 +12831,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex mono' => 
+  'IBM Plex Mono' => 
   array (
     'family' => 'IBM Plex Mono',
     'variants' => 
@@ -12865,7 +12865,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex sans' => 
+  'IBM Plex Sans' => 
   array (
     'family' => 'IBM Plex Sans',
     'variants' => 
@@ -12900,7 +12900,7 @@ return array (
       ),
     ),
   ),
-  'ibm plex sans arabic' => 
+  'IBM Plex Sans Arabic' => 
   array (
     'family' => 'IBM Plex Sans Arabic',
     'variants' => 
@@ -12926,7 +12926,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex sans condensed' => 
+  'IBM Plex Sans Condensed' => 
   array (
     'family' => 'IBM Plex Sans Condensed',
     'variants' => 
@@ -12959,7 +12959,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex sans devanagari' => 
+  'IBM Plex Sans Devanagari' => 
   array (
     'family' => 'IBM Plex Sans Devanagari',
     'variants' => 
@@ -12985,7 +12985,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex sans hebrew' => 
+  'IBM Plex Sans Hebrew' => 
   array (
     'family' => 'IBM Plex Sans Hebrew',
     'variants' => 
@@ -13011,7 +13011,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex sans jp' => 
+  'IBM Plex Sans JP' => 
   array (
     'family' => 'IBM Plex Sans JP',
     'variants' => 
@@ -13037,7 +13037,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex sans kr' => 
+  'IBM Plex Sans KR' => 
   array (
     'family' => 'IBM Plex Sans KR',
     'variants' => 
@@ -13062,7 +13062,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex sans thai' => 
+  'IBM Plex Sans Thai' => 
   array (
     'family' => 'IBM Plex Sans Thai',
     'variants' => 
@@ -13088,7 +13088,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex sans thai looped' => 
+  'IBM Plex Sans Thai Looped' => 
   array (
     'family' => 'IBM Plex Sans Thai Looped',
     'variants' => 
@@ -13114,7 +13114,7 @@ return array (
     array (
     ),
   ),
-  'ibm plex serif' => 
+  'IBM Plex Serif' => 
   array (
     'family' => 'IBM Plex Serif',
     'variants' => 
@@ -13148,7 +13148,7 @@ return array (
     array (
     ),
   ),
-  'im fell dw pica' => 
+  'IM Fell DW Pica' => 
   array (
     'family' => 'IM Fell DW Pica',
     'variants' => 
@@ -13166,7 +13166,7 @@ return array (
     array (
     ),
   ),
-  'im fell dw pica sc' => 
+  'IM Fell DW Pica SC' => 
   array (
     'family' => 'IM Fell DW Pica SC',
     'variants' => 
@@ -13183,7 +13183,7 @@ return array (
     array (
     ),
   ),
-  'im fell double pica' => 
+  'IM Fell Double Pica' => 
   array (
     'family' => 'IM Fell Double Pica',
     'variants' => 
@@ -13201,7 +13201,7 @@ return array (
     array (
     ),
   ),
-  'im fell double pica sc' => 
+  'IM Fell Double Pica SC' => 
   array (
     'family' => 'IM Fell Double Pica SC',
     'variants' => 
@@ -13218,7 +13218,7 @@ return array (
     array (
     ),
   ),
-  'im fell english' => 
+  'IM Fell English' => 
   array (
     'family' => 'IM Fell English',
     'variants' => 
@@ -13236,7 +13236,7 @@ return array (
     array (
     ),
   ),
-  'im fell english sc' => 
+  'IM Fell English SC' => 
   array (
     'family' => 'IM Fell English SC',
     'variants' => 
@@ -13253,7 +13253,7 @@ return array (
     array (
     ),
   ),
-  'im fell french canon' => 
+  'IM Fell French Canon' => 
   array (
     'family' => 'IM Fell French Canon',
     'variants' => 
@@ -13271,7 +13271,7 @@ return array (
     array (
     ),
   ),
-  'im fell french canon sc' => 
+  'IM Fell French Canon SC' => 
   array (
     'family' => 'IM Fell French Canon SC',
     'variants' => 
@@ -13288,7 +13288,7 @@ return array (
     array (
     ),
   ),
-  'im fell great primer' => 
+  'IM Fell Great Primer' => 
   array (
     'family' => 'IM Fell Great Primer',
     'variants' => 
@@ -13306,7 +13306,7 @@ return array (
     array (
     ),
   ),
-  'im fell great primer sc' => 
+  'IM Fell Great Primer SC' => 
   array (
     'family' => 'IM Fell Great Primer SC',
     'variants' => 
@@ -13323,7 +13323,7 @@ return array (
     array (
     ),
   ),
-  'ibarra real nova' => 
+  'Ibarra Real Nova' => 
   array (
     'family' => 'Ibarra Real Nova',
     'variants' => 
@@ -13348,7 +13348,7 @@ return array (
       ),
     ),
   ),
-  'iceberg' => 
+  'Iceberg' => 
   array (
     'family' => 'Iceberg',
     'variants' => 
@@ -13365,7 +13365,7 @@ return array (
     array (
     ),
   ),
-  'iceland' => 
+  'Iceland' => 
   array (
     'family' => 'Iceland',
     'variants' => 
@@ -13382,7 +13382,7 @@ return array (
     array (
     ),
   ),
-  'imbue' => 
+  'Imbue' => 
   array (
     'family' => 'Imbue',
     'variants' => 
@@ -13413,7 +13413,7 @@ return array (
       ),
     ),
   ),
-  'imperial script' => 
+  'Imperial Script' => 
   array (
     'family' => 'Imperial Script',
     'variants' => 
@@ -13432,7 +13432,7 @@ return array (
     array (
     ),
   ),
-  'imprima' => 
+  'Imprima' => 
   array (
     'family' => 'Imprima',
     'variants' => 
@@ -13450,7 +13450,7 @@ return array (
     array (
     ),
   ),
-  'inclusive sans' => 
+  'Inclusive Sans' => 
   array (
     'family' => 'Inclusive Sans',
     'variants' => 
@@ -13476,7 +13476,7 @@ return array (
       ),
     ),
   ),
-  'inconsolata' => 
+  'Inconsolata' => 
   array (
     'family' => 'Inconsolata',
     'variants' => 
@@ -13507,7 +13507,7 @@ return array (
       ),
     ),
   ),
-  'inder' => 
+  'Inder' => 
   array (
     'family' => 'Inder',
     'variants' => 
@@ -13525,7 +13525,7 @@ return array (
     array (
     ),
   ),
-  'indie flower' => 
+  'Indie Flower' => 
   array (
     'family' => 'Indie Flower',
     'variants' => 
@@ -13543,7 +13543,7 @@ return array (
     array (
     ),
   ),
-  'ingrid darling' => 
+  'Ingrid Darling' => 
   array (
     'family' => 'Ingrid Darling',
     'variants' => 
@@ -13562,7 +13562,7 @@ return array (
     array (
     ),
   ),
-  'inika' => 
+  'Inika' => 
   array (
     'family' => 'Inika',
     'variants' => 
@@ -13581,7 +13581,7 @@ return array (
     array (
     ),
   ),
-  'inknut antiqua' => 
+  'Inknut Antiqua' => 
   array (
     'family' => 'Inknut Antiqua',
     'variants' => 
@@ -13606,7 +13606,7 @@ return array (
     array (
     ),
   ),
-  'inria sans' => 
+  'Inria Sans' => 
   array (
     'family' => 'Inria Sans',
     'variants' => 
@@ -13629,7 +13629,7 @@ return array (
     array (
     ),
   ),
-  'inria serif' => 
+  'Inria Serif' => 
   array (
     'family' => 'Inria Serif',
     'variants' => 
@@ -13652,7 +13652,7 @@ return array (
     array (
     ),
   ),
-  'inspiration' => 
+  'Inspiration' => 
   array (
     'family' => 'Inspiration',
     'variants' => 
@@ -13671,7 +13671,7 @@ return array (
     array (
     ),
   ),
-  'instrument sans' => 
+  'Instrument Sans' => 
   array (
     'family' => 'Instrument Sans',
     'variants' => 
@@ -13702,7 +13702,7 @@ return array (
       ),
     ),
   ),
-  'instrument serif' => 
+  'Instrument Serif' => 
   array (
     'family' => 'Instrument Serif',
     'variants' => 
@@ -13721,7 +13721,7 @@ return array (
     array (
     ),
   ),
-  'inter' => 
+  'Inter' => 
   array (
     'family' => 'Inter',
     'variants' => 
@@ -13757,7 +13757,7 @@ return array (
       ),
     ),
   ),
-  'inter tight' => 
+  'Inter Tight' => 
   array (
     'family' => 'Inter Tight',
     'variants' => 
@@ -13787,7 +13787,7 @@ return array (
       ),
     ),
   ),
-  'irish grover' => 
+  'Irish Grover' => 
   array (
     'family' => 'Irish Grover',
     'variants' => 
@@ -13804,7 +13804,7 @@ return array (
     array (
     ),
   ),
-  'island moments' => 
+  'Island Moments' => 
   array (
     'family' => 'Island Moments',
     'variants' => 
@@ -13823,7 +13823,7 @@ return array (
     array (
     ),
   ),
-  'istok web' => 
+  'Istok Web' => 
   array (
     'family' => 'Istok Web',
     'variants' => 
@@ -13846,7 +13846,7 @@ return array (
     array (
     ),
   ),
-  'italiana' => 
+  'Italiana' => 
   array (
     'family' => 'Italiana',
     'variants' => 
@@ -13863,7 +13863,7 @@ return array (
     array (
     ),
   ),
-  'italianno' => 
+  'Italianno' => 
   array (
     'family' => 'Italianno',
     'variants' => 
@@ -13882,7 +13882,7 @@ return array (
     array (
     ),
   ),
-  'itim' => 
+  'Itim' => 
   array (
     'family' => 'Itim',
     'variants' => 
@@ -13902,7 +13902,7 @@ return array (
     array (
     ),
   ),
-  'jacquard 12' => 
+  'Jacquard 12' => 
   array (
     'family' => 'Jacquard 12',
     'variants' => 
@@ -13922,7 +13922,7 @@ return array (
     array (
     ),
   ),
-  'jacquard 12 charted' => 
+  'Jacquard 12 Charted' => 
   array (
     'family' => 'Jacquard 12 Charted',
     'variants' => 
@@ -13942,7 +13942,7 @@ return array (
     array (
     ),
   ),
-  'jacquard 24' => 
+  'Jacquard 24' => 
   array (
     'family' => 'Jacquard 24',
     'variants' => 
@@ -13960,7 +13960,7 @@ return array (
     array (
     ),
   ),
-  'jacquard 24 charted' => 
+  'Jacquard 24 Charted' => 
   array (
     'family' => 'Jacquard 24 Charted',
     'variants' => 
@@ -13978,7 +13978,7 @@ return array (
     array (
     ),
   ),
-  'jacquarda bastarda 9' => 
+  'Jacquarda Bastarda 9' => 
   array (
     'family' => 'Jacquarda Bastarda 9',
     'variants' => 
@@ -13998,7 +13998,7 @@ return array (
     array (
     ),
   ),
-  'jacquarda bastarda 9 charted' => 
+  'Jacquarda Bastarda 9 Charted' => 
   array (
     'family' => 'Jacquarda Bastarda 9 Charted',
     'variants' => 
@@ -14018,7 +14018,7 @@ return array (
     array (
     ),
   ),
-  'jacques francois' => 
+  'Jacques Francois' => 
   array (
     'family' => 'Jacques Francois',
     'variants' => 
@@ -14035,7 +14035,7 @@ return array (
     array (
     ),
   ),
-  'jacques francois shadow' => 
+  'Jacques Francois Shadow' => 
   array (
     'family' => 'Jacques Francois Shadow',
     'variants' => 
@@ -14052,7 +14052,7 @@ return array (
     array (
     ),
   ),
-  'jaini' => 
+  'Jaini' => 
   array (
     'family' => 'Jaini',
     'variants' => 
@@ -14071,7 +14071,7 @@ return array (
     array (
     ),
   ),
-  'jaini purva' => 
+  'Jaini Purva' => 
   array (
     'family' => 'Jaini Purva',
     'variants' => 
@@ -14090,7 +14090,7 @@ return array (
     array (
     ),
   ),
-  'jaldi' => 
+  'Jaldi' => 
   array (
     'family' => 'Jaldi',
     'variants' => 
@@ -14110,7 +14110,7 @@ return array (
     array (
     ),
   ),
-  'jaro' => 
+  'Jaro' => 
   array (
     'family' => 'Jaro',
     'variants' => 
@@ -14135,7 +14135,7 @@ return array (
       ),
     ),
   ),
-  'jersey 10' => 
+  'Jersey 10' => 
   array (
     'family' => 'Jersey 10',
     'variants' => 
@@ -14153,7 +14153,7 @@ return array (
     array (
     ),
   ),
-  'jersey 10 charted' => 
+  'Jersey 10 Charted' => 
   array (
     'family' => 'Jersey 10 Charted',
     'variants' => 
@@ -14171,7 +14171,7 @@ return array (
     array (
     ),
   ),
-  'jersey 15' => 
+  'Jersey 15' => 
   array (
     'family' => 'Jersey 15',
     'variants' => 
@@ -14189,7 +14189,7 @@ return array (
     array (
     ),
   ),
-  'jersey 15 charted' => 
+  'Jersey 15 Charted' => 
   array (
     'family' => 'Jersey 15 Charted',
     'variants' => 
@@ -14207,7 +14207,7 @@ return array (
     array (
     ),
   ),
-  'jersey 20' => 
+  'Jersey 20' => 
   array (
     'family' => 'Jersey 20',
     'variants' => 
@@ -14225,7 +14225,7 @@ return array (
     array (
     ),
   ),
-  'jersey 20 charted' => 
+  'Jersey 20 Charted' => 
   array (
     'family' => 'Jersey 20 Charted',
     'variants' => 
@@ -14243,7 +14243,7 @@ return array (
     array (
     ),
   ),
-  'jersey 25' => 
+  'Jersey 25' => 
   array (
     'family' => 'Jersey 25',
     'variants' => 
@@ -14261,7 +14261,7 @@ return array (
     array (
     ),
   ),
-  'jersey 25 charted' => 
+  'Jersey 25 Charted' => 
   array (
     'family' => 'Jersey 25 Charted',
     'variants' => 
@@ -14279,7 +14279,7 @@ return array (
     array (
     ),
   ),
-  'jetbrains mono' => 
+  'JetBrains Mono' => 
   array (
     'family' => 'JetBrains Mono',
     'variants' => 
@@ -14308,7 +14308,7 @@ return array (
       ),
     ),
   ),
-  'jim nightshade' => 
+  'Jim Nightshade' => 
   array (
     'family' => 'Jim Nightshade',
     'variants' => 
@@ -14326,7 +14326,7 @@ return array (
     array (
     ),
   ),
-  'joan' => 
+  'Joan' => 
   array (
     'family' => 'Joan',
     'variants' => 
@@ -14344,7 +14344,7 @@ return array (
     array (
     ),
   ),
-  'jockey one' => 
+  'Jockey One' => 
   array (
     'family' => 'Jockey One',
     'variants' => 
@@ -14362,7 +14362,7 @@ return array (
     array (
     ),
   ),
-  'jolly lodger' => 
+  'Jolly Lodger' => 
   array (
     'family' => 'Jolly Lodger',
     'variants' => 
@@ -14380,7 +14380,7 @@ return array (
     array (
     ),
   ),
-  'jomhuria' => 
+  'Jomhuria' => 
   array (
     'family' => 'Jomhuria',
     'variants' => 
@@ -14398,7 +14398,7 @@ return array (
     array (
     ),
   ),
-  'jomolhari' => 
+  'Jomolhari' => 
   array (
     'family' => 'Jomolhari',
     'variants' => 
@@ -14416,7 +14416,7 @@ return array (
     array (
     ),
   ),
-  'josefin sans' => 
+  'Josefin Sans' => 
   array (
     'family' => 'Josefin Sans',
     'variants' => 
@@ -14442,7 +14442,7 @@ return array (
       ),
     ),
   ),
-  'josefin slab' => 
+  'Josefin Slab' => 
   array (
     'family' => 'Josefin Slab',
     'variants' => 
@@ -14466,7 +14466,7 @@ return array (
       ),
     ),
   ),
-  'jost' => 
+  'Jost' => 
   array (
     'family' => 'Jost',
     'variants' => 
@@ -14492,7 +14492,7 @@ return array (
       ),
     ),
   ),
-  'joti one' => 
+  'Joti One' => 
   array (
     'family' => 'Joti One',
     'variants' => 
@@ -14510,7 +14510,7 @@ return array (
     array (
     ),
   ),
-  'jua' => 
+  'Jua' => 
   array (
     'family' => 'Jua',
     'variants' => 
@@ -14528,7 +14528,7 @@ return array (
     array (
     ),
   ),
-  'judson' => 
+  'Judson' => 
   array (
     'family' => 'Judson',
     'variants' => 
@@ -14549,7 +14549,7 @@ return array (
     array (
     ),
   ),
-  'julee' => 
+  'Julee' => 
   array (
     'family' => 'Julee',
     'variants' => 
@@ -14567,7 +14567,7 @@ return array (
     array (
     ),
   ),
-  'julius sans one' => 
+  'Julius Sans One' => 
   array (
     'family' => 'Julius Sans One',
     'variants' => 
@@ -14585,7 +14585,7 @@ return array (
     array (
     ),
   ),
-  'junge' => 
+  'Junge' => 
   array (
     'family' => 'Junge',
     'variants' => 
@@ -14602,7 +14602,7 @@ return array (
     array (
     ),
   ),
-  'jura' => 
+  'Jura' => 
   array (
     'family' => 'Jura',
     'variants' => 
@@ -14632,7 +14632,7 @@ return array (
       ),
     ),
   ),
-  'just another hand' => 
+  'Just Another Hand' => 
   array (
     'family' => 'Just Another Hand',
     'variants' => 
@@ -14650,7 +14650,7 @@ return array (
     array (
     ),
   ),
-  'just me again down here' => 
+  'Just Me Again Down Here' => 
   array (
     'family' => 'Just Me Again Down Here',
     'variants' => 
@@ -14668,7 +14668,7 @@ return array (
     array (
     ),
   ),
-  'k2d' => 
+  'K2D' => 
   array (
     'family' => 'K2D',
     'variants' => 
@@ -14703,7 +14703,7 @@ return array (
     array (
     ),
   ),
-  'kablammo' => 
+  'Kablammo' => 
   array (
     'family' => 'Kablammo',
     'variants' => 
@@ -14730,7 +14730,7 @@ return array (
       ),
     ),
   ),
-  'kadwa' => 
+  'Kadwa' => 
   array (
     'family' => 'Kadwa',
     'variants' => 
@@ -14750,7 +14750,7 @@ return array (
     array (
     ),
   ),
-  'kaisei decol' => 
+  'Kaisei Decol' => 
   array (
     'family' => 'Kaisei Decol',
     'variants' => 
@@ -14772,7 +14772,7 @@ return array (
     array (
     ),
   ),
-  'kaisei harunoumi' => 
+  'Kaisei HarunoUmi' => 
   array (
     'family' => 'Kaisei HarunoUmi',
     'variants' => 
@@ -14794,7 +14794,7 @@ return array (
     array (
     ),
   ),
-  'kaisei opti' => 
+  'Kaisei Opti' => 
   array (
     'family' => 'Kaisei Opti',
     'variants' => 
@@ -14816,7 +14816,7 @@ return array (
     array (
     ),
   ),
-  'kaisei tokumin' => 
+  'Kaisei Tokumin' => 
   array (
     'family' => 'Kaisei Tokumin',
     'variants' => 
@@ -14839,7 +14839,7 @@ return array (
     array (
     ),
   ),
-  'kalam' => 
+  'Kalam' => 
   array (
     'family' => 'Kalam',
     'variants' => 
@@ -14860,7 +14860,7 @@ return array (
     array (
     ),
   ),
-  'kalnia' => 
+  'Kalnia' => 
   array (
     'family' => 'Kalnia',
     'variants' => 
@@ -14891,7 +14891,7 @@ return array (
       ),
     ),
   ),
-  'kalnia glaze' => 
+  'Kalnia Glaze' => 
   array (
     'family' => 'Kalnia Glaze',
     'variants' => 
@@ -14921,7 +14921,7 @@ return array (
       ),
     ),
   ),
-  'kameron' => 
+  'Kameron' => 
   array (
     'family' => 'Kameron',
     'variants' => 
@@ -14945,7 +14945,7 @@ return array (
       ),
     ),
   ),
-  'kanit' => 
+  'Kanit' => 
   array (
     'family' => 'Kanit',
     'variants' => 
@@ -14982,7 +14982,7 @@ return array (
     array (
     ),
   ),
-  'kantumruy pro' => 
+  'Kantumruy Pro' => 
   array (
     'family' => 'Kantumruy Pro',
     'variants' => 
@@ -15008,7 +15008,7 @@ return array (
       ),
     ),
   ),
-  'karantina' => 
+  'Karantina' => 
   array (
     'family' => 'Karantina',
     'variants' => 
@@ -15029,7 +15029,7 @@ return array (
     array (
     ),
   ),
-  'karla' => 
+  'Karla' => 
   array (
     'family' => 'Karla',
     'variants' => 
@@ -15054,7 +15054,7 @@ return array (
       ),
     ),
   ),
-  'karla tamil inclined' => 
+  'Karla Tamil Inclined' => 
   array (
     'family' => 'Karla Tamil Inclined',
     'variants' => 
@@ -15072,7 +15072,7 @@ return array (
     array (
     ),
   ),
-  'karla tamil upright' => 
+  'Karla Tamil Upright' => 
   array (
     'family' => 'Karla Tamil Upright',
     'variants' => 
@@ -15090,7 +15090,7 @@ return array (
     array (
     ),
   ),
-  'karma' => 
+  'Karma' => 
   array (
     'family' => 'Karma',
     'variants' => 
@@ -15113,7 +15113,7 @@ return array (
     array (
     ),
   ),
-  'katibeh' => 
+  'Katibeh' => 
   array (
     'family' => 'Katibeh',
     'variants' => 
@@ -15132,7 +15132,7 @@ return array (
     array (
     ),
   ),
-  'kaushan script' => 
+  'Kaushan Script' => 
   array (
     'family' => 'Kaushan Script',
     'variants' => 
@@ -15150,7 +15150,7 @@ return array (
     array (
     ),
   ),
-  'kavivanar' => 
+  'Kavivanar' => 
   array (
     'family' => 'Kavivanar',
     'variants' => 
@@ -15169,7 +15169,7 @@ return array (
     array (
     ),
   ),
-  'kavoon' => 
+  'Kavoon' => 
   array (
     'family' => 'Kavoon',
     'variants' => 
@@ -15187,7 +15187,7 @@ return array (
     array (
     ),
   ),
-  'kay pho du' => 
+  'Kay Pho Du' => 
   array (
     'family' => 'Kay Pho Du',
     'variants' => 
@@ -15209,7 +15209,7 @@ return array (
     array (
     ),
   ),
-  'kdam thmor pro' => 
+  'Kdam Thmor Pro' => 
   array (
     'family' => 'Kdam Thmor Pro',
     'variants' => 
@@ -15228,7 +15228,7 @@ return array (
     array (
     ),
   ),
-  'keania one' => 
+  'Keania One' => 
   array (
     'family' => 'Keania One',
     'variants' => 
@@ -15246,7 +15246,7 @@ return array (
     array (
     ),
   ),
-  'kelly slab' => 
+  'Kelly Slab' => 
   array (
     'family' => 'Kelly Slab',
     'variants' => 
@@ -15265,7 +15265,7 @@ return array (
     array (
     ),
   ),
-  'kenia' => 
+  'Kenia' => 
   array (
     'family' => 'Kenia',
     'variants' => 
@@ -15282,7 +15282,7 @@ return array (
     array (
     ),
   ),
-  'khand' => 
+  'Khand' => 
   array (
     'family' => 'Khand',
     'variants' => 
@@ -15305,7 +15305,7 @@ return array (
     array (
     ),
   ),
-  'khmer' => 
+  'Khmer' => 
   array (
     'family' => 'Khmer',
     'variants' => 
@@ -15322,7 +15322,7 @@ return array (
     array (
     ),
   ),
-  'khula' => 
+  'Khula' => 
   array (
     'family' => 'Khula',
     'variants' => 
@@ -15345,7 +15345,7 @@ return array (
     array (
     ),
   ),
-  'kings' => 
+  'Kings' => 
   array (
     'family' => 'Kings',
     'variants' => 
@@ -15364,7 +15364,7 @@ return array (
     array (
     ),
   ),
-  'kirang haerang' => 
+  'Kirang Haerang' => 
   array (
     'family' => 'Kirang Haerang',
     'variants' => 
@@ -15382,7 +15382,7 @@ return array (
     array (
     ),
   ),
-  'kite one' => 
+  'Kite One' => 
   array (
     'family' => 'Kite One',
     'variants' => 
@@ -15400,7 +15400,7 @@ return array (
     array (
     ),
   ),
-  'kiwi maru' => 
+  'Kiwi Maru' => 
   array (
     'family' => 'Kiwi Maru',
     'variants' => 
@@ -15422,7 +15422,7 @@ return array (
     array (
     ),
   ),
-  'klee one' => 
+  'Klee One' => 
   array (
     'family' => 'Klee One',
     'variants' => 
@@ -15444,7 +15444,7 @@ return array (
     array (
     ),
   ),
-  'knewave' => 
+  'Knewave' => 
   array (
     'family' => 'Knewave',
     'variants' => 
@@ -15462,7 +15462,7 @@ return array (
     array (
     ),
   ),
-  'koho' => 
+  'KoHo' => 
   array (
     'family' => 'KoHo',
     'variants' => 
@@ -15493,7 +15493,7 @@ return array (
     array (
     ),
   ),
-  'kodchasan' => 
+  'Kodchasan' => 
   array (
     'family' => 'Kodchasan',
     'variants' => 
@@ -15524,7 +15524,7 @@ return array (
     array (
     ),
   ),
-  'kode mono' => 
+  'Kode Mono' => 
   array (
     'family' => 'Kode Mono',
     'variants' => 
@@ -15548,7 +15548,7 @@ return array (
       ),
     ),
   ),
-  'koh santepheap' => 
+  'Koh Santepheap' => 
   array (
     'family' => 'Koh Santepheap',
     'variants' => 
@@ -15570,7 +15570,7 @@ return array (
     array (
     ),
   ),
-  'kolker brush' => 
+  'Kolker Brush' => 
   array (
     'family' => 'Kolker Brush',
     'variants' => 
@@ -15589,7 +15589,7 @@ return array (
     array (
     ),
   ),
-  'konkhmer sleokchher' => 
+  'Konkhmer Sleokchher' => 
   array (
     'family' => 'Konkhmer Sleokchher',
     'variants' => 
@@ -15608,7 +15608,7 @@ return array (
     array (
     ),
   ),
-  'kosugi' => 
+  'Kosugi' => 
   array (
     'family' => 'Kosugi',
     'variants' => 
@@ -15628,7 +15628,7 @@ return array (
     array (
     ),
   ),
-  'kosugi maru' => 
+  'Kosugi Maru' => 
   array (
     'family' => 'Kosugi Maru',
     'variants' => 
@@ -15648,7 +15648,7 @@ return array (
     array (
     ),
   ),
-  'kotta one' => 
+  'Kotta One' => 
   array (
     'family' => 'Kotta One',
     'variants' => 
@@ -15666,7 +15666,7 @@ return array (
     array (
     ),
   ),
-  'koulen' => 
+  'Koulen' => 
   array (
     'family' => 'Koulen',
     'variants' => 
@@ -15684,7 +15684,7 @@ return array (
     array (
     ),
   ),
-  'kranky' => 
+  'Kranky' => 
   array (
     'family' => 'Kranky',
     'variants' => 
@@ -15701,7 +15701,7 @@ return array (
     array (
     ),
   ),
-  'kreon' => 
+  'Kreon' => 
   array (
     'family' => 'Kreon',
     'variants' => 
@@ -15725,7 +15725,7 @@ return array (
       ),
     ),
   ),
-  'kristi' => 
+  'Kristi' => 
   array (
     'family' => 'Kristi',
     'variants' => 
@@ -15742,7 +15742,7 @@ return array (
     array (
     ),
   ),
-  'krona one' => 
+  'Krona One' => 
   array (
     'family' => 'Krona One',
     'variants' => 
@@ -15760,7 +15760,7 @@ return array (
     array (
     ),
   ),
-  'krub' => 
+  'Krub' => 
   array (
     'family' => 'Krub',
     'variants' => 
@@ -15791,7 +15791,7 @@ return array (
     array (
     ),
   ),
-  'kufam' => 
+  'Kufam' => 
   array (
     'family' => 'Kufam',
     'variants' => 
@@ -15818,7 +15818,7 @@ return array (
       ),
     ),
   ),
-  'kulim park' => 
+  'Kulim Park' => 
   array (
     'family' => 'Kulim Park',
     'variants' => 
@@ -15845,7 +15845,7 @@ return array (
     array (
     ),
   ),
-  'kumar one' => 
+  'Kumar One' => 
   array (
     'family' => 'Kumar One',
     'variants' => 
@@ -15864,7 +15864,7 @@ return array (
     array (
     ),
   ),
-  'kumar one outline' => 
+  'Kumar One Outline' => 
   array (
     'family' => 'Kumar One Outline',
     'variants' => 
@@ -15883,7 +15883,7 @@ return array (
     array (
     ),
   ),
-  'kumbh sans' => 
+  'Kumbh Sans' => 
   array (
     'family' => 'Kumbh Sans',
     'variants' => 
@@ -15915,7 +15915,7 @@ return array (
       ),
     ),
   ),
-  'kurale' => 
+  'Kurale' => 
   array (
     'family' => 'Kurale',
     'variants' => 
@@ -15936,7 +15936,7 @@ return array (
     array (
     ),
   ),
-  'lxgw wenkai mono tc' => 
+  'LXGW WenKai Mono TC' => 
   array (
     'family' => 'LXGW WenKai Mono TC',
     'variants' => 
@@ -15963,7 +15963,7 @@ return array (
     array (
     ),
   ),
-  'lxgw wenkai tc' => 
+  'LXGW WenKai TC' => 
   array (
     'family' => 'LXGW WenKai TC',
     'variants' => 
@@ -15990,7 +15990,7 @@ return array (
     array (
     ),
   ),
-  'la belle aurore' => 
+  'La Belle Aurore' => 
   array (
     'family' => 'La Belle Aurore',
     'variants' => 
@@ -16008,7 +16008,7 @@ return array (
     array (
     ),
   ),
-  'labrada' => 
+  'Labrada' => 
   array (
     'family' => 'Labrada',
     'variants' => 
@@ -16034,7 +16034,7 @@ return array (
       ),
     ),
   ),
-  'lacquer' => 
+  'Lacquer' => 
   array (
     'family' => 'Lacquer',
     'variants' => 
@@ -16051,7 +16051,7 @@ return array (
     array (
     ),
   ),
-  'laila' => 
+  'Laila' => 
   array (
     'family' => 'Laila',
     'variants' => 
@@ -16074,7 +16074,7 @@ return array (
     array (
     ),
   ),
-  'lakki reddy' => 
+  'Lakki Reddy' => 
   array (
     'family' => 'Lakki Reddy',
     'variants' => 
@@ -16092,7 +16092,7 @@ return array (
     array (
     ),
   ),
-  'lalezar' => 
+  'Lalezar' => 
   array (
     'family' => 'Lalezar',
     'variants' => 
@@ -16112,7 +16112,7 @@ return array (
     array (
     ),
   ),
-  'lancelot' => 
+  'Lancelot' => 
   array (
     'family' => 'Lancelot',
     'variants' => 
@@ -16130,7 +16130,7 @@ return array (
     array (
     ),
   ),
-  'langar' => 
+  'Langar' => 
   array (
     'family' => 'Langar',
     'variants' => 
@@ -16149,7 +16149,7 @@ return array (
     array (
     ),
   ),
-  'lateef' => 
+  'Lateef' => 
   array (
     'family' => 'Lateef',
     'variants' => 
@@ -16174,7 +16174,7 @@ return array (
     array (
     ),
   ),
-  'lato' => 
+  'Lato' => 
   array (
     'family' => 'Lato',
     'variants' => 
@@ -16201,7 +16201,7 @@ return array (
     array (
     ),
   ),
-  'lavishly yours' => 
+  'Lavishly Yours' => 
   array (
     'family' => 'Lavishly Yours',
     'variants' => 
@@ -16220,7 +16220,7 @@ return array (
     array (
     ),
   ),
-  'league gothic' => 
+  'League Gothic' => 
   array (
     'family' => 'League Gothic',
     'variants' => 
@@ -16245,7 +16245,7 @@ return array (
       ),
     ),
   ),
-  'league script' => 
+  'League Script' => 
   array (
     'family' => 'League Script',
     'variants' => 
@@ -16262,7 +16262,7 @@ return array (
     array (
     ),
   ),
-  'league spartan' => 
+  'League Spartan' => 
   array (
     'family' => 'League Spartan',
     'variants' => 
@@ -16287,7 +16287,7 @@ return array (
       ),
     ),
   ),
-  'leckerli one' => 
+  'Leckerli One' => 
   array (
     'family' => 'Leckerli One',
     'variants' => 
@@ -16304,7 +16304,7 @@ return array (
     array (
     ),
   ),
-  'ledger' => 
+  'Ledger' => 
   array (
     'family' => 'Ledger',
     'variants' => 
@@ -16323,7 +16323,7 @@ return array (
     array (
     ),
   ),
-  'lekton' => 
+  'Lekton' => 
   array (
     'family' => 'Lekton',
     'variants' => 
@@ -16343,7 +16343,7 @@ return array (
     array (
     ),
   ),
-  'lemon' => 
+  'Lemon' => 
   array (
     'family' => 'Lemon',
     'variants' => 
@@ -16361,7 +16361,7 @@ return array (
     array (
     ),
   ),
-  'lemonada' => 
+  'Lemonada' => 
   array (
     'family' => 'Lemonada',
     'variants' => 
@@ -16387,7 +16387,7 @@ return array (
       ),
     ),
   ),
-  'lexend' => 
+  'Lexend' => 
   array (
     'family' => 'Lexend',
     'variants' => 
@@ -16412,7 +16412,7 @@ return array (
       ),
     ),
   ),
-  'lexend deca' => 
+  'Lexend Deca' => 
   array (
     'family' => 'Lexend Deca',
     'variants' => 
@@ -16437,7 +16437,7 @@ return array (
       ),
     ),
   ),
-  'lexend exa' => 
+  'Lexend Exa' => 
   array (
     'family' => 'Lexend Exa',
     'variants' => 
@@ -16462,7 +16462,7 @@ return array (
       ),
     ),
   ),
-  'lexend giga' => 
+  'Lexend Giga' => 
   array (
     'family' => 'Lexend Giga',
     'variants' => 
@@ -16487,7 +16487,7 @@ return array (
       ),
     ),
   ),
-  'lexend mega' => 
+  'Lexend Mega' => 
   array (
     'family' => 'Lexend Mega',
     'variants' => 
@@ -16512,7 +16512,7 @@ return array (
       ),
     ),
   ),
-  'lexend peta' => 
+  'Lexend Peta' => 
   array (
     'family' => 'Lexend Peta',
     'variants' => 
@@ -16537,7 +16537,7 @@ return array (
       ),
     ),
   ),
-  'lexend tera' => 
+  'Lexend Tera' => 
   array (
     'family' => 'Lexend Tera',
     'variants' => 
@@ -16562,7 +16562,7 @@ return array (
       ),
     ),
   ),
-  'lexend zetta' => 
+  'Lexend Zetta' => 
   array (
     'family' => 'Lexend Zetta',
     'variants' => 
@@ -16587,7 +16587,7 @@ return array (
       ),
     ),
   ),
-  'libre barcode 128' => 
+  'Libre Barcode 128' => 
   array (
     'family' => 'Libre Barcode 128',
     'variants' => 
@@ -16604,7 +16604,7 @@ return array (
     array (
     ),
   ),
-  'libre barcode 128 text' => 
+  'Libre Barcode 128 Text' => 
   array (
     'family' => 'Libre Barcode 128 Text',
     'variants' => 
@@ -16621,7 +16621,7 @@ return array (
     array (
     ),
   ),
-  'libre barcode 39' => 
+  'Libre Barcode 39' => 
   array (
     'family' => 'Libre Barcode 39',
     'variants' => 
@@ -16638,7 +16638,7 @@ return array (
     array (
     ),
   ),
-  'libre barcode 39 extended' => 
+  'Libre Barcode 39 Extended' => 
   array (
     'family' => 'Libre Barcode 39 Extended',
     'variants' => 
@@ -16655,7 +16655,7 @@ return array (
     array (
     ),
   ),
-  'libre barcode 39 extended text' => 
+  'Libre Barcode 39 Extended Text' => 
   array (
     'family' => 'Libre Barcode 39 Extended Text',
     'variants' => 
@@ -16672,7 +16672,7 @@ return array (
     array (
     ),
   ),
-  'libre barcode 39 text' => 
+  'Libre Barcode 39 Text' => 
   array (
     'family' => 'Libre Barcode 39 Text',
     'variants' => 
@@ -16689,7 +16689,7 @@ return array (
     array (
     ),
   ),
-  'libre barcode ean13 text' => 
+  'Libre Barcode EAN13 Text' => 
   array (
     'family' => 'Libre Barcode EAN13 Text',
     'variants' => 
@@ -16706,7 +16706,7 @@ return array (
     array (
     ),
   ),
-  'libre baskerville' => 
+  'Libre Baskerville' => 
   array (
     'family' => 'Libre Baskerville',
     'variants' => 
@@ -16726,7 +16726,7 @@ return array (
     array (
     ),
   ),
-  'libre bodoni' => 
+  'Libre Bodoni' => 
   array (
     'family' => 'Libre Bodoni',
     'variants' => 
@@ -16752,7 +16752,7 @@ return array (
       ),
     ),
   ),
-  'libre caslon display' => 
+  'Libre Caslon Display' => 
   array (
     'family' => 'Libre Caslon Display',
     'variants' => 
@@ -16770,7 +16770,7 @@ return array (
     array (
     ),
   ),
-  'libre caslon text' => 
+  'Libre Caslon Text' => 
   array (
     'family' => 'Libre Caslon Text',
     'variants' => 
@@ -16790,7 +16790,7 @@ return array (
     array (
     ),
   ),
-  'libre franklin' => 
+  'Libre Franklin' => 
   array (
     'family' => 'Libre Franklin',
     'variants' => 
@@ -16818,7 +16818,7 @@ return array (
       ),
     ),
   ),
-  'licorice' => 
+  'Licorice' => 
   array (
     'family' => 'Licorice',
     'variants' => 
@@ -16837,7 +16837,7 @@ return array (
     array (
     ),
   ),
-  'life savers' => 
+  'Life Savers' => 
   array (
     'family' => 'Life Savers',
     'variants' => 
@@ -16857,7 +16857,7 @@ return array (
     array (
     ),
   ),
-  'lilita one' => 
+  'Lilita One' => 
   array (
     'family' => 'Lilita One',
     'variants' => 
@@ -16875,7 +16875,7 @@ return array (
     array (
     ),
   ),
-  'lily script one' => 
+  'Lily Script One' => 
   array (
     'family' => 'Lily Script One',
     'variants' => 
@@ -16893,7 +16893,7 @@ return array (
     array (
     ),
   ),
-  'limelight' => 
+  'Limelight' => 
   array (
     'family' => 'Limelight',
     'variants' => 
@@ -16911,7 +16911,7 @@ return array (
     array (
     ),
   ),
-  'linden hill' => 
+  'Linden Hill' => 
   array (
     'family' => 'Linden Hill',
     'variants' => 
@@ -16930,7 +16930,7 @@ return array (
     array (
     ),
   ),
-  'linefont' => 
+  'Linefont' => 
   array (
     'family' => 'Linefont',
     'variants' => 
@@ -16959,7 +16959,7 @@ return array (
       ),
     ),
   ),
-  'lisu bosa' => 
+  'Lisu Bosa' => 
   array (
     'family' => 'Lisu Bosa',
     'variants' => 
@@ -16993,7 +16993,7 @@ return array (
     array (
     ),
   ),
-  'liter' => 
+  'Liter' => 
   array (
     'family' => 'Liter',
     'variants' => 
@@ -17012,7 +17012,7 @@ return array (
     array (
     ),
   ),
-  'literata' => 
+  'Literata' => 
   array (
     'family' => 'Literata',
     'variants' => 
@@ -17048,7 +17048,7 @@ return array (
       ),
     ),
   ),
-  'liu jian mao cao' => 
+  'Liu Jian Mao Cao' => 
   array (
     'family' => 'Liu Jian Mao Cao',
     'variants' => 
@@ -17066,7 +17066,7 @@ return array (
     array (
     ),
   ),
-  'livvic' => 
+  'Livvic' => 
   array (
     'family' => 'Livvic',
     'variants' => 
@@ -17100,7 +17100,7 @@ return array (
     array (
     ),
   ),
-  'lobster' => 
+  'Lobster' => 
   array (
     'family' => 'Lobster',
     'variants' => 
@@ -17121,7 +17121,7 @@ return array (
     array (
     ),
   ),
-  'lobster two' => 
+  'Lobster Two' => 
   array (
     'family' => 'Lobster Two',
     'variants' => 
@@ -17141,7 +17141,7 @@ return array (
     array (
     ),
   ),
-  'londrina outline' => 
+  'Londrina Outline' => 
   array (
     'family' => 'Londrina Outline',
     'variants' => 
@@ -17158,7 +17158,7 @@ return array (
     array (
     ),
   ),
-  'londrina shadow' => 
+  'Londrina Shadow' => 
   array (
     'family' => 'Londrina Shadow',
     'variants' => 
@@ -17175,7 +17175,7 @@ return array (
     array (
     ),
   ),
-  'londrina sketch' => 
+  'Londrina Sketch' => 
   array (
     'family' => 'Londrina Sketch',
     'variants' => 
@@ -17192,7 +17192,7 @@ return array (
     array (
     ),
   ),
-  'londrina solid' => 
+  'Londrina Solid' => 
   array (
     'family' => 'Londrina Solid',
     'variants' => 
@@ -17212,7 +17212,7 @@ return array (
     array (
     ),
   ),
-  'long cang' => 
+  'Long Cang' => 
   array (
     'family' => 'Long Cang',
     'variants' => 
@@ -17230,7 +17230,7 @@ return array (
     array (
     ),
   ),
-  'lora' => 
+  'Lora' => 
   array (
     'family' => 'Lora',
     'variants' => 
@@ -17260,7 +17260,7 @@ return array (
       ),
     ),
   ),
-  'love light' => 
+  'Love Light' => 
   array (
     'family' => 'Love Light',
     'variants' => 
@@ -17279,7 +17279,7 @@ return array (
     array (
     ),
   ),
-  'love ya like a sister' => 
+  'Love Ya Like A Sister' => 
   array (
     'family' => 'Love Ya Like A Sister',
     'variants' => 
@@ -17297,7 +17297,7 @@ return array (
     array (
     ),
   ),
-  'loved by the king' => 
+  'Loved by the King' => 
   array (
     'family' => 'Loved by the King',
     'variants' => 
@@ -17315,7 +17315,7 @@ return array (
     array (
     ),
   ),
-  'lovers quarrel' => 
+  'Lovers Quarrel' => 
   array (
     'family' => 'Lovers Quarrel',
     'variants' => 
@@ -17334,7 +17334,7 @@ return array (
     array (
     ),
   ),
-  'luckiest guy' => 
+  'Luckiest Guy' => 
   array (
     'family' => 'Luckiest Guy',
     'variants' => 
@@ -17352,7 +17352,7 @@ return array (
     array (
     ),
   ),
-  'lugrasimo' => 
+  'Lugrasimo' => 
   array (
     'family' => 'Lugrasimo',
     'variants' => 
@@ -17370,7 +17370,7 @@ return array (
     array (
     ),
   ),
-  'lumanosimo' => 
+  'Lumanosimo' => 
   array (
     'family' => 'Lumanosimo',
     'variants' => 
@@ -17388,7 +17388,7 @@ return array (
     array (
     ),
   ),
-  'lunasima' => 
+  'Lunasima' => 
   array (
     'family' => 'Lunasima',
     'variants' => 
@@ -17413,7 +17413,7 @@ return array (
     array (
     ),
   ),
-  'lusitana' => 
+  'Lusitana' => 
   array (
     'family' => 'Lusitana',
     'variants' => 
@@ -17431,7 +17431,7 @@ return array (
     array (
     ),
   ),
-  'lustria' => 
+  'Lustria' => 
   array (
     'family' => 'Lustria',
     'variants' => 
@@ -17448,7 +17448,7 @@ return array (
     array (
     ),
   ),
-  'luxurious roman' => 
+  'Luxurious Roman' => 
   array (
     'family' => 'Luxurious Roman',
     'variants' => 
@@ -17467,7 +17467,7 @@ return array (
     array (
     ),
   ),
-  'luxurious script' => 
+  'Luxurious Script' => 
   array (
     'family' => 'Luxurious Script',
     'variants' => 
@@ -17486,7 +17486,7 @@ return array (
     array (
     ),
   ),
-  'm plus 1' => 
+  'M PLUS 1' => 
   array (
     'family' => 'M PLUS 1',
     'variants' => 
@@ -17512,7 +17512,7 @@ return array (
       ),
     ),
   ),
-  'm plus 1 code' => 
+  'M PLUS 1 Code' => 
   array (
     'family' => 'M PLUS 1 Code',
     'variants' => 
@@ -17538,7 +17538,7 @@ return array (
       ),
     ),
   ),
-  'm plus 1p' => 
+  'M PLUS 1p' => 
   array (
     'family' => 'M PLUS 1p',
     'variants' => 
@@ -17569,7 +17569,7 @@ return array (
     array (
     ),
   ),
-  'm plus 2' => 
+  'M PLUS 2' => 
   array (
     'family' => 'M PLUS 2',
     'variants' => 
@@ -17595,7 +17595,7 @@ return array (
       ),
     ),
   ),
-  'm plus code latin' => 
+  'M PLUS Code Latin' => 
   array (
     'family' => 'M PLUS Code Latin',
     'variants' => 
@@ -17626,7 +17626,7 @@ return array (
       ),
     ),
   ),
-  'm plus rounded 1c' => 
+  'M PLUS Rounded 1c' => 
   array (
     'family' => 'M PLUS Rounded 1c',
     'variants' => 
@@ -17657,7 +17657,7 @@ return array (
     array (
     ),
   ),
-  'ma shan zheng' => 
+  'Ma Shan Zheng' => 
   array (
     'family' => 'Ma Shan Zheng',
     'variants' => 
@@ -17675,7 +17675,7 @@ return array (
     array (
     ),
   ),
-  'macondo' => 
+  'Macondo' => 
   array (
     'family' => 'Macondo',
     'variants' => 
@@ -17692,7 +17692,7 @@ return array (
     array (
     ),
   ),
-  'macondo swash caps' => 
+  'Macondo Swash Caps' => 
   array (
     'family' => 'Macondo Swash Caps',
     'variants' => 
@@ -17709,7 +17709,7 @@ return array (
     array (
     ),
   ),
-  'mada' => 
+  'Mada' => 
   array (
     'family' => 'Mada',
     'variants' => 
@@ -17734,7 +17734,7 @@ return array (
       ),
     ),
   ),
-  'madimi one' => 
+  'Madimi One' => 
   array (
     'family' => 'Madimi One',
     'variants' => 
@@ -17754,7 +17754,7 @@ return array (
     array (
     ),
   ),
-  'magra' => 
+  'Magra' => 
   array (
     'family' => 'Magra',
     'variants' => 
@@ -17773,7 +17773,7 @@ return array (
     array (
     ),
   ),
-  'maiden orange' => 
+  'Maiden Orange' => 
   array (
     'family' => 'Maiden Orange',
     'variants' => 
@@ -17791,7 +17791,7 @@ return array (
     array (
     ),
   ),
-  'maitree' => 
+  'Maitree' => 
   array (
     'family' => 'Maitree',
     'variants' => 
@@ -17816,7 +17816,7 @@ return array (
     array (
     ),
   ),
-  'major mono display' => 
+  'Major Mono Display' => 
   array (
     'family' => 'Major Mono Display',
     'variants' => 
@@ -17835,7 +17835,7 @@ return array (
     array (
     ),
   ),
-  'mako' => 
+  'Mako' => 
   array (
     'family' => 'Mako',
     'variants' => 
@@ -17853,7 +17853,7 @@ return array (
     array (
     ),
   ),
-  'mali' => 
+  'Mali' => 
   array (
     'family' => 'Mali',
     'variants' => 
@@ -17884,7 +17884,7 @@ return array (
     array (
     ),
   ),
-  'mallanna' => 
+  'Mallanna' => 
   array (
     'family' => 'Mallanna',
     'variants' => 
@@ -17902,7 +17902,7 @@ return array (
     array (
     ),
   ),
-  'maname' => 
+  'Maname' => 
   array (
     'family' => 'Maname',
     'variants' => 
@@ -17922,7 +17922,7 @@ return array (
     array (
     ),
   ),
-  'mandali' => 
+  'Mandali' => 
   array (
     'family' => 'Mandali',
     'variants' => 
@@ -17940,7 +17940,7 @@ return array (
     array (
     ),
   ),
-  'manjari' => 
+  'Manjari' => 
   array (
     'family' => 'Manjari',
     'variants' => 
@@ -17961,7 +17961,7 @@ return array (
     array (
     ),
   ),
-  'manrope' => 
+  'Manrope' => 
   array (
     'family' => 'Manrope',
     'variants' => 
@@ -17989,7 +17989,7 @@ return array (
       ),
     ),
   ),
-  'mansalva' => 
+  'Mansalva' => 
   array (
     'family' => 'Mansalva',
     'variants' => 
@@ -18009,7 +18009,7 @@ return array (
     array (
     ),
   ),
-  'manuale' => 
+  'Manuale' => 
   array (
     'family' => 'Manuale',
     'variants' => 
@@ -18035,7 +18035,7 @@ return array (
       ),
     ),
   ),
-  'marcellus' => 
+  'Marcellus' => 
   array (
     'family' => 'Marcellus',
     'variants' => 
@@ -18053,7 +18053,7 @@ return array (
     array (
     ),
   ),
-  'marcellus sc' => 
+  'Marcellus SC' => 
   array (
     'family' => 'Marcellus SC',
     'variants' => 
@@ -18071,7 +18071,7 @@ return array (
     array (
     ),
   ),
-  'marck script' => 
+  'Marck Script' => 
   array (
     'family' => 'Marck Script',
     'variants' => 
@@ -18090,7 +18090,7 @@ return array (
     array (
     ),
   ),
-  'margarine' => 
+  'Margarine' => 
   array (
     'family' => 'Margarine',
     'variants' => 
@@ -18108,7 +18108,7 @@ return array (
     array (
     ),
   ),
-  'marhey' => 
+  'Marhey' => 
   array (
     'family' => 'Marhey',
     'variants' => 
@@ -18133,7 +18133,7 @@ return array (
       ),
     ),
   ),
-  'markazi text' => 
+  'Markazi Text' => 
   array (
     'family' => 'Markazi Text',
     'variants' => 
@@ -18159,7 +18159,7 @@ return array (
       ),
     ),
   ),
-  'marko one' => 
+  'Marko One' => 
   array (
     'family' => 'Marko One',
     'variants' => 
@@ -18176,7 +18176,7 @@ return array (
     array (
     ),
   ),
-  'marmelad' => 
+  'Marmelad' => 
   array (
     'family' => 'Marmelad',
     'variants' => 
@@ -18197,7 +18197,7 @@ return array (
     array (
     ),
   ),
-  'martel' => 
+  'Martel' => 
   array (
     'family' => 'Martel',
     'variants' => 
@@ -18222,7 +18222,7 @@ return array (
     array (
     ),
   ),
-  'martel sans' => 
+  'Martel Sans' => 
   array (
     'family' => 'Martel Sans',
     'variants' => 
@@ -18247,7 +18247,7 @@ return array (
     array (
     ),
   ),
-  'martian mono' => 
+  'Martian Mono' => 
   array (
     'family' => 'Martian Mono',
     'variants' => 
@@ -18279,7 +18279,7 @@ return array (
       ),
     ),
   ),
-  'marvel' => 
+  'Marvel' => 
   array (
     'family' => 'Marvel',
     'variants' => 
@@ -18299,7 +18299,7 @@ return array (
     array (
     ),
   ),
-  'mate' => 
+  'Mate' => 
   array (
     'family' => 'Mate',
     'variants' => 
@@ -18318,7 +18318,7 @@ return array (
     array (
     ),
   ),
-  'mate sc' => 
+  'Mate SC' => 
   array (
     'family' => 'Mate SC',
     'variants' => 
@@ -18336,7 +18336,7 @@ return array (
     array (
     ),
   ),
-  'matemasie' => 
+  'Matemasie' => 
   array (
     'family' => 'Matemasie',
     'variants' => 
@@ -18354,7 +18354,7 @@ return array (
     array (
     ),
   ),
-  'material icons' => 
+  'Material Icons' => 
   array (
     'family' => 'Material Icons',
     'variants' => 
@@ -18371,7 +18371,7 @@ return array (
     array (
     ),
   ),
-  'material icons outlined' => 
+  'Material Icons Outlined' => 
   array (
     'family' => 'Material Icons Outlined',
     'variants' => 
@@ -18388,7 +18388,7 @@ return array (
     array (
     ),
   ),
-  'material icons round' => 
+  'Material Icons Round' => 
   array (
     'family' => 'Material Icons Round',
     'variants' => 
@@ -18405,7 +18405,7 @@ return array (
     array (
     ),
   ),
-  'material icons sharp' => 
+  'Material Icons Sharp' => 
   array (
     'family' => 'Material Icons Sharp',
     'variants' => 
@@ -18422,7 +18422,7 @@ return array (
     array (
     ),
   ),
-  'material icons two tone' => 
+  'Material Icons Two Tone' => 
   array (
     'family' => 'Material Icons Two Tone',
     'variants' => 
@@ -18439,7 +18439,7 @@ return array (
     array (
     ),
   ),
-  'material symbols outlined' => 
+  'Material Symbols Outlined' => 
   array (
     'family' => 'Material Symbols Outlined',
     'variants' => 
@@ -18480,7 +18480,7 @@ return array (
       ),
     ),
   ),
-  'material symbols rounded' => 
+  'Material Symbols Rounded' => 
   array (
     'family' => 'Material Symbols Rounded',
     'variants' => 
@@ -18521,7 +18521,7 @@ return array (
       ),
     ),
   ),
-  'material symbols sharp' => 
+  'Material Symbols Sharp' => 
   array (
     'family' => 'Material Symbols Sharp',
     'variants' => 
@@ -18562,7 +18562,7 @@ return array (
       ),
     ),
   ),
-  'maven pro' => 
+  'Maven Pro' => 
   array (
     'family' => 'Maven Pro',
     'variants' => 
@@ -18587,7 +18587,7 @@ return array (
       ),
     ),
   ),
-  'mclaren' => 
+  'McLaren' => 
   array (
     'family' => 'McLaren',
     'variants' => 
@@ -18605,7 +18605,7 @@ return array (
     array (
     ),
   ),
-  'mea culpa' => 
+  'Mea Culpa' => 
   array (
     'family' => 'Mea Culpa',
     'variants' => 
@@ -18624,7 +18624,7 @@ return array (
     array (
     ),
   ),
-  'meddon' => 
+  'Meddon' => 
   array (
     'family' => 'Meddon',
     'variants' => 
@@ -18642,7 +18642,7 @@ return array (
     array (
     ),
   ),
-  'medievalsharp' => 
+  'MedievalSharp' => 
   array (
     'family' => 'MedievalSharp',
     'variants' => 
@@ -18660,7 +18660,7 @@ return array (
     array (
     ),
   ),
-  'medula one' => 
+  'Medula One' => 
   array (
     'family' => 'Medula One',
     'variants' => 
@@ -18677,7 +18677,7 @@ return array (
     array (
     ),
   ),
-  'meera inimai' => 
+  'Meera Inimai' => 
   array (
     'family' => 'Meera Inimai',
     'variants' => 
@@ -18695,7 +18695,7 @@ return array (
     array (
     ),
   ),
-  'megrim' => 
+  'Megrim' => 
   array (
     'family' => 'Megrim',
     'variants' => 
@@ -18713,7 +18713,7 @@ return array (
     array (
     ),
   ),
-  'meie script' => 
+  'Meie Script' => 
   array (
     'family' => 'Meie Script',
     'variants' => 
@@ -18731,7 +18731,7 @@ return array (
     array (
     ),
   ),
-  'meow script' => 
+  'Meow Script' => 
   array (
     'family' => 'Meow Script',
     'variants' => 
@@ -18750,7 +18750,7 @@ return array (
     array (
     ),
   ),
-  'merienda' => 
+  'Merienda' => 
   array (
     'family' => 'Merienda',
     'variants' => 
@@ -18775,7 +18775,7 @@ return array (
       ),
     ),
   ),
-  'merriweather' => 
+  'Merriweather' => 
   array (
     'family' => 'Merriweather',
     'variants' => 
@@ -18803,7 +18803,7 @@ return array (
     array (
     ),
   ),
-  'merriweather sans' => 
+  'Merriweather Sans' => 
   array (
     'family' => 'Merriweather Sans',
     'variants' => 
@@ -18830,7 +18830,7 @@ return array (
       ),
     ),
   ),
-  'metal' => 
+  'Metal' => 
   array (
     'family' => 'Metal',
     'variants' => 
@@ -18848,7 +18848,7 @@ return array (
     array (
     ),
   ),
-  'metal mania' => 
+  'Metal Mania' => 
   array (
     'family' => 'Metal Mania',
     'variants' => 
@@ -18866,7 +18866,7 @@ return array (
     array (
     ),
   ),
-  'metamorphous' => 
+  'Metamorphous' => 
   array (
     'family' => 'Metamorphous',
     'variants' => 
@@ -18884,7 +18884,7 @@ return array (
     array (
     ),
   ),
-  'metrophobic' => 
+  'Metrophobic' => 
   array (
     'family' => 'Metrophobic',
     'variants' => 
@@ -18903,7 +18903,7 @@ return array (
     array (
     ),
   ),
-  'michroma' => 
+  'Michroma' => 
   array (
     'family' => 'Michroma',
     'variants' => 
@@ -18921,7 +18921,7 @@ return array (
     array (
     ),
   ),
-  'micro 5' => 
+  'Micro 5' => 
   array (
     'family' => 'Micro 5',
     'variants' => 
@@ -18941,7 +18941,7 @@ return array (
     array (
     ),
   ),
-  'micro 5 charted' => 
+  'Micro 5 Charted' => 
   array (
     'family' => 'Micro 5 Charted',
     'variants' => 
@@ -18961,7 +18961,7 @@ return array (
     array (
     ),
   ),
-  'milonga' => 
+  'Milonga' => 
   array (
     'family' => 'Milonga',
     'variants' => 
@@ -18979,7 +18979,7 @@ return array (
     array (
     ),
   ),
-  'miltonian' => 
+  'Miltonian' => 
   array (
     'family' => 'Miltonian',
     'variants' => 
@@ -18996,7 +18996,7 @@ return array (
     array (
     ),
   ),
-  'miltonian tattoo' => 
+  'Miltonian Tattoo' => 
   array (
     'family' => 'Miltonian Tattoo',
     'variants' => 
@@ -19013,7 +19013,7 @@ return array (
     array (
     ),
   ),
-  'mina' => 
+  'Mina' => 
   array (
     'family' => 'Mina',
     'variants' => 
@@ -19033,7 +19033,7 @@ return array (
     array (
     ),
   ),
-  'mingzat' => 
+  'Mingzat' => 
   array (
     'family' => 'Mingzat',
     'variants' => 
@@ -19052,7 +19052,7 @@ return array (
     array (
     ),
   ),
-  'miniver' => 
+  'Miniver' => 
   array (
     'family' => 'Miniver',
     'variants' => 
@@ -19069,7 +19069,7 @@ return array (
     array (
     ),
   ),
-  'miriam libre' => 
+  'Miriam Libre' => 
   array (
     'family' => 'Miriam Libre',
     'variants' => 
@@ -19094,7 +19094,7 @@ return array (
       ),
     ),
   ),
-  'mirza' => 
+  'Mirza' => 
   array (
     'family' => 'Mirza',
     'variants' => 
@@ -19116,7 +19116,7 @@ return array (
     array (
     ),
   ),
-  'miss fajardose' => 
+  'Miss Fajardose' => 
   array (
     'family' => 'Miss Fajardose',
     'variants' => 
@@ -19134,7 +19134,7 @@ return array (
     array (
     ),
   ),
-  'mitr' => 
+  'Mitr' => 
   array (
     'family' => 'Mitr',
     'variants' => 
@@ -19159,7 +19159,7 @@ return array (
     array (
     ),
   ),
-  'mochiy pop one' => 
+  'Mochiy Pop One' => 
   array (
     'family' => 'Mochiy Pop One',
     'variants' => 
@@ -19177,7 +19177,7 @@ return array (
     array (
     ),
   ),
-  'mochiy pop p one' => 
+  'Mochiy Pop P One' => 
   array (
     'family' => 'Mochiy Pop P One',
     'variants' => 
@@ -19195,7 +19195,7 @@ return array (
     array (
     ),
   ),
-  'modak' => 
+  'Modak' => 
   array (
     'family' => 'Modak',
     'variants' => 
@@ -19214,7 +19214,7 @@ return array (
     array (
     ),
   ),
-  'modern antiqua' => 
+  'Modern Antiqua' => 
   array (
     'family' => 'Modern Antiqua',
     'variants' => 
@@ -19232,7 +19232,7 @@ return array (
     array (
     ),
   ),
-  'moderustic' => 
+  'Moderustic' => 
   array (
     'family' => 'Moderustic',
     'variants' => 
@@ -19259,7 +19259,7 @@ return array (
       ),
     ),
   ),
-  'mogra' => 
+  'Mogra' => 
   array (
     'family' => 'Mogra',
     'variants' => 
@@ -19278,7 +19278,7 @@ return array (
     array (
     ),
   ),
-  'mohave' => 
+  'Mohave' => 
   array (
     'family' => 'Mohave',
     'variants' => 
@@ -19303,7 +19303,7 @@ return array (
       ),
     ),
   ),
-  'moirai one' => 
+  'Moirai One' => 
   array (
     'family' => 'Moirai One',
     'variants' => 
@@ -19322,7 +19322,7 @@ return array (
     array (
     ),
   ),
-  'molengo' => 
+  'Molengo' => 
   array (
     'family' => 'Molengo',
     'variants' => 
@@ -19340,7 +19340,7 @@ return array (
     array (
     ),
   ),
-  'molle' => 
+  'Molle' => 
   array (
     'family' => 'Molle',
     'variants' => 
@@ -19358,7 +19358,7 @@ return array (
     array (
     ),
   ),
-  'mona sans' => 
+  'Mona Sans' => 
   array (
     'family' => 'Mona Sans',
     'variants' => 
@@ -19390,7 +19390,7 @@ return array (
       ),
     ),
   ),
-  'monda' => 
+  'Monda' => 
   array (
     'family' => 'Monda',
     'variants' => 
@@ -19415,7 +19415,7 @@ return array (
       ),
     ),
   ),
-  'monofett' => 
+  'Monofett' => 
   array (
     'family' => 'Monofett',
     'variants' => 
@@ -19433,7 +19433,7 @@ return array (
     array (
     ),
   ),
-  'monomakh' => 
+  'Monomakh' => 
   array (
     'family' => 'Monomakh',
     'variants' => 
@@ -19453,7 +19453,7 @@ return array (
     array (
     ),
   ),
-  'monomaniac one' => 
+  'Monomaniac One' => 
   array (
     'family' => 'Monomaniac One',
     'variants' => 
@@ -19472,7 +19472,7 @@ return array (
     array (
     ),
   ),
-  'monoton' => 
+  'Monoton' => 
   array (
     'family' => 'Monoton',
     'variants' => 
@@ -19490,7 +19490,7 @@ return array (
     array (
     ),
   ),
-  'monsieur la doulaise' => 
+  'Monsieur La Doulaise' => 
   array (
     'family' => 'Monsieur La Doulaise',
     'variants' => 
@@ -19508,7 +19508,7 @@ return array (
     array (
     ),
   ),
-  'montaga' => 
+  'Montaga' => 
   array (
     'family' => 'Montaga',
     'variants' => 
@@ -19525,7 +19525,7 @@ return array (
     array (
     ),
   ),
-  'montagu slab' => 
+  'Montagu Slab' => 
   array (
     'family' => 'Montagu Slab',
     'variants' => 
@@ -19556,7 +19556,7 @@ return array (
       ),
     ),
   ),
-  'montecarlo' => 
+  'MonteCarlo' => 
   array (
     'family' => 'MonteCarlo',
     'variants' => 
@@ -19575,7 +19575,7 @@ return array (
     array (
     ),
   ),
-  'montez' => 
+  'Montez' => 
   array (
     'family' => 'Montez',
     'variants' => 
@@ -19593,7 +19593,7 @@ return array (
     array (
     ),
   ),
-  'montserrat' => 
+  'Montserrat' => 
   array (
     'family' => 'Montserrat',
     'variants' => 
@@ -19621,7 +19621,7 @@ return array (
       ),
     ),
   ),
-  'montserrat alternates' => 
+  'Montserrat Alternates' => 
   array (
     'family' => 'Montserrat Alternates',
     'variants' => 
@@ -19659,7 +19659,7 @@ return array (
     array (
     ),
   ),
-  'montserrat subrayada' => 
+  'Montserrat Subrayada' => 
   array (
     'family' => 'Montserrat Subrayada',
     'variants' => 
@@ -19677,7 +19677,7 @@ return array (
     array (
     ),
   ),
-  'montserrat underline' => 
+  'Montserrat Underline' => 
   array (
     'family' => 'Montserrat Underline',
     'variants' => 
@@ -19705,7 +19705,7 @@ return array (
       ),
     ),
   ),
-  'moo lah lah' => 
+  'Moo Lah Lah' => 
   array (
     'family' => 'Moo Lah Lah',
     'variants' => 
@@ -19724,7 +19724,7 @@ return array (
     array (
     ),
   ),
-  'mooli' => 
+  'Mooli' => 
   array (
     'family' => 'Mooli',
     'variants' => 
@@ -19742,7 +19742,7 @@ return array (
     array (
     ),
   ),
-  'moon dance' => 
+  'Moon Dance' => 
   array (
     'family' => 'Moon Dance',
     'variants' => 
@@ -19761,7 +19761,7 @@ return array (
     array (
     ),
   ),
-  'moul' => 
+  'Moul' => 
   array (
     'family' => 'Moul',
     'variants' => 
@@ -19779,7 +19779,7 @@ return array (
     array (
     ),
   ),
-  'moulpali' => 
+  'Moulpali' => 
   array (
     'family' => 'Moulpali',
     'variants' => 
@@ -19797,7 +19797,7 @@ return array (
     array (
     ),
   ),
-  'mountains of christmas' => 
+  'Mountains of Christmas' => 
   array (
     'family' => 'Mountains of Christmas',
     'variants' => 
@@ -19815,7 +19815,7 @@ return array (
     array (
     ),
   ),
-  'mouse memoirs' => 
+  'Mouse Memoirs' => 
   array (
     'family' => 'Mouse Memoirs',
     'variants' => 
@@ -19833,7 +19833,7 @@ return array (
     array (
     ),
   ),
-  'mr bedfort' => 
+  'Mr Bedfort' => 
   array (
     'family' => 'Mr Bedfort',
     'variants' => 
@@ -19851,7 +19851,7 @@ return array (
     array (
     ),
   ),
-  'mr dafoe' => 
+  'Mr Dafoe' => 
   array (
     'family' => 'Mr Dafoe',
     'variants' => 
@@ -19869,7 +19869,7 @@ return array (
     array (
     ),
   ),
-  'mr de haviland' => 
+  'Mr De Haviland' => 
   array (
     'family' => 'Mr De Haviland',
     'variants' => 
@@ -19887,7 +19887,7 @@ return array (
     array (
     ),
   ),
-  'mrs saint delafield' => 
+  'Mrs Saint Delafield' => 
   array (
     'family' => 'Mrs Saint Delafield',
     'variants' => 
@@ -19905,7 +19905,7 @@ return array (
     array (
     ),
   ),
-  'mrs sheppards' => 
+  'Mrs Sheppards' => 
   array (
     'family' => 'Mrs Sheppards',
     'variants' => 
@@ -19923,7 +19923,7 @@ return array (
     array (
     ),
   ),
-  'ms madi' => 
+  'Ms Madi' => 
   array (
     'family' => 'Ms Madi',
     'variants' => 
@@ -19942,7 +19942,7 @@ return array (
     array (
     ),
   ),
-  'mukta' => 
+  'Mukta' => 
   array (
     'family' => 'Mukta',
     'variants' => 
@@ -19967,7 +19967,7 @@ return array (
     array (
     ),
   ),
-  'mukta mahee' => 
+  'Mukta Mahee' => 
   array (
     'family' => 'Mukta Mahee',
     'variants' => 
@@ -19992,7 +19992,7 @@ return array (
     array (
     ),
   ),
-  'mukta malar' => 
+  'Mukta Malar' => 
   array (
     'family' => 'Mukta Malar',
     'variants' => 
@@ -20017,7 +20017,7 @@ return array (
     array (
     ),
   ),
-  'mukta vaani' => 
+  'Mukta Vaani' => 
   array (
     'family' => 'Mukta Vaani',
     'variants' => 
@@ -20042,7 +20042,7 @@ return array (
     array (
     ),
   ),
-  'mulish' => 
+  'Mulish' => 
   array (
     'family' => 'Mulish',
     'variants' => 
@@ -20070,7 +20070,7 @@ return array (
       ),
     ),
   ),
-  'murecho' => 
+  'Murecho' => 
   array (
     'family' => 'Murecho',
     'variants' => 
@@ -20098,7 +20098,7 @@ return array (
       ),
     ),
   ),
-  'museomoderno' => 
+  'MuseoModerno' => 
   array (
     'family' => 'MuseoModerno',
     'variants' => 
@@ -20124,7 +20124,7 @@ return array (
       ),
     ),
   ),
-  'my soul' => 
+  'My Soul' => 
   array (
     'family' => 'My Soul',
     'variants' => 
@@ -20143,7 +20143,7 @@ return array (
     array (
     ),
   ),
-  'mynerve' => 
+  'Mynerve' => 
   array (
     'family' => 'Mynerve',
     'variants' => 
@@ -20163,7 +20163,7 @@ return array (
     array (
     ),
   ),
-  'mystery quest' => 
+  'Mystery Quest' => 
   array (
     'family' => 'Mystery Quest',
     'variants' => 
@@ -20181,7 +20181,7 @@ return array (
     array (
     ),
   ),
-  'ntr' => 
+  'NTR' => 
   array (
     'family' => 'NTR',
     'variants' => 
@@ -20199,7 +20199,7 @@ return array (
     array (
     ),
   ),
-  'nabla' => 
+  'Nabla' => 
   array (
     'family' => 'Nabla',
     'variants' => 
@@ -20232,7 +20232,7 @@ return array (
       ),
     ),
   ),
-  'namdhinggo' => 
+  'Namdhinggo' => 
   array (
     'family' => 'Namdhinggo',
     'variants' => 
@@ -20255,7 +20255,7 @@ return array (
     array (
     ),
   ),
-  'nanum brush script' => 
+  'Nanum Brush Script' => 
   array (
     'family' => 'Nanum Brush Script',
     'variants' => 
@@ -20273,7 +20273,7 @@ return array (
     array (
     ),
   ),
-  'nanum gothic' => 
+  'Nanum Gothic' => 
   array (
     'family' => 'Nanum Gothic',
     'variants' => 
@@ -20293,7 +20293,7 @@ return array (
     array (
     ),
   ),
-  'nanum gothic coding' => 
+  'Nanum Gothic Coding' => 
   array (
     'family' => 'Nanum Gothic Coding',
     'variants' => 
@@ -20312,7 +20312,7 @@ return array (
     array (
     ),
   ),
-  'nanum myeongjo' => 
+  'Nanum Myeongjo' => 
   array (
     'family' => 'Nanum Myeongjo',
     'variants' => 
@@ -20332,7 +20332,7 @@ return array (
     array (
     ),
   ),
-  'nanum pen script' => 
+  'Nanum Pen Script' => 
   array (
     'family' => 'Nanum Pen Script',
     'variants' => 
@@ -20350,7 +20350,7 @@ return array (
     array (
     ),
   ),
-  'narnoor' => 
+  'Narnoor' => 
   array (
     'family' => 'Narnoor',
     'variants' => 
@@ -20375,7 +20375,7 @@ return array (
     array (
     ),
   ),
-  'neonderthaw' => 
+  'Neonderthaw' => 
   array (
     'family' => 'Neonderthaw',
     'variants' => 
@@ -20394,7 +20394,7 @@ return array (
     array (
     ),
   ),
-  'nerko one' => 
+  'Nerko One' => 
   array (
     'family' => 'Nerko One',
     'variants' => 
@@ -20412,7 +20412,7 @@ return array (
     array (
     ),
   ),
-  'neucha' => 
+  'Neucha' => 
   array (
     'family' => 'Neucha',
     'variants' => 
@@ -20430,7 +20430,7 @@ return array (
     array (
     ),
   ),
-  'neuton' => 
+  'Neuton' => 
   array (
     'family' => 'Neuton',
     'variants' => 
@@ -20453,7 +20453,7 @@ return array (
     array (
     ),
   ),
-  'new amsterdam' => 
+  'New Amsterdam' => 
   array (
     'family' => 'New Amsterdam',
     'variants' => 
@@ -20471,7 +20471,7 @@ return array (
     array (
     ),
   ),
-  'new rocker' => 
+  'New Rocker' => 
   array (
     'family' => 'New Rocker',
     'variants' => 
@@ -20489,7 +20489,7 @@ return array (
     array (
     ),
   ),
-  'new tegomin' => 
+  'New Tegomin' => 
   array (
     'family' => 'New Tegomin',
     'variants' => 
@@ -20508,7 +20508,7 @@ return array (
     array (
     ),
   ),
-  'news cycle' => 
+  'News Cycle' => 
   array (
     'family' => 'News Cycle',
     'variants' => 
@@ -20527,7 +20527,7 @@ return array (
     array (
     ),
   ),
-  'newsreader' => 
+  'Newsreader' => 
   array (
     'family' => 'Newsreader',
     'variants' => 
@@ -20559,7 +20559,7 @@ return array (
       ),
     ),
   ),
-  'niconne' => 
+  'Niconne' => 
   array (
     'family' => 'Niconne',
     'variants' => 
@@ -20577,7 +20577,7 @@ return array (
     array (
     ),
   ),
-  'niramit' => 
+  'Niramit' => 
   array (
     'family' => 'Niramit',
     'variants' => 
@@ -20608,7 +20608,7 @@ return array (
     array (
     ),
   ),
-  'nixie one' => 
+  'Nixie One' => 
   array (
     'family' => 'Nixie One',
     'variants' => 
@@ -20625,7 +20625,7 @@ return array (
     array (
     ),
   ),
-  'nobile' => 
+  'Nobile' => 
   array (
     'family' => 'Nobile',
     'variants' => 
@@ -20648,7 +20648,7 @@ return array (
     array (
     ),
   ),
-  'nokora' => 
+  'Nokora' => 
   array (
     'family' => 'Nokora',
     'variants' => 
@@ -20670,7 +20670,7 @@ return array (
     array (
     ),
   ),
-  'norican' => 
+  'Norican' => 
   array (
     'family' => 'Norican',
     'variants' => 
@@ -20688,7 +20688,7 @@ return array (
     array (
     ),
   ),
-  'nosifer' => 
+  'Nosifer' => 
   array (
     'family' => 'Nosifer',
     'variants' => 
@@ -20706,7 +20706,7 @@ return array (
     array (
     ),
   ),
-  'notable' => 
+  'Notable' => 
   array (
     'family' => 'Notable',
     'variants' => 
@@ -20723,7 +20723,7 @@ return array (
     array (
     ),
   ),
-  'nothing you could do' => 
+  'Nothing You Could Do' => 
   array (
     'family' => 'Nothing You Could Do',
     'variants' => 
@@ -20740,7 +20740,7 @@ return array (
     array (
     ),
   ),
-  'noticia text' => 
+  'Noticia Text' => 
   array (
     'family' => 'Noticia Text',
     'variants' => 
@@ -20762,7 +20762,7 @@ return array (
     array (
     ),
   ),
-  'noto color emoji' => 
+  'Noto Color Emoji' => 
   array (
     'family' => 'Noto Color Emoji',
     'variants' => 
@@ -20779,7 +20779,7 @@ return array (
     array (
     ),
   ),
-  'noto emoji' => 
+  'Noto Emoji' => 
   array (
     'family' => 'Noto Emoji',
     'variants' => 
@@ -20802,7 +20802,7 @@ return array (
       ),
     ),
   ),
-  'noto kufi arabic' => 
+  'Noto Kufi Arabic' => 
   array (
     'family' => 'Noto Kufi Arabic',
     'variants' => 
@@ -20829,7 +20829,7 @@ return array (
       ),
     ),
   ),
-  'noto music' => 
+  'Noto Music' => 
   array (
     'family' => 'Noto Music',
     'variants' => 
@@ -20848,7 +20848,7 @@ return array (
     array (
     ),
   ),
-  'noto naskh arabic' => 
+  'Noto Naskh Arabic' => 
   array (
     'family' => 'Noto Naskh Arabic',
     'variants' => 
@@ -20875,7 +20875,7 @@ return array (
       ),
     ),
   ),
-  'noto nastaliq urdu' => 
+  'Noto Nastaliq Urdu' => 
   array (
     'family' => 'Noto Nastaliq Urdu',
     'variants' => 
@@ -20900,7 +20900,7 @@ return array (
       ),
     ),
   ),
-  'noto rashi hebrew' => 
+  'Noto Rashi Hebrew' => 
   array (
     'family' => 'Noto Rashi Hebrew',
     'variants' => 
@@ -20926,7 +20926,7 @@ return array (
       ),
     ),
   ),
-  'noto sans' => 
+  'Noto Sans' => 
   array (
     'family' => 'Noto Sans',
     'variants' => 
@@ -20963,7 +20963,7 @@ return array (
       ),
     ),
   ),
-  'noto sans adlam' => 
+  'Noto Sans Adlam' => 
   array (
     'family' => 'Noto Sans Adlam',
     'variants' => 
@@ -20988,7 +20988,7 @@ return array (
       ),
     ),
   ),
-  'noto sans adlam unjoined' => 
+  'Noto Sans Adlam Unjoined' => 
   array (
     'family' => 'Noto Sans Adlam Unjoined',
     'variants' => 
@@ -21013,7 +21013,7 @@ return array (
       ),
     ),
   ),
-  'noto sans anatolian hieroglyphs' => 
+  'Noto Sans Anatolian Hieroglyphs' => 
   array (
     'family' => 'Noto Sans Anatolian Hieroglyphs',
     'variants' => 
@@ -21032,7 +21032,7 @@ return array (
     array (
     ),
   ),
-  'noto sans arabic' => 
+  'Noto Sans Arabic' => 
   array (
     'family' => 'Noto Sans Arabic',
     'variants' => 
@@ -21061,7 +21061,7 @@ return array (
       ),
     ),
   ),
-  'noto sans armenian' => 
+  'Noto Sans Armenian' => 
   array (
     'family' => 'Noto Sans Armenian',
     'variants' => 
@@ -21092,7 +21092,7 @@ return array (
       ),
     ),
   ),
-  'noto sans avestan' => 
+  'Noto Sans Avestan' => 
   array (
     'family' => 'Noto Sans Avestan',
     'variants' => 
@@ -21111,7 +21111,7 @@ return array (
     array (
     ),
   ),
-  'noto sans balinese' => 
+  'Noto Sans Balinese' => 
   array (
     'family' => 'Noto Sans Balinese',
     'variants' => 
@@ -21136,7 +21136,7 @@ return array (
       ),
     ),
   ),
-  'noto sans bamum' => 
+  'Noto Sans Bamum' => 
   array (
     'family' => 'Noto Sans Bamum',
     'variants' => 
@@ -21161,7 +21161,7 @@ return array (
       ),
     ),
   ),
-  'noto sans bassa vah' => 
+  'Noto Sans Bassa Vah' => 
   array (
     'family' => 'Noto Sans Bassa Vah',
     'variants' => 
@@ -21186,7 +21186,7 @@ return array (
       ),
     ),
   ),
-  'noto sans batak' => 
+  'Noto Sans Batak' => 
   array (
     'family' => 'Noto Sans Batak',
     'variants' => 
@@ -21205,7 +21205,7 @@ return array (
     array (
     ),
   ),
-  'noto sans bengali' => 
+  'Noto Sans Bengali' => 
   array (
     'family' => 'Noto Sans Bengali',
     'variants' => 
@@ -21236,7 +21236,7 @@ return array (
       ),
     ),
   ),
-  'noto sans bhaiksuki' => 
+  'Noto Sans Bhaiksuki' => 
   array (
     'family' => 'Noto Sans Bhaiksuki',
     'variants' => 
@@ -21255,7 +21255,7 @@ return array (
     array (
     ),
   ),
-  'noto sans brahmi' => 
+  'Noto Sans Brahmi' => 
   array (
     'family' => 'Noto Sans Brahmi',
     'variants' => 
@@ -21276,7 +21276,7 @@ return array (
     array (
     ),
   ),
-  'noto sans buginese' => 
+  'Noto Sans Buginese' => 
   array (
     'family' => 'Noto Sans Buginese',
     'variants' => 
@@ -21295,7 +21295,7 @@ return array (
     array (
     ),
   ),
-  'noto sans buhid' => 
+  'Noto Sans Buhid' => 
   array (
     'family' => 'Noto Sans Buhid',
     'variants' => 
@@ -21314,7 +21314,7 @@ return array (
     array (
     ),
   ),
-  'noto sans canadian aboriginal' => 
+  'Noto Sans Canadian Aboriginal' => 
   array (
     'family' => 'Noto Sans Canadian Aboriginal',
     'variants' => 
@@ -21341,7 +21341,7 @@ return array (
       ),
     ),
   ),
-  'noto sans carian' => 
+  'Noto Sans Carian' => 
   array (
     'family' => 'Noto Sans Carian',
     'variants' => 
@@ -21360,7 +21360,7 @@ return array (
     array (
     ),
   ),
-  'noto sans caucasian albanian' => 
+  'Noto Sans Caucasian Albanian' => 
   array (
     'family' => 'Noto Sans Caucasian Albanian',
     'variants' => 
@@ -21379,7 +21379,7 @@ return array (
     array (
     ),
   ),
-  'noto sans chakma' => 
+  'Noto Sans Chakma' => 
   array (
     'family' => 'Noto Sans Chakma',
     'variants' => 
@@ -21398,7 +21398,7 @@ return array (
     array (
     ),
   ),
-  'noto sans cham' => 
+  'Noto Sans Cham' => 
   array (
     'family' => 'Noto Sans Cham',
     'variants' => 
@@ -21423,7 +21423,7 @@ return array (
       ),
     ),
   ),
-  'noto sans cherokee' => 
+  'Noto Sans Cherokee' => 
   array (
     'family' => 'Noto Sans Cherokee',
     'variants' => 
@@ -21448,7 +21448,7 @@ return array (
       ),
     ),
   ),
-  'noto sans chorasmian' => 
+  'Noto Sans Chorasmian' => 
   array (
     'family' => 'Noto Sans Chorasmian',
     'variants' => 
@@ -21469,7 +21469,7 @@ return array (
     array (
     ),
   ),
-  'noto sans coptic' => 
+  'Noto Sans Coptic' => 
   array (
     'family' => 'Noto Sans Coptic',
     'variants' => 
@@ -21488,7 +21488,7 @@ return array (
     array (
     ),
   ),
-  'noto sans cuneiform' => 
+  'Noto Sans Cuneiform' => 
   array (
     'family' => 'Noto Sans Cuneiform',
     'variants' => 
@@ -21507,7 +21507,7 @@ return array (
     array (
     ),
   ),
-  'noto sans cypriot' => 
+  'Noto Sans Cypriot' => 
   array (
     'family' => 'Noto Sans Cypriot',
     'variants' => 
@@ -21526,7 +21526,7 @@ return array (
     array (
     ),
   ),
-  'noto sans cypro minoan' => 
+  'Noto Sans Cypro Minoan' => 
   array (
     'family' => 'Noto Sans Cypro Minoan',
     'variants' => 
@@ -21545,7 +21545,7 @@ return array (
     array (
     ),
   ),
-  'noto sans deseret' => 
+  'Noto Sans Deseret' => 
   array (
     'family' => 'Noto Sans Deseret',
     'variants' => 
@@ -21564,7 +21564,7 @@ return array (
     array (
     ),
   ),
-  'noto sans devanagari' => 
+  'Noto Sans Devanagari' => 
   array (
     'family' => 'Noto Sans Devanagari',
     'variants' => 
@@ -21595,7 +21595,7 @@ return array (
       ),
     ),
   ),
-  'noto sans display' => 
+  'Noto Sans Display' => 
   array (
     'family' => 'Noto Sans Display',
     'variants' => 
@@ -21631,7 +21631,7 @@ return array (
       ),
     ),
   ),
-  'noto sans duployan' => 
+  'Noto Sans Duployan' => 
   array (
     'family' => 'Noto Sans Duployan',
     'variants' => 
@@ -21651,7 +21651,7 @@ return array (
     array (
     ),
   ),
-  'noto sans egyptian hieroglyphs' => 
+  'Noto Sans Egyptian Hieroglyphs' => 
   array (
     'family' => 'Noto Sans Egyptian Hieroglyphs',
     'variants' => 
@@ -21670,7 +21670,7 @@ return array (
     array (
     ),
   ),
-  'noto sans elbasan' => 
+  'Noto Sans Elbasan' => 
   array (
     'family' => 'Noto Sans Elbasan',
     'variants' => 
@@ -21689,7 +21689,7 @@ return array (
     array (
     ),
   ),
-  'noto sans elymaic' => 
+  'Noto Sans Elymaic' => 
   array (
     'family' => 'Noto Sans Elymaic',
     'variants' => 
@@ -21708,7 +21708,7 @@ return array (
     array (
     ),
   ),
-  'noto sans ethiopic' => 
+  'Noto Sans Ethiopic' => 
   array (
     'family' => 'Noto Sans Ethiopic',
     'variants' => 
@@ -21739,7 +21739,7 @@ return array (
       ),
     ),
   ),
-  'noto sans georgian' => 
+  'Noto Sans Georgian' => 
   array (
     'family' => 'Noto Sans Georgian',
     'variants' => 
@@ -21774,7 +21774,7 @@ return array (
       ),
     ),
   ),
-  'noto sans glagolitic' => 
+  'Noto Sans Glagolitic' => 
   array (
     'family' => 'Noto Sans Glagolitic',
     'variants' => 
@@ -21796,7 +21796,7 @@ return array (
     array (
     ),
   ),
-  'noto sans gothic' => 
+  'Noto Sans Gothic' => 
   array (
     'family' => 'Noto Sans Gothic',
     'variants' => 
@@ -21815,7 +21815,7 @@ return array (
     array (
     ),
   ),
-  'noto sans grantha' => 
+  'Noto Sans Grantha' => 
   array (
     'family' => 'Noto Sans Grantha',
     'variants' => 
@@ -21834,7 +21834,7 @@ return array (
     array (
     ),
   ),
-  'noto sans gujarati' => 
+  'Noto Sans Gujarati' => 
   array (
     'family' => 'Noto Sans Gujarati',
     'variants' => 
@@ -21867,7 +21867,7 @@ return array (
       ),
     ),
   ),
-  'noto sans gunjala gondi' => 
+  'Noto Sans Gunjala Gondi' => 
   array (
     'family' => 'Noto Sans Gunjala Gondi',
     'variants' => 
@@ -21892,7 +21892,7 @@ return array (
       ),
     ),
   ),
-  'noto sans gurmukhi' => 
+  'Noto Sans Gurmukhi' => 
   array (
     'family' => 'Noto Sans Gurmukhi',
     'variants' => 
@@ -21923,7 +21923,7 @@ return array (
       ),
     ),
   ),
-  'noto sans hk' => 
+  'Noto Sans HK' => 
   array (
     'family' => 'Noto Sans HK',
     'variants' => 
@@ -21950,7 +21950,7 @@ return array (
       ),
     ),
   ),
-  'noto sans hanifi rohingya' => 
+  'Noto Sans Hanifi Rohingya' => 
   array (
     'family' => 'Noto Sans Hanifi Rohingya',
     'variants' => 
@@ -21975,7 +21975,7 @@ return array (
       ),
     ),
   ),
-  'noto sans hanunoo' => 
+  'Noto Sans Hanunoo' => 
   array (
     'family' => 'Noto Sans Hanunoo',
     'variants' => 
@@ -21994,7 +21994,7 @@ return array (
     array (
     ),
   ),
-  'noto sans hatran' => 
+  'Noto Sans Hatran' => 
   array (
     'family' => 'Noto Sans Hatran',
     'variants' => 
@@ -22013,7 +22013,7 @@ return array (
     array (
     ),
   ),
-  'noto sans hebrew' => 
+  'Noto Sans Hebrew' => 
   array (
     'family' => 'Noto Sans Hebrew',
     'variants' => 
@@ -22046,7 +22046,7 @@ return array (
       ),
     ),
   ),
-  'noto sans imperial aramaic' => 
+  'Noto Sans Imperial Aramaic' => 
   array (
     'family' => 'Noto Sans Imperial Aramaic',
     'variants' => 
@@ -22065,7 +22065,7 @@ return array (
     array (
     ),
   ),
-  'noto sans indic siyaq numbers' => 
+  'Noto Sans Indic Siyaq Numbers' => 
   array (
     'family' => 'Noto Sans Indic Siyaq Numbers',
     'variants' => 
@@ -22084,7 +22084,7 @@ return array (
     array (
     ),
   ),
-  'noto sans inscriptional pahlavi' => 
+  'Noto Sans Inscriptional Pahlavi' => 
   array (
     'family' => 'Noto Sans Inscriptional Pahlavi',
     'variants' => 
@@ -22103,7 +22103,7 @@ return array (
     array (
     ),
   ),
-  'noto sans inscriptional parthian' => 
+  'Noto Sans Inscriptional Parthian' => 
   array (
     'family' => 'Noto Sans Inscriptional Parthian',
     'variants' => 
@@ -22122,7 +22122,7 @@ return array (
     array (
     ),
   ),
-  'noto sans jp' => 
+  'Noto Sans JP' => 
   array (
     'family' => 'Noto Sans JP',
     'variants' => 
@@ -22149,7 +22149,7 @@ return array (
       ),
     ),
   ),
-  'noto sans javanese' => 
+  'Noto Sans Javanese' => 
   array (
     'family' => 'Noto Sans Javanese',
     'variants' => 
@@ -22174,7 +22174,7 @@ return array (
       ),
     ),
   ),
-  'noto sans kr' => 
+  'Noto Sans KR' => 
   array (
     'family' => 'Noto Sans KR',
     'variants' => 
@@ -22201,7 +22201,7 @@ return array (
       ),
     ),
   ),
-  'noto sans kaithi' => 
+  'Noto Sans Kaithi' => 
   array (
     'family' => 'Noto Sans Kaithi',
     'variants' => 
@@ -22220,7 +22220,7 @@ return array (
     array (
     ),
   ),
-  'noto sans kannada' => 
+  'Noto Sans Kannada' => 
   array (
     'family' => 'Noto Sans Kannada',
     'variants' => 
@@ -22251,7 +22251,7 @@ return array (
       ),
     ),
   ),
-  'noto sans kawi' => 
+  'Noto Sans Kawi' => 
   array (
     'family' => 'Noto Sans Kawi',
     'variants' => 
@@ -22276,7 +22276,7 @@ return array (
       ),
     ),
   ),
-  'noto sans kayah li' => 
+  'Noto Sans Kayah Li' => 
   array (
     'family' => 'Noto Sans Kayah Li',
     'variants' => 
@@ -22301,7 +22301,7 @@ return array (
       ),
     ),
   ),
-  'noto sans kharoshthi' => 
+  'Noto Sans Kharoshthi' => 
   array (
     'family' => 'Noto Sans Kharoshthi',
     'variants' => 
@@ -22320,7 +22320,7 @@ return array (
     array (
     ),
   ),
-  'noto sans khmer' => 
+  'Noto Sans Khmer' => 
   array (
     'family' => 'Noto Sans Khmer',
     'variants' => 
@@ -22351,7 +22351,7 @@ return array (
       ),
     ),
   ),
-  'noto sans khojki' => 
+  'Noto Sans Khojki' => 
   array (
     'family' => 'Noto Sans Khojki',
     'variants' => 
@@ -22370,7 +22370,7 @@ return array (
     array (
     ),
   ),
-  'noto sans khudawadi' => 
+  'Noto Sans Khudawadi' => 
   array (
     'family' => 'Noto Sans Khudawadi',
     'variants' => 
@@ -22389,7 +22389,7 @@ return array (
     array (
     ),
   ),
-  'noto sans lao' => 
+  'Noto Sans Lao' => 
   array (
     'family' => 'Noto Sans Lao',
     'variants' => 
@@ -22420,7 +22420,7 @@ return array (
       ),
     ),
   ),
-  'noto sans lao looped' => 
+  'Noto Sans Lao Looped' => 
   array (
     'family' => 'Noto Sans Lao Looped',
     'variants' => 
@@ -22451,7 +22451,7 @@ return array (
       ),
     ),
   ),
-  'noto sans lepcha' => 
+  'Noto Sans Lepcha' => 
   array (
     'family' => 'Noto Sans Lepcha',
     'variants' => 
@@ -22470,7 +22470,7 @@ return array (
     array (
     ),
   ),
-  'noto sans limbu' => 
+  'Noto Sans Limbu' => 
   array (
     'family' => 'Noto Sans Limbu',
     'variants' => 
@@ -22489,7 +22489,7 @@ return array (
     array (
     ),
   ),
-  'noto sans linear a' => 
+  'Noto Sans Linear A' => 
   array (
     'family' => 'Noto Sans Linear A',
     'variants' => 
@@ -22508,7 +22508,7 @@ return array (
     array (
     ),
   ),
-  'noto sans linear b' => 
+  'Noto Sans Linear B' => 
   array (
     'family' => 'Noto Sans Linear B',
     'variants' => 
@@ -22527,7 +22527,7 @@ return array (
     array (
     ),
   ),
-  'noto sans lisu' => 
+  'Noto Sans Lisu' => 
   array (
     'family' => 'Noto Sans Lisu',
     'variants' => 
@@ -22552,7 +22552,7 @@ return array (
       ),
     ),
   ),
-  'noto sans lycian' => 
+  'Noto Sans Lycian' => 
   array (
     'family' => 'Noto Sans Lycian',
     'variants' => 
@@ -22569,7 +22569,7 @@ return array (
     array (
     ),
   ),
-  'noto sans lydian' => 
+  'Noto Sans Lydian' => 
   array (
     'family' => 'Noto Sans Lydian',
     'variants' => 
@@ -22588,7 +22588,7 @@ return array (
     array (
     ),
   ),
-  'noto sans mahajani' => 
+  'Noto Sans Mahajani' => 
   array (
     'family' => 'Noto Sans Mahajani',
     'variants' => 
@@ -22607,7 +22607,7 @@ return array (
     array (
     ),
   ),
-  'noto sans malayalam' => 
+  'Noto Sans Malayalam' => 
   array (
     'family' => 'Noto Sans Malayalam',
     'variants' => 
@@ -22638,7 +22638,7 @@ return array (
       ),
     ),
   ),
-  'noto sans mandaic' => 
+  'Noto Sans Mandaic' => 
   array (
     'family' => 'Noto Sans Mandaic',
     'variants' => 
@@ -22657,7 +22657,7 @@ return array (
     array (
     ),
   ),
-  'noto sans manichaean' => 
+  'Noto Sans Manichaean' => 
   array (
     'family' => 'Noto Sans Manichaean',
     'variants' => 
@@ -22676,7 +22676,7 @@ return array (
     array (
     ),
   ),
-  'noto sans marchen' => 
+  'Noto Sans Marchen' => 
   array (
     'family' => 'Noto Sans Marchen',
     'variants' => 
@@ -22695,7 +22695,7 @@ return array (
     array (
     ),
   ),
-  'noto sans masaram gondi' => 
+  'Noto Sans Masaram Gondi' => 
   array (
     'family' => 'Noto Sans Masaram Gondi',
     'variants' => 
@@ -22714,7 +22714,7 @@ return array (
     array (
     ),
   ),
-  'noto sans math' => 
+  'Noto Sans Math' => 
   array (
     'family' => 'Noto Sans Math',
     'variants' => 
@@ -22731,7 +22731,7 @@ return array (
     array (
     ),
   ),
-  'noto sans mayan numerals' => 
+  'Noto Sans Mayan Numerals' => 
   array (
     'family' => 'Noto Sans Mayan Numerals',
     'variants' => 
@@ -22750,7 +22750,7 @@ return array (
     array (
     ),
   ),
-  'noto sans medefaidrin' => 
+  'Noto Sans Medefaidrin' => 
   array (
     'family' => 'Noto Sans Medefaidrin',
     'variants' => 
@@ -22775,7 +22775,7 @@ return array (
       ),
     ),
   ),
-  'noto sans meetei mayek' => 
+  'Noto Sans Meetei Mayek' => 
   array (
     'family' => 'Noto Sans Meetei Mayek',
     'variants' => 
@@ -22800,7 +22800,7 @@ return array (
       ),
     ),
   ),
-  'noto sans mende kikakui' => 
+  'Noto Sans Mende Kikakui' => 
   array (
     'family' => 'Noto Sans Mende Kikakui',
     'variants' => 
@@ -22819,7 +22819,7 @@ return array (
     array (
     ),
   ),
-  'noto sans meroitic' => 
+  'Noto Sans Meroitic' => 
   array (
     'family' => 'Noto Sans Meroitic',
     'variants' => 
@@ -22840,7 +22840,7 @@ return array (
     array (
     ),
   ),
-  'noto sans miao' => 
+  'Noto Sans Miao' => 
   array (
     'family' => 'Noto Sans Miao',
     'variants' => 
@@ -22859,7 +22859,7 @@ return array (
     array (
     ),
   ),
-  'noto sans modi' => 
+  'Noto Sans Modi' => 
   array (
     'family' => 'Noto Sans Modi',
     'variants' => 
@@ -22878,7 +22878,7 @@ return array (
     array (
     ),
   ),
-  'noto sans mongolian' => 
+  'Noto Sans Mongolian' => 
   array (
     'family' => 'Noto Sans Mongolian',
     'variants' => 
@@ -22899,7 +22899,7 @@ return array (
     array (
     ),
   ),
-  'noto sans mono' => 
+  'Noto Sans Mono' => 
   array (
     'family' => 'Noto Sans Mono',
     'variants' => 
@@ -22934,7 +22934,7 @@ return array (
       ),
     ),
   ),
-  'noto sans mro' => 
+  'Noto Sans Mro' => 
   array (
     'family' => 'Noto Sans Mro',
     'variants' => 
@@ -22953,7 +22953,7 @@ return array (
     array (
     ),
   ),
-  'noto sans multani' => 
+  'Noto Sans Multani' => 
   array (
     'family' => 'Noto Sans Multani',
     'variants' => 
@@ -22972,7 +22972,7 @@ return array (
     array (
     ),
   ),
-  'noto sans myanmar' => 
+  'Noto Sans Myanmar' => 
   array (
     'family' => 'Noto Sans Myanmar',
     'variants' => 
@@ -22997,7 +22997,7 @@ return array (
     array (
     ),
   ),
-  'noto sans nko' => 
+  'Noto Sans NKo' => 
   array (
     'family' => 'Noto Sans NKo',
     'variants' => 
@@ -23016,7 +23016,7 @@ return array (
     array (
     ),
   ),
-  'noto sans nko unjoined' => 
+  'Noto Sans NKo Unjoined' => 
   array (
     'family' => 'Noto Sans NKo Unjoined',
     'variants' => 
@@ -23041,7 +23041,7 @@ return array (
       ),
     ),
   ),
-  'noto sans nabataean' => 
+  'Noto Sans Nabataean' => 
   array (
     'family' => 'Noto Sans Nabataean',
     'variants' => 
@@ -23060,7 +23060,7 @@ return array (
     array (
     ),
   ),
-  'noto sans nag mundari' => 
+  'Noto Sans Nag Mundari' => 
   array (
     'family' => 'Noto Sans Nag Mundari',
     'variants' => 
@@ -23085,7 +23085,7 @@ return array (
       ),
     ),
   ),
-  'noto sans nandinagari' => 
+  'Noto Sans Nandinagari' => 
   array (
     'family' => 'Noto Sans Nandinagari',
     'variants' => 
@@ -23104,7 +23104,7 @@ return array (
     array (
     ),
   ),
-  'noto sans new tai lue' => 
+  'Noto Sans New Tai Lue' => 
   array (
     'family' => 'Noto Sans New Tai Lue',
     'variants' => 
@@ -23129,7 +23129,7 @@ return array (
       ),
     ),
   ),
-  'noto sans newa' => 
+  'Noto Sans Newa' => 
   array (
     'family' => 'Noto Sans Newa',
     'variants' => 
@@ -23148,7 +23148,7 @@ return array (
     array (
     ),
   ),
-  'noto sans nushu' => 
+  'Noto Sans Nushu' => 
   array (
     'family' => 'Noto Sans Nushu',
     'variants' => 
@@ -23167,7 +23167,7 @@ return array (
     array (
     ),
   ),
-  'noto sans ogham' => 
+  'Noto Sans Ogham' => 
   array (
     'family' => 'Noto Sans Ogham',
     'variants' => 
@@ -23186,7 +23186,7 @@ return array (
     array (
     ),
   ),
-  'noto sans ol chiki' => 
+  'Noto Sans Ol Chiki' => 
   array (
     'family' => 'Noto Sans Ol Chiki',
     'variants' => 
@@ -23211,7 +23211,7 @@ return array (
       ),
     ),
   ),
-  'noto sans old hungarian' => 
+  'Noto Sans Old Hungarian' => 
   array (
     'family' => 'Noto Sans Old Hungarian',
     'variants' => 
@@ -23230,7 +23230,7 @@ return array (
     array (
     ),
   ),
-  'noto sans old italic' => 
+  'Noto Sans Old Italic' => 
   array (
     'family' => 'Noto Sans Old Italic',
     'variants' => 
@@ -23249,7 +23249,7 @@ return array (
     array (
     ),
   ),
-  'noto sans old north arabian' => 
+  'Noto Sans Old North Arabian' => 
   array (
     'family' => 'Noto Sans Old North Arabian',
     'variants' => 
@@ -23268,7 +23268,7 @@ return array (
     array (
     ),
   ),
-  'noto sans old permic' => 
+  'Noto Sans Old Permic' => 
   array (
     'family' => 'Noto Sans Old Permic',
     'variants' => 
@@ -23288,7 +23288,7 @@ return array (
     array (
     ),
   ),
-  'noto sans old persian' => 
+  'Noto Sans Old Persian' => 
   array (
     'family' => 'Noto Sans Old Persian',
     'variants' => 
@@ -23307,7 +23307,7 @@ return array (
     array (
     ),
   ),
-  'noto sans old sogdian' => 
+  'Noto Sans Old Sogdian' => 
   array (
     'family' => 'Noto Sans Old Sogdian',
     'variants' => 
@@ -23326,7 +23326,7 @@ return array (
     array (
     ),
   ),
-  'noto sans old south arabian' => 
+  'Noto Sans Old South Arabian' => 
   array (
     'family' => 'Noto Sans Old South Arabian',
     'variants' => 
@@ -23345,7 +23345,7 @@ return array (
     array (
     ),
   ),
-  'noto sans old turkic' => 
+  'Noto Sans Old Turkic' => 
   array (
     'family' => 'Noto Sans Old Turkic',
     'variants' => 
@@ -23364,7 +23364,7 @@ return array (
     array (
     ),
   ),
-  'noto sans oriya' => 
+  'Noto Sans Oriya' => 
   array (
     'family' => 'Noto Sans Oriya',
     'variants' => 
@@ -23395,7 +23395,7 @@ return array (
       ),
     ),
   ),
-  'noto sans osage' => 
+  'Noto Sans Osage' => 
   array (
     'family' => 'Noto Sans Osage',
     'variants' => 
@@ -23414,7 +23414,7 @@ return array (
     array (
     ),
   ),
-  'noto sans osmanya' => 
+  'Noto Sans Osmanya' => 
   array (
     'family' => 'Noto Sans Osmanya',
     'variants' => 
@@ -23433,7 +23433,7 @@ return array (
     array (
     ),
   ),
-  'noto sans pahawh hmong' => 
+  'Noto Sans Pahawh Hmong' => 
   array (
     'family' => 'Noto Sans Pahawh Hmong',
     'variants' => 
@@ -23452,7 +23452,7 @@ return array (
     array (
     ),
   ),
-  'noto sans palmyrene' => 
+  'Noto Sans Palmyrene' => 
   array (
     'family' => 'Noto Sans Palmyrene',
     'variants' => 
@@ -23471,7 +23471,7 @@ return array (
     array (
     ),
   ),
-  'noto sans pau cin hau' => 
+  'Noto Sans Pau Cin Hau' => 
   array (
     'family' => 'Noto Sans Pau Cin Hau',
     'variants' => 
@@ -23490,7 +23490,7 @@ return array (
     array (
     ),
   ),
-  'noto sans phagspa' => 
+  'Noto Sans PhagsPa' => 
   array (
     'family' => 'Noto Sans PhagsPa',
     'variants' => 
@@ -23511,7 +23511,7 @@ return array (
     array (
     ),
   ),
-  'noto sans phoenician' => 
+  'Noto Sans Phoenician' => 
   array (
     'family' => 'Noto Sans Phoenician',
     'variants' => 
@@ -23530,7 +23530,7 @@ return array (
     array (
     ),
   ),
-  'noto sans psalter pahlavi' => 
+  'Noto Sans Psalter Pahlavi' => 
   array (
     'family' => 'Noto Sans Psalter Pahlavi',
     'variants' => 
@@ -23549,7 +23549,7 @@ return array (
     array (
     ),
   ),
-  'noto sans rejang' => 
+  'Noto Sans Rejang' => 
   array (
     'family' => 'Noto Sans Rejang',
     'variants' => 
@@ -23568,7 +23568,7 @@ return array (
     array (
     ),
   ),
-  'noto sans runic' => 
+  'Noto Sans Runic' => 
   array (
     'family' => 'Noto Sans Runic',
     'variants' => 
@@ -23587,7 +23587,7 @@ return array (
     array (
     ),
   ),
-  'noto sans sc' => 
+  'Noto Sans SC' => 
   array (
     'family' => 'Noto Sans SC',
     'variants' => 
@@ -23614,7 +23614,7 @@ return array (
       ),
     ),
   ),
-  'noto sans samaritan' => 
+  'Noto Sans Samaritan' => 
   array (
     'family' => 'Noto Sans Samaritan',
     'variants' => 
@@ -23633,7 +23633,7 @@ return array (
     array (
     ),
   ),
-  'noto sans saurashtra' => 
+  'Noto Sans Saurashtra' => 
   array (
     'family' => 'Noto Sans Saurashtra',
     'variants' => 
@@ -23652,7 +23652,7 @@ return array (
     array (
     ),
   ),
-  'noto sans sharada' => 
+  'Noto Sans Sharada' => 
   array (
     'family' => 'Noto Sans Sharada',
     'variants' => 
@@ -23671,7 +23671,7 @@ return array (
     array (
     ),
   ),
-  'noto sans shavian' => 
+  'Noto Sans Shavian' => 
   array (
     'family' => 'Noto Sans Shavian',
     'variants' => 
@@ -23690,7 +23690,7 @@ return array (
     array (
     ),
   ),
-  'noto sans siddham' => 
+  'Noto Sans Siddham' => 
   array (
     'family' => 'Noto Sans Siddham',
     'variants' => 
@@ -23709,7 +23709,7 @@ return array (
     array (
     ),
   ),
-  'noto sans signwriting' => 
+  'Noto Sans SignWriting' => 
   array (
     'family' => 'Noto Sans SignWriting',
     'variants' => 
@@ -23728,7 +23728,7 @@ return array (
     array (
     ),
   ),
-  'noto sans sinhala' => 
+  'Noto Sans Sinhala' => 
   array (
     'family' => 'Noto Sans Sinhala',
     'variants' => 
@@ -23759,7 +23759,7 @@ return array (
       ),
     ),
   ),
-  'noto sans sogdian' => 
+  'Noto Sans Sogdian' => 
   array (
     'family' => 'Noto Sans Sogdian',
     'variants' => 
@@ -23778,7 +23778,7 @@ return array (
     array (
     ),
   ),
-  'noto sans sora sompeng' => 
+  'Noto Sans Sora Sompeng' => 
   array (
     'family' => 'Noto Sans Sora Sompeng',
     'variants' => 
@@ -23803,7 +23803,7 @@ return array (
       ),
     ),
   ),
-  'noto sans soyombo' => 
+  'Noto Sans Soyombo' => 
   array (
     'family' => 'Noto Sans Soyombo',
     'variants' => 
@@ -23822,7 +23822,7 @@ return array (
     array (
     ),
   ),
-  'noto sans sundanese' => 
+  'Noto Sans Sundanese' => 
   array (
     'family' => 'Noto Sans Sundanese',
     'variants' => 
@@ -23847,7 +23847,7 @@ return array (
       ),
     ),
   ),
-  'noto sans syloti nagri' => 
+  'Noto Sans Syloti Nagri' => 
   array (
     'family' => 'Noto Sans Syloti Nagri',
     'variants' => 
@@ -23866,7 +23866,7 @@ return array (
     array (
     ),
   ),
-  'noto sans symbols' => 
+  'Noto Sans Symbols' => 
   array (
     'family' => 'Noto Sans Symbols',
     'variants' => 
@@ -23891,7 +23891,7 @@ return array (
       ),
     ),
   ),
-  'noto sans symbols 2' => 
+  'Noto Sans Symbols 2' => 
   array (
     'family' => 'Noto Sans Symbols 2',
     'variants' => 
@@ -23913,7 +23913,7 @@ return array (
     array (
     ),
   ),
-  'noto sans syriac' => 
+  'Noto Sans Syriac' => 
   array (
     'family' => 'Noto Sans Syriac',
     'variants' => 
@@ -23938,7 +23938,7 @@ return array (
       ),
     ),
   ),
-  'noto sans syriac eastern' => 
+  'Noto Sans Syriac Eastern' => 
   array (
     'family' => 'Noto Sans Syriac Eastern',
     'variants' => 
@@ -23963,7 +23963,7 @@ return array (
       ),
     ),
   ),
-  'noto sans tc' => 
+  'Noto Sans TC' => 
   array (
     'family' => 'Noto Sans TC',
     'variants' => 
@@ -23990,7 +23990,7 @@ return array (
       ),
     ),
   ),
-  'noto sans tagalog' => 
+  'Noto Sans Tagalog' => 
   array (
     'family' => 'Noto Sans Tagalog',
     'variants' => 
@@ -24009,7 +24009,7 @@ return array (
     array (
     ),
   ),
-  'noto sans tagbanwa' => 
+  'Noto Sans Tagbanwa' => 
   array (
     'family' => 'Noto Sans Tagbanwa',
     'variants' => 
@@ -24028,7 +24028,7 @@ return array (
     array (
     ),
   ),
-  'noto sans tai le' => 
+  'Noto Sans Tai Le' => 
   array (
     'family' => 'Noto Sans Tai Le',
     'variants' => 
@@ -24047,7 +24047,7 @@ return array (
     array (
     ),
   ),
-  'noto sans tai tham' => 
+  'Noto Sans Tai Tham' => 
   array (
     'family' => 'Noto Sans Tai Tham',
     'variants' => 
@@ -24072,7 +24072,7 @@ return array (
       ),
     ),
   ),
-  'noto sans tai viet' => 
+  'Noto Sans Tai Viet' => 
   array (
     'family' => 'Noto Sans Tai Viet',
     'variants' => 
@@ -24091,7 +24091,7 @@ return array (
     array (
     ),
   ),
-  'noto sans takri' => 
+  'Noto Sans Takri' => 
   array (
     'family' => 'Noto Sans Takri',
     'variants' => 
@@ -24110,7 +24110,7 @@ return array (
     array (
     ),
   ),
-  'noto sans tamil' => 
+  'Noto Sans Tamil' => 
   array (
     'family' => 'Noto Sans Tamil',
     'variants' => 
@@ -24141,7 +24141,7 @@ return array (
       ),
     ),
   ),
-  'noto sans tamil supplement' => 
+  'Noto Sans Tamil Supplement' => 
   array (
     'family' => 'Noto Sans Tamil Supplement',
     'variants' => 
@@ -24160,7 +24160,7 @@ return array (
     array (
     ),
   ),
-  'noto sans tangsa' => 
+  'Noto Sans Tangsa' => 
   array (
     'family' => 'Noto Sans Tangsa',
     'variants' => 
@@ -24185,7 +24185,7 @@ return array (
       ),
     ),
   ),
-  'noto sans telugu' => 
+  'Noto Sans Telugu' => 
   array (
     'family' => 'Noto Sans Telugu',
     'variants' => 
@@ -24216,7 +24216,7 @@ return array (
       ),
     ),
   ),
-  'noto sans thaana' => 
+  'Noto Sans Thaana' => 
   array (
     'family' => 'Noto Sans Thaana',
     'variants' => 
@@ -24241,7 +24241,7 @@ return array (
       ),
     ),
   ),
-  'noto sans thai' => 
+  'Noto Sans Thai' => 
   array (
     'family' => 'Noto Sans Thai',
     'variants' => 
@@ -24272,7 +24272,7 @@ return array (
       ),
     ),
   ),
-  'noto sans thai looped' => 
+  'Noto Sans Thai Looped' => 
   array (
     'family' => 'Noto Sans Thai Looped',
     'variants' => 
@@ -24299,7 +24299,7 @@ return array (
     array (
     ),
   ),
-  'noto sans tifinagh' => 
+  'Noto Sans Tifinagh' => 
   array (
     'family' => 'Noto Sans Tifinagh',
     'variants' => 
@@ -24318,7 +24318,7 @@ return array (
     array (
     ),
   ),
-  'noto sans tirhuta' => 
+  'Noto Sans Tirhuta' => 
   array (
     'family' => 'Noto Sans Tirhuta',
     'variants' => 
@@ -24337,7 +24337,7 @@ return array (
     array (
     ),
   ),
-  'noto sans ugaritic' => 
+  'Noto Sans Ugaritic' => 
   array (
     'family' => 'Noto Sans Ugaritic',
     'variants' => 
@@ -24356,7 +24356,7 @@ return array (
     array (
     ),
   ),
-  'noto sans vai' => 
+  'Noto Sans Vai' => 
   array (
     'family' => 'Noto Sans Vai',
     'variants' => 
@@ -24375,7 +24375,7 @@ return array (
     array (
     ),
   ),
-  'noto sans vithkuqi' => 
+  'Noto Sans Vithkuqi' => 
   array (
     'family' => 'Noto Sans Vithkuqi',
     'variants' => 
@@ -24400,7 +24400,7 @@ return array (
       ),
     ),
   ),
-  'noto sans wancho' => 
+  'Noto Sans Wancho' => 
   array (
     'family' => 'Noto Sans Wancho',
     'variants' => 
@@ -24419,7 +24419,7 @@ return array (
     array (
     ),
   ),
-  'noto sans warang citi' => 
+  'Noto Sans Warang Citi' => 
   array (
     'family' => 'Noto Sans Warang Citi',
     'variants' => 
@@ -24438,7 +24438,7 @@ return array (
     array (
     ),
   ),
-  'noto sans yi' => 
+  'Noto Sans Yi' => 
   array (
     'family' => 'Noto Sans Yi',
     'variants' => 
@@ -24457,7 +24457,7 @@ return array (
     array (
     ),
   ),
-  'noto sans zanabazar square' => 
+  'Noto Sans Zanabazar Square' => 
   array (
     'family' => 'Noto Sans Zanabazar Square',
     'variants' => 
@@ -24476,7 +24476,7 @@ return array (
     array (
     ),
   ),
-  'noto serif' => 
+  'Noto Serif' => 
   array (
     'family' => 'Noto Serif',
     'variants' => 
@@ -24512,7 +24512,7 @@ return array (
       ),
     ),
   ),
-  'noto serif ahom' => 
+  'Noto Serif Ahom' => 
   array (
     'family' => 'Noto Serif Ahom',
     'variants' => 
@@ -24531,7 +24531,7 @@ return array (
     array (
     ),
   ),
-  'noto serif armenian' => 
+  'Noto Serif Armenian' => 
   array (
     'family' => 'Noto Serif Armenian',
     'variants' => 
@@ -24562,7 +24562,7 @@ return array (
       ),
     ),
   ),
-  'noto serif balinese' => 
+  'Noto Serif Balinese' => 
   array (
     'family' => 'Noto Serif Balinese',
     'variants' => 
@@ -24581,7 +24581,7 @@ return array (
     array (
     ),
   ),
-  'noto serif bengali' => 
+  'Noto Serif Bengali' => 
   array (
     'family' => 'Noto Serif Bengali',
     'variants' => 
@@ -24612,7 +24612,7 @@ return array (
       ),
     ),
   ),
-  'noto serif devanagari' => 
+  'Noto Serif Devanagari' => 
   array (
     'family' => 'Noto Serif Devanagari',
     'variants' => 
@@ -24643,7 +24643,7 @@ return array (
       ),
     ),
   ),
-  'noto serif display' => 
+  'Noto Serif Display' => 
   array (
     'family' => 'Noto Serif Display',
     'variants' => 
@@ -24679,7 +24679,7 @@ return array (
       ),
     ),
   ),
-  'noto serif dogra' => 
+  'Noto Serif Dogra' => 
   array (
     'family' => 'Noto Serif Dogra',
     'variants' => 
@@ -24698,7 +24698,7 @@ return array (
     array (
     ),
   ),
-  'noto serif ethiopic' => 
+  'Noto Serif Ethiopic' => 
   array (
     'family' => 'Noto Serif Ethiopic',
     'variants' => 
@@ -24729,7 +24729,7 @@ return array (
       ),
     ),
   ),
-  'noto serif georgian' => 
+  'Noto Serif Georgian' => 
   array (
     'family' => 'Noto Serif Georgian',
     'variants' => 
@@ -24760,7 +24760,7 @@ return array (
       ),
     ),
   ),
-  'noto serif grantha' => 
+  'Noto Serif Grantha' => 
   array (
     'family' => 'Noto Serif Grantha',
     'variants' => 
@@ -24779,7 +24779,7 @@ return array (
     array (
     ),
   ),
-  'noto serif gujarati' => 
+  'Noto Serif Gujarati' => 
   array (
     'family' => 'Noto Serif Gujarati',
     'variants' => 
@@ -24806,7 +24806,7 @@ return array (
       ),
     ),
   ),
-  'noto serif gurmukhi' => 
+  'Noto Serif Gurmukhi' => 
   array (
     'family' => 'Noto Serif Gurmukhi',
     'variants' => 
@@ -24831,7 +24831,7 @@ return array (
       ),
     ),
   ),
-  'noto serif hk' => 
+  'Noto Serif HK' => 
   array (
     'family' => 'Noto Serif HK',
     'variants' => 
@@ -24858,7 +24858,7 @@ return array (
       ),
     ),
   ),
-  'noto serif hebrew' => 
+  'Noto Serif Hebrew' => 
   array (
     'family' => 'Noto Serif Hebrew',
     'variants' => 
@@ -24889,7 +24889,7 @@ return array (
       ),
     ),
   ),
-  'noto serif hentaigana' => 
+  'Noto Serif Hentaigana' => 
   array (
     'family' => 'Noto Serif Hentaigana',
     'variants' => 
@@ -24914,7 +24914,7 @@ return array (
       ),
     ),
   ),
-  'noto serif jp' => 
+  'Noto Serif JP' => 
   array (
     'family' => 'Noto Serif JP',
     'variants' => 
@@ -24941,7 +24941,7 @@ return array (
       ),
     ),
   ),
-  'noto serif kr' => 
+  'Noto Serif KR' => 
   array (
     'family' => 'Noto Serif KR',
     'variants' => 
@@ -24968,7 +24968,7 @@ return array (
       ),
     ),
   ),
-  'noto serif kannada' => 
+  'Noto Serif Kannada' => 
   array (
     'family' => 'Noto Serif Kannada',
     'variants' => 
@@ -24993,7 +24993,7 @@ return array (
       ),
     ),
   ),
-  'noto serif khitan small script' => 
+  'Noto Serif Khitan Small Script' => 
   array (
     'family' => 'Noto Serif Khitan Small Script',
     'variants' => 
@@ -25012,7 +25012,7 @@ return array (
     array (
     ),
   ),
-  'noto serif khmer' => 
+  'Noto Serif Khmer' => 
   array (
     'family' => 'Noto Serif Khmer',
     'variants' => 
@@ -25043,7 +25043,7 @@ return array (
       ),
     ),
   ),
-  'noto serif khojki' => 
+  'Noto Serif Khojki' => 
   array (
     'family' => 'Noto Serif Khojki',
     'variants' => 
@@ -25068,7 +25068,7 @@ return array (
       ),
     ),
   ),
-  'noto serif lao' => 
+  'Noto Serif Lao' => 
   array (
     'family' => 'Noto Serif Lao',
     'variants' => 
@@ -25099,7 +25099,7 @@ return array (
       ),
     ),
   ),
-  'noto serif makasar' => 
+  'Noto Serif Makasar' => 
   array (
     'family' => 'Noto Serif Makasar',
     'variants' => 
@@ -25118,7 +25118,7 @@ return array (
     array (
     ),
   ),
-  'noto serif malayalam' => 
+  'Noto Serif Malayalam' => 
   array (
     'family' => 'Noto Serif Malayalam',
     'variants' => 
@@ -25143,7 +25143,7 @@ return array (
       ),
     ),
   ),
-  'noto serif myanmar' => 
+  'Noto Serif Myanmar' => 
   array (
     'family' => 'Noto Serif Myanmar',
     'variants' => 
@@ -25168,7 +25168,7 @@ return array (
     array (
     ),
   ),
-  'noto serif np hmong' => 
+  'Noto Serif NP Hmong' => 
   array (
     'family' => 'Noto Serif NP Hmong',
     'variants' => 
@@ -25192,7 +25192,7 @@ return array (
       ),
     ),
   ),
-  'noto serif old uyghur' => 
+  'Noto Serif Old Uyghur' => 
   array (
     'family' => 'Noto Serif Old Uyghur',
     'variants' => 
@@ -25211,7 +25211,7 @@ return array (
     array (
     ),
   ),
-  'noto serif oriya' => 
+  'Noto Serif Oriya' => 
   array (
     'family' => 'Noto Serif Oriya',
     'variants' => 
@@ -25236,7 +25236,7 @@ return array (
       ),
     ),
   ),
-  'noto serif ottoman siyaq' => 
+  'Noto Serif Ottoman Siyaq' => 
   array (
     'family' => 'Noto Serif Ottoman Siyaq',
     'variants' => 
@@ -25255,7 +25255,7 @@ return array (
     array (
     ),
   ),
-  'noto serif sc' => 
+  'Noto Serif SC' => 
   array (
     'family' => 'Noto Serif SC',
     'variants' => 
@@ -25282,7 +25282,7 @@ return array (
       ),
     ),
   ),
-  'noto serif sinhala' => 
+  'Noto Serif Sinhala' => 
   array (
     'family' => 'Noto Serif Sinhala',
     'variants' => 
@@ -25313,7 +25313,7 @@ return array (
       ),
     ),
   ),
-  'noto serif tc' => 
+  'Noto Serif TC' => 
   array (
     'family' => 'Noto Serif TC',
     'variants' => 
@@ -25340,7 +25340,7 @@ return array (
       ),
     ),
   ),
-  'noto serif tamil' => 
+  'Noto Serif Tamil' => 
   array (
     'family' => 'Noto Serif Tamil',
     'variants' => 
@@ -25372,7 +25372,7 @@ return array (
       ),
     ),
   ),
-  'noto serif tangut' => 
+  'Noto Serif Tangut' => 
   array (
     'family' => 'Noto Serif Tangut',
     'variants' => 
@@ -25391,7 +25391,7 @@ return array (
     array (
     ),
   ),
-  'noto serif telugu' => 
+  'Noto Serif Telugu' => 
   array (
     'family' => 'Noto Serif Telugu',
     'variants' => 
@@ -25416,7 +25416,7 @@ return array (
       ),
     ),
   ),
-  'noto serif thai' => 
+  'Noto Serif Thai' => 
   array (
     'family' => 'Noto Serif Thai',
     'variants' => 
@@ -25447,7 +25447,7 @@ return array (
       ),
     ),
   ),
-  'noto serif tibetan' => 
+  'Noto Serif Tibetan' => 
   array (
     'family' => 'Noto Serif Tibetan',
     'variants' => 
@@ -25472,7 +25472,7 @@ return array (
       ),
     ),
   ),
-  'noto serif todhri' => 
+  'Noto Serif Todhri' => 
   array (
     'family' => 'Noto Serif Todhri',
     'variants' => 
@@ -25491,7 +25491,7 @@ return array (
     array (
     ),
   ),
-  'noto serif toto' => 
+  'Noto Serif Toto' => 
   array (
     'family' => 'Noto Serif Toto',
     'variants' => 
@@ -25516,7 +25516,7 @@ return array (
       ),
     ),
   ),
-  'noto serif vithkuqi' => 
+  'Noto Serif Vithkuqi' => 
   array (
     'family' => 'Noto Serif Vithkuqi',
     'variants' => 
@@ -25541,7 +25541,7 @@ return array (
       ),
     ),
   ),
-  'noto serif yezidi' => 
+  'Noto Serif Yezidi' => 
   array (
     'family' => 'Noto Serif Yezidi',
     'variants' => 
@@ -25566,7 +25566,7 @@ return array (
       ),
     ),
   ),
-  'noto traditional nushu' => 
+  'Noto Traditional Nushu' => 
   array (
     'family' => 'Noto Traditional Nushu',
     'variants' => 
@@ -25591,7 +25591,7 @@ return array (
       ),
     ),
   ),
-  'noto znamenny musical notation' => 
+  'Noto Znamenny Musical Notation' => 
   array (
     'family' => 'Noto Znamenny Musical Notation',
     'variants' => 
@@ -25612,7 +25612,7 @@ return array (
     array (
     ),
   ),
-  'nova cut' => 
+  'Nova Cut' => 
   array (
     'family' => 'Nova Cut',
     'variants' => 
@@ -25630,7 +25630,7 @@ return array (
     array (
     ),
   ),
-  'nova flat' => 
+  'Nova Flat' => 
   array (
     'family' => 'Nova Flat',
     'variants' => 
@@ -25648,7 +25648,7 @@ return array (
     array (
     ),
   ),
-  'nova mono' => 
+  'Nova Mono' => 
   array (
     'family' => 'Nova Mono',
     'variants' => 
@@ -25667,7 +25667,7 @@ return array (
     array (
     ),
   ),
-  'nova oval' => 
+  'Nova Oval' => 
   array (
     'family' => 'Nova Oval',
     'variants' => 
@@ -25685,7 +25685,7 @@ return array (
     array (
     ),
   ),
-  'nova round' => 
+  'Nova Round' => 
   array (
     'family' => 'Nova Round',
     'variants' => 
@@ -25703,7 +25703,7 @@ return array (
     array (
     ),
   ),
-  'nova script' => 
+  'Nova Script' => 
   array (
     'family' => 'Nova Script',
     'variants' => 
@@ -25721,7 +25721,7 @@ return array (
     array (
     ),
   ),
-  'nova slim' => 
+  'Nova Slim' => 
   array (
     'family' => 'Nova Slim',
     'variants' => 
@@ -25739,7 +25739,7 @@ return array (
     array (
     ),
   ),
-  'nova square' => 
+  'Nova Square' => 
   array (
     'family' => 'Nova Square',
     'variants' => 
@@ -25757,7 +25757,7 @@ return array (
     array (
     ),
   ),
-  'numans' => 
+  'Numans' => 
   array (
     'family' => 'Numans',
     'variants' => 
@@ -25774,7 +25774,7 @@ return array (
     array (
     ),
   ),
-  'nunito' => 
+  'Nunito' => 
   array (
     'family' => 'Nunito',
     'variants' => 
@@ -25802,7 +25802,7 @@ return array (
       ),
     ),
   ),
-  'nunito sans' => 
+  'Nunito Sans' => 
   array (
     'family' => 'Nunito Sans',
     'variants' => 
@@ -25848,7 +25848,7 @@ return array (
       ),
     ),
   ),
-  'nuosu sil' => 
+  'Nuosu SIL' => 
   array (
     'family' => 'Nuosu SIL',
     'variants' => 
@@ -25867,7 +25867,7 @@ return array (
     array (
     ),
   ),
-  'odibee sans' => 
+  'Odibee Sans' => 
   array (
     'family' => 'Odibee Sans',
     'variants' => 
@@ -25884,7 +25884,7 @@ return array (
     array (
     ),
   ),
-  'odor mean chey' => 
+  'Odor Mean Chey' => 
   array (
     'family' => 'Odor Mean Chey',
     'variants' => 
@@ -25902,7 +25902,7 @@ return array (
     array (
     ),
   ),
-  'offside' => 
+  'Offside' => 
   array (
     'family' => 'Offside',
     'variants' => 
@@ -25920,7 +25920,7 @@ return array (
     array (
     ),
   ),
-  'oi' => 
+  'Oi' => 
   array (
     'family' => 'Oi',
     'variants' => 
@@ -25944,7 +25944,7 @@ return array (
     array (
     ),
   ),
-  'ojuju' => 
+  'Ojuju' => 
   array (
     'family' => 'Ojuju',
     'variants' => 
@@ -25971,7 +25971,7 @@ return array (
       ),
     ),
   ),
-  'old standard tt' => 
+  'Old Standard TT' => 
   array (
     'family' => 'Old Standard TT',
     'variants' => 
@@ -25994,7 +25994,7 @@ return array (
     array (
     ),
   ),
-  'oldenburg' => 
+  'Oldenburg' => 
   array (
     'family' => 'Oldenburg',
     'variants' => 
@@ -26012,7 +26012,7 @@ return array (
     array (
     ),
   ),
-  'ole' => 
+  'Ole' => 
   array (
     'family' => 'Ole',
     'variants' => 
@@ -26031,7 +26031,7 @@ return array (
     array (
     ),
   ),
-  'oleo script' => 
+  'Oleo Script' => 
   array (
     'family' => 'Oleo Script',
     'variants' => 
@@ -26050,7 +26050,7 @@ return array (
     array (
     ),
   ),
-  'oleo script swash caps' => 
+  'Oleo Script Swash Caps' => 
   array (
     'family' => 'Oleo Script Swash Caps',
     'variants' => 
@@ -26069,7 +26069,7 @@ return array (
     array (
     ),
   ),
-  'onest' => 
+  'Onest' => 
   array (
     'family' => 'Onest',
     'variants' => 
@@ -26095,7 +26095,7 @@ return array (
       ),
     ),
   ),
-  'oooh baby' => 
+  'Oooh Baby' => 
   array (
     'family' => 'Oooh Baby',
     'variants' => 
@@ -26114,7 +26114,7 @@ return array (
     array (
     ),
   ),
-  'open sans' => 
+  'Open Sans' => 
   array (
     'family' => 'Open Sans',
     'variants' => 
@@ -26153,7 +26153,7 @@ return array (
       ),
     ),
   ),
-  'oranienbaum' => 
+  'Oranienbaum' => 
   array (
     'family' => 'Oranienbaum',
     'variants' => 
@@ -26173,7 +26173,7 @@ return array (
     array (
     ),
   ),
-  'orbit' => 
+  'Orbit' => 
   array (
     'family' => 'Orbit',
     'variants' => 
@@ -26192,7 +26192,7 @@ return array (
     array (
     ),
   ),
-  'orbitron' => 
+  'Orbitron' => 
   array (
     'family' => 'Orbitron',
     'variants' => 
@@ -26215,7 +26215,7 @@ return array (
       ),
     ),
   ),
-  'oregano' => 
+  'Oregano' => 
   array (
     'family' => 'Oregano',
     'variants' => 
@@ -26234,7 +26234,7 @@ return array (
     array (
     ),
   ),
-  'orelega one' => 
+  'Orelega One' => 
   array (
     'family' => 'Orelega One',
     'variants' => 
@@ -26254,7 +26254,7 @@ return array (
     array (
     ),
   ),
-  'orienta' => 
+  'Orienta' => 
   array (
     'family' => 'Orienta',
     'variants' => 
@@ -26272,7 +26272,7 @@ return array (
     array (
     ),
   ),
-  'original surfer' => 
+  'Original Surfer' => 
   array (
     'family' => 'Original Surfer',
     'variants' => 
@@ -26290,7 +26290,7 @@ return array (
     array (
     ),
   ),
-  'oswald' => 
+  'Oswald' => 
   array (
     'family' => 'Oswald',
     'variants' => 
@@ -26317,7 +26317,7 @@ return array (
       ),
     ),
   ),
-  'outfit' => 
+  'Outfit' => 
   array (
     'family' => 'Outfit',
     'variants' => 
@@ -26341,7 +26341,7 @@ return array (
       ),
     ),
   ),
-  'over the rainbow' => 
+  'Over the Rainbow' => 
   array (
     'family' => 'Over the Rainbow',
     'variants' => 
@@ -26359,7 +26359,7 @@ return array (
     array (
     ),
   ),
-  'overlock' => 
+  'Overlock' => 
   array (
     'family' => 'Overlock',
     'variants' => 
@@ -26382,7 +26382,7 @@ return array (
     array (
     ),
   ),
-  'overlock sc' => 
+  'Overlock SC' => 
   array (
     'family' => 'Overlock SC',
     'variants' => 
@@ -26400,7 +26400,7 @@ return array (
     array (
     ),
   ),
-  'overpass' => 
+  'Overpass' => 
   array (
     'family' => 'Overpass',
     'variants' => 
@@ -26428,7 +26428,7 @@ return array (
       ),
     ),
   ),
-  'overpass mono' => 
+  'Overpass Mono' => 
   array (
     'family' => 'Overpass Mono',
     'variants' => 
@@ -26455,7 +26455,7 @@ return array (
       ),
     ),
   ),
-  'ovo' => 
+  'Ovo' => 
   array (
     'family' => 'Ovo',
     'variants' => 
@@ -26472,7 +26472,7 @@ return array (
     array (
     ),
   ),
-  'oxanium' => 
+  'Oxanium' => 
   array (
     'family' => 'Oxanium',
     'variants' => 
@@ -26496,7 +26496,7 @@ return array (
       ),
     ),
   ),
-  'oxygen' => 
+  'Oxygen' => 
   array (
     'family' => 'Oxygen',
     'variants' => 
@@ -26516,7 +26516,7 @@ return array (
     array (
     ),
   ),
-  'oxygen mono' => 
+  'Oxygen Mono' => 
   array (
     'family' => 'Oxygen Mono',
     'variants' => 
@@ -26534,7 +26534,7 @@ return array (
     array (
     ),
   ),
-  'pt mono' => 
+  'PT Mono' => 
   array (
     'family' => 'PT Mono',
     'variants' => 
@@ -26554,7 +26554,7 @@ return array (
     array (
     ),
   ),
-  'pt sans' => 
+  'PT Sans' => 
   array (
     'family' => 'PT Sans',
     'variants' => 
@@ -26577,7 +26577,7 @@ return array (
     array (
     ),
   ),
-  'pt sans caption' => 
+  'PT Sans Caption' => 
   array (
     'family' => 'PT Sans Caption',
     'variants' => 
@@ -26598,7 +26598,7 @@ return array (
     array (
     ),
   ),
-  'pt sans narrow' => 
+  'PT Sans Narrow' => 
   array (
     'family' => 'PT Sans Narrow',
     'variants' => 
@@ -26619,7 +26619,7 @@ return array (
     array (
     ),
   ),
-  'pt serif' => 
+  'PT Serif' => 
   array (
     'family' => 'PT Serif',
     'variants' => 
@@ -26642,7 +26642,7 @@ return array (
     array (
     ),
   ),
-  'pt serif caption' => 
+  'PT Serif Caption' => 
   array (
     'family' => 'PT Serif Caption',
     'variants' => 
@@ -26663,7 +26663,7 @@ return array (
     array (
     ),
   ),
-  'pacifico' => 
+  'Pacifico' => 
   array (
     'family' => 'Pacifico',
     'variants' => 
@@ -26684,7 +26684,7 @@ return array (
     array (
     ),
   ),
-  'padauk' => 
+  'Padauk' => 
   array (
     'family' => 'Padauk',
     'variants' => 
@@ -26704,7 +26704,7 @@ return array (
     array (
     ),
   ),
-  'padyakke expanded one' => 
+  'Padyakke Expanded One' => 
   array (
     'family' => 'Padyakke Expanded One',
     'variants' => 
@@ -26723,7 +26723,7 @@ return array (
     array (
     ),
   ),
-  'palanquin' => 
+  'Palanquin' => 
   array (
     'family' => 'Palanquin',
     'variants' => 
@@ -26748,7 +26748,7 @@ return array (
     array (
     ),
   ),
-  'palanquin dark' => 
+  'Palanquin Dark' => 
   array (
     'family' => 'Palanquin Dark',
     'variants' => 
@@ -26770,7 +26770,7 @@ return array (
     array (
     ),
   ),
-  'palette mosaic' => 
+  'Palette Mosaic' => 
   array (
     'family' => 'Palette Mosaic',
     'variants' => 
@@ -26788,7 +26788,7 @@ return array (
     array (
     ),
   ),
-  'pangolin' => 
+  'Pangolin' => 
   array (
     'family' => 'Pangolin',
     'variants' => 
@@ -26809,7 +26809,7 @@ return array (
     array (
     ),
   ),
-  'paprika' => 
+  'Paprika' => 
   array (
     'family' => 'Paprika',
     'variants' => 
@@ -26827,7 +26827,7 @@ return array (
     array (
     ),
   ),
-  'parisienne' => 
+  'Parisienne' => 
   array (
     'family' => 'Parisienne',
     'variants' => 
@@ -26845,7 +26845,7 @@ return array (
     array (
     ),
   ),
-  'parkinsans' => 
+  'Parkinsans' => 
   array (
     'family' => 'Parkinsans',
     'variants' => 
@@ -26869,7 +26869,7 @@ return array (
       ),
     ),
   ),
-  'passero one' => 
+  'Passero One' => 
   array (
     'family' => 'Passero One',
     'variants' => 
@@ -26887,7 +26887,7 @@ return array (
     array (
     ),
   ),
-  'passion one' => 
+  'Passion One' => 
   array (
     'family' => 'Passion One',
     'variants' => 
@@ -26907,7 +26907,7 @@ return array (
     array (
     ),
   ),
-  'passions conflict' => 
+  'Passions Conflict' => 
   array (
     'family' => 'Passions Conflict',
     'variants' => 
@@ -26926,7 +26926,7 @@ return array (
     array (
     ),
   ),
-  'pathway extreme' => 
+  'Pathway Extreme' => 
   array (
     'family' => 'Pathway Extreme',
     'variants' => 
@@ -26964,7 +26964,7 @@ return array (
       ),
     ),
   ),
-  'pathway gothic one' => 
+  'Pathway Gothic One' => 
   array (
     'family' => 'Pathway Gothic One',
     'variants' => 
@@ -26982,7 +26982,7 @@ return array (
     array (
     ),
   ),
-  'patrick hand' => 
+  'Patrick Hand' => 
   array (
     'family' => 'Patrick Hand',
     'variants' => 
@@ -27001,7 +27001,7 @@ return array (
     array (
     ),
   ),
-  'patrick hand sc' => 
+  'Patrick Hand SC' => 
   array (
     'family' => 'Patrick Hand SC',
     'variants' => 
@@ -27020,7 +27020,7 @@ return array (
     array (
     ),
   ),
-  'pattaya' => 
+  'Pattaya' => 
   array (
     'family' => 'Pattaya',
     'variants' => 
@@ -27041,7 +27041,7 @@ return array (
     array (
     ),
   ),
-  'patua one' => 
+  'Patua One' => 
   array (
     'family' => 'Patua One',
     'variants' => 
@@ -27058,7 +27058,7 @@ return array (
     array (
     ),
   ),
-  'pavanam' => 
+  'Pavanam' => 
   array (
     'family' => 'Pavanam',
     'variants' => 
@@ -27077,7 +27077,7 @@ return array (
     array (
     ),
   ),
-  'paytone one' => 
+  'Paytone One' => 
   array (
     'family' => 'Paytone One',
     'variants' => 
@@ -27096,7 +27096,7 @@ return array (
     array (
     ),
   ),
-  'peddana' => 
+  'Peddana' => 
   array (
     'family' => 'Peddana',
     'variants' => 
@@ -27114,7 +27114,7 @@ return array (
     array (
     ),
   ),
-  'peralta' => 
+  'Peralta' => 
   array (
     'family' => 'Peralta',
     'variants' => 
@@ -27132,7 +27132,7 @@ return array (
     array (
     ),
   ),
-  'permanent marker' => 
+  'Permanent Marker' => 
   array (
     'family' => 'Permanent Marker',
     'variants' => 
@@ -27149,7 +27149,7 @@ return array (
     array (
     ),
   ),
-  'petemoss' => 
+  'Petemoss' => 
   array (
     'family' => 'Petemoss',
     'variants' => 
@@ -27168,7 +27168,7 @@ return array (
     array (
     ),
   ),
-  'petit formal script' => 
+  'Petit Formal Script' => 
   array (
     'family' => 'Petit Formal Script',
     'variants' => 
@@ -27186,7 +27186,7 @@ return array (
     array (
     ),
   ),
-  'petrona' => 
+  'Petrona' => 
   array (
     'family' => 'Petrona',
     'variants' => 
@@ -27212,7 +27212,7 @@ return array (
       ),
     ),
   ),
-  'phetsarath' => 
+  'Phetsarath' => 
   array (
     'family' => 'Phetsarath',
     'variants' => 
@@ -27230,7 +27230,7 @@ return array (
     array (
     ),
   ),
-  'philosopher' => 
+  'Philosopher' => 
   array (
     'family' => 'Philosopher',
     'variants' => 
@@ -27254,7 +27254,7 @@ return array (
     array (
     ),
   ),
-  'phudu' => 
+  'Phudu' => 
   array (
     'family' => 'Phudu',
     'variants' => 
@@ -27280,7 +27280,7 @@ return array (
       ),
     ),
   ),
-  'piazzolla' => 
+  'Piazzolla' => 
   array (
     'family' => 'Piazzolla',
     'variants' => 
@@ -27316,7 +27316,7 @@ return array (
       ),
     ),
   ),
-  'piedra' => 
+  'Piedra' => 
   array (
     'family' => 'Piedra',
     'variants' => 
@@ -27334,7 +27334,7 @@ return array (
     array (
     ),
   ),
-  'pinyon script' => 
+  'Pinyon Script' => 
   array (
     'family' => 'Pinyon Script',
     'variants' => 
@@ -27353,7 +27353,7 @@ return array (
     array (
     ),
   ),
-  'pirata one' => 
+  'Pirata One' => 
   array (
     'family' => 'Pirata One',
     'variants' => 
@@ -27371,7 +27371,7 @@ return array (
     array (
     ),
   ),
-  'pixelify sans' => 
+  'Pixelify Sans' => 
   array (
     'family' => 'Pixelify Sans',
     'variants' => 
@@ -27396,7 +27396,7 @@ return array (
       ),
     ),
   ),
-  'plaster' => 
+  'Plaster' => 
   array (
     'family' => 'Plaster',
     'variants' => 
@@ -27414,7 +27414,7 @@ return array (
     array (
     ),
   ),
-  'platypi' => 
+  'Platypi' => 
   array (
     'family' => 'Platypi',
     'variants' => 
@@ -27440,7 +27440,7 @@ return array (
       ),
     ),
   ),
-  'play' => 
+  'Play' => 
   array (
     'family' => 'Play',
     'variants' => 
@@ -27463,7 +27463,7 @@ return array (
     array (
     ),
   ),
-  'playball' => 
+  'Playball' => 
   array (
     'family' => 'Playball',
     'variants' => 
@@ -27482,7 +27482,7 @@ return array (
     array (
     ),
   ),
-  'playfair' => 
+  'Playfair' => 
   array (
     'family' => 'Playfair',
     'variants' => 
@@ -27522,7 +27522,7 @@ return array (
       ),
     ),
   ),
-  'playfair display' => 
+  'Playfair Display' => 
   array (
     'family' => 'Playfair Display',
     'variants' => 
@@ -27549,7 +27549,7 @@ return array (
       ),
     ),
   ),
-  'playfair display sc' => 
+  'Playfair Display SC' => 
   array (
     'family' => 'Playfair Display SC',
     'variants' => 
@@ -27574,7 +27574,7 @@ return array (
     array (
     ),
   ),
-  'playpen sans' => 
+  'Playpen Sans' => 
   array (
     'family' => 'Playpen Sans',
     'variants' => 
@@ -27601,7 +27601,7 @@ return array (
       ),
     ),
   ),
-  'playwrite ar' => 
+  'Playwrite AR' => 
   array (
     'family' => 'Playwrite AR',
     'variants' => 
@@ -27624,7 +27624,7 @@ return array (
       ),
     ),
   ),
-  'playwrite ar guides' => 
+  'Playwrite AR Guides' => 
   array (
     'family' => 'Playwrite AR Guides',
     'variants' => 
@@ -27641,7 +27641,7 @@ return array (
     array (
     ),
   ),
-  'playwrite at' => 
+  'Playwrite AT' => 
   array (
     'family' => 'Playwrite AT',
     'variants' => 
@@ -27665,7 +27665,7 @@ return array (
       ),
     ),
   ),
-  'playwrite at guides' => 
+  'Playwrite AT Guides' => 
   array (
     'family' => 'Playwrite AT Guides',
     'variants' => 
@@ -27683,7 +27683,7 @@ return array (
     array (
     ),
   ),
-  'playwrite au nsw' => 
+  'Playwrite AU NSW' => 
   array (
     'family' => 'Playwrite AU NSW',
     'variants' => 
@@ -27706,7 +27706,7 @@ return array (
       ),
     ),
   ),
-  'playwrite au nsw guides' => 
+  'Playwrite AU NSW Guides' => 
   array (
     'family' => 'Playwrite AU NSW Guides',
     'variants' => 
@@ -27723,7 +27723,7 @@ return array (
     array (
     ),
   ),
-  'playwrite au qld' => 
+  'Playwrite AU QLD' => 
   array (
     'family' => 'Playwrite AU QLD',
     'variants' => 
@@ -27746,7 +27746,7 @@ return array (
       ),
     ),
   ),
-  'playwrite au qld guides' => 
+  'Playwrite AU QLD Guides' => 
   array (
     'family' => 'Playwrite AU QLD Guides',
     'variants' => 
@@ -27763,7 +27763,7 @@ return array (
     array (
     ),
   ),
-  'playwrite au sa' => 
+  'Playwrite AU SA' => 
   array (
     'family' => 'Playwrite AU SA',
     'variants' => 
@@ -27786,7 +27786,7 @@ return array (
       ),
     ),
   ),
-  'playwrite au sa guides' => 
+  'Playwrite AU SA Guides' => 
   array (
     'family' => 'Playwrite AU SA Guides',
     'variants' => 
@@ -27803,7 +27803,7 @@ return array (
     array (
     ),
   ),
-  'playwrite au tas' => 
+  'Playwrite AU TAS' => 
   array (
     'family' => 'Playwrite AU TAS',
     'variants' => 
@@ -27826,7 +27826,7 @@ return array (
       ),
     ),
   ),
-  'playwrite au tas guides' => 
+  'Playwrite AU TAS Guides' => 
   array (
     'family' => 'Playwrite AU TAS Guides',
     'variants' => 
@@ -27843,7 +27843,7 @@ return array (
     array (
     ),
   ),
-  'playwrite au vic' => 
+  'Playwrite AU VIC' => 
   array (
     'family' => 'Playwrite AU VIC',
     'variants' => 
@@ -27866,7 +27866,7 @@ return array (
       ),
     ),
   ),
-  'playwrite au vic guides' => 
+  'Playwrite AU VIC Guides' => 
   array (
     'family' => 'Playwrite AU VIC Guides',
     'variants' => 
@@ -27883,7 +27883,7 @@ return array (
     array (
     ),
   ),
-  'playwrite be vlg' => 
+  'Playwrite BE VLG' => 
   array (
     'family' => 'Playwrite BE VLG',
     'variants' => 
@@ -27906,7 +27906,7 @@ return array (
       ),
     ),
   ),
-  'playwrite be vlg guides' => 
+  'Playwrite BE VLG Guides' => 
   array (
     'family' => 'Playwrite BE VLG Guides',
     'variants' => 
@@ -27923,7 +27923,7 @@ return array (
     array (
     ),
   ),
-  'playwrite be wal' => 
+  'Playwrite BE WAL' => 
   array (
     'family' => 'Playwrite BE WAL',
     'variants' => 
@@ -27946,7 +27946,7 @@ return array (
       ),
     ),
   ),
-  'playwrite be wal guides' => 
+  'Playwrite BE WAL Guides' => 
   array (
     'family' => 'Playwrite BE WAL Guides',
     'variants' => 
@@ -27963,7 +27963,7 @@ return array (
     array (
     ),
   ),
-  'playwrite br' => 
+  'Playwrite BR' => 
   array (
     'family' => 'Playwrite BR',
     'variants' => 
@@ -27986,7 +27986,7 @@ return array (
       ),
     ),
   ),
-  'playwrite br guides' => 
+  'Playwrite BR Guides' => 
   array (
     'family' => 'Playwrite BR Guides',
     'variants' => 
@@ -28003,7 +28003,7 @@ return array (
     array (
     ),
   ),
-  'playwrite ca' => 
+  'Playwrite CA' => 
   array (
     'family' => 'Playwrite CA',
     'variants' => 
@@ -28026,7 +28026,7 @@ return array (
       ),
     ),
   ),
-  'playwrite ca guides' => 
+  'Playwrite CA Guides' => 
   array (
     'family' => 'Playwrite CA Guides',
     'variants' => 
@@ -28043,7 +28043,7 @@ return array (
     array (
     ),
   ),
-  'playwrite cl' => 
+  'Playwrite CL' => 
   array (
     'family' => 'Playwrite CL',
     'variants' => 
@@ -28066,7 +28066,7 @@ return array (
       ),
     ),
   ),
-  'playwrite cl guides' => 
+  'Playwrite CL Guides' => 
   array (
     'family' => 'Playwrite CL Guides',
     'variants' => 
@@ -28083,7 +28083,7 @@ return array (
     array (
     ),
   ),
-  'playwrite co' => 
+  'Playwrite CO' => 
   array (
     'family' => 'Playwrite CO',
     'variants' => 
@@ -28106,7 +28106,7 @@ return array (
       ),
     ),
   ),
-  'playwrite co guides' => 
+  'Playwrite CO Guides' => 
   array (
     'family' => 'Playwrite CO Guides',
     'variants' => 
@@ -28123,7 +28123,7 @@ return array (
     array (
     ),
   ),
-  'playwrite cu' => 
+  'Playwrite CU' => 
   array (
     'family' => 'Playwrite CU',
     'variants' => 
@@ -28146,7 +28146,7 @@ return array (
       ),
     ),
   ),
-  'playwrite cu guides' => 
+  'Playwrite CU Guides' => 
   array (
     'family' => 'Playwrite CU Guides',
     'variants' => 
@@ -28163,7 +28163,7 @@ return array (
     array (
     ),
   ),
-  'playwrite cz' => 
+  'Playwrite CZ' => 
   array (
     'family' => 'Playwrite CZ',
     'variants' => 
@@ -28186,7 +28186,7 @@ return array (
       ),
     ),
   ),
-  'playwrite cz guides' => 
+  'Playwrite CZ Guides' => 
   array (
     'family' => 'Playwrite CZ Guides',
     'variants' => 
@@ -28203,7 +28203,7 @@ return array (
     array (
     ),
   ),
-  'playwrite de grund' => 
+  'Playwrite DE Grund' => 
   array (
     'family' => 'Playwrite DE Grund',
     'variants' => 
@@ -28226,7 +28226,7 @@ return array (
       ),
     ),
   ),
-  'playwrite de grund guides' => 
+  'Playwrite DE Grund Guides' => 
   array (
     'family' => 'Playwrite DE Grund Guides',
     'variants' => 
@@ -28243,7 +28243,7 @@ return array (
     array (
     ),
   ),
-  'playwrite de la' => 
+  'Playwrite DE LA' => 
   array (
     'family' => 'Playwrite DE LA',
     'variants' => 
@@ -28266,7 +28266,7 @@ return array (
       ),
     ),
   ),
-  'playwrite de la guides' => 
+  'Playwrite DE LA Guides' => 
   array (
     'family' => 'Playwrite DE LA Guides',
     'variants' => 
@@ -28283,7 +28283,7 @@ return array (
     array (
     ),
   ),
-  'playwrite de sas' => 
+  'Playwrite DE SAS' => 
   array (
     'family' => 'Playwrite DE SAS',
     'variants' => 
@@ -28306,7 +28306,7 @@ return array (
       ),
     ),
   ),
-  'playwrite de sas guides' => 
+  'Playwrite DE SAS Guides' => 
   array (
     'family' => 'Playwrite DE SAS Guides',
     'variants' => 
@@ -28323,7 +28323,7 @@ return array (
     array (
     ),
   ),
-  'playwrite de va' => 
+  'Playwrite DE VA' => 
   array (
     'family' => 'Playwrite DE VA',
     'variants' => 
@@ -28346,7 +28346,7 @@ return array (
       ),
     ),
   ),
-  'playwrite de va guides' => 
+  'Playwrite DE VA Guides' => 
   array (
     'family' => 'Playwrite DE VA Guides',
     'variants' => 
@@ -28363,7 +28363,7 @@ return array (
     array (
     ),
   ),
-  'playwrite dk loopet' => 
+  'Playwrite DK Loopet' => 
   array (
     'family' => 'Playwrite DK Loopet',
     'variants' => 
@@ -28386,7 +28386,7 @@ return array (
       ),
     ),
   ),
-  'playwrite dk loopet guides' => 
+  'Playwrite DK Loopet Guides' => 
   array (
     'family' => 'Playwrite DK Loopet Guides',
     'variants' => 
@@ -28403,7 +28403,7 @@ return array (
     array (
     ),
   ),
-  'playwrite dk uloopet' => 
+  'Playwrite DK Uloopet' => 
   array (
     'family' => 'Playwrite DK Uloopet',
     'variants' => 
@@ -28426,7 +28426,7 @@ return array (
       ),
     ),
   ),
-  'playwrite dk uloopet guides' => 
+  'Playwrite DK Uloopet Guides' => 
   array (
     'family' => 'Playwrite DK Uloopet Guides',
     'variants' => 
@@ -28443,7 +28443,7 @@ return array (
     array (
     ),
   ),
-  'playwrite es' => 
+  'Playwrite ES' => 
   array (
     'family' => 'Playwrite ES',
     'variants' => 
@@ -28466,7 +28466,7 @@ return array (
       ),
     ),
   ),
-  'playwrite es deco' => 
+  'Playwrite ES Deco' => 
   array (
     'family' => 'Playwrite ES Deco',
     'variants' => 
@@ -28489,7 +28489,7 @@ return array (
       ),
     ),
   ),
-  'playwrite es deco guides' => 
+  'Playwrite ES Deco Guides' => 
   array (
     'family' => 'Playwrite ES Deco Guides',
     'variants' => 
@@ -28506,7 +28506,7 @@ return array (
     array (
     ),
   ),
-  'playwrite es guides' => 
+  'Playwrite ES Guides' => 
   array (
     'family' => 'Playwrite ES Guides',
     'variants' => 
@@ -28523,7 +28523,7 @@ return array (
     array (
     ),
   ),
-  'playwrite fr moderne' => 
+  'Playwrite FR Moderne' => 
   array (
     'family' => 'Playwrite FR Moderne',
     'variants' => 
@@ -28546,7 +28546,7 @@ return array (
       ),
     ),
   ),
-  'playwrite fr moderne guides' => 
+  'Playwrite FR Moderne Guides' => 
   array (
     'family' => 'Playwrite FR Moderne Guides',
     'variants' => 
@@ -28563,7 +28563,7 @@ return array (
     array (
     ),
   ),
-  'playwrite fr trad' => 
+  'Playwrite FR Trad' => 
   array (
     'family' => 'Playwrite FR Trad',
     'variants' => 
@@ -28586,7 +28586,7 @@ return array (
       ),
     ),
   ),
-  'playwrite fr trad guides' => 
+  'Playwrite FR Trad Guides' => 
   array (
     'family' => 'Playwrite FR Trad Guides',
     'variants' => 
@@ -28603,7 +28603,7 @@ return array (
     array (
     ),
   ),
-  'playwrite gb j' => 
+  'Playwrite GB J' => 
   array (
     'family' => 'Playwrite GB J',
     'variants' => 
@@ -28627,7 +28627,7 @@ return array (
       ),
     ),
   ),
-  'playwrite gb j guides' => 
+  'Playwrite GB J Guides' => 
   array (
     'family' => 'Playwrite GB J Guides',
     'variants' => 
@@ -28645,7 +28645,7 @@ return array (
     array (
     ),
   ),
-  'playwrite gb s' => 
+  'Playwrite GB S' => 
   array (
     'family' => 'Playwrite GB S',
     'variants' => 
@@ -28669,7 +28669,7 @@ return array (
       ),
     ),
   ),
-  'playwrite gb s guides' => 
+  'Playwrite GB S Guides' => 
   array (
     'family' => 'Playwrite GB S Guides',
     'variants' => 
@@ -28687,7 +28687,7 @@ return array (
     array (
     ),
   ),
-  'playwrite hr' => 
+  'Playwrite HR' => 
   array (
     'family' => 'Playwrite HR',
     'variants' => 
@@ -28710,7 +28710,7 @@ return array (
       ),
     ),
   ),
-  'playwrite hr guides' => 
+  'Playwrite HR Guides' => 
   array (
     'family' => 'Playwrite HR Guides',
     'variants' => 
@@ -28727,7 +28727,7 @@ return array (
     array (
     ),
   ),
-  'playwrite hr lijeva' => 
+  'Playwrite HR Lijeva' => 
   array (
     'family' => 'Playwrite HR Lijeva',
     'variants' => 
@@ -28750,7 +28750,7 @@ return array (
       ),
     ),
   ),
-  'playwrite hr lijeva guides' => 
+  'Playwrite HR Lijeva Guides' => 
   array (
     'family' => 'Playwrite HR Lijeva Guides',
     'variants' => 
@@ -28767,7 +28767,7 @@ return array (
     array (
     ),
   ),
-  'playwrite hu' => 
+  'Playwrite HU' => 
   array (
     'family' => 'Playwrite HU',
     'variants' => 
@@ -28790,7 +28790,7 @@ return array (
       ),
     ),
   ),
-  'playwrite hu guides' => 
+  'Playwrite HU Guides' => 
   array (
     'family' => 'Playwrite HU Guides',
     'variants' => 
@@ -28807,7 +28807,7 @@ return array (
     array (
     ),
   ),
-  'playwrite id' => 
+  'Playwrite ID' => 
   array (
     'family' => 'Playwrite ID',
     'variants' => 
@@ -28830,7 +28830,7 @@ return array (
       ),
     ),
   ),
-  'playwrite id guides' => 
+  'Playwrite ID Guides' => 
   array (
     'family' => 'Playwrite ID Guides',
     'variants' => 
@@ -28847,7 +28847,7 @@ return array (
     array (
     ),
   ),
-  'playwrite ie' => 
+  'Playwrite IE' => 
   array (
     'family' => 'Playwrite IE',
     'variants' => 
@@ -28870,7 +28870,7 @@ return array (
       ),
     ),
   ),
-  'playwrite ie guides' => 
+  'Playwrite IE Guides' => 
   array (
     'family' => 'Playwrite IE Guides',
     'variants' => 
@@ -28887,7 +28887,7 @@ return array (
     array (
     ),
   ),
-  'playwrite in' => 
+  'Playwrite IN' => 
   array (
     'family' => 'Playwrite IN',
     'variants' => 
@@ -28910,7 +28910,7 @@ return array (
       ),
     ),
   ),
-  'playwrite in guides' => 
+  'Playwrite IN Guides' => 
   array (
     'family' => 'Playwrite IN Guides',
     'variants' => 
@@ -28927,7 +28927,7 @@ return array (
     array (
     ),
   ),
-  'playwrite is' => 
+  'Playwrite IS' => 
   array (
     'family' => 'Playwrite IS',
     'variants' => 
@@ -28950,7 +28950,7 @@ return array (
       ),
     ),
   ),
-  'playwrite is guides' => 
+  'Playwrite IS Guides' => 
   array (
     'family' => 'Playwrite IS Guides',
     'variants' => 
@@ -28967,7 +28967,7 @@ return array (
     array (
     ),
   ),
-  'playwrite it moderna' => 
+  'Playwrite IT Moderna' => 
   array (
     'family' => 'Playwrite IT Moderna',
     'variants' => 
@@ -28990,7 +28990,7 @@ return array (
       ),
     ),
   ),
-  'playwrite it moderna guides' => 
+  'Playwrite IT Moderna Guides' => 
   array (
     'family' => 'Playwrite IT Moderna Guides',
     'variants' => 
@@ -29007,7 +29007,7 @@ return array (
     array (
     ),
   ),
-  'playwrite it trad' => 
+  'Playwrite IT Trad' => 
   array (
     'family' => 'Playwrite IT Trad',
     'variants' => 
@@ -29030,7 +29030,7 @@ return array (
       ),
     ),
   ),
-  'playwrite it trad guides' => 
+  'Playwrite IT Trad Guides' => 
   array (
     'family' => 'Playwrite IT Trad Guides',
     'variants' => 
@@ -29047,7 +29047,7 @@ return array (
     array (
     ),
   ),
-  'playwrite mx' => 
+  'Playwrite MX' => 
   array (
     'family' => 'Playwrite MX',
     'variants' => 
@@ -29070,7 +29070,7 @@ return array (
       ),
     ),
   ),
-  'playwrite mx guides' => 
+  'Playwrite MX Guides' => 
   array (
     'family' => 'Playwrite MX Guides',
     'variants' => 
@@ -29087,7 +29087,7 @@ return array (
     array (
     ),
   ),
-  'playwrite ng modern' => 
+  'Playwrite NG Modern' => 
   array (
     'family' => 'Playwrite NG Modern',
     'variants' => 
@@ -29110,7 +29110,7 @@ return array (
       ),
     ),
   ),
-  'playwrite ng modern guides' => 
+  'Playwrite NG Modern Guides' => 
   array (
     'family' => 'Playwrite NG Modern Guides',
     'variants' => 
@@ -29127,7 +29127,7 @@ return array (
     array (
     ),
   ),
-  'playwrite nl' => 
+  'Playwrite NL' => 
   array (
     'family' => 'Playwrite NL',
     'variants' => 
@@ -29150,7 +29150,7 @@ return array (
       ),
     ),
   ),
-  'playwrite nl guides' => 
+  'Playwrite NL Guides' => 
   array (
     'family' => 'Playwrite NL Guides',
     'variants' => 
@@ -29167,7 +29167,7 @@ return array (
     array (
     ),
   ),
-  'playwrite no' => 
+  'Playwrite NO' => 
   array (
     'family' => 'Playwrite NO',
     'variants' => 
@@ -29190,7 +29190,7 @@ return array (
       ),
     ),
   ),
-  'playwrite no guides' => 
+  'Playwrite NO Guides' => 
   array (
     'family' => 'Playwrite NO Guides',
     'variants' => 
@@ -29207,7 +29207,7 @@ return array (
     array (
     ),
   ),
-  'playwrite nz' => 
+  'Playwrite NZ' => 
   array (
     'family' => 'Playwrite NZ',
     'variants' => 
@@ -29230,7 +29230,7 @@ return array (
       ),
     ),
   ),
-  'playwrite nz guides' => 
+  'Playwrite NZ Guides' => 
   array (
     'family' => 'Playwrite NZ Guides',
     'variants' => 
@@ -29247,7 +29247,7 @@ return array (
     array (
     ),
   ),
-  'playwrite pe' => 
+  'Playwrite PE' => 
   array (
     'family' => 'Playwrite PE',
     'variants' => 
@@ -29270,7 +29270,7 @@ return array (
       ),
     ),
   ),
-  'playwrite pe guides' => 
+  'Playwrite PE Guides' => 
   array (
     'family' => 'Playwrite PE Guides',
     'variants' => 
@@ -29287,7 +29287,7 @@ return array (
     array (
     ),
   ),
-  'playwrite pl' => 
+  'Playwrite PL' => 
   array (
     'family' => 'Playwrite PL',
     'variants' => 
@@ -29310,7 +29310,7 @@ return array (
       ),
     ),
   ),
-  'playwrite pl guides' => 
+  'Playwrite PL Guides' => 
   array (
     'family' => 'Playwrite PL Guides',
     'variants' => 
@@ -29327,7 +29327,7 @@ return array (
     array (
     ),
   ),
-  'playwrite pt' => 
+  'Playwrite PT' => 
   array (
     'family' => 'Playwrite PT',
     'variants' => 
@@ -29350,7 +29350,7 @@ return array (
       ),
     ),
   ),
-  'playwrite pt guides' => 
+  'Playwrite PT Guides' => 
   array (
     'family' => 'Playwrite PT Guides',
     'variants' => 
@@ -29367,7 +29367,7 @@ return array (
     array (
     ),
   ),
-  'playwrite ro' => 
+  'Playwrite RO' => 
   array (
     'family' => 'Playwrite RO',
     'variants' => 
@@ -29390,7 +29390,7 @@ return array (
       ),
     ),
   ),
-  'playwrite ro guides' => 
+  'Playwrite RO Guides' => 
   array (
     'family' => 'Playwrite RO Guides',
     'variants' => 
@@ -29407,7 +29407,7 @@ return array (
     array (
     ),
   ),
-  'playwrite sk' => 
+  'Playwrite SK' => 
   array (
     'family' => 'Playwrite SK',
     'variants' => 
@@ -29430,7 +29430,7 @@ return array (
       ),
     ),
   ),
-  'playwrite sk guides' => 
+  'Playwrite SK Guides' => 
   array (
     'family' => 'Playwrite SK Guides',
     'variants' => 
@@ -29447,7 +29447,7 @@ return array (
     array (
     ),
   ),
-  'playwrite tz' => 
+  'Playwrite TZ' => 
   array (
     'family' => 'Playwrite TZ',
     'variants' => 
@@ -29470,7 +29470,7 @@ return array (
       ),
     ),
   ),
-  'playwrite tz guides' => 
+  'Playwrite TZ Guides' => 
   array (
     'family' => 'Playwrite TZ Guides',
     'variants' => 
@@ -29487,7 +29487,7 @@ return array (
     array (
     ),
   ),
-  'playwrite us modern' => 
+  'Playwrite US Modern' => 
   array (
     'family' => 'Playwrite US Modern',
     'variants' => 
@@ -29510,7 +29510,7 @@ return array (
       ),
     ),
   ),
-  'playwrite us modern guides' => 
+  'Playwrite US Modern Guides' => 
   array (
     'family' => 'Playwrite US Modern Guides',
     'variants' => 
@@ -29527,7 +29527,7 @@ return array (
     array (
     ),
   ),
-  'playwrite us trad' => 
+  'Playwrite US Trad' => 
   array (
     'family' => 'Playwrite US Trad',
     'variants' => 
@@ -29550,7 +29550,7 @@ return array (
       ),
     ),
   ),
-  'playwrite us trad guides' => 
+  'Playwrite US Trad Guides' => 
   array (
     'family' => 'Playwrite US Trad Guides',
     'variants' => 
@@ -29567,7 +29567,7 @@ return array (
     array (
     ),
   ),
-  'playwrite vn' => 
+  'Playwrite VN' => 
   array (
     'family' => 'Playwrite VN',
     'variants' => 
@@ -29590,7 +29590,7 @@ return array (
       ),
     ),
   ),
-  'playwrite vn guides' => 
+  'Playwrite VN Guides' => 
   array (
     'family' => 'Playwrite VN Guides',
     'variants' => 
@@ -29607,7 +29607,7 @@ return array (
     array (
     ),
   ),
-  'playwrite za' => 
+  'Playwrite ZA' => 
   array (
     'family' => 'Playwrite ZA',
     'variants' => 
@@ -29630,7 +29630,7 @@ return array (
       ),
     ),
   ),
-  'playwrite za guides' => 
+  'Playwrite ZA Guides' => 
   array (
     'family' => 'Playwrite ZA Guides',
     'variants' => 
@@ -29647,7 +29647,7 @@ return array (
     array (
     ),
   ),
-  'plus jakarta sans' => 
+  'Plus Jakarta Sans' => 
   array (
     'family' => 'Plus Jakarta Sans',
     'variants' => 
@@ -29674,7 +29674,7 @@ return array (
       ),
     ),
   ),
-  'pochaevsk' => 
+  'Pochaevsk' => 
   array (
     'family' => 'Pochaevsk',
     'variants' => 
@@ -29693,7 +29693,7 @@ return array (
     array (
     ),
   ),
-  'podkova' => 
+  'Podkova' => 
   array (
     'family' => 'Podkova',
     'variants' => 
@@ -29720,7 +29720,7 @@ return array (
       ),
     ),
   ),
-  'poetsen one' => 
+  'Poetsen One' => 
   array (
     'family' => 'Poetsen One',
     'variants' => 
@@ -29738,7 +29738,7 @@ return array (
     array (
     ),
   ),
-  'poiret one' => 
+  'Poiret One' => 
   array (
     'family' => 'Poiret One',
     'variants' => 
@@ -29757,7 +29757,7 @@ return array (
     array (
     ),
   ),
-  'poller one' => 
+  'Poller One' => 
   array (
     'family' => 'Poller One',
     'variants' => 
@@ -29774,7 +29774,7 @@ return array (
     array (
     ),
   ),
-  'poltawski nowy' => 
+  'Poltawski Nowy' => 
   array (
     'family' => 'Poltawski Nowy',
     'variants' => 
@@ -29800,7 +29800,7 @@ return array (
       ),
     ),
   ),
-  'poly' => 
+  'Poly' => 
   array (
     'family' => 'Poly',
     'variants' => 
@@ -29819,7 +29819,7 @@ return array (
     array (
     ),
   ),
-  'pompiere' => 
+  'Pompiere' => 
   array (
     'family' => 'Pompiere',
     'variants' => 
@@ -29836,7 +29836,7 @@ return array (
     array (
     ),
   ),
-  'ponnala' => 
+  'Ponnala' => 
   array (
     'family' => 'Ponnala',
     'variants' => 
@@ -29854,7 +29854,7 @@ return array (
     array (
     ),
   ),
-  'pontano sans' => 
+  'Pontano Sans' => 
   array (
     'family' => 'Pontano Sans',
     'variants' => 
@@ -29878,7 +29878,7 @@ return array (
       ),
     ),
   ),
-  'poor story' => 
+  'Poor Story' => 
   array (
     'family' => 'Poor Story',
     'variants' => 
@@ -29896,7 +29896,7 @@ return array (
     array (
     ),
   ),
-  'poppins' => 
+  'Poppins' => 
   array (
     'family' => 'Poppins',
     'variants' => 
@@ -29931,7 +29931,7 @@ return array (
     array (
     ),
   ),
-  'port lligat sans' => 
+  'Port Lligat Sans' => 
   array (
     'family' => 'Port Lligat Sans',
     'variants' => 
@@ -29948,7 +29948,7 @@ return array (
     array (
     ),
   ),
-  'port lligat slab' => 
+  'Port Lligat Slab' => 
   array (
     'family' => 'Port Lligat Slab',
     'variants' => 
@@ -29965,7 +29965,7 @@ return array (
     array (
     ),
   ),
-  'potta one' => 
+  'Potta One' => 
   array (
     'family' => 'Potta One',
     'variants' => 
@@ -29985,7 +29985,7 @@ return array (
     array (
     ),
   ),
-  'pragati narrow' => 
+  'Pragati Narrow' => 
   array (
     'family' => 'Pragati Narrow',
     'variants' => 
@@ -30005,7 +30005,7 @@ return array (
     array (
     ),
   ),
-  'praise' => 
+  'Praise' => 
   array (
     'family' => 'Praise',
     'variants' => 
@@ -30024,7 +30024,7 @@ return array (
     array (
     ),
   ),
-  'prata' => 
+  'Prata' => 
   array (
     'family' => 'Prata',
     'variants' => 
@@ -30044,7 +30044,7 @@ return array (
     array (
     ),
   ),
-  'preahvihear' => 
+  'Preahvihear' => 
   array (
     'family' => 'Preahvihear',
     'variants' => 
@@ -30062,7 +30062,7 @@ return array (
     array (
     ),
   ),
-  'press start 2p' => 
+  'Press Start 2P' => 
   array (
     'family' => 'Press Start 2P',
     'variants' => 
@@ -30083,7 +30083,7 @@ return array (
     array (
     ),
   ),
-  'pridi' => 
+  'Pridi' => 
   array (
     'family' => 'Pridi',
     'variants' => 
@@ -30108,7 +30108,7 @@ return array (
     array (
     ),
   ),
-  'princess sofia' => 
+  'Princess Sofia' => 
   array (
     'family' => 'Princess Sofia',
     'variants' => 
@@ -30126,7 +30126,7 @@ return array (
     array (
     ),
   ),
-  'prociono' => 
+  'Prociono' => 
   array (
     'family' => 'Prociono',
     'variants' => 
@@ -30143,7 +30143,7 @@ return array (
     array (
     ),
   ),
-  'prompt' => 
+  'Prompt' => 
   array (
     'family' => 'Prompt',
     'variants' => 
@@ -30180,7 +30180,7 @@ return array (
     array (
     ),
   ),
-  'prosto one' => 
+  'Prosto One' => 
   array (
     'family' => 'Prosto One',
     'variants' => 
@@ -30199,7 +30199,7 @@ return array (
     array (
     ),
   ),
-  'protest guerrilla' => 
+  'Protest Guerrilla' => 
   array (
     'family' => 'Protest Guerrilla',
     'variants' => 
@@ -30220,7 +30220,7 @@ return array (
     array (
     ),
   ),
-  'protest revolution' => 
+  'Protest Revolution' => 
   array (
     'family' => 'Protest Revolution',
     'variants' => 
@@ -30241,7 +30241,7 @@ return array (
     array (
     ),
   ),
-  'protest riot' => 
+  'Protest Riot' => 
   array (
     'family' => 'Protest Riot',
     'variants' => 
@@ -30262,7 +30262,7 @@ return array (
     array (
     ),
   ),
-  'protest strike' => 
+  'Protest Strike' => 
   array (
     'family' => 'Protest Strike',
     'variants' => 
@@ -30283,7 +30283,7 @@ return array (
     array (
     ),
   ),
-  'proza libre' => 
+  'Proza Libre' => 
   array (
     'family' => 'Proza Libre',
     'variants' => 
@@ -30310,7 +30310,7 @@ return array (
     array (
     ),
   ),
-  'public sans' => 
+  'Public Sans' => 
   array (
     'family' => 'Public Sans',
     'variants' => 
@@ -30336,7 +30336,7 @@ return array (
       ),
     ),
   ),
-  'puppies play' => 
+  'Puppies Play' => 
   array (
     'family' => 'Puppies Play',
     'variants' => 
@@ -30355,7 +30355,7 @@ return array (
     array (
     ),
   ),
-  'puritan' => 
+  'Puritan' => 
   array (
     'family' => 'Puritan',
     'variants' => 
@@ -30375,7 +30375,7 @@ return array (
     array (
     ),
   ),
-  'purple purse' => 
+  'Purple Purse' => 
   array (
     'family' => 'Purple Purse',
     'variants' => 
@@ -30393,7 +30393,7 @@ return array (
     array (
     ),
   ),
-  'qahiri' => 
+  'Qahiri' => 
   array (
     'family' => 'Qahiri',
     'variants' => 
@@ -30411,7 +30411,7 @@ return array (
     array (
     ),
   ),
-  'quando' => 
+  'Quando' => 
   array (
     'family' => 'Quando',
     'variants' => 
@@ -30429,7 +30429,7 @@ return array (
     array (
     ),
   ),
-  'quantico' => 
+  'Quantico' => 
   array (
     'family' => 'Quantico',
     'variants' => 
@@ -30449,7 +30449,7 @@ return array (
     array (
     ),
   ),
-  'quattrocento' => 
+  'Quattrocento' => 
   array (
     'family' => 'Quattrocento',
     'variants' => 
@@ -30468,7 +30468,7 @@ return array (
     array (
     ),
   ),
-  'quattrocento sans' => 
+  'Quattrocento Sans' => 
   array (
     'family' => 'Quattrocento Sans',
     'variants' => 
@@ -30489,7 +30489,7 @@ return array (
     array (
     ),
   ),
-  'questrial' => 
+  'Questrial' => 
   array (
     'family' => 'Questrial',
     'variants' => 
@@ -30508,7 +30508,7 @@ return array (
     array (
     ),
   ),
-  'quicksand' => 
+  'Quicksand' => 
   array (
     'family' => 'Quicksand',
     'variants' => 
@@ -30533,7 +30533,7 @@ return array (
       ),
     ),
   ),
-  'quintessential' => 
+  'Quintessential' => 
   array (
     'family' => 'Quintessential',
     'variants' => 
@@ -30551,7 +30551,7 @@ return array (
     array (
     ),
   ),
-  'qwigley' => 
+  'Qwigley' => 
   array (
     'family' => 'Qwigley',
     'variants' => 
@@ -30570,7 +30570,7 @@ return array (
     array (
     ),
   ),
-  'qwitcher grypen' => 
+  'Qwitcher Grypen' => 
   array (
     'family' => 'Qwitcher Grypen',
     'variants' => 
@@ -30590,7 +30590,7 @@ return array (
     array (
     ),
   ),
-  'rem' => 
+  'REM' => 
   array (
     'family' => 'REM',
     'variants' => 
@@ -30616,7 +30616,7 @@ return array (
       ),
     ),
   ),
-  'racing sans one' => 
+  'Racing Sans One' => 
   array (
     'family' => 'Racing Sans One',
     'variants' => 
@@ -30634,7 +30634,7 @@ return array (
     array (
     ),
   ),
-  'radio canada' => 
+  'Radio Canada' => 
   array (
     'family' => 'Radio Canada',
     'variants' => 
@@ -30667,7 +30667,7 @@ return array (
       ),
     ),
   ),
-  'radio canada big' => 
+  'Radio Canada Big' => 
   array (
     'family' => 'Radio Canada Big',
     'variants' => 
@@ -30692,7 +30692,7 @@ return array (
       ),
     ),
   ),
-  'radley' => 
+  'Radley' => 
   array (
     'family' => 'Radley',
     'variants' => 
@@ -30711,7 +30711,7 @@ return array (
     array (
     ),
   ),
-  'rajdhani' => 
+  'Rajdhani' => 
   array (
     'family' => 'Rajdhani',
     'variants' => 
@@ -30734,7 +30734,7 @@ return array (
     array (
     ),
   ),
-  'rakkas' => 
+  'Rakkas' => 
   array (
     'family' => 'Rakkas',
     'variants' => 
@@ -30753,7 +30753,7 @@ return array (
     array (
     ),
   ),
-  'raleway' => 
+  'Raleway' => 
   array (
     'family' => 'Raleway',
     'variants' => 
@@ -30781,7 +30781,7 @@ return array (
       ),
     ),
   ),
-  'raleway dots' => 
+  'Raleway Dots' => 
   array (
     'family' => 'Raleway Dots',
     'variants' => 
@@ -30799,7 +30799,7 @@ return array (
     array (
     ),
   ),
-  'ramabhadra' => 
+  'Ramabhadra' => 
   array (
     'family' => 'Ramabhadra',
     'variants' => 
@@ -30817,7 +30817,7 @@ return array (
     array (
     ),
   ),
-  'ramaraja' => 
+  'Ramaraja' => 
   array (
     'family' => 'Ramaraja',
     'variants' => 
@@ -30835,7 +30835,7 @@ return array (
     array (
     ),
   ),
-  'rambla' => 
+  'Rambla' => 
   array (
     'family' => 'Rambla',
     'variants' => 
@@ -30856,7 +30856,7 @@ return array (
     array (
     ),
   ),
-  'rammetto one' => 
+  'Rammetto One' => 
   array (
     'family' => 'Rammetto One',
     'variants' => 
@@ -30874,7 +30874,7 @@ return array (
     array (
     ),
   ),
-  'rampart one' => 
+  'Rampart One' => 
   array (
     'family' => 'Rampart One',
     'variants' => 
@@ -30894,7 +30894,7 @@ return array (
     array (
     ),
   ),
-  'ranchers' => 
+  'Ranchers' => 
   array (
     'family' => 'Ranchers',
     'variants' => 
@@ -30912,7 +30912,7 @@ return array (
     array (
     ),
   ),
-  'rancho' => 
+  'Rancho' => 
   array (
     'family' => 'Rancho',
     'variants' => 
@@ -30929,7 +30929,7 @@ return array (
     array (
     ),
   ),
-  'ranga' => 
+  'Ranga' => 
   array (
     'family' => 'Ranga',
     'variants' => 
@@ -30949,7 +30949,7 @@ return array (
     array (
     ),
   ),
-  'rasa' => 
+  'Rasa' => 
   array (
     'family' => 'Rasa',
     'variants' => 
@@ -30976,7 +30976,7 @@ return array (
       ),
     ),
   ),
-  'rationale' => 
+  'Rationale' => 
   array (
     'family' => 'Rationale',
     'variants' => 
@@ -30993,7 +30993,7 @@ return array (
     array (
     ),
   ),
-  'ravi prakash' => 
+  'Ravi Prakash' => 
   array (
     'family' => 'Ravi Prakash',
     'variants' => 
@@ -31011,7 +31011,7 @@ return array (
     array (
     ),
   ),
-  'readex pro' => 
+  'Readex Pro' => 
   array (
     'family' => 'Readex Pro',
     'variants' => 
@@ -31043,7 +31043,7 @@ return array (
       ),
     ),
   ),
-  'recursive' => 
+  'Recursive' => 
   array (
     'family' => 'Recursive',
     'variants' => 
@@ -31093,7 +31093,7 @@ return array (
       ),
     ),
   ),
-  'red hat display' => 
+  'Red Hat Display' => 
   array (
     'family' => 'Red Hat Display',
     'variants' => 
@@ -31118,7 +31118,7 @@ return array (
       ),
     ),
   ),
-  'red hat mono' => 
+  'Red Hat Mono' => 
   array (
     'family' => 'Red Hat Mono',
     'variants' => 
@@ -31143,7 +31143,7 @@ return array (
       ),
     ),
   ),
-  'red hat text' => 
+  'Red Hat Text' => 
   array (
     'family' => 'Red Hat Text',
     'variants' => 
@@ -31168,7 +31168,7 @@ return array (
       ),
     ),
   ),
-  'red rose' => 
+  'Red Rose' => 
   array (
     'family' => 'Red Rose',
     'variants' => 
@@ -31193,7 +31193,7 @@ return array (
       ),
     ),
   ),
-  'redacted' => 
+  'Redacted' => 
   array (
     'family' => 'Redacted',
     'variants' => 
@@ -31211,7 +31211,7 @@ return array (
     array (
     ),
   ),
-  'redacted script' => 
+  'Redacted Script' => 
   array (
     'family' => 'Redacted Script',
     'variants' => 
@@ -31231,7 +31231,7 @@ return array (
     array (
     ),
   ),
-  'reddit mono' => 
+  'Reddit Mono' => 
   array (
     'family' => 'Reddit Mono',
     'variants' => 
@@ -31256,7 +31256,7 @@ return array (
       ),
     ),
   ),
-  'reddit sans' => 
+  'Reddit Sans' => 
   array (
     'family' => 'Reddit Sans',
     'variants' => 
@@ -31282,7 +31282,7 @@ return array (
       ),
     ),
   ),
-  'reddit sans condensed' => 
+  'Reddit Sans Condensed' => 
   array (
     'family' => 'Reddit Sans Condensed',
     'variants' => 
@@ -31307,7 +31307,7 @@ return array (
       ),
     ),
   ),
-  'redressed' => 
+  'Redressed' => 
   array (
     'family' => 'Redressed',
     'variants' => 
@@ -31325,7 +31325,7 @@ return array (
     array (
     ),
   ),
-  'reem kufi' => 
+  'Reem Kufi' => 
   array (
     'family' => 'Reem Kufi',
     'variants' => 
@@ -31351,7 +31351,7 @@ return array (
       ),
     ),
   ),
-  'reem kufi fun' => 
+  'Reem Kufi Fun' => 
   array (
     'family' => 'Reem Kufi Fun',
     'variants' => 
@@ -31377,7 +31377,7 @@ return array (
       ),
     ),
   ),
-  'reem kufi ink' => 
+  'Reem Kufi Ink' => 
   array (
     'family' => 'Reem Kufi Ink',
     'variants' => 
@@ -31397,7 +31397,7 @@ return array (
     array (
     ),
   ),
-  'reenie beanie' => 
+  'Reenie Beanie' => 
   array (
     'family' => 'Reenie Beanie',
     'variants' => 
@@ -31414,7 +31414,7 @@ return array (
     array (
     ),
   ),
-  'reggae one' => 
+  'Reggae One' => 
   array (
     'family' => 'Reggae One',
     'variants' => 
@@ -31434,7 +31434,7 @@ return array (
     array (
     ),
   ),
-  'rethink sans' => 
+  'Rethink Sans' => 
   array (
     'family' => 'Rethink Sans',
     'variants' => 
@@ -31459,7 +31459,7 @@ return array (
       ),
     ),
   ),
-  'revalia' => 
+  'Revalia' => 
   array (
     'family' => 'Revalia',
     'variants' => 
@@ -31477,7 +31477,7 @@ return array (
     array (
     ),
   ),
-  'rhodium libre' => 
+  'Rhodium Libre' => 
   array (
     'family' => 'Rhodium Libre',
     'variants' => 
@@ -31496,7 +31496,7 @@ return array (
     array (
     ),
   ),
-  'ribeye' => 
+  'Ribeye' => 
   array (
     'family' => 'Ribeye',
     'variants' => 
@@ -31514,7 +31514,7 @@ return array (
     array (
     ),
   ),
-  'ribeye marrow' => 
+  'Ribeye Marrow' => 
   array (
     'family' => 'Ribeye Marrow',
     'variants' => 
@@ -31532,7 +31532,7 @@ return array (
     array (
     ),
   ),
-  'righteous' => 
+  'Righteous' => 
   array (
     'family' => 'Righteous',
     'variants' => 
@@ -31550,7 +31550,7 @@ return array (
     array (
     ),
   ),
-  'risque' => 
+  'Risque' => 
   array (
     'family' => 'Risque',
     'variants' => 
@@ -31568,7 +31568,7 @@ return array (
     array (
     ),
   ),
-  'road rage' => 
+  'Road Rage' => 
   array (
     'family' => 'Road Rage',
     'variants' => 
@@ -31587,7 +31587,7 @@ return array (
     array (
     ),
   ),
-  'roboto' => 
+  'Roboto' => 
   array (
     'family' => 'Roboto',
     'variants' => 
@@ -31625,7 +31625,7 @@ return array (
       ),
     ),
   ),
-  'roboto condensed' => 
+  'Roboto Condensed' => 
   array (
     'family' => 'Roboto Condensed',
     'variants' => 
@@ -31655,7 +31655,7 @@ return array (
       ),
     ),
   ),
-  'roboto flex' => 
+  'Roboto Flex' => 
   array (
     'family' => 'Roboto Flex',
     'variants' => 
@@ -31755,7 +31755,7 @@ return array (
       ),
     ),
   ),
-  'roboto mono' => 
+  'Roboto Mono' => 
   array (
     'family' => 'Roboto Mono',
     'variants' => 
@@ -31784,7 +31784,7 @@ return array (
       ),
     ),
   ),
-  'roboto serif' => 
+  'Roboto Serif' => 
   array (
     'family' => 'Roboto Serif',
     'variants' => 
@@ -31830,7 +31830,7 @@ return array (
       ),
     ),
   ),
-  'roboto slab' => 
+  'Roboto Slab' => 
   array (
     'family' => 'Roboto Slab',
     'variants' => 
@@ -31859,7 +31859,7 @@ return array (
       ),
     ),
   ),
-  'rochester' => 
+  'Rochester' => 
   array (
     'family' => 'Rochester',
     'variants' => 
@@ -31876,7 +31876,7 @@ return array (
     array (
     ),
   ),
-  'rock 3d' => 
+  'Rock 3D' => 
   array (
     'family' => 'Rock 3D',
     'variants' => 
@@ -31894,7 +31894,7 @@ return array (
     array (
     ),
   ),
-  'rock salt' => 
+  'Rock Salt' => 
   array (
     'family' => 'Rock Salt',
     'variants' => 
@@ -31911,7 +31911,7 @@ return array (
     array (
     ),
   ),
-  'rocknroll one' => 
+  'RocknRoll One' => 
   array (
     'family' => 'RocknRoll One',
     'variants' => 
@@ -31930,7 +31930,7 @@ return array (
     array (
     ),
   ),
-  'rokkitt' => 
+  'Rokkitt' => 
   array (
     'family' => 'Rokkitt',
     'variants' => 
@@ -31956,7 +31956,7 @@ return array (
       ),
     ),
   ),
-  'romanesco' => 
+  'Romanesco' => 
   array (
     'family' => 'Romanesco',
     'variants' => 
@@ -31974,7 +31974,7 @@ return array (
     array (
     ),
   ),
-  'ropa sans' => 
+  'Ropa Sans' => 
   array (
     'family' => 'Ropa Sans',
     'variants' => 
@@ -31993,7 +31993,7 @@ return array (
     array (
     ),
   ),
-  'rosario' => 
+  'Rosario' => 
   array (
     'family' => 'Rosario',
     'variants' => 
@@ -32019,7 +32019,7 @@ return array (
       ),
     ),
   ),
-  'rosarivo' => 
+  'Rosarivo' => 
   array (
     'family' => 'Rosarivo',
     'variants' => 
@@ -32038,7 +32038,7 @@ return array (
     array (
     ),
   ),
-  'rouge script' => 
+  'Rouge Script' => 
   array (
     'family' => 'Rouge Script',
     'variants' => 
@@ -32055,7 +32055,7 @@ return array (
     array (
     ),
   ),
-  'rowdies' => 
+  'Rowdies' => 
   array (
     'family' => 'Rowdies',
     'variants' => 
@@ -32076,7 +32076,7 @@ return array (
     array (
     ),
   ),
-  'rozha one' => 
+  'Rozha One' => 
   array (
     'family' => 'Rozha One',
     'variants' => 
@@ -32095,7 +32095,7 @@ return array (
     array (
     ),
   ),
-  'rubik' => 
+  'Rubik' => 
   array (
     'family' => 'Rubik',
     'variants' => 
@@ -32124,7 +32124,7 @@ return array (
       ),
     ),
   ),
-  'rubik 80s fade' => 
+  'Rubik 80s Fade' => 
   array (
     'family' => 'Rubik 80s Fade',
     'variants' => 
@@ -32145,7 +32145,7 @@ return array (
     array (
     ),
   ),
-  'rubik beastly' => 
+  'Rubik Beastly' => 
   array (
     'family' => 'Rubik Beastly',
     'variants' => 
@@ -32166,7 +32166,7 @@ return array (
     array (
     ),
   ),
-  'rubik broken fax' => 
+  'Rubik Broken Fax' => 
   array (
     'family' => 'Rubik Broken Fax',
     'variants' => 
@@ -32189,7 +32189,7 @@ return array (
     array (
     ),
   ),
-  'rubik bubbles' => 
+  'Rubik Bubbles' => 
   array (
     'family' => 'Rubik Bubbles',
     'variants' => 
@@ -32210,7 +32210,7 @@ return array (
     array (
     ),
   ),
-  'rubik burned' => 
+  'Rubik Burned' => 
   array (
     'family' => 'Rubik Burned',
     'variants' => 
@@ -32231,7 +32231,7 @@ return array (
     array (
     ),
   ),
-  'rubik dirt' => 
+  'Rubik Dirt' => 
   array (
     'family' => 'Rubik Dirt',
     'variants' => 
@@ -32252,7 +32252,7 @@ return array (
     array (
     ),
   ),
-  'rubik distressed' => 
+  'Rubik Distressed' => 
   array (
     'family' => 'Rubik Distressed',
     'variants' => 
@@ -32273,7 +32273,7 @@ return array (
     array (
     ),
   ),
-  'rubik doodle shadow' => 
+  'Rubik Doodle Shadow' => 
   array (
     'family' => 'Rubik Doodle Shadow',
     'variants' => 
@@ -32296,7 +32296,7 @@ return array (
     array (
     ),
   ),
-  'rubik doodle triangles' => 
+  'Rubik Doodle Triangles' => 
   array (
     'family' => 'Rubik Doodle Triangles',
     'variants' => 
@@ -32319,7 +32319,7 @@ return array (
     array (
     ),
   ),
-  'rubik gemstones' => 
+  'Rubik Gemstones' => 
   array (
     'family' => 'Rubik Gemstones',
     'variants' => 
@@ -32340,7 +32340,7 @@ return array (
     array (
     ),
   ),
-  'rubik glitch' => 
+  'Rubik Glitch' => 
   array (
     'family' => 'Rubik Glitch',
     'variants' => 
@@ -32361,7 +32361,7 @@ return array (
     array (
     ),
   ),
-  'rubik glitch pop' => 
+  'Rubik Glitch Pop' => 
   array (
     'family' => 'Rubik Glitch Pop',
     'variants' => 
@@ -32384,7 +32384,7 @@ return array (
     array (
     ),
   ),
-  'rubik iso' => 
+  'Rubik Iso' => 
   array (
     'family' => 'Rubik Iso',
     'variants' => 
@@ -32405,7 +32405,7 @@ return array (
     array (
     ),
   ),
-  'rubik lines' => 
+  'Rubik Lines' => 
   array (
     'family' => 'Rubik Lines',
     'variants' => 
@@ -32428,7 +32428,7 @@ return array (
     array (
     ),
   ),
-  'rubik maps' => 
+  'Rubik Maps' => 
   array (
     'family' => 'Rubik Maps',
     'variants' => 
@@ -32451,7 +32451,7 @@ return array (
     array (
     ),
   ),
-  'rubik marker hatch' => 
+  'Rubik Marker Hatch' => 
   array (
     'family' => 'Rubik Marker Hatch',
     'variants' => 
@@ -32472,7 +32472,7 @@ return array (
     array (
     ),
   ),
-  'rubik maze' => 
+  'Rubik Maze' => 
   array (
     'family' => 'Rubik Maze',
     'variants' => 
@@ -32493,7 +32493,7 @@ return array (
     array (
     ),
   ),
-  'rubik microbe' => 
+  'Rubik Microbe' => 
   array (
     'family' => 'Rubik Microbe',
     'variants' => 
@@ -32514,7 +32514,7 @@ return array (
     array (
     ),
   ),
-  'rubik mono one' => 
+  'Rubik Mono One' => 
   array (
     'family' => 'Rubik Mono One',
     'variants' => 
@@ -32533,7 +32533,7 @@ return array (
     array (
     ),
   ),
-  'rubik moonrocks' => 
+  'Rubik Moonrocks' => 
   array (
     'family' => 'Rubik Moonrocks',
     'variants' => 
@@ -32554,7 +32554,7 @@ return array (
     array (
     ),
   ),
-  'rubik pixels' => 
+  'Rubik Pixels' => 
   array (
     'family' => 'Rubik Pixels',
     'variants' => 
@@ -32575,7 +32575,7 @@ return array (
     array (
     ),
   ),
-  'rubik puddles' => 
+  'Rubik Puddles' => 
   array (
     'family' => 'Rubik Puddles',
     'variants' => 
@@ -32596,7 +32596,7 @@ return array (
     array (
     ),
   ),
-  'rubik scribble' => 
+  'Rubik Scribble' => 
   array (
     'family' => 'Rubik Scribble',
     'variants' => 
@@ -32619,7 +32619,7 @@ return array (
     array (
     ),
   ),
-  'rubik spray paint' => 
+  'Rubik Spray Paint' => 
   array (
     'family' => 'Rubik Spray Paint',
     'variants' => 
@@ -32640,7 +32640,7 @@ return array (
     array (
     ),
   ),
-  'rubik storm' => 
+  'Rubik Storm' => 
   array (
     'family' => 'Rubik Storm',
     'variants' => 
@@ -32661,7 +32661,7 @@ return array (
     array (
     ),
   ),
-  'rubik vinyl' => 
+  'Rubik Vinyl' => 
   array (
     'family' => 'Rubik Vinyl',
     'variants' => 
@@ -32682,7 +32682,7 @@ return array (
     array (
     ),
   ),
-  'rubik wet paint' => 
+  'Rubik Wet Paint' => 
   array (
     'family' => 'Rubik Wet Paint',
     'variants' => 
@@ -32703,7 +32703,7 @@ return array (
     array (
     ),
   ),
-  'ruda' => 
+  'Ruda' => 
   array (
     'family' => 'Ruda',
     'variants' => 
@@ -32729,7 +32729,7 @@ return array (
       ),
     ),
   ),
-  'rufina' => 
+  'Rufina' => 
   array (
     'family' => 'Rufina',
     'variants' => 
@@ -32748,7 +32748,7 @@ return array (
     array (
     ),
   ),
-  'ruge boogie' => 
+  'Ruge Boogie' => 
   array (
     'family' => 'Ruge Boogie',
     'variants' => 
@@ -32767,7 +32767,7 @@ return array (
     array (
     ),
   ),
-  'ruluko' => 
+  'Ruluko' => 
   array (
     'family' => 'Ruluko',
     'variants' => 
@@ -32785,7 +32785,7 @@ return array (
     array (
     ),
   ),
-  'rum raisin' => 
+  'Rum Raisin' => 
   array (
     'family' => 'Rum Raisin',
     'variants' => 
@@ -32803,7 +32803,7 @@ return array (
     array (
     ),
   ),
-  'ruslan display' => 
+  'Ruslan Display' => 
   array (
     'family' => 'Ruslan Display',
     'variants' => 
@@ -32824,7 +32824,7 @@ return array (
     array (
     ),
   ),
-  'russo one' => 
+  'Russo One' => 
   array (
     'family' => 'Russo One',
     'variants' => 
@@ -32843,7 +32843,7 @@ return array (
     array (
     ),
   ),
-  'ruthie' => 
+  'Ruthie' => 
   array (
     'family' => 'Ruthie',
     'variants' => 
@@ -32862,7 +32862,7 @@ return array (
     array (
     ),
   ),
-  'ruwudu' => 
+  'Ruwudu' => 
   array (
     'family' => 'Ruwudu',
     'variants' => 
@@ -32884,7 +32884,7 @@ return array (
     array (
     ),
   ),
-  'rye' => 
+  'Rye' => 
   array (
     'family' => 'Rye',
     'variants' => 
@@ -32902,7 +32902,7 @@ return array (
     array (
     ),
   ),
-  'stix two text' => 
+  'STIX Two Text' => 
   array (
     'family' => 'STIX Two Text',
     'variants' => 
@@ -32931,7 +32931,7 @@ return array (
       ),
     ),
   ),
-  'suse' => 
+  'SUSE' => 
   array (
     'family' => 'SUSE',
     'variants' => 
@@ -32955,7 +32955,7 @@ return array (
       ),
     ),
   ),
-  'sacramento' => 
+  'Sacramento' => 
   array (
     'family' => 'Sacramento',
     'variants' => 
@@ -32973,7 +32973,7 @@ return array (
     array (
     ),
   ),
-  'sahitya' => 
+  'Sahitya' => 
   array (
     'family' => 'Sahitya',
     'variants' => 
@@ -32993,7 +32993,7 @@ return array (
     array (
     ),
   ),
-  'sail' => 
+  'Sail' => 
   array (
     'family' => 'Sail',
     'variants' => 
@@ -33011,7 +33011,7 @@ return array (
     array (
     ),
   ),
-  'saira' => 
+  'Saira' => 
   array (
     'family' => 'Saira',
     'variants' => 
@@ -33043,7 +33043,7 @@ return array (
       ),
     ),
   ),
-  'saira condensed' => 
+  'Saira Condensed' => 
   array (
     'family' => 'Saira Condensed',
     'variants' => 
@@ -33070,7 +33070,7 @@ return array (
     array (
     ),
   ),
-  'saira extra condensed' => 
+  'Saira Extra Condensed' => 
   array (
     'family' => 'Saira Extra Condensed',
     'variants' => 
@@ -33097,7 +33097,7 @@ return array (
     array (
     ),
   ),
-  'saira semi condensed' => 
+  'Saira Semi Condensed' => 
   array (
     'family' => 'Saira Semi Condensed',
     'variants' => 
@@ -33124,7 +33124,7 @@ return array (
     array (
     ),
   ),
-  'saira stencil one' => 
+  'Saira Stencil One' => 
   array (
     'family' => 'Saira Stencil One',
     'variants' => 
@@ -33143,7 +33143,7 @@ return array (
     array (
     ),
   ),
-  'salsa' => 
+  'Salsa' => 
   array (
     'family' => 'Salsa',
     'variants' => 
@@ -33160,7 +33160,7 @@ return array (
     array (
     ),
   ),
-  'sanchez' => 
+  'Sanchez' => 
   array (
     'family' => 'Sanchez',
     'variants' => 
@@ -33179,7 +33179,7 @@ return array (
     array (
     ),
   ),
-  'sancreek' => 
+  'Sancreek' => 
   array (
     'family' => 'Sancreek',
     'variants' => 
@@ -33197,7 +33197,7 @@ return array (
     array (
     ),
   ),
-  'sankofa display' => 
+  'Sankofa Display' => 
   array (
     'family' => 'Sankofa Display',
     'variants' => 
@@ -33216,7 +33216,7 @@ return array (
     array (
     ),
   ),
-  'sansita' => 
+  'Sansita' => 
   array (
     'family' => 'Sansita',
     'variants' => 
@@ -33241,7 +33241,7 @@ return array (
     array (
     ),
   ),
-  'sansita swashed' => 
+  'Sansita Swashed' => 
   array (
     'family' => 'Sansita Swashed',
     'variants' => 
@@ -33266,7 +33266,7 @@ return array (
       ),
     ),
   ),
-  'sarabun' => 
+  'Sarabun' => 
   array (
     'family' => 'Sarabun',
     'variants' => 
@@ -33301,7 +33301,7 @@ return array (
     array (
     ),
   ),
-  'sarala' => 
+  'Sarala' => 
   array (
     'family' => 'Sarala',
     'variants' => 
@@ -33321,7 +33321,7 @@ return array (
     array (
     ),
   ),
-  'sarina' => 
+  'Sarina' => 
   array (
     'family' => 'Sarina',
     'variants' => 
@@ -33339,7 +33339,7 @@ return array (
     array (
     ),
   ),
-  'sarpanch' => 
+  'Sarpanch' => 
   array (
     'family' => 'Sarpanch',
     'variants' => 
@@ -33363,7 +33363,7 @@ return array (
     array (
     ),
   ),
-  'sassy frass' => 
+  'Sassy Frass' => 
   array (
     'family' => 'Sassy Frass',
     'variants' => 
@@ -33382,7 +33382,7 @@ return array (
     array (
     ),
   ),
-  'satisfy' => 
+  'Satisfy' => 
   array (
     'family' => 'Satisfy',
     'variants' => 
@@ -33399,7 +33399,7 @@ return array (
     array (
     ),
   ),
-  'sawarabi gothic' => 
+  'Sawarabi Gothic' => 
   array (
     'family' => 'Sawarabi Gothic',
     'variants' => 
@@ -33420,7 +33420,7 @@ return array (
     array (
     ),
   ),
-  'sawarabi mincho' => 
+  'Sawarabi Mincho' => 
   array (
     'family' => 'Sawarabi Mincho',
     'variants' => 
@@ -33439,7 +33439,7 @@ return array (
     array (
     ),
   ),
-  'scada' => 
+  'Scada' => 
   array (
     'family' => 'Scada',
     'variants' => 
@@ -33462,7 +33462,7 @@ return array (
     array (
     ),
   ),
-  'scheherazade new' => 
+  'Scheherazade New' => 
   array (
     'family' => 'Scheherazade New',
     'variants' => 
@@ -33484,7 +33484,7 @@ return array (
     array (
     ),
   ),
-  'schibsted grotesk' => 
+  'Schibsted Grotesk' => 
   array (
     'family' => 'Schibsted Grotesk',
     'variants' => 
@@ -33509,7 +33509,7 @@ return array (
       ),
     ),
   ),
-  'schoolbell' => 
+  'Schoolbell' => 
   array (
     'family' => 'Schoolbell',
     'variants' => 
@@ -33526,7 +33526,7 @@ return array (
     array (
     ),
   ),
-  'scope one' => 
+  'Scope One' => 
   array (
     'family' => 'Scope One',
     'variants' => 
@@ -33544,7 +33544,7 @@ return array (
     array (
     ),
   ),
-  'seaweed script' => 
+  'Seaweed Script' => 
   array (
     'family' => 'Seaweed Script',
     'variants' => 
@@ -33562,7 +33562,7 @@ return array (
     array (
     ),
   ),
-  'secular one' => 
+  'Secular One' => 
   array (
     'family' => 'Secular One',
     'variants' => 
@@ -33581,7 +33581,7 @@ return array (
     array (
     ),
   ),
-  'sedan' => 
+  'Sedan' => 
   array (
     'family' => 'Sedan',
     'variants' => 
@@ -33600,7 +33600,7 @@ return array (
     array (
     ),
   ),
-  'sedan sc' => 
+  'Sedan SC' => 
   array (
     'family' => 'Sedan SC',
     'variants' => 
@@ -33618,7 +33618,7 @@ return array (
     array (
     ),
   ),
-  'sedgwick ave' => 
+  'Sedgwick Ave' => 
   array (
     'family' => 'Sedgwick Ave',
     'variants' => 
@@ -33637,7 +33637,7 @@ return array (
     array (
     ),
   ),
-  'sedgwick ave display' => 
+  'Sedgwick Ave Display' => 
   array (
     'family' => 'Sedgwick Ave Display',
     'variants' => 
@@ -33656,7 +33656,7 @@ return array (
     array (
     ),
   ),
-  'sen' => 
+  'Sen' => 
   array (
     'family' => 'Sen',
     'variants' => 
@@ -33680,7 +33680,7 @@ return array (
       ),
     ),
   ),
-  'send flowers' => 
+  'Send Flowers' => 
   array (
     'family' => 'Send Flowers',
     'variants' => 
@@ -33699,7 +33699,7 @@ return array (
     array (
     ),
   ),
-  'sevillana' => 
+  'Sevillana' => 
   array (
     'family' => 'Sevillana',
     'variants' => 
@@ -33717,7 +33717,7 @@ return array (
     array (
     ),
   ),
-  'seymour one' => 
+  'Seymour One' => 
   array (
     'family' => 'Seymour One',
     'variants' => 
@@ -33736,7 +33736,7 @@ return array (
     array (
     ),
   ),
-  'shadows into light' => 
+  'Shadows Into Light' => 
   array (
     'family' => 'Shadows Into Light',
     'variants' => 
@@ -33754,7 +33754,7 @@ return array (
     array (
     ),
   ),
-  'shadows into light two' => 
+  'Shadows Into Light Two' => 
   array (
     'family' => 'Shadows Into Light Two',
     'variants' => 
@@ -33772,7 +33772,7 @@ return array (
     array (
     ),
   ),
-  'shafarik' => 
+  'Shafarik' => 
   array (
     'family' => 'Shafarik',
     'variants' => 
@@ -33793,7 +33793,7 @@ return array (
     array (
     ),
   ),
-  'shalimar' => 
+  'Shalimar' => 
   array (
     'family' => 'Shalimar',
     'variants' => 
@@ -33812,7 +33812,7 @@ return array (
     array (
     ),
   ),
-  'shantell sans' => 
+  'Shantell Sans' => 
   array (
     'family' => 'Shantell Sans',
     'variants' => 
@@ -33858,7 +33858,7 @@ return array (
       ),
     ),
   ),
-  'shanti' => 
+  'Shanti' => 
   array (
     'family' => 'Shanti',
     'variants' => 
@@ -33876,7 +33876,7 @@ return array (
     array (
     ),
   ),
-  'share' => 
+  'Share' => 
   array (
     'family' => 'Share',
     'variants' => 
@@ -33897,7 +33897,7 @@ return array (
     array (
     ),
   ),
-  'share tech' => 
+  'Share Tech' => 
   array (
     'family' => 'Share Tech',
     'variants' => 
@@ -33914,7 +33914,7 @@ return array (
     array (
     ),
   ),
-  'share tech mono' => 
+  'Share Tech Mono' => 
   array (
     'family' => 'Share Tech Mono',
     'variants' => 
@@ -33931,7 +33931,7 @@ return array (
     array (
     ),
   ),
-  'shippori antique' => 
+  'Shippori Antique' => 
   array (
     'family' => 'Shippori Antique',
     'variants' => 
@@ -33950,7 +33950,7 @@ return array (
     array (
     ),
   ),
-  'shippori antique b1' => 
+  'Shippori Antique B1' => 
   array (
     'family' => 'Shippori Antique B1',
     'variants' => 
@@ -33969,7 +33969,7 @@ return array (
     array (
     ),
   ),
-  'shippori mincho' => 
+  'Shippori Mincho' => 
   array (
     'family' => 'Shippori Mincho',
     'variants' => 
@@ -33992,7 +33992,7 @@ return array (
     array (
     ),
   ),
-  'shippori mincho b1' => 
+  'Shippori Mincho B1' => 
   array (
     'family' => 'Shippori Mincho B1',
     'variants' => 
@@ -34015,7 +34015,7 @@ return array (
     array (
     ),
   ),
-  'shizuru' => 
+  'Shizuru' => 
   array (
     'family' => 'Shizuru',
     'variants' => 
@@ -34033,7 +34033,7 @@ return array (
     array (
     ),
   ),
-  'shojumaru' => 
+  'Shojumaru' => 
   array (
     'family' => 'Shojumaru',
     'variants' => 
@@ -34051,7 +34051,7 @@ return array (
     array (
     ),
   ),
-  'short stack' => 
+  'Short Stack' => 
   array (
     'family' => 'Short Stack',
     'variants' => 
@@ -34068,7 +34068,7 @@ return array (
     array (
     ),
   ),
-  'shrikhand' => 
+  'Shrikhand' => 
   array (
     'family' => 'Shrikhand',
     'variants' => 
@@ -34087,7 +34087,7 @@ return array (
     array (
     ),
   ),
-  'siemreap' => 
+  'Siemreap' => 
   array (
     'family' => 'Siemreap',
     'variants' => 
@@ -34104,7 +34104,7 @@ return array (
     array (
     ),
   ),
-  'sigmar' => 
+  'Sigmar' => 
   array (
     'family' => 'Sigmar',
     'variants' => 
@@ -34123,7 +34123,7 @@ return array (
     array (
     ),
   ),
-  'sigmar one' => 
+  'Sigmar One' => 
   array (
     'family' => 'Sigmar One',
     'variants' => 
@@ -34142,7 +34142,7 @@ return array (
     array (
     ),
   ),
-  'signika' => 
+  'Signika' => 
   array (
     'family' => 'Signika',
     'variants' => 
@@ -34173,7 +34173,7 @@ return array (
       ),
     ),
   ),
-  'signika negative' => 
+  'Signika Negative' => 
   array (
     'family' => 'Signika Negative',
     'variants' => 
@@ -34198,7 +34198,7 @@ return array (
       ),
     ),
   ),
-  'silkscreen' => 
+  'Silkscreen' => 
   array (
     'family' => 'Silkscreen',
     'variants' => 
@@ -34217,7 +34217,7 @@ return array (
     array (
     ),
   ),
-  'simonetta' => 
+  'Simonetta' => 
   array (
     'family' => 'Simonetta',
     'variants' => 
@@ -34238,7 +34238,7 @@ return array (
     array (
     ),
   ),
-  'single day' => 
+  'Single Day' => 
   array (
     'family' => 'Single Day',
     'variants' => 
@@ -34255,7 +34255,7 @@ return array (
     array (
     ),
   ),
-  'sintony' => 
+  'Sintony' => 
   array (
     'family' => 'Sintony',
     'variants' => 
@@ -34274,7 +34274,7 @@ return array (
     array (
     ),
   ),
-  'sirin stencil' => 
+  'Sirin Stencil' => 
   array (
     'family' => 'Sirin Stencil',
     'variants' => 
@@ -34291,7 +34291,7 @@ return array (
     array (
     ),
   ),
-  'six caps' => 
+  'Six Caps' => 
   array (
     'family' => 'Six Caps',
     'variants' => 
@@ -34309,7 +34309,7 @@ return array (
     array (
     ),
   ),
-  'sixtyfour' => 
+  'Sixtyfour' => 
   array (
     'family' => 'Sixtyfour',
     'variants' => 
@@ -34341,7 +34341,7 @@ return array (
       ),
     ),
   ),
-  'sixtyfour convergence' => 
+  'Sixtyfour Convergence' => 
   array (
     'family' => 'Sixtyfour Convergence',
     'variants' => 
@@ -34385,7 +34385,7 @@ return array (
       ),
     ),
   ),
-  'skranji' => 
+  'Skranji' => 
   array (
     'family' => 'Skranji',
     'variants' => 
@@ -34404,7 +34404,7 @@ return array (
     array (
     ),
   ),
-  'slabo 13px' => 
+  'Slabo 13px' => 
   array (
     'family' => 'Slabo 13px',
     'variants' => 
@@ -34422,7 +34422,7 @@ return array (
     array (
     ),
   ),
-  'slabo 27px' => 
+  'Slabo 27px' => 
   array (
     'family' => 'Slabo 27px',
     'variants' => 
@@ -34440,7 +34440,7 @@ return array (
     array (
     ),
   ),
-  'slackey' => 
+  'Slackey' => 
   array (
     'family' => 'Slackey',
     'variants' => 
@@ -34457,7 +34457,7 @@ return array (
     array (
     ),
   ),
-  'slackside one' => 
+  'Slackside One' => 
   array (
     'family' => 'Slackside One',
     'variants' => 
@@ -34476,7 +34476,7 @@ return array (
     array (
     ),
   ),
-  'smokum' => 
+  'Smokum' => 
   array (
     'family' => 'Smokum',
     'variants' => 
@@ -34494,7 +34494,7 @@ return array (
     array (
     ),
   ),
-  'smooch' => 
+  'Smooch' => 
   array (
     'family' => 'Smooch',
     'variants' => 
@@ -34513,7 +34513,7 @@ return array (
     array (
     ),
   ),
-  'smooch sans' => 
+  'Smooch Sans' => 
   array (
     'family' => 'Smooch Sans',
     'variants' => 
@@ -34538,7 +34538,7 @@ return array (
       ),
     ),
   ),
-  'smythe' => 
+  'Smythe' => 
   array (
     'family' => 'Smythe',
     'variants' => 
@@ -34555,7 +34555,7 @@ return array (
     array (
     ),
   ),
-  'sniglet' => 
+  'Sniglet' => 
   array (
     'family' => 'Sniglet',
     'variants' => 
@@ -34574,7 +34574,7 @@ return array (
     array (
     ),
   ),
-  'snippet' => 
+  'Snippet' => 
   array (
     'family' => 'Snippet',
     'variants' => 
@@ -34591,7 +34591,7 @@ return array (
     array (
     ),
   ),
-  'snowburst one' => 
+  'Snowburst One' => 
   array (
     'family' => 'Snowburst One',
     'variants' => 
@@ -34609,7 +34609,7 @@ return array (
     array (
     ),
   ),
-  'sofadi one' => 
+  'Sofadi One' => 
   array (
     'family' => 'Sofadi One',
     'variants' => 
@@ -34626,7 +34626,7 @@ return array (
     array (
     ),
   ),
-  'sofia' => 
+  'Sofia' => 
   array (
     'family' => 'Sofia',
     'variants' => 
@@ -34643,7 +34643,7 @@ return array (
     array (
     ),
   ),
-  'sofia sans' => 
+  'Sofia Sans' => 
   array (
     'family' => 'Sofia Sans',
     'variants' => 
@@ -34671,7 +34671,7 @@ return array (
       ),
     ),
   ),
-  'sofia sans condensed' => 
+  'Sofia Sans Condensed' => 
   array (
     'family' => 'Sofia Sans Condensed',
     'variants' => 
@@ -34699,7 +34699,7 @@ return array (
       ),
     ),
   ),
-  'sofia sans extra condensed' => 
+  'Sofia Sans Extra Condensed' => 
   array (
     'family' => 'Sofia Sans Extra Condensed',
     'variants' => 
@@ -34727,7 +34727,7 @@ return array (
       ),
     ),
   ),
-  'sofia sans semi condensed' => 
+  'Sofia Sans Semi Condensed' => 
   array (
     'family' => 'Sofia Sans Semi Condensed',
     'variants' => 
@@ -34755,7 +34755,7 @@ return array (
       ),
     ),
   ),
-  'solitreo' => 
+  'Solitreo' => 
   array (
     'family' => 'Solitreo',
     'variants' => 
@@ -34774,7 +34774,7 @@ return array (
     array (
     ),
   ),
-  'solway' => 
+  'Solway' => 
   array (
     'family' => 'Solway',
     'variants' => 
@@ -34795,7 +34795,7 @@ return array (
     array (
     ),
   ),
-  'sometype mono' => 
+  'Sometype Mono' => 
   array (
     'family' => 'Sometype Mono',
     'variants' => 
@@ -34820,7 +34820,7 @@ return array (
       ),
     ),
   ),
-  'song myung' => 
+  'Song Myung' => 
   array (
     'family' => 'Song Myung',
     'variants' => 
@@ -34837,7 +34837,7 @@ return array (
     array (
     ),
   ),
-  'sono' => 
+  'Sono' => 
   array (
     'family' => 'Sono',
     'variants' => 
@@ -34868,7 +34868,7 @@ return array (
       ),
     ),
   ),
-  'sonsie one' => 
+  'Sonsie One' => 
   array (
     'family' => 'Sonsie One',
     'variants' => 
@@ -34886,7 +34886,7 @@ return array (
     array (
     ),
   ),
-  'sora' => 
+  'Sora' => 
   array (
     'family' => 'Sora',
     'variants' => 
@@ -34910,7 +34910,7 @@ return array (
       ),
     ),
   ),
-  'sorts mill goudy' => 
+  'Sorts Mill Goudy' => 
   array (
     'family' => 'Sorts Mill Goudy',
     'variants' => 
@@ -34929,7 +34929,7 @@ return array (
     array (
     ),
   ),
-  'sour gummy' => 
+  'Sour Gummy' => 
   array (
     'family' => 'Sour Gummy',
     'variants' => 
@@ -34960,7 +34960,7 @@ return array (
       ),
     ),
   ),
-  'source code pro' => 
+  'Source Code Pro' => 
   array (
     'family' => 'Source Code Pro',
     'variants' => 
@@ -34990,7 +34990,7 @@ return array (
       ),
     ),
   ),
-  'source sans 3' => 
+  'Source Sans 3' => 
   array (
     'family' => 'Source Sans 3',
     'variants' => 
@@ -35020,7 +35020,7 @@ return array (
       ),
     ),
   ),
-  'source serif 4' => 
+  'Source Serif 4' => 
   array (
     'family' => 'Source Serif 4',
     'variants' => 
@@ -35055,7 +35055,7 @@ return array (
       ),
     ),
   ),
-  'space grotesk' => 
+  'Space Grotesk' => 
   array (
     'family' => 'Space Grotesk',
     'variants' => 
@@ -35080,7 +35080,7 @@ return array (
       ),
     ),
   ),
-  'space mono' => 
+  'Space Mono' => 
   array (
     'family' => 'Space Mono',
     'variants' => 
@@ -35102,7 +35102,7 @@ return array (
     array (
     ),
   ),
-  'special elite' => 
+  'Special Elite' => 
   array (
     'family' => 'Special Elite',
     'variants' => 
@@ -35120,7 +35120,7 @@ return array (
     array (
     ),
   ),
-  'spectral' => 
+  'Spectral' => 
   array (
     'family' => 'Spectral',
     'variants' => 
@@ -35154,7 +35154,7 @@ return array (
     array (
     ),
   ),
-  'spectral sc' => 
+  'Spectral SC' => 
   array (
     'family' => 'Spectral SC',
     'variants' => 
@@ -35188,7 +35188,7 @@ return array (
     array (
     ),
   ),
-  'spicy rice' => 
+  'Spicy Rice' => 
   array (
     'family' => 'Spicy Rice',
     'variants' => 
@@ -35206,7 +35206,7 @@ return array (
     array (
     ),
   ),
-  'spinnaker' => 
+  'Spinnaker' => 
   array (
     'family' => 'Spinnaker',
     'variants' => 
@@ -35224,7 +35224,7 @@ return array (
     array (
     ),
   ),
-  'spirax' => 
+  'Spirax' => 
   array (
     'family' => 'Spirax',
     'variants' => 
@@ -35241,7 +35241,7 @@ return array (
     array (
     ),
   ),
-  'splash' => 
+  'Splash' => 
   array (
     'family' => 'Splash',
     'variants' => 
@@ -35260,7 +35260,7 @@ return array (
     array (
     ),
   ),
-  'spline sans' => 
+  'Spline Sans' => 
   array (
     'family' => 'Spline Sans',
     'variants' => 
@@ -35284,7 +35284,7 @@ return array (
       ),
     ),
   ),
-  'spline sans mono' => 
+  'Spline Sans Mono' => 
   array (
     'family' => 'Spline Sans Mono',
     'variants' => 
@@ -35309,7 +35309,7 @@ return array (
       ),
     ),
   ),
-  'squada one' => 
+  'Squada One' => 
   array (
     'family' => 'Squada One',
     'variants' => 
@@ -35326,7 +35326,7 @@ return array (
     array (
     ),
   ),
-  'square peg' => 
+  'Square Peg' => 
   array (
     'family' => 'Square Peg',
     'variants' => 
@@ -35345,7 +35345,7 @@ return array (
     array (
     ),
   ),
-  'sree krushnadevaraya' => 
+  'Sree Krushnadevaraya' => 
   array (
     'family' => 'Sree Krushnadevaraya',
     'variants' => 
@@ -35363,7 +35363,7 @@ return array (
     array (
     ),
   ),
-  'sriracha' => 
+  'Sriracha' => 
   array (
     'family' => 'Sriracha',
     'variants' => 
@@ -35383,7 +35383,7 @@ return array (
     array (
     ),
   ),
-  'srisakdi' => 
+  'Srisakdi' => 
   array (
     'family' => 'Srisakdi',
     'variants' => 
@@ -35404,7 +35404,7 @@ return array (
     array (
     ),
   ),
-  'staatliches' => 
+  'Staatliches' => 
   array (
     'family' => 'Staatliches',
     'variants' => 
@@ -35422,7 +35422,7 @@ return array (
     array (
     ),
   ),
-  'stalemate' => 
+  'Stalemate' => 
   array (
     'family' => 'Stalemate',
     'variants' => 
@@ -35440,7 +35440,7 @@ return array (
     array (
     ),
   ),
-  'stalinist one' => 
+  'Stalinist One' => 
   array (
     'family' => 'Stalinist One',
     'variants' => 
@@ -35459,7 +35459,7 @@ return array (
     array (
     ),
   ),
-  'stardos stencil' => 
+  'Stardos Stencil' => 
   array (
     'family' => 'Stardos Stencil',
     'variants' => 
@@ -35477,7 +35477,7 @@ return array (
     array (
     ),
   ),
-  'stick' => 
+  'Stick' => 
   array (
     'family' => 'Stick',
     'variants' => 
@@ -35497,7 +35497,7 @@ return array (
     array (
     ),
   ),
-  'stick no bills' => 
+  'Stick No Bills' => 
   array (
     'family' => 'Stick No Bills',
     'variants' => 
@@ -35522,7 +35522,7 @@ return array (
       ),
     ),
   ),
-  'stint ultra condensed' => 
+  'Stint Ultra Condensed' => 
   array (
     'family' => 'Stint Ultra Condensed',
     'variants' => 
@@ -35540,7 +35540,7 @@ return array (
     array (
     ),
   ),
-  'stint ultra expanded' => 
+  'Stint Ultra Expanded' => 
   array (
     'family' => 'Stint Ultra Expanded',
     'variants' => 
@@ -35558,7 +35558,7 @@ return array (
     array (
     ),
   ),
-  'stoke' => 
+  'Stoke' => 
   array (
     'family' => 'Stoke',
     'variants' => 
@@ -35577,7 +35577,7 @@ return array (
     array (
     ),
   ),
-  'strait' => 
+  'Strait' => 
   array (
     'family' => 'Strait',
     'variants' => 
@@ -35595,7 +35595,7 @@ return array (
     array (
     ),
   ),
-  'style script' => 
+  'Style Script' => 
   array (
     'family' => 'Style Script',
     'variants' => 
@@ -35614,7 +35614,7 @@ return array (
     array (
     ),
   ),
-  'stylish' => 
+  'Stylish' => 
   array (
     'family' => 'Stylish',
     'variants' => 
@@ -35631,7 +35631,7 @@ return array (
     array (
     ),
   ),
-  'sue ellen francisco' => 
+  'Sue Ellen Francisco' => 
   array (
     'family' => 'Sue Ellen Francisco',
     'variants' => 
@@ -35648,7 +35648,7 @@ return array (
     array (
     ),
   ),
-  'suez one' => 
+  'Suez One' => 
   array (
     'family' => 'Suez One',
     'variants' => 
@@ -35667,7 +35667,7 @@ return array (
     array (
     ),
   ),
-  'sulphur point' => 
+  'Sulphur Point' => 
   array (
     'family' => 'Sulphur Point',
     'variants' => 
@@ -35687,7 +35687,7 @@ return array (
     array (
     ),
   ),
-  'sumana' => 
+  'Sumana' => 
   array (
     'family' => 'Sumana',
     'variants' => 
@@ -35707,7 +35707,7 @@ return array (
     array (
     ),
   ),
-  'sunflower' => 
+  'Sunflower' => 
   array (
     'family' => 'Sunflower',
     'variants' => 
@@ -35727,7 +35727,7 @@ return array (
     array (
     ),
   ),
-  'sunshiney' => 
+  'Sunshiney' => 
   array (
     'family' => 'Sunshiney',
     'variants' => 
@@ -35744,7 +35744,7 @@ return array (
     array (
     ),
   ),
-  'supermercado one' => 
+  'Supermercado One' => 
   array (
     'family' => 'Supermercado One',
     'variants' => 
@@ -35762,7 +35762,7 @@ return array (
     array (
     ),
   ),
-  'sura' => 
+  'Sura' => 
   array (
     'family' => 'Sura',
     'variants' => 
@@ -35782,7 +35782,7 @@ return array (
     array (
     ),
   ),
-  'suranna' => 
+  'Suranna' => 
   array (
     'family' => 'Suranna',
     'variants' => 
@@ -35800,7 +35800,7 @@ return array (
     array (
     ),
   ),
-  'suravaram' => 
+  'Suravaram' => 
   array (
     'family' => 'Suravaram',
     'variants' => 
@@ -35818,7 +35818,7 @@ return array (
     array (
     ),
   ),
-  'suwannaphum' => 
+  'Suwannaphum' => 
   array (
     'family' => 'Suwannaphum',
     'variants' => 
@@ -35840,7 +35840,7 @@ return array (
     array (
     ),
   ),
-  'swanky and moo moo' => 
+  'Swanky and Moo Moo' => 
   array (
     'family' => 'Swanky and Moo Moo',
     'variants' => 
@@ -35858,7 +35858,7 @@ return array (
     array (
     ),
   ),
-  'syncopate' => 
+  'Syncopate' => 
   array (
     'family' => 'Syncopate',
     'variants' => 
@@ -35877,7 +35877,7 @@ return array (
     array (
     ),
   ),
-  'syne' => 
+  'Syne' => 
   array (
     'family' => 'Syne',
     'variants' => 
@@ -35902,7 +35902,7 @@ return array (
       ),
     ),
   ),
-  'syne mono' => 
+  'Syne Mono' => 
   array (
     'family' => 'Syne Mono',
     'variants' => 
@@ -35920,7 +35920,7 @@ return array (
     array (
     ),
   ),
-  'syne tactile' => 
+  'Syne Tactile' => 
   array (
     'family' => 'Syne Tactile',
     'variants' => 
@@ -35938,7 +35938,7 @@ return array (
     array (
     ),
   ),
-  'tac one' => 
+  'Tac One' => 
   array (
     'family' => 'Tac One',
     'variants' => 
@@ -35959,7 +35959,7 @@ return array (
     array (
     ),
   ),
-  'tai heritage pro' => 
+  'Tai Heritage Pro' => 
   array (
     'family' => 'Tai Heritage Pro',
     'variants' => 
@@ -35980,7 +35980,7 @@ return array (
     array (
     ),
   ),
-  'tajawal' => 
+  'Tajawal' => 
   array (
     'family' => 'Tajawal',
     'variants' => 
@@ -36004,7 +36004,7 @@ return array (
     array (
     ),
   ),
-  'tangerine' => 
+  'Tangerine' => 
   array (
     'family' => 'Tangerine',
     'variants' => 
@@ -36022,7 +36022,7 @@ return array (
     array (
     ),
   ),
-  'tapestry' => 
+  'Tapestry' => 
   array (
     'family' => 'Tapestry',
     'variants' => 
@@ -36041,7 +36041,7 @@ return array (
     array (
     ),
   ),
-  'taprom' => 
+  'Taprom' => 
   array (
     'family' => 'Taprom',
     'variants' => 
@@ -36059,7 +36059,7 @@ return array (
     array (
     ),
   ),
-  'tauri' => 
+  'Tauri' => 
   array (
     'family' => 'Tauri',
     'variants' => 
@@ -36077,7 +36077,7 @@ return array (
     array (
     ),
   ),
-  'taviraj' => 
+  'Taviraj' => 
   array (
     'family' => 'Taviraj',
     'variants' => 
@@ -36114,7 +36114,7 @@ return array (
     array (
     ),
   ),
-  'teachers' => 
+  'Teachers' => 
   array (
     'family' => 'Teachers',
     'variants' => 
@@ -36140,7 +36140,7 @@ return array (
       ),
     ),
   ),
-  'teko' => 
+  'Teko' => 
   array (
     'family' => 'Teko',
     'variants' => 
@@ -36165,7 +36165,7 @@ return array (
       ),
     ),
   ),
-  'tektur' => 
+  'Tektur' => 
   array (
     'family' => 'Tektur',
     'variants' => 
@@ -36199,7 +36199,7 @@ return array (
       ),
     ),
   ),
-  'telex' => 
+  'Telex' => 
   array (
     'family' => 'Telex',
     'variants' => 
@@ -36217,7 +36217,7 @@ return array (
     array (
     ),
   ),
-  'tenali ramakrishna' => 
+  'Tenali Ramakrishna' => 
   array (
     'family' => 'Tenali Ramakrishna',
     'variants' => 
@@ -36235,7 +36235,7 @@ return array (
     array (
     ),
   ),
-  'tenor sans' => 
+  'Tenor Sans' => 
   array (
     'family' => 'Tenor Sans',
     'variants' => 
@@ -36254,7 +36254,7 @@ return array (
     array (
     ),
   ),
-  'text me one' => 
+  'Text Me One' => 
   array (
     'family' => 'Text Me One',
     'variants' => 
@@ -36272,7 +36272,7 @@ return array (
     array (
     ),
   ),
-  'texturina' => 
+  'Texturina' => 
   array (
     'family' => 'Texturina',
     'variants' => 
@@ -36304,7 +36304,7 @@ return array (
       ),
     ),
   ),
-  'thasadith' => 
+  'Thasadith' => 
   array (
     'family' => 'Thasadith',
     'variants' => 
@@ -36327,7 +36327,7 @@ return array (
     array (
     ),
   ),
-  'the girl next door' => 
+  'The Girl Next Door' => 
   array (
     'family' => 'The Girl Next Door',
     'variants' => 
@@ -36345,7 +36345,7 @@ return array (
     array (
     ),
   ),
-  'the nautigal' => 
+  'The Nautigal' => 
   array (
     'family' => 'The Nautigal',
     'variants' => 
@@ -36365,7 +36365,7 @@ return array (
     array (
     ),
   ),
-  'tienne' => 
+  'Tienne' => 
   array (
     'family' => 'Tienne',
     'variants' => 
@@ -36384,7 +36384,7 @@ return array (
     array (
     ),
   ),
-  'tillana' => 
+  'Tillana' => 
   array (
     'family' => 'Tillana',
     'variants' => 
@@ -36407,7 +36407,7 @@ return array (
     array (
     ),
   ),
-  'tilt neon' => 
+  'Tilt Neon' => 
   array (
     'family' => 'Tilt Neon',
     'variants' => 
@@ -36438,7 +36438,7 @@ return array (
       ),
     ),
   ),
-  'tilt prism' => 
+  'Tilt Prism' => 
   array (
     'family' => 'Tilt Prism',
     'variants' => 
@@ -36469,7 +36469,7 @@ return array (
       ),
     ),
   ),
-  'tilt warp' => 
+  'Tilt Warp' => 
   array (
     'family' => 'Tilt Warp',
     'variants' => 
@@ -36500,7 +36500,7 @@ return array (
       ),
     ),
   ),
-  'timmana' => 
+  'Timmana' => 
   array (
     'family' => 'Timmana',
     'variants' => 
@@ -36518,7 +36518,7 @@ return array (
     array (
     ),
   ),
-  'tinos' => 
+  'Tinos' => 
   array (
     'family' => 'Tinos',
     'variants' => 
@@ -36545,7 +36545,7 @@ return array (
     array (
     ),
   ),
-  'tiny5' => 
+  'Tiny5' => 
   array (
     'family' => 'Tiny5',
     'variants' => 
@@ -36566,7 +36566,7 @@ return array (
     array (
     ),
   ),
-  'tiro bangla' => 
+  'Tiro Bangla' => 
   array (
     'family' => 'Tiro Bangla',
     'variants' => 
@@ -36586,7 +36586,7 @@ return array (
     array (
     ),
   ),
-  'tiro devanagari hindi' => 
+  'Tiro Devanagari Hindi' => 
   array (
     'family' => 'Tiro Devanagari Hindi',
     'variants' => 
@@ -36606,7 +36606,7 @@ return array (
     array (
     ),
   ),
-  'tiro devanagari marathi' => 
+  'Tiro Devanagari Marathi' => 
   array (
     'family' => 'Tiro Devanagari Marathi',
     'variants' => 
@@ -36626,7 +36626,7 @@ return array (
     array (
     ),
   ),
-  'tiro devanagari sanskrit' => 
+  'Tiro Devanagari Sanskrit' => 
   array (
     'family' => 'Tiro Devanagari Sanskrit',
     'variants' => 
@@ -36646,7 +36646,7 @@ return array (
     array (
     ),
   ),
-  'tiro gurmukhi' => 
+  'Tiro Gurmukhi' => 
   array (
     'family' => 'Tiro Gurmukhi',
     'variants' => 
@@ -36666,7 +36666,7 @@ return array (
     array (
     ),
   ),
-  'tiro kannada' => 
+  'Tiro Kannada' => 
   array (
     'family' => 'Tiro Kannada',
     'variants' => 
@@ -36686,7 +36686,7 @@ return array (
     array (
     ),
   ),
-  'tiro tamil' => 
+  'Tiro Tamil' => 
   array (
     'family' => 'Tiro Tamil',
     'variants' => 
@@ -36706,7 +36706,7 @@ return array (
     array (
     ),
   ),
-  'tiro telugu' => 
+  'Tiro Telugu' => 
   array (
     'family' => 'Tiro Telugu',
     'variants' => 
@@ -36726,7 +36726,7 @@ return array (
     array (
     ),
   ),
-  'titan one' => 
+  'Titan One' => 
   array (
     'family' => 'Titan One',
     'variants' => 
@@ -36744,7 +36744,7 @@ return array (
     array (
     ),
   ),
-  'titillium web' => 
+  'Titillium Web' => 
   array (
     'family' => 'Titillium Web',
     'variants' => 
@@ -36772,7 +36772,7 @@ return array (
     array (
     ),
   ),
-  'tomorrow' => 
+  'Tomorrow' => 
   array (
     'family' => 'Tomorrow',
     'variants' => 
@@ -36807,7 +36807,7 @@ return array (
     array (
     ),
   ),
-  'tourney' => 
+  'Tourney' => 
   array (
     'family' => 'Tourney',
     'variants' => 
@@ -36839,7 +36839,7 @@ return array (
       ),
     ),
   ),
-  'trade winds' => 
+  'Trade Winds' => 
   array (
     'family' => 'Trade Winds',
     'variants' => 
@@ -36856,7 +36856,7 @@ return array (
     array (
     ),
   ),
-  'train one' => 
+  'Train One' => 
   array (
     'family' => 'Train One',
     'variants' => 
@@ -36876,7 +36876,7 @@ return array (
     array (
     ),
   ),
-  'triodion' => 
+  'Triodion' => 
   array (
     'family' => 'Triodion',
     'variants' => 
@@ -36895,7 +36895,7 @@ return array (
     array (
     ),
   ),
-  'trirong' => 
+  'Trirong' => 
   array (
     'family' => 'Trirong',
     'variants' => 
@@ -36932,7 +36932,7 @@ return array (
     array (
     ),
   ),
-  'trispace' => 
+  'Trispace' => 
   array (
     'family' => 'Trispace',
     'variants' => 
@@ -36963,7 +36963,7 @@ return array (
       ),
     ),
   ),
-  'trocchi' => 
+  'Trocchi' => 
   array (
     'family' => 'Trocchi',
     'variants' => 
@@ -36981,7 +36981,7 @@ return array (
     array (
     ),
   ),
-  'trochut' => 
+  'Trochut' => 
   array (
     'family' => 'Trochut',
     'variants' => 
@@ -37000,7 +37000,7 @@ return array (
     array (
     ),
   ),
-  'truculenta' => 
+  'Truculenta' => 
   array (
     'family' => 'Truculenta',
     'variants' => 
@@ -37037,7 +37037,7 @@ return array (
       ),
     ),
   ),
-  'trykker' => 
+  'Trykker' => 
   array (
     'family' => 'Trykker',
     'variants' => 
@@ -37055,7 +37055,7 @@ return array (
     array (
     ),
   ),
-  'tsukimi rounded' => 
+  'Tsukimi Rounded' => 
   array (
     'family' => 'Tsukimi Rounded',
     'variants' => 
@@ -37078,7 +37078,7 @@ return array (
     array (
     ),
   ),
-  'tulpen one' => 
+  'Tulpen One' => 
   array (
     'family' => 'Tulpen One',
     'variants' => 
@@ -37095,7 +37095,7 @@ return array (
     array (
     ),
   ),
-  'turret road' => 
+  'Turret Road' => 
   array (
     'family' => 'Turret Road',
     'variants' => 
@@ -37118,7 +37118,7 @@ return array (
     array (
     ),
   ),
-  'twinkle star' => 
+  'Twinkle Star' => 
   array (
     'family' => 'Twinkle Star',
     'variants' => 
@@ -37137,7 +37137,7 @@ return array (
     array (
     ),
   ),
-  'ubuntu' => 
+  'Ubuntu' => 
   array (
     'family' => 'Ubuntu',
     'variants' => 
@@ -37166,7 +37166,7 @@ return array (
     array (
     ),
   ),
-  'ubuntu condensed' => 
+  'Ubuntu Condensed' => 
   array (
     'family' => 'Ubuntu Condensed',
     'variants' => 
@@ -37188,7 +37188,7 @@ return array (
     array (
     ),
   ),
-  'ubuntu mono' => 
+  'Ubuntu Mono' => 
   array (
     'family' => 'Ubuntu Mono',
     'variants' => 
@@ -37213,7 +37213,7 @@ return array (
     array (
     ),
   ),
-  'ubuntu sans' => 
+  'Ubuntu Sans' => 
   array (
     'family' => 'Ubuntu Sans',
     'variants' => 
@@ -37248,7 +37248,7 @@ return array (
       ),
     ),
   ),
-  'ubuntu sans mono' => 
+  'Ubuntu Sans Mono' => 
   array (
     'family' => 'Ubuntu Sans Mono',
     'variants' => 
@@ -37277,7 +37277,7 @@ return array (
       ),
     ),
   ),
-  'uchen' => 
+  'Uchen' => 
   array (
     'family' => 'Uchen',
     'variants' => 
@@ -37295,7 +37295,7 @@ return array (
     array (
     ),
   ),
-  'ultra' => 
+  'Ultra' => 
   array (
     'family' => 'Ultra',
     'variants' => 
@@ -37313,7 +37313,7 @@ return array (
     array (
     ),
   ),
-  'unbounded' => 
+  'Unbounded' => 
   array (
     'family' => 'Unbounded',
     'variants' => 
@@ -37340,7 +37340,7 @@ return array (
       ),
     ),
   ),
-  'uncial antiqua' => 
+  'Uncial Antiqua' => 
   array (
     'family' => 'Uncial Antiqua',
     'variants' => 
@@ -37358,7 +37358,7 @@ return array (
     array (
     ),
   ),
-  'underdog' => 
+  'Underdog' => 
   array (
     'family' => 'Underdog',
     'variants' => 
@@ -37377,7 +37377,7 @@ return array (
     array (
     ),
   ),
-  'unica one' => 
+  'Unica One' => 
   array (
     'family' => 'Unica One',
     'variants' => 
@@ -37396,7 +37396,7 @@ return array (
     array (
     ),
   ),
-  'unifrakturcook' => 
+  'UnifrakturCook' => 
   array (
     'family' => 'UnifrakturCook',
     'variants' => 
@@ -37413,7 +37413,7 @@ return array (
     array (
     ),
   ),
-  'unifrakturmaguntia' => 
+  'UnifrakturMaguntia' => 
   array (
     'family' => 'UnifrakturMaguntia',
     'variants' => 
@@ -37430,7 +37430,7 @@ return array (
     array (
     ),
   ),
-  'unkempt' => 
+  'Unkempt' => 
   array (
     'family' => 'Unkempt',
     'variants' => 
@@ -37448,7 +37448,7 @@ return array (
     array (
     ),
   ),
-  'unlock' => 
+  'Unlock' => 
   array (
     'family' => 'Unlock',
     'variants' => 
@@ -37466,7 +37466,7 @@ return array (
     array (
     ),
   ),
-  'unna' => 
+  'Unna' => 
   array (
     'family' => 'Unna',
     'variants' => 
@@ -37487,7 +37487,7 @@ return array (
     array (
     ),
   ),
-  'updock' => 
+  'Updock' => 
   array (
     'family' => 'Updock',
     'variants' => 
@@ -37506,7 +37506,7 @@ return array (
     array (
     ),
   ),
-  'urbanist' => 
+  'Urbanist' => 
   array (
     'family' => 'Urbanist',
     'variants' => 
@@ -37531,7 +37531,7 @@ return array (
       ),
     ),
   ),
-  'vt323' => 
+  'VT323' => 
   array (
     'family' => 'VT323',
     'variants' => 
@@ -37550,7 +37550,7 @@ return array (
     array (
     ),
   ),
-  'vampiro one' => 
+  'Vampiro One' => 
   array (
     'family' => 'Vampiro One',
     'variants' => 
@@ -37568,7 +37568,7 @@ return array (
     array (
     ),
   ),
-  'varela' => 
+  'Varela' => 
   array (
     'family' => 'Varela',
     'variants' => 
@@ -37586,7 +37586,7 @@ return array (
     array (
     ),
   ),
-  'varela round' => 
+  'Varela Round' => 
   array (
     'family' => 'Varela Round',
     'variants' => 
@@ -37606,7 +37606,7 @@ return array (
     array (
     ),
   ),
-  'varta' => 
+  'Varta' => 
   array (
     'family' => 'Varta',
     'variants' => 
@@ -37631,7 +37631,7 @@ return array (
       ),
     ),
   ),
-  'vast shadow' => 
+  'Vast Shadow' => 
   array (
     'family' => 'Vast Shadow',
     'variants' => 
@@ -37648,7 +37648,7 @@ return array (
     array (
     ),
   ),
-  'vazirmatn' => 
+  'Vazirmatn' => 
   array (
     'family' => 'Vazirmatn',
     'variants' => 
@@ -37673,7 +37673,7 @@ return array (
       ),
     ),
   ),
-  'vesper libre' => 
+  'Vesper Libre' => 
   array (
     'family' => 'Vesper Libre',
     'variants' => 
@@ -37695,7 +37695,7 @@ return array (
     array (
     ),
   ),
-  'viaoda libre' => 
+  'Viaoda Libre' => 
   array (
     'family' => 'Viaoda Libre',
     'variants' => 
@@ -37716,7 +37716,7 @@ return array (
     array (
     ),
   ),
-  'vibes' => 
+  'Vibes' => 
   array (
     'family' => 'Vibes',
     'variants' => 
@@ -37734,7 +37734,7 @@ return array (
     array (
     ),
   ),
-  'vibur' => 
+  'Vibur' => 
   array (
     'family' => 'Vibur',
     'variants' => 
@@ -37751,7 +37751,7 @@ return array (
     array (
     ),
   ),
-  'victor mono' => 
+  'Victor Mono' => 
   array (
     'family' => 'Victor Mono',
     'variants' => 
@@ -37780,7 +37780,7 @@ return array (
       ),
     ),
   ),
-  'vidaloka' => 
+  'Vidaloka' => 
   array (
     'family' => 'Vidaloka',
     'variants' => 
@@ -37797,7 +37797,7 @@ return array (
     array (
     ),
   ),
-  'viga' => 
+  'Viga' => 
   array (
     'family' => 'Viga',
     'variants' => 
@@ -37815,7 +37815,7 @@ return array (
     array (
     ),
   ),
-  'vina sans' => 
+  'Vina Sans' => 
   array (
     'family' => 'Vina Sans',
     'variants' => 
@@ -37834,7 +37834,7 @@ return array (
     array (
     ),
   ),
-  'voces' => 
+  'Voces' => 
   array (
     'family' => 'Voces',
     'variants' => 
@@ -37852,7 +37852,7 @@ return array (
     array (
     ),
   ),
-  'volkhov' => 
+  'Volkhov' => 
   array (
     'family' => 'Volkhov',
     'variants' => 
@@ -37872,7 +37872,7 @@ return array (
     array (
     ),
   ),
-  'vollkorn' => 
+  'Vollkorn' => 
   array (
     'family' => 'Vollkorn',
     'variants' => 
@@ -37901,7 +37901,7 @@ return array (
       ),
     ),
   ),
-  'vollkorn sc' => 
+  'Vollkorn SC' => 
   array (
     'family' => 'Vollkorn SC',
     'variants' => 
@@ -37925,7 +37925,7 @@ return array (
     array (
     ),
   ),
-  'voltaire' => 
+  'Voltaire' => 
   array (
     'family' => 'Voltaire',
     'variants' => 
@@ -37944,7 +37944,7 @@ return array (
     array (
     ),
   ),
-  'vujahday script' => 
+  'Vujahday Script' => 
   array (
     'family' => 'Vujahday Script',
     'variants' => 
@@ -37963,7 +37963,7 @@ return array (
     array (
     ),
   ),
-  'waiting for the sunrise' => 
+  'Waiting for the Sunrise' => 
   array (
     'family' => 'Waiting for the Sunrise',
     'variants' => 
@@ -37981,7 +37981,7 @@ return array (
     array (
     ),
   ),
-  'wallpoet' => 
+  'Wallpoet' => 
   array (
     'family' => 'Wallpoet',
     'variants' => 
@@ -37998,7 +37998,7 @@ return array (
     array (
     ),
   ),
-  'walter turncoat' => 
+  'Walter Turncoat' => 
   array (
     'family' => 'Walter Turncoat',
     'variants' => 
@@ -38015,7 +38015,7 @@ return array (
     array (
     ),
   ),
-  'warnes' => 
+  'Warnes' => 
   array (
     'family' => 'Warnes',
     'variants' => 
@@ -38033,7 +38033,7 @@ return array (
     array (
     ),
   ),
-  'water brush' => 
+  'Water Brush' => 
   array (
     'family' => 'Water Brush',
     'variants' => 
@@ -38052,7 +38052,7 @@ return array (
     array (
     ),
   ),
-  'waterfall' => 
+  'Waterfall' => 
   array (
     'family' => 'Waterfall',
     'variants' => 
@@ -38071,7 +38071,7 @@ return array (
     array (
     ),
   ),
-  'wavefont' => 
+  'Wavefont' => 
   array (
     'family' => 'Wavefont',
     'variants' => 
@@ -38106,7 +38106,7 @@ return array (
       ),
     ),
   ),
-  'wellfleet' => 
+  'Wellfleet' => 
   array (
     'family' => 'Wellfleet',
     'variants' => 
@@ -38124,7 +38124,7 @@ return array (
     array (
     ),
   ),
-  'wendy one' => 
+  'Wendy One' => 
   array (
     'family' => 'Wendy One',
     'variants' => 
@@ -38142,7 +38142,7 @@ return array (
     array (
     ),
   ),
-  'whisper' => 
+  'Whisper' => 
   array (
     'family' => 'Whisper',
     'variants' => 
@@ -38161,7 +38161,7 @@ return array (
     array (
     ),
   ),
-  'windsong' => 
+  'WindSong' => 
   array (
     'family' => 'WindSong',
     'variants' => 
@@ -38181,7 +38181,7 @@ return array (
     array (
     ),
   ),
-  'wire one' => 
+  'Wire One' => 
   array (
     'family' => 'Wire One',
     'variants' => 
@@ -38198,7 +38198,7 @@ return array (
     array (
     ),
   ),
-  'wittgenstein' => 
+  'Wittgenstein' => 
   array (
     'family' => 'Wittgenstein',
     'variants' => 
@@ -38223,7 +38223,7 @@ return array (
       ),
     ),
   ),
-  'wix madefor display' => 
+  'Wix Madefor Display' => 
   array (
     'family' => 'Wix Madefor Display',
     'variants' => 
@@ -38250,7 +38250,7 @@ return array (
       ),
     ),
   ),
-  'wix madefor text' => 
+  'Wix Madefor Text' => 
   array (
     'family' => 'Wix Madefor Text',
     'variants' => 
@@ -38278,7 +38278,7 @@ return array (
       ),
     ),
   ),
-  'work sans' => 
+  'Work Sans' => 
   array (
     'family' => 'Work Sans',
     'variants' => 
@@ -38304,7 +38304,7 @@ return array (
       ),
     ),
   ),
-  'workbench' => 
+  'Workbench' => 
   array (
     'family' => 'Workbench',
     'variants' => 
@@ -38335,7 +38335,7 @@ return array (
       ),
     ),
   ),
-  'xanh mono' => 
+  'Xanh Mono' => 
   array (
     'family' => 'Xanh Mono',
     'variants' => 
@@ -38355,7 +38355,7 @@ return array (
     array (
     ),
   ),
-  'yaldevi' => 
+  'Yaldevi' => 
   array (
     'family' => 'Yaldevi',
     'variants' => 
@@ -38380,7 +38380,7 @@ return array (
       ),
     ),
   ),
-  'yanone kaffeesatz' => 
+  'Yanone Kaffeesatz' => 
   array (
     'family' => 'Yanone Kaffeesatz',
     'variants' => 
@@ -38409,7 +38409,7 @@ return array (
       ),
     ),
   ),
-  'yantramanav' => 
+  'Yantramanav' => 
   array (
     'family' => 'Yantramanav',
     'variants' => 
@@ -38433,7 +38433,7 @@ return array (
     array (
     ),
   ),
-  'yarndings 12' => 
+  'Yarndings 12' => 
   array (
     'family' => 'Yarndings 12',
     'variants' => 
@@ -38452,7 +38452,7 @@ return array (
     array (
     ),
   ),
-  'yarndings 12 charted' => 
+  'Yarndings 12 Charted' => 
   array (
     'family' => 'Yarndings 12 Charted',
     'variants' => 
@@ -38471,7 +38471,7 @@ return array (
     array (
     ),
   ),
-  'yarndings 20' => 
+  'Yarndings 20' => 
   array (
     'family' => 'Yarndings 20',
     'variants' => 
@@ -38490,7 +38490,7 @@ return array (
     array (
     ),
   ),
-  'yarndings 20 charted' => 
+  'Yarndings 20 Charted' => 
   array (
     'family' => 'Yarndings 20 Charted',
     'variants' => 
@@ -38509,7 +38509,7 @@ return array (
     array (
     ),
   ),
-  'yatra one' => 
+  'Yatra One' => 
   array (
     'family' => 'Yatra One',
     'variants' => 
@@ -38528,7 +38528,7 @@ return array (
     array (
     ),
   ),
-  'yellowtail' => 
+  'Yellowtail' => 
   array (
     'family' => 'Yellowtail',
     'variants' => 
@@ -38546,7 +38546,7 @@ return array (
     array (
     ),
   ),
-  'yeon sung' => 
+  'Yeon Sung' => 
   array (
     'family' => 'Yeon Sung',
     'variants' => 
@@ -38564,7 +38564,7 @@ return array (
     array (
     ),
   ),
-  'yeseva one' => 
+  'Yeseva One' => 
   array (
     'family' => 'Yeseva One',
     'variants' => 
@@ -38585,7 +38585,7 @@ return array (
     array (
     ),
   ),
-  'yesteryear' => 
+  'Yesteryear' => 
   array (
     'family' => 'Yesteryear',
     'variants' => 
@@ -38603,7 +38603,7 @@ return array (
     array (
     ),
   ),
-  'yomogi' => 
+  'Yomogi' => 
   array (
     'family' => 'Yomogi',
     'variants' => 
@@ -38624,7 +38624,7 @@ return array (
     array (
     ),
   ),
-  'young serif' => 
+  'Young Serif' => 
   array (
     'family' => 'Young Serif',
     'variants' => 
@@ -38642,7 +38642,7 @@ return array (
     array (
     ),
   ),
-  'yrsa' => 
+  'Yrsa' => 
   array (
     'family' => 'Yrsa',
     'variants' => 
@@ -38668,7 +38668,7 @@ return array (
       ),
     ),
   ),
-  'ysabeau' => 
+  'Ysabeau' => 
   array (
     'family' => 'Ysabeau',
     'variants' => 
@@ -38699,7 +38699,7 @@ return array (
       ),
     ),
   ),
-  'ysabeau infant' => 
+  'Ysabeau Infant' => 
   array (
     'family' => 'Ysabeau Infant',
     'variants' => 
@@ -38730,7 +38730,7 @@ return array (
       ),
     ),
   ),
-  'ysabeau office' => 
+  'Ysabeau Office' => 
   array (
     'family' => 'Ysabeau Office',
     'variants' => 
@@ -38761,7 +38761,7 @@ return array (
       ),
     ),
   ),
-  'ysabeau sc' => 
+  'Ysabeau SC' => 
   array (
     'family' => 'Ysabeau SC',
     'variants' => 
@@ -38791,7 +38791,7 @@ return array (
       ),
     ),
   ),
-  'yuji boku' => 
+  'Yuji Boku' => 
   array (
     'family' => 'Yuji Boku',
     'variants' => 
@@ -38811,7 +38811,7 @@ return array (
     array (
     ),
   ),
-  'yuji hentaigana akari' => 
+  'Yuji Hentaigana Akari' => 
   array (
     'family' => 'Yuji Hentaigana Akari',
     'variants' => 
@@ -38830,7 +38830,7 @@ return array (
     array (
     ),
   ),
-  'yuji hentaigana akebono' => 
+  'Yuji Hentaigana Akebono' => 
   array (
     'family' => 'Yuji Hentaigana Akebono',
     'variants' => 
@@ -38849,7 +38849,7 @@ return array (
     array (
     ),
   ),
-  'yuji mai' => 
+  'Yuji Mai' => 
   array (
     'family' => 'Yuji Mai',
     'variants' => 
@@ -38869,7 +38869,7 @@ return array (
     array (
     ),
   ),
-  'yuji syuku' => 
+  'Yuji Syuku' => 
   array (
     'family' => 'Yuji Syuku',
     'variants' => 
@@ -38889,7 +38889,7 @@ return array (
     array (
     ),
   ),
-  'yusei magic' => 
+  'Yusei Magic' => 
   array (
     'family' => 'Yusei Magic',
     'variants' => 
@@ -38908,7 +38908,7 @@ return array (
     array (
     ),
   ),
-  'zcool kuaile' => 
+  'ZCOOL KuaiLe' => 
   array (
     'family' => 'ZCOOL KuaiLe',
     'variants' => 
@@ -38926,7 +38926,7 @@ return array (
     array (
     ),
   ),
-  'zcool qingke huangyou' => 
+  'ZCOOL QingKe HuangYou' => 
   array (
     'family' => 'ZCOOL QingKe HuangYou',
     'variants' => 
@@ -38944,7 +38944,7 @@ return array (
     array (
     ),
   ),
-  'zcool xiaowei' => 
+  'ZCOOL XiaoWei' => 
   array (
     'family' => 'ZCOOL XiaoWei',
     'variants' => 
@@ -38962,7 +38962,7 @@ return array (
     array (
     ),
   ),
-  'zain' => 
+  'Zain' => 
   array (
     'family' => 'Zain',
     'variants' => 
@@ -38987,7 +38987,7 @@ return array (
     array (
     ),
   ),
-  'zen antique' => 
+  'Zen Antique' => 
   array (
     'family' => 'Zen Antique',
     'variants' => 
@@ -39008,7 +39008,7 @@ return array (
     array (
     ),
   ),
-  'zen antique soft' => 
+  'Zen Antique Soft' => 
   array (
     'family' => 'Zen Antique Soft',
     'variants' => 
@@ -39029,7 +39029,7 @@ return array (
     array (
     ),
   ),
-  'zen dots' => 
+  'Zen Dots' => 
   array (
     'family' => 'Zen Dots',
     'variants' => 
@@ -39047,7 +39047,7 @@ return array (
     array (
     ),
   ),
-  'zen kaku gothic antique' => 
+  'Zen Kaku Gothic Antique' => 
   array (
     'family' => 'Zen Kaku Gothic Antique',
     'variants' => 
@@ -39071,7 +39071,7 @@ return array (
     array (
     ),
   ),
-  'zen kaku gothic new' => 
+  'Zen Kaku Gothic New' => 
   array (
     'family' => 'Zen Kaku Gothic New',
     'variants' => 
@@ -39095,7 +39095,7 @@ return array (
     array (
     ),
   ),
-  'zen kurenaido' => 
+  'Zen Kurenaido' => 
   array (
     'family' => 'Zen Kurenaido',
     'variants' => 
@@ -39116,7 +39116,7 @@ return array (
     array (
     ),
   ),
-  'zen loop' => 
+  'Zen Loop' => 
   array (
     'family' => 'Zen Loop',
     'variants' => 
@@ -39135,7 +39135,7 @@ return array (
     array (
     ),
   ),
-  'zen maru gothic' => 
+  'Zen Maru Gothic' => 
   array (
     'family' => 'Zen Maru Gothic',
     'variants' => 
@@ -39160,7 +39160,7 @@ return array (
     array (
     ),
   ),
-  'zen old mincho' => 
+  'Zen Old Mincho' => 
   array (
     'family' => 'Zen Old Mincho',
     'variants' => 
@@ -39185,7 +39185,7 @@ return array (
     array (
     ),
   ),
-  'zen tokyo zoo' => 
+  'Zen Tokyo Zoo' => 
   array (
     'family' => 'Zen Tokyo Zoo',
     'variants' => 
@@ -39203,7 +39203,7 @@ return array (
     array (
     ),
   ),
-  'zeyada' => 
+  'Zeyada' => 
   array (
     'family' => 'Zeyada',
     'variants' => 
@@ -39221,7 +39221,7 @@ return array (
     array (
     ),
   ),
-  'zhi mang xing' => 
+  'Zhi Mang Xing' => 
   array (
     'family' => 'Zhi Mang Xing',
     'variants' => 
@@ -39239,7 +39239,7 @@ return array (
     array (
     ),
   ),
-  'zilla slab' => 
+  'Zilla Slab' => 
   array (
     'family' => 'Zilla Slab',
     'variants' => 
@@ -39266,7 +39266,7 @@ return array (
     array (
     ),
   ),
-  'zilla slab highlight' => 
+  'Zilla Slab Highlight' => 
   array (
     'family' => 'Zilla Slab Highlight',
     'variants' => 

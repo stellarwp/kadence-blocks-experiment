@@ -76,7 +76,7 @@ export default function SelectControl({
 				const selectedOption = options.flatMap(group => group.options).find(option => option.value === value);
 				updatedAttributes = {
 					[type]: value,
-					[type + 'Source']: selectedOption.source
+					['fontSource']: selectedOption.source
 				};
 				break;
 			}

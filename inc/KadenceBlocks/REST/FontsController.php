@@ -12,8 +12,6 @@ use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use function Kadence_Blocks\Functions\update_google_fonts;
-use function Kadence_Blocks\Functions\get_google_fonts;
 
 /**
  * Fonts REST API Controller class
@@ -54,10 +52,6 @@ class FontsController extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function get_fonts( $request ) {
-
-		sleep(1);
-
-		// Combine all fonts
 		$all_fonts = array(
 			'google' => kbs_get_google_fonts(),
 			'theme_json'  => $this->get_theme_json_fonts(),

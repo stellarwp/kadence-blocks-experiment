@@ -69,10 +69,8 @@ function kbs_update_google_fonts($api_key) {
 
     // Process fonts
     $processed_fonts = array();
-    foreach ($data['items'] as $font) {
-        $font_key = strtolower($font['family']);
-        
-        $processed_fonts[$font_key] = array(
+    foreach ($data['items'] as $font) {        
+        $processed_fonts[ $font['family'] ] = array(
             'family' => $font['family'],
             'variants' => $font['variants'],
             'subsets' => $font['subsets'],
