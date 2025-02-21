@@ -2,15 +2,93 @@ import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { COMPLEX_PROPERTIES } from './constants';
 
 /**
+ * Handles updating attributes for all devices
+ * @param {*} value The value to set
+ * @param {Object} newAttributes Current attributes object being modified
+ * @param {string} attributeName The name of the attribute to update
+ * @param {boolean} isComplexType Whether this is a complex property type
+ * @param {Array} deviceOptions Array of device options
+ * @param {string} type The type of attribute being changed
+ * @returns {Object} Updated attributes
+ */
+const handleAllDevices = (value, newAttributes, attributeName, isComplexType, deviceOptions, type) => {
+	if (!isComplexType) {
+		if (typeof value === 'object' && value !== null) {
+			Object.entries(value).forEach(([key, val]) => {
+				newAttributes[key] = val;
+			});
+		} else {
+			newAttributes[attributeName] = value;
+		}
+		return newAttributes;
+	}
+
+	const deviceValues = deviceOptions.reduce((acc, deviceOption) => ({
+		...acc,
+		[deviceOption.key]: {
+			...newAttributes[attributeName]?.[deviceOption.key],
+			...(typeof value === 'object' && value !== null ? value : { [type]: value })
+		}
+	}), {});
+
+	newAttributes[attributeName] = {
+		...newAttributes[attributeName],
+		...deviceValues
+	};
+	
+	return newAttributes;
+};
+
+/**
+ * Handles updating attributes for a specific device
+ * @param {*} value The value to set
+ * @param {Object} newAttributes Current attributes object being modified
+ * @param {string} attributeName The name of the attribute to update
+ * @param {boolean} isComplexType Whether this is a complex property type
+ * @param {string} deviceSlug The device slug (e.g., 'Desktop', 'Tablet')
+ * @param {string} type The type of attribute being changed
+ * @returns {Object} Updated attributes
+ */
+const handleSpecificDevice = (value, newAttributes, attributeName, isComplexType, deviceSlug, type) => {
+	if (!isComplexType) {
+		if (!newAttributes[attributeName]) {
+			newAttributes[attributeName] = {};
+		}
+		if (typeof value === 'object' && value !== null) {
+			Object.entries(value).forEach(([key, val]) => {
+				if (!newAttributes[key]) {
+					newAttributes[key] = {};
+				}
+				newAttributes[key][deviceSlug] = val;
+			});
+		} else {
+			newAttributes[attributeName][deviceSlug] = value;
+		}
+		return newAttributes;
+	}
+
+	newAttributes[attributeName] = {
+		...newAttributes[attributeName],
+		[deviceSlug]: {
+			...newAttributes[attributeName]?.[deviceSlug],
+			...(typeof value === 'object' && value !== null ? value : { [type]: value })
+		}
+	};
+	
+	return newAttributes;
+};
+
+/**
  * Helper function to handle attribute changes in Kadence controls
  * 
- * @param {*} value The new value to set
+ * @param {*} value The new value to set - can be a single value or an object of values
  * @param {string} device The device type ('all', 'Desktop', 'Tablet', 'Mobile')
  * @param {string} attributeName The name of the attribute to update
  * @param {Object} attributes Current attributes object
  * @param {Function} setAttributes Function to update attributes
  * @param {Function|undefined} customOnChange Optional custom onChange handler
  * @param {string} type The type of attribute being changed
+ * @param {Object} meta The meta object
  */
 export const handleAttributeChange = (
 	value,
@@ -20,55 +98,22 @@ export const handleAttributeChange = (
 	setAttributes,
 	customOnChange,
 	type,
-    meta
+	meta
 ) => {
 	if (customOnChange) {
 		customOnChange(value, device, type);
 		return;
 	}
 
-	// Deep clone the attributes object to trigger an update
 	const newAttributes = JSON.parse(JSON.stringify(attributes));
-	const isComplexType = COMPLEX_PROPERTIES.includes( meta?.property );
+	const isComplexType = COMPLEX_PROPERTIES.includes(meta?.property);
 	const deviceOptions = kadence_blocks_params?.responsive_device_options || [];
 
-	// Handle simple 'all' device case first
 	if (device === 'all') {
-		if (!isComplexType) {
-			newAttributes[attributeName] = value;
-		} else {
-			// Set value for all devices for complex types
-			const deviceValues = deviceOptions.reduce((acc, deviceOption) => ({
-				...acc,
-				[deviceOption.key]: {
-					...newAttributes[attributeName]?.[deviceOption.key],
-					[type]: value
-				}
-			}), {});
-			
-			newAttributes[attributeName] = {
-				...newAttributes[attributeName],
-				...deviceValues
-			};
-		}
+		handleAllDevices(value, newAttributes, attributeName, isComplexType, deviceOptions, type);
 	} else {
-		// Handle device-specific changes
 		const deviceSlug = getDeviceAttributeSlug(device);
-		
-		if (!isComplexType) {
-			if (!newAttributes[attributeName]) {
-				newAttributes[attributeName] = {};
-			}
-			newAttributes[attributeName][deviceSlug] = value;
-		} else {
-			newAttributes[attributeName] = {
-				...newAttributes[attributeName],
-				[deviceSlug]: {
-					...newAttributes[attributeName]?.[deviceSlug],
-					[type]: value
-				}
-			};
-		}
+		handleSpecificDevice(value, newAttributes, attributeName, isComplexType, deviceSlug, type);
 	}
 
 	setAttributes(newAttributes);
