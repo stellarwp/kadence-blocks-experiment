@@ -24,6 +24,14 @@ export default function Typography({ label, attributes, setAttributes, meta, pre
                 previewDevice={previewDevice}
                 type="fontWeight"
             /> */}
+
+            {/* Font Variant */}
+
+            {/* Font Size */}
+
+            {/* Line Height */}
+
+            {/* Letter Spacing */}
         </div>
     );
 }

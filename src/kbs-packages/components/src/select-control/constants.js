@@ -14,8 +14,8 @@ export const DOT_STYLES = {
 		borderRadius: '8px',
 		content: '" "',
 		display: 'block',
-		marginRight: '6px',
-		height: '10px',
-		width: '10px',
+		marginRight: '5px',
+		height: '8px',
+		width: '8px',
 	},
 };

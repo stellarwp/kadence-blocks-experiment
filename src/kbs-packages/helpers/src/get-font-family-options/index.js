@@ -133,14 +133,11 @@ export const useFontOptions = () => {
 };
 
 /**
- * Get font weight options for a specific font
+ * Custom hook to get font weight options for a specific font
  * @param {string} fontFamily The font family to get weights for
- * @param {string} fontGroup Optional font group (heading, body, button)
  * @returns {Array} Array of font weight options
  */
-export const getFontWeightOptions = (fontFamily, fontGroup = '') => {
-	const isKadenceT = (typeof kadence_blocks_params !== 'undefined' && kadence_blocks_params?.isKadenceT);
-	
+export const useFontWeightOptions = (fontFamily) => {
 	// System font weights
 	const systemWeights = [
 		{ value: 'inherit', label: __('Inherit', 'kadence-blocks') },
@@ -156,22 +153,101 @@ export const getFontWeightOptions = (fontFamily, fontGroup = '') => {
 	];
 
 	// Standard weights
-	let standardWeights = [
+	const standardWeights = [
 		{ value: 'inherit', label: __('Inherit', 'kadence-blocks') },
 		{ value: '400', label: __('Normal', 'kadence-blocks') },
 		{ value: 'bold', label: __('Bold', 'kadence-blocks') },
 	];
 
-	// Theme-specific weights
-	if (isKadenceT && fontGroup) {
-		if (fontGroup === 'heading' && kadence_blocks_params?.headingWeights) {
-			standardWeights = kadence_blocks_params.headingWeights;
-		} else if (fontGroup === 'body' && kadence_blocks_params?.bodyWeights) {
-			standardWeights = kadence_blocks_params.bodyWeights;
-		} else if (fontGroup === 'button' && kadence_blocks_params?.buttonWeights) {
-			standardWeights = kadence_blocks_params.buttonWeights;
+	// Theme variable fonts
+	if (fontFamily === 'var( --global-heading-font-family, inherit )') {
+		return systemWeights;
+	}
+	if (fontFamily === 'var( --global-body-font-family, inherit )') {
+		return systemWeights;
+	}
+
+	// Get fonts from the data store
+	const { fonts } = useSelect((select) => {
+		const { getFonts } = select('kadenceblocks/data');
+		return {
+			fonts: getFonts() || {},
+		};
+	}, []);
+
+	// Return standard weights if no fonts data
+	if (!fonts) {
+		return standardWeights;
+	}
+
+	// Check theme fonts
+	if (fonts.theme && fonts.theme[fontFamily]) {
+		const themeFont = fonts.theme[fontFamily];
+		if (themeFont.styles && themeFont.styles.length) {
+			return themeFont.styles.map(style => ({
+				value: style,
+				label: style === 'regular' ? __('Regular', 'kadence-blocks') : style
+			}));
 		}
 	}
+
+	// Check custom fonts
+	if (fonts.custom && fonts.custom[fontFamily]) {
+		const customFont = fonts.custom[fontFamily];
+		if (customFont.styles && customFont.styles.length) {
+			return customFont.styles.map(style => ({
+				value: style,
+				label: style === 'regular' ? __('Regular', 'kadence-blocks') : style
+			}));
+		}
+	}
+
+	// Check Google fonts
+	if (fonts.google && fonts.google[fontFamily]) {
+		const googleFont = fonts.google[fontFamily];
+
+   
+		if (googleFont.styles && googleFont.styles.length) {
+			return googleFont.styles.map(style => ({
+				value: style === 'regular' ? '400' : style,
+				label: style === 'regular' ? __('Regular', 'kadence-blocks') : style
+			}));
+		}
+	}
+    
+
+	// Return standard weights as fallback
+	return standardWeights;
+};
+
+/**
+ * Get font weight options for a specific font - non-hook version
+ * This is a wrapper around useFontWeightOptions for use in non-React contexts
+ * @param {string} fontFamily The font family to get weights for
+ * @param {string} fontGroup Optional font group (heading, body, button)
+ * @returns {Array} Array of font weight options
+ */
+export const getFontWeightOptions = (fontFamily, fontGroup = '') => {
+	// System font weights
+	const systemWeights = [
+		{ value: 'inherit', label: __('Inherit', 'kadence-blocks') },
+		{ value: '100', label: __('Thin 100', 'kadence-blocks') },
+		{ value: '200', label: __('Extra-Light 200', 'kadence-blocks') },
+		{ value: '300', label: __('Light 300', 'kadence-blocks') },
+		{ value: '400', label: __('Regular', 'kadence-blocks') },
+		{ value: '500', label: __('Medium 500', 'kadence-blocks') },
+		{ value: '600', label: __('Semi-Bold 600', 'kadence-blocks') },
+		{ value: '700', label: __('Bold 700', 'kadence-blocks') },
+		{ value: '800', label: __('Extra-Bold 800', 'kadence-blocks') },
+		{ value: '900', label: __('Ultra-Bold 900', 'kadence-blocks') },
+	];
+
+	// Standard weights
+	const standardWeights = [
+		{ value: 'inherit', label: __('Inherit', 'kadence-blocks') },
+		{ value: '400', label: __('Normal', 'kadence-blocks') },
+		{ value: 'bold', label: __('Bold', 'kadence-blocks') },
+	];
 
 	// System font
 	if (fontFamily === '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"') {
@@ -180,27 +256,12 @@ export const getFontWeightOptions = (fontFamily, fontGroup = '') => {
 
 	// Theme variable fonts
 	if (fontFamily === 'var( --global-heading-font-family, inherit )') {
-		return kadence_blocks_params?.headingWeights || standardWeights;
+		return systemWeights;
 	}
 	if (fontFamily === 'var( --global-body-font-family, inherit )') {
-		return kadence_blocks_params?.bodyWeights || standardWeights;
+		return systemWeights;
 	}
 
-	// Google fonts
-	if (typeof kadence_blocks_params !== 'undefined' && kadence_blocks_params.g_fonts && kadence_blocks_params.g_fonts[fontFamily]) {
-		return kadence_blocks_params.g_fonts[fontFamily].w.map(opt => ({
-			label: opt === 'regular' ? __('Regular', 'kadence-blocks') : opt,
-			value: opt === 'regular' ? '400' : opt
-		}));
-	}
-
-	// Custom fonts
-	if (typeof kadence_blocks_params !== 'undefined' && kadence_blocks_params.c_fonts) {
-		const customFont = Object.values(kadence_blocks_params.c_fonts).find(font => font.name === fontFamily);
-		if (customFont?.weights) {
-			return customFont.weights;
-		}
-	}
-
+	// For non-system fonts, return standard weights as we can't access the store outside of React
 	return standardWeights;
 };

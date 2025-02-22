@@ -5,23 +5,28 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, isRTL } from '@wordpress/i18n';
 
 /**
  * External dependencies
  */
 import Select from 'react-select';
 
+// RTL configuration is determined once at module load
+const IS_RTL = isRTL();
+
 /**
  * Internal dependencies
  */
-import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
+import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange, getFontWeightOptions } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
 import { getPlaceholderLabel, useSelectOptions } from './helpers';
 import './editor.scss';
 
-// Custom styles for the Select component
+/**
+ * Custom styles for the Select component
+ */
 const getCustomStyles = (isInherited) => ({
 	placeholder: (styles) => ({
 		...styles,
@@ -51,10 +56,10 @@ export default function SelectControl({
 }) {
 	const initialValue = meta?.initial ? meta?.initial : initial;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, meta, type);	
-	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta?.property);
+	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta, type);
 	const isCurrentValueInherited = currentValue === '';
 	const customStyles = getCustomStyles(isCurrentValueInherited);
-	
+
 	const { options, isLoadingOptions, loadingMessage } = useSelectOptions({
 		type,
 		attributes,
@@ -62,7 +67,7 @@ export default function SelectControl({
 		previewDevice,
 	});
 
-	const inheritedPlaceholderLabel = getPlaceholderLabel(currentValue, inheritedValue, type, options);
+	const inheritedPlaceholderLabel = getPlaceholderLabel(currentValue, inheritedValue, type, options);	
 
 	const onReset = () => {
 		onChange(defaultValue ?? undefined, 'all', type);
@@ -73,10 +78,31 @@ export default function SelectControl({
 
 		switch(type) {
 			case 'fontFamily': {
+				if( value === undefined ) {
+					updatedAttributes = {
+						[type]: '',
+						['fontSource']: '',
+						['fontWeight']: '',
+					}
+					break;
+				}
+
 				const selectedOption = options.flatMap(group => group.options).find(option => option.value === value);
+				const currentFontWeight = getDeviceValue('fontWeight', attributes, device, meta, 'fontWeight');
+				
+				// Get available weights for the new font
+				const availableWeights = getFontWeightOptions(value).map(opt => opt.value);
+				
+				// Check if current weight is valid for new font
+				const isWeightValid = availableWeights.includes(currentFontWeight);
+
 				updatedAttributes = {
 					[type]: value,
-					['fontSource']: selectedOption.source
+					['fontSource']: selectedOption.source,
+					// If current weight is not valid, use the first available weight
+					...(currentFontWeight && !isWeightValid && {
+						['fontWeight']: availableWeights[0] || '400'
+					})
 				};
 				break;
 			}
@@ -97,7 +123,7 @@ export default function SelectControl({
 	};
 
 	return (
-		<div className={`components-base-control kb-${type}-select-control`}>
+		<div className={`components-base-control kbs-${type}-select-control`}>
 			{label && (
 				<TitleBar
 					label={label}
@@ -106,20 +132,21 @@ export default function SelectControl({
 					onReset={onReset}
 				/>
 			)}
-			<div className="kb-font-select-control__wrapper">
+			<div className="kbs-select-control-inner">
 				<Select
 					key={previewDevice}
-					value={currentValue}
+					isClearable={ currentValue !== '' }
+					value={ currentValue ? options.flatMap(opt => opt.options || []).find(opt => opt.value === currentValue) : null	}
 					options={options}
-					onChange={(selectedOption) => onChange(selectedOption.value, previewDevice, type)}
-					className="kb-font-select"
+					onChange={(selectedOption) => onChange(selectedOption?.value, previewDevice, type)}
+					className="kb-select-control"
 					styles={customStyles}
 					placeholder={inheritedPlaceholderLabel}
 					isSearchable={true}
 					isLoading={isLoadingOptions}
 					loadingMessage={ () => loadingMessage}
-					onReset={onReset}
-					noOptionsMessage={() => __('No results match your search', 'kadence-blocks')}
+					noOptionsMessage={() => __('No results', 'kadence-blocks')}
+					isRtl={IS_RTL}
 				/>
 			</div>
 		</div>

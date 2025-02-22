@@ -120,12 +120,7 @@
 			"renderCSS": true,
 			"property": "typography",
 			"selector": "--kbs-cont",
-			"initial": {
-				"desktop": { 
-					"fontFamily": "Helvetica, sans-serif",
-					"fontWeight": "400"
-				}
-			},
+			"initial": {},
 			"type": "object"
 		}
 	},
