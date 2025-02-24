@@ -16,6 +16,7 @@ import { debounce } from 'lodash';
 import {
 	ToolsPanelBody,
 	RadioButtonControl,
+	PresetSelectControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -64,6 +65,12 @@ export default function InspectorGeneral(props) {
 				title={__('Flex Settings', 'kadence-blocks')}
 				panelName={'kbs-container-flex-settings'}
 			>
+				<PresetSelectControl
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					attributeName={ 'direction' }
+					meta={ metadata?.attributes?.direction }
+				/>
 				<RadioButtonControl
 					label={__('Direction', 'kadence-blocks')}
 					attributes={ attributes }

@@ -1,0 +1,191 @@
+{
+	"components": {
+		"flex": {
+			"presets": {
+				"base": {
+					"label": "Base",
+					"name": "Basic Vertical",
+					"description": "A basic vertical flex container",
+					"attributes": {
+						"flexContainer": {
+							"desktop": {
+								"direction": "column",
+								"justify": "flex-start",
+								"alignItems": "stretch",
+								"alignContent": "initial",
+								"wrap": "wrap",
+								"rowGap": "none",
+								"columnGap": "initial",
+								"flexShrink": "initial",
+								"flexGrow": "initial",
+								"flexBasis": "auto"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"settings": {
+		"spacing": {
+			"gaps": [
+				{
+					"value": "0",
+					"output": "var(--global-kb-spacing-none, 0rem)",
+					"size": 0,
+					"label": "None",
+					"name": "None"
+				},
+				{
+					"value": "xxs",
+					"output": "var(--global-kb-spacing-xxs, 0.5rem)",
+					"size": 8,
+					"label": "XXS",
+					"name": "2X Small"
+				},
+				{
+					"value": "xs",
+					"output": "var(--global-kb-spacing-xs, 1rem)",
+					"size": 16,
+					"label": "XS",
+					"name": "X Small"
+				},
+				{
+					"value": "sm",
+					"output": "var(--global-kb-spacing-sm, 1.5rem)",
+					"size": 24,
+					"label": "SM",
+					"name": "Small"
+				},
+				{
+					"value": "md",
+					"output": "var(--global-kb-spacing-md, 2rem)",
+					"size": 32,
+					"label": "MD",
+					"name": "Medium"
+				},
+				{
+					"value": "lg",
+					"output": "var(--global-kb-spacing-lg, 3rem)",
+					"size": 48,
+					"label": "LG",
+					"name": "Large"
+				},
+				{
+					"value": "xl",
+					"output": "var(--global-kb-spacing-xl, 4rem)",
+					"size": 64,
+					"label": "XL",
+					"name": "X Large"
+				},
+				{
+					"value": "xxl",
+					"output": "var(--global-kb-spacing-xxl, 5rem)",
+					"size": 80,
+					"label": "XXL",
+					"name": "2X Large"
+				},
+				{
+					"value": "3xl",
+					"output": "var(--global-kb-spacing-3xl, 6.5rem)",
+					"size": 104,
+					"label": "3XL",
+					"name": "3X Large"
+				},
+				{
+					"value": "4xl",
+					"output": "var(--global-kb-spacing-4xl, 8rem)",
+					"size": 128,
+					"label": "4XL",
+					"name": "4X Large"
+				},
+				{
+					"value": "5xl",
+					"output": "var(--global-kb-spacing-5xl, 10rem)",
+					"size": 160,
+					"label": "5XL",
+					"name": "5X Large"
+				}
+			],
+			"padding": [
+				{
+					"value": "0",
+					"output": "var(--global-kb-spacing-none, 0rem)",
+					"size": 0,
+					"label": "None",
+					"name": "None"
+				},
+				{
+					"value": "xxs",
+					"output": "var(--global-kb-spacing-xxs, 0.5rem)",
+					"size": 8,
+					"label": "XXS",
+					"name": "2X Small"
+				},
+				{
+					"value": "xs",
+					"output": "var(--global-kb-spacing-xs, 1rem)",
+					"size": 16,
+					"label": "XS",
+					"name": "X Small"
+				},
+				{
+					"value": "sm",
+					"output": "var(--global-kb-spacing-sm, 1.5rem)",
+					"size": 24,
+					"label": "SM",
+					"name": "Small"
+				},
+				{
+					"value": "md",
+					"output": "var(--global-kb-spacing-md, 2rem)",
+					"size": 32,
+					"label": "MD",
+					"name": "Medium"
+				},
+				{
+					"value": "lg",
+					"output": "var(--global-kb-spacing-lg, 3rem)",
+					"size": 48,
+					"label": "LG",
+					"name": "Large"
+				},
+				{
+					"value": "xl",
+					"output": "var(--global-kb-spacing-xl, 4rem)",
+					"size": 64,
+					"label": "XL",
+					"name": "X Large"
+				},
+				{
+					"value": "xxl",
+					"output": "var(--global-kb-spacing-xxl, 5rem)",
+					"size": 80,
+					"label": "XXL",
+					"name": "2X Large"
+				},
+				{
+					"value": "3xl",
+					"output": "var(--global-kb-spacing-3xl, 6.5rem)",
+					"size": 104,
+					"label": "3XL",
+					"name": "3X Large"
+				},
+				{
+					"value": "4xl",
+					"output": "var(--global-kb-spacing-4xl, 8rem)",
+					"size": 128,
+					"label": "4XL",
+					"name": "4X Large"
+				},
+				{
+					"value": "5xl",
+					"output": "var(--global-kb-spacing-5xl, 10rem)",
+					"size": 160,
+					"label": "5XL",
+					"name": "5X Large"
+				}
+			]
+		}
+	}
+}
