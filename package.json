@@ -30,6 +30,7 @@
 		"algoliasearch": "^4.19.1",
 		"change-case": "^4.1.2",
 		"classnames": "^2.2.6",
+		"clsx": "^2.1.1",
 		"colord": "^2.9.3",
 		"crypto-js": "^4.2.0",
 		"gradient-parser": "^1.0.2",
