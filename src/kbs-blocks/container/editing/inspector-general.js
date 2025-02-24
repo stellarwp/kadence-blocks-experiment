@@ -44,16 +44,6 @@ import metadata from '../block.json';
  */
 import { __ } from '@wordpress/i18n';
 
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
-import {
-	BlockAlignmentToolbar,
-	BlockVerticalAlignmentToolbar,
-	BlockControls,
-	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { ToggleControl, ToolbarGroup, ExternalLink } from '@wordpress/components';
-
 /**
  * Build the section edit.
  */
@@ -107,14 +97,12 @@ export default function InspectorGeneral(props) {
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
 				/>
+			</ToolsPanelBody>
 
-			</KadencePanelBody>
-
-			<KadencePanelBody
+			<ToolsPanelBody
 				title={__('Typography Settings', 'kadence-blocks')}
 				panelName={'kb-container-typography'}
 			>
-
 				<Typography
 					label={__('Typography', 'kadence-blocks')}
 					attributes={ attributes }
@@ -123,9 +111,7 @@ export default function InspectorGeneral(props) {
 					previewDevice={ previewDevice }
 					attributeName={ 'typography' }
 				/>
-
-			</KadencePanelBody>
-		</ToolsPanelBody>
+			</ToolsPanelBody>
 		</>
 	);
 }
