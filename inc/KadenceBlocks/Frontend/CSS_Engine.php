@@ -257,6 +257,15 @@ class CSS_Engine {
 	);
 
 	/**
+	 * Complex attributes
+	 *
+	 * @var array
+	 */
+	protected $complex_attributes = array(
+		'typography',
+	);
+
+	/**
 	 * constructor
 	 */
 	public function __construct() {
@@ -817,6 +826,7 @@ class CSS_Engine {
 		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
 			foreach ( $block_instance->block_type->attributes as $key => $attribute ) {
 				$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
+
 				if ( ! isset( $attributes_meta['renderCSS'] ) || ! $attributes_meta['renderCSS'] ) {
 					continue;
 				}
@@ -826,7 +836,12 @@ class CSS_Engine {
 				if ( ! isset( $attributes_meta['selector'] ) ) {
 					continue;
 				}
-				$this->add_attribute( $key, $attributes, $block_instance, $attributes_meta );
+
+				if( in_array( $attributes_meta['property'], $this->complex_attributes ) ) {
+					$this->add_complex_attribute( $key, $attributes, $block_instance, $attributes_meta );
+				} else {
+					$this->add_attribute( $key, $attributes, $block_instance, $attributes_meta );
+				}
 			}
 		}
 		return $this;
@@ -866,6 +881,62 @@ class CSS_Engine {
 				$this->array_string_property( $attributes_meta['selector'], $merged_attribute );
 				break;
 		}
+		return $this;
+	}
+
+	/**
+	 * Add complex properties to the css output based on the attributes.
+	 *
+	 * @param string $key The key of the attribute to get.
+	 * @param array $attributes an array of attributes.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param array $attributes_meta The meta of the attribute.
+	 * @return $this
+	 */
+	public function add_complex_attribute( $key, $attributes, $block_instance, $attributes_meta = [] ) {
+		if ( empty( $attributes_meta ) ) {
+			$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
+		}
+		if ( ! isset( $attributes_meta['property'] ) ) {
+			return $this;
+		}
+		if ( ! isset( $attributes_meta['selector'] ) ) {
+			return $this;
+		}
+		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
+		if ( empty( $merged_attribute ) ) {
+			return $this;
+		}
+
+		switch ( $attributes_meta['property'] ) {
+			case 'typography':
+				$typography_properties = array(
+					array( 'key' => 'fontFamily', 'selector' => $attributes_meta['selector'] . '-font-family' ),
+					array( 'key' => 'fontWeight', 'selector' => $attributes_meta['selector'] . '-font-weight' ),
+				);
+
+				foreach ( $typography_properties as $property ) {
+					// Check if any device has this property
+					if ( 
+						! empty( $merged_attribute['dt'][ $property['key'] ] ) || 
+						! empty( $merged_attribute['tb'][ $property['key'] ] ) || 
+						! empty( $merged_attribute['mb'][ $property['key'] ] )
+					) {
+						$device_values = array(
+							'dt' => isset( $merged_attribute['dt'][ $property['key'] ] ) ? $merged_attribute['dt'][ $property['key'] ] : '',
+							'tb' => isset( $merged_attribute['tb'][ $property['key'] ] ) ? $merged_attribute['tb'][ $property['key'] ] : '',
+							'mb' => isset( $merged_attribute['mb'][ $property['key'] ] ) ? $merged_attribute['mb'][ $property['key'] ] : '',
+						);
+
+						$this->array_string_property( $property['selector'], $device_values );
+					}
+				}
+				break;
+			default:
+				// For other complex properties, add specific handling here
+				break;
+		}
+
 		return $this;
 	}
 

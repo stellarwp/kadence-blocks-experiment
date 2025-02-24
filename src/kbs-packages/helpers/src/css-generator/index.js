@@ -52,6 +52,53 @@ class CSSGenerator {
         return this;
     }
     /**
+     * Loops through complex attribubtes and add its CSS attributes to their selector
+     * @param {string} key - The key of the attribute
+     * @param {Object} meta - The metadata of the attribute
+     * @param {Object} props - The props of the block
+     * @returns {CSSGenerator} - Returns this instance for chaining
+     */
+    addComplexAttribute( key, meta, props ) {
+        const { attributes, previewDevice } = props;
+        const mergedAttribute = this.mergeInitialAttribute( meta, ( attributes?.[ key ] || {} ) );
+
+        if ( ! mergedAttribute ) {
+            return this;
+        }
+
+        if ( ! meta?.property ) {
+            return this;
+        }
+
+        switch ( meta.property ) {
+            case 'typography':
+                const typographyProperties = [
+                    { key: 'fontFamily', selector: meta.selector + '-font-family' },
+                    { key: 'fontWeight', selector: meta.selector + '-font-weight' },
+                ];
+
+                typographyProperties.forEach(({ key, selector }) => {
+                    // Check if any device has this property
+                    if (mergedAttribute?.dt?.[key] || mergedAttribute?.td?.[key] || mergedAttribute?.mb?.[key]) {
+                        const deviceValues = {
+                            dt: mergedAttribute?.dt?.[key] || '',
+                            td: mergedAttribute?.td?.[key] || '',
+                            mb: mergedAttribute?.mb?.[key] || ''
+                        };
+
+                        this.renderStringProperty(deviceValues, selector, previewDevice);
+                    }
+                });
+                break;
+            default:
+                // For other complex properties, add specific handling here
+                break;
+        }
+
+        return this;
+    }
+
+    /**
      * Merge the initial attribute
      * @param {Object} meta - The metadata of the attribute
      * @param {Object} attributeValue - The value of the attribute

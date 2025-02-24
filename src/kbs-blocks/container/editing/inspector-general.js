@@ -17,6 +17,7 @@ import {
 	ToolsPanelBody,
 	RadioButtonControl,
 	PresetSelectControl,
+	Typography
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -51,7 +52,7 @@ import {
 	BlockControls,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { ToggleControl, SelectControl, ToolbarGroup, ExternalLink } from '@wordpress/components';
+import { ToggleControl, ToolbarGroup, ExternalLink } from '@wordpress/components';
 
 /**
  * Build the section edit.
@@ -106,7 +107,25 @@ export default function InspectorGeneral(props) {
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
 				/>
-			</ToolsPanelBody>
+
+			</KadencePanelBody>
+
+			<KadencePanelBody
+				title={__('Typography Settings', 'kadence-blocks')}
+				panelName={'kb-container-typography'}
+			>
+
+				<Typography
+					label={__('Typography', 'kadence-blocks')}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					meta={ metadata?.attributes?.typography }
+					previewDevice={ previewDevice }
+					attributeName={ 'typography' }
+				/>
+
+			</KadencePanelBody>
+		</ToolsPanelBody>
 		</>
 	);
 }

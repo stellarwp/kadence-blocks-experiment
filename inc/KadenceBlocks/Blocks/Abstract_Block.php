@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace KadenceWP\KadenceBlocks\Blocks;
 
 use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
+use KadenceWP\KadenceBlocks\Frontend\Font_Engine;
 use function kbs_get_asset_file;
 
 /**
@@ -80,7 +81,7 @@ class Abstract_Block {
 	 */
 	protected $default_attributes_cache = [];
 
-	
+
 	/**
 	 * Allow us to enable merged defaults on blocks individually.
 	 * Considered setting this as a property within each block, but it's easier to see an exhaustive list here.
@@ -102,12 +103,20 @@ class Abstract_Block {
 	protected CSS_Engine $css_engine;
 
 	/**
-	 * Constructor for abstract block.
-	 * 
-	 * @param CSS_Engine $css_engine The CSS engine instance.
+	 * The Font engine instance.
+	 *
+	 * @var Font_Engine
 	 */
-	public function __construct( CSS_Engine $css_engine ) {
+	protected Font_Engine $font_engine;
+
+	/**
+	 * @param  Container  $container The container instance.
+	 * @param  CSS_Engine $css_engine The CSS engine instance.
+	 */
+	public function __construct( Container $container, CSS_Engine $css_engine, Font_Engine $font_engine ) {
+		$this->container  = $container;
 		$this->css_engine = $css_engine;
+		$this->font_engine = $font_engine;
 	}
 
 	/**
@@ -218,6 +227,28 @@ class Abstract_Block {
 	}
 
 	/**
+	 * Process fonts for a block and add them to the font engine
+	 *
+	 * @param array $attributes Block attributes
+	 * @param WP_Block|null $block_instance The block instance
+	 * @return void
+	 */
+	protected function process_fonts( $attributes, $block_instance ) {
+		if ( empty( $attributes ) || ! is_array( $attributes ) ) {
+			return;
+		}
+
+		// Get block attributes meta from instance if available
+		$attributes_meta = [];
+		if ( is_object( $block_instance ) && isset( $block_instance->attributes ) ) {
+			$attributes_meta = $block_instance->attributes;
+		}
+
+		// Process fonts through the font engine
+		$this->font_engine->process_block_fonts( $attributes, $attributes_meta );
+	}
+
+	/**
 	 * Render Block CSS in Page Head.
 	 *
 	 * @param array    $block the block data.
@@ -239,6 +270,9 @@ class Abstract_Block {
 				// Check and enqueue stylesheets and scripts if needed.
 				$this->render_scripts( $attributes, false );
 
+				// Process and enqueue fonts
+				$this->process_fonts( $attributes, $block_instance );
+
 				if ( ! $this->css_engine->has_styles( 'kb-' . $this->block_name . $unique_id ) && apply_filters( 'kadence_blocks_render_head_css', true, $this->block_name, $attributes ) ) {
 					// Filter attributes for easier dynamic css.
 					$attributes = apply_filters( 'kadence_blocks_' . $this->block_name . '_render_block_attributes', $attributes );
@@ -247,6 +281,7 @@ class Abstract_Block {
 			}
 		}
 	}
+
 	/**
 	 * Render for block scripts block.
 	 *
@@ -278,6 +313,10 @@ class Abstract_Block {
 	 */
 	public function render_css( $attributes, $content, $block_instance ) {
 		$this->render_scripts( $attributes, true );
+
+		// Process and enqueue fonts
+		$this->process_fonts( $attributes, $block_instance );
+
 		if ( in_array( $this->block_name, $this->is_cpt_block ) ) {
 			$unique_id = ! empty( $attributes['id'] ) ? strval( $attributes['id'] ) . '-cpt-id' : '';
 			if ( empty( $unique_id ) ) {
@@ -490,7 +529,7 @@ class Abstract_Block {
 	}
 	/**
 	 * Retuurn if this block should register itself. (can override for things like blocks in two plugins)
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function should_register() {

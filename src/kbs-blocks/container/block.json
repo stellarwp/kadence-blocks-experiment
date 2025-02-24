@@ -115,6 +115,13 @@
 		},
 		"linkExtras": {
 			"type": "object"
+		},
+		"typography": {
+			"renderCSS": true,
+			"property": "typography",
+			"selector": "--kbs-cont",
+			"initial": {},
+			"type": "object"
 		}
 	},
 	"supports": {

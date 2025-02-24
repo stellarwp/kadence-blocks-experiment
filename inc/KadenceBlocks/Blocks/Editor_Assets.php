@@ -21,6 +21,13 @@ use function kbs_get_asset_file;
  */
 class Editor_Assets {
 	/**
+	 * Google fonts array.
+	 *
+	 * @var array
+	 */
+	public static $google_fonts = null;
+
+	/**
 	 * Enqueue block assets for backend editor.
 	 *
 	 * @since 1.0.0
@@ -79,5 +86,53 @@ class Editor_Assets {
 			wp_register_style( $handle, sprintf( '%sdist/kbs-%s.css', KADENCE_BLOCKS_URL, $block ), [ 'wp-edit-blocks', 'kadence-components', 'kadence-kbsComponents' ], $meta['version'] );
 			wp_set_script_translations( $handle, 'kadence-blocks' );
 		}
+
+		$gfont_names_path = KADENCE_BLOCKS_PATH . 'includes/gfonts-names-array.php';
+
+		wp_localize_script(
+			'kadence-blocks-js',
+			'kadence_blocks_params',
+			[
+				'responsive_device_options'  => $this->get_responsive_device_options(),
+			]
+		);
+	}
+
+	public function get_responsive_device_options() {
+		$responsive_device_options = apply_filters( 'kadence_blocks_responsive_device_options', [
+			[
+				'name' => 'Desktop',
+				'key' => 'desktop',
+				'icon' => 'desktop',
+				'itemClass' => 'kbs-desk-size',
+				'attributeSlug' => 'dt',
+			],
+			[
+				'name' => 'Tablet',
+				'key' => 'tablet',
+				'icon' => 'tablet',
+				'itemClass' => 'kbs-tablet-size',
+				'attributeSlug' => 'td',
+			],
+			[
+				'name' => 'Mobile',
+				'key' => 'mobile',
+				'icon' => 'mobile',
+				'itemClass' => 'kbs-mobile-size',
+				'attributeSlug' => 'mb',
+			],
+		] );
+
+		/*
+		 * The editor is dependent on these keys to set values.
+		 * If any device is missing an attribute slug, name, or key, remove it.
+		 */
+		foreach ( $responsive_device_options as $key => $device ) {
+			if ( ! isset( $device['attributeSlug'] ) || ! isset( $device['name'] ) || ! isset( $device['key'] ) ) {
+				unset( $responsive_device_options[ $key ] );
+			}
+		}
+
+		return $responsive_device_options;
 	}
 }

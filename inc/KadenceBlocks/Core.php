@@ -61,6 +61,7 @@ class Core {
 	private $providers = [
 		Frontend\Provider::class,
 		Blocks\Provider::class,
+		REST\Provider::class,
 	];
 	/**
 	 * @param  string    $plugin_file The full server path to the main plugin file.
