@@ -113,8 +113,7 @@ class Abstract_Block {
 	 * @param  Container  $container The container instance.
 	 * @param  CSS_Engine $css_engine The CSS engine instance.
 	 */
-	public function __construct( Container $container, CSS_Engine $css_engine, Font_Engine $font_engine ) {
-		$this->container  = $container;
+	public function __construct( CSS_Engine $css_engine, Font_Engine $font_engine ) {
 		$this->css_engine = $css_engine;
 		$this->font_engine = $font_engine;
 	}

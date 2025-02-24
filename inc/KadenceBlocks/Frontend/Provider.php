@@ -30,6 +30,7 @@ class Provider extends Service_Provider {
 	public function register(): void {
 		$this->container->bind( Assets::class, new Assets( $this->container ) );
 		$this->container->singleton( CSS_Engine::class, CSS_Engine::class );
+		$this->container->singleton( Font_Engine::class, Font_Engine::class );
 		add_action( 'wp_enqueue_scripts', $this->container->callback( Assets::class, 'post_blocks_css' ), 19 );
 	}
 }
