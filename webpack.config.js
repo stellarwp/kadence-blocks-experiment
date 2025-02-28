@@ -52,6 +52,7 @@ module.exports = {
 		// 'early-filters': './src/early-filters.js',
 		'extension-kadence-base': './src/extension/kadence-base/index.js',
 		'extension-stores': './src/extension/stores/index.js',
+		'extension-global-styles-store': './src/extension/stores/global-styles-store.js',
 		'extension-block-css': './src/extension/block-css/index.js',
 		'extension-image-picker': './src/extension/image-picker/index.js',
 		// 'admin-kadence-home': './src/home.js',

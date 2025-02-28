@@ -1,0 +1,49 @@
+{
+    "id": 2,
+    "name": "Test",
+    "version": "1.0.0",
+    "components": {
+        "flex": {
+            "presets": {
+                "base": {
+                    "label": "Base",
+                    "name": "Basic Vertical",
+                    "description": "A basic vertical flex container",
+                    "attributes": {
+                        "flexContainer": {
+                            "desktop": {
+                                "direction": "column",
+                                "justify": "flex-start",
+                                "alignItems": "stretch",
+                                "alignContent": "initial",
+                                "wrap": "nowrap",
+                                "rowGap": "none",
+                                "columnGap": "initial",
+                                "flexShrink": "initial",
+                                "flexGrow": "initial",
+                                "flexBasis": "auto"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "typography": {
+            "presets": {
+                "base": {
+                    "label": "Hero",
+                    "name": "Hero 1",
+                    "description": "Standard hero text",
+                    "attributes": {
+                        "typography": {
+                            "desktop": {
+                                "fontFamily": "\"Comic Sans MS\", cursive, sans-serif",
+                                "fontSource": "system"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

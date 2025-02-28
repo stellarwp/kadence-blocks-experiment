@@ -5,12 +5,6 @@
  */
 
 /**
- * Import Controls
- */
-import classnames from 'classnames';
-import { debounce } from 'lodash';
-
-/**
  * Kadence Components.
  */
 import {
@@ -23,32 +17,24 @@ import {
  * Kadence Helpers.
  */
 import {
-	uniqueIdHelper,
 	getPreviewValue,
 } from '@kadence/kbsHelpers';
 import {
-	CopyPasteAttributes,
 	KadencePanelBody,
 } from '@kadence/components';
-
-/**
- * Kadence Helpers.
- */
-import {
-	getPreviewSize,
-} from '@kadence/helpers';
 
 import metadata from '../block.json';
 /**
  * Import WordPress
  */
 import { __ } from '@wordpress/i18n';
+import { TextControl } from '@wordpress/components';
 
 /**
  * Build the section edit.
  */
 export default function InspectorGeneral(props) {
-	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className } = props;
+	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, globalStylesJson } = props;
 	const previewDirection = getPreviewValue( 'direction', attributes, metadata, previewDevice );
 	return (
 		<>
@@ -61,6 +47,7 @@ export default function InspectorGeneral(props) {
 					setAttributes={ setAttributes }
 					attributeName={ 'direction' }
 					meta={ metadata?.attributes?.direction }
+					globalStylesJson={ globalStylesJson }
 				/>
 				<RadioButtonControl
 					label={__('Direction', 'kadence-blocks')}
@@ -69,6 +56,7 @@ export default function InspectorGeneral(props) {
 					attributeName={ 'direction' }
 					previewDevice={ previewDevice }
 					meta={ metadata?.attributes?.direction }
+					globalStylesJson={ globalStylesJson }
 				/>
 				<RadioButtonControl
 					label={__('Justify Content', 'kadence-blocks')}
@@ -78,6 +66,7 @@ export default function InspectorGeneral(props) {
 					meta={ metadata?.attributes?.justify }
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
+					globalStylesJson={globalStylesJson}
 				/>
 				<RadioButtonControl
 					label={__('Alignment', 'kadence-blocks')}
@@ -87,6 +76,7 @@ export default function InspectorGeneral(props) {
 					meta={ metadata?.attributes?.alignItems }
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
+					globalStylesJson={globalStylesJson}
 				/>
 				<RadioButtonControl
 					label={__('Wrap', 'kadence-blocks')}
@@ -96,8 +86,21 @@ export default function InspectorGeneral(props) {
 					meta={ metadata?.attributes?.wrap }
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
+					globalStylesJson={globalStylesJson}
 				/>
 			</ToolsPanelBody>
+
+			<KadencePanelBody
+				title={__('Global Style Settings', 'kadence-blocks')}
+				panelName={'kb-container-settings'}
+			>
+				<TextControl
+					label={__('Global Style IDs', 'kadence-blocks')}
+					value={ attributes.globalStyleIds }
+					onChange={ ( value ) => setAttributes({ globalStyleIds: value }) }
+					help={__('Comma separated list of global style IDs. Ex: 1,2,3', 'kadence-blocks')}
+				/>
+			</KadencePanelBody>
 
 			<ToolsPanelBody
 				title={__('Typography Settings', 'kadence-blocks')}
@@ -110,8 +113,11 @@ export default function InspectorGeneral(props) {
 					meta={ metadata?.attributes?.typography }
 					previewDevice={ previewDevice }
 					attributeName={ 'typography' }
+					globalStylesJson={ globalStylesJson }
 				/>
 			</ToolsPanelBody>
+
+		
 		</>
 	);
 }

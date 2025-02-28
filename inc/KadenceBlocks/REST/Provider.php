@@ -22,6 +22,9 @@ class Provider {
 		add_action( 'rest_api_init', function() {
 			$fonts_controller = new FontsController();
 			$fonts_controller->register_routes();
+
+			$global_styles_controller = new GlobalStylesController();
+			$global_styles_controller->register_routes();
 		});
 	}
 } 

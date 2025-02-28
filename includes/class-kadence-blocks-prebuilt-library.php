@@ -526,7 +526,12 @@ class Kadence_Blocks_Prebuilt_Library {
 			if ( ! empty( $final_data['name'] ) ) {
 				wp_send_json( $final_data );
 			}
-			wp_send_json( esc_html__( 'No Connection data available', 'kadence-blocks' ) );
+			$response_code = wp_remote_retrieve_response_code( wp_safe_remote_get( $this->url ) );
+			$error_message = esc_html__( 'No Connection data available', 'kadence-blocks' );
+			if ( $response_code !== 200 ) {
+				$error_message .= ' (Response code: ' . $response_code . ')';
+			}
+			wp_send_json( $error_message );
 		}
 		die;
 	}
@@ -548,10 +553,15 @@ class Kadence_Blocks_Prebuilt_Library {
 			$api_url,
 			[
 				'timeout' => 20,
+				'headers' => [
+					'Accept' => 'application/json',
+					'Content-Type' => 'application/json',
+				],
 			]
 		);
 		// Early exit if there was an error.
 		if ( is_wp_error( $response ) ) {
+			wp_send_json( esc_html__( 'No Connection data available: is_wp_error', 'kadence-blocks' ) );
 			return '';
 		}
 
@@ -560,6 +570,7 @@ class Kadence_Blocks_Prebuilt_Library {
 
 		// Early exit if there was an error.
 		if ( is_wp_error( $contents ) ) {
+			wp_send_json( esc_html__( 'No Connection data available: is_wp_error', 'kadence-blocks' ) );
 			return;
 		}
 

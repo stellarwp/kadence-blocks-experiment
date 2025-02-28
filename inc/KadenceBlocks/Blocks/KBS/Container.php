@@ -83,6 +83,13 @@ class Container extends Abstract_Block {
 		if ( ! empty( $attributes['anchor'] ) ) {
 			$wrapper_args['id'] = $attributes['anchor'];
 		}
+		
+		if ( ! empty( $attributes['_combinedGlobalStyles'] ) ) {
+			$wrapper_args['data-parent-id'] = json_encode($attributes['_combinedGlobalStyles']);
+		} else {
+			$wrapper_args['data-parent-id'] = '';
+		}
+
 		$wrapper_args       = apply_filters( 'kbs_wrapper_args', $wrapper_args, $attributes, $this->block_name, $unique_id, $block_instance );
 		$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 

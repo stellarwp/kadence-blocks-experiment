@@ -110,6 +110,14 @@ class Abstract_Block {
 	protected Font_Engine $font_engine;
 
 	/**
+	 * Static map to store block global styles
+	 * Maps uniqueId => array of globalStyleIds (including parent styles)
+	 *
+	 * @var array
+	 */
+	protected static $global_styles_map = [];
+
+	/**
 	 * @param  Container  $container The container instance.
 	 * @param  CSS_Engine $css_engine The CSS engine instance.
 	 */
@@ -325,7 +333,9 @@ class Abstract_Block {
 			$unique_id = ! empty( $attributes['uniqueID'] ) ? $attributes['uniqueID'] : '';
 		}
 		if ( ! empty( $unique_id ) ) {
-			$unique_id       = str_replace( '/', '-', $unique_id );
+			$attributes['_combinedGlobalStyles'] = $this->get_combined_global_styles( $unique_id, $attributes, $block_instance );
+
+			$unique_id = str_replace( '/', '-', $unique_id );
 			$unique_style_id = apply_filters( 'kadence_blocks_build_render_unique_id', $unique_id, $this->block_name, $attributes );
 
 			// If filter didn't run in header (which would have enqueued the specific css id ) then filter attributes for easier dynamic css.
@@ -542,5 +552,46 @@ class Abstract_Block {
 	 */
 	protected function get_pro_version() {
 		return defined( 'KBP_VERSION' ) ? KBP_VERSION : null;
+	}
+
+	/**
+	 * Get combined global styles for a block including parent styles
+	 *
+	 * @param string $unique_id The block's unique ID
+	 * @param array $attributes The block's attributes
+	 * @param WP_Block $block_instance The block instance
+	 * @return array Array of global style IDs including parent styles
+	 */
+	protected function get_combined_global_styles($unique_id, $attributes, $block_instance) {
+		// Check if we already have cached styles for this block
+		if(isset(self::$global_styles_map[$unique_id])) {
+			return self::$global_styles_map[$unique_id];
+		}
+
+		// Get parent context
+		$parentUniqueId = $block_instance->context['kbs/parentUniqueId'] ?? '';
+		$parentGlobalStyles = $block_instance->context['kbs/parentGlobalStyles'] ?? '';
+		
+		// Get this block's global styles (default to empty string if not set)
+		$blockGlobalStyles = isset($attributes['globalStyleIds']) ? $attributes['globalStyleIds'] : '';
+		
+		// Initialize the result
+		$combinedStyles = $blockGlobalStyles;
+		
+		// If we have a parent, we need to combine its styles with ours
+		if (!empty($parentUniqueId)) {
+			if (isset(self::$global_styles_map[$parentUniqueId])) {
+				// If parent is cached, use that
+				$combinedStyles = self::$global_styles_map[$parentUniqueId] . (!empty($blockGlobalStyles) ? ',' . $blockGlobalStyles : '');
+			} else {
+				// Otherwise use the context-provided styles
+				$combinedStyles = $parentGlobalStyles . (!empty($blockGlobalStyles) ? ',' . $blockGlobalStyles : '');
+			}
+		}
+		
+		// Cache the result for future use
+		self::$global_styles_map[$unique_id] = $combinedStyles;
+		
+		return $combinedStyles;
 	}
 }

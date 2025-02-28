@@ -3,8 +3,12 @@
 	"title": "Container",
 	"name": "kbs/container",
 	"category": "kadence-blocks",
-	"usesContext": ["postId", "queryId", "kbs/globalStyles", "kadence/dynamicSource", "kadence/repeaterRowData", "kadence/repeaterRow"],
+	"usesContext": ["postId", "queryId", "kbs/parentGlobalStyles", "kbs/parentUniqueId"],
 	"textdomain": "kadence-blocks",
+	"providesContext": {
+		"kbs/parentUniqueId": "uniqueID",
+		"kbs/parentGlobalStyles": "globalStyleIds"
+	},
 	"attributes": {
 		"uniqueID": {
 			"type": "string"
@@ -122,6 +126,9 @@
 			"selector": "--kbs-cont",
 			"initial": {},
 			"type": "object"
+		},
+		"globalStyleIds": {
+			"type": "string"
 		}
 	},
 	"supports": {

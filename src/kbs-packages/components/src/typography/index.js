@@ -1,7 +1,7 @@
 import SelectControl from '../select-control';
 import { __ } from '@wordpress/i18n';
 
-export default function Typography({ label, attributes, setAttributes, meta, previewDevice, attributeName }) {
+export default function Typography({ label, attributes, setAttributes, meta, previewDevice, attributeName, globalStylesJson }) {
 
     return (
         <div>
@@ -13,6 +13,7 @@ export default function Typography({ label, attributes, setAttributes, meta, pre
                 meta={meta}
                 previewDevice={previewDevice}
                 type="fontFamily"
+                globalStylesJson={globalStylesJson}
             />
 
             {/* <SelectControl

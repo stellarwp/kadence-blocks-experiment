@@ -53,10 +53,11 @@ export default function SelectControl({
 	previewDevice,
 	initial,
 	meta,
+	globalStylesJson = {}
 }) {
 	const initialValue = meta?.initial ? meta?.initial : initial;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, meta, type);	
-	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta, type);
+	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta, type, globalStylesJson);
 	const isCurrentValueInherited = currentValue === '';
 	const customStyles = getCustomStyles(isCurrentValueInherited);
 

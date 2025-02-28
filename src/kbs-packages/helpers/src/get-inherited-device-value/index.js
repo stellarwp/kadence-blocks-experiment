@@ -1,9 +1,10 @@
 import getDeviceValue from '../get-device-value';
+import getGlobalStylesDeviceValue from '../get-global-styles-device-value';
 
 /**
  * Get the inherited value for a device, following the inheritance chain
  */
-export default function getInheritedDeviceValue( attributeName, attributes, device, initialValue = {}, meta, type ) {
+export default function getInheritedDeviceValue( attributeName, attributes, device, initialValue = {}, meta, type, globalStylesJson ) {
 	const deviceOptions = kadence_blocks_params?.responsive_device_options || [];
 	const currentDeviceIndex = deviceOptions.findIndex(option => option.key === device.toLowerCase());
 	
@@ -15,6 +16,33 @@ export default function getInheritedDeviceValue( attributeName, attributes, devi
 			return parentValue;
 		}
 	}
+
+	// Check global styles for the current component type
+	if (globalStylesJson && type === 'fontFamily') {
+		const globalValue = getGlobalStylesDeviceValue(
+			attributeName,
+			globalStylesJson,
+			device.toLowerCase(),
+			type
+		);
+
+		if (globalValue) {
+			return globalValue;
+		}
+	}
+		
+	
+	// 	// Check global styles json for current device
+	// 	const deviceKey = deviceOptions.find(option => option.name === device)?.key;
+
+	// 	const get
+
+	// 	if (globalStylesJson?.[deviceKey]) {
+	// 		console.log( 'globalStylesJson for device', device, globalStylesJson );
+	// 		// return globalStylesJson[device];
+	// 	}
+	
+	// }
 
 	// Check initial values for current and parent devices
 	for (let i = currentDeviceIndex; i >= 0; i--) {

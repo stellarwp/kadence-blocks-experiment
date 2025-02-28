@@ -1,4 +1,3 @@
-
 export { default as uniqueIdHelper } from './unique-id-helper';
 export { default as getDeviceValue } from './get-device-value';
 export { default as getInheritedDeviceValue } from './get-inherited-device-value';
@@ -8,3 +7,6 @@ export { default as getPreviewValue } from './get-preview-value';
 export * from './get-font-family-options';
 export { default as getGoogleFontUrl } from './get-google-font-url';
 export { handleAttributeChange } from './handle-attribute-change';
+export { GlobalStylesContext } from './global-styles-context';
+export { default as useGlobalStylesIds } from './use-global-styles-ids';
+export { default as getGlobalStylesDeviceValue } from './get-global-styles-device-value';

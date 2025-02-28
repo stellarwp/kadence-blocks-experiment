@@ -6,14 +6,10 @@
 /**
  * Internal block libraries
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useState, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { map } from 'lodash';
-import { capitalizeFirstLetter } from '@kadence/helpers';
 import { getDeviceValue, getInheritedDeviceValue } from '@kadence/kbsHelpers';
 import { handleAttributeChange } from '@kadence/kbsHelpers';
-
+import { useEffect } from '@wordpress/element';
 import { getRadioConfig } from './controls-config';
 import TitleBar from '../title-bar';
 
@@ -37,11 +33,12 @@ export default function RadioButtonControl( {
 	previewDevice,
 	meta,
 	previewDirection = 'column',
+	globalStylesJson = {}
 } ) {
 	const radioType = meta?.property ? meta?.property : type;
 	const initialValue = meta?.initial ? meta?.initial : initial;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice);
-	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue);
+	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta, type, globalStylesJson);
 	const { UIComponent, controls } = getRadioConfig(radioType, previewDirection);
 
 	const onReset = () => {

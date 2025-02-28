@@ -8,7 +8,6 @@
  * Import Controls
  */
 import classnames from 'classnames';
-import { debounce } from 'lodash';
 
 /**
  * Kadence Helpers.
@@ -16,6 +15,8 @@ import { debounce } from 'lodash';
 import {
 	uniqueIdHelper,
 	getPreviewValue,
+	GlobalStylesContext,
+	useGlobalStylesIds
 } from '@kadence/kbsHelpers';
 
 import metadata from './block.json';
@@ -27,21 +28,16 @@ import Toolbar from './editing/toolbar';
  */
 import { __ } from '@wordpress/i18n';
 
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState, Fragment } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
+import { useEffect, useState, Fragment, useContext, useMemo } from '@wordpress/element';
 import {
-	BlockAlignmentToolbar,
-	BlockVerticalAlignmentToolbar,
-	BlockControls,
 	InnerBlocks,
-	InspectorControls,
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { ToggleControl, SelectControl, ToolbarGroup, ExternalLink } from '@wordpress/components';
 import { FORM_ALLOWED_BLOCKS } from './constants';
-import { applyFilters } from '@wordpress/hooks';
+
 /**
  * Build the section edit.
  */
@@ -51,16 +47,21 @@ export default function ContainerEdit(props) {
 		uniqueID,
 		templateLock,
 		align,
+		globalStyleIds
 	} = attributes;
-	const { previewDevice } = useSelect(
+
+	// Get merged global styles IDs using the helper hook
+	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
+
+	const { globalStylesJson } = useSelect(
 		(select) => {
 			return {
-				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+				globalStylesJson: select('kadenceblocks/global-styles').getMergedGlobalStyle(globalStylesIds)
 			};
 		},
-		[clientId]
+		[globalStylesIds]
 	);
-	const { hasInnerBlocks, inRowBlock, inFormBlock } = useSelect(
+	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice } = useSelect(
 		(select) => {
 			const { getBlock, getBlockRootClientId, getBlockParentsByBlockName, getBlocksByClientId } =
 				select(blockEditorStore);
@@ -84,6 +85,7 @@ export default function ContainerEdit(props) {
 				inRowBlock,
 				hasInnerBlocks: !!(block && block.innerBlocks.length),
 				inFormBlock,
+				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
 			};
 		},
 		[clientId]
@@ -122,53 +124,17 @@ export default function ContainerEdit(props) {
 			allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
 		}
 	);
-	// console.log('RenderEdit', { props, attributes, clientId, context, className, hasInnerBlocks, inRowBlock, inFormBlock, blockProps, innerBlocksProps });
+
 	return (
-		<div {...blockProps}>
-			<Inspector {...{ previewDevice, ...props }} />
-			{/* <Toolbar {...props} />
-			<Inspector {...props} />
-			*/}
-			<Styles {...{ previewDevice, ...props }} />
-			<Fragment {...innerBlocksProps} />
-			{/* <SpacingVisualizer
-				style={{
-					marginLeft:
-						undefined !== previewMarginLeft
-							? getSpacingOptionOutput(previewMarginLeft, previewMarginType)
-							: undefined,
-					marginRight:
-						undefined !== previewMarginRight
-							? getSpacingOptionOutput(previewMarginRight, previewMarginType)
-							: undefined,
-					marginTop:
-						undefined !== previewMarginTop
-							? getSpacingOptionOutput(previewMarginTop, previewMarginType)
-							: undefined,
-					marginBottom:
-						undefined !== previewMarginBottom
-							? getSpacingOptionOutput(previewMarginBottom, previewMarginType)
-							: undefined,
-				}}
-				type="inside"
-				forceShow={paddingMouseOver.isMouseOver}
-				spacing={[
-					getSpacingOptionOutput(previewPaddingTop, previewPaddingType),
-					getSpacingOptionOutput(previewPaddingRight, previewPaddingType),
-					getSpacingOptionOutput(previewPaddingBottom, previewPaddingType),
-					getSpacingOptionOutput(previewPaddingLeft, previewPaddingType),
-				]}
-			/>
-			<SpacingVisualizer
-				type="outsideVertical"
-				forceShow={marginMouseOver.isMouseOver}
-				spacing={[
-					getSpacingOptionOutput(previewMarginTop, previewMarginType),
-					getSpacingOptionOutput(previewMarginRight, previewMarginType),
-					getSpacingOptionOutput(previewMarginBottom, previewMarginType),
-					getSpacingOptionOutput(previewMarginLeft, previewMarginType),
-				]}
-			/> */}
-		</div>
+		<GlobalStylesContext.Provider value={globalStylesIds}>
+			<div {...blockProps}>
+					<Inspector {...{ previewDevice, globalStylesJson, ...props }} />
+					{/* <Toolbar {...props} />
+					<Inspector {...props} />
+					*/}
+					<Styles {...{ previewDevice, ...props }} />
+					<Fragment {...innerBlocksProps} />
+			</div>
+		</GlobalStylesContext.Provider>
 	);
 }
