@@ -1,0 +1,446 @@
+{
+	"components": {
+		"flex": {
+			"presets": {
+				"base":[
+					{
+						"label": "Base",
+						"name": "Basic Vertical",
+						"description": "A basic vertical flex container",
+						"clear": false,
+						"attributes": {
+							"flexContainer": {
+								"desktop": {
+									"direction": "column",
+									"justify": "flex-start",
+									"alignItems": "stretch",
+									"alignContent": "initial",
+									"wrap": "wrap",
+									"rowGap": "none",
+									"columnGap": "initial",
+									"flexShrink": "initial",
+									"flexGrow": "initial",
+									"flexBasis": "auto"
+								}
+							}
+						}
+					}
+				],
+				"custom":
+				[
+					{
+						"label": "Vertical",
+						"name": "Basic Vertical",
+						"description": "A basic vertical flex container",
+						"clear": false,
+						"attributes": {
+							"flexContainer": {
+								"desktop": {
+									"direction": "column",
+									"justify": "flex-start",
+									"alignItems": "stretch",
+									"alignContent": "initial",
+									"wrap": "wrap",
+									"rowGap": "none",
+									"columnGap": "initial",
+									"flexShrink": "initial",
+									"flexGrow": "initial",
+									"flexBasis": "auto"
+								}
+							}
+						}
+					},
+					{
+						"label": "Horizontal",
+						"name": "Basic Vertical",
+						"description": "A basic vertical flex container",
+						"id": uniqueID,
+						"clear": false,
+						"attributes": {
+							"flexContainer": {
+								"desktop": {
+									"direction": "column",
+									"justify": "flex-start",
+									"alignItems": "stretch",
+									"alignContent": "initial",
+									"wrap": "wrap",
+									"rowGap": "none",
+									"columnGap": "initial",
+									"flexShrink": "initial",
+									"flexGrow": "initial",
+									"flexBasis": "auto"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		"typography": {
+			"presets": {
+				"base": {
+					"label": "Base",
+					"name": "Basic Vertical",
+					"description": "A basic vertical flex container",
+					"clear": false,
+					"attributes": {
+						"flexContainer": {
+							"desktop": {
+								"direction": "column",
+								"justify": "flex-start",
+								"alignItems": "stretch",
+								"alignContent": "initial",
+								"wrap": "wrap",
+								"rowGap": "none",
+								"columnGap": "initial",
+								"flexShrink": "initial",
+								"flexGrow": "initial",
+								"flexBasis": "auto"
+							}
+						}
+					}
+				},
+				"horizontal": {
+					"label": "Base",
+					"name": "Basic Vertical",
+					"description": "A basic vertical flex container",
+					"clear": false,
+					"attributes": {
+						"flexContainer": {
+							"desktop": {
+								"direction": "column",
+								"justify": "flex-start",
+								"alignItems": "stretch",
+								"alignContent": "initial",
+								"wrap": "wrap",
+								"rowGap": "none",
+								"columnGap": "initial",
+								"flexShrink": "initial",
+								"flexGrow": "initial",
+								"flexBasis": "auto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"button": {
+			"presets": {
+				"base": {
+					"label": "Base",
+					"name": "Basic Solid Button",
+					"description": "A basic solid button",
+					"clear": false,
+					"attributes": {
+						"likeButtonStyles": {
+							"desktop": {
+								"width": ["", "", ""],
+								"widthUnit": "px",
+								"widthType": "auto",
+								"padding": ["", "", "", ""],
+								"tabletPadding": ["", "", "", ""],
+								"mobilePadding": ["", "", "", ""],
+								"paddingUnit": "px",
+								"margin": ["", "", "", ""],
+								"tabletMargin": ["", "", "", ""],
+								"mobileMargin": ["", "", "", ""],
+								"marginUnit": "px",
+								"color": "",
+								"background": "",
+								"gradient": "",
+								"backgroundType": "normal",
+								"textGradient": "",
+								"textBackgroundType": "normal",
+								"textGradientHover": "",
+								"textBackgroundHoverType": "normal",
+								"colorHover": "",
+								"backgroundHover": "",
+								"backgroundHoverType": "normal",
+								"gradientHover": "",
+								"borderStyle": [
+									{
+										"top": ["", "", ""],
+										"right": ["", "", ""],
+										"bottom": ["", "", ""],
+										"left": ["", "", ""],
+										"unit": "px"
+									}
+								],
+								"tabletBorderStyle": [
+									{
+										"top": ["", "", ""],
+										"right": ["", "", ""],
+										"bottom": ["", "", ""],
+										"left": ["", "", ""],
+										"unit": "px"
+									}
+								],
+								"mobileBorderStyle": [
+									{
+										"top": ["", "", ""],
+										"right": ["", "", ""],
+										"bottom": ["", "", ""],
+										"left": ["", "", ""],
+										"unit": "px"
+									}
+								],
+								"borderHoverStyle": [
+									{
+										"top": ["", "", ""],
+										"right": ["", "", ""],
+										"bottom": ["", "", ""],
+										"left": ["", "", ""],
+										"unit": "px"
+									}
+								],
+								"tabletBorderHoverStyle": [
+									{
+										"top": ["", "", ""],
+										"right": ["", "", ""],
+										"bottom": ["", "", ""],
+										"left": ["", "", ""],
+										"unit": "px"
+									}
+								],
+								"mobileBorderHoverStyle": [
+									{
+										"top": ["", "", ""],
+										"right": ["", "", ""],
+										"bottom": ["", "", ""],
+										"left": ["", "", ""],
+										"unit": "px"
+									}
+								],
+								"borderRadius": ["", "", "", ""],
+								"tabletBorderRadius": ["", "", "", ""],
+								"mobileBorderRadius": ["", "", "", ""],
+								"borderRadiusUnit": "px",
+								"borderHoverRadius": ["", "", "", ""],
+								"tabletBorderHoverRadius": ["", "", "", ""],
+								"mobileBorderHoverRadius": ["", "", "", ""],
+								"borderHoverRadiusUnit": "px",
+								"icon": "",
+								"iconColor": "",
+								"iconColorHover": "",
+								"iconSide": "right",
+								"iconHover": false,
+								"iconPadding": ["", "", "", ""],
+								"iconPaddingUnit": "px",
+								"tabletIconPadding": ["", "", "", ""],
+								"mobileIconPadding": ["", "", "", ""],
+								"iconSize": ["", "", ""],
+								"iconSizeUnit": "px",
+								"onlyIcon": [false, "", ""],
+								"onlyText": [false, ""],
+								"label": "",
+								"inheritStyles": "fill",
+								"typography": [
+									{
+										"size": ["", "", ""],
+										"sizeType": "px",
+										"lineHeight": ["", "", ""],
+										"lineType": "",
+										"letterSpacing": ["", "", ""],
+										"letterType": "px",
+										"textTransform": "",
+										"family": "",
+										"google": "",
+										"style": "",
+										"weight": "",
+										"variant": "",
+										"subset": "",
+										"loadGoogle": true
+									}
+								],
+								"displayShadow": false,
+								"displayHoverShadow": false,
+								"shadow": [
+									{
+										"color": "#000000",
+										"opacity": 0.2,
+										"spread": 0,
+										"blur": 2,
+										"hOffset": 1,
+										"vOffset": 1,
+										"inset": false
+									}
+								],
+								"shadowHover": [
+									{
+										"color": "#000000",
+										"opacity": 0.4,
+										"spread": 0,
+										"blur": 3,
+										"hOffset": 2,
+										"vOffset": 2,
+										"inset": false
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"kadence/container": {
+		"attributes": {
+			"defaults": {
+				"maxWidth": {
+					"dt": "100",
+					"tb": "100",
+					"mb": "100"
+				}
+			}
+		}
+	},
+	"properties":{
+		"max-width": {
+			"dt": "100",
+			"tb": "100",
+			"mb": "100"
+		}
+	},
+	"settings": {
+		"spacing": {
+			"gaps": {
+				"none": {
+					"output": "var(--global-kb-spacing-none, 0rem)",
+					"size": 0,
+					"label": "None",
+					"name": "None"
+				},
+				"xxs": {
+					"output": "var(--global-kb-spacing-xxs, 0.5rem)",
+					"size": 8,
+					"label": "XXS",
+					"name": "2X Small"
+				},
+				"xs": {
+					"output": "var(--global-kb-spacing-xs, 1rem)",
+					"size": 16,
+					"label": "XS",
+					"name": "X Small"
+				},
+				"sm": {
+					"output": "var(--global-kb-spacing-sm, 1.5rem)",
+					"size": 24,
+					"label": "SM",
+					"name": "Small"
+				},
+				"md": {
+					"output": "var(--global-kb-spacing-md, 2rem)",
+					"size": 32,
+					"label": "MD",
+					"name": "Medium"
+				},
+				"lg": {
+					"output": "var(--global-kb-spacing-lg, 3rem)",
+					"size": 48,
+					"label": "LG",
+					"name": "Large"
+				},
+				"xl": {
+					"output": "var(--global-kb-spacing-xl, 4rem)",
+					"size": 64,
+					"label": "XL",
+					"name": "X Large"
+				},
+				"xxl": {
+					"output": "var(--global-kb-spacing-xxl, 5rem)",
+					"size": 80,
+					"label": "XXL",
+					"name": "2X Large"
+				},
+				"3xl": {
+					"output": "var(--global-kb-spacing-3xl, 6.5rem)",
+					"size": 104,
+					"label": "3XL",
+					"name": "3X Large"
+				},
+				"4xl": {
+					"output": "var(--global-kb-spacing-4xl, 8rem)",
+					"size": 128,
+					"label": "4XL",
+					"name": "4X Large"
+				},
+				"5xl": {
+					"output": "var(--global-kb-spacing-5xl, 10rem)",
+					"size": 160,
+					"label": "5XL",
+					"name": "5X Large"
+				}
+			}
+		},
+		"font-sizes": {
+			"sizes": {
+				"none": {
+					"output": "var(--global-kb-spacing-none, 0rem)",
+					"size": 0,
+					"label": "None",
+					"name": "None"
+				},
+				"xxs": {
+					"output": "4px",
+					"size": 4,
+					"label": "h6",
+					"name": "My Custom h6"
+				},
+				"xs": {
+					"output": "var(--global-kb-spacing-xs, 1rem)",
+					"size": 16,
+					"label": "XS",
+					"name": "X Small"
+				},
+				"sm": {
+					"output": "var(--global-kb-spacing-sm, 1.5rem)",
+					"size": 24,
+					"label": "SM",
+					"name": "Small"
+				},
+				"md": {
+					"output": "var(--global-kb-spacing-md, 2rem)",
+					"size": 32,
+					"label": "MD",
+					"name": "Medium"
+				},
+				"lg": {
+					"output": "var(--global-kb-spacing-lg, 3rem)",
+					"size": 48,
+					"label": "LG",
+					"name": "Large"
+				},
+				"xl": {
+					"output": "var(--global-kb-spacing-xl, 4rem)",
+					"size": 64,
+					"label": "XL",
+					"name": "X Large"
+				},
+				"xxl": {
+					"output": "var(--global-kb-spacing-xxl, 5rem)",
+					"size": 80,
+					"label": "XXL",
+					"name": "2X Large"
+				},
+				"3xl": {
+					"output": "var(--global-kb-spacing-3xl, 6.5rem)",
+					"size": 104,
+					"label": "3XL",
+					"name": "3X Large"
+				},
+				"4xl": {
+					"output": "var(--global-kb-spacing-4xl, 8rem)",
+					"size": 128,
+					"label": "4XL",
+					"name": "4X Large"
+				},
+				"5xl": {
+					"output": "var(--global-kb-spacing-5xl, 10rem)",
+					"size": 160,
+					"label": "5XL",
+					"name": "5X Large"
+				}
+			}
+		}
+	}
+}

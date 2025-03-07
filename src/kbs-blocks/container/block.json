@@ -35,6 +35,7 @@
 			"selector": "--kbs-cont-justify",
 			"initial": { "desktop": "flex-start" },
 			"property": "justify-content",
+			"nonInheritable": true,
 			"type": "object"
 		},
 		"alignContent": {
@@ -140,7 +141,7 @@
 		"ktdynamic": true,
 		"kbcss": true,
 		"kbMetadata": true,
-		"align": [ "wide", "full" ]
+		"align": ["wide", "full"]
 	},
 	"editorStyle": "kbs-section-editor",
 	"style": "kbs-section"
