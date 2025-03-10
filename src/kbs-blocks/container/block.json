@@ -38,6 +38,22 @@
 			"nonInheritable": true,
 			"type": "object"
 		},
+		"flexBoxDONOTUSEME": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-",
+			"initial": {},
+			"property": "flex-component",
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"innerFlexBoxDONOTUSEME": {
+			"renderCSS": true,
+			"selector": "--kbs-cont-inner",
+			"initial": {},
+			"property": "flex-component",
+			"nonInheritable": true,
+			"type": "object"
+		},
 		"alignContent": {
 			"renderCSS": true,
 			"selector": "--kbs-cont-align-content",

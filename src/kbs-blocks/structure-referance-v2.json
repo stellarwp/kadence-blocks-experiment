@@ -2,84 +2,8 @@
 	"components": {
 		"flex": {
 			"presets": {
-				"base":[
-					{
-						"label": "Base",
-						"name": "Basic Vertical",
-						"description": "A basic vertical flex container",
-						"clear": false,
-						"attributes": {
-							"flexContainer": {
-								"desktop": {
-									"direction": "column",
-									"justify": "flex-start",
-									"alignItems": "stretch",
-									"alignContent": "initial",
-									"wrap": "wrap",
-									"rowGap": "none",
-									"columnGap": "initial",
-									"flexShrink": "initial",
-									"flexGrow": "initial",
-									"flexBasis": "auto"
-								}
-							}
-						}
-					}
-				],
-				"custom":
-				[
-					{
-						"label": "Vertical",
-						"name": "Basic Vertical",
-						"description": "A basic vertical flex container",
-						"clear": false,
-						"attributes": {
-							"flexContainer": {
-								"desktop": {
-									"direction": "column",
-									"justify": "flex-start",
-									"alignItems": "stretch",
-									"alignContent": "initial",
-									"wrap": "wrap",
-									"rowGap": "none",
-									"columnGap": "initial",
-									"flexShrink": "initial",
-									"flexGrow": "initial",
-									"flexBasis": "auto"
-								}
-							}
-						}
-					},
-					{
-						"label": "Horizontal",
-						"name": "Basic Vertical",
-						"description": "A basic vertical flex container",
-						"id": uniqueID,
-						"clear": false,
-						"attributes": {
-							"flexContainer": {
-								"desktop": {
-									"direction": "column",
-									"justify": "flex-start",
-									"alignItems": "stretch",
-									"alignContent": "initial",
-									"wrap": "wrap",
-									"rowGap": "none",
-									"columnGap": "initial",
-									"flexShrink": "initial",
-									"flexGrow": "initial",
-									"flexBasis": "auto"
-								}
-							}
-						}
-					}
-				]
-			}
-		},
-		"typography": {
-			"presets": {
-				"base": {
-					"label": "Base",
+				"uniqueID": {
+					"label": "Vertical",
 					"name": "Basic Vertical",
 					"description": "A basic vertical flex container",
 					"clear": false,
@@ -100,8 +24,8 @@
 						}
 					}
 				},
-				"horizontal": {
-					"label": "Base",
+				"uniqueID2": {
+					"label": "Horizontal",
 					"name": "Basic Vertical",
 					"description": "A basic vertical flex container",
 					"clear": false,
@@ -123,182 +47,22 @@
 					}
 				}
 			}
-		},
-		"button": {
-			"presets": {
-				"base": {
-					"label": "Base",
-					"name": "Basic Solid Button",
-					"description": "A basic solid button",
-					"clear": false,
-					"attributes": {
-						"likeButtonStyles": {
-							"desktop": {
-								"width": ["", "", ""],
-								"widthUnit": "px",
-								"widthType": "auto",
-								"padding": ["", "", "", ""],
-								"tabletPadding": ["", "", "", ""],
-								"mobilePadding": ["", "", "", ""],
-								"paddingUnit": "px",
-								"margin": ["", "", "", ""],
-								"tabletMargin": ["", "", "", ""],
-								"mobileMargin": ["", "", "", ""],
-								"marginUnit": "px",
-								"color": "",
-								"background": "",
-								"gradient": "",
-								"backgroundType": "normal",
-								"textGradient": "",
-								"textBackgroundType": "normal",
-								"textGradientHover": "",
-								"textBackgroundHoverType": "normal",
-								"colorHover": "",
-								"backgroundHover": "",
-								"backgroundHoverType": "normal",
-								"gradientHover": "",
-								"borderStyle": [
-									{
-										"top": ["", "", ""],
-										"right": ["", "", ""],
-										"bottom": ["", "", ""],
-										"left": ["", "", ""],
-										"unit": "px"
-									}
-								],
-								"tabletBorderStyle": [
-									{
-										"top": ["", "", ""],
-										"right": ["", "", ""],
-										"bottom": ["", "", ""],
-										"left": ["", "", ""],
-										"unit": "px"
-									}
-								],
-								"mobileBorderStyle": [
-									{
-										"top": ["", "", ""],
-										"right": ["", "", ""],
-										"bottom": ["", "", ""],
-										"left": ["", "", ""],
-										"unit": "px"
-									}
-								],
-								"borderHoverStyle": [
-									{
-										"top": ["", "", ""],
-										"right": ["", "", ""],
-										"bottom": ["", "", ""],
-										"left": ["", "", ""],
-										"unit": "px"
-									}
-								],
-								"tabletBorderHoverStyle": [
-									{
-										"top": ["", "", ""],
-										"right": ["", "", ""],
-										"bottom": ["", "", ""],
-										"left": ["", "", ""],
-										"unit": "px"
-									}
-								],
-								"mobileBorderHoverStyle": [
-									{
-										"top": ["", "", ""],
-										"right": ["", "", ""],
-										"bottom": ["", "", ""],
-										"left": ["", "", ""],
-										"unit": "px"
-									}
-								],
-								"borderRadius": ["", "", "", ""],
-								"tabletBorderRadius": ["", "", "", ""],
-								"mobileBorderRadius": ["", "", "", ""],
-								"borderRadiusUnit": "px",
-								"borderHoverRadius": ["", "", "", ""],
-								"tabletBorderHoverRadius": ["", "", "", ""],
-								"mobileBorderHoverRadius": ["", "", "", ""],
-								"borderHoverRadiusUnit": "px",
-								"icon": "",
-								"iconColor": "",
-								"iconColorHover": "",
-								"iconSide": "right",
-								"iconHover": false,
-								"iconPadding": ["", "", "", ""],
-								"iconPaddingUnit": "px",
-								"tabletIconPadding": ["", "", "", ""],
-								"mobileIconPadding": ["", "", "", ""],
-								"iconSize": ["", "", ""],
-								"iconSizeUnit": "px",
-								"onlyIcon": [false, "", ""],
-								"onlyText": [false, ""],
-								"label": "",
-								"inheritStyles": "fill",
-								"typography": [
-									{
-										"size": ["", "", ""],
-										"sizeType": "px",
-										"lineHeight": ["", "", ""],
-										"lineType": "",
-										"letterSpacing": ["", "", ""],
-										"letterType": "px",
-										"textTransform": "",
-										"family": "",
-										"google": "",
-										"style": "",
-										"weight": "",
-										"variant": "",
-										"subset": "",
-										"loadGoogle": true
-									}
-								],
-								"displayShadow": false,
-								"displayHoverShadow": false,
-								"shadow": [
-									{
-										"color": "#000000",
-										"opacity": 0.2,
-										"spread": 0,
-										"blur": 2,
-										"hOffset": 1,
-										"vOffset": 1,
-										"inset": false
-									}
-								],
-								"shadowHover": [
-									{
-										"color": "#000000",
-										"opacity": 0.4,
-										"spread": 0,
-										"blur": 3,
-										"hOffset": 2,
-										"vOffset": 2,
-										"inset": false
-									}
-								]
-							}
-						}
-					}
-				}
-			}
 		}
 	},
-	"kadence/container": {
+	"kadence/image": {
 		"attributes": {
-			"defaults": {
-				"maxWidth": {
-					"dt": "100",
-					"tb": "100",
-					"mb": "100"
+			"borderStyles": {
+				"preset": "little-curve",
+				"desktop": {
+					"borderWidth": "2px"
+				}
+			},
+			"maxWidth": {
+				"preset": "half-width",
+				"mobile": {
+					"maxWidth": "20%"
 				}
 			}
-		}
-	},
-	"properties":{
-		"max-width": {
-			"dt": "100",
-			"tb": "100",
-			"mb": "100"
 		}
 	},
 	"settings": {
