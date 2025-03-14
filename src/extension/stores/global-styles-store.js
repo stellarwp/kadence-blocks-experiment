@@ -73,11 +73,11 @@ const actions = {
 		}
 
 		yield actions.setIsLoading(true);
-		const path = '/kadence-blocks/v1/global-styles';
+		const path = '/kadence-blocks/v1/global-styles/get-demo';
 		try {
 			const globalStyles = yield {
 				type: 'API_FETCH',
-				request: { path }
+				request: { path },
 			};
 			yield actions.setGlobalStyles(globalStyles);
 			yield actions.setHasResolved(true);
@@ -115,7 +115,7 @@ const resolvers = {
 	},
 	*getMergedGlobalStyle() {
 		yield resolvers.getGlobalStyles();
-	}
+	},
 };
 
 /**
@@ -158,15 +158,13 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			if (!styleIds || (Array.isArray(styleIds) && styleIds.length === 0)) {
 				return {};
 			}
-			
+
 			if (!Array.isArray(styleIds)) {
 				styleIds = [styleIds];
 			}
 
 			// Filter styles that match the provided IDs
-			const stylesToMerge = styleIds
-				.map(id => find(state.globalStyles, { id }))
-				.filter(Boolean); // Remove any undefined values
+			const stylesToMerge = styleIds.map((id) => find(state.globalStyles, { id })).filter(Boolean); // Remove any undefined values
 
 			if (stylesToMerge.length === 0) {
 				return {};
@@ -177,9 +175,9 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				// Deep merging objects
 				const deepMerge = (target, source) => {
 					const output = { ...target };
-					
+
 					if (isObject(target) && isObject(source)) {
-						Object.keys(source).forEach(key => {
+						Object.keys(source).forEach((key) => {
 							if (isObject(source[key])) {
 								if (!(key in target)) {
 									Object.assign(output, { [key]: source[key] });
@@ -193,10 +191,10 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					}
 					return output;
 				};
-				
+
 				// Helper to check if value is an object
-				const isObject = item => (item && typeof item === 'object' && !Array.isArray(item));
-				
+				const isObject = (item) => item && typeof item === 'object' && !Array.isArray(item);
+
 				return deepMerge(result, style);
 			}, {});
 
@@ -204,7 +202,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			if (mergedStyles.id) {
 				delete mergedStyles.id;
 			}
-			
+
 			return mergedStyles;
 		},
 		isLoading(state) {

@@ -59,6 +59,7 @@ class Core {
 	 * @var array<int,string>
 	 */
 	private $providers = [
+		Backend\Provider::class,
 		Frontend\Provider::class,
 		Blocks\Provider::class,
 		REST\Provider::class,
