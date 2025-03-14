@@ -1,0 +1,76 @@
+{
+	"apiVersion": 3,
+	"title": "Text",
+	"name": "kbs/text",
+	"category": "kadence-blocks",
+	"usesContext": ["postId", "queryId", "kbs/globalStyles", "kadence/dynamicSource", "kadence/repeaterRowData", "kadence/repeaterRow"],
+	"textdomain": "kadence-blocks",
+	"attributes": {
+		"uniqueID": {
+			"type": "string"
+		},
+		"anchor": {
+			"type": "string"
+		},
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": ".kbs-text-content",
+			"default": ""
+		},
+		"preset": {
+			"type": "array"
+		},
+		"align": {
+			"type": "string"
+		},
+		"htmlTag": {
+			"type": "string",
+			"initial": "div"
+		},
+		"color": {
+			"type": "object"
+		},
+		"background": {
+			"type": "object"
+		},
+		"border": {
+			"type": "object"
+		},
+		"padding": {
+			"type": "object"
+		},
+		"margin": {
+			"type": "object"
+		},
+		"shadow": {
+			"type": "object"
+		},
+		"visibility": {
+			"type": "object"
+		},
+		"typography": {
+			"renderCSS": true,
+			"property": "typography",
+			"selector": "--kbs-text",
+			"initial": {},
+			"type": "object"
+		},
+		"globalStyleIds": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"ktanimate": true,
+		"ktanimateadd": true,
+		"ktanimatepreview": true,
+		"ktanimateswipe": true,
+		"ktdynamic": true,
+		"kbcss": true,
+		"kbMetadata": true,
+		"align": [ "wide", "full" ]
+	},
+	"editorStyle": "kbs-text-editor",
+	"style": "kbs-text"
+} 

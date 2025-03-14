@@ -5,19 +5,20 @@
  * which makes it higher in priority.
  */
  @use './style.scss';
- // Remove WP margin added to all blocks.
-.wp-block-kbs-container {
+ 
+// Remove WP margin added to all blocks.
+.wp-block-kbs-text {
 	margin-top: 0;
 	margin-bottom: 0;
 	box-sizing: border-box;
-	&.kbs-only-appender {
-		.block-list-appender.wp-block {
-			padding: 6px;
-			outline: 1px dashed #d5dadf;
-			box-shadow: none;
-		}
-	}
+
 	* {
 		box-sizing: border-box;
 	}
 }
+
+.kbs-text-content {
+	&:focus {
+		outline: none;
+	}
+} 

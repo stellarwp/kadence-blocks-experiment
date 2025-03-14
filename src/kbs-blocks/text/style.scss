@@ -1,0 +1,29 @@
+/**
+ * #.# Styles
+ *
+ * CSS for both Frontend+Backend.
+ */
+
+.kbs-text {
+    font-family: var(--kbs-text-font-family);
+    font-weight: var(--kbs-text-font-weight);
+    min-width: 0;
+
+    // Alignment classes
+    &.has-text-align-left {
+        text-align: left;
+    }
+    
+    &.has-text-align-center {
+        text-align: center;
+    }
+    
+    &.has-text-align-right {
+        text-align: right;
+    }
+}
+
+.kbs-text-content {
+    margin: 0;
+    padding: 0;
+} 
