@@ -139,7 +139,7 @@
 		},
 		"typography": {
 			"renderCSS": true,
-			"property": "typography",
+			"component": "typography",
 			"selector": "--kbs-cont",
 			"initial": {},
 			"type": "object"

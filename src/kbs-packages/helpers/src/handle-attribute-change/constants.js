@@ -1,3 +1,3 @@
-export const COMPLEX_PROPERTIES = [
+export const COMPONENTS = [
     'typography',
 ];

@@ -261,7 +261,7 @@ class CSS_Engine {
 	 *
 	 * @var array
 	 */
-	protected $complex_attributes = array(
+	protected $components = array(
 		'typography',
 	);
 
@@ -827,21 +827,22 @@ class CSS_Engine {
 			foreach ( $block_instance->block_type->attributes as $key => $attribute ) {
 				$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
 
-				if ( ! isset( $attributes_meta['renderCSS'] ) || ! $attributes_meta['renderCSS'] ) {
-					continue;
-				}
-				if ( ! isset( $attributes_meta['property'] ) ) {
+				if ( ! empty( $attributes_meta['renderCSS'] ) ) {
 					continue;
 				}
 				if ( ! isset( $attributes_meta['selector'] ) ) {
 					continue;
 				}
-
-				if( in_array( $attributes_meta['property'], $this->complex_attributes ) ) {
-					$this->add_complex_attribute( $key, $attributes, $block_instance, $attributes_meta );
-				} else {
-					$this->add_attribute( $key, $attributes, $block_instance, $attributes_meta );
+				// If the attribute is a component, add the complex attribute.
+				if ( isset( $attributes_meta['component'] ) && is_component( $attributes_meta['component'] ) ) {
+					$this->add_component( $key, $attributes, $block_instance, $attributes_meta );
+					continue;
 				}
+				if ( ! isset( $attributes_meta['property'] ) ) {
+					continue;
+				}
+
+				$this->add_attribute( $key, $attributes, $block_instance, $attributes_meta );
 			}
 		}
 		return $this;
@@ -885,7 +886,7 @@ class CSS_Engine {
 	}
 
 	/**
-	 * Add complex properties to the css output based on the attributes.
+	 * Add components to the css output based on the attributes.
 	 *
 	 * @param string $key The key of the attribute to get.
 	 * @param array $attributes an array of attributes.
@@ -893,14 +894,11 @@ class CSS_Engine {
 	 * @param array $attributes_meta The meta of the attribute.
 	 * @return $this
 	 */
-	public function add_complex_attribute( $key, $attributes, $block_instance, $attributes_meta = [] ) {
+	public function add_component( $key, $attributes, $block_instance, $attributes_meta = [] ) {
 		if ( empty( $attributes_meta ) ) {
 			$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
 		}
-		if ( ! isset( $attributes_meta['property'] ) ) {
-			return $this;
-		}
-		if ( ! isset( $attributes_meta['selector'] ) ) {
+		if ( ! isset( $attributes_meta['component'], $attributes_meta['selector'] ) ) {
 			return $this;
 		}
 		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
@@ -908,7 +906,7 @@ class CSS_Engine {
 			return $this;
 		}
 
-		switch ( $attributes_meta['property'] ) {
+		switch ( $attributes_meta['component'] ) {
 			case 'typography':
 				$typography_properties = array(
 					array( 'key' => 'fontFamily', 'selector' => $attributes_meta['selector'] . '-font-family' ),
@@ -933,7 +931,7 @@ class CSS_Engine {
 				}
 				break;
 			default:
-				// For other complex properties, add specific handling here
+				// For other components, add specific handling here
 				break;
 		}
 
@@ -1284,4 +1282,7 @@ class CSS_Engine {
 		$this->spacing_sizes = $sizes;
 	}
 
+	public function is_component( $name ) {
+		return in_array( $component, $this->components );
+	}
 }

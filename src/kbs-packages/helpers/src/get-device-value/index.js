@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { COMPLEX_PROPERTIES } from '../handle-attribute-change/constants';
+import { COMPONENTS } from '../handle-attribute-change/constants';
 /**
  * Simple get a device attribute value.
  */
@@ -20,7 +20,7 @@ export default function getDeviceValue( attributeName, attributes, device, meta,
 		return deviceValue;
 	}
 
-	if( COMPLEX_PROPERTIES.includes( meta?.property ) ) {
+	if( COMPONENTS.includes( meta?.component ) ) {
 		return attributes?.[attributeName]?.[deviceSlug]?.[type] ?? '';
 	}
 

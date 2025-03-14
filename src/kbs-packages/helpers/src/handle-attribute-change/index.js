@@ -1,18 +1,18 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { COMPLEX_PROPERTIES } from './constants';
+import { COMPONENTS } from './constants';
 
 /**
  * Handles updating attributes for all devices
  * @param {*} value The value to set
  * @param {Object} newAttributes Current attributes object being modified
  * @param {string} attributeName The name of the attribute to update
- * @param {boolean} isComplexType Whether this is a complex property type
+ * @param {boolean} isComponent Whether this is a complex property type
  * @param {Array} deviceOptions Array of device options
  * @param {string} type The type of attribute being changed
  * @returns {Object} Updated attributes
  */
-const handleAllDevices = (value, newAttributes, attributeName, isComplexType, deviceOptions, type) => {
-	if (!isComplexType) {
+const handleAllDevices = (value, newAttributes, attributeName, isComponent, deviceOptions, type) => {
+	if (!isComponent) {
 		if (typeof value === 'object' && value !== null) {
 			Object.entries(value).forEach(([key, val]) => {
 				newAttributes[key] = val;
@@ -44,13 +44,13 @@ const handleAllDevices = (value, newAttributes, attributeName, isComplexType, de
  * @param {*} value The value to set
  * @param {Object} newAttributes Current attributes object being modified
  * @param {string} attributeName The name of the attribute to update
- * @param {boolean} isComplexType Whether this is a complex property type
+ * @param {boolean} isComponent Whether this is a complex property type
  * @param {string} deviceSlug The device slug (e.g., 'Desktop', 'Tablet')
  * @param {string} type The type of attribute being changed
  * @returns {Object} Updated attributes
  */
-const handleSpecificDevice = (value, newAttributes, attributeName, isComplexType, deviceSlug, type) => {
-	if (!isComplexType) {
+const handleSpecificDevice = (value, newAttributes, attributeName, isComponent, deviceSlug, type) => {
+	if (!isComponent) {
 		if (!newAttributes[attributeName]) {
 			newAttributes[attributeName] = {};
 		}
@@ -106,14 +106,14 @@ export const handleAttributeChange = (
 	}
 
 	const newAttributes = JSON.parse(JSON.stringify(attributes));
-	const isComplexType = COMPLEX_PROPERTIES.includes(meta?.property);
+	const isComponent = COMPONENTS.includes(meta?.component);
 	const deviceOptions = kadence_blocks_params?.responsive_device_options || [];
 
 	if (device === 'all') {
-		handleAllDevices(value, newAttributes, attributeName, isComplexType, deviceOptions, type);
+		handleAllDevices(value, newAttributes, attributeName, isComponent, deviceOptions, type);
 	} else {
 		const deviceSlug = getDeviceAttributeSlug(device);
-		handleSpecificDevice(value, newAttributes, attributeName, isComplexType, deviceSlug, type);
+		handleSpecificDevice(value, newAttributes, attributeName, isComponent, deviceSlug, type);
 	}
 
 	setAttributes(newAttributes);

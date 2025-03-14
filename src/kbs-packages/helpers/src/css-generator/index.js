@@ -52,13 +52,13 @@ class CSSGenerator {
         return this;
     }
     /**
-     * Loops through complex attribubtes and add its CSS attributes to their selector
+     * Loops through components and add its CSS attributes to their selector
      * @param {string} key - The key of the attribute
      * @param {Object} meta - The metadata of the attribute
      * @param {Object} props - The props of the block
      * @returns {CSSGenerator} - Returns this instance for chaining
      */
-    addComplexAttribute( key, meta, props ) {
+    addComponent( key, meta, props ) {
         const { attributes, previewDevice } = props;
         const mergedAttribute = this.mergeInitialAttribute( meta, ( attributes?.[ key ] || {} ) );
 
@@ -66,11 +66,11 @@ class CSSGenerator {
             return this;
         }
 
-        if ( ! meta?.property ) {
+        if ( ! meta?.component ) {
             return this;
         }
 
-        switch ( meta.property ) {
+        switch ( meta.component ) {
             case 'typography':
                 const typographyProperties = [
                     { key: 'fontFamily', selector: meta.selector + '-font-family' },
