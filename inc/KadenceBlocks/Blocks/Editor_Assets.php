@@ -75,11 +75,18 @@ class Editor_Assets {
 		$kadence_helpers_meta = kbs_get_asset_file( 'dist/kbsHelpers' );
 		wp_register_script( 'kadence-kbsHelpers', KADENCE_BLOCKS_URL . 'dist/kbsHelpers.js', array_merge( $kadence_helpers_meta['dependencies'], [ 'wp-api' ] ), $kadence_helpers_meta['version'], true );
 		wp_set_script_translations( 'kadence-kbsHelpers', 'kadence-blocks' );
+
 		// Components Scripts & Styles.
 		$kadence_components_meta = kbs_get_asset_file( 'dist/kbsComponents' );
 		wp_register_script( 'kadence-kbsComponents', KADENCE_BLOCKS_URL . 'dist/kbsComponents.js', array_merge( $kadence_components_meta['dependencies'], [ 'wp-api', 'kadence-extension-stores', 'kadence-blocks-js', 'kadence-extension-global-styles-store' ] ), $kadence_components_meta['version'], true );
 		wp_register_style( 'kadence-kbsComponents', KADENCE_BLOCKS_URL . 'dist/kbsComponents.css', [ 'wp-edit-blocks' ], $kadence_components_meta['version'] );
 		wp_set_script_translations( 'kadence-kbsComponents', 'kadence-blocks' );
+
+		// Plugin Scripts & Styles.
+		$kadence_control_meta = kbs_get_asset_file( 'dist/plugin-kbs-control' );
+		wp_register_script( 'plugin-kbs-control-js', KADENCE_BLOCKS_URL . 'dist/plugin-kbs-control.js', array_merge( $kadence_control_meta['dependencies'], [ 'wp-api', 'kadence-blocks-js' ] ), $kadence_control_meta['version'], true );
+		wp_register_style( 'plugin-kbs-control-css', KADENCE_BLOCKS_URL . 'dist/plugin-kbs-control.css', [ 'wp-edit-blocks', 'kadence-components' ], $kadence_control_meta['version'] );
+		wp_set_script_translations( 'kbs-plugin-js', 'kadence-blocks' );
 
 		$blocks = [
 			'container',
@@ -101,6 +108,17 @@ class Editor_Assets {
 				'responsive_device_options'  => $this->get_responsive_device_options(),
 			]
 		);
+	}
+
+	/**
+	 * Enqueue block plugin for backend editor.
+	 */
+	public function editor_plugin_enqueue() {
+		global $pagenow;
+		if ( $pagenow !== 'widgets.php' ) {
+			wp_enqueue_script( 'plugin-kbs-control-js' );
+			wp_enqueue_style( 'plugin-kbs-control-css' );
+		}
 	}
 
 	public function get_responsive_device_options() {

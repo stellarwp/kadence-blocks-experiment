@@ -36,5 +36,6 @@ class Provider extends Service_Provider {
 		add_action( 'kbs_blocks_generate_post_css_kbs/container', $this->container->callback( Container::class, 'output_head_data' ), 10, 2 );
 		// Register the editor scripts.
 		add_action( 'init', $this->container->callback( Editor_Assets::class, 'on_init_editor_assets' ), 10 );
+		add_action( 'enqueue_block_editor_assets', $this->container->callback( Editor_Assets::class, 'editor_plugin_enqueue' ), 10 );
 	}
 }

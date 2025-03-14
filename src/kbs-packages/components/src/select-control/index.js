@@ -18,7 +18,12 @@ const IS_RTL = isRTL();
 /**
  * Internal dependencies
  */
-import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange, getFontWeightOptions } from '@kadence/kbsHelpers';
+import {
+	getDeviceValue,
+	getInheritedDeviceValue,
+	handleAttributeChange,
+	getFontWeightOptions,
+} from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
 import { getPlaceholderLabel, useSelectOptions } from './helpers';
@@ -31,7 +36,7 @@ const getCustomStyles = (isInherited) => ({
 	placeholder: (styles) => ({
 		...styles,
 		...(isInherited && DOT_STYLES),
-		color: `var(--kb-text-color-opacity, rgba(0, 0, 0, ${isInherited ? 0.6 : 1.0}))`
+		color: `var(--kb-text-color-opacity, rgba(0, 0, 0, ${isInherited ? 0.6 : 1.0}))`,
 	}),
 });
 
@@ -53,11 +58,20 @@ export default function SelectControl({
 	previewDevice,
 	initial,
 	meta,
-	globalStylesJson = {}
+	globalStylesJson = {},
+	forStyleBook,
 }) {
-	const initialValue = meta?.initial ? meta?.initial : initial;
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, meta, type);	
-	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta, type, globalStylesJson);
+	const initialValue = meta?.initial ? meta?.initial : initial ? initial : '';
+	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, meta, type);
+	const inheritedValue = getInheritedDeviceValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		initialValue,
+		meta,
+		type,
+		globalStylesJson
+	);
 	const isCurrentValueInherited = currentValue === '';
 	const customStyles = getCustomStyles(isCurrentValueInherited);
 
@@ -68,32 +82,34 @@ export default function SelectControl({
 		previewDevice,
 	});
 
-	const inheritedPlaceholderLabel = getPlaceholderLabel(currentValue, inheritedValue, type, options);	
+	const inheritedPlaceholderLabel = getPlaceholderLabel(currentValue, inheritedValue, type, options);
 
 	const onReset = () => {
 		onChange(defaultValue ?? undefined, 'all', type);
 	};
-	
+
 	const onChange = (value, device, type) => {
 		let updatedAttributes = value;
 
-		switch(type) {
+		switch (type) {
 			case 'fontFamily': {
-				if( value === undefined ) {
+				if (value === undefined) {
 					updatedAttributes = {
 						[type]: '',
 						['fontSource']: '',
 						['fontWeight']: '',
-					}
+					};
 					break;
 				}
 
-				const selectedOption = options.flatMap(group => group.options).find(option => option.value === value);
+				const selectedOption = options
+					.flatMap((group) => group.options)
+					.find((option) => option.value === value);
 				const currentFontWeight = getDeviceValue('fontWeight', attributes, device, meta, 'fontWeight');
-				
+
 				// Get available weights for the new font
-				const availableWeights = getFontWeightOptions(value).map(opt => opt.value);
-				
+				const availableWeights = getFontWeightOptions(value).map((opt) => opt.value);
+
 				// Check if current weight is valid for new font
 				const isWeightValid = availableWeights.includes(currentFontWeight);
 
@@ -101,9 +117,10 @@ export default function SelectControl({
 					[type]: value,
 					['fontSource']: selectedOption.source,
 					// If current weight is not valid, use the first available weight
-					...(currentFontWeight && !isWeightValid && {
-						['fontWeight']: availableWeights[0] || '400'
-					})
+					...(currentFontWeight &&
+						!isWeightValid && {
+							['fontWeight']: availableWeights[0] || '400',
+						}),
 				};
 				break;
 			}
@@ -125,19 +142,16 @@ export default function SelectControl({
 
 	return (
 		<div className={`components-base-control kbs-${type}-select-control`}>
-			{label && (
-				<TitleBar
-					label={label}
-					hasDeviceControls={true}
-					reset={reset}
-					onReset={onReset}
-				/>
-			)}
+			{label && <TitleBar label={label} hasDeviceControls={true} reset={reset} onReset={onReset} />}
 			<div className="kbs-select-control-inner">
 				<Select
 					key={previewDevice}
-					isClearable={ currentValue !== '' }
-					value={ currentValue ? options.flatMap(opt => opt.options || []).find(opt => opt.value === currentValue) : null	}
+					isClearable={currentValue !== ''}
+					value={
+						currentValue
+							? options.flatMap((opt) => opt.options || []).find((opt) => opt.value === currentValue)
+							: null
+					}
 					options={options}
 					onChange={(selectedOption) => onChange(selectedOption?.value, previewDevice, type)}
 					className="kb-select-control"
@@ -145,7 +159,7 @@ export default function SelectControl({
 					placeholder={inheritedPlaceholderLabel}
 					isSearchable={true}
 					isLoading={isLoadingOptions}
-					loadingMessage={ () => loadingMessage}
+					loadingMessage={() => loadingMessage}
 					noOptionsMessage={() => __('No results', 'kadence-blocks')}
 					isRtl={IS_RTL}
 				/>

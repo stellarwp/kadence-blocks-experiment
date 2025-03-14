@@ -1,22 +1,33 @@
 import SelectControl from '../select-control';
 import { __ } from '@wordpress/i18n';
 
-export default function Typography({ label, attributes, setAttributes, meta, previewDevice, attributeName, globalStylesJson }) {
+export default function Typography({
+	label,
+	attributes,
+	setAttributes,
+	meta,
+	previewDevice,
+	attributeName,
+	globalStylesJson,
+	customOnChange,
+	forStyleBook,
+}) {
+	return (
+		<div>
+			<SelectControl
+				label={__('Font Family', 'kadence-blocks')}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				meta={meta}
+				previewDevice={previewDevice}
+				type="fontFamily"
+				globalStylesJson={globalStylesJson}
+				customOnChange={customOnChange}
+				forStyleBook={forStyleBook}
+			/>
 
-    return (
-        <div>
-            <SelectControl
-                label={__('Font Family', 'kadence-blocks')}
-                attributes={attributes}
-                setAttributes={setAttributes}
-                attributeName={ attributeName }
-                meta={meta}
-                previewDevice={previewDevice}
-                type="fontFamily"
-                globalStylesJson={globalStylesJson}
-            />
-
-            {/* <SelectControl
+			{/* <SelectControl
                 label={__('Font Weight', 'kadence-blocks')}
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -26,13 +37,13 @@ export default function Typography({ label, attributes, setAttributes, meta, pre
                 type="fontWeight"
             /> */}
 
-            {/* Font Variant */}
+			{/* Font Variant */}
 
-            {/* Font Size */}
+			{/* Font Size */}
 
-            {/* Line Height */}
+			{/* Line Height */}
 
-            {/* Letter Spacing */}
-        </div>
-    );
+			{/* Letter Spacing */}
+		</div>
+	);
 }

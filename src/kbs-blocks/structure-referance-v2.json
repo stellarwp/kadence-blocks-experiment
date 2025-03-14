@@ -205,6 +205,19 @@
 					"name": "5X Large"
 				}
 			}
+		},
+		"colors": {
+			"color-pallete": {
+				"palette1": "#3182CE",
+				"palette2": "#2B6CB0",
+				"palette3": "#1A202C",
+				"palette4": "#2D3748",
+				"palette5": "#4A5568",
+				"palette6": "#718096",
+				"palette7": "#EDF2F7",
+				"palette8": "#F7FAFC",
+				"palette9": "#FFFFFF"
+			}
 		}
 	}
 }

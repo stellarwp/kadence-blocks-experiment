@@ -38,6 +38,17 @@ class GlobalStylesController extends WP_REST_Controller {
                 ],
             ]
         );
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/save',
+            [
+                [
+                    'methods'             => WP_REST_Server::EDITABLE,
+                    'callback'            => [ $this, 'save_items' ],
+                    'permission_callback' => [ $this, 'save_items_permissions_check' ],
+                ],
+            ]
+        );
     }
 
     /**
@@ -51,6 +62,17 @@ class GlobalStylesController extends WP_REST_Controller {
     }
 
     /**
+     * Check if a given request has access to get items.
+     *
+     * @param \WP_REST_Request $request Full data about the request.
+     * @return bool|\WP_Error
+     */
+    public function save_items_permissions_check( $request ) {
+        // return current_user_can( 'edit_posts' );
+        return true;
+    }
+
+    /**
      * Get a collection of global styles.
      *
      * @param \WP_REST_Request $request Full data about the request.
@@ -60,7 +82,7 @@ class GlobalStylesController extends WP_REST_Controller {
         $styles = [];
                 
         // Path to the global styles directory
-        $styles_dir = plugin_dir_path( KADENCE_BLOCKS_PATH ) . 'kadence-blocks/inc/data/global-styles-test/';
+        $styles_dir = plugin_dir_path( KADENCE_BLOCKS_PATH ) . 'kadence-blocks-experiment/inc/data/global-styles-test/';
         
         // Load base.json
         $base_file = $styles_dir . 'base.json';
@@ -81,5 +103,15 @@ class GlobalStylesController extends WP_REST_Controller {
         }
 
         return new WP_REST_Response( $styles, 200 );
+    }
+
+     /**
+     * Get a collection of global styles.
+     *
+     * @param \WP_REST_Request $request Full data about the request.
+     * @return WP_REST_Response
+     */
+    public function save_items( $request ) {
+        return [1,2,3];
     }
 } 

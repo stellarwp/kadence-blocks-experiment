@@ -60,6 +60,7 @@ module.exports = {
 		kbsComponents: './src/kbs-packages/components/src/index.js',
 		kbsHelpers: './src/kbs-packages/helpers/src/index.js',
 		'kbs-container': './src/kbs-blocks/container/index.js',
+		'plugin-kbs-control': './src/kbs-blocks/plugin.js',
 	},
 	output: {
 		...defaultConfig.output,
