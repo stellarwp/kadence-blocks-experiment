@@ -7,6 +7,7 @@ import { PanelBody, Button, Modal, TabPanel } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { createBlock } from '@wordpress/blocks';
 import { BlockPreview, InspectorControls } from '@wordpress/block-editor';
+import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Import Icons
  */
@@ -29,6 +30,14 @@ function KadenceConfig() {
 	const [selectedComponent, setSelectedComponent] = useState('');
 	const [selectedBlock, setSelectedBlock] = useState(null);
 	const [selectedBlockAttributes, setSelectedBlockAttributes] = useState({});
+
+	const { styleBookLocalGlobalStyles } = useSelect((select) => {
+		return {
+			styleBookLocalGlobalStyles: select('kadenceblocks/global-styles').getStyleBookLocalGlobalStyles(),
+		};
+	}, []);
+
+	const { setStyleBookLocalGlobalStyles } = useDispatch('kadenceblocks/global-styles');
 
 	const tabs = [
 		{
@@ -69,6 +78,7 @@ function KadenceConfig() {
 	];
 
 	const saveStyleBook = () => {
+		setStyleBookLocalGlobalStyles({ id: 54321 });
 		console.log('save style book');
 	};
 
@@ -297,8 +307,6 @@ function KadenceConfig() {
 				return null;
 		}
 	};
-
-	console.log('kadence-style-book-plugin');
 
 	return (
 		<Fragment>

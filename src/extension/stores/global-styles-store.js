@@ -91,6 +91,21 @@ const actions = {
 			return [];
 		}
 	},
+	*fetchStyleBookLocalGlobalStyles() {
+		// Check if we're already loading to prevent duplicate requests
+		const isLoading = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'styleBookLocalGlobalStyles',
+			args: [],
+		};
+	},
+	*setStyleBookLocalGlobalStyles(styleBookLocalGlobalStyles) {
+		return {
+			type: 'SET_STYLE_BOOK_LOCAL_GLOBAL_STYLES',
+			styleBookLocalGlobalStyles,
+		};
+	},
 };
 
 /**
@@ -100,6 +115,10 @@ const resolvers = {
 	*getGlobalStyles() {
 		// Directly initiate the fetch without any checks for the first load
 		return yield actions.fetchGlobalStyles();
+	},
+	*getStyleBookLocalGlobalStyles() {
+		// Directly initiate the fetch without any checks for the first load
+		return yield actions.fetchStyleBookLocalGlobalStyles();
 	},
 	*getGlobalStyleByName() {
 		yield resolvers.getGlobalStyles();
@@ -133,6 +152,11 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				return {
 					...state,
 					isLoading: action.isLoading,
+				};
+			case 'SET_STYLE_BOOK_LOCAL_GLOBAL_STYLES':
+				return {
+					...state,
+					styleBookLocalGlobalStyles: action.styleBookLocalGlobalStyles,
 				};
 			case 'SET_HAS_RESOLVED':
 				return {
@@ -207,6 +231,12 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		},
 		isLoading(state) {
 			return state.isLoading;
+		},
+		styleBookLocalGlobalStyles(state) {
+			return state.styleBookLocalGlobalStyles;
+		},
+		getStyleBookLocalGlobalStyles(state) {
+			return state.styleBookLocalGlobalStyles;
 		},
 		hasResolved(state) {
 			return state.hasResolved;
