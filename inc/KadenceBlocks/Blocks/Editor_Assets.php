@@ -128,21 +128,21 @@ class Editor_Assets {
 				'key' => 'desktop',
 				'icon' => 'desktop',
 				'itemClass' => 'kbs-desk-size',
-				'attributeSlug' => 'dt',
+				'attributeSlug' => 'desktop',
 			],
 			[
 				'name' => 'Tablet',
 				'key' => 'tablet',
 				'icon' => 'tablet',
 				'itemClass' => 'kbs-tablet-size',
-				'attributeSlug' => 'td',
+				'attributeSlug' => 'tablet',
 			],
 			[
 				'name' => 'Mobile',
 				'key' => 'mobile',
 				'icon' => 'mobile',
 				'itemClass' => 'kbs-mobile-size',
-				'attributeSlug' => 'mb',
+				'attributeSlug' => 'mobile',
 			],
 		] );
 

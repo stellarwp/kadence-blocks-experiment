@@ -44,7 +44,7 @@ export default function ComponentPresetControl(props) {
 
 	const fakeMeta = {
 		attributes: {
-			typography: { property: 'typography' },
+			typography: { component: 'typography' },
 		},
 	};
 
