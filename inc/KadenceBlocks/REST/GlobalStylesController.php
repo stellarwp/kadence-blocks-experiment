@@ -159,17 +159,17 @@ class GlobalStylesController extends WP_REST_Controller {
      * @return WP_REST_Response
      */
     public function get_demo_items( $request ) {
-        $styles = [];
+        $styles = array();
                 
         // Path to the global styles directory
-        $styles_dir = plugin_dir_path( KADENCE_BLOCKS_PATH ) . 'kadence-blocks/inc/data/global-styles-test/';
+        $styles_dir = plugin_dir_path( KADENCE_BLOCKS_PATH ) . 'kadence-blocks-experiment/inc/data/global-styles-test/';
         
         // Load base.json
         $base_file = $styles_dir . 'base.json';
         if ( file_exists( $base_file ) ) {
             $base_content = json_decode( file_get_contents( $base_file ), true );
             if ( $base_content ) {
-                $styles[] = $base_content;
+                $styles['baseID'] = $base_content;
             }
         }
         
@@ -178,7 +178,7 @@ class GlobalStylesController extends WP_REST_Controller {
         if ( file_exists( $test_file ) ) {
             $test_content = json_decode( file_get_contents( $test_file ), true );
             if ( $test_content ) {
-                $styles[] = $test_content;
+                $styles['testID'] = $test_content;
             }
         }
 

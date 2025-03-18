@@ -1,6 +1,5 @@
 import { createReduxStore, register, select } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
-import { find } from 'lodash';
 
 /**
  * Default state for the global styles store
@@ -8,6 +7,7 @@ import { find } from 'lodash';
 const DEFAULT_STATE = {
 	globalStyles: [],
 	isLoading: false,
+	isSavingStyleBook: false,
 	hasResolved: false,
 	error: null,
 };
@@ -38,6 +38,12 @@ const actions = {
 		return {
 			type: 'SET_IS_LOADING',
 			isLoading,
+		};
+	},
+	setIsSavingStyleBook(isSavingStyleBook) {
+		return {
+			type: 'SET_IS_SAVING_STYLE_BOOK',
+			isSavingStyleBook,
 		};
 	},
 	setHasResolved(hasResolved) {
@@ -92,19 +98,79 @@ const actions = {
 		}
 	},
 	*fetchStyleBookLocalGlobalStyles() {
-		// Check if we're already loading to prevent duplicate requests
-		const isLoading = yield {
+		const styleBookLocalGlobalStyles = yield {
 			type: 'SELECT',
 			storeName: 'kadenceblocks/global-styles',
-			selectorName: 'styleBookLocalGlobalStyles',
+			selectorName: 'getStyleBookLocalGlobalStyles',
 			args: [],
 		};
+
+		//if we don't have any local global styles yet, use the global styles from the server.
+		if (styleBookLocalGlobalStyles) {
+			return styleBookLocalGlobalStyles;
+		} else {
+			const globalStyles = yield actions.fetchGlobalStyles();
+			yield actions.setStyleBookLocalGlobalStyles(globalStyles);
+			return globalStyles;
+		}
 	},
 	*setStyleBookLocalGlobalStyles(styleBookLocalGlobalStyles) {
 		return {
 			type: 'SET_STYLE_BOOK_LOCAL_GLOBAL_STYLES',
 			styleBookLocalGlobalStyles,
 		};
+	},
+	*updateStyleBookLocalGlobalStyles(styleBookLocalGlobalStyles) {
+		return {
+			type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLES',
+			styleBookLocalGlobalStyles,
+		};
+	},
+	*setStyleBookComponentPresetByStyleId(styleId, componentId, presetId, presetAttrs) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_NAME',
+			styleId,
+			componentId,
+			presetId,
+			presetAttrs,
+		};
+	},
+	*saveStyleBookGlobalStyles() {
+		// // Check if we're already loading to prevent duplicate requests
+		// const isSavingStyleBook = yield {
+		// 	type: 'SELECT',
+		// 	storeName: 'kadenceblocks/global-styles',
+		// 	selectorName: 'isLoading',
+		// 	args: [],
+		// };
+		// // If already loading, don't make another request
+		// if (isSavingStyleBook) {
+		// 	// Return current state of global styles
+		// 	return yield {
+		// 		type: 'SELECT',
+		// 		storeName: 'kadenceblocks/global-styles',
+		// 		selectorName: 'getGlobalStyles',
+		// 		args: [],
+		// 	};
+		// }
+		// yield actions.setIsSavingStyleBook(true);
+		// const path = '/kadence-blocks/v1/global-styles/get-demo';
+		// try {
+		// 	const globalStyles = yield {
+		// 		type: 'API_FETCH',
+		// 		request: { path },
+		// 	};
+		// 	yield actions.setGlobalStyles(globalStyles);
+		// 	yield actions.setHasResolved(true);
+		// 	yield actions.setIsSavingStyleBook(false);
+		// 	return globalStyles;
+		// } catch (error) {
+		// 	console.error('Error fetching global styles:', error);
+		// 	yield actions.setError(error);
+		// 	yield actions.setHasResolved(true);
+		// 	yield actions.setIsSavingStyleBook(false);
+		// 	return [];
+		// }
 	},
 };
 
@@ -129,7 +195,7 @@ const resolvers = {
 	*getComponentPresets() {
 		yield resolvers.getGlobalStyles();
 	},
-	*getComponentPresetsByStyleName() {
+	*getComponentPresetsBystyleId() {
 		yield resolvers.getGlobalStyles();
 	},
 	*getMergedGlobalStyle() {
@@ -153,10 +219,45 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					...state,
 					isLoading: action.isLoading,
 				};
+			case 'SET_IS_SAVING_STYLE_BOOK':
+				return {
+					...state,
+					isSavingStyleBook: action.isSavingStyleBook,
+				};
 			case 'SET_STYLE_BOOK_LOCAL_GLOBAL_STYLES':
 				return {
 					...state,
 					styleBookLocalGlobalStyles: action.styleBookLocalGlobalStyles,
+				};
+			case 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLES':
+				const stateObject = state?.styleBookLocalGlobalStyles ? state.styleBookLocalGlobalStyles : {};
+				return {
+					...state,
+					styleBookLocalGlobalStyles: Object.assign(stateObject, action.styleBookLocalGlobalStyles),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_NAME':
+				// action.styleId,
+				// action.componentId,
+				// action.presetId,
+				// action.presetAttrs,
+				const presetVal = {
+					attributes: action.presetAttrs,
+				};
+
+				const presetObjectToSet = {
+					[action.styleId]: {
+						components: {
+							[action.componentId]: {
+								presets: {
+									[action.presetId]: presetVal,
+								},
+							},
+						},
+					},
+				};
+				return {
+					...state,
+					styleBookLocalGlobalStyles: Object.assign(state.styleBookLocalGlobalStyles, presetObjectToSet),
 				};
 			case 'SET_HAS_RESOLVED':
 				return {
@@ -188,7 +289,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			}
 
 			// Filter styles that match the provided IDs
-			const stylesToMerge = styleIds.map((id) => find(state.globalStyles, { id })).filter(Boolean); // Remove any undefined values
+			const stylesToMerge = styleIds.map((id) => state.globalStyles?.[id]).filter(Boolean); // Remove any undefined values
 
 			if (stylesToMerge.length === 0) {
 				return {};
@@ -232,11 +333,24 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		isLoading(state) {
 			return state.isLoading;
 		},
+		isSavingStyleBook(state) {
+			return state.isSavingStyleBook;
+		},
 		styleBookLocalGlobalStyles(state) {
 			return state.styleBookLocalGlobalStyles;
 		},
 		getStyleBookLocalGlobalStyles(state) {
 			return state.styleBookLocalGlobalStyles;
+		},
+		getStyleBookComponentPresetByStyleId(state, styleId, componentId, presetId) {
+			if (state.styleBookLocalGlobalStyles) {
+				const presetToReturn =
+					state.styleBookLocalGlobalStyles?.[styleId]?.['components']?.[componentId]?.['presets']?.[presetId];
+				if (presetToReturn) {
+					return presetToReturn;
+				}
+			}
+			return {};
 		},
 		hasResolved(state) {
 			return state.hasResolved;

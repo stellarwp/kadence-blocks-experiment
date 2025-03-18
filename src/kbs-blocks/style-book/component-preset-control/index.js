@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 import { Typography } from '@kadence/kbsComponents';
 
@@ -14,13 +13,34 @@ import { COMPONENTS } from '../constants';
 export default function ComponentPresetControl(props) {
 	const { property } = props;
 
-	const [tempAttributes, setTempAttributes] = useState({});
+	const styleId = 'testStyle';
+	const componentId = property;
+	const presetId = 'testPreset';
 
 	const { previewDevice } = useSelect((select) => {
 		return {
 			previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
 		};
 	}, []);
+	const { styleBookComponent } = useSelect(
+		(select) => {
+			return {
+				styleBookComponent: select('kadenceblocks/global-styles').getStyleBookComponentPresetByStyleId(
+					styleId,
+					componentId,
+					presetId
+				),
+			};
+		},
+		[styleId, componentId, presetId]
+	);
+	const { setStyleBookComponentPresetByStyleId } = useDispatch('kadenceblocks/global-styles');
+
+	const styleBookLocalPreset = styleBookComponent?.attributes ? styleBookComponent.attributes : {};
+
+	const setStyleBookLocalPreset = (presetAttrs) => {
+		setStyleBookComponentPresetByStyleId(styleId, componentId, presetId, presetAttrs);
+	};
 
 	const fakeMeta = {
 		attributes: {
@@ -31,7 +51,7 @@ export default function ComponentPresetControl(props) {
 	const Component = COMPONENTS?.[property].component;
 	const label = COMPONENTS?.label;
 
-	console.log('in component preset control', property, tempAttributes);
+	// console.log('in component preset control: ', property, tempAttributes);
 
 	return (
 		<>
@@ -40,8 +60,8 @@ export default function ComponentPresetControl(props) {
 				label={label}
 				// customOnChange={onPresetChange}
 				forStyleBook={true}
-				attributes={tempAttributes}
-				setAttributes={setTempAttributes}
+				attributes={styleBookLocalPreset}
+				setAttributes={setStyleBookLocalPreset}
 				attributeName={property}
 				previewDevice={previewDevice}
 				meta={fakeMeta?.attributes?.typography}
