@@ -31,13 +31,14 @@ function KadenceConfig() {
 	const [selectedBlock, setSelectedBlock] = useState(null);
 	const [selectedBlockAttributes, setSelectedBlockAttributes] = useState({});
 
-	const { styleBookLocalGlobalStyles } = useSelect((select) => {
+	const { styleBookLocalGlobalStyles, isSavingStyleBook } = useSelect((select) => {
 		return {
 			styleBookLocalGlobalStyles: select('kadenceblocks/global-styles').getStyleBookLocalGlobalStyles(),
+			isSavingStyleBook: select('kadenceblocks/global-styles').isSavingStyleBook(),
 		};
 	}, []);
 
-	const { setStyleBookLocalGlobalStyles } = useDispatch('kadenceblocks/global-styles');
+	const { saveStyleBookGlobalStyles } = useDispatch('kadenceblocks/global-styles');
 
 	const tabs = [
 		{
@@ -76,11 +77,6 @@ function KadenceConfig() {
 			className: 'kadence-style-book-tab-component-settings',
 		},
 	];
-
-	const saveStyleBook = () => {
-		setStyleBookLocalGlobalStyles({ id: 54321 });
-		console.log('save style book');
-	};
 
 	const getExampleBlock = (blockName, attributes = {}) => {
 		return createBlock(blockName, attributes);
@@ -131,7 +127,12 @@ function KadenceConfig() {
 			<>
 				{controlContent}
 				<PanelBody>
-					<Button onClick={() => saveStyleBook()} variant="secondary" enabled={true}>
+					<Button
+						onClick={() => saveStyleBookGlobalStyles()}
+						variant="secondary"
+						enabled={true}
+						isBusy={isSavingStyleBook}
+					>
 						{__('Save Style Book', 'kadence-blocks')}
 					</Button>
 				</PanelBody>

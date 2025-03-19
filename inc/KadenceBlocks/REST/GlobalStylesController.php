@@ -16,6 +16,7 @@ use WP_REST_Response;
  */
 class GlobalStylesController extends WP_REST_Controller {
     private static $slug = 'kadence_global_style';
+    private static $meta_style_id_slug = 'kadence_global_style_id';
 
 	/**
 	 * Include property name.
@@ -169,7 +170,7 @@ class GlobalStylesController extends WP_REST_Controller {
         if ( file_exists( $base_file ) ) {
             $base_content = json_decode( file_get_contents( $base_file ), true );
             if ( $base_content ) {
-                $styles['baseID'] = $base_content;
+                $styles['baseId'] = $base_content;
             }
         }
         
@@ -178,7 +179,7 @@ class GlobalStylesController extends WP_REST_Controller {
         if ( file_exists( $test_file ) ) {
             $test_content = json_decode( file_get_contents( $test_file ), true );
             if ( $test_content ) {
-                $styles['testID'] = $test_content;
+                $styles['testId'] = $test_content;
             }
         }
 
@@ -236,24 +237,34 @@ class GlobalStylesController extends WP_REST_Controller {
      */
     public function save_items( $request ) {
 		$data = $request->get_param( self::PROP_DATA );
-		$title = $request->get_param( self::PROP_TITLE );
+		// $title = $request->get_param( self::PROP_TITLE );
         $result = '';
 
-        if ( $data ) {
-            $post_arr = array(
-                'post_type' => self::$slug,
-                'post_title' => $title,
-                'post_content' => $data,
-                'post_status' => 'publish'
-            );
-    
-            $result = wp_insert_post( $post_arr );
+        if ( $data && gettype( $data ) == 'array' ) {
+            foreach ( $data as $style_id => $global_style ) {
+                 $post_arr = array(
+                    'ID' => isset( $global_style['postId'] ) ? $global_style['postId'] : 0,
+                    'post_type' => self::$slug,
+                    'post_title' => isset( $global_style['name'] ) ? $global_style['name'] : __( 'Global Style', 'kadence-blocks' ),
+                    'post_content' => wp_json_encode( $global_style ),
+                    'post_status' => 'publish',
+                    'meta_input' => array(
+                        self::$meta_style_id_slug => $style_id,
+                    ),
+                );
+                $result = wp_insert_post( $post_arr );
+
+                //set the postId if it's not already set
+                if ( $result && gettype( $result ) != 'WP_Error' && ! isset( $data[$style_id]['postId'] ) ) {
+                    $data[$style_id]['postId'] = $result;
+                }
+            }
         }
 
         if ( ! $result || gettype( $result ) == 'WP_Error' ) {
             $response = array( 'success' => false, 'error' => $result );
         } else {
-            $response = array( 'success' => true, 'id' => $result );
+            $response = array( 'success' => true, 'data' => $data );
         }
 
         return new WP_REST_Response( $response, 200 );
@@ -299,7 +310,7 @@ class GlobalStylesController extends WP_REST_Controller {
 
 		$query_params[ self::PROP_DATA ] = array(
 			'description' => __( 'Data to be save as a global style.', 'kadence-blocks' ),
-			'type'        => 'string',
+			'type'        => 'object',
 		);
 
 		$query_params[ self::PROP_TITLE ] = array(

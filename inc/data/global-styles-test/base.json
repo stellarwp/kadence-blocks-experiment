@@ -1,5 +1,5 @@
 {
-	"id": 1,
+	"styleId": "baseId",
 	"name": "Global Style 1",
 	"version": "1.0.0",
 	"components": {

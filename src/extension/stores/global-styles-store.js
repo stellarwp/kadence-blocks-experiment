@@ -136,41 +136,57 @@ const actions = {
 		};
 	},
 	*saveStyleBookGlobalStyles() {
-		// // Check if we're already loading to prevent duplicate requests
-		// const isSavingStyleBook = yield {
-		// 	type: 'SELECT',
-		// 	storeName: 'kadenceblocks/global-styles',
-		// 	selectorName: 'isLoading',
-		// 	args: [],
-		// };
-		// // If already loading, don't make another request
-		// if (isSavingStyleBook) {
-		// 	// Return current state of global styles
-		// 	return yield {
-		// 		type: 'SELECT',
-		// 		storeName: 'kadenceblocks/global-styles',
-		// 		selectorName: 'getGlobalStyles',
-		// 		args: [],
-		// 	};
-		// }
-		// yield actions.setIsSavingStyleBook(true);
-		// const path = '/kadence-blocks/v1/global-styles/get-demo';
-		// try {
-		// 	const globalStyles = yield {
-		// 		type: 'API_FETCH',
-		// 		request: { path },
-		// 	};
-		// 	yield actions.setGlobalStyles(globalStyles);
-		// 	yield actions.setHasResolved(true);
-		// 	yield actions.setIsSavingStyleBook(false);
-		// 	return globalStyles;
-		// } catch (error) {
-		// 	console.error('Error fetching global styles:', error);
-		// 	yield actions.setError(error);
-		// 	yield actions.setHasResolved(true);
-		// 	yield actions.setIsSavingStyleBook(false);
-		// 	return [];
-		// }
+		// Check if we're already loading to prevent duplicate requests
+		const isSavingStyleBook = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'isSavingStyleBook',
+			args: [],
+		};
+
+		// If already loading, don't make another request
+		if (isSavingStyleBook) {
+			return isSavingStyleBook;
+		}
+		yield actions.setIsSavingStyleBook(true);
+
+		const styleBookLocalGlobalStyles = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'getStyleBookLocalGlobalStyles',
+			args: [],
+		};
+
+		if (!styleBookLocalGlobalStyles) {
+			return false;
+		}
+
+		const path = '/kadence-blocks/v1/global-styles/save';
+		try {
+			const result = yield {
+				type: 'API_FETCH',
+				request: {
+					path: path,
+					method: 'POST',
+					data: { data: styleBookLocalGlobalStyles },
+				},
+			};
+
+			//the saving might have modified the global styles, namely adding a postId so update the data store as well
+			if (result.success && result.data) {
+				yield {
+					type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLES',
+					styleBookLocalGlobalStyles: result.data,
+				};
+			}
+			yield actions.setIsSavingStyleBook(false);
+			return result;
+		} catch (error) {
+			console.error('Error saving global styles:', error);
+			yield actions.setError(error);
+			yield actions.setIsSavingStyleBook(false);
+			return [];
+		}
 	},
 };
 
