@@ -77,6 +77,7 @@ class Container extends Abstract_Block {
 		$initial_tag  = $this->get_initial_attribute( $block_instance, 'htmlTag', 'div' );
 		$html_tag     = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
 		$classes      = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
+		$classes[] = 'kbs-container-block'. $unique_id;
 		$wrapper_args = [
 			'class' => implode( ' ', $classes ),
 		];

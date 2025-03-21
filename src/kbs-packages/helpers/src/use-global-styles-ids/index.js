@@ -8,16 +8,20 @@ import { GlobalStylesContext } from '../global-styles-context';
 /**
  * Hook to merge parent global styles with current block's global style IDs
  *
- * @param {string|null} globalStyleIds - Comma-separated string of global style IDs for the current block
+ * @param {Array|null} globalStyleIds - Array of global style IDs or comma-separated string for the current block
  * @return {Array} - Array of merged global style IDs
  */
 const useGlobalStylesIds = (globalStyleIds) => {
   const parentGlobalStyles = useContext(GlobalStylesContext);
   
   return useMemo(() => {
-    const globalStyleIdsArray = globalStyleIds 
-      ? globalStyleIds.split(',').filter(Boolean).map(id => parseInt(id, 10)) 
-      : [];
+    let globalStyleIdsArray = [];
+    
+    // Handle different formats of globalStyleIds
+    if (Array.isArray(globalStyleIds)) {
+      globalStyleIdsArray = globalStyleIds.map(id => typeof id === 'string' ? parseInt(id, 10) : id);
+    }
+    
     return [...(parentGlobalStyles || []), ...globalStyleIdsArray];
   }, [parentGlobalStyles, globalStyleIds]);
 };

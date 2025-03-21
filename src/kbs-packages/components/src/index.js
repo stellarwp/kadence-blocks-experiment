@@ -8,7 +8,7 @@ export { default as RadioButtonControl } from './radio-button-control';
 export { default as PresetSelectControl } from './preset-select-control';
 export { default as SelectControl } from './select-control';
 export { default as Typography } from './typography';
-
+export { default as SelectGlobalStyles } from './select-global-styles';
 
 // export { default as PopColorControl } from './pop-color-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';

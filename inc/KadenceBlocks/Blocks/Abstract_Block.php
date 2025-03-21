@@ -570,26 +570,24 @@ class Abstract_Block {
 
 		// Get parent context
 		$parentUniqueId = $block_instance->context['kbs/parentUniqueId'] ?? '';
-		$parentGlobalStyles = $block_instance->context['kbs/parentGlobalStyles'] ?? '';
+		$parentGlobalStyles = [];
 		
-		// Get this block's global styles (default to empty string if not set)
-		$blockGlobalStyles = isset($attributes['globalStyleIds']) ? $attributes['globalStyleIds'] : '';
-		
-		// Initialize the result
-		$combinedStyles = $blockGlobalStyles;
-		
-		// If we have a parent, we need to combine its styles with ours
-		if (!empty($parentUniqueId)) {
-			if (isset(self::$global_styles_map[$parentUniqueId])) {
-				// If parent is cached, use that
-				$combinedStyles = self::$global_styles_map[$parentUniqueId] . (!empty($blockGlobalStyles) ? ',' . $blockGlobalStyles : '');
-			} else {
-				// Otherwise use the context-provided styles
-				$combinedStyles = $parentGlobalStyles . (!empty($blockGlobalStyles) ? ',' . $blockGlobalStyles : '');
-			}
+		// First check if the parent has cached styles in our global map (complete inheritance chain)
+		if (!empty($parentUniqueId) && isset(self::$global_styles_map[$parentUniqueId])) {
+			$parentGlobalStyles = self::$global_styles_map[$parentUniqueId];
+		} 
+		// If parent styles aren't in the map yet, fall back to context-provided styles
+		elseif (!empty($block_instance->context['kbs/parentGlobalStyles'])) {
+			$parentGlobalStyles = $block_instance->context['kbs/parentGlobalStyles'];
 		}
 		
-		// Cache the result for future use
+		// Get this block's global styles (default to empty array if not set)
+		$blockGlobalStyles = isset($attributes['globalStyleIds']) ? $attributes['globalStyleIds'] : [];
+		
+		// Combine parent styles (which include ancestors) with this block's styles
+		$combinedStyles = array_unique(array_merge( (array)$parentGlobalStyles, (array) $blockGlobalStyles));
+		
+		// Cache the result for future use and for descendant blocks
 		self::$global_styles_map[$unique_id] = $combinedStyles;
 		
 		return $combinedStyles;

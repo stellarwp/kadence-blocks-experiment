@@ -11,7 +11,8 @@ import {
 	ToolsPanelBody,
 	RadioButtonControl,
 	PresetSelectControl,
-	Typography
+	Typography,
+	SelectGlobalStyles
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -94,12 +95,11 @@ export default function InspectorGeneral(props) {
 				title={__('Global Style Settings', 'kadence-blocks')}
 				panelName={'kb-container-settings'}
 			>
-				<TextControl
-					label={__('Global Style IDs', 'kadence-blocks')}
-					value={ attributes.globalStyleIds }
-					onChange={ ( value ) => setAttributes({ globalStyleIds: value }) }
-					help={__('Comma separated list of global style IDs. Ex: 1,2,3', 'kadence-blocks')}
+				<SelectGlobalStyles
+					attributes={ attributes }
+					setAttributes={ setAttributes }
 				/>
+
 			</KadencePanelBody>
 
 			<ToolsPanelBody

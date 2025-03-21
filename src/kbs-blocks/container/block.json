@@ -145,7 +145,7 @@
 			"type": "object"
 		},
 		"globalStyleIds": {
-			"type": "string"
+			"type": "array"
 		}
 	},
 	"supports": {
