@@ -145,7 +145,7 @@ export default function SelectControl({
 			{label && <TitleBar label={label} hasDeviceControls={true} reset={reset} onReset={onReset} />}
 			<div className="kbs-select-control-inner">
 				<Select
-					key={previewDevice}
+					key={previewDevice + currentValue}
 					isClearable={currentValue !== ''}
 					value={
 						currentValue

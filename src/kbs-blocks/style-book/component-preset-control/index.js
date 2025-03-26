@@ -11,11 +11,11 @@ import { COMPONENTS } from '../constants';
  * Build the component preset
  */
 export default function ComponentPresetControl(props) {
-	const { property } = props;
+	const { globalStyleId, preset, property } = props;
 
-	const styleId = 'testStyle';
+	const styleId = globalStyleId;
 	const componentId = property;
-	const presetId = 'testPreset';
+	const presetId = preset;
 
 	const { previewDevice } = useSelect((select) => {
 		return {
@@ -51,7 +51,7 @@ export default function ComponentPresetControl(props) {
 	const Component = COMPONENTS?.[property].component;
 	const label = COMPONENTS?.label;
 
-	// console.log('in component preset control: ', property, tempAttributes);
+	// console.log('in component preset control: ', property, styleBookLocalPreset);
 
 	return (
 		<>

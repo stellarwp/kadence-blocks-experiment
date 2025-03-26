@@ -109,6 +109,11 @@ function KadenceConfig() {
 		);
 	};
 
+	const currentPreset = styleBookAttributes?.components?.[selectedComponent]?.selectedPreset;
+	const currentGlobalStyleId = styleBookAttributes?.globalStyleIds?.[0];
+
+	// console.log('top', currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles);
+
 	const renderSidebarControls = () => {
 		var controlContent = null;
 		var controlContentUpper = null;
@@ -121,11 +126,18 @@ function KadenceConfig() {
 							This is where a preset select control will go.
 							<SelectControl
 								label={__('Select Preset', 'kadence-blocks')}
-								value={styleBookLocalGlobalStyles?.components?.[selectedComponent]?.selectedPreset}
-								options={getGlobalStylesPresetOptions(
-									styleBookLocalGlobalStyles,
-									styleBookAttributes.globalStyleIds?.[0],
-									selectedComponent
+								value={currentPreset}
+								options={[
+									{
+										value: '',
+										label: '---',
+									},
+								].concat(
+									getGlobalStylesPresetOptions(
+										styleBookLocalGlobalStyles,
+										styleBookAttributes.globalStyleIds?.[0],
+										selectedComponent
+									)
 								)}
 								onChange={(preset) =>
 									setStyleBookAttributes({
@@ -145,7 +157,11 @@ function KadenceConfig() {
 							<InspectorControls.Slot />
 							<div className="kadence-style-book-controls">
 								This is where a preset option controls will go.
-								<ComponentPresetControl property={'typography'} />
+								<ComponentPresetControl
+									globalStyleId={currentGlobalStyleId}
+									preset={currentPreset}
+									property={'typography'}
+								/>
 							</div>
 						</PanelBody>
 					</>

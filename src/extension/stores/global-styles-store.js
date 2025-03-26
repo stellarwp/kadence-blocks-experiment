@@ -1,4 +1,5 @@
 import { createReduxStore, register, select } from '@wordpress/data';
+import { deepMerge } from '@kadence/kbsHelpers';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -135,7 +136,7 @@ const actions = {
 	},
 	*setStyleBookComponentPresetByStyleId(styleId, componentId, presetId, presetAttrs) {
 		return {
-			type: 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_NAME',
+			type: 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_ID',
 			styleId,
 			componentId,
 			presetId,
@@ -258,7 +259,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					...state,
 					styleBookLocalGlobalStyles: Object.assign(stateObject, action.styleBookLocalGlobalStyles),
 				};
-			case 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_NAME':
+			case 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_ID':
 				// action.styleId,
 				// action.componentId,
 				// action.presetId,
@@ -280,7 +281,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				};
 				return {
 					...state,
-					styleBookLocalGlobalStyles: Object.assign(state.styleBookLocalGlobalStyles, presetObjectToSet),
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, presetObjectToSet]),
 				};
 			case 'SET_HAS_RESOLVED':
 				return {
@@ -331,32 +332,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			}
 
 			// Deep merge the styles, with later items in array taking precedence
-			const mergedStyles = stylesToMerge.reduce((result, style) => {
-				// Deep merging objects
-				const deepMerge = (target, source) => {
-					const output = { ...target };
-
-					if (isObject(target) && isObject(source)) {
-						Object.keys(source).forEach((key) => {
-							if (isObject(source[key])) {
-								if (!(key in target)) {
-									Object.assign(output, { [key]: source[key] });
-								} else {
-									output[key] = deepMerge(target[key], source[key]);
-								}
-							} else {
-								Object.assign(output, { [key]: source[key] });
-							}
-						});
-					}
-					return output;
-				};
-
-				// Helper to check if value is an object
-				const isObject = (item) => item && typeof item === 'object' && !Array.isArray(item);
-
-				return deepMerge(result, style);
-			}, {});
+			const mergedStyles = deepMerge(stylesToMerge);
 
 			// Remove the id property from the merged result
 			if (mergedStyles.id) {
