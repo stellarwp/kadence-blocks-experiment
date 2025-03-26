@@ -22,7 +22,6 @@ import {
 	getDeviceValue,
 	getInheritedDeviceValue,
 	handleAttributeChange,
-	getFontWeightOptions,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
@@ -80,6 +79,10 @@ export default function SelectControl({
 		attributes,
 		attributeName,
 		previewDevice,
+		meta,
+		type,
+		globalStylesJson,
+		currentValue,
 	});
 
 	const inheritedPlaceholderLabel = getPlaceholderLabel(currentValue, inheritedValue, type, options);
@@ -102,26 +105,26 @@ export default function SelectControl({
 					break;
 				}
 
-				const selectedOption = options
-					.flatMap((group) => group.options)
-					.find((option) => option.value === value);
-				const currentFontWeight = getDeviceValue('fontWeight', attributes, device, meta, 'fontWeight');
+				// const selectedOption = options
+				// 	.flatMap((group) => group.options)
+				// 	.find((option) => option.value === value);
+				// const currentFontWeight = getDeviceValue('fontWeight', attributes, device, meta, 'fontWeight');
 
-				// Get available weights for the new font
-				const availableWeights = getFontWeightOptions(value).map((opt) => opt.value);
+				// // Get available weights for the new font
+				// const availableWeights = getFontWeightOptions(value).map((opt) => opt.value);
 
-				// Check if current weight is valid for new font
-				const isWeightValid = availableWeights.includes(currentFontWeight);
+				// // Check if current weight is valid for new font
+				// const isWeightValid = availableWeights.includes(currentFontWeight);
 
-				updatedAttributes = {
-					[type]: value,
-					['fontSource']: selectedOption.source,
-					// If current weight is not valid, use the first available weight
-					...(currentFontWeight &&
-						!isWeightValid && {
-							['fontWeight']: availableWeights[0] || '400',
-						}),
-				};
+				// updatedAttributes = {
+				// 	[type]: value,
+				// 	['fontSource']: selectedOption.source,
+				// 	// If current weight is not valid, use the first available weight
+				// 	...(currentFontWeight &&
+				// 		!isWeightValid && {
+				// 			['fontWeight']: availableWeights[0] || '400',
+				// 		}),
+				// };
 				break;
 			}
 			default:

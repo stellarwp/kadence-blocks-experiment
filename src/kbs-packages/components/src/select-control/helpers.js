@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { useFontWeightOptions, useFontOptions, getDeviceAttributeSlug } from '@kadence/kbsHelpers';
+import { useFontWeightOptions, useFontOptions, getInheritedDeviceValue, getDeviceValue } from '@kadence/kbsHelpers';
 
 /**
  * Find an option by its value in either flat or grouped options
@@ -52,7 +52,7 @@ export const getPlaceholderLabel = (currentValue, inheritedValue, type, options 
  * @param {string} params.previewDevice The preview device
  * @return {Object} The options and loading state
  */
-export const useSelectOptions = ({ type, attributes, attributeName, previewDevice }) => {
+export const useSelectOptions = ({ type, attributes, attributeName, previewDevice, meta, globalStylesJson, currentValue }) => {
 	let isLoadingOptions = false;
 	let loadingMessage = __('Loading options...', 'kadence-blocks');
 	let options = [];
@@ -66,9 +66,21 @@ export const useSelectOptions = ({ type, attributes, attributeName, previewDevic
 			break;
 		}
 		case 'fontWeight': {
-			const previewDeviceSlug = getDeviceAttributeSlug(previewDevice);
-			const fontFamily = attributes?.[attributeName]?.[previewDeviceSlug]?.fontFamily;
-			options = useFontWeightOptions(fontFamily);
+			let fontFamily = getDeviceValue(attributeName, attributes, previewDevice, meta, 'fontFamily');
+			if( !fontFamily ) {
+				fontFamily = getInheritedDeviceValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					null,
+					meta,
+					'fontFamily',
+					globalStylesJson
+				);
+			}
+
+			const fontWeightOptions = useFontWeightOptions(fontFamily);
+			options = fontWeightOptions.options;
 			break;
 		}
 	}

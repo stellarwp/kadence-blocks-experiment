@@ -1,6 +1,6 @@
 import SelectControl from '../select-control';
 import { __ } from '@wordpress/i18n';
-
+import FontWeight from './font-weight';
 export default function Typography({
 	label,
 	attributes,
@@ -27,15 +27,17 @@ export default function Typography({
 				forStyleBook={forStyleBook}
 			/>
 
-			{/* <SelectControl
-                label={__('Font Weight', 'kadence-blocks')}
-                attributes={attributes}
-                setAttributes={setAttributes}
-                attributeName={ attributeName }
-                meta={meta}
-                previewDevice={previewDevice}
-                type="fontWeight"
-            /> */}
+			<FontWeight
+				label={__('Font Weight', 'kadence-blocks')}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				meta={meta}
+				previewDevice={previewDevice}
+				attributeName={attributeName}
+				globalStylesJson={globalStylesJson}
+				customOnChange={customOnChange}
+				forStyleBook={forStyleBook}
+			/>
 
 			{/* Font Variant */}
 
