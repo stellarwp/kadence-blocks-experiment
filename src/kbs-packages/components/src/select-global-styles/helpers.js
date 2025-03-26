@@ -8,7 +8,6 @@
  * @return {Object} The options and loading state
  */
 export const useSelectOptions = ({}) => {
-	let isLoadingOptions = false;
 	let options = [];
 
 	// Import the select function from WordPress data
@@ -16,7 +15,7 @@ export const useSelectOptions = ({}) => {
 
 	// Get global styles from the store
 	const globalStyles = select('kadenceblocks/global-styles')?.getGlobalStyles() || [];
-	isLoadingOptions = select('kadenceblocks/global-styles')?.isLoading() || false;
+	const isLoadingOptions = select('kadenceblocks/global-styles')?.isLoading() || false;
 
 	// Map global styles to options format
 	if (globalStyles && Object.keys(globalStyles).length > 0) {

@@ -163,7 +163,7 @@ class GlobalStylesController extends WP_REST_Controller {
         $styles = array();
                 
         // Path to the global styles directory
-        $styles_dir = plugin_dir_path( KADENCE_BLOCKS_PATH ) . 'kadence-blocks-experiment/inc/data/global-styles-test/';
+        $styles_dir = plugin_dir_path( __FILE__ ) . '../../data/global-styles-test/';
         
         // Load base.json
         $base_file = $styles_dir . 'base.json';

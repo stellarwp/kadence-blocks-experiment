@@ -18,8 +18,8 @@ const useGlobalStylesIds = (globalStyleIds) => {
     let globalStyleIdsArray = [];
     
     // Handle different formats of globalStyleIds
-    if (Array.isArray(globalStyleIds)) {
-      globalStyleIdsArray = globalStyleIds.map(id => typeof id === 'string' ? parseInt(id, 10) : id);
+    if (Array.isArray(globalStyleIds) && globalStyleIds.length > 0) {
+      globalStyleIdsArray = globalStyleIds;
     }
     
     return [...(parentGlobalStyles || []), ...globalStyleIdsArray];

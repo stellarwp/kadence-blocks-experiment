@@ -40,7 +40,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -59,7 +59,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -107,7 +107,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -130,7 +130,7 @@ return array (
       2 => 'sinhala',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -148,7 +148,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -166,7 +166,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -185,7 +185,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -203,7 +203,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -220,7 +220,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -237,7 +237,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -254,7 +254,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -368,7 +368,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -387,7 +387,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -430,7 +430,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -454,7 +454,7 @@ return array (
       2 => 'tifinagh',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -473,7 +473,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -492,7 +492,7 @@ return array (
       2 => 'telugu',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -510,7 +510,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -553,7 +553,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -572,7 +572,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -592,7 +592,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -634,7 +634,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -654,7 +654,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -716,7 +716,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -752,7 +752,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -788,7 +788,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -833,7 +833,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -878,7 +878,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -898,7 +898,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -918,7 +918,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -938,7 +938,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -957,7 +957,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1003,7 +1003,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1020,7 +1020,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1037,7 +1037,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1056,7 +1056,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1075,7 +1075,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1096,7 +1096,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1117,7 +1117,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1135,7 +1135,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1152,7 +1152,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1201,7 +1201,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1221,7 +1221,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1243,7 +1243,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1261,7 +1261,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1281,7 +1281,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1303,7 +1303,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1320,7 +1320,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1341,7 +1341,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1363,7 +1363,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1381,7 +1381,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1401,7 +1401,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1476,7 +1476,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1804,7 +1804,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1826,7 +1826,7 @@ return array (
       4 => 'symbols',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1844,7 +1844,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1867,7 +1867,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1887,7 +1887,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1904,7 +1904,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1921,7 +1921,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1938,7 +1938,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1957,7 +1957,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -1976,7 +1976,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2077,7 +2077,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2095,7 +2095,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2113,7 +2113,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2131,7 +2131,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2149,7 +2149,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2199,7 +2199,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2244,7 +2244,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2264,7 +2264,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2284,7 +2284,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2363,7 +2363,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2381,7 +2381,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2405,7 +2405,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2429,7 +2429,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2446,7 +2446,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2466,7 +2466,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2486,7 +2486,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2552,7 +2552,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2571,7 +2571,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2592,7 +2592,7 @@ return array (
       4 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2635,7 +2635,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2653,7 +2653,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2678,7 +2678,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2699,9 +2699,59 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
+    'is_variable' => false,
+    'axes' => 
+    array (
+    ),
+  ),
+  'Atkinson Hyperlegible Mono' => 
+  array (
+    'family' => 'Atkinson Hyperlegible Mono',
+    'variants' => 
+    array (
+      0 => 'regular',
+      1 => 'italic',
+    ),
+    'subsets' => 
+    array (
+      0 => 'latin',
+      1 => 'latin-ext',
+    ),
+    'category' => 'sans-serif',
     'is_variable' => true,
     'axes' => 
     array (
+      0 => 
+      array (
+        'tag' => 'wght',
+        'start' => 200,
+        'end' => 800,
+      ),
+    ),
+  ),
+  'Atkinson Hyperlegible Next' => 
+  array (
+    'family' => 'Atkinson Hyperlegible Next',
+    'variants' => 
+    array (
+      0 => 'regular',
+      1 => 'italic',
+    ),
+    'subsets' => 
+    array (
+      0 => 'latin',
+      1 => 'latin-ext',
+    ),
+    'category' => 'sans-serif',
+    'is_variable' => true,
+    'axes' => 
+    array (
+      0 => 
+      array (
+        'tag' => 'wght',
+        'start' => 200,
+        'end' => 800,
+      ),
     ),
   ),
   'Atma' => 
@@ -2722,7 +2772,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2740,7 +2790,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2757,7 +2807,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2775,7 +2825,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2793,7 +2843,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2811,7 +2861,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2829,7 +2879,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2847,7 +2897,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2869,7 +2919,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2891,7 +2941,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2913,7 +2963,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2958,7 +3008,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -2978,7 +3028,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3000,7 +3050,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3022,7 +3072,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3044,7 +3094,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3066,7 +3116,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3085,7 +3135,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3103,7 +3153,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3124,7 +3174,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3143,7 +3193,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3162,7 +3212,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3180,7 +3230,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3199,7 +3249,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3230,7 +3280,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3249,7 +3299,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3557,7 +3607,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3574,7 +3624,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3593,7 +3643,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3629,7 +3679,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3665,7 +3715,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3701,7 +3751,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3720,7 +3770,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3738,7 +3788,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3756,7 +3806,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3775,7 +3825,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3793,7 +3843,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3815,7 +3865,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3832,7 +3882,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3850,7 +3900,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3886,7 +3936,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3905,7 +3955,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3923,7 +3973,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3969,7 +4019,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -3986,7 +4036,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4005,7 +4055,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4023,7 +4073,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4048,7 +4098,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4073,7 +4123,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4093,7 +4143,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4112,7 +4162,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4130,7 +4180,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4148,7 +4198,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4190,7 +4240,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4210,7 +4260,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4229,14 +4279,14 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
   ),
-  'Big Shoulders Display' => 
+  'Big Shoulders' => 
   array (
-    'family' => 'Big Shoulders Display',
+    'family' => 'Big Shoulders',
     'variants' => 
     array (
       0 => 'regular',
@@ -4253,15 +4303,21 @@ return array (
     array (
       0 => 
       array (
+        'tag' => 'opsz',
+        'start' => 10,
+        'end' => 72,
+      ),
+      1 => 
+      array (
         'tag' => 'wght',
         'start' => 100,
         'end' => 900,
       ),
     ),
   ),
-  'Big Shoulders Inline Display' => 
+  'Big Shoulders Inline' => 
   array (
-    'family' => 'Big Shoulders Inline Display',
+    'family' => 'Big Shoulders Inline',
     'variants' => 
     array (
       0 => 'regular',
@@ -4278,15 +4334,21 @@ return array (
     array (
       0 => 
       array (
+        'tag' => 'opsz',
+        'start' => 10,
+        'end' => 72,
+      ),
+      1 => 
+      array (
         'tag' => 'wght',
         'start' => 100,
         'end' => 900,
       ),
     ),
   ),
-  'Big Shoulders Inline Text' => 
+  'Big Shoulders Stencil' => 
   array (
-    'family' => 'Big Shoulders Inline Text',
+    'family' => 'Big Shoulders Stencil',
     'variants' => 
     array (
       0 => 'regular',
@@ -4303,80 +4365,11 @@ return array (
     array (
       0 => 
       array (
-        'tag' => 'wght',
-        'start' => 100,
-        'end' => 900,
+        'tag' => 'opsz',
+        'start' => 10,
+        'end' => 72,
       ),
-    ),
-  ),
-  'Big Shoulders Stencil Display' => 
-  array (
-    'family' => 'Big Shoulders Stencil Display',
-    'variants' => 
-    array (
-      0 => 'regular',
-    ),
-    'subsets' => 
-    array (
-      0 => 'latin',
-      1 => 'latin-ext',
-      2 => 'vietnamese',
-    ),
-    'category' => 'display',
-    'is_variable' => true,
-    'axes' => 
-    array (
-      0 => 
-      array (
-        'tag' => 'wght',
-        'start' => 100,
-        'end' => 900,
-      ),
-    ),
-  ),
-  'Big Shoulders Stencil Text' => 
-  array (
-    'family' => 'Big Shoulders Stencil Text',
-    'variants' => 
-    array (
-      0 => 'regular',
-    ),
-    'subsets' => 
-    array (
-      0 => 'latin',
-      1 => 'latin-ext',
-      2 => 'vietnamese',
-    ),
-    'category' => 'display',
-    'is_variable' => true,
-    'axes' => 
-    array (
-      0 => 
-      array (
-        'tag' => 'wght',
-        'start' => 100,
-        'end' => 900,
-      ),
-    ),
-  ),
-  'Big Shoulders Text' => 
-  array (
-    'family' => 'Big Shoulders Text',
-    'variants' => 
-    array (
-      0 => 'regular',
-    ),
-    'subsets' => 
-    array (
-      0 => 'latin',
-      1 => 'latin-ext',
-      2 => 'vietnamese',
-    ),
-    'category' => 'display',
-    'is_variable' => true,
-    'axes' => 
-    array (
-      0 => 
+      1 => 
       array (
         'tag' => 'wght',
         'start' => 100,
@@ -4397,7 +4390,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4414,7 +4407,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4433,7 +4426,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4451,7 +4444,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4503,7 +4496,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4522,7 +4515,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4542,7 +4535,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4567,7 +4560,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4613,7 +4606,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4631,7 +4624,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4651,7 +4644,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4670,7 +4663,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4689,7 +4682,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4708,7 +4701,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4733,7 +4726,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4817,7 +4810,25 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
+    'axes' => 
+    array (
+    ),
+  ),
+  'Boldonse' => 
+  array (
+    'family' => 'Boldonse',
+    'variants' => 
+    array (
+      0 => 'regular',
+    ),
+    'subsets' => 
+    array (
+      0 => 'latin',
+      1 => 'latin-ext',
+    ),
+    'category' => 'display',
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4842,7 +4853,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4867,7 +4878,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4884,7 +4895,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4903,7 +4914,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4920,7 +4931,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4941,7 +4952,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4958,7 +4969,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4976,7 +4987,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -4996,7 +5007,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5014,7 +5025,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5032,7 +5043,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5087,7 +5098,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5105,7 +5116,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5152,7 +5163,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5170,7 +5181,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5187,7 +5198,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5198,7 +5209,6 @@ return array (
     'variants' => 
     array (
       0 => 'regular',
-      1 => '700',
     ),
     'subsets' => 
     array (
@@ -5209,6 +5219,12 @@ return array (
     'is_variable' => true,
     'axes' => 
     array (
+      0 => 
+      array (
+        'tag' => 'wght',
+        'start' => 400,
+        'end' => 700,
+      ),
     ),
   ),
   'Bungee' => 
@@ -5225,7 +5241,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5244,7 +5260,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5263,7 +5279,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5282,7 +5298,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5301,7 +5317,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5320,7 +5336,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5339,7 +5355,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5357,7 +5373,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5375,7 +5391,25 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
+    'axes' => 
+    array (
+    ),
+  ),
+  'Bytesized' => 
+  array (
+    'family' => 'Bytesized',
+    'variants' => 
+    array (
+      0 => 'regular',
+    ),
+    'subsets' => 
+    array (
+      0 => 'latin',
+      1 => 'latin-ext',
+    ),
+    'category' => 'sans-serif',
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5429,7 +5463,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5447,7 +5481,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5468,7 +5502,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5485,7 +5519,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5502,7 +5536,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5585,7 +5619,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5604,7 +5638,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5621,7 +5655,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5643,7 +5677,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5661,7 +5695,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5678,7 +5712,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5699,7 +5733,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5717,7 +5751,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5735,7 +5769,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5753,7 +5787,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5771,7 +5805,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5790,7 +5824,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5809,7 +5843,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5831,7 +5865,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5857,7 +5891,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5874,7 +5908,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5891,7 +5925,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5908,7 +5942,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5925,7 +5959,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5944,7 +5978,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -5962,7 +5996,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6010,7 +6044,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6054,7 +6088,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6071,7 +6105,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6089,7 +6123,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6118,7 +6152,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6161,7 +6195,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6179,7 +6213,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6203,7 +6237,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6224,7 +6258,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6245,7 +6279,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6267,7 +6301,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6286,7 +6320,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6304,7 +6338,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6322,7 +6356,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6339,7 +6373,7 @@ return array (
       0 => 'khmer',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6358,7 +6392,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6378,7 +6412,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6395,7 +6429,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6414,7 +6448,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6431,7 +6465,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6449,7 +6483,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6468,7 +6502,7 @@ return array (
       2 => 'malayalam',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6541,7 +6575,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6561,7 +6595,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6581,7 +6615,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6625,7 +6659,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6643,7 +6677,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6686,7 +6720,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6705,7 +6739,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6725,7 +6759,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6743,7 +6777,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6791,7 +6825,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6811,7 +6845,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6833,7 +6867,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6850,7 +6884,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6938,7 +6972,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6956,7 +6990,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6974,7 +7008,7 @@ return array (
       0 => 'khmer',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -6991,7 +7025,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7009,7 +7043,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7026,7 +7060,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7043,7 +7077,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7062,7 +7096,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7082,7 +7116,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7120,16 +7154,8 @@ return array (
     'family' => 'Cormorant Garamond',
     'variants' => 
     array (
-      0 => '300',
-      1 => '300italic',
-      2 => 'regular',
-      3 => 'italic',
-      4 => '500',
-      5 => '500italic',
-      6 => '600',
-      7 => '600italic',
-      8 => '700',
-      9 => '700italic',
+      0 => 'regular',
+      1 => 'italic',
     ),
     'subsets' => 
     array (
@@ -7143,6 +7169,12 @@ return array (
     'is_variable' => true,
     'axes' => 
     array (
+      0 => 
+      array (
+        'tag' => 'wght',
+        'start' => 300,
+        'end' => 700,
+      ),
     ),
   ),
   'Cormorant Infant' => 
@@ -7150,16 +7182,8 @@ return array (
     'family' => 'Cormorant Infant',
     'variants' => 
     array (
-      0 => '300',
-      1 => '300italic',
-      2 => 'regular',
-      3 => 'italic',
-      4 => '500',
-      5 => '500italic',
-      6 => '600',
-      7 => '600italic',
-      8 => '700',
-      9 => '700italic',
+      0 => 'regular',
+      1 => 'italic',
     ),
     'subsets' => 
     array (
@@ -7173,6 +7197,12 @@ return array (
     'is_variable' => true,
     'axes' => 
     array (
+      0 => 
+      array (
+        'tag' => 'wght',
+        'start' => 300,
+        'end' => 700,
+      ),
     ),
   ),
   'Cormorant SC' => 
@@ -7195,7 +7225,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7220,7 +7250,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7243,7 +7273,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7261,7 +7291,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7282,7 +7312,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7309,7 +7339,7 @@ return array (
       7 => 'vietnamese',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7327,7 +7357,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7345,7 +7375,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7362,7 +7392,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7379,7 +7409,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7398,7 +7428,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7448,7 +7478,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7466,7 +7496,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7484,7 +7514,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7530,7 +7560,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7548,7 +7578,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7566,7 +7596,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7589,7 +7619,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7639,7 +7669,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7658,7 +7688,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7686,7 +7716,7 @@ return array (
       2 => 'new-tai-lue',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7704,7 +7734,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7772,7 +7802,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7816,7 +7846,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7840,7 +7870,7 @@ return array (
       5 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7857,7 +7887,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7874,7 +7904,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7893,7 +7923,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7915,7 +7945,7 @@ return array (
       5 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7933,7 +7963,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7950,7 +7980,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7967,7 +7997,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -7985,7 +8015,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8002,7 +8032,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8022,7 +8052,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8040,7 +8070,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8058,7 +8088,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8080,7 +8110,7 @@ return array (
       5 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8099,7 +8129,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8117,7 +8147,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8135,7 +8165,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8153,7 +8183,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8171,7 +8201,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8213,7 +8243,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8235,7 +8265,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8253,7 +8283,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8270,7 +8300,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8315,7 +8345,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8363,7 +8393,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8381,7 +8411,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8430,7 +8460,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8478,7 +8508,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8496,7 +8526,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8514,7 +8544,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8535,7 +8565,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8840,7 +8870,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8859,7 +8889,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8878,7 +8908,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8896,7 +8926,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8914,7 +8944,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8972,7 +9002,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -8999,7 +9029,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9057,7 +9087,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9084,7 +9114,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9102,7 +9132,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9120,7 +9150,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9141,7 +9171,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9160,7 +9190,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9204,7 +9234,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9222,7 +9252,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9241,7 +9271,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9259,7 +9289,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9277,7 +9307,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9376,7 +9406,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9394,7 +9424,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9425,7 +9455,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9470,7 +9500,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9491,7 +9521,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9511,7 +9541,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9529,7 +9559,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9547,7 +9577,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9565,7 +9595,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9583,7 +9613,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9601,7 +9631,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9644,7 +9674,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9661,7 +9691,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9679,7 +9709,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9697,7 +9727,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9716,7 +9746,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9758,7 +9788,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9837,7 +9867,7 @@ return array (
       5 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9877,7 +9907,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9917,7 +9947,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9957,7 +9987,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9977,7 +10007,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -9994,7 +10024,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10012,7 +10042,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10030,7 +10060,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10049,7 +10079,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10070,7 +10100,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10091,7 +10121,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10112,7 +10142,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10156,7 +10186,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10173,7 +10203,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10193,7 +10223,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10213,7 +10243,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10232,7 +10262,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10319,7 +10349,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10337,7 +10367,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10386,7 +10416,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10405,7 +10435,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10423,7 +10453,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10440,7 +10470,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10461,7 +10491,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10478,7 +10508,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10497,7 +10527,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10591,7 +10621,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10608,7 +10638,7 @@ return array (
       0 => 'greek',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10628,7 +10658,7 @@ return array (
       0 => 'greek',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10647,7 +10677,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10691,7 +10721,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10711,7 +10741,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10729,7 +10759,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10748,7 +10778,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10766,7 +10796,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10783,7 +10813,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10801,7 +10831,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10819,7 +10849,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10863,7 +10893,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -10883,7 +10913,7 @@ return array (
       1 => 'malayalam',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11035,7 +11065,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11061,7 +11091,7 @@ return array (
       6 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11079,7 +11109,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11174,7 +11204,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11191,7 +11221,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11208,7 +11238,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11227,7 +11257,28 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
+    'axes' => 
+    array (
+    ),
+  ),
+  'Gidole' => 
+  array (
+    'family' => 'Gidole',
+    'variants' => 
+    array (
+      0 => 'regular',
+    ),
+    'subsets' => 
+    array (
+      0 => 'cyrillic',
+      1 => 'greek',
+      2 => 'latin',
+      3 => 'latin-ext',
+      4 => 'vietnamese',
+    ),
+    'category' => 'sans-serif',
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11246,7 +11297,7 @@ return array (
       2 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11264,7 +11315,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11282,7 +11333,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11300,7 +11351,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11318,7 +11369,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11338,7 +11389,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11357,7 +11408,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11375,7 +11426,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11449,7 +11500,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11466,7 +11517,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11486,7 +11537,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11530,7 +11581,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11562,7 +11613,7 @@ return array (
       7 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11582,7 +11633,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11599,7 +11650,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11620,7 +11671,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11640,7 +11691,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11657,7 +11708,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11675,7 +11726,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11694,7 +11745,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11739,7 +11790,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11756,7 +11807,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11778,7 +11829,7 @@ return array (
       5 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11797,7 +11848,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11833,7 +11884,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11877,7 +11928,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11895,7 +11946,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11913,7 +11964,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11933,7 +11984,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11951,7 +12002,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11970,7 +12021,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -11989,7 +12040,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12008,7 +12059,7 @@ return array (
       2 => 'telugu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12028,7 +12079,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12046,7 +12097,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12066,7 +12117,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12115,7 +12166,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12133,7 +12184,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12151,7 +12202,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12169,7 +12220,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12229,7 +12280,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12278,7 +12329,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12296,7 +12347,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12318,7 +12369,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12336,7 +12387,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12356,7 +12407,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12426,7 +12477,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12469,7 +12520,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12487,7 +12538,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12508,7 +12559,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12531,7 +12582,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12554,7 +12605,7 @@ return array (
       2 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12577,7 +12628,7 @@ return array (
       2 => 'tamil',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12600,7 +12651,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12623,7 +12674,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12646,7 +12697,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12664,7 +12715,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12681,7 +12732,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12698,7 +12749,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12775,7 +12826,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12826,7 +12877,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12860,7 +12911,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12921,7 +12972,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12954,7 +13005,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -12980,7 +13031,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13006,7 +13057,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13032,7 +13083,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13057,7 +13108,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13083,7 +13134,7 @@ return array (
       3 => 'thai',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13109,7 +13160,7 @@ return array (
       3 => 'thai',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13143,7 +13194,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13161,7 +13212,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13178,7 +13229,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13196,7 +13247,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13213,7 +13264,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13231,7 +13282,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13248,7 +13299,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13266,7 +13317,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13283,7 +13334,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13301,7 +13352,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13318,7 +13369,27 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
+    'axes' => 
+    array (
+    ),
+  ),
+  'Iansui' => 
+  array (
+    'family' => 'Iansui',
+    'variants' => 
+    array (
+      0 => 'regular',
+    ),
+    'subsets' => 
+    array (
+      0 => 'chinese-hongkong',
+      1 => 'latin',
+      2 => 'latin-ext',
+      3 => 'symbols2',
+    ),
+    'category' => 'handwriting',
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13360,7 +13431,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13377,7 +13448,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13427,7 +13498,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13445,7 +13516,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13520,7 +13591,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13538,7 +13609,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13557,7 +13628,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13576,7 +13647,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13601,7 +13672,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13624,7 +13695,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13647,7 +13718,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13666,7 +13737,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13716,7 +13787,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13799,7 +13870,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13818,7 +13889,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13841,7 +13912,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13858,7 +13929,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13877,7 +13948,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13897,7 +13968,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13917,7 +13988,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13937,7 +14008,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13955,7 +14026,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13973,7 +14044,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -13993,7 +14064,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14013,7 +14084,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14030,7 +14101,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14047,7 +14118,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14066,7 +14137,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14085,7 +14156,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14105,7 +14176,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14148,7 +14219,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14166,7 +14237,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14184,7 +14255,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14202,7 +14273,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14220,7 +14291,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14238,7 +14309,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14256,7 +14327,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14274,7 +14345,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14321,7 +14392,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14339,7 +14410,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14357,7 +14428,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14375,7 +14446,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14393,7 +14464,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14411,7 +14482,7 @@ return array (
       1 => 'tibetan',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14505,7 +14576,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14523,7 +14594,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14544,7 +14615,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14562,7 +14633,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14580,7 +14651,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14597,7 +14668,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14645,7 +14716,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14663,7 +14734,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14698,7 +14769,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14745,7 +14816,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14767,7 +14838,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14789,7 +14860,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14811,7 +14882,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14834,7 +14905,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14855,7 +14926,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -14977,7 +15048,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15024,7 +15095,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15067,7 +15138,7 @@ return array (
       0 => 'tamil',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15085,7 +15156,7 @@ return array (
       0 => 'tamil',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15108,7 +15179,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15127,7 +15198,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15145,7 +15216,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15164,7 +15235,7 @@ return array (
       2 => 'tamil',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15182,7 +15253,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15204,7 +15275,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15223,7 +15294,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15241,7 +15312,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15260,7 +15331,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15277,7 +15348,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15300,7 +15371,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15317,7 +15388,7 @@ return array (
       0 => 'khmer',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15340,7 +15411,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15359,7 +15430,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15377,7 +15448,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15395,7 +15466,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15417,7 +15488,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15439,7 +15510,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15457,7 +15528,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15488,7 +15559,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15519,7 +15590,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15565,7 +15636,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15584,7 +15655,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15603,7 +15674,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15623,7 +15694,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15643,7 +15714,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15661,7 +15732,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15679,7 +15750,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15696,7 +15767,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15737,7 +15808,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15755,7 +15826,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15786,7 +15857,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15840,7 +15911,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15859,7 +15930,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15878,7 +15949,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15931,7 +16002,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15958,7 +16029,7 @@ return array (
       8 => 'vietnamese',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -15985,7 +16056,7 @@ return array (
       8 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16003,7 +16074,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16046,7 +16117,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16069,7 +16140,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16087,7 +16158,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16107,7 +16178,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16125,7 +16196,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16144,7 +16215,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16169,7 +16240,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16196,7 +16267,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16215,7 +16286,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16257,7 +16328,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16299,7 +16370,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16318,7 +16389,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16338,7 +16409,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16356,7 +16427,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16599,7 +16670,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16616,7 +16687,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16633,7 +16704,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16650,7 +16721,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16667,7 +16738,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16684,7 +16755,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16701,7 +16772,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16721,7 +16792,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16765,7 +16836,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16785,7 +16856,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16832,7 +16903,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16852,7 +16923,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16870,7 +16941,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16888,7 +16959,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16906,7 +16977,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16925,7 +16996,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -16988,7 +17059,7 @@ return array (
       2 => 'lisu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17007,7 +17078,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17061,7 +17132,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17095,7 +17166,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17116,7 +17187,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17136,7 +17207,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17153,7 +17224,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17170,7 +17241,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17187,7 +17258,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17207,7 +17278,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17225,7 +17296,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17274,7 +17345,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17292,7 +17363,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17310,7 +17381,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17329,7 +17400,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17347,7 +17418,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17365,7 +17436,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17383,7 +17454,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17408,7 +17479,7 @@ return array (
       7 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17426,7 +17497,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17443,7 +17514,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17462,7 +17533,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17481,7 +17552,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17564,7 +17635,7 @@ return array (
       8 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17652,7 +17723,7 @@ return array (
       8 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17670,7 +17741,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17687,7 +17758,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17704,7 +17775,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17749,7 +17820,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17768,7 +17839,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17786,7 +17857,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17811,7 +17882,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17830,7 +17901,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17848,7 +17919,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17879,7 +17950,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17897,7 +17968,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17917,7 +17988,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17935,7 +18006,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -17956,7 +18027,7 @@ return array (
       2 => 'malayalam',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18004,7 +18075,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18048,7 +18119,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18066,7 +18137,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18085,7 +18156,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18103,7 +18174,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18171,7 +18242,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18192,7 +18263,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18217,7 +18288,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18242,7 +18313,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18294,7 +18365,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18313,7 +18384,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18331,7 +18402,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18349,7 +18420,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18366,7 +18437,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18383,7 +18454,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18400,7 +18471,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18417,7 +18488,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18434,9 +18505,56 @@ return array (
       0 => 'latin',
     ),
     'category' => 'monospace',
+    'is_variable' => false,
+    'axes' => 
+    array (
+    ),
+  ),
+  'Material Symbols' => 
+  array (
+    'family' => 'Material Symbols',
+    'variants' => 
+    array (
+      0 => 'regular',
+    ),
+    'subsets' => 
+    array (
+      0 => 'latin',
+    ),
+    'category' => 'monospace',
     'is_variable' => true,
     'axes' => 
     array (
+      0 => 
+      array (
+        'tag' => 'FILL',
+        'start' => 0,
+        'end' => 1,
+      ),
+      1 => 
+      array (
+        'tag' => 'GRAD',
+        'start' => -50,
+        'end' => 200,
+      ),
+      2 => 
+      array (
+        'tag' => 'ROND',
+        'start' => 0,
+        'end' => 100,
+      ),
+      3 => 
+      array (
+        'tag' => 'opsz',
+        'start' => 20,
+        'end' => 48,
+      ),
+      4 => 
+      array (
+        'tag' => 'wght',
+        'start' => 100,
+        'end' => 700,
+      ),
     ),
   ),
   'Material Symbols Outlined' => 
@@ -18600,7 +18718,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18619,7 +18737,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18637,7 +18755,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18655,7 +18773,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18672,7 +18790,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18690,7 +18808,7 @@ return array (
       1 => 'tamil',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18708,7 +18826,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18726,7 +18844,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18745,7 +18863,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18780,14 +18898,8 @@ return array (
     'family' => 'Merriweather',
     'variants' => 
     array (
-      0 => '300',
-      1 => '300italic',
-      2 => 'regular',
-      3 => 'italic',
-      4 => '700',
-      5 => '700italic',
-      6 => '900',
-      7 => '900italic',
+      0 => 'regular',
+      1 => 'italic',
     ),
     'subsets' => 
     array (
@@ -18801,6 +18913,24 @@ return array (
     'is_variable' => true,
     'axes' => 
     array (
+      0 => 
+      array (
+        'tag' => 'opsz',
+        'start' => 18,
+        'end' => 144,
+      ),
+      1 => 
+      array (
+        'tag' => 'wdth',
+        'start' => 87,
+        'end' => 112,
+      ),
+      2 => 
+      array (
+        'tag' => 'wght',
+        'start' => 300,
+        'end' => 900,
+      ),
     ),
   ),
   'Merriweather Sans' => 
@@ -18843,7 +18973,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18861,7 +18991,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18879,7 +19009,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18898,7 +19028,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18916,7 +19046,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18936,7 +19066,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18956,7 +19086,7 @@ return array (
       3 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18974,7 +19104,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -18991,7 +19121,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19008,7 +19138,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19028,7 +19158,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19047,7 +19177,7 @@ return array (
       2 => 'lepcha',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19064,7 +19194,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19111,7 +19241,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19129,7 +19259,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19154,7 +19284,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19172,7 +19302,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19190,7 +19320,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19209,7 +19339,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19227,7 +19357,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19273,7 +19403,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19317,7 +19447,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19335,7 +19465,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19353,7 +19483,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19428,7 +19558,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19448,7 +19578,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19467,7 +19597,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19485,7 +19615,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19503,7 +19633,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19520,7 +19650,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19570,7 +19700,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19588,7 +19718,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19654,25 +19784,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
-    'axes' => 
-    array (
-    ),
-  ),
-  'Montserrat Subrayada' => 
-  array (
-    'family' => 'Montserrat Subrayada',
-    'variants' => 
-    array (
-      0 => 'regular',
-      1 => '700',
-    ),
-    'subsets' => 
-    array (
-      0 => 'latin',
-    ),
-    'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19719,7 +19831,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19737,7 +19849,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19756,7 +19868,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19774,7 +19886,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19792,7 +19904,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19810,7 +19922,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19828,7 +19940,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19846,7 +19958,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19864,7 +19976,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19882,7 +19994,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19900,7 +20012,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19918,7 +20030,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19937,7 +20049,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19962,7 +20074,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -19987,7 +20099,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20012,7 +20124,7 @@ return array (
       2 => 'tamil',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20037,7 +20149,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20138,7 +20250,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20158,7 +20270,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20176,7 +20288,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20194,7 +20306,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20250,7 +20362,7 @@ return array (
       2 => 'limbu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20268,7 +20380,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20288,7 +20400,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20307,7 +20419,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20327,7 +20439,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20345,7 +20457,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20370,7 +20482,7 @@ return array (
       4 => 'symbols',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20389,7 +20501,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20407,7 +20519,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20425,7 +20537,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20448,7 +20560,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20466,7 +20578,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20484,7 +20596,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20503,7 +20615,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20522,7 +20634,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20572,7 +20684,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20603,7 +20715,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20620,7 +20732,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20643,7 +20755,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20665,7 +20777,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20683,7 +20795,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20701,7 +20813,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20718,7 +20830,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20735,7 +20847,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20757,7 +20869,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20774,7 +20886,7 @@ return array (
       0 => 'emoji',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -20843,7 +20955,7 @@ return array (
       2 => 'music',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21027,7 +21139,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21042,6 +21154,10 @@ return array (
     'subsets' => 
     array (
       0 => 'arabic',
+      1 => 'latin',
+      2 => 'latin-ext',
+      3 => 'math',
+      4 => 'symbols',
     ),
     'category' => 'sans-serif',
     'is_variable' => true,
@@ -21106,7 +21222,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21200,7 +21316,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21250,7 +21366,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21271,7 +21387,7 @@ return array (
       4 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21290,7 +21406,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21309,7 +21425,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21355,7 +21471,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21374,7 +21490,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21393,7 +21509,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21464,7 +21580,7 @@ return array (
       4 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21483,7 +21599,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21502,7 +21618,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21521,7 +21637,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21540,7 +21656,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21559,7 +21675,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21646,7 +21762,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21665,7 +21781,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21684,7 +21800,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21703,7 +21819,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21791,7 +21907,7 @@ return array (
       5 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21810,7 +21926,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21829,7 +21945,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -21989,7 +22105,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22008,7 +22124,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22060,7 +22176,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22079,7 +22195,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22098,7 +22214,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22117,7 +22233,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22215,7 +22331,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22315,7 +22431,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22365,7 +22481,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22384,7 +22500,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22465,7 +22581,7 @@ return array (
       2 => 'lepcha',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22484,7 +22600,7 @@ return array (
       2 => 'limbu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22503,7 +22619,7 @@ return array (
       2 => 'linear-a',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22522,7 +22638,7 @@ return array (
       2 => 'linear-b',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22564,7 +22680,7 @@ return array (
       0 => 'lycian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22583,7 +22699,7 @@ return array (
       2 => 'lydian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22602,7 +22718,7 @@ return array (
       2 => 'mahajani',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22652,7 +22768,7 @@ return array (
       2 => 'mandaic',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22671,7 +22787,7 @@ return array (
       2 => 'manichaean',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22690,7 +22806,7 @@ return array (
       2 => 'marchen',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22709,7 +22825,7 @@ return array (
       2 => 'masaram-gondi',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22726,7 +22842,7 @@ return array (
       0 => 'math',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22745,7 +22861,7 @@ return array (
       2 => 'mayan-numerals',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22814,7 +22930,7 @@ return array (
       2 => 'mende-kikakui',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22835,7 +22951,7 @@ return array (
       4 => 'meroitic-hieroglyphs',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22854,7 +22970,7 @@ return array (
       2 => 'miao',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22873,7 +22989,7 @@ return array (
       2 => 'modi',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22894,7 +23010,7 @@ return array (
       4 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22948,7 +23064,7 @@ return array (
       2 => 'mro',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22967,7 +23083,7 @@ return array (
       2 => 'multani',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -22992,7 +23108,7 @@ return array (
       0 => 'myanmar',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23011,7 +23127,7 @@ return array (
       2 => 'nko',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23055,7 +23171,7 @@ return array (
       2 => 'nabataean',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23099,7 +23215,7 @@ return array (
       2 => 'nandinagari',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23143,7 +23259,7 @@ return array (
       2 => 'newa',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23162,7 +23278,7 @@ return array (
       2 => 'nushu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23181,7 +23297,7 @@ return array (
       2 => 'ogham',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23225,7 +23341,7 @@ return array (
       2 => 'old-hungarian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23244,7 +23360,7 @@ return array (
       2 => 'old-italic',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23263,7 +23379,7 @@ return array (
       2 => 'old-north-arabian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23283,7 +23399,7 @@ return array (
       3 => 'old-permic',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23302,7 +23418,7 @@ return array (
       2 => 'old-persian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23321,7 +23437,7 @@ return array (
       2 => 'old-sogdian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23340,7 +23456,7 @@ return array (
       2 => 'old-south-arabian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23359,7 +23475,7 @@ return array (
       2 => 'old-turkic',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23409,7 +23525,7 @@ return array (
       2 => 'osage',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23428,7 +23544,7 @@ return array (
       2 => 'osmanya',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23447,7 +23563,7 @@ return array (
       2 => 'pahawh-hmong',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23466,7 +23582,7 @@ return array (
       2 => 'palmyrene',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23485,7 +23601,7 @@ return array (
       2 => 'pau-cin-hau',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23506,7 +23622,7 @@ return array (
       4 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23525,7 +23641,7 @@ return array (
       2 => 'phoenician',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23544,7 +23660,7 @@ return array (
       2 => 'psalter-pahlavi',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23563,7 +23679,7 @@ return array (
       2 => 'rejang',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23582,7 +23698,7 @@ return array (
       2 => 'runic',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23628,7 +23744,7 @@ return array (
       2 => 'samaritan',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23647,7 +23763,7 @@ return array (
       2 => 'saurashtra',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23666,7 +23782,7 @@ return array (
       2 => 'sharada',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23685,7 +23801,7 @@ return array (
       2 => 'shavian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23704,7 +23820,7 @@ return array (
       2 => 'siddham',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23723,7 +23839,7 @@ return array (
       2 => 'signwriting',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23773,7 +23889,7 @@ return array (
       2 => 'sogdian',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23817,7 +23933,7 @@ return array (
       2 => 'soyombo',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23861,7 +23977,7 @@ return array (
       2 => 'syloti-nagri',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -23908,7 +24024,7 @@ return array (
       5 => 'symbols',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24004,7 +24120,7 @@ return array (
       2 => 'tagalog',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24023,7 +24139,7 @@ return array (
       2 => 'tagbanwa',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24042,7 +24158,7 @@ return array (
       2 => 'tai-le',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24086,7 +24202,7 @@ return array (
       2 => 'tai-viet',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24105,7 +24221,7 @@ return array (
       2 => 'takri',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24155,7 +24271,7 @@ return array (
       2 => 'tamil-supplement',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24294,7 +24410,7 @@ return array (
       2 => 'thai',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24313,7 +24429,7 @@ return array (
       2 => 'tifinagh',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24332,7 +24448,7 @@ return array (
       2 => 'tirhuta',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24351,7 +24467,7 @@ return array (
       2 => 'ugaritic',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24370,7 +24486,7 @@ return array (
       2 => 'vai',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24414,7 +24530,7 @@ return array (
       2 => 'wancho',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24433,7 +24549,7 @@ return array (
       2 => 'warang-citi',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24452,7 +24568,7 @@ return array (
       2 => 'yi',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24471,7 +24587,7 @@ return array (
       2 => 'zanabazar-square',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24526,7 +24642,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24576,7 +24692,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24693,7 +24809,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -24774,7 +24890,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25007,7 +25123,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25113,7 +25229,7 @@ return array (
       2 => 'makasar',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25163,7 +25279,7 @@ return array (
       0 => 'myanmar',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25206,7 +25322,7 @@ return array (
       2 => 'old-uyghur',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25250,7 +25366,7 @@ return array (
       2 => 'ottoman-siyaq-numbers',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25386,7 +25502,7 @@ return array (
       2 => 'tangut',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25486,7 +25602,7 @@ return array (
       2 => 'todhri',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25607,7 +25723,7 @@ return array (
       4 => 'znamenny',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25625,7 +25741,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25643,7 +25759,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25662,7 +25778,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25680,7 +25796,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25698,7 +25814,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25716,7 +25832,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25734,7 +25850,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25752,7 +25868,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25769,7 +25885,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25862,7 +25978,7 @@ return array (
       2 => 'yi',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25879,7 +25995,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25897,7 +26013,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25915,7 +26031,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25939,7 +26055,7 @@ return array (
       7 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -25989,7 +26105,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26007,7 +26123,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26026,7 +26142,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26045,7 +26161,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26064,7 +26180,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26109,7 +26225,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26168,7 +26284,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26187,7 +26303,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26229,7 +26345,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26249,7 +26365,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26267,7 +26383,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26285,7 +26401,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26354,7 +26470,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26377,7 +26493,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26395,7 +26511,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26467,7 +26583,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26511,7 +26627,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26529,7 +26645,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26549,7 +26665,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26572,7 +26688,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26593,7 +26709,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26614,7 +26730,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26637,7 +26753,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26658,7 +26774,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26679,7 +26795,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26699,7 +26815,7 @@ return array (
       2 => 'myanmar',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26718,7 +26834,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26743,7 +26859,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26765,7 +26881,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26783,7 +26899,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26804,7 +26920,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26822,7 +26938,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26840,7 +26956,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26882,7 +26998,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26902,7 +27018,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26921,7 +27037,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26977,7 +27093,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -26996,7 +27112,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27015,7 +27131,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27036,7 +27152,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27053,7 +27169,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27072,7 +27188,7 @@ return array (
       2 => 'tamil',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27091,7 +27207,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27109,7 +27225,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27127,7 +27243,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27144,7 +27260,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27163,7 +27279,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27181,7 +27297,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27225,7 +27341,7 @@ return array (
       0 => 'lao',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27249,7 +27365,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27329,7 +27445,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27348,7 +27464,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27366,7 +27482,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27409,7 +27525,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27458,7 +27574,7 @@ return array (
       5 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27477,7 +27593,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27569,7 +27685,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27636,7 +27752,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27678,7 +27794,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27718,7 +27834,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27758,7 +27874,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27798,7 +27914,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27838,7 +27954,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27878,7 +27994,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27918,7 +28034,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27958,7 +28074,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -27998,7 +28114,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28038,7 +28154,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28078,7 +28194,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28118,7 +28234,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28158,7 +28274,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28198,7 +28314,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28238,7 +28354,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28278,7 +28394,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28318,7 +28434,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28358,7 +28474,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28398,7 +28514,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28438,7 +28554,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28501,7 +28617,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28518,7 +28634,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28558,7 +28674,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28598,7 +28714,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28640,7 +28756,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28682,7 +28798,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28722,7 +28838,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28762,7 +28878,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28802,7 +28918,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28842,7 +28958,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28882,7 +28998,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28922,7 +29038,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -28962,7 +29078,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29002,7 +29118,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29042,7 +29158,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29082,7 +29198,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29122,7 +29238,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29162,7 +29278,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29202,7 +29318,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29242,7 +29358,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29282,7 +29398,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29322,7 +29438,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29362,7 +29478,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29402,7 +29518,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29442,7 +29558,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29482,7 +29598,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29522,7 +29638,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29562,7 +29678,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29602,7 +29718,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29642,7 +29758,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29688,7 +29804,7 @@ return array (
       2 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29733,7 +29849,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29752,7 +29868,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29769,7 +29885,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29814,7 +29930,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29831,7 +29947,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29849,7 +29965,26 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
+    'axes' => 
+    array (
+    ),
+  ),
+  'Ponomar' => 
+  array (
+    'family' => 'Ponomar',
+    'variants' => 
+    array (
+      0 => 'regular',
+    ),
+    'subsets' => 
+    array (
+      0 => 'cyrillic',
+      1 => 'cyrillic-ext',
+      2 => 'latin',
+    ),
+    'category' => 'display',
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29891,7 +30026,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29926,7 +30061,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29943,7 +30078,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29960,7 +30095,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -29980,7 +30115,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30000,7 +30135,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30019,7 +30154,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30039,7 +30174,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30057,7 +30192,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30078,7 +30213,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30103,7 +30238,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30121,7 +30256,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30138,7 +30273,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30175,7 +30310,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30194,7 +30329,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30215,7 +30350,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30236,7 +30371,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30257,7 +30392,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30278,7 +30413,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30305,7 +30440,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30350,7 +30485,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30370,7 +30505,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30388,7 +30523,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30406,7 +30541,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30424,7 +30559,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30444,7 +30579,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30463,7 +30598,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30484,7 +30619,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30503,7 +30638,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30546,7 +30681,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30565,7 +30700,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30585,7 +30720,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30629,7 +30764,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30706,7 +30841,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30729,7 +30864,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30748,7 +30883,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30794,7 +30929,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30812,7 +30947,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30830,7 +30965,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30851,7 +30986,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30869,7 +31004,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30889,7 +31024,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30907,7 +31042,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30924,7 +31059,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30944,7 +31079,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -30988,7 +31123,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31006,7 +31141,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31206,7 +31341,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31226,7 +31361,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31320,7 +31455,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31392,7 +31527,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31409,7 +31544,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31429,7 +31564,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31472,7 +31607,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31491,7 +31626,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31509,7 +31644,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31527,7 +31662,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31545,7 +31680,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31563,7 +31698,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31582,7 +31717,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31871,7 +32006,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31889,7 +32024,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31906,7 +32041,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31925,7 +32060,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31969,7 +32104,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -31988,7 +32123,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32033,7 +32168,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32050,7 +32185,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32071,7 +32206,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32090,7 +32225,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32140,7 +32275,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32161,7 +32296,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32184,7 +32319,7 @@ return array (
       6 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32205,7 +32340,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32226,7 +32361,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32247,7 +32382,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32268,7 +32403,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32291,7 +32426,7 @@ return array (
       6 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32314,7 +32449,7 @@ return array (
       6 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32335,7 +32470,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32356,7 +32491,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32379,7 +32514,7 @@ return array (
       6 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32400,7 +32535,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32423,7 +32558,7 @@ return array (
       6 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32446,7 +32581,7 @@ return array (
       6 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32467,7 +32602,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32488,7 +32623,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32509,7 +32644,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32528,7 +32663,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32549,7 +32684,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32570,7 +32705,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32591,7 +32726,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32614,7 +32749,7 @@ return array (
       6 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32635,7 +32770,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32656,7 +32791,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32677,7 +32812,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32698,7 +32833,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32743,7 +32878,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32762,7 +32897,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32780,7 +32915,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32798,7 +32933,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32819,7 +32954,7 @@ return array (
       4 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32838,7 +32973,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32857,7 +32992,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32879,7 +33014,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32897,7 +33032,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32968,7 +33103,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -32988,7 +33123,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33006,7 +33141,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33065,7 +33200,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33092,7 +33227,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33119,7 +33254,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33138,7 +33273,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33155,7 +33290,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33174,7 +33309,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33192,7 +33327,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33211,7 +33346,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33236,7 +33371,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33296,7 +33431,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33316,7 +33451,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33334,7 +33469,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33358,7 +33493,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33377,7 +33512,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33394,7 +33529,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33415,7 +33550,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33434,7 +33569,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33457,7 +33592,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33479,7 +33614,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33521,7 +33656,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33539,7 +33674,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33557,7 +33692,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33576,7 +33711,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33595,7 +33730,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33613,7 +33748,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33632,7 +33767,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33651,7 +33786,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33694,7 +33829,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33712,7 +33847,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33731,7 +33866,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33749,7 +33884,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33767,7 +33902,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33788,7 +33923,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33807,7 +33942,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33871,7 +34006,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33892,7 +34027,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33909,7 +34044,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33926,7 +34061,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33945,7 +34080,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33964,7 +34099,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -33987,7 +34122,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34010,7 +34145,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34028,7 +34163,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34046,7 +34181,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34063,7 +34198,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34082,7 +34217,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34099,7 +34234,7 @@ return array (
       0 => 'khmer',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34118,7 +34253,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34137,7 +34272,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34212,7 +34347,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34233,7 +34368,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34250,7 +34385,7 @@ return array (
       0 => 'korean',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34269,7 +34404,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34286,7 +34421,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34304,7 +34439,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34399,7 +34534,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34417,7 +34552,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34435,7 +34570,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34452,7 +34587,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34471,7 +34606,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34489,7 +34624,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34508,7 +34643,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34550,7 +34685,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34569,7 +34704,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34586,7 +34721,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34604,7 +34739,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34621,7 +34756,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34638,7 +34773,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34769,7 +34904,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34790,7 +34925,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34832,7 +34967,7 @@ return array (
       0 => 'korean',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34881,7 +35016,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -34924,7 +35059,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35097,7 +35232,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35115,7 +35250,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35149,7 +35284,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35183,7 +35318,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35201,7 +35336,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35219,7 +35354,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35236,7 +35371,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35255,7 +35390,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35321,7 +35456,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35340,7 +35475,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35358,7 +35493,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35378,7 +35513,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35399,7 +35534,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35417,7 +35552,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35435,7 +35570,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35454,7 +35589,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35472,7 +35607,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35492,7 +35627,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35535,7 +35670,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35553,7 +35688,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35572,7 +35707,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35590,7 +35725,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35609,7 +35744,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35626,7 +35761,7 @@ return array (
       0 => 'korean',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35643,7 +35778,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35662,7 +35797,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35682,7 +35817,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35702,7 +35837,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35722,7 +35857,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35739,7 +35874,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35757,7 +35892,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35777,7 +35912,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35795,7 +35930,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35813,7 +35948,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35835,7 +35970,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35853,7 +35988,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35872,7 +36007,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35915,7 +36050,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35933,7 +36068,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35954,7 +36089,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35975,7 +36110,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -35999,7 +36134,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36017,7 +36152,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36036,7 +36171,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36054,7 +36189,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36072,7 +36207,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36109,7 +36244,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36212,7 +36347,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36230,7 +36365,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36249,7 +36384,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36267,7 +36402,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36322,7 +36457,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36340,7 +36475,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36360,7 +36495,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36379,7 +36514,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36402,7 +36537,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36513,7 +36648,7 @@ return array (
       1 => 'telugu',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36540,7 +36675,7 @@ return array (
       7 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36561,7 +36696,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36581,7 +36716,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36601,7 +36736,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36621,7 +36756,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36641,7 +36776,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36661,7 +36796,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36681,7 +36816,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36701,7 +36836,7 @@ return array (
       2 => 'tamil',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36721,7 +36856,7 @@ return array (
       2 => 'telugu',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36739,7 +36874,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36767,7 +36902,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36802,7 +36937,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36851,7 +36986,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36871,7 +37006,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36890,7 +37025,7 @@ return array (
       2 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36927,7 +37062,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36976,7 +37111,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -36995,7 +37130,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37050,7 +37185,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37073,7 +37208,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37090,7 +37225,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37113,7 +37248,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37132,7 +37267,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37161,7 +37296,7 @@ return array (
       5 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37183,7 +37318,7 @@ return array (
       5 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37208,7 +37343,7 @@ return array (
       5 => 'latin-ext',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37290,7 +37425,7 @@ return array (
       1 => 'tibetan',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37308,7 +37443,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37353,7 +37488,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37372,7 +37507,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37391,7 +37526,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37408,7 +37543,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37425,7 +37560,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37443,7 +37578,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37461,7 +37596,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37482,7 +37617,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37501,7 +37636,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37545,7 +37680,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37563,7 +37698,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37581,7 +37716,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37601,7 +37736,7 @@ return array (
       3 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37643,7 +37778,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37690,7 +37825,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37711,7 +37846,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37729,7 +37864,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37746,7 +37881,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37792,7 +37927,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37810,7 +37945,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37829,7 +37964,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37847,7 +37982,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37867,7 +38002,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37920,7 +38055,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37939,7 +38074,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37958,7 +38093,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37976,7 +38111,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -37993,7 +38128,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38010,7 +38145,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38028,7 +38163,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38047,7 +38182,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38066,7 +38201,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38119,7 +38254,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38137,7 +38272,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38156,7 +38291,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38176,9 +38311,34 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'handwriting',
+    'is_variable' => false,
+    'axes' => 
+    array (
+    ),
+  ),
+  'Winky Sans' => 
+  array (
+    'family' => 'Winky Sans',
+    'variants' => 
+    array (
+      0 => 'regular',
+      1 => 'italic',
+    ),
+    'subsets' => 
+    array (
+      0 => 'latin',
+      1 => 'latin-ext',
+    ),
+    'category' => 'sans-serif',
     'is_variable' => true,
     'axes' => 
     array (
+      0 => 
+      array (
+        'tag' => 'wght',
+        'start' => 300,
+        'end' => 900,
+      ),
     ),
   ),
   'Wire One' => 
@@ -38193,7 +38353,7 @@ return array (
       0 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38350,7 +38510,7 @@ return array (
       2 => 'vietnamese',
     ),
     'category' => 'monospace',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38428,7 +38588,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38447,7 +38607,7 @@ return array (
       2 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38466,7 +38626,7 @@ return array (
       2 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38485,7 +38645,7 @@ return array (
       2 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38504,7 +38664,7 @@ return array (
       2 => 'symbols',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38523,7 +38683,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38541,7 +38701,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38559,7 +38719,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38580,7 +38740,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38598,7 +38758,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38619,7 +38779,7 @@ return array (
       4 => 'vietnamese',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38637,7 +38797,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38806,7 +38966,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38825,7 +38985,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38844,7 +39004,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38864,7 +39024,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38884,7 +39044,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38903,7 +39063,7 @@ return array (
       2 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38921,7 +39081,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38939,7 +39099,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38957,7 +39117,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -38982,7 +39142,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39003,7 +39163,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39024,7 +39184,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39042,7 +39202,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39066,7 +39226,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39090,7 +39250,7 @@ return array (
       3 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39111,7 +39271,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39130,7 +39290,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39155,7 +39315,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'sans-serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39180,7 +39340,7 @@ return array (
       4 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39198,7 +39358,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'display',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39216,7 +39376,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39234,7 +39394,7 @@ return array (
       1 => 'latin',
     ),
     'category' => 'handwriting',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39261,7 +39421,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),
@@ -39280,7 +39440,7 @@ return array (
       1 => 'latin-ext',
     ),
     'category' => 'serif',
-    'is_variable' => true,
+    'is_variable' => false,
     'axes' => 
     array (
     ),

@@ -160,34 +160,32 @@ export const useFontWeightOptions = (fontFamily) => {
 	];
 
 	// Theme variable fonts
-	if (fontFamily === 'var( --global-heading-font-family, inherit )') {
-		return systemWeights;
-	}
-	if (fontFamily === 'var( --global-body-font-family, inherit )') {
-		return systemWeights;
+	if (fontFamily === 'var( --global-heading-font-family, inherit )' || fontFamily === 'var( --global-body-font-family, inherit )') {
+		return { type: 'static', options: systemWeights, fontsLoaded: true };
 	}
 
 	// Get fonts from the data store
-	const { fonts } = useSelect((select) => {
-		const { getFonts } = select('kadenceblocks/data');
+	const { fonts, loaded } = useSelect((select) => {
+		const { getFonts, areFontsLoaded } = select('kadenceblocks/data');
 		return {
 			fonts: getFonts() || {},
+			loaded: areFontsLoaded()
 		};
 	}, []);
 
 	// Return standard weights if no fonts data
-	if (!fonts) {
-		return standardWeights;
+	if (!fonts || !loaded) {
+		return { type: 'static', options: standardWeights, fontsLoaded: loaded };
 	}
 
 	// Check theme fonts
 	if (fonts.theme && fonts.theme[fontFamily]) {
 		const themeFont = fonts.theme[fontFamily];
 		if (themeFont.styles && themeFont.styles.length) {
-			return themeFont.styles.map(style => ({
+			return { fontsLoaded: true, type: 'static', options: themeFont.styles.map(style => ({
 				value: style,
 				label: style === 'regular' ? __('Regular', 'kadence-blocks') : style
-			}));
+			}))};
 		}
 	}
 
@@ -195,10 +193,10 @@ export const useFontWeightOptions = (fontFamily) => {
 	if (fonts.custom && fonts.custom[fontFamily]) {
 		const customFont = fonts.custom[fontFamily];
 		if (customFont.styles && customFont.styles.length) {
-			return customFont.styles.map(style => ({
+			return { fontsLoaded: true, type: 'static', options: customFont.styles.map(style => ({
 				value: style,
 				label: style === 'regular' ? __('Regular', 'kadence-blocks') : style
-			}));
+			}))};
 		}
 	}
 
@@ -206,18 +204,21 @@ export const useFontWeightOptions = (fontFamily) => {
 	if (fonts.google && fonts.google[fontFamily]) {
 		const googleFont = fonts.google[fontFamily];
 
-   
+		if( googleFont.is_variable ) {
+			const axesWeights = googleFont.axes.filter(axis => axis.tag === 'wght');
+			return { fontsLoaded: true, type: 'variable', minWeight: axesWeights[0].start, maxWeight: axesWeights[0].end };
+		}
+
 		if (googleFont.styles && googleFont.styles.length) {
-			return googleFont.styles.map(style => ({
+			return { fontsLoaded: true, type: 'static', options: googleFont.styles.map(style => ({
 				value: style === 'regular' ? '400' : style,
 				label: style === 'regular' ? __('Regular', 'kadence-blocks') : style
-			}));
+			}))};
 		}
 	}
-    
 
 	// Return standard weights as fallback
-	return standardWeights;
+	return { type: 'static', options: standardWeights, fontsLoaded: loaded };
 };
 
 /**

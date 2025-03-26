@@ -75,7 +75,7 @@ function kbs_update_google_fonts($api_key) {
             'variants' => $font['variants'],
             'subsets' => $font['subsets'],
             'category' => $font['category'],
-            'is_variable' => true,
+            'is_variable' => isset($font['axes']) ? true : false,
             'axes' => isset($font['axes']) ? $font['axes'] : array()
         );
     }

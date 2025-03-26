@@ -21,7 +21,7 @@ export default function getGlobalStylesDeviceValue(attributeName, globalStylesJs
 
     // Check if the preset exists for the component
     if (!globalStylesJson.components[attributeName]?.presets?.base?.attributes[attributeName]?.[device]?.[type] ) {
-        console.log( 'Could not find preset', globalStylesJson );
+        // console.log( 'Could not find preset', globalStylesJson );
         return '';
     }
 
