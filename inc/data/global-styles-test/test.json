@@ -33,12 +33,25 @@
 			"presets": {
 				"base-99857": {
 					"label": "Hero",
-					"name": "Hero 1",
+					"name": "Hero 1 - Dark Mode",
 					"description": "Standard hero text",
 					"attributes": {
 						"typography": {
 							"desktop": {
 								"fontFamily": "Impact, cursive, sans-serif",
+								"fontSource": "system"
+							}
+						}
+					}
+				},
+				"base-99859": {
+					"label": "Hero",
+					"name": "Hero 2 - Dark Mode",
+					"description": "Standard hero text 2",
+					"attributes": {
+						"typography": {
+							"desktop": {
+								"fontFamily": "Georgia, cursive, sans-serif",
 								"fontSource": "system"
 							}
 						}

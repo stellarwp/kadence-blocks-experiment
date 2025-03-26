@@ -3,7 +3,7 @@ import { map } from 'lodash';
 import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/edit-post';
 import { __ } from '@wordpress/i18n';
 import { Fragment, useState, useEffect } from '@wordpress/element';
-import { PanelBody, Button, Modal, TabPanel } from '@wordpress/components';
+import { PanelBody, Button, Modal, TabPanel, SelectControl } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { createBlock } from '@wordpress/blocks';
 import { BlockPreview, InspectorControls } from '@wordpress/block-editor';
@@ -12,6 +12,8 @@ import { useSelect, useDispatch } from '@wordpress/data';
  * Import Icons
  */
 import * as BlockIcons from '@kadence/icons';
+import { SelectGlobalStyles } from '@kadence/kbsComponents';
+import { getGlobalStylesPresetOptions } from '@kadence/kbsHelpers';
 
 import ComponentPresetControl from './component-preset-control';
 
@@ -31,14 +33,15 @@ function KadenceConfig() {
 	const [selectedBlock, setSelectedBlock] = useState(null);
 	const [selectedBlockAttributes, setSelectedBlockAttributes] = useState({});
 
-	const { styleBookLocalGlobalStyles, isSavingStyleBook } = useSelect((select) => {
+	const { styleBookLocalGlobalStyles, isSavingStyleBook, styleBookAttributes } = useSelect((select) => {
 		return {
 			styleBookLocalGlobalStyles: select('kadenceblocks/global-styles').getStyleBookLocalGlobalStyles(),
 			isSavingStyleBook: select('kadenceblocks/global-styles').isSavingStyleBook(),
+			styleBookAttributes: select('kadenceblocks/global-styles').getStyleBookAttributes(),
 		};
 	}, []);
 
-	const { saveStyleBookGlobalStyles } = useDispatch('kadenceblocks/global-styles');
+	const { saveStyleBookGlobalStyles, setStyleBookAttributes } = useDispatch('kadenceblocks/global-styles');
 
 	const tabs = [
 		{
@@ -108,23 +111,50 @@ function KadenceConfig() {
 
 	const renderSidebarControls = () => {
 		var controlContent = null;
+		var controlContentUpper = null;
 
 		if (selectedTab == 'presets') {
-			if (selectedComponent == 'typography')
+			controlContentUpper = (
+				<>
+					<PanelBody>
+						<div className="kadence-style-book-preset-controls">
+							This is where a preset select control will go.
+							<SelectControl
+								label={__('Select Preset', 'kadence-blocks')}
+								value={styleBookLocalGlobalStyles?.components?.[selectedComponent]?.selectedPreset}
+								options={getGlobalStylesPresetOptions(
+									styleBookLocalGlobalStyles,
+									styleBookAttributes.globalStyleIds?.[0],
+									selectedComponent
+								)}
+								onChange={(preset) =>
+									setStyleBookAttributes({
+										components: { [selectedComponent]: { selectedPreset: preset } },
+									})
+								}
+							/>
+						</div>
+					</PanelBody>
+				</>
+			);
+
+			if (selectedComponent == 'typography') {
 				controlContent = (
 					<>
 						<PanelBody>
 							<InspectorControls.Slot />
 							<div className="kadence-style-book-controls">
-								This is where a preset control will go.
-								<ComponentPresetControl property={'typography'}></ComponentPresetControl>
+								This is where a preset option controls will go.
+								<ComponentPresetControl property={'typography'} />
 							</div>
 						</PanelBody>
 					</>
 				);
+			}
 		}
 		return (
 			<>
+				{controlContentUpper}
 				{controlContent}
 				<PanelBody>
 					<Button
@@ -321,6 +351,11 @@ function KadenceConfig() {
 					overlayClassName="kadence-style-book-modal-overlay editor-styles-wrapper"
 				>
 					<div className="kadence-style-book-content">
+						<SelectGlobalStyles
+							attributes={styleBookAttributes}
+							setAttributes={setStyleBookAttributes}
+							isMulti={false}
+						/>
 						<TabPanel
 							className="kadence-style-book-tabs"
 							activeClass="is-active"

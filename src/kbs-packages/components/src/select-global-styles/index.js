@@ -23,38 +23,33 @@ import { useGlobalStylesIds } from '@kadence/kbsHelpers';
 import { useMemo } from '@wordpress/element';
 import './editor.scss';
 
-
 /**
  * Build the Font Select control
  *
  * @param {Object} props Component props.
  * @return {JSX.Element} Font select control.
  */
-export default function SelectGlobalStyles({
-	attributes,
-	setAttributes,
-}) {
-	
+export default function SelectGlobalStyles({ attributes, setAttributes, isMulti = false }) {
 	const { options, isLoadingOptions } = useSelectOptions({});
 	const globalStylesIds = useGlobalStylesIds();
 	const inheritGlobalStyles = useMemo(() => {
 		// Get current style IDs (always an array)
 		const currentStyleIdsArray = attributes.globalStyleIds || [];
-		
+
 		// If no current styles, return all inherited styles
 		if (currentStyleIdsArray.length === 0) {
 			return globalStylesIds;
 		}
-		
+
 		// Check if the current styles appear at the end of globalStylesIds and in the same order
 		const globalStylesIdsLength = globalStylesIds.length;
 		const currentStylesLength = currentStyleIdsArray.length;
-		
+
 		// If current styles are longer than all styles, they can't be at the end
 		if (currentStylesLength > globalStylesIdsLength) {
 			return globalStylesIds;
 		}
-		
+
 		// Check if the last elements of globalStylesIds match currentStyleIdsArray
 		let matchesAtEnd = true;
 		for (let i = 0; i < currentStylesLength; i++) {
@@ -65,25 +60,28 @@ export default function SelectGlobalStyles({
 				break;
 			}
 		}
-		
+
 		// If they match at the end, remove them from the inherited styles
 		if (matchesAtEnd) {
 			return globalStylesIds.slice(0, globalStylesIdsLength - currentStylesLength);
 		}
-		
+
 		// Otherwise return all global styles
 		return globalStylesIds;
 	}, [attributes.globalStyleIds, globalStylesIds]);
 
 	// Find selected options based on the IDs
-	const selectedOptions = (attributes.globalStyleIds || []).length > 0 
-		? options.filter(option => attributes.globalStyleIds.includes(option.value))
-		: [];
+	const selectedOptions =
+		(attributes.globalStyleIds || []).length > 0
+			? options.filter((option) => attributes.globalStyleIds.includes(option.value))
+			: [];
 
 	// Find inherited style options
-	const inheritedStyleOptions = inheritGlobalStyles.map(id => {
+	const inheritedStyleOptions = inheritGlobalStyles.map((id) => {
 		const idStr = id.toString();
-		return options.find(opt => opt.value === idStr) || { value: idStr, label: __('Unknown Style', 'kadence-blocks') };
+		return (
+			options.find((opt) => opt.value === idStr) || { value: idStr, label: __('Unknown Style', 'kadence-blocks') }
+		);
 	});
 
 	return (
@@ -94,7 +92,7 @@ export default function SelectGlobalStyles({
 					options={options}
 					onChange={(selectedOption) => {
 						if (Array.isArray(selectedOption)) {
-							setAttributes({ globalStyleIds: selectedOption.map(option => option.value) });
+							setAttributes({ globalStyleIds: selectedOption.map((option) => option.value) });
 						} else if (selectedOption) {
 							setAttributes({ globalStyleIds: [selectedOption.value] });
 						} else {
@@ -102,15 +100,15 @@ export default function SelectGlobalStyles({
 						}
 					}}
 					className="kb-select-control"
-					placeholder={ __('Select Global Style', 'kadence-blocks') }
+					placeholder={__('Select Global Style', 'kadence-blocks')}
 					isSearchable={true}
 					isLoading={isLoadingOptions}
 					noOptionsMessage={() => __('No results', 'kadence-blocks')}
 					isRtl={IS_RTL}
-					isMulti={true}
+					isMulti={isMulti}
 				/>
 			</div>
-			
+
 			{inheritedStyleOptions.length > 0 && (
 				<div className="kbs-global-style-inherited-section">
 					<h3 className="kbs-global-style-inherited-heading">

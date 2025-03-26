@@ -13,16 +13,16 @@ export const useSelectOptions = ({}) => {
 
 	// Import the select function from WordPress data
 	const { select } = wp.data;
-	
+
 	// Get global styles from the store
 	const globalStyles = select('kadenceblocks/global-styles')?.getGlobalStyles() || [];
 	isLoadingOptions = select('kadenceblocks/global-styles')?.isLoading() || false;
-	
+
 	// Map global styles to options format
-	if (globalStyles && globalStyles.length > 0) {
-		options = globalStyles.map(style => ({
-			value: style.id.toString(),
-			label: style.name || `Style ${style.id}`,
+	if (globalStyles && Object.keys(globalStyles).length > 0) {
+		options = Object.keys(globalStyles).map((key) => ({
+			value: key,
+			label: globalStyles[key].name || `Style ${key}`,
 		}));
 	} else {
 		// Fallback options if no global styles are found
@@ -42,4 +42,4 @@ export const useSelectOptions = ({}) => {
 		options,
 		isLoadingOptions,
 	};
-}; 
+};

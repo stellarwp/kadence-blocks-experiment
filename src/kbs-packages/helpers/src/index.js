@@ -10,3 +10,4 @@ export { handleAttributeChange } from './handle-attribute-change';
 export { GlobalStylesContext } from './global-styles-context';
 export { default as useGlobalStylesIds } from './use-global-styles-ids';
 export { default as getGlobalStylesDeviceValue } from './get-global-styles-device-value';
+export { default as getGlobalStylesPresetOptions } from './get-global-styles-preset-options';

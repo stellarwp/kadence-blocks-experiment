@@ -6,6 +6,7 @@ import apiFetch from '@wordpress/api-fetch';
  */
 const DEFAULT_STATE = {
 	globalStyles: [],
+	styleBookAttributes: {},
 	isLoading: false,
 	isSavingStyleBook: false,
 	hasResolved: false,
@@ -56,6 +57,12 @@ const actions = {
 		return {
 			type: 'SET_ERROR',
 			error,
+		};
+	},
+	setStyleBookAttributes(styleBookAttributes) {
+		return {
+			type: 'SET_STYLE_BOOK_ATTRIBUTES',
+			styleBookAttributes,
 		};
 	},
 	*fetchGlobalStyles() {
@@ -285,6 +292,15 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					...state,
 					error: action.error,
 				};
+			case 'SET_STYLE_BOOK_ATTRIBUTES':
+				// return {
+				// 	...state,
+				// 	styleBookAttributes: Object.assign(state.styleBookAttributes, action.styleBookAttributes),
+				// };
+				return {
+					...state,
+					styleBookAttributes: { ...state.styleBookAttributes, ...action.styleBookAttributes },
+				};
 			default:
 				return state;
 		}
@@ -294,6 +310,9 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 	selectors: {
 		getGlobalStyles(state) {
 			return state.globalStyles;
+		},
+		getStyleBookAttributes(state) {
+			return state.styleBookAttributes;
 		},
 		getMergedGlobalStyle(state, styleIds) {
 			if (!styleIds || (Array.isArray(styleIds) && styleIds.length === 0)) {
