@@ -5,252 +5,272 @@ import { merge } from 'lodash';
  * CSS Generator class for building CSS strings
  */
 class CSSGenerator {
-    constructor( selector = '' ) {
-        this.rules = new Map();
-        this.currentSelector = selector;
-    }
+	constructor(selector = '') {
+		this.rules = new Map();
+		this.currentSelector = selector;
+	}
 
-    /**
-     * Set the current selector for subsequent property additions
-     * @param {string} selector - The CSS selector
-     * @returns {CSSGenerator} - Returns this instance for chaining
-     */
-    setSelector(selector) {
-        this.currentSelector = selector;
-        return this;
-    }
-    /**
-     * Add a CSS attribute to the current selector
-     * @param {string} key - The key of the attribute
-     * @param {Object} meta - The metadata of the attribute
-     * @param {Object} props - The props of the block
-     * @returns {CSSGenerator} - Returns this instance for chaining
-     */
-    addAttribute( key, meta, props ) {
-        const { attributes, previewDevice } = props;
-        const mergedAttribute = this.mergeInitialAttribute( meta, ( attributes?.[ key ] || {} ) );
-        // Check if the attribute exists in the attributes object
-        if ( mergedAttribute ) {
-            if ( ! meta?.property ) {
-                return this;
-            }
-            if ( ! meta?.selector ) {
-                return this;
-            }
-            switch ( meta.property ) {
-                case 'flex-direction':
-                case 'flex-wrap':
-                case 'align-content':
-                case 'align-items':
-                case 'justify-content':
-                case 'row-gap':
-                case 'column-gap':
-                    this.renderStringProperty( mergedAttribute, meta.selector, previewDevice );
-                    break;
-            }
-        }
-        return this;
-    }
-    /**
-     * Loops through components and add its CSS attributes to their selector
-     * @param {string} key - The key of the attribute
-     * @param {Object} meta - The metadata of the attribute
-     * @param {Object} props - The props of the block
-     * @returns {CSSGenerator} - Returns this instance for chaining
-     */
-    addComponent( key, meta, props ) {
-        const { attributes, previewDevice } = props;
-        const mergedAttribute = this.mergeInitialAttribute( meta, ( attributes?.[ key ] || {} ) );
+	/**
+	 * Set the current selector for subsequent property additions
+	 * @param {string} selector - The CSS selector
+	 * @returns {CSSGenerator} - Returns this instance for chaining
+	 */
+	setSelector(selector) {
+		this.currentSelector = selector;
+		return this;
+	}
+	/**
+	 * Add a CSS attribute to the current selector
+	 * @param {string} key - The key of the attribute
+	 * @param {Object} meta - The metadata of the attribute
+	 * @param {Object} props - The props of the block
+	 * @returns {CSSGenerator} - Returns this instance for chaining
+	 */
+	addAttribute(key, meta, props) {
+		const { attributes, previewDevice } = props;
+		const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[key] || {});
+		// Check if the attribute exists in the attributes object
+		if (mergedAttribute) {
+			if (!meta?.property) {
+				return this;
+			}
+			if (!meta?.selector) {
+				return this;
+			}
+			switch (meta.property) {
+				case 'flex-direction':
+				case 'flex-wrap':
+				case 'align-content':
+				case 'align-items':
+				case 'justify-content':
+				case 'row-gap':
+				case 'column-gap':
+					this.renderStringProperty(mergedAttribute, meta.selector, previewDevice);
+					break;
+			}
+		}
+		return this;
+	}
+	/**
+	 * Loops through components and add its CSS attributes to their selector
+	 * @param {string} key - The key of the attribute
+	 * @param {Object} meta - The metadata of the attribute
+	 * @param {Object} props - The props of the block
+	 * @returns {CSSGenerator} - Returns this instance for chaining
+	 */
+	addComponent(key, meta, props) {
+		const { attributes, previewDevice } = props;
+		const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[key] || {});
 
-        if ( ! mergedAttribute ) {
-            return this;
-        }
+		if (!mergedAttribute) {
+			return this;
+		}
 
-        if ( ! meta?.component ) {
-            return this;
-        }
+		if (!meta?.component) {
+			return this;
+		}
 
-        switch ( meta.component ) {
-            case 'typography':
-                const typographyProperties = [
-                    { key: 'fontFamily', selector: meta.selector + '-font-family' },
-                    { key: 'fontWeight', selector: meta.selector + '-font-weight' },
-                ];
+		switch (meta.component) {
+			case 'typography':
+				const typographyProperties = [
+					{ key: 'fontFamily', selector: meta.selector + '-font-family' },
+					{ key: 'fontWeight', selector: meta.selector + '-font-weight' },
+				];
 
-                typographyProperties.forEach(({ key, selector }) => {
-                    // Check if any device has this property
-                    if (mergedAttribute?.dt?.[key] || mergedAttribute?.td?.[key] || mergedAttribute?.mb?.[key]) {
-                        const deviceValues = {
-                            dt: mergedAttribute?.dt?.[key] || '',
-                            td: mergedAttribute?.td?.[key] || '',
-                            mb: mergedAttribute?.mb?.[key] || ''
-                        };
+				typographyProperties.forEach(({ key, selector }) => {
+					// Check if any device has this property
+					if (
+						mergedAttribute?.desktop?.[key] ||
+						mergedAttribute?.tablet?.[key] ||
+						mergedAttribute?.mobile?.[key]
+					) {
+						const deviceValues = {
+							desktop: mergedAttribute?.desktop?.[key] || '',
+							tablet: mergedAttribute?.tablet?.[key] || '',
+							mobile: mergedAttribute?.mobile?.[key] || '',
+						};
 
-                        this.renderStringProperty(deviceValues, selector, previewDevice);
-                    }
-                });
-                break;
-            default:
-                // For other complex properties, add specific handling here
-                break;
-        }
+						this.renderStringProperty(deviceValues, selector, previewDevice);
+					}
+				});
+				break;
+			default:
+				// For other complex properties, add specific handling here
+				break;
+		}
 
-        return this;
-    }
+		return this;
+	}
 
-    /**
-     * Merge the initial attribute
-     * @param {Object} meta - The metadata of the attribute
-     * @param {Object} attributeValue - The value of the attribute
-     * @returns {Object} - The merged attribute
-     */
-    mergeInitialAttribute( meta, attributeValue ) {
-        if ( ! meta || ! attributeValue ) {
-            return null;
-        }
-        if ( meta?.initial ) {
-            const initialAttribute = this.getInitialWithDeviceSlugs( meta.initial );
-            return merge( initialAttribute, attributeValue );
-        }
-        return attributeValue;
-    }
-    /**
-     * Get the initial attribute with device slugs
-     * @param {Object} initialAttribute - The initial attribute
-     * @returns {Object} - The initial attribute with device slugs
-     */
-    getInitialWithDeviceSlugs( initialAttribute ) {
-        if ( ! initialAttribute ) {
-            return {};
-        }
-        // Loop through initialAttribute object and replace the device key with the device slugs.
-        const initialAttributeWithDeviceSlugs = {};
-        Object.keys(initialAttribute).forEach(key => {
-            const deviceSlug = getDeviceAttributeSlug(key);
-            initialAttributeWithDeviceSlugs[deviceSlug] = initialAttribute[key];
-        });
+	/**
+	 * Merge the initial attribute
+	 * @param {Object} meta - The metadata of the attribute
+	 * @param {Object} attributeValue - The value of the attribute
+	 * @returns {Object} - The merged attribute
+	 */
+	mergeInitialAttribute(meta, attributeValue) {
+		if (!meta || !attributeValue) {
+			return null;
+		}
+		if (meta?.initial) {
+			const initialAttribute = this.getInitialWithDeviceSlugs(meta.initial);
+			return merge(initialAttribute, attributeValue);
+		}
+		return attributeValue;
+	}
+	/**
+	 * Get the initial attribute with device slugs
+	 * @param {Object} initialAttribute - The initial attribute
+	 * @returns {Object} - The initial attribute with device slugs
+	 */
+	getInitialWithDeviceSlugs(initialAttribute) {
+		if (!initialAttribute) {
+			return {};
+		}
+		// Loop through initialAttribute object and replace the device key with the device slugs.
+		const initialAttributeWithDeviceSlugs = {};
+		Object.keys(initialAttribute).forEach((key) => {
+			const deviceSlug = getDeviceAttributeSlug(key);
+			initialAttributeWithDeviceSlugs[deviceSlug] = initialAttribute[key];
+		});
 
-        return initialAttributeWithDeviceSlugs;
-    }
-    /**
-     * Get the preview property
-     * @param {string} attributeValue - The value of the attribute
-     * @param {string} previewDevice - The preview device
-     * @returns {string} - The preview property
-     */
-    getPreviewProperty( attributeValue, previewDevice ) {
-        const mobile = getDeviceAttributeSlug( 'mobile' );
-        const tablet = getDeviceAttributeSlug( 'tablet' );
-        const desktop = getDeviceAttributeSlug( 'desktop' );
-        if (previewDevice === 'Mobile') {
-            if (undefined !== attributeValue?.[mobile] && '' !== attributeValue?.[mobile] && null !== attributeValue?.[mobile]) {
-                return attributeValue?.[mobile];
-            } else if (undefined !== attributeValue?.[tablet] && '' !== attributeValue?.[tablet] && null !== attributeValue?.[tablet]) {
-                return attributeValue?.[tablet];
-            }
-        } else if (previewDevice === 'Tablet') {
-            if (undefined !== attributeValue?.[tablet] && '' !== attributeValue?.[tablet] && null !== attributeValue?.[tablet]) {
-                return attributeValue?.[tablet];
-            }
-        }
-        return undefined !== attributeValue?.[desktop] && '' !== attributeValue?.[desktop] && null !== attributeValue?.[desktop] ? attributeValue?.[desktop] : '';
-    }
-    /**
-     * Render the property as a string
-     * @param {string} attributeValue - The value of the attribute
-     * @param {string} selector - The CSS selector
-     * @param {string} previewDevice - The preview device
-     */
-    renderStringProperty( attributeValue, selector, previewDevice ) {
-        const propertyValue = String( this.getPreviewProperty( attributeValue, previewDevice ) );
-        if ( ! propertyValue ) {
-            return this;
-        }
-        this.add( { [ selector ]: this.getSizingOutput( propertyValue ) } );
-    }
-    /**
-     * Add CSS properties to the current selector
-     * @param {Object} properties - Object containing CSS properties and values
-     * @returns {CSSGenerator} - Returns this instance for chaining
-     */
-    add(properties) {
-        if (!this.currentSelector || !properties || Object.keys(properties).length === 0) {
-            return this;
-        }
+		return initialAttributeWithDeviceSlugs;
+	}
+	/**
+	 * Get the preview property
+	 * @param {string} attributeValue - The value of the attribute
+	 * @param {string} previewDevice - The preview device
+	 * @returns {string} - The preview property
+	 */
+	getPreviewProperty(attributeValue, previewDevice) {
+		const mobile = getDeviceAttributeSlug('mobile');
+		const tablet = getDeviceAttributeSlug('tablet');
+		const desktop = getDeviceAttributeSlug('desktop');
+		if (previewDevice === 'Mobile') {
+			if (
+				undefined !== attributeValue?.[mobile] &&
+				'' !== attributeValue?.[mobile] &&
+				null !== attributeValue?.[mobile]
+			) {
+				return attributeValue?.[mobile];
+			} else if (
+				undefined !== attributeValue?.[tablet] &&
+				'' !== attributeValue?.[tablet] &&
+				null !== attributeValue?.[tablet]
+			) {
+				return attributeValue?.[tablet];
+			}
+		} else if (previewDevice === 'Tablet') {
+			if (
+				undefined !== attributeValue?.[tablet] &&
+				'' !== attributeValue?.[tablet] &&
+				null !== attributeValue?.[tablet]
+			) {
+				return attributeValue?.[tablet];
+			}
+		}
+		return undefined !== attributeValue?.[desktop] &&
+			'' !== attributeValue?.[desktop] &&
+			null !== attributeValue?.[desktop]
+			? attributeValue?.[desktop]
+			: '';
+	}
+	/**
+	 * Render the property as a string
+	 * @param {string} attributeValue - The value of the attribute
+	 * @param {string} selector - The CSS selector
+	 * @param {string} previewDevice - The preview device
+	 */
+	renderStringProperty(attributeValue, selector, previewDevice) {
+		const propertyValue = String(this.getPreviewProperty(attributeValue, previewDevice));
+		if (!propertyValue) {
+			return this;
+		}
+		this.add({ [selector]: this.getSizingOutput(propertyValue) });
+	}
+	/**
+	 * Add CSS properties to the current selector
+	 * @param {Object} properties - Object containing CSS properties and values
+	 * @returns {CSSGenerator} - Returns this instance for chaining
+	 */
+	add(properties) {
+		if (!this.currentSelector || !properties || Object.keys(properties).length === 0) {
+			return this;
+		}
 
-        const existingProperties = this.rules.get(this.currentSelector) || {};
-        this.rules.set(this.currentSelector, { ...existingProperties, ...properties });
-        return this;
-    }
+		const existingProperties = this.rules.get(this.currentSelector) || {};
+		this.rules.set(this.currentSelector, { ...existingProperties, ...properties });
+		return this;
+	}
 
-    /**
-     * Add CSS rules for a specific selector
-     * @param {string} selector - The CSS selector
-     * @param {Object} properties - Object containing CSS properties and values
-     * @returns {CSSGenerator} - Returns this instance for chaining
-     */
-    addRule(selector, properties) {
-        this.setSelector(selector);
-        return this.add(properties);
-    }
+	/**
+	 * Add CSS rules for a specific selector
+	 * @param {string} selector - The CSS selector
+	 * @param {Object} properties - Object containing CSS properties and values
+	 * @returns {CSSGenerator} - Returns this instance for chaining
+	 */
+	addRule(selector, properties) {
+		this.setSelector(selector);
+		return this.add(properties);
+	}
 
-    /**
-     * Generate the final CSS string
-     * @returns {string} - The generated CSS string
-     */
-    generate() {
-        let css = '';
-        this.rules.forEach((properties, selector) => {
-            css += this._generateRuleString(selector, properties);
-        });
-        return css;
-    }
-    /**
-     * Get the spacing option output
-     * @param {string} value - The value of the attribute
-     * @returns {string} - The spacing option output
-     */
-    getSizingOutput(value) {
-        if (undefined === value) {
-            return '';
-        }
-        if (!SPACING_SIZES_MAP) {
-            return value;
-        }
-        if (value === '0') {
-            return '0';
-        }
-        if (value === 0) {
-            return '0';
-        }
-        const found = SPACING_SIZES_MAP.find((option) => option.value === value);
-        if (!found) {
-            return value;
-        }
-        return found.output;
-    }
+	/**
+	 * Generate the final CSS string
+	 * @returns {string} - The generated CSS string
+	 */
+	generate() {
+		let css = '';
+		this.rules.forEach((properties, selector) => {
+			css += this._generateRuleString(selector, properties);
+		});
+		return css;
+	}
+	/**
+	 * Get the spacing option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The spacing option output
+	 */
+	getSizingOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!SPACING_SIZES_MAP) {
+			return value;
+		}
+		if (value === '0') {
+			return '0';
+		}
+		if (value === 0) {
+			return '0';
+		}
+		const found = SPACING_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
 
-    /**
-     * Generate a CSS rule string for a selector and its properties
-     * @private
-     * @param {string} selector - The CSS selector
-     * @param {Object} properties - Object containing CSS properties and values
-     * @returns {string} - The generated CSS rule string
-     */
-    _generateRuleString(selector, properties) {
-        if (!properties || Object.keys(properties).length === 0) {
-            return '';
-        }
+	/**
+	 * Generate a CSS rule string for a selector and its properties
+	 * @private
+	 * @param {string} selector - The CSS selector
+	 * @param {Object} properties - Object containing CSS properties and values
+	 * @returns {string} - The generated CSS rule string
+	 */
+	_generateRuleString(selector, properties) {
+		if (!properties || Object.keys(properties).length === 0) {
+			return '';
+		}
 
-        let ruleString = `${selector} {\n`;
-        Object.entries(properties).forEach(([property, value]) => {
-            if (value !== undefined && value !== null && value !== '') {
-                ruleString += `    ${property}: ${value};\n`;
-            }
-        });
-        ruleString += '}\n';
-        return ruleString;
-    }
+		let ruleString = `${selector} {\n`;
+		Object.entries(properties).forEach(([property, value]) => {
+			if (value !== undefined && value !== null && value !== '') {
+				ruleString += `    ${property}: ${value};\n`;
+			}
+		});
+		ruleString += '}\n';
+		return ruleString;
+	}
 }
 
 export default CSSGenerator;

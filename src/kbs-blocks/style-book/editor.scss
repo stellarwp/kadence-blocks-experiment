@@ -4,6 +4,14 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
+
+.kbs-style-book-preview-heading {
+	border-bottom: 1px solid black;
+}
+.kbs-style-book-preview-typography {
+	font-family: var(--kbs-preview-font-family);
+}
+
 .kadence-toolbar-design-library {
 	margin-left: 5px;
 	margin-right: 5px;

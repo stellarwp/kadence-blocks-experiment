@@ -17,6 +17,8 @@ import { getGlobalStylesPresetOptions } from '@kadence/kbsHelpers';
 
 import ComponentPresetControl from './component-preset-control';
 
+import Styles from './editing/styles';
+
 /**
  * Build the row edit
  */
@@ -33,13 +35,17 @@ function KadenceConfig() {
 	const [selectedBlock, setSelectedBlock] = useState(null);
 	const [selectedBlockAttributes, setSelectedBlockAttributes] = useState({});
 
-	const { styleBookLocalGlobalStyles, isSavingStyleBook, styleBookAttributes } = useSelect((select) => {
-		return {
-			styleBookLocalGlobalStyles: select('kadenceblocks/global-styles').getStyleBookLocalGlobalStyles(),
-			isSavingStyleBook: select('kadenceblocks/global-styles').isSavingStyleBook(),
-			styleBookAttributes: select('kadenceblocks/global-styles').getStyleBookAttributes(),
-		};
-	}, []);
+	const { styleBookLocalGlobalStyles, isSavingStyleBook, styleBookAttributes, previewDevice } = useSelect(
+		(select) => {
+			return {
+				styleBookLocalGlobalStyles: select('kadenceblocks/global-styles').getStyleBookLocalGlobalStyles(),
+				isSavingStyleBook: select('kadenceblocks/global-styles').isSavingStyleBook(),
+				styleBookAttributes: select('kadenceblocks/global-styles').getStyleBookAttributes(),
+				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+			};
+		},
+		[]
+	);
 
 	const { saveStyleBookGlobalStyles, setStyleBookAttributes } = useDispatch('kadenceblocks/global-styles');
 
@@ -340,12 +346,43 @@ function KadenceConfig() {
 				// );
 				return <div className="kadence-style-book-widget-blocks">this is where widget previews would go</div>;
 			case 'presets':
+				const component = 'typography';
 				return (
 					<>
-						<div className="kadence-style-book-widget-blocks">this is where preset previews would go</div>
-						<Button onClick={() => setSelectedComponent('typography')} variant="secondary" enabled={true}>
+						<Button onClick={() => setSelectedComponent(component)} variant="secondary" enabled={true}>
 							{__('Make a Typography Preset', 'kadence-blocks')}
 						</Button>
+						{selectedComponent == 'typography' && (
+							<>
+								<h2 className={'kbs-style-book-preview-heading'}>Typography</h2>
+								<div className={'kbs-style-book-preview kbs-style-book-preview-' + component}>
+									<h1 aria-hidden="true">
+										{__('h1: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h1>
+									<h2 aria-hidden="true">
+										{__('h2: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h2>
+									<h3 aria-hidden="true">
+										{__('h3: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h3>
+									<h4 aria-hidden="true">
+										{__('h4: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h4>
+									<h5 aria-hidden="true">
+										{__('h5: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h5>
+									<h6 aria-hidden="true">
+										{__('h6: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h6>
+									<p aria-hidden="true">
+										{__(
+											'p: Inner peace cannot be given, only earned. Waiting for such for a thing is fruitless. Only those who perservere and toil will be rewarded.',
+											'kadence-blocks'
+										)}
+									</p>
+								</div>
+							</>
+						)}
 					</>
 				);
 			case 'component-settings':
@@ -391,6 +428,16 @@ function KadenceConfig() {
 							{__('Close', 'kadence-blocks')}
 						</Button>
 					</div>
+					<Styles
+						previewDevice={previewDevice}
+						attributes={
+							styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]
+								?.presets?.[currentPreset]?.attributes
+						}
+						styleBookAttributes={styleBookAttributes}
+						styleBookLocalGlobalStyles={styleBookLocalGlobalStyles}
+						selectedComponent={selectedComponent}
+					/>
 				</Modal>
 			)}
 			<PluginSidebarMoreMenuItem target="kadence-controls" icon={controlIcon}>
