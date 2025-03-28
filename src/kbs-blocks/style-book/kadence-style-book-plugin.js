@@ -376,7 +376,7 @@ function KadenceConfig() {
 									</h6>
 									<p aria-hidden="true">
 										{__(
-											'p: Inner peace cannot be given, only earned. Waiting for such for a thing is fruitless. Only those who perservere and toil will be rewarded.',
+											'p: Inner peace cannot be given, only earned. Waiting for such for a thing is fruitless. Only those who persevere and toil will be rewarded.',
 											'kadence-blocks'
 										)}
 									</p>
