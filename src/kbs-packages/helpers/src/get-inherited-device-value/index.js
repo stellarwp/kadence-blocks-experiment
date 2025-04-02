@@ -13,6 +13,7 @@ import getPresetValue from '../get-preset-value';
  */
 export default function getInheritedDeviceValue(attributeName, attributes, device, meta, type, mergedGlobalStyle) {
 	const deviceOptions = window?.kadence_blocks_params?.responsive_device_options || [];
+	const attributeMeta = meta?.attributes?.[attributeName];
 	const initialValue = attributeMeta?.initial[device] ? attributeMeta?.initial[device] : null;
 
 	const currentDeviceIndex = deviceOptions.findIndex(option => 
