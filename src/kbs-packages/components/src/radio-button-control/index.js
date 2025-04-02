@@ -7,7 +7,8 @@
  * Internal block libraries
  */
 import { __ } from '@wordpress/i18n';
-import { getDeviceValue, getInheritedDeviceValue } from '@kadence/kbsHelpers';
+import { useContext } from '@wordpress/element';
+import { getDeviceValue, getInheritedDeviceValue, GlobalStylesContext } from '@kadence/kbsHelpers';
 import { handleAttributeChange } from '@kadence/kbsHelpers';
 import { useEffect } from '@wordpress/element';
 import { getRadioConfig } from './controls-config';
@@ -33,12 +34,14 @@ export default function RadioButtonControl( {
 	previewDevice,
 	meta,
 	previewDirection = 'column',
-	globalStylesJson = {}
 } ) {
+	// Get the globalStylesIds from context
+	const globalStylesIds = useContext(GlobalStylesContext);
+	
 	const radioType = meta?.property ? meta?.property : type;
 	const initialValue = meta?.initial ? meta?.initial : initial;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice);
-	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta, type, globalStylesJson);
+	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta, type, globalStylesIds);
 	const { UIComponent, controls } = getRadioConfig(radioType, previewDirection);
 
 	const onReset = () => {

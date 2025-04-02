@@ -22,14 +22,13 @@ import {
 import metadata from './block.json';
 import Inspector from './editing/inspector';
 import Styles from './editing/styles';
-import Toolbar from './editing/toolbar';
 /**
  * Import WordPress
  */
 import { __ } from '@wordpress/i18n';
 
-import { useSelect } from '@wordpress/data';
-import { useEffect, useState, Fragment, useContext, useMemo } from '@wordpress/element';
+import { useSelect, select } from '@wordpress/data';
+import { useEffect, Fragment } from '@wordpress/element';
 import {
 	InnerBlocks,
 	useBlockProps,
@@ -53,15 +52,7 @@ export default function ContainerEdit(props) {
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
 
-	const { globalStylesJson } = useSelect(
-		(select) => {
-			return {
-				globalStylesJson: select('kadenceblocks/global-styles').getMergedGlobalStyle(globalStylesIds)
-			};
-		},
-		[globalStylesIds]
-	);
-	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice } = useSelect(
+	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice, mergedGlobalStyle } = useSelect(
 		(select) => {
 			const { getBlock, getBlockRootClientId, getBlockParentsByBlockName, getBlocksByClientId } =
 				select(blockEditorStore);
@@ -86,9 +77,10 @@ export default function ContainerEdit(props) {
 				hasInnerBlocks: !!(block && block.innerBlocks.length),
 				inFormBlock,
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+				mergedGlobalStyle: select('kadenceblocks/global-styles').getMergedGlobalStyle(globalStylesIds),
 			};
 		},
-		[clientId]
+		[clientId, globalStylesIds]
 	);
 	uniqueIdHelper( props );
 	useEffect(() => {
@@ -128,7 +120,7 @@ export default function ContainerEdit(props) {
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<div {...blockProps}>
-					<Inspector {...{ previewDevice, globalStylesJson, ...props }} />
+					<Inspector {...{ previewDevice, mergedGlobalStyle, ...props }} />
 					{/* <Toolbar {...props} />
 					<Inspector {...props} />
 					*/}

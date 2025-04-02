@@ -2,13 +2,12 @@ import SelectControl from '../select-control';
 import { __ } from '@wordpress/i18n';
 import FontWeight from './font-weight';
 export default function Typography({
-	label,
 	attributes,
 	setAttributes,
 	meta,
 	previewDevice,
 	attributeName,
-	globalStylesJson,
+	mergedGlobalStyle,
 	customOnChange,
 	forStyleBook,
 }) {
@@ -21,8 +20,8 @@ export default function Typography({
 				attributeName={attributeName}
 				meta={meta}
 				previewDevice={previewDevice}
-				type="fontFamily"
-				globalStylesJson={globalStylesJson}
+				type={'fontFamily'}
+				mergedGlobalStyle={mergedGlobalStyle}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>
@@ -34,7 +33,7 @@ export default function Typography({
 				meta={meta}
 				previewDevice={previewDevice}
 				attributeName={attributeName}
-				globalStylesJson={globalStylesJson}
+				mergedGlobalStyle={mergedGlobalStyle}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>

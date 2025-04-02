@@ -6,6 +6,7 @@
  * WordPress dependencies
  */
 import { __, isRTL } from '@wordpress/i18n';
+import { useMemo } from '@wordpress/element';
 
 /**
  * External dependencies
@@ -20,8 +21,9 @@ const IS_RTL = isRTL();
  */
 import {
 	getDeviceValue,
-	getInheritedDeviceValue,
+	getResolvedValue,
 	handleAttributeChange,
+	GlobalStylesContext
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
@@ -55,37 +57,31 @@ export default function SelectControl({
 	setAttributes,
 	reset = true,
 	previewDevice,
-	initial,
 	meta,
-	globalStylesJson = {},
-	forStyleBook,
+	mergedGlobalStyle
 }) {
-	const initialValue = meta?.initial ? meta?.initial : initial ? initial : '';
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, meta, type);
-	const inheritedValue = getInheritedDeviceValue(
+	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
 		attributeName,
 		attributes,
 		previewDevice,
-		initialValue,
 		meta,
 		type,
-		globalStylesJson
+		mergedGlobalStyle
 	);
-	const isCurrentValueInherited = currentValue === '';
-	const customStyles = getCustomStyles(isCurrentValueInherited);
+
+	const customStyles = useMemo(() => getCustomStyles(isInherited), [isInherited]);
+	const attributeMeta = meta?.attributes?.[attributeName];
 
 	const { options, isLoadingOptions, loadingMessage } = useSelectOptions({
 		type,
 		attributes,
 		attributeName,
 		previewDevice,
-		meta,
-		type,
-		globalStylesJson,
-		currentValue,
+		attributeMeta,
+		appliedValue,
 	});
 
-	const inheritedPlaceholderLabel = getPlaceholderLabel(currentValue, inheritedValue, type, options);
+	const inheritedPlaceholderLabel = getPlaceholderLabel(directValue, inheritedValue, type, options);
 
 	const onReset = () => {
 		onChange(defaultValue ?? undefined, 'all', type);
@@ -104,32 +100,13 @@ export default function SelectControl({
 					};
 					break;
 				}
-
-				// const selectedOption = options
-				// 	.flatMap((group) => group.options)
-				// 	.find((option) => option.value === value);
-				// const currentFontWeight = getDeviceValue('fontWeight', attributes, device, meta, 'fontWeight');
-
-				// // Get available weights for the new font
-				// const availableWeights = getFontWeightOptions(value).map((opt) => opt.value);
-
-				// // Check if current weight is valid for new font
-				// const isWeightValid = availableWeights.includes(currentFontWeight);
-
-				// updatedAttributes = {
-				// 	[type]: value,
-				// 	['fontSource']: selectedOption.source,
-				// 	// If current weight is not valid, use the first available weight
-				// 	...(currentFontWeight &&
-				// 		!isWeightValid && {
-				// 			['fontWeight']: availableWeights[0] || '400',
-				// 		}),
-				// };
 				break;
 			}
 			default:
 				break;
 		}
+
+		console.log('======= onChange =========', value, device);
 
 		handleAttributeChange(
 			updatedAttributes,
@@ -139,7 +116,7 @@ export default function SelectControl({
 			setAttributes,
 			customOnChange,
 			type,
-			meta
+			attributeMeta
 		);
 	};
 
@@ -148,11 +125,11 @@ export default function SelectControl({
 			{label && <TitleBar label={label} hasDeviceControls={true} reset={reset} onReset={onReset} />}
 			<div className="kbs-select-control-inner">
 				<Select
-					key={previewDevice + currentValue}
-					isClearable={currentValue !== ''}
+					key={previewDevice + appliedValue}
+					isClearable={!isInherited}
 					value={
-						currentValue
-							? options.flatMap((opt) => opt.options || []).find((opt) => opt.value === currentValue)
+						directValue
+							? options.flatMap((opt) => opt.options || []).find((opt) => opt.value === directValue)
 							: null
 					}
 					options={options}
@@ -166,6 +143,9 @@ export default function SelectControl({
 					noOptionsMessage={() => __('No results', 'kadence-blocks')}
 					isRtl={IS_RTL}
 				/>
+				<div className="kbs-select-control-inherited-source">
+					<em>Source: {inheritedSource}</em>
+				</div>
 			</div>
 		</div>
 	);

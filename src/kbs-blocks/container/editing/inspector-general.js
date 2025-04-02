@@ -29,17 +29,16 @@ import metadata from '../block.json';
  * Import WordPress
  */
 import { __ } from '@wordpress/i18n';
-import { TextControl } from '@wordpress/components';
 
 /**
  * Build the section edit.
  */
 export default function InspectorGeneral(props) {
-	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, globalStylesJson } = props;
+	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, mergedGlobalStyle } = props;
 	const previewDirection = getPreviewValue( 'direction', attributes, metadata, previewDevice );
 	return (
 		<>
-			<ToolsPanelBody
+			{/* <ToolsPanelBody
 				title={__('Flex Settings', 'kadence-blocks')}
 				panelName={'kbs-container-flex-settings'}
 			>
@@ -48,7 +47,6 @@ export default function InspectorGeneral(props) {
 					setAttributes={ setAttributes }
 					attributeName={ 'direction' }
 					meta={ metadata?.attributes?.direction }
-					globalStylesJson={ globalStylesJson }
 				/>
 				<RadioButtonControl
 					label={__('Direction', 'kadence-blocks')}
@@ -57,7 +55,6 @@ export default function InspectorGeneral(props) {
 					attributeName={ 'direction' }
 					previewDevice={ previewDevice }
 					meta={ metadata?.attributes?.direction }
-					globalStylesJson={ globalStylesJson }
 				/>
 				<RadioButtonControl
 					label={__('Justify Content', 'kadence-blocks')}
@@ -67,7 +64,6 @@ export default function InspectorGeneral(props) {
 					meta={ metadata?.attributes?.justify }
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
-					globalStylesJson={globalStylesJson}
 				/>
 				<RadioButtonControl
 					label={__('Alignment', 'kadence-blocks')}
@@ -77,7 +73,6 @@ export default function InspectorGeneral(props) {
 					meta={ metadata?.attributes?.alignItems }
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
-					globalStylesJson={globalStylesJson}
 				/>
 				<RadioButtonControl
 					label={__('Wrap', 'kadence-blocks')}
@@ -87,9 +82,8 @@ export default function InspectorGeneral(props) {
 					meta={ metadata?.attributes?.wrap }
 					previewDevice={ previewDevice }
 					previewDirection={ previewDirection }
-					globalStylesJson={globalStylesJson}
 				/>
-			</ToolsPanelBody>
+			</ToolsPanelBody> */}
 
 			<KadencePanelBody
 				title={__('Global Style Settings', 'kadence-blocks')}
@@ -110,10 +104,10 @@ export default function InspectorGeneral(props) {
 					label={__('Typography', 'kadence-blocks')}
 					attributes={ attributes }
 					setAttributes={ setAttributes }
-					meta={ metadata?.attributes?.typography }
+					meta={ metadata }
 					previewDevice={ previewDevice }
 					attributeName={ 'typography' }
-					globalStylesJson={ globalStylesJson }
+					mergedGlobalStyle={ mergedGlobalStyle }
 				/>
 			</ToolsPanelBody>
 

@@ -1,6 +1,6 @@
 {
 	"styleId": "testId",
-	"name": "Global Style 2 - Dark Mode",
+	"name": "Dark Mode",
 	"version": "1.0.0",
 	"components": {
 		"flex": {
@@ -38,7 +38,7 @@
 					"attributes": {
 						"typography": {
 							"desktop": {
-								"fontFamily": "Impact, cursive, sans-serif",
+								"fontFamily": "Helvetica, sans-serif",
 								"fontSource": "system"
 							}
 						}
@@ -215,7 +215,7 @@
 			}
 		}
 	},
-	"kadence/container": {
+	"kbs/container": {
 		"attributes": {
 			"typography": {
 				"preset": "base-99857"

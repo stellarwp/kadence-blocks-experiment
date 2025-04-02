@@ -1,7 +1,7 @@
 import { RangeControl } from '@wordpress/components';
 import TitleBar from '../title-bar';
 import { __ } from '@wordpress/i18n';
-import { handleAttributeChange, getDeviceValue, getInheritedDeviceValue } from '@kadence/kbsHelpers';
+import { handleAttributeChange, getResolvedValue } from '@kadence/kbsHelpers';
 
 const ATTRIBUTE_NAME = 'fontWeight';
 
@@ -12,20 +12,31 @@ export default function ResponsiveRangeControl({
 	meta,
 	previewDevice,
 	attributeName,
-	globalStylesJson,
 	customOnChange,
-	forStyleBook,
 	min,
 	max,
+	type,
 	initialPosition = null,
 	step = 1,
+	mergedGlobalStyle
 }) {
 
+	const attributeMeta = meta?.attributes?.[attributeName];
+	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		type,
+		mergedGlobalStyle
+	);
+	
 	const onReset = () => {
 		let resetValue = '';
 		onChange( resetValue, 'all' );
 	}
 	const onChange = (value, device) => {
+		console.log('======= onChange =========', value, device);
 		handleAttributeChange(
 			value,
 			device,
@@ -34,22 +45,9 @@ export default function ResponsiveRangeControl({
 			setAttributes,
 			customOnChange,
 			ATTRIBUTE_NAME,
-			meta
+			attributeMeta
 		);
 	};
-
-	const initialValue = meta?.initial ? meta?.initial : initial ? initial : '';
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, meta, ATTRIBUTE_NAME);
-	const inheritedValue = getInheritedDeviceValue(
-		attributeName,
-		attributes,
-		previewDevice,
-		initialValue,
-		meta,
-		ATTRIBUTE_NAME,
-		globalStylesJson
-	);
-	const actualValue = currentValue || inheritedValue;
 
 	return (
 		<div className={ `components-base-control kbs-control kbs-radio-control kbs-radio-control` }>
@@ -63,13 +61,16 @@ export default function ResponsiveRangeControl({
 				<RangeControl
 					key={ previewDevice }
 					onChange={ ( value ) => onChange( value, previewDevice ) }
-					value={ actualValue }
+					value={ appliedValue }
 					min={ min }
 					max={ max }
 					step={ step }
 					initialPosition={ initialPosition }
 				/>
 			</div>
+			<div className="kbs-select-control-inherited-source">
+					<em>Source: {inheritedSource}</em>
+				</div>
 		</div>
 	);
 }
