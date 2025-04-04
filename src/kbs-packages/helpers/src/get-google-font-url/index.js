@@ -31,7 +31,7 @@ export default function getGoogleFontUrl(attributes, attributesMeta) {
 						if (value.fontWeight) {
 							// Convert 'regular' to '400'
 							const weight = value.fontWeight === 'regular' ? '400' : value.fontWeight;
-							weights.add(weight);
+							weights.add('wght@' + weight);
 						}
 
 						fonts.set(value.fontFamily, weights);

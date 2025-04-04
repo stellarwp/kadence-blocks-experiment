@@ -100,6 +100,14 @@ export default function SelectControl({
 					};
 					break;
 				}
+
+				// Set the font source too
+				const selectedOption = options.flatMap((group) => group.options).find((option) => option.value === value);
+				updatedAttributes = {
+					[type]: value,
+					['fontSource']: selectedOption.source,
+				};
+
 				break;
 			}
 			default:

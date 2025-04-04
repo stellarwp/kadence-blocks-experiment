@@ -1,6 +1,9 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { SPACING_SIZES_MAP } from '../constants';
 import { merge } from 'lodash';
+
+const deviceOptions = kadence_blocks_params.responsive_device_options || [];
+
 /**
  * CSS Generator class for building CSS strings
  */
@@ -77,18 +80,21 @@ class CSSGenerator {
 					{ key: 'fontWeight', selector: meta.selector + '-font-weight' },
 				];
 
+				// Process each typography property
 				typographyProperties.forEach(({ key, selector }) => {
 					// Check if any device has this property
-					if (
-						mergedAttribute?.desktop?.[key] ||
-						mergedAttribute?.tablet?.[key] ||
-						mergedAttribute?.mobile?.[key]
-					) {
-						const deviceValues = {
-							desktop: mergedAttribute?.desktop?.[key] || '',
-							tablet: mergedAttribute?.tablet?.[key] || '',
-							mobile: mergedAttribute?.mobile?.[key] || '',
-						};
+					const hasProperty = deviceOptions.some(device => {
+						const deviceKey = device.attributeSlug;
+						return mergedAttribute?.[deviceKey]?.[key];
+					});
+
+					if (hasProperty) {
+						// Create device values object
+						const deviceValues = {};
+						deviceOptions.forEach(device => {
+							const deviceKey = device.attributeSlug;
+							deviceValues[deviceKey] = mergedAttribute?.[deviceKey]?.[key] || '';
+						});
 
 						this.renderStringProperty(deviceValues, selector, previewDevice);
 					}
@@ -142,38 +148,40 @@ class CSSGenerator {
 	 * @param {string} previewDevice - The preview device
 	 * @returns {string} - The preview property
 	 */
-	getPreviewProperty(attributeValue, previewDevice) {
-		const mobile = getDeviceAttributeSlug('mobile');
-		const tablet = getDeviceAttributeSlug('tablet');
-		const desktop = getDeviceAttributeSlug('desktop');
-		if (previewDevice === 'Mobile') {
-			if (
-				undefined !== attributeValue?.[mobile] &&
-				'' !== attributeValue?.[mobile] &&
-				null !== attributeValue?.[mobile]
-			) {
-				return attributeValue?.[mobile];
-			} else if (
-				undefined !== attributeValue?.[tablet] &&
-				'' !== attributeValue?.[tablet] &&
-				null !== attributeValue?.[tablet]
-			) {
-				return attributeValue?.[tablet];
-			}
-		} else if (previewDevice === 'Tablet') {
-			if (
-				undefined !== attributeValue?.[tablet] &&
-				'' !== attributeValue?.[tablet] &&
-				null !== attributeValue?.[tablet]
-			) {
-				return attributeValue?.[tablet];
+	getPreviewProperty(attributeValue, previewDevice) {		
+		// Get the current device option
+		const currentDevice = deviceOptions.find(device => device.name === previewDevice);
+		if (!currentDevice) {
+			// Default to desktop if device not found
+			const desktop = deviceOptions.find(device => device.key === 'desktop')?.attributeSlug || 'desktop';
+			return attributeValue?.[desktop] || '';
+		}
+		
+		// Get the attribute slug for the current device
+		const currentDeviceSlug = currentDevice.attributeSlug;
+		
+		// Check if we have a value for the current device
+		if (attributeValue?.[currentDeviceSlug] !== undefined && 
+			attributeValue?.[currentDeviceSlug] !== '' && 
+			attributeValue?.[currentDeviceSlug] !== null) {
+			return attributeValue[currentDeviceSlug];
+		}
+		
+		// Find the current device index in the array
+		const currentDeviceIndex = deviceOptions.findIndex(device => device.name === previewDevice);
+		
+		// Implement inheritance based on device order
+		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
+			const inheritFromSlug = deviceOptions[i].attributeSlug;
+			
+			if (attributeValue?.[inheritFromSlug] !== undefined && 
+				attributeValue?.[inheritFromSlug] !== '' && 
+				attributeValue?.[inheritFromSlug] !== null) {
+				return attributeValue[inheritFromSlug];
 			}
 		}
-		return undefined !== attributeValue?.[desktop] &&
-			'' !== attributeValue?.[desktop] &&
-			null !== attributeValue?.[desktop]
-			? attributeValue?.[desktop]
-			: '';
+		
+		return '';
 	}
 	/**
 	 * Render the property as a string

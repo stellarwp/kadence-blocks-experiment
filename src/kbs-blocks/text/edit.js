@@ -28,7 +28,7 @@ import Inspector from './editing/inspector';
  */
 import { __ } from '@wordpress/i18n';
 
-import { useSelect } from '@wordpress/data';
+import { useSelect, select } from '@wordpress/data';
 import { useEffect, useContext, Fragment } from '@wordpress/element';
 import {
 	RichText,
