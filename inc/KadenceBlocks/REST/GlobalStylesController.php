@@ -138,7 +138,9 @@ class GlobalStylesController extends WP_REST_Controller {
 
         if( $all_posts ) {
             foreach ( $all_posts as $_post ) {
-                $post_contents[] = json_decode( $_post->post_content, true );
+                $decoded_content = json_decode( $_post->post_content, true );
+                $global_style_id = $decoded_content['styleId'] ?? '';
+                $post_contents[ $global_style_id ] = $decoded_content;
             }
         }
 

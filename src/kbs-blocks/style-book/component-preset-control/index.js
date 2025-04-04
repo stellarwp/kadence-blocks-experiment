@@ -22,7 +22,7 @@ export default function ComponentPresetControl(props) {
 			previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
 		};
 	}, []);
-	const { styleBookComponent } = useSelect(
+	const { styleBookComponent, mergedGlobalStyle } = useSelect(
 		(select) => {
 			return {
 				styleBookComponent: select('kadenceblocks/global-styles').getStyleBookComponentPresetByStyleId(
@@ -30,28 +30,34 @@ export default function ComponentPresetControl(props) {
 					componentId,
 					presetId
 				),
+				mergedGlobalStyle: select('kadenceblocks/global-styles').getMergedGlobalStyle([styleId], true),
 			};
 		},
 		[styleId, componentId, presetId]
 	);
-	const { setStyleBookComponentPresetByStyleId } = useDispatch('kadenceblocks/global-styles');
+
+	const { setStyleBookComponentPresetAttributesByStyleId } = useDispatch('kadenceblocks/global-styles');
 
 	const styleBookLocalPreset = styleBookComponent?.attributes ? styleBookComponent.attributes : {};
 
 	const setStyleBookLocalPreset = (presetAttrs) => {
-		setStyleBookComponentPresetByStyleId(styleId, componentId, presetId, presetAttrs);
+		setStyleBookComponentPresetAttributesByStyleId(styleId, componentId, presetId, presetAttrs);
 	};
 
 	const fakeMeta = {
 		attributes: {
-			typography: { component: 'typography' },
+			[property]: { 
+				component: property,
+				renderCSS: true,
+				selector: "--kbs-cont",
+				initial: {},
+				type: "object" 
+			},
 		},
 	};
 
 	const Component = COMPONENTS?.[property].component;
 	const label = COMPONENTS?.label;
-
-	// console.log('in component preset control: ', property, styleBookLocalPreset);
 
 	return (
 		<>
@@ -59,12 +65,13 @@ export default function ComponentPresetControl(props) {
 			<Component
 				label={label}
 				// customOnChange={onPresetChange}
-				forStyleBook={true}
 				attributes={styleBookLocalPreset}
 				setAttributes={setStyleBookLocalPreset}
-				attributeName={property}
+				meta={fakeMeta}
 				previewDevice={previewDevice}
-				meta={fakeMeta?.attributes?.typography}
+				attributeName={property}
+				mergedGlobalStyle={mergedGlobalStyle}
+				forStyleBook={true}
 			/>
 		</>
 	);

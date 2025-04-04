@@ -29,8 +29,8 @@ import './editor.scss';
  * @param {Object} props Component props.
  * @return {JSX.Element} Font select control.
  */
-export default function SelectGlobalStyles({ attributes, setAttributes, isMulti = true }) {
-	const { options, isLoadingOptions } = useSelectOptions({});
+export default function SelectGlobalStyles({ attributes, setAttributes, isMulti = true, forStyleBook = false }) {
+	const { options, isLoadingOptions } = useSelectOptions({forStyleBook});
 	const globalStylesIds = useGlobalStylesIds();
 	const inheritGlobalStyles = useMemo(() => {
 		// Get current style IDs (always an array)

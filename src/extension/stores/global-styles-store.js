@@ -88,6 +88,7 @@ const actions = {
 
 		yield actions.setIsLoading(true);
 		const path = '/kadence-blocks/v1/global-styles/get-demo';
+		// const path = '/kadence-blocks/v1/global-styles';
 		try {
 			const globalStyles = yield {
 				type: 'API_FETCH',
@@ -134,9 +135,25 @@ const actions = {
 			styleBookLocalGlobalStyles,
 		};
 	},
-	*setStyleBookComponentPresetByStyleId(styleId, componentId, presetId, presetAttrs) {
+	*updateStyleBookLocalGlobalStyle(globalStyleId, styleBookLocalGlobalStyle) {
+		return {
+			type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLE',
+			globalStyleId,
+			styleBookLocalGlobalStyle,
+		};
+	},
+	*setStyleBookComponentPresetByStyleId(styleId, componentId, presetId, presetVal) {
 		return {
 			type: 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_ID',
+			styleId,
+			componentId,
+			presetId,
+			presetVal,
+		};
+	},
+	*setStyleBookComponentPresetAttributesByStyleId(styleId, componentId, presetId, presetAttrs) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_PRESET_ATTRIBUTES_BY_STYLE_ID',
 			styleId,
 			componentId,
 			presetId,
@@ -259,7 +276,34 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					...state,
 					styleBookLocalGlobalStyles: Object.assign(stateObject, action.styleBookLocalGlobalStyles),
 				};
+			case 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLE':
+				const stateObject2 = state?.styleBookLocalGlobalStyles ? state.styleBookLocalGlobalStyles : {};
+				return {
+					...state,
+					styleBookLocalGlobalStyles: Object.assign(stateObject2, {[action.globalStyleId]: action.styleBookLocalGlobalStyle}),
+				};
 			case 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.presetId,
+				// action.presetVal,
+
+				const presetObjectToSet = {
+					[action.styleId]: {
+						components: {
+							[action.componentId]: {
+								presets: {
+									[action.presetId]: action.presetVal,
+								},
+							},
+						},
+					},
+				};
+				return {
+					...state,
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, presetObjectToSet]),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_PRESET_ATTRIBUTES_BY_STYLE_ID':
 				// action.styleId,
 				// action.componentId,
 				// action.presetId,
@@ -268,7 +312,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					attributes: action.presetAttrs,
 				};
 
-				const presetObjectToSet = {
+				const presetObjectToSet2 = {
 					[action.styleId]: {
 						components: {
 							[action.componentId]: {
@@ -281,7 +325,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				};
 				return {
 					...state,
-					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, presetObjectToSet]),
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, presetObjectToSet2]),
 				};
 			case 'SET_HAS_RESOLVED':
 				return {
@@ -315,7 +359,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		getStyleBookAttributes(state) {
 			return state.styleBookAttributes;
 		},
-		getMergedGlobalStyle(state, styleIds) {
+		getMergedGlobalStyle(state, styleIds, forStyleBook = false) {
 			if (!styleIds || (Array.isArray(styleIds) && styleIds.length === 0)) {
 				return {};
 			}
@@ -325,7 +369,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			}
 
 			// Filter styles that match the provided IDs
-			const stylesToMerge = styleIds.map((id) => state.globalStyles?.[id]).filter(Boolean); // Remove any undefined values
+			const stylesToMerge = !forStyleBook ? styleIds.map((id) => state.globalStyles?.[id]).filter(Boolean) : styleIds.map((id) => state.styleBookLocalGlobalStyles?.[id]).filter(Boolean); // Remove any undefined values
 
 			if (stylesToMerge.length === 0) {
 				return {};

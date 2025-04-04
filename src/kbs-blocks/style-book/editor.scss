@@ -9,7 +9,11 @@
 	border-bottom: 1px solid black;
 }
 .kbs-style-book-preview-typography {
-	font-family: var(--kbs-preview-font-family);
+
+	h1,h2,h3,h4,h5,h6,p {
+		font-family: var(--kbs-preview-font-family);
+		font-weight: var(--kbs-preview-font-weight);
+	}
 }
 
 .kadence-toolbar-design-library {

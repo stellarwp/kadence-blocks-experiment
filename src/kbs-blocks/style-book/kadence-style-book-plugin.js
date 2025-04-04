@@ -3,7 +3,7 @@ import { map } from 'lodash';
 import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/edit-post';
 import { __ } from '@wordpress/i18n';
 import { Fragment, useState, useEffect } from '@wordpress/element';
-import { PanelBody, Button, Modal, TabPanel, SelectControl } from '@wordpress/components';
+import { PanelBody, Button, Modal, TabPanel, SelectControl, TextControl } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { createBlock } from '@wordpress/blocks';
 import { BlockPreview, InspectorControls } from '@wordpress/block-editor';
@@ -18,6 +18,8 @@ import { getGlobalStylesPresetOptions } from '@kadence/kbsHelpers';
 import ComponentPresetControl from './component-preset-control';
 
 import Styles from './editing/styles';
+
+import { uniqueId } from 'lodash';
 
 /**
  * Build the row edit
@@ -34,6 +36,8 @@ function KadenceConfig() {
 	const [selectedComponent, setSelectedComponent] = useState('');
 	const [selectedBlock, setSelectedBlock] = useState(null);
 	const [selectedBlockAttributes, setSelectedBlockAttributes] = useState({});
+	const [newGlobalStyleName, setNewGlobalStyleName] = useState('');
+	const [newPresetName, setNewPresetName] = useState('');
 
 	const { styleBookLocalGlobalStyles, isSavingStyleBook, styleBookAttributes, previewDevice } = useSelect(
 		(select) => {
@@ -47,7 +51,7 @@ function KadenceConfig() {
 		[]
 	);
 
-	const { saveStyleBookGlobalStyles, setStyleBookAttributes } = useDispatch('kadenceblocks/global-styles');
+	const { saveStyleBookGlobalStyles, setStyleBookAttributes, updateStyleBookLocalGlobalStyle, setStyleBookComponentPresetByStyleId } = useDispatch('kadenceblocks/global-styles');
 
 	const tabs = [
 		{
@@ -115,8 +119,30 @@ function KadenceConfig() {
 		);
 	};
 
+	const startNewGlobalStyle = () => {
+		const newGlobalStyleId = newGlobalStyleName ? newGlobalStyleName.toLowerCase().replaceAll(' ', '-') : uniqueId('global-style-');
+		const name = newGlobalStyleName ? newGlobalStyleName : newGlobalStyleId;
+		updateStyleBookLocalGlobalStyle(newGlobalStyleId, {name: name, styleId: newGlobalStyleId});
+		setStyleBookAttributes({ globalStyleIds: [newGlobalStyleId] })
+		setNewGlobalStyleName('');
+	};
+	const startNewPreset = () => {
+		const newPresetId = newPresetName ? newPresetName.toLowerCase().replaceAll(' ', '-') : uniqueId('global-style-');
+		const name = newPresetName ? newPresetName : newPresetId;
+		setStyleBookComponentPresetByStyleId(currentGlobalStyleId, selectedComponent, newPresetId, {name: name})
+		setStyleBookAttributes({
+			components: { [selectedComponent]: { selectedPreset: newPresetId } },
+		})
+		setNewPresetName('');
+	};
+
+	
+
 	const currentPreset = styleBookAttributes?.components?.[selectedComponent]?.selectedPreset;
 	const currentGlobalStyleId = styleBookAttributes?.globalStyleIds?.[0];
+	
+	console.log('in component: ', styleBookLocalGlobalStyles, currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]
+		?.presets?.[currentPreset]?.attributes)
 
 	// console.log('top', currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles);
 
@@ -151,6 +177,20 @@ function KadenceConfig() {
 									})
 								}
 							/>
+
+						<TextControl
+							placeholder={__('new preset...', 'kadence-blocks')}
+							value={newPresetName}
+							onChange={(value) => setNewPresetName(value)}
+						/>
+						<Button
+							variant="secondary"
+							onClick={() => {
+								startNewPreset();
+							}}
+						>
+							{__('Start New Preset', 'kadence-blocks')}
+						</Button>
 						</div>
 					</PanelBody>
 				</>
@@ -408,7 +448,21 @@ function KadenceConfig() {
 							attributes={styleBookAttributes}
 							setAttributes={setStyleBookAttributes}
 							isMulti={false}
+							forStyleBook={true}
 						/>
+						<TextControl
+							placeholder={__('new global style...', 'kadence-blocks')}
+							value={newGlobalStyleName}
+							onChange={(value) => setNewGlobalStyleName(value)}
+						/>
+						<Button
+							variant="secondary"
+							onClick={() => {
+								startNewGlobalStyle();
+							}}
+						>
+							{__('Start New Global Style', 'kadence-blocks')}
+						</Button>
 						<TabPanel
 							className="kadence-style-book-tabs"
 							activeClass="is-active"
