@@ -1,6 +1,7 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { SPACING_SIZES_MAP } from '../constants';
 import { merge } from 'lodash';
+import { default as getResolvedValue } from '../get-resolved-value';
 
 const deviceOptions = kadence_blocks_params.responsive_device_options || [];
 
@@ -61,9 +62,9 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @returns {CSSGenerator} - Returns this instance for chaining
 	 */
-	addComponent(key, meta, props) {
+	addComponent(attributeName, meta, props, metadata, mergedGlobalStyle = {}) {
 		const { attributes, previewDevice } = props;
-		const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[key] || {});
+		const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[attributeName] || {});
 
 		if (!mergedAttribute) {
 			return this;
@@ -82,21 +83,18 @@ class CSSGenerator {
 
 				// Process each typography property
 				typographyProperties.forEach(({ key, selector }) => {
-					// Check if any device has this property
-					const hasProperty = deviceOptions.some(device => {
-						const deviceKey = device.attributeSlug;
-						return mergedAttribute?.[deviceKey]?.[key];
-					});
 
-					if (hasProperty) {
-						// Create device values object
-						const deviceValues = {};
-						deviceOptions.forEach(device => {
-							const deviceKey = device.attributeSlug;
-							deviceValues[deviceKey] = mergedAttribute?.[deviceKey]?.[key] || '';
-						});
-
-						this.renderStringProperty(deviceValues, selector, previewDevice);
+					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
+						attributeName,
+						attributes,
+						previewDevice,
+						metadata,
+						key,
+						mergedGlobalStyle
+					);
+					
+					if( appliedValue) {
+						this.add({ [selector]: this.getSizingOutput(appliedValue) });
 					}
 				});
 				break;

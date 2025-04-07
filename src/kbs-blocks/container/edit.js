@@ -124,7 +124,7 @@ export default function ContainerEdit(props) {
 					{/* <Toolbar {...props} />
 					<Inspector {...props} />
 					*/}
-					<Styles {...{ previewDevice, ...props }} />
+					<Styles {...{ previewDevice, mergedGlobalStyle, ...props }} />
 					<Fragment {...innerBlocksProps} />
 			</div>
 		</GlobalStylesContext.Provider>
