@@ -64,11 +64,11 @@ class CSSGenerator {
 	 */
 	addComponent(attributeName, meta, props, metadata, mergedGlobalStyle = {}) {
 		const { attributes, previewDevice } = props;
-		const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[attributeName] || {});
+		// const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[attributeName] || {});
 
-		if (!mergedAttribute) {
-			return this;
-		}
+		// if (!mergedAttribute) {
+		// 	return this;
+		// }
 
 		if (!meta?.component) {
 			return this;
