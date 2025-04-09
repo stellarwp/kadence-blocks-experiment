@@ -105,16 +105,15 @@ export const handleAttributeChange = (
 		return;
 	}
 
-	const newAttributes = JSON.parse(JSON.stringify(attributes));
 	const isComponent = COMPONENTS.includes(meta?.component);
 	const deviceOptions = kadence_blocks_params?.responsive_device_options || [];
 
 	if (device === 'all') {
-		handleAllDevices(value, newAttributes, attributeName, isComponent, deviceOptions, type);
+		handleAllDevices(value, attributes, attributeName, isComponent, deviceOptions, type);
 	} else {
 		const deviceSlug = getDeviceAttributeSlug(device);
-		handleSpecificDevice(value, newAttributes, attributeName, isComponent, deviceSlug, type);
+		handleSpecificDevice(value, attributes, attributeName, isComponent, deviceSlug, type);
 	}
 
-	setAttributes(newAttributes);
+	setAttributes(attributes);
 };

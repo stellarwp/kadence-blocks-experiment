@@ -3,8 +3,6 @@ import TitleBar from '../title-bar';
 import { __ } from '@wordpress/i18n';
 import { handleAttributeChange, getResolvedValue } from '@kadence/kbsHelpers';
 
-const ATTRIBUTE_NAME = 'fontWeight';
-
 export default function ResponsiveRangeControl({
 	label,
 	attributes,
@@ -36,7 +34,6 @@ export default function ResponsiveRangeControl({
 		onChange( resetValue, 'all' );
 	}
 	const onChange = (value, device) => {
-		console.log('======= onChange =========', value, device);
 		handleAttributeChange(
 			value,
 			device,
@@ -44,7 +41,7 @@ export default function ResponsiveRangeControl({
 			attributes,
 			setAttributes,
 			customOnChange,
-			ATTRIBUTE_NAME,
+			'fontWeight',
 			attributeMeta
 		);
 	};

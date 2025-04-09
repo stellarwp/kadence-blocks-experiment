@@ -9,6 +9,8 @@ export { default as PresetSelectControl } from './preset-select-control';
 export { default as SelectControl } from './select-control';
 export { default as Typography } from './typography';
 export { default as SelectGlobalStyles } from './select-global-styles';
+export { default as ResponsiveUnitControl } from './responsive-unit-control';
+export { default as UnitControl } from './unit-control';
 
 // export { default as PopColorControl } from './pop-color-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';

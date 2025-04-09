@@ -38,7 +38,7 @@
 					"attributes": {
 						"typography": {
 							"desktop": {
-								"fontFamily": "Helvetica, sans-serif",
+								"fontFamily": "\"Comic Sans MS\", cursive, sans-serif",
 								"fontSource": "system"
 							}
 						}
@@ -212,13 +212,6 @@
 				"palette7": "#1a202c",
 				"palette8": "#252c39",
 				"palette9": "#2d3748"
-			}
-		}
-	},
-	"kbs/container": {
-		"attributes": {
-			"typography": {
-				"preset": "base-99857"
 			}
 		}
 	}

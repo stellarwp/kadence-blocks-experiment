@@ -94,9 +94,9 @@ export default function SelectControl({
 			case 'fontFamily': {
 				if (value === undefined) {
 					updatedAttributes = {
-						[type]: '',
-						['fontSource']: '',
-						['fontWeight']: '',
+						[type]: undefined,
+						['fontSource']: undefined,
+						['fontWeight']: undefined,
 					};
 					break;
 				}
@@ -113,8 +113,6 @@ export default function SelectControl({
 			default:
 				break;
 		}
-
-		console.log('======= onChange =========', value, device);
 
 		handleAttributeChange(
 			updatedAttributes,

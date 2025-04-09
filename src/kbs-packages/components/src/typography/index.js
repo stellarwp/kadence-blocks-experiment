@@ -1,6 +1,9 @@
 import SelectControl from '../select-control';
 import { __ } from '@wordpress/i18n';
 import FontWeight from './font-weight';
+import ResponsiveRadioRangeControls from '../range/responsive-radio-range-control';
+import ResponsiveUnitControl from '../responsive-unit-control';
+
 export default function Typography({
 	attributes,
 	setAttributes,
@@ -38,13 +41,69 @@ export default function Typography({
 				forStyleBook={forStyleBook}
 			/>
 
-			{/* Font Variant */}
+			<ResponsiveRadioRangeControls
+				label={__('Font Size', 'kadence-blocks')}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				type="fontSize"
+				meta={meta}
+				previewDevice={previewDevice}
+				min={0}
+				max={200}
+				step={1}
+				unit="px"
+				showUnit={true}
+				units={['px', 'em', 'rem']}
+				mergedGlobalStyle={mergedGlobalStyle}
+				customOnChange={customOnChange}
+				forStyleBook={forStyleBook}
+			/>
 
-			{/* Font Size */}
+			<ResponsiveRadioRangeControls
+				label={__('Letter Case', 'kadence-blocks')}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				type="textTransform"
+				meta={meta}
+				previewDevice={previewDevice}
+				disableCustomSizes={true}
+				showUnit={false}
+				mergedGlobalStyle={mergedGlobalStyle}
+				customOnChange={customOnChange}
+				forStyleBook={forStyleBook}
+			/>
 
-			{/* Line Height */}
+			<ResponsiveUnitControl
+				label={__('Line Height', 'kadence-blocks')}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				type="lineHeight"
+				meta={meta}
+				previewDevice={previewDevice}
+				disableCustomSizes={true}
+				showUnit={false}
+				mergedGlobalStyle={mergedGlobalStyle}
+				customOnChange={customOnChange}
+				forStyleBook={forStyleBook}
+			/>
 
-			{/* Letter Spacing */}
+			<ResponsiveUnitControl
+				label={__('Letter Spacing', 'kadence-blocks')}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				type="letterSpacing"
+				meta={meta}
+				previewDevice={previewDevice}
+				disableCustomSizes={true}
+				showUnit={false}
+				mergedGlobalStyle={mergedGlobalStyle}
+				customOnChange={customOnChange}
+				forStyleBook={forStyleBook}
+			/>
 		</div>
 	);
 }

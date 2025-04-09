@@ -1,5 +1,4 @@
-import { getPreviewSize, KadenceColorOutput, getSpacingOptionOutput } from '@kadence/helpers';
-import { useRef, useMemo } from '@wordpress/element';
+import { useMemo } from '@wordpress/element';
 import { cssGenerator, getGoogleFontUrl } from '@kadence/kbsHelpers';
 import metadata from '../block.json';
 

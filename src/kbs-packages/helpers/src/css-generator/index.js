@@ -33,6 +33,7 @@ class CSSGenerator {
 	addAttribute(key, meta, props) {
 		const { attributes, previewDevice } = props;
 		const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[key] || {});
+
 		// Check if the attribute exists in the attributes object
 		if (mergedAttribute) {
 			if (!meta?.property) {
@@ -79,6 +80,10 @@ class CSSGenerator {
 				const typographyProperties = [
 					{ key: 'fontFamily', selector: meta.selector + '-font-family' },
 					{ key: 'fontWeight', selector: meta.selector + '-font-weight' },
+					{ key: 'fontSize', selector: meta.selector + '-font-size' },
+					{ key: 'lineHeight', selector: meta.selector + '-line-height' },
+					{ key: 'letterSpacing', selector: meta.selector + '-letter-spacing' },
+					{ key: 'textTransform', selector: meta.selector + '-text-transform' },
 				];
 
 				// Process each typography property

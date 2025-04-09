@@ -14,7 +14,7 @@ import getPresetValue from '../get-preset-value';
 export default function getInheritedDeviceValue(attributeName, attributes, device, meta, type, mergedGlobalStyle) {
 	const deviceOptions = window?.kadence_blocks_params?.responsive_device_options || [];
 	const attributeMeta = meta?.attributes?.[attributeName];
-	const initialValue = attributeMeta?.initial[device] ? attributeMeta?.initial[device] : null;
+	const initialValue = attributeMeta?.initial ? attributeMeta?.initial : null;
 
 	const currentDeviceIndex = deviceOptions.findIndex(option => 
 		option.key?.toLowerCase() === device?.toLowerCase() || 
@@ -58,13 +58,13 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 	}
 	
 	// Check initial values for current and parent devices
-	// for (let i = currentDeviceIndex; i >= 0; i--) {
-	// 	const deviceOption = deviceOptions[i];
-	// 	const deviceKey = deviceOption.key || deviceOption.name;
-	// 	if (initialValue?.[deviceKey]) {
-	// 		return { inheritedValue: initialValue[deviceKey], inheritedSource: 'initial' };
-	// 	}
-	// }
+	for (let i = currentDeviceIndex; i >= 0; i--) {
+		const deviceOption = deviceOptions[i];
+		const deviceKey = deviceOption.key || deviceOption.name;
+		if (initialValue?.[deviceKey]?.[type]) {
+			return { inheritedValue: initialValue?.[deviceKey]?.[type], inheritedSource: 'initial' };
+		}
+	}
 
 	// Return empty values if nothing found
 	return { inheritedValue: '', inheritedSource: 'none' };

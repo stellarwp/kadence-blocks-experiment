@@ -141,7 +141,12 @@
 			"renderCSS": true,
 			"component": "typography",
 			"selector": "--kbs-cont",
-			"initial": {},
+			"initial": {
+				"desktop": {
+					"fontFamily": "\"Comic Sans MS\", cursive, sans-serif",
+  					"fontSource": "system"
+				}
+			},
 			"type": "object"
 		},
 		"globalStyleIds": {
