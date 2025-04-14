@@ -60,159 +60,44 @@
 			}
 		}
 	},
-	"settings": {
-		"spacing": {
-			"gaps": {
-				"none": {
-					"output": "var(--global-kb-spacing-none, 0rem)",
-					"size": 0,
-					"label": "None",
-					"name": "None"
-				},
-				"xxs": {
-					"output": "var(--global-kb-spacing-xxs, 0.5rem)",
-					"size": 8,
-					"label": "XXS",
-					"name": "2X Small"
-				},
-				"xs": {
-					"output": "var(--global-kb-spacing-xs, 1rem)",
-					"size": 16,
-					"label": "XS",
-					"name": "X Small"
-				},
-				"sm": {
-					"output": "var(--global-kb-spacing-sm, 1.5rem)",
-					"size": 24,
-					"label": "SM",
-					"name": "Small"
-				},
-				"md": {
-					"output": "var(--global-kb-spacing-md, 2rem)",
-					"size": 32,
-					"label": "MD",
-					"name": "Medium"
-				},
-				"lg": {
-					"output": "var(--global-kb-spacing-lg, 3rem)",
-					"size": 48,
-					"label": "LG",
-					"name": "Large"
-				},
-				"xl": {
-					"output": "var(--global-kb-spacing-xl, 4rem)",
-					"size": 64,
-					"label": "XL",
-					"name": "X Large"
-				},
-				"xxl": {
-					"output": "var(--global-kb-spacing-xxl, 5rem)",
-					"size": 80,
-					"label": "XXL",
-					"name": "2X Large"
-				},
-				"3xl": {
-					"output": "var(--global-kb-spacing-3xl, 6.5rem)",
-					"size": 104,
-					"label": "3XL",
-					"name": "3X Large"
-				},
-				"4xl": {
-					"output": "var(--global-kb-spacing-4xl, 8rem)",
-					"size": 128,
-					"label": "4XL",
-					"name": "4X Large"
-				},
-				"5xl": {
-					"output": "var(--global-kb-spacing-5xl, 10rem)",
-					"size": 160,
-					"label": "5XL",
-					"name": "5X Large"
-				}
-			}
+	"mappings": {
+		"typography": {
+			"sm": { "value": "var(--global-kb-font-size-sm, 0.9rem)" },
+			"md": { "value": "var(--global-kb-font-size-md, 1.25rem)" },
+			"lg": { "value": "var(--global-kb-font-size-lg, 2rem)" },
+			"xl": { "value": "var(--global-kb-font-size-xl, 3rem)" },
+			"xxl": { "value": "var(--global-kb-font-size-xxl, 56px)" },
+			"3xl": { "value": "var(--global-kb-font-size-xxxl, 5rem)" }
 		},
-		"font-sizes": {
-			"sizes": {
-				"none": {
-					"output": "var(--global-kb-spacing-none, 0rem)",
-					"size": 0,
-					"label": "None",
-					"name": "None"
-				},
-				"xxs": {
-					"output": "4px",
-					"size": 4,
-					"label": "h6",
-					"name": "My Custom h6"
-				},
-				"xs": {
-					"output": "var(--global-kb-spacing-xs, 1rem)",
-					"size": 16,
-					"label": "XS",
-					"name": "X Small"
-				},
-				"sm": {
-					"output": "var(--global-kb-spacing-sm, 1.5rem)",
-					"size": 24,
-					"label": "SM",
-					"name": "Small"
-				},
-				"md": {
-					"output": "var(--global-kb-spacing-md, 2rem)",
-					"size": 32,
-					"label": "MD",
-					"name": "Medium"
-				},
-				"lg": {
-					"output": "var(--global-kb-spacing-lg, 3rem)",
-					"size": 48,
-					"label": "LG",
-					"name": "Large"
-				},
-				"xl": {
-					"output": "var(--global-kb-spacing-xl, 4rem)",
-					"size": 64,
-					"label": "XL",
-					"name": "X Large"
-				},
-				"xxl": {
-					"output": "var(--global-kb-spacing-xxl, 5rem)",
-					"size": 80,
-					"label": "XXL",
-					"name": "2X Large"
-				},
-				"3xl": {
-					"output": "var(--global-kb-spacing-3xl, 6.5rem)",
-					"size": 104,
-					"label": "3XL",
-					"name": "3X Large"
-				},
-				"4xl": {
-					"output": "var(--global-kb-spacing-4xl, 8rem)",
-					"size": 128,
-					"label": "4XL",
-					"name": "4X Large"
-				},
-				"5xl": {
-					"output": "var(--global-kb-spacing-5xl, 10rem)",
-					"size": 160,
-					"label": "5XL",
-					"name": "5X Large"
-				}
-			}
+		"gap": {
+			"none": { "value": "var(--global-kb-gap-none, 0rem)" },
+			"xs": { "value": "var(--global-kb-gap-xs, 0.5rem)" },
+			"sm": { "value": "var(--global-kb-gap-sm, 1rem)" },
+			"md": { "value": "var(--global-kb-gap-md, 2rem)" },
+			"lg": { "value": "var(--global-kb-gap-lg, 4rem)" }
+		},
+		"spacing": {
+			"xxs": { "value": "var(--global-kb-spacing-xxs, 0.5rem)" },
+			"xs": { "value": "var(--global-kb-spacing-xs, 1rem)" },
+			"sm": { "value": "var(--global-kb-spacing-sm, 1.5rem)" },
+			"md": { "value": "var(--global-kb-spacing-md, 2rem)" },
+			"lg": { "value": "var(--global-kb-spacing-lg, 3rem)" },
+			"xl": { "value": "var(--global-kb-spacing-xl, 4rem)" },
+			"xxl": { "value": "var(--global-kb-spacing-xxl, 5rem)" },
+			"3xl": { "value": "var(--global-kb-spacing-3xl, 6.5rem)" },
+			"4xl": { "value": "var(--global-kb-spacing-4xl, 8rem)" },
+			"5xl": { "value": "var(--global-kb-spacing-5xl, 10rem)" }
 		},
 		"colors": {
-			"color-pallete": {
-				"palette1": "#3296ff",
-				"palette2": "#003174",
-				"palette3": "#FFFFFF",
-				"palette4": "#f7fafc",
-				"palette5": "#edf2f7",
-				"palette6": "#cbd2d9",
-				"palette7": "#1a202c",
-				"palette8": "#252c39",
-				"palette9": "#2d3748"
-			}
+			"palette1": "#3296ff",
+			"palette2": "#003174",
+			"palette3": "#FFFFFF",
+			"palette4": "#f7fafc",
+			"palette5": "#edf2f7",
+			"palette6": "#cbd2d9",
+			"palette7": "#1a202c",
+			"palette8": "#252c39",
+			"palette9": "#2d3748"
 		}
 	}
 }

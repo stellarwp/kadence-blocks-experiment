@@ -1,11 +1,11 @@
 {
-	"styleId": "baseId",
-	"name": "Global Style 1",
+	"styleId": "Base Style",
+	"name": "Base Style",
 	"version": "1.0.0",
 	"components": {
 		"flex": {
 			"presets": {
-				"base-12345": {
+				"base-54321": {
 					"label": "Base",
 					"name": "Basic Vertical",
 					"description": "A basic vertical flex container",
@@ -17,7 +17,7 @@
 								"justify": "flex-start",
 								"alignItems": "stretch",
 								"alignContent": "initial",
-								"wrap": "wrap",
+								"wrap": "nowrap",
 								"rowGap": "none",
 								"columnGap": "initial",
 								"flexShrink": "initial",
@@ -31,20 +31,143 @@
 		},
 		"typography": {
 			"presets": {
-				"base-38596": {
-					"label": "Hero",
-					"name": "Hero 1",
-					"description": "Standard hero text",
-					"attributes": {
-						"typography": {
-							"desktop": {
-								"fontFamily": "Liu Jian Mao Cao",
-								"fontSource": "google"
-							}
-						}
+				"text-body": {
+					"label": "Body text",
+					"name": "Body text",
+					"description": "Body text",
+					"desktop": {
+						"fontFamily": "Arial, sans-serif",
+						"fontSource": "system",
+						"fontSize": "md"
+					}
+				},
+				"text-heading": {
+					"label": "Heading text",
+					"name": "Heading text",
+					"description": "Heading text",
+					"desktop": {
+						"fontFamily": "Georgia, cursive, sans-serif",
+						"fontSource": "system",
+						"fontSize": "lg"
+					}
+				},
+				"text-heading-1": {
+					"label": "Heading 1",
+					"name": "Heading 1",
+					"description": "Heading 1",
+					"desktop": {
+						"fontSize": "xxxl"
+					}
+				},
+				"text-heading-2": {
+					"label": "Heading 2",
+					"name": "Heading 2",
+					"description": "Heading 2",
+					"desktop": {
+						"fontSize": "xxl"
+					}
+				},
+				"text-heading-3": {
+					"label": "Heading 3",
+					"name": "Heading 3",
+					"description": "Heading 3",
+					"desktop": {
+						"fontSize": "xl"
+					}
+				},
+				"text-heading-4": {
+					"label": "Heading 4",
+					"name": "Heading 4",
+					"description": "Heading 4",
+					"desktop": {
+						"fontSize": "xl"
+					}
+				},
+				"text-heading-5": {
+					"label": "Heading 5",
+					"name": "Heading 5",
+					"description": "Heading 5",
+					"desktop": {
+						"fontSize": "lg"
+					}
+				},
+				"text-heading-6": {
+					"label": "Heading 6",
+					"name": "Heading 6",
+					"description": "Heading 6",
+					"desktop": {
+						"fontSize": "lg"
 					}
 				}
 			}
+		}
+	},
+	"settings": {
+		"typography": {
+			"body": {
+				"preset": "text-body"
+			},
+			"headings": {
+				"preset": "text-heading"
+			},
+			"h1": {
+				"preset": "text-heading-1"
+			},
+			"h2": {
+				"preset": "text-heading-2"
+			},
+			"h3": {
+				"preset": "text-heading-3"
+			},
+			"h4": {
+				"preset": "text-heading-4"
+			},
+			"h5": {
+				"preset": "text-heading-5"
+			},
+			"h6": {
+				"preset": "text-heading-6"
+			}
+		}
+	},
+	"mappings": {
+		"typography": {
+			"sm": { "value": "var(--global-kb-font-size-sm, 0.9rem)" },
+			"md": { "value": "var(--global-kb-font-size-md, 1.25rem)" },
+			"lg": { "value": "var(--global-kb-font-size-lg, 2rem)" },
+			"xl": { "value": "var(--global-kb-font-size-xl, 3rem)" },
+			"xxl": { "value": "var(--global-kb-font-size-xxl, 56px)" },
+			"3xl": { "value": "var(--global-kb-font-size-xxxl, 5rem)" }
+		},
+		"gap": {
+			"none": { "value": "var(--global-kb-gap-none, 0rem)" },
+			"xs": { "value": "var(--global-kb-gap-xs, 0.5rem)" },
+			"sm": { "value": "var(--global-kb-gap-sm, 1rem)" },
+			"md": { "value": "var(--global-kb-gap-md, 2rem)" },
+			"lg": { "value": "var(--global-kb-gap-lg, 4rem)" }
+		},
+		"spacing": {
+			"xxs": { "value": "var(--global-kb-spacing-xxs, 0.5rem)" },
+			"xs": { "value": "var(--global-kb-spacing-xs, 1rem)" },
+			"sm": { "value": "var(--global-kb-spacing-sm, 1.5rem)" },
+			"md": { "value": "var(--global-kb-spacing-md, 2rem)" },
+			"lg": { "value": "var(--global-kb-spacing-lg, 3rem)" },
+			"xl": { "value": "var(--global-kb-spacing-xl, 4rem)" },
+			"xxl": { "value": "var(--global-kb-spacing-xxl, 5rem)" },
+			"3xl": { "value": "var(--global-kb-spacing-3xl, 6.5rem)" },
+			"4xl": { "value": "var(--global-kb-spacing-4xl, 8rem)" },
+			"5xl": { "value": "var(--global-kb-spacing-5xl, 10rem)" }
+		},
+		"colors": {
+			"palette1": "#3296ff",
+			"palette2": "#003174",
+			"palette3": "#FFFFFF",
+			"palette4": "#f7fafc",
+			"palette5": "#edf2f7",
+			"palette6": "#cbd2d9",
+			"palette7": "#1a202c",
+			"palette8": "#252c39",
+			"palette9": "#2d3748"
 		}
 	}
 }
