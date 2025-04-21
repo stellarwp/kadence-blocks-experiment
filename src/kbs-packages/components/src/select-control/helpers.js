@@ -52,7 +52,7 @@ export const getPlaceholderLabel = (currentValue, inheritedValue, type, options 
  * @param {string} params.previewDevice The preview device
  * @return {Object} The options and loading state
  */
-export const useSelectOptions = ({ type, attributes, attributeName, previewDevice, meta, currentValue }) => {
+export const useSelectOptions = ({ type, attributes, attributeName, previewDevice, meta, currentValue, mergedGlobalStyle, forStyleBook }) => {
 	let isLoadingOptions = false;
 	let loadingMessage = __('Loading options...', 'kadence-blocks');
 	let options = [];
@@ -83,6 +83,22 @@ export const useSelectOptions = ({ type, attributes, attributeName, previewDevic
 
 			const fontWeightOptions = useFontWeightOptions(fontFamily);
 			options = fontWeightOptions.options;
+			break;
+		}
+		case 'preset': {
+			let presetOptions = [];
+
+			const presets = mergedGlobalStyle?.components?.[attributeName]?.presets;
+
+			// // Map presets to options format
+			if (presets && Object.keys(presets).length > 0) {
+				presetOptions = Object.keys(presets).map((key) => ({
+					value: key,
+					label: presets[key].name || `Preset ${key}`,
+				}));
+			}
+
+			options = presetOptions;
 			break;
 		}
 	}

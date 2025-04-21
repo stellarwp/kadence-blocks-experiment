@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 
-import { Typography } from '@kadence/kbsComponents';
+import { default as Typography } from '../typography';
 
 /**
  * constants
  */
-export const COMPONENTS = {
+export const BLOCK_COMPONENTS = {
 	typography: {
 		label: __('Typography', 'kadence-blocks'),
 		component: Typography,

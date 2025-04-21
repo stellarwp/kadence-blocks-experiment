@@ -12,17 +12,14 @@ import {
 	RadioButtonControl,
 	PresetSelectControl,
 	Typography,
-	SelectGlobalStyles
+	SelectGlobalStyles,
+	BlockComponentControls,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
  */
-import {
-	getPreviewValue,
-} from '@kadence/kbsHelpers';
-import {
-	KadencePanelBody,
-} from '@kadence/components';
+import { getPreviewValue } from '@kadence/kbsHelpers';
+import { KadencePanelBody } from '@kadence/components';
 
 import metadata from '../block.json';
 /**
@@ -34,8 +31,9 @@ import { __ } from '@wordpress/i18n';
  * Build the section edit.
  */
 export default function InspectorGeneral(props) {
-	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, mergedGlobalStyle } = props;
-	const previewDirection = getPreviewValue( 'direction', attributes, metadata, previewDevice );
+	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, mergedGlobalStyle } =
+		props;
+	const previewDirection = getPreviewValue('direction', attributes, metadata, previewDevice);
 	return (
 		<>
 			{/* <ToolsPanelBody
@@ -85,33 +83,28 @@ export default function InspectorGeneral(props) {
 				/>
 			</ToolsPanelBody> */}
 
-			<KadencePanelBody
-				title={__('Global Style Settings', 'kadence-blocks')}
-				panelName={'kb-container-settings'}
-			>
-				<SelectGlobalStyles
-					attributes={ attributes }
-					setAttributes={ setAttributes }
-				/>
-
+			<KadencePanelBody title={__('Global Style Settings', 'kadence-blocks')} panelName={'kb-container-settings'}>
+				<SelectGlobalStyles attributes={attributes} setAttributes={setAttributes} />
 			</KadencePanelBody>
 
-			<ToolsPanelBody
-				title={__('Typography Settings', 'kadence-blocks')}
-				panelName={'kb-container-typography'}
-			>
+			<ToolsPanelBody title={__('Typography Settings', 'kadence-blocks')} panelName={'kb-container-typography'}>
+				{/* <BlockComponentControls
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					previewDevice={previewDevice}
+					mergedGlobalStyle={mergedGlobalStyle}
+				/> */}
 				<Typography
 					label={__('Typography', 'kadence-blocks')}
-					attributes={ attributes }
-					setAttributes={ setAttributes }
-					meta={ metadata }
-					previewDevice={ previewDevice }
-					attributeName={ 'typography' }
-					mergedGlobalStyle={ mergedGlobalStyle }
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					previewDevice={previewDevice}
+					attributeName={'typography'}
+					mergedGlobalStyle={mergedGlobalStyle}
 				/>
 			</ToolsPanelBody>
-
-		
 		</>
 	);
 }

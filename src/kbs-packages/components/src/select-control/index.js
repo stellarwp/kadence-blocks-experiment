@@ -58,7 +58,9 @@ export default function SelectControl({
 	reset = true,
 	previewDevice,
 	meta,
-	mergedGlobalStyle
+	mergedGlobalStyle,
+	forStyleBook,
+	hasDeviceControls = true
 }) {
 	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
 		attributeName,
@@ -79,6 +81,8 @@ export default function SelectControl({
 		previewDevice,
 		attributeMeta,
 		appliedValue,
+		mergedGlobalStyle,
+		forStyleBook
 	});
 
 	const inheritedPlaceholderLabel = getPlaceholderLabel(directValue, inheritedValue, type, options);
@@ -128,7 +132,7 @@ export default function SelectControl({
 
 	return (
 		<div className={`components-base-control kbs-${type}-select-control`}>
-			{label && <TitleBar label={label} hasDeviceControls={true} reset={reset} onReset={onReset} />}
+			{label && <TitleBar label={label} hasDeviceControls={hasDeviceControls} reset={reset} onReset={onReset} />}
 			<div className="kbs-select-control-inner">
 				<Select
 					key={previewDevice + appliedValue}

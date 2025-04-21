@@ -16,6 +16,7 @@ import { SelectGlobalStyles } from '@kadence/kbsComponents';
 import { getGlobalStylesPresetOptions } from '@kadence/kbsHelpers';
 
 import ComponentPresetControl from './component-preset-control';
+import BlockDefaultControl from './block-default-control';
 
 import Styles from './editing/styles';
 
@@ -34,7 +35,7 @@ function KadenceConfig() {
 	const [isKadenceStyleBookOpened, setIsKadenceStyleBookOpened] = useState(false);
 	const [selectedTab, setSelectedTab] = useState('text');
 	const [selectedComponent, setSelectedComponent] = useState('');
-	const [selectedBlock, setSelectedBlock] = useState(null);
+	const [selectedBlockDefault, setSelectedBlockDefault] = useState('');
 	const [selectedBlockAttributes, setSelectedBlockAttributes] = useState({});
 	const [newGlobalStyleName, setNewGlobalStyleName] = useState('');
 	const [newPresetName, setNewPresetName] = useState('');
@@ -51,7 +52,12 @@ function KadenceConfig() {
 		[]
 	);
 
-	const { saveStyleBookGlobalStyles, setStyleBookAttributes, updateStyleBookLocalGlobalStyle, setStyleBookComponentPresetByStyleId } = useDispatch('kadenceblocks/global-styles');
+	const {
+		saveStyleBookGlobalStyles,
+		setStyleBookAttributes,
+		updateStyleBookLocalGlobalStyle,
+		setStyleBookComponentPresetByStyleId,
+	} = useDispatch('kadenceblocks/global-styles');
 
 	const tabs = [
 		{
@@ -95,9 +101,8 @@ function KadenceConfig() {
 		return createBlock(blockName, attributes);
 	};
 
-	const handleBlockSelect = (blockName, attributes) => {
-		setSelectedBlock(blockName);
-		setSelectedBlockAttributes(attributes);
+	const handleBlockSelect = (blockName) => {
+		setSelectedBlockDefault(blockName);
 	};
 
 	const renderBlockPreview = (blockName, attributes = {}) => {
@@ -120,29 +125,31 @@ function KadenceConfig() {
 	};
 
 	const startNewGlobalStyle = () => {
-		const newGlobalStyleId = newGlobalStyleName ? newGlobalStyleName.toLowerCase().replaceAll(' ', '-') : uniqueId('global-style-');
+		const newGlobalStyleId = newGlobalStyleName
+			? newGlobalStyleName.toLowerCase().replaceAll(' ', '-')
+			: uniqueId('global-style-');
 		const name = newGlobalStyleName ? newGlobalStyleName : newGlobalStyleId;
-		updateStyleBookLocalGlobalStyle(newGlobalStyleId, {name: name, styleId: newGlobalStyleId});
-		setStyleBookAttributes({ globalStyleIds: [newGlobalStyleId] })
+		updateStyleBookLocalGlobalStyle(newGlobalStyleId, { name: name, styleId: newGlobalStyleId });
+		setStyleBookAttributes({ globalStyleIds: [newGlobalStyleId] });
 		setNewGlobalStyleName('');
 	};
 	const startNewPreset = () => {
-		const newPresetId = newPresetName ? newPresetName.toLowerCase().replaceAll(' ', '-') : uniqueId('global-style-');
+		const newPresetId = newPresetName
+			? newPresetName.toLowerCase().replaceAll(' ', '-')
+			: uniqueId('global-style-');
 		const name = newPresetName ? newPresetName : newPresetId;
-		setStyleBookComponentPresetByStyleId(currentGlobalStyleId, selectedComponent, newPresetId, {name: name})
+		setStyleBookComponentPresetByStyleId(currentGlobalStyleId, selectedComponent, newPresetId, { name: name });
 		setStyleBookAttributes({
 			components: { [selectedComponent]: { selectedPreset: newPresetId } },
-		})
+		});
 		setNewPresetName('');
 	};
 
-	
-
 	const currentPreset = styleBookAttributes?.components?.[selectedComponent]?.selectedPreset;
 	const currentGlobalStyleId = styleBookAttributes?.globalStyleIds?.[0];
-	
-	console.log('in component: ', styleBookLocalGlobalStyles, currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]
-		?.presets?.[currentPreset]?.attributes)
+
+	// console.log('in component: ', styleBookLocalGlobalStyles, currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]
+	// 	?.presets?.[currentPreset]?.attributes)
 
 	// console.log('top', currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles);
 
@@ -154,7 +161,7 @@ function KadenceConfig() {
 			controlContentUpper = (
 				<>
 					<PanelBody>
-						<div className="kadence-style-book-preset-controls">
+						<div className="kbs-style-book-preset-controls">
 							This is where a preset select control will go.
 							<SelectControl
 								label={__('Select Preset', 'kadence-blocks')}
@@ -177,20 +184,19 @@ function KadenceConfig() {
 									})
 								}
 							/>
-
-						<TextControl
-							placeholder={__('new preset...', 'kadence-blocks')}
-							value={newPresetName}
-							onChange={(value) => setNewPresetName(value)}
-						/>
-						<Button
-							variant="secondary"
-							onClick={() => {
-								startNewPreset();
-							}}
-						>
-							{__('Start New Preset', 'kadence-blocks')}
-						</Button>
+							<TextControl
+								placeholder={__('new preset...', 'kadence-blocks')}
+								value={newPresetName}
+								onChange={(value) => setNewPresetName(value)}
+							/>
+							<Button
+								variant="secondary"
+								onClick={() => {
+									startNewPreset();
+								}}
+							>
+								{__('Start New Preset', 'kadence-blocks')}
+							</Button>
 						</div>
 					</PanelBody>
 				</>
@@ -201,12 +207,36 @@ function KadenceConfig() {
 					<>
 						<PanelBody>
 							<InspectorControls.Slot />
-							<div className="kadence-style-book-controls">
+							<div className="kbs-style-book-controls">
 								This is where a preset option controls will go.
 								<ComponentPresetControl
 									globalStyleId={currentGlobalStyleId}
 									preset={currentPreset}
 									property={'typography'}
+								/>
+							</div>
+						</PanelBody>
+					</>
+				);
+			}
+		}
+		if (selectedTab == 'layout') {
+			controlContentUpper = (
+				<>
+					<PanelBody></PanelBody>
+				</>
+			);
+
+			if (selectedBlockDefault == 'kbs/container') {
+				controlContent = (
+					<>
+						<PanelBody>
+							<InspectorControls.Slot />
+							<div className="kbs-style-book-controls">
+								This is where block Defaults controls will go.
+								<BlockDefaultControl
+									globalStyleId={currentGlobalStyleId}
+									block={selectedBlockDefault}
 								/>
 							</div>
 						</PanelBody>
@@ -234,7 +264,7 @@ function KadenceConfig() {
 
 	const renderTabContent = (tab) => {
 		switch (tab.name) {
-			case 'global':
+			case 'all':
 				return (
 					<div className="kadence-style-book-global-blocks">
 						<div className="kadence-style-book-block-example">
@@ -285,88 +315,6 @@ function KadenceConfig() {
 						</div>
 					</div>
 				);
-			case 'text':
-				// return (
-				// 	<div className="kadence-style-book-text-blocks">
-				// 		<div className="kadence-style-book-block-example">
-				// 			<h3>{__('Advanced Text', 'kadence-blocks')}</h3>
-				// 			{renderBlockPreview('kadence/advancedheading', {
-				// 				content: 'Example Heading',
-				// 				level: 2,
-				// 				colorClass: 'theme-primary',
-				// 				htmlTag: 'h2',
-				// 			})}
-				// 		</div>
-				// 		<div className="kadence-style-book-block-example">
-				// 			<h3>{__('Icon List', 'kadence-blocks')}</h3>
-				// 			{renderBlockPreview('kadence/iconlist', {
-				// 				listItems: [
-				// 					{ text: 'First item', icon: 'fe_checkCircle' },
-				// 					{ text: 'Second item', icon: 'fe_checkCircle' },
-				// 					{ text: 'Third item', icon: 'fe_checkCircle' },
-				// 				],
-				// 				listStyles: [
-				// 					{
-				// 						size: 20,
-				// 						color: '#555555',
-				// 						background: 'transparent',
-				// 					},
-				// 				],
-				// 			})}
-				// 		</div>
-				// 	</div>
-				// );
-				return <div className="kadence-style-book-widget-blocks">this is where text previews would go</div>;
-			case 'layout':
-				// return (
-				// 	<div className="kadence-style-book-layout-blocks">
-				// 		<div className="kadence-style-book-block-example">
-				// 			<h3>{__('Row Layout', 'kadence-blocks')}</h3>
-				// 			{renderBlockPreview('kadence/rowlayout', {
-				// 				columns: 2,
-				// 				colLayout: '50-50',
-				// 				columnGutter: ['30', '30', '30'],
-				// 				firstColumnWidth: 50,
-				// 			})}
-				// 		</div>
-				// 		<div className="kadence-style-book-block-example">
-				// 			<h3>{__('Tabs', 'kadence-blocks')}</h3>
-				// 			{renderBlockPreview('kadence/tabs', {
-				// 				titles: [
-				// 					{
-				// 						text: 'Tab 1',
-				// 						icon: '',
-				// 						id: 0,
-				// 					},
-				// 					{
-				// 						text: 'Tab 2',
-				// 						icon: '',
-				// 						id: 1,
-				// 					},
-				// 				],
-				// 				initialTab: 0,
-				// 				layout: 'tabs',
-				// 			})}
-				// 		</div>
-				// 	</div>
-				// );
-				return <div className="kadence-style-book-widget-blocks">this is where layout previews would go</div>;
-			case 'media':
-				// return (
-				// 	<div className="kadence-style-book-media-blocks">
-				// 		<div className="kadence-style-book-block-example">
-				// 			<h3>{__('Advanced Gallery', 'kadence-blocks')}</h3>
-				// 			{renderBlockPreview('kadence/advancedgallery', {
-				// 				columns: [3, 3, 3],
-				// 				type: 'masonry',
-				// 				ids: [],
-				// 				gap: ['20', '20', '20'],
-				// 			})}
-				// 		</div>
-				// 	</div>
-				// );
-				return <div className="kadence-style-book-widget-blocks">this is where media previews would go</div>;
-			case 'widgets':
 				// return (
 				// 	<div className="kadence-style-book-widget-blocks">
 				// 		<div className="kadence-style-book-block-example">
@@ -395,8 +343,39 @@ function KadenceConfig() {
 						{selectedComponent == 'typography' && (
 							<>
 								<h2 className={'kbs-style-book-preview-heading'}>Typography</h2>
-								<div className={'kbs-style-book-preview kbs-style-book-preview-' + component}>
+								<div className={'kbs-style-book-preview kbs-style-book-preview-' + selectedComponent}>
 									<h1 aria-hidden="true">
+										{__('h1: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h1>
+									<h2 aria-hidden="true">
+										{__('h2: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h2>
+									<h3 aria-hidden="true">
+										{__('h3: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h3>
+									<h4 aria-hidden="true">
+										{__('h4: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h4>
+									<h5 aria-hidden="true">
+										{__('h5: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h5>
+									<h6 aria-hidden="true">
+										{__('h6: Inner peace cannot be given, only earned', 'kadence-blocks')}
+									</h6>
+									<p aria-hidden="true">
+										{__(
+											'p: Inner peace cannot be given, only earned. Waiting for such for a thing is fruitless. Only those who persevere and toil will be rewarded.',
+											'kadence-blocks'
+										)}
+									</p>
+								</div>
+							</>
+						)}
+						{selectedComponent == 'color' && (
+							<>
+								<h2 className={'kbs-style-book-preview-heading'}>Typography</h2>
+								<div className={'kbs-style-book-preview kbs-style-book-preview-' + selectedComponent}>
+									<div class="kbs-style-book-color-chio">
 										{__('h1: Inner peace cannot be given, only earned', 'kadence-blocks')}
 									</h1>
 									<h2 aria-hidden="true">

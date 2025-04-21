@@ -23,19 +23,52 @@ const handleAllDevices = (value, newAttributes, attributeName, isComponent, devi
 		return newAttributes;
 	}
 
-	const deviceValues = deviceOptions.reduce((acc, deviceOption) => ({
-		...acc,
-		[deviceOption.key]: {
-			...newAttributes[attributeName]?.[deviceOption.key],
-			...(typeof value === 'object' && value !== null ? value : { [type]: value })
-		}
-	}), {});
+	const deviceValues = deviceOptions.reduce(
+		(acc, deviceOption) => ({
+			...acc,
+			[deviceOption.key]: {
+				...newAttributes[attributeName]?.[deviceOption.key],
+				...(typeof value === 'object' && value !== null ? value : { [type]: value }),
+			},
+		}),
+		{}
+	);
 
 	newAttributes[attributeName] = {
 		...newAttributes[attributeName],
-		...deviceValues
+		...deviceValues,
 	};
-	
+
+	return newAttributes;
+};
+
+/**
+ * Handles updating attributes for a deviceless attribute
+ * @param {*} value The value to set
+ * @param {Object} newAttributes Current attributes object being modified
+ * @param {string} attributeName The name of the attribute to update
+ * @param {boolean} isComponent Whether this is a complex property type
+ * @param {Array} deviceOptions Array of device options
+ * @param {string} type The type of attribute being changed
+ * @returns {Object} Updated attributes
+ */
+const handleNoDevice = (value, newAttributes, attributeName, isComponent, deviceOptions, type) => {
+	if (!isComponent) {
+		if (typeof value === 'object' && value !== null) {
+			Object.entries(value).forEach(([key, val]) => {
+				newAttributes[key] = val;
+			});
+		} else {
+			newAttributes[attributeName] = value;
+		}
+		return newAttributes;
+	}
+
+	newAttributes[attributeName] = {
+		...newAttributes[attributeName],
+		...(typeof value === 'object' && value !== null ? value : { [type]: value }),
+	};
+
 	return newAttributes;
 };
 
@@ -71,16 +104,16 @@ const handleSpecificDevice = (value, newAttributes, attributeName, isComponent, 
 		...newAttributes[attributeName],
 		[deviceSlug]: {
 			...newAttributes[attributeName]?.[deviceSlug],
-			...(typeof value === 'object' && value !== null ? value : { [type]: value })
-		}
+			...(typeof value === 'object' && value !== null ? value : { [type]: value }),
+		},
 	};
-	
+
 	return newAttributes;
 };
 
 /**
  * Helper function to handle attribute changes in Kadence controls
- * 
+ *
  * @param {*} value The new value to set - can be a single value or an object of values
  * @param {string} device The device type ('all', 'Desktop', 'Tablet', 'Mobile')
  * @param {string} attributeName The name of the attribute to update
@@ -110,6 +143,8 @@ export const handleAttributeChange = (
 
 	if (device === 'all') {
 		handleAllDevices(value, attributes, attributeName, isComponent, deviceOptions, type);
+	} else if (device === 'none') {
+		handleNoDevice(value, attributes, attributeName, isComponent, deviceOptions, type);
 	} else {
 		const deviceSlug = getDeviceAttributeSlug(device);
 		handleSpecificDevice(value, attributes, attributeName, isComponent, deviceSlug, type);

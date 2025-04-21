@@ -5,7 +5,7 @@ import { Typography } from '@kadence/kbsComponents';
 
 import './editor.scss';
 
-import { COMPONENTS } from '../constants';
+import { BLOCK_COMPONENTS } from '@kadence/kbsComponents';
 
 /**
  * Build the component preset
@@ -13,7 +13,6 @@ import { COMPONENTS } from '../constants';
 export default function ComponentPresetControl(props) {
 	const { globalStyleId, preset, property } = props;
 
-	const styleId = globalStyleId;
 	const componentId = property;
 	const presetId = preset;
 
@@ -26,14 +25,14 @@ export default function ComponentPresetControl(props) {
 		(select) => {
 			return {
 				styleBookComponent: select('kadenceblocks/global-styles').getStyleBookComponentPresetByStyleId(
-					styleId,
+					globalStyleId,
 					componentId,
 					presetId
 				),
-				mergedGlobalStyle: select('kadenceblocks/global-styles').getMergedGlobalStyle([styleId], true),
+				mergedGlobalStyle: select('kadenceblocks/global-styles').getMergedGlobalStyle([globalStyleId], true),
 			};
 		},
-		[styleId, componentId, presetId]
+		[globalStyleId, componentId, presetId]
 	);
 
 	const { setStyleBookComponentPresetAttributesByStyleId } = useDispatch('kadenceblocks/global-styles');
@@ -41,7 +40,7 @@ export default function ComponentPresetControl(props) {
 	const styleBookLocalPreset = styleBookComponent?.attributes ? styleBookComponent.attributes : {};
 
 	const setStyleBookLocalPreset = (presetAttrs) => {
-		setStyleBookComponentPresetAttributesByStyleId(styleId, componentId, presetId, presetAttrs);
+		setStyleBookComponentPresetAttributesByStyleId(globalStyleId, componentId, presetId, presetAttrs);
 	};
 
 	const fakeMeta = {
@@ -56,8 +55,8 @@ export default function ComponentPresetControl(props) {
 		},
 	};
 
-	const Component = COMPONENTS?.[property].component;
-	const label = COMPONENTS?.label;
+	const Component = BLOCK_COMPONENTS?.[property].component;
+	const label = BLOCK_COMPONENTS?.label;
 
 	return (
 		<>
@@ -72,6 +71,7 @@ export default function ComponentPresetControl(props) {
 				attributeName={property}
 				mergedGlobalStyle={mergedGlobalStyle}
 				forStyleBook={true}
+				forPresetControl={true}
 			/>
 		</>
 	);

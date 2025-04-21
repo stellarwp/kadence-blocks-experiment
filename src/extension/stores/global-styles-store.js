@@ -7,6 +7,7 @@ import apiFetch from '@wordpress/api-fetch';
  */
 const DEFAULT_STATE = {
 	globalStyles: [],
+	// styleBookLocalGlobalStyles: [],
 	styleBookAttributes: {},
 	isLoading: false,
 	isSavingStyleBook: false,
@@ -401,6 +402,36 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			if (state.styleBookLocalGlobalStyles) {
 				const presetToReturn =
 					state.styleBookLocalGlobalStyles?.[styleId]?.['components']?.[componentId]?.['presets']?.[presetId];
+				if (presetToReturn) {
+					return presetToReturn;
+				}
+			}
+			return {};
+		},
+		getStyleBookComponentPresetsByStyleId(state, styleId, componentId) {
+			if (state.styleBookLocalGlobalStyles) {
+				const presetToReturn =
+					state.styleBookLocalGlobalStyles?.[styleId]?.['components']?.[componentId]?.['presets'];
+				if (presetToReturn) {
+					return presetToReturn;
+				}
+			}
+			return {};
+		},
+		getGlobalStylesComponentPresetByStyleId(state, styleId, componentId, presetId) {
+			if (state.globalStyles) {
+				const presetToReturn =
+					state.globalStyles?.[styleId]?.['components']?.[componentId]?.['presets']?.[presetId];
+				if (presetToReturn) {
+					return presetToReturn;
+				}
+			}
+			return {};
+		},
+		getGlobalStylesComponentPresetsByStyleId(state, styleId, componentId) {
+			if (state.globalStyles) {
+				const presetToReturn =
+					state.globalStyles?.[styleId]?.['components']?.[componentId]?.['presets'];
 				if (presetToReturn) {
 					return presetToReturn;
 				}

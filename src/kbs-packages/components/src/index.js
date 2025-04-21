@@ -16,3 +16,6 @@ export { default as UnitControl } from './unit-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';
 // export { default as SinglePopColorControl } from './single-pop-color-control';
 // export { default as ColorControlWithStates } from './color-control-with-states';
+
+export { BLOCK_COMPONENTS } from './constants';
+export { default as BlockComponentControls } from './block-component-controls';

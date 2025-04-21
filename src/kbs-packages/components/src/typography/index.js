@@ -13,9 +13,26 @@ export default function Typography({
 	mergedGlobalStyle,
 	customOnChange,
 	forStyleBook,
+	forPresetControl,
 }) {
 	return (
 		<div>
+			{!forPresetControl && (
+				<SelectControl
+					label={__('Preset', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={attributeName}
+					meta={meta}
+					previewDevice={'none'}
+					type={'preset'}
+					mergedGlobalStyle={mergedGlobalStyle}
+					customOnChange={customOnChange}
+					forStyleBook={forStyleBook}
+					hasDeviceControls={false}
+				/>
+			)}
+
 			<SelectControl
 				label={__('Font Family', 'kadence-blocks')}
 				attributes={attributes}

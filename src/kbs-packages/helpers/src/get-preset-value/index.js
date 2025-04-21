@@ -19,7 +19,7 @@ export default function getPresetValue(attributeName, attributes, device, type, 
     // Check if the block's attribute has a preset defined
     const attriubtePresetKey = attributes?.[attributeName]?.preset;
     if (attriubtePresetKey) {
-        console.log('Preset set on block', presetKey);
+        console.log('Preset set on block', attriubtePresetKey);
         return '';
     }
 
