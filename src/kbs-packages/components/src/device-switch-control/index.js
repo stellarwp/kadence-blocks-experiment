@@ -12,9 +12,8 @@ import { map } from 'lodash';
 import { capitalizeFirstLetter } from '@kadence/helpers';
 import { mobile, tablet, desktop } from '@wordpress/icons';
 import {
-	Dashicon,
-	Button,
-	ButtonGroup,
+    __experimentalToggleGroupControl as ToggleGroupControl,
+    __experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 } from '@wordpress/components';
 import './editor.scss';
 
@@ -45,19 +44,23 @@ export default function DeviceSwitchControl( ) {
 	}, [ kadence_blocks_params.responsive_device_options ] );
 	
 	return (
-		<ButtonGroup className="kbs-device-options kbs-device-button-group" aria-label={ __( 'Select Device', 'kadence-blocks' ) }>
+		<ToggleGroupControl
+			className="kbs-device-options kbs-device-button-group"
+			hideLabelFromVision={true}
+			label={ __( 'Select Device', 'kadence-blocks' ) }
+			onChange={ ( value ) => setPreviewDeviceType( capitalizeFirstLetter( value ) ) }
+			__nextHasNoMarginBottom
+			__next40pxDefaultSize
+		>
 			{ map( devices, ( { name, key, icon, itemClass } ) => (
-				<Button
-					key={ key }
+				<ToggleGroupControlOptionIcon
 					className={ `kbs-device-btn ${ itemClass }${ name === deviceType ? ' is-active' : '' }` }
-					size='small'
-					aria-pressed={ deviceType === name }
-					onClick={ () => setPreviewDeviceType( capitalizeFirstLetter( name ) ) }
+					key={ key }
 					label={capitalizeFirstLetter( name )}
 					icon={ icon }
+					value={ name }
 				/>
 			) ) }
-		</ButtonGroup>
-		
+		</ToggleGroupControl>
 	);
 }

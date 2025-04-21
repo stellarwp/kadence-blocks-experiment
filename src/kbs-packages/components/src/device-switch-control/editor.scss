@@ -1,6 +1,13 @@
 .kbs-device-options.kbs-device-button-group {
+	&:hover, &:focus, &:focus-within, &:active {
+		border: 1px solid;
+		border-color: transparent;
+		box-shadow: none;
+	}
+
 	display: inline-flex;
-	.components-button.kbs-device-btn {
+	
+	.components-toggle-group-control-option-base.kbs-device-btn {
 		background: transparent;
 		border: 0;
 		box-shadow: none;
@@ -12,6 +19,7 @@
 		padding: 2px 4px;
 		width: auto;
 		svg {
+			font-size: 16px;
 			width:1em;
 			height:1em;
 		}
