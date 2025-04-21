@@ -172,7 +172,7 @@ class GlobalStylesController extends WP_REST_Controller {
         if ( file_exists( $base_file ) ) {
             $base_content = json_decode( file_get_contents( $base_file ), true );
             if ( $base_content ) {
-                $styles['baseId'] = $base_content;
+                $styles['kbs-base'] = $base_content;
             }
         }
         

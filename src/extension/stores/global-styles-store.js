@@ -361,13 +361,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			return state.styleBookAttributes;
 		},
 		getMergedGlobalStyle(state, styleIds, forStyleBook = false) {
-			if (!styleIds || (Array.isArray(styleIds) && styleIds.length === 0)) {
-				return {};
-			}
-
-			if (!Array.isArray(styleIds)) {
-				styleIds = [styleIds];
-			}
+			styleIds = ['kbs-base', ...styleIds];
 
 			// Filter styles that match the provided IDs
 			const stylesToMerge = !forStyleBook ? styleIds.map((id) => state.globalStyles?.[id]).filter(Boolean) : styleIds.map((id) => state.styleBookLocalGlobalStyles?.[id]).filter(Boolean); // Remove any undefined values
