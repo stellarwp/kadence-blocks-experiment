@@ -114,9 +114,6 @@ export default function SelectGlobalStyles({ attributes, setAttributes, isMulti 
 					<h3 className="kbs-global-style-inherited-heading">
 						{__('Inherited Global Styles', 'kadence-blocks')}
 					</h3>
-					<div className="kbs-global-style-inherited-description">
-						{__('The following global styles are inherited from parent elements:', 'kadence-blocks')}
-					</div>
 					<div className="kbs-global-style-inherited-list">
 						{inheritedStyleOptions.map((option) => (
 							<div key={option.value} className="kbs-global-style-inherited-item">
