@@ -88,7 +88,7 @@ export default function SelectControl({
 	const inheritedPlaceholderLabel = getPlaceholderLabel(directValue, inheritedValue, type, options);
 
 	const onReset = () => {
-		onChange(defaultValue ?? undefined, 'all', type);
+		onChange(defaultValue ?? undefined, ( type === 'preset' ? 'none' : 'all'), type);
 	};
 
 	const onChange = (value, device, type) => {
