@@ -61,29 +61,9 @@ function KadenceConfig() {
 
 	const tabs = [
 		{
-			name: 'global',
-			title: __('Global', 'kadence-blocks'),
+			name: 'all',
+			title: __('All', 'kadence-blocks'),
 			className: 'kadence-style-book-tab-global',
-		},
-		{
-			name: 'text',
-			title: __('Text', 'kadence-blocks'),
-			className: 'kadence-style-book-tab-text',
-		},
-		{
-			name: 'layout',
-			title: __('Layout', 'kadence-blocks'),
-			className: 'kadence-style-book-tab-layout',
-		},
-		{
-			name: 'media',
-			title: __('Media', 'kadence-blocks'),
-			className: 'kadence-style-book-tab-media',
-		},
-		{
-			name: 'widgets',
-			title: __('Widgets', 'kadence-blocks'),
-			className: 'kadence-style-book-tab-widgets',
 		},
 		{
 			name: 'presets',
@@ -345,37 +325,6 @@ function KadenceConfig() {
 								<h2 className={'kbs-style-book-preview-heading'}>Typography</h2>
 								<div className={'kbs-style-book-preview kbs-style-book-preview-' + selectedComponent}>
 									<h1 aria-hidden="true">
-										{__('h1: Inner peace cannot be given, only earned', 'kadence-blocks')}
-									</h1>
-									<h2 aria-hidden="true">
-										{__('h2: Inner peace cannot be given, only earned', 'kadence-blocks')}
-									</h2>
-									<h3 aria-hidden="true">
-										{__('h3: Inner peace cannot be given, only earned', 'kadence-blocks')}
-									</h3>
-									<h4 aria-hidden="true">
-										{__('h4: Inner peace cannot be given, only earned', 'kadence-blocks')}
-									</h4>
-									<h5 aria-hidden="true">
-										{__('h5: Inner peace cannot be given, only earned', 'kadence-blocks')}
-									</h5>
-									<h6 aria-hidden="true">
-										{__('h6: Inner peace cannot be given, only earned', 'kadence-blocks')}
-									</h6>
-									<p aria-hidden="true">
-										{__(
-											'p: Inner peace cannot be given, only earned. Waiting for such for a thing is fruitless. Only those who persevere and toil will be rewarded.',
-											'kadence-blocks'
-										)}
-									</p>
-								</div>
-							</>
-						)}
-						{selectedComponent == 'color' && (
-							<>
-								<h2 className={'kbs-style-book-preview-heading'}>Typography</h2>
-								<div className={'kbs-style-book-preview kbs-style-book-preview-' + selectedComponent}>
-									<div class="kbs-style-book-color-chio">
 										{__('h1: Inner peace cannot be given, only earned', 'kadence-blocks')}
 									</h1>
 									<h2 aria-hidden="true">
