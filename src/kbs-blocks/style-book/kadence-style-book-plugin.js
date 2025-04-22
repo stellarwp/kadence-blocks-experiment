@@ -2,12 +2,13 @@ import { map } from 'lodash';
 
 import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/edit-post';
 import { __ } from '@wordpress/i18n';
-import { Fragment, useState, useEffect } from '@wordpress/element';
+import { Fragment, useState, useEffect, useRef, useMemo } from '@wordpress/element';
 import { PanelBody, Button, Modal, TabPanel, SelectControl, TextControl } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { createBlock } from '@wordpress/blocks';
 import { BlockPreview, InspectorControls } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
+import { useEditorElement } from '@kadence/kbsHelpers';
 /**
  * Import Icons
  */
@@ -21,6 +22,7 @@ import BlockDefaultControl from './block-default-control';
 import Styles from './editing/styles';
 
 import { uniqueId } from 'lodash';
+import { typography } from '@wordpress/icons';
 
 /**
  * Build the row edit
@@ -89,7 +91,7 @@ function KadenceConfig() {
 		const block = getExampleBlock(blockName, attributes);
 		return (
 			<div
-				className={`kadence-style-book-block-preview ${selectedBlock === blockName ? 'is-selected' : ''}`}
+				className={`kbs-style-book-block-preview ${selectedBlock === blockName ? 'is-selected' : ''}`}
 				onClick={() => handleBlockSelect(blockName, attributes)}
 				role="button"
 				tabIndex={0}
@@ -127,6 +129,29 @@ function KadenceConfig() {
 
 	const currentPreset = styleBookAttributes?.components?.[selectedComponent]?.selectedPreset;
 	const currentGlobalStyleId = styleBookAttributes?.globalStyleIds?.[0];
+
+	const isListViewOpen = useSelect((select) => {
+		return select('core/edit-post').isListViewOpened();
+	}, []);
+
+	const ref = useRef();
+	const editorElement = useEditorElement(
+		ref,
+		[previewDevice, isListViewOpen, isKadenceStyleBookOpened, styleBookLocalGlobalStyles],
+		'editor-visual-editor'
+	);
+	const editorWidth = editorElement?.clientWidth;
+	const editorLeft = editorElement?.getBoundingClientRect().left;
+
+	const editorStyles = useMemo(
+		() => ({
+			width: editorWidth + 'px',
+			left: editorLeft + 'px',
+		}),
+		[editorWidth, editorLeft, isKadenceStyleBookOpened]
+	);
+
+	console.log('style book local: ', editorStyles, editorElement, isListViewOpen);
 
 	// console.log('in component: ', styleBookLocalGlobalStyles, currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]
 	// 	?.presets?.[currentPreset]?.attributes)
@@ -181,48 +206,23 @@ function KadenceConfig() {
 					</PanelBody>
 				</>
 			);
-
-			if (selectedComponent == 'typography') {
-				controlContent = (
-					<>
-						<PanelBody>
-							<InspectorControls.Slot />
-							<div className="kbs-style-book-controls">
-								This is where a preset option controls will go.
-								<ComponentPresetControl
-									globalStyleId={currentGlobalStyleId}
-									preset={currentPreset}
-									property={'typography'}
-								/>
-							</div>
-						</PanelBody>
-					</>
-				);
-			}
 		}
-		if (selectedTab == 'layout') {
-			controlContentUpper = (
+		if (selectedComponent == 'typography') {
+			controlContent = (
 				<>
-					<PanelBody></PanelBody>
+					<PanelBody>
+						<InspectorControls.Slot />
+						<div className="kbs-style-book-controls">
+							This is where a preset option controls will go.
+							<ComponentPresetControl
+								globalStyleId={currentGlobalStyleId}
+								preset={currentPreset}
+								property={'typography'}
+							/>
+						</div>
+					</PanelBody>
 				</>
 			);
-
-			if (selectedBlockDefault == 'kbs/container') {
-				controlContent = (
-					<>
-						<PanelBody>
-							<InspectorControls.Slot />
-							<div className="kbs-style-book-controls">
-								This is where block Defaults controls will go.
-								<BlockDefaultControl
-									globalStyleId={currentGlobalStyleId}
-									block={selectedBlockDefault}
-								/>
-							</div>
-						</PanelBody>
-					</>
-				);
-			}
 		}
 		return (
 			<>
@@ -246,50 +246,54 @@ function KadenceConfig() {
 		switch (tab.name) {
 			case 'all':
 				return (
-					<div className="kadence-style-book-global-blocks">
-						<div className="kadence-style-book-block-example">
-							<h3>{__('Color Palette', 'kadence-blocks')}</h3>
+					<div className="kbs-style-book-all">
+						<div className="kbs-style-book-block-preview">
+							<h2>{__('Color Palette', 'kadence-blocks')}</h2>
 							<div
-								className="kadence-style-book-colors-preview"
+								className="kbs-style-book-preview-color"
 								onClick={() => {
-									handleBlockSelect('kadence/colors', {});
-									setSelectedTab('colors');
+									setSelectedComponent('color');
 								}}
 								role="button"
-								tabIndex={0}
-								onKeyDown={(event) => {
-									if (event.key === 'Enter' || event.key === ' ') {
-										handleBlockSelect('kadence/colors', {});
-										setSelectedTab('colors');
-									}
-								}}
 							>
 								this would be a color pallete
 							</div>
 						</div>
-						<div className="kadence-style-book-block-example">
-							<h3>{__('Typography', 'kadence-blocks')}</h3>
+						<div className="kbs-style-book-block-preview">
+							<h2 className={'kbs-style-book-preview-heading'}>{__('Typography', 'kadence-blocks')}</h2>
 							<div
-								className="kadence-style-book-typography-preview"
+								className="kbs-style-book-preview-typography"
 								onClick={() => {
-									handleBlockSelect('kadence/typography', {});
-									setSelectedTab('typography');
+									setSelectedComponent('typography');
+									setStyleBookAttributes({
+										components: { typography: { selectedPreset: 'text-heading' } },
+									});
 								}}
 								role="button"
-								tabIndex={0}
-								onKeyDown={(event) => {
-									if (event.key === 'Enter' || event.key === ' ') {
-										handleBlockSelect('kadence/typography', {});
-										setSelectedTab('typography');
-									}
-								}}
 							>
-								<h1 style={{ margin: '0 0 10px' }}>Heading 1</h1>
-								<h2 style={{ margin: '0 0 10px' }}>Heading 2</h2>
-								<h3 style={{ margin: '0 0 10px' }}>Heading 3</h3>
-								<p style={{ margin: '0 0 10px' }}>
-									Body Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-									tempor incididunt ut labore et dolore magna aliqua.
+								<h1 aria-hidden="true">
+									{__('h1: Inner peace cannot be given, only earned', 'kadence-blocks')}
+								</h1>
+								<h2 aria-hidden="true">
+									{__('h2: Inner peace cannot be given, only earned', 'kadence-blocks')}
+								</h2>
+								<h3 aria-hidden="true">
+									{__('h3: Inner peace cannot be given, only earned', 'kadence-blocks')}
+								</h3>
+								<h4 aria-hidden="true">
+									{__('h4: Inner peace cannot be given, only earned', 'kadence-blocks')}
+								</h4>
+								<h5 aria-hidden="true">
+									{__('h5: Inner peace cannot be given, only earned', 'kadence-blocks')}
+								</h5>
+								<h6 aria-hidden="true">
+									{__('h6: Inner peace cannot be given, only earned', 'kadence-blocks')}
+								</h6>
+								<p aria-hidden="true">
+									{__(
+										'p: Inner peace cannot be given, only earned. Waiting for such for a thing is fruitless. Only those who persevere and toil will be rewarded.',
+										'kadence-blocks'
+									)}
 								</p>
 							</div>
 						</div>
@@ -368,10 +372,10 @@ function KadenceConfig() {
 					onRequestClose={() => {
 						setIsKadenceStyleBookOpened(false);
 					}}
-					className="kadence-style-book-modal"
-					overlayClassName="kadence-style-book-modal-overlay editor-styles-wrapper"
+					className="kbs-style-book-modal"
+					overlayClassName="kbs-style-book-modal-overlay"
 				>
-					<div className="kadence-style-book-content">
+					<div className="kbs-style-book-content">
 						<SelectGlobalStyles
 							attributes={styleBookAttributes}
 							setAttributes={setStyleBookAttributes}
@@ -392,7 +396,7 @@ function KadenceConfig() {
 							{__('Start New Global Style', 'kadence-blocks')}
 						</Button>
 						<TabPanel
-							className="kadence-style-book-tabs"
+							className="kbs-style-book-tabs"
 							activeClass="is-active"
 							tabs={tabs}
 							onSelect={(tabName) => setSelectedTab(tabName)}
@@ -400,7 +404,7 @@ function KadenceConfig() {
 							{(tab) => renderTabContent(tab)}
 						</TabPanel>
 					</div>
-					<div className="kadence-style-book-footer">
+					<div className="kbs-style-book-footer">
 						<Button
 							variant="secondary"
 							onClick={() => {
@@ -420,12 +424,15 @@ function KadenceConfig() {
 						styleBookLocalGlobalStyles={styleBookLocalGlobalStyles}
 						selectedComponent={selectedComponent}
 					/>
+					<style>
+						{'.kbs-style-book-modal-overlay{width:' + editorWidth + 'px; left: ' + editorLeft + 'px;}'}
+					</style>
 				</Modal>
 			)}
-			<PluginSidebarMoreMenuItem target="kadence-controls" icon={controlIcon}>
+			<PluginSidebarMoreMenuItem target="kbs-controls" icon={controlIcon}>
 				{controlName}
 			</PluginSidebarMoreMenuItem>
-			<PluginSidebar isPinnable={true} name="kadence-controls" title={controlName}>
+			<PluginSidebar isPinnable={true} name="kbs-controls" title={controlName}>
 				<>
 					<PanelBody>
 						<Button
@@ -441,6 +448,7 @@ function KadenceConfig() {
 					{isKadenceStyleBookOpened && renderSidebarControls()}
 				</>
 			</PluginSidebar>
+			<div class={'testclass'} ref={ref} />
 		</Fragment>
 	);
 }

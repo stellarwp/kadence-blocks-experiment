@@ -36,10 +36,10 @@
 					"name": "Body text",
 					"description": "Body text",
 					"attributes": {
-					"desktop": {
-						"fontFamily": "Arial, sans-serif",
-						"fontSource": "system",
-						"fontSize": "md"
+						"desktop": {
+							"fontFamily": "Arial, sans-serif",
+							"fontSource": "system",
+							"fontSize": "md"
 						}
 					}
 				},
@@ -48,10 +48,12 @@
 					"name": "Heading text",
 					"description": "Heading text",
 					"attributes": {
-						"desktop": {
-							"fontFamily": "Georgia, cursive, sans-serif",
-							"fontSource": "system",
-							"fontSize": "lg"
+						"typography": {
+							"desktop": {
+								"fontFamily": "Georgia, cursive, sans-serif",
+								"fontSource": "system",
+								"fontSize": "lg"
+							}
 						}
 					}
 				},
@@ -60,8 +62,10 @@
 					"name": "Heading 1",
 					"description": "Heading 1",
 					"attributes": {
-						"desktop": {
-							"fontSize": "xxxl"
+						"typography": {
+							"desktop": {
+								"fontSize": "xxxl"
+							}
 						}
 					}
 				},
@@ -70,8 +74,10 @@
 					"name": "Heading 2",
 					"description": "Heading 2",
 					"attributes": {
-						"desktop": {
-							"fontSize": "xxl"
+						"typography": {
+							"desktop": {
+								"fontSize": "xxl"
+							}
 						}
 					}
 				},
@@ -80,8 +86,10 @@
 					"name": "Heading 3",
 					"description": "Heading 3",
 					"attributes": {
-						"desktop": {
-							"fontSize": "xl"
+						"typography": {
+							"desktop": {
+								"fontSize": "xl"
+							}
 						}
 					}
 				},
@@ -90,8 +98,10 @@
 					"name": "Heading 4",
 					"description": "Heading 4",
 					"attributes": {
-						"desktop": {
-							"fontSize": "xl"
+						"typography": {
+							"desktop": {
+								"fontSize": "xl"
+							}
 						}
 					}
 				},
@@ -100,8 +110,10 @@
 					"name": "Heading 5",
 					"description": "Heading 5",
 					"attributes": {
-						"desktop": {
-							"fontSize": "lg"
+						"typography": {
+							"desktop": {
+								"fontSize": "lg"
+							}
 						}
 					}
 				},
@@ -110,8 +122,10 @@
 					"name": "Heading 6",
 					"description": "Heading 6",
 					"attributes": {
-						"desktop": {
-							"fontSize": "lg"
+						"typography": {
+							"desktop": {
+								"fontSize": "lg"
+							}
 						}
 					}
 				}

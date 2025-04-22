@@ -1,6 +1,7 @@
 import { createReduxStore, register, select } from '@wordpress/data';
 import { deepMerge } from '@kadence/kbsHelpers';
 import apiFetch from '@wordpress/api-fetch';
+import { components } from 'react-select';
 
 /**
  * Default state for the global styles store
@@ -8,7 +9,7 @@ import apiFetch from '@wordpress/api-fetch';
 const DEFAULT_STATE = {
 	globalStyles: [],
 	// styleBookLocalGlobalStyles: [],
-	styleBookAttributes: {},
+	styleBookAttributes: { globalStyleIds: ['kbs-base'] },
 	isLoading: false,
 	isSavingStyleBook: false,
 	hasResolved: false,
@@ -88,8 +89,8 @@ const actions = {
 		}
 
 		yield actions.setIsLoading(true);
-		const path = '/kadence-blocks/v1/global-styles/get-demo';
-		// const path = '/kadence-blocks/v1/global-styles';
+		// const path = '/kadence-blocks/v1/global-styles/get-demo';
+		const path = '/kadence-blocks/v1/global-styles';
 		try {
 			const globalStyles = yield {
 				type: 'API_FETCH',
@@ -281,7 +282,9 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				const stateObject2 = state?.styleBookLocalGlobalStyles ? state.styleBookLocalGlobalStyles : {};
 				return {
 					...state,
-					styleBookLocalGlobalStyles: Object.assign(stateObject2, {[action.globalStyleId]: action.styleBookLocalGlobalStyle}),
+					styleBookLocalGlobalStyles: Object.assign(stateObject2, {
+						[action.globalStyleId]: action.styleBookLocalGlobalStyle,
+					}),
 				};
 			case 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_ID':
 				// action.styleId,
@@ -364,7 +367,9 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			styleIds = ['kbs-base', ...styleIds];
 
 			// Filter styles that match the provided IDs
-			const stylesToMerge = !forStyleBook ? styleIds.map((id) => state.globalStyles?.[id]).filter(Boolean) : styleIds.map((id) => state.styleBookLocalGlobalStyles?.[id]).filter(Boolean); // Remove any undefined values
+			const stylesToMerge = !forStyleBook
+				? styleIds.map((id) => state.globalStyles?.[id]).filter(Boolean)
+				: styleIds.map((id) => state.styleBookLocalGlobalStyles?.[id]).filter(Boolean); // Remove any undefined values
 
 			if (stylesToMerge.length === 0) {
 				return {};
@@ -424,8 +429,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		},
 		getGlobalStylesComponentPresetsByStyleId(state, styleId, componentId) {
 			if (state.globalStyles) {
-				const presetToReturn =
-					state.globalStyles?.[styleId]?.['components']?.[componentId]?.['presets'];
+				const presetToReturn = state.globalStyles?.[styleId]?.['components']?.[componentId]?.['presets'];
 				if (presetToReturn) {
 					return presetToReturn;
 				}
