@@ -211,7 +211,6 @@ function KadenceConfig() {
 			controlContent = (
 				<>
 					<PanelBody>
-						<InspectorControls.Slot />
 						<div className="kbs-style-book-controls">
 							This is where a preset option controls will go.
 							<ComponentPresetControl
@@ -428,10 +427,10 @@ function KadenceConfig() {
 					</style>
 				</Modal>
 			)}
-			<PluginSidebarMoreMenuItem target="kbs-controls" icon={controlIcon}>
+			<PluginSidebarMoreMenuItem target="kbs-style-book-controls" icon={controlIcon}>
 				{controlName}
 			</PluginSidebarMoreMenuItem>
-			<PluginSidebar isPinnable={true} name="kbs-controls" title={controlName}>
+			<PluginSidebar isPinnable={true} name="kbs-style-book-controls" title={controlName}>
 				<>
 					<PanelBody>
 						<Button
