@@ -2,7 +2,15 @@ import { useRef, useMemo } from '@wordpress/element';
 import { cssGenerator, getGoogleFontUrl } from '@kadence/kbsHelpers';
 
 export default function Styles(props) {
-	const { attributes, previewDevice, styleBookAttributes, styleBookLocalGlobalStyles, selectedComponent } = props;
+	const {
+		previewDevice,
+		styleBookAttributes,
+		styleBookLocalGlobalStyles,
+		currentGlobalStyleId,
+		currentPreset,
+		selectedComponent,
+		selectedTab,
+	} = props;
 
 	const fakeMetaData = {
 		attributes: {
@@ -16,18 +24,45 @@ export default function Styles(props) {
 		},
 	};
 
+	var attributes =
+		styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]?.presets?.[currentPreset]
+			?.attributes;
+
 	const cssOutput = useMemo(() => {
 		const selector = '.kbs-style-book-preview-typography';
 		const css = new cssGenerator(selector);
 
-		css.addComponent(selectedComponent, fakeMetaData.attributes[selectedComponent], props, fakeMetaData);
+		if (selectedTab == 'presets') {
+			css.addComponent(
+				selectedComponent,
+				fakeMetaData.attributes[selectedComponent],
+				{ attributes, previewDevice },
+				fakeMetaData
+			);
+		} else {
+			const componentsToRender = ['typography'];
+			const presetToRender = 'text-heading';
+			componentsToRender.forEach((componentToRender) => {
+				attributes =
+					styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[componentToRender]?.presets?.[
+						presetToRender
+					]?.attributes;
+
+				css.addComponent(
+					componentToRender,
+					fakeMetaData.attributes[componentToRender],
+					{ attributes, previewDevice },
+					fakeMetaData
+				);
+			});
+		}
 
 		let output = css.generate();
 		if (attributes?.kbsCSS) {
 			output = output + attributes.kbsCSS.replace(/selector/g, selector);
 		}
 		return output;
-	}, [attributes, previewDevice]);
+	}, [attributes, previewDevice, selectedTab]);
 
 	// console.log('style', cssOutput, selectedComponent, attributes, styleBookLocalGlobalStyles);
 

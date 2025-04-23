@@ -35,7 +35,7 @@ function KadenceConfig() {
 		applyFilters('kadence.block_sidebar_control_icon', BlockIcons.kadenceNewIcon)
 	);
 	const [isKadenceStyleBookOpened, setIsKadenceStyleBookOpened] = useState(false);
-	const [selectedTab, setSelectedTab] = useState('text');
+	const [selectedTab, setSelectedTab] = useState('all');
 	const [selectedComponent, setSelectedComponent] = useState('');
 	const [selectedBlockDefault, setSelectedBlockDefault] = useState('');
 	const [selectedBlockAttributes, setSelectedBlockAttributes] = useState({});
@@ -416,13 +416,12 @@ function KadenceConfig() {
 					</div>
 					<Styles
 						previewDevice={previewDevice}
-						attributes={
-							styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]
-								?.presets?.[currentPreset]?.attributes
-						}
 						styleBookAttributes={styleBookAttributes}
 						styleBookLocalGlobalStyles={styleBookLocalGlobalStyles}
+						currentGlobalStyleId={currentGlobalStyleId}
+						currentPreset={currentPreset}
 						selectedComponent={selectedComponent}
+						selectedTab={selectedTab}
 					/>
 					<style>
 						{'.kbs-style-book-modal-overlay{width:' + editorWidth + 'px; left: ' + editorLeft + 'px;}'}
