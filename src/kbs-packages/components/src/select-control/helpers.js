@@ -18,12 +18,12 @@ import { useFontWeightOptions, useFontOptions, getInheritedDeviceValue, getDevic
  */
 export const findOptionByValue = (value, type, options) => {
 	if (!value || !options?.length) return null;
-	
+
 	if (type === 'fontFamily') {
-		return options.flatMap(group => group.options).find(option => option.value === value);
+		return options.flatMap((group) => group.options).find((option) => option.value === value);
 	}
-	
-	return options.find(option => option.value === value);
+
+	return options.find((option) => option.value === value);
 };
 
 /**
@@ -35,10 +35,10 @@ export const findOptionByValue = (value, type, options) => {
  * @param {Array} options The options array
  * @return {string} The placeholder label or loading message
  */
-export const getPlaceholderLabel = (currentValue, inheritedValue, type, options ) => {
+export const getPlaceholderLabel = (currentValue, inheritedValue, type, options) => {
 	if (currentValue) {
 		return findOptionByValue(currentValue, type, options)?.label || currentValue;
-	} 
+	}
 	return findOptionByValue(inheritedValue, type, options)?.label || __('Default', 'kadence-blocks');
 };
 
@@ -52,7 +52,16 @@ export const getPlaceholderLabel = (currentValue, inheritedValue, type, options 
  * @param {string} params.previewDevice The preview device
  * @return {Object} The options and loading state
  */
-export const useSelectOptions = ({ type, attributes, attributeName, previewDevice, meta, currentValue, mergedGlobalStyle, forStyleBook }) => {
+export const useSelectOptions = ({
+	type,
+	attributes,
+	attributeName,
+	previewDevice,
+	meta,
+	currentValue,
+	mergedGlobalStyle,
+	forStyleBook,
+}) => {
 	let isLoadingOptions = false;
 	let loadingMessage = __('Loading options...', 'kadence-blocks');
 	let options = [];
@@ -67,7 +76,7 @@ export const useSelectOptions = ({ type, attributes, attributeName, previewDevic
 		}
 		case 'fontWeight': {
 			let fontFamily = getDeviceValue(attributeName, attributes, previewDevice, meta, 'fontFamily');
-			
+
 			// If no direct font family value, get inherited value
 			if (!fontFamily) {
 				const inheritedFontData = getInheritedDeviceValue(
@@ -96,6 +105,10 @@ export const useSelectOptions = ({ type, attributes, attributeName, previewDevic
 					value: key,
 					label: presets[key].name || `Preset ${key}`,
 				}));
+				presetOptions.unshift({
+					value: '',
+					label: '---',
+				});
 			}
 
 			options = presetOptions;
@@ -108,4 +121,4 @@ export const useSelectOptions = ({ type, attributes, attributeName, previewDevic
 		isLoadingOptions,
 		loadingMessage,
 	};
-}; 
+};
