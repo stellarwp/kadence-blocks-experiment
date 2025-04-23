@@ -39,6 +39,10 @@ const getCustomStyles = (isInherited) => ({
 		...(isInherited && DOT_STYLES),
 		color: `var(--kb-text-color-opacity, rgba(0, 0, 0, ${isInherited ? 0.6 : 1.0}))`,
 	}),
+	menu: (base) => ({
+		...base,
+		zIndex: 10 // Add a higher z-index to ensure the menu appears above other content
+	})
 });
 
 /**

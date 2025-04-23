@@ -144,8 +144,6 @@ class GlobalStylesController extends WP_REST_Controller {
             }
         }
 
-        $test = json_decode( $all_posts[0]->post_content, true );
-
         if ( ! $post_contents ) {
             $response = array( 'success' => false, 'error' => $all_posts );
         } else {

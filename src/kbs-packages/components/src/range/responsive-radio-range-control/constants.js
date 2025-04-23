@@ -2,15 +2,15 @@ import { __ } from '@wordpress/i18n';
 
 export const fontSizeOptions = [
 	{
-		value: 'small',
+		value: 'sm',
 		label: __( 'SM', 'kadence-blocks' ),
 	},
 	{
-		value: 'medium',
+		value: 'md',
 		label: __( 'MD', 'kadence-blocks' ),
 	},
 	{
-		value: 'large',
+		value: 'lg',
 		label: __( 'LG', 'kadence-blocks' ),
 	},
 	{
@@ -44,4 +44,4 @@ export const letterCaseOptions = [
 		value: 'capitalize',
 		label: __( 'Ab', 'kadence-blocks' ),
 	},
-]; 
+];
