@@ -36,10 +36,12 @@
 					"name": "Body text",
 					"description": "Body text",
 					"attributes": {
-						"desktop": {
-							"fontFamily": "Arial, sans-serif",
-							"fontSource": "system",
-							"fontSize": "md"
+						"typography": {
+							"desktop": {
+								"fontFamily": "Arial, sans-serif",
+								"fontSource": "system",
+								"fontSize": "md"
+							}
 						}
 					}
 				},

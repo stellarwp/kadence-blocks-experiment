@@ -151,7 +151,7 @@ function KadenceConfig() {
 		[editorWidth, editorLeft, isKadenceStyleBookOpened]
 	);
 
-	console.log('style book local: ', editorStyles, editorElement, isListViewOpen);
+	// console.log('style book local: ', editorStyles, editorElement, isListViewOpen);
 
 	// console.log('in component: ', styleBookLocalGlobalStyles, currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]
 	// 	?.presets?.[currentPreset]?.attributes)

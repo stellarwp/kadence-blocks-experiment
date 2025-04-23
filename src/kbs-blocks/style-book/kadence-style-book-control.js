@@ -10,7 +10,7 @@ import { kadenceNewIcon } from '@kadence/icons';
  */
 import KadenceStyleBookConfig from './kadence-style-book-plugin';
 
-// registerPlugin('kadence-style-book', {
-// 	icon: applyFilters('kadence.block_sidebar_control_icon', kadenceNewIcon),
-// 	render: KadenceStyleBookConfig,
-// });
+registerPlugin('kadence-style-book', {
+	icon: applyFilters('kadence.block_sidebar_control_icon', kadenceNewIcon),
+	render: KadenceStyleBookConfig,
+});

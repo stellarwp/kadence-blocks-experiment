@@ -20,7 +20,7 @@ export default function Styles(props) {
 		const selector = '.kbs-style-book-preview-typography';
 		const css = new cssGenerator(selector);
 
-		css.addComponent(selectedComponent, fakeMetaData.attributes[selectedComponent], props);
+		css.addComponent(selectedComponent, fakeMetaData.attributes[selectedComponent], props, fakeMetaData);
 
 		let output = css.generate();
 		if (attributes?.kbsCSS) {
