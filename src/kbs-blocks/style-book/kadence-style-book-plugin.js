@@ -1,6 +1,6 @@
 import { map } from 'lodash';
 
-import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/edit-post';
+import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 import { Fragment, useState, useEffect, useRef, useMemo } from '@wordpress/element';
 import { PanelBody, Button, Modal, TabPanel, SelectControl, TextControl } from '@wordpress/components';
@@ -131,7 +131,7 @@ function KadenceConfig() {
 	const currentGlobalStyleId = styleBookAttributes?.globalStyleIds?.[0];
 
 	const isListViewOpen = useSelect((select) => {
-		return select('core/edit-post').isListViewOpened();
+		return select('core/editor').isListViewOpened();
 	}, []);
 
 	const ref = useRef();
@@ -446,7 +446,7 @@ function KadenceConfig() {
 					{isKadenceStyleBookOpened && renderSidebarControls()}
 				</>
 			</PluginSidebar>
-			<div class={'testclass'} ref={ref} />
+			<div className={'kbs-style-book-ref'} ref={ref} />
 		</Fragment>
 	);
 }

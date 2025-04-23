@@ -12,12 +12,7 @@ import classnames from 'classnames';
 /**
  * Kadence Helpers.
  */
-import {
-	uniqueIdHelper,
-	getPreviewValue,
-	GlobalStylesContext,
-	useGlobalStylesIds
-} from '@kadence/kbsHelpers';
+import { uniqueIdHelper, getPreviewValue, GlobalStylesContext, useGlobalStylesIds } from '@kadence/kbsHelpers';
 
 import metadata from './block.json';
 import Inspector from './editing/inspector';
@@ -29,12 +24,7 @@ import { __ } from '@wordpress/i18n';
 
 import { useSelect, select } from '@wordpress/data';
 import { useEffect, Fragment } from '@wordpress/element';
-import {
-	InnerBlocks,
-	useBlockProps,
-	useInnerBlocksProps,
-	store as blockEditorStore,
-} from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps, useInnerBlocksProps, store as blockEditorStore } from '@wordpress/block-editor';
 import { FORM_ALLOWED_BLOCKS } from './constants';
 
 /**
@@ -42,12 +32,7 @@ import { FORM_ALLOWED_BLOCKS } from './constants';
  */
 export default function ContainerEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
-	const {
-		uniqueID,
-		templateLock,
-		align,
-		globalStyleIds
-	} = attributes;
+	const { uniqueID, templateLock, align, globalStyleIds } = attributes;
 
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
@@ -82,7 +67,7 @@ export default function ContainerEdit(props) {
 		},
 		[clientId, globalStylesIds]
 	);
-	uniqueIdHelper( props );
+	uniqueIdHelper(props);
 	useEffect(() => {
 		// const isInQueryBlock = getInQueryBlock(context, inQueryBlock);
 		// if (attributes.inQueryBlock !== isInQueryBlock) {
@@ -95,37 +80,32 @@ export default function ContainerEdit(props) {
 		}
 	}, []);
 
-	const previewDirection = getPreviewValue( 'direction', attributes, metadata, previewDevice );
-	const classes = classnames( 'kbs-container',{
+	const previewDirection = getPreviewValue('direction', attributes, metadata, previewDevice);
+	const classes = classnames('kbs-container', {
 		[className]: className,
 		[`kbs-container-${uniqueID}`]: uniqueID,
-		[ 'kbs-only-appender' ]: ! hasInnerBlocks,
+		['kbs-only-appender']: !hasInnerBlocks,
 	});
 	const blockProps = useBlockProps({
 		className: classes,
 		'data-align': !inRowBlock && ('full' === align || 'wide' === align) ? align : undefined,
 	});
-	const innerBlocksProps = useInnerBlocksProps(
-		{
-			orientation:
-				previewDirection === 'row' || previewDirection === 'row-reverse'
-					? 'horizontal'
-					: 'vertical',
-			templateLock,
-			renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
-			allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
-		}
-	);
+	const { children, ...innerBlocksProps } = useInnerBlocksProps({
+		orientation: previewDirection === 'row' || previewDirection === 'row-reverse' ? 'horizontal' : 'vertical',
+		templateLock,
+		renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+		allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
+	});
 
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<div {...blockProps}>
-					<Inspector {...{ previewDevice, mergedGlobalStyle, ...props }} />
-					{/* <Toolbar {...props} />
+				<Inspector {...{ previewDevice, mergedGlobalStyle, ...props }} />
+				{/* <Toolbar {...props} />
 					<Inspector {...props} />
 					*/}
-					<Styles {...{ previewDevice, mergedGlobalStyle, ...props }} />
-					<Fragment {...innerBlocksProps} />
+				<Styles {...{ previewDevice, mergedGlobalStyle, ...props }} />
+				{children}
 			</div>
 		</GlobalStylesContext.Provider>
 	);
