@@ -47,7 +47,7 @@
 					"description": "Heading text",
 					"attributes": {
 						"desktop": {
-							"fontFamily": "Georgia, cursive, sans-serif",
+							"fontFamily": "Courier, monospace",
 							"fontSource": "system",
 							"fontSize": "lg"
 						}

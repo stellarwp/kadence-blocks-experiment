@@ -75,6 +75,25 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: basePresetKey };
 		}
 	}
+
+	// If typography and using a heading preset, check the generic text-heading preset
+	if( 'typography' === attributeMeta?.component && basePresetKey?.includes( 'text-heading-' ) ) {
+		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle, 'text-heading');
+		if (parentBasePresetValue) {
+			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading' };
+		}
+
+		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
+			const parentDevice = deviceOptions[i];
+			const parentDeviceName = parentDevice.key;
+			
+			const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, mergedGlobalStyle, 'text-heading');
+			if (parentBasePresetValue) {
+				return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading' };
+			}
+		}
+	
+	}
 	
 	// Check initial values for current and parent devices
 	for (let i = currentDeviceIndex; i >= 0; i--) {

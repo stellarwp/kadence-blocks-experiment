@@ -20,12 +20,6 @@ export default function getPresetValue(attributeName, attributes, device, type, 
         return { value: undefined, source: undefined };
     }
 
-	// if( type === 'fontFamily' ){
-	// 	console.log('attriubtePresetKey', attriubtePresetKey);
-    //     console.log( 'mergedGlobalStyle' );
-    //     console.log( mergedGlobalStyle );
-	// }
-
     const presetData = getPresetData(attriubtePresetKey, attributeName, mergedGlobalStyle);
 
     // Get the preset value from the merged global style

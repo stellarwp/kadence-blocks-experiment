@@ -141,7 +141,7 @@
 			"renderCSS": true,
 			"component": "typography",
 			"selector": "--kbs-cont",
-			"tag": "h1",
+			"tag": "h2",
 			"initial": {
 				"desktop": {
 					"fontFamily": "\"Comic Sans MS\", cursive, sans-serif",
