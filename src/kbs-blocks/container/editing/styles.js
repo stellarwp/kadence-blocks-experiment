@@ -3,7 +3,7 @@ import { cssGenerator, getGoogleFontUrl } from '@kadence/kbsHelpers';
 import metadata from '../block.json';
 
 export default function Styles(props) {
-	const { attributes, previewDevice, mergedGlobalStyle } = props;
+	const { attributes, previewDevice } = props;
 	const cssOutput = useMemo(() => {
 		const selector = `.kbs-container-${attributes?.uniqueID || 'unknown'}`;
 		const css = new cssGenerator(selector);
@@ -12,7 +12,7 @@ export default function Styles(props) {
 			Object.entries(metadata.attributes).forEach(([attributeName, value]) => {			
 				if (value.renderCSS) {
 					if( value?.component === 'typography' ) {
-						css.addComponent(attributeName, value, props, metadata, mergedGlobalStyle);
+						css.addComponent(attributeName, value, props, metadata);
 					} else {
 						css.addAttribute(attributeName, value, props);
 					}
@@ -25,7 +25,7 @@ export default function Styles(props) {
 			output = output + attributes.kbsCSS.replace(/selector/g, selector);
 		}
 		return output;
-	}, [attributes, previewDevice]);
+	}, [attributes, previewDevice, JSON.stringify(attributes)]);
 
 	const googleFontUrl = useMemo(() => {
 		if (!metadata.attributes) {

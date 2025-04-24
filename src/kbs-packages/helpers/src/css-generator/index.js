@@ -63,8 +63,8 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @returns {CSSGenerator} - Returns this instance for chaining
 	 */
-	addComponent(attributeName, meta, props, metadata, mergedGlobalStyle = {}) {
-		const { attributes, previewDevice } = props;
+	addComponent(attributeName, meta, props, metadata) {
+		const { attributes, previewDevice, mergedGlobalStyle} = props;
 		// const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[attributeName] || {});
 
 		// if (!mergedAttribute) {

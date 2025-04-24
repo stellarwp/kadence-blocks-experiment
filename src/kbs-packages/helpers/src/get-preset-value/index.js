@@ -11,35 +11,35 @@ import { select } from '@wordpress/data';
  * @param {string} device - The current device (e.g., 'desktop', 'tablet', 'mobile')
  * @param {string} type - The specific property type (e.g., 'fontFamily')
  * @param {object} globalStylesIds - The global styles IDs passed from the component
- * @param {object} meta - Metadata object for the attribute
  * @returns {*} - The value from the preset for the given attribute and device
  */
-export default function getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle, meta = {}) {
-
+export default function getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle, basePresetKey = null) {
     // Check if the block's attribute has a preset defined
-    const attriubtePresetKey = attributes?.[attributeName]?.preset;
-    if (attriubtePresetKey) {
-        console.log('Preset set on block', attriubtePresetKey);
-        return '';
+    const attriubtePresetKey = basePresetKey ? basePresetKey : attributes?.[attributeName]?.preset;
+    if ( basePresetKey !== null && undefined === attriubtePresetKey) {
+        return { value: undefined, source: undefined };
     }
 
-    const blockName = meta?.name;
-    const componentType = meta?.attributes?.[attributeName]?.component;
-    const presetKey = mergedGlobalStyle?.[blockName]?.attributes?.[attributeName]?.preset;
-    const presetData = getPresetData(presetKey, attributeName, mergedGlobalStyle);
+	// if( type === 'fontFamily' ){
+	// 	console.log('attriubtePresetKey', attriubtePresetKey);
+    //     console.log( 'mergedGlobalStyle' );
+    //     console.log( mergedGlobalStyle );
+	// }
+
+    const presetData = getPresetData(attriubtePresetKey, attributeName, mergedGlobalStyle);
 
     // Get the preset value from the merged global style
     if( presetData ) {
         // Find the attriubte value in the preset data
-        const attributeValue = presetData?.attributes?.[componentType]?.[device.toLowerCase()]?.[type];
+        const attributeValue = presetData?.attributes?.[device.toLowerCase()]?.[type];
 
         if( attributeValue ) {
-            return attributeValue;
+            return { value: attributeValue, source: 'preset' };
         }
 
     }
 
-    return null;
+    return { value: undefined, source: undefined };
 } 
 
 

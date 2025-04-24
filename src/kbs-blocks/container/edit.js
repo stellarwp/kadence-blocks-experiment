@@ -100,11 +100,11 @@ export default function ContainerEdit(props) {
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<div {...blockProps}>
-				<Inspector {...{ previewDevice, mergedGlobalStyle, ...props }} />
+				<Inspector {...props} previewDevice={previewDevice} mergedGlobalStyle={mergedGlobalStyle} />
 				{/* <Toolbar {...props} />
 					<Inspector {...props} />
 					*/}
-				<Styles {...{ previewDevice, mergedGlobalStyle, ...props }} />
+				<Styles {...props} previewDevice={previewDevice} mergedGlobalStyle={mergedGlobalStyle} />
 				{children}
 			</div>
 		</GlobalStylesContext.Provider>

@@ -11,19 +11,17 @@
 					"description": "A basic vertical flex container",
 					"clear": false,
 					"attributes": {
-						"flex": {
-							"desktop": {
-								"direction": "column",
-								"justify": "flex-start",
-								"alignItems": "stretch",
-								"alignContent": "initial",
-								"wrap": "nowrap",
-								"rowGap": "none",
-								"columnGap": "initial",
-								"flexShrink": "initial",
-								"flexGrow": "initial",
-								"flexBasis": "auto"
-							}
+						"desktop": {
+							"direction": "column",
+							"justify": "flex-start",
+							"alignItems": "stretch",
+							"alignContent": "initial",
+							"wrap": "nowrap",
+							"rowGap": "none",
+							"columnGap": "initial",
+							"flexShrink": "initial",
+							"flexGrow": "initial",
+							"flexBasis": "auto"
 						}
 					}
 				}
@@ -36,12 +34,10 @@
 					"name": "Hero 1 - Dark Mode",
 					"description": "Standard hero text",
 					"attributes": {
-						"typography": {
-							"desktop": {
-								"fontFamily": "Impact, cursive, sans-serif",
-								"fontSource": "system"
-							}
-						}
+						"desktop": {
+							"fontFamily": "Impact, cursive, sans-serif",
+							"fontSource": "system"
+						}	
 					}
 				},
 				"base-99859": {
@@ -49,11 +45,8 @@
 					"name": "Hero 2 - Dark Mode",
 					"description": "Standard hero text 2",
 					"attributes": {
-						"typography": {
-							"desktop": {
-								"fontFamily": "Georgia, cursive, sans-serif",
-								"fontSource": "system"
-							}
+						"desktop": {
+							"fontSize": "sm"
 						}
 					}
 				}

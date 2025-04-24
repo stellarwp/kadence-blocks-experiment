@@ -20,10 +20,8 @@ const IS_RTL = isRTL();
  * Internal dependencies
  */
 import {
-	getDeviceValue,
 	getResolvedValue,
 	handleAttributeChange,
-	GlobalStylesContext
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';

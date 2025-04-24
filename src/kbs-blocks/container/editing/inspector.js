@@ -23,7 +23,6 @@ const PANEL_NAME = metadata.name;
  * Build the section Inspector edit.
  */
 export default function Inspector(props) {
-	const { attributes, setAttributes, isSelected, clientId, context, className, mergedGlobalStyle } = props;
 	const [activeTab, setActiveTab] = useState('general');
 
 	return (
