@@ -39,7 +39,7 @@ export const getPlaceholderLabel = (currentValue, inheritedValue, type, options)
 	if (currentValue) {
 		return findOptionByValue(currentValue, type, options)?.label || currentValue;
 	}
-	return findOptionByValue(inheritedValue, type, options)?.label || '';
+	return findOptionByValue(inheritedValue, type, options)?.label || __('Default', 'kadence-blocks');
 };
 
 /**
