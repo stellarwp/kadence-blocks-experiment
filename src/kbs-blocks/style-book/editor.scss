@@ -5,26 +5,6 @@
  * which makes it higher in priority.
  */
 
-.kbs-style-book-preview-typography {
-	cursor: pointer;
-}
-
-.kbs-style-book-preview-heading {
-	border-bottom: 1px solid black;
-}
-.kbs-style-book-preview-typography {
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6,
-	p {
-		font-family: var(--kbs-preview-font-family);
-		font-weight: var(--kbs-preview-font-weight);
-	}
-}
-
 $editor-top-bar-height: 60px;
 $editor-bottom-bar-height: 25px;
 $editor-control-sidebar-width: 300px;
@@ -47,11 +27,22 @@ $editor-control-sidebar-width: 300px;
 	height: 90%;
 }
 
+.kbs-style-book-preview-heading {
+	margin-top: 0;
+}
+
 .kbs-style-book-content {
 }
 
 // Block Preview Styles
 .kbs-style-book-block-preview {
+	background-color: #f5f5f5;
+	padding: 20px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+
+.kbs-style-book-preview-element {
 	cursor: pointer;
 	border: 1px solid #ddd;
 	border-radius: 2px;
@@ -59,15 +50,45 @@ $editor-control-sidebar-width: 300px;
 	padding: 1rem;
 	transition: all 0.2s ease;
 
-	&:hover {
+	&:hover,
+	&:focus-visible,
+	&.is-selected {
 		border-color: var(--wp-admin-theme-color);
 		box-shadow: 0 0 0 1px var(--wp-admin-theme-color);
 	}
+}
 
-	&.is-selected {
-		border-color: var(--wp-admin-theme-color);
-		box-shadow: 0 0 0 2px var(--wp-admin-theme-color);
+.kbs-flex,
+.kbs-flex-horizontal {
+	display: flex;
+
+	&-horizontal {
+		flex-direction: row;
+
+		&.kbs-flex-gap-sm {
+			gap: 5px;
+		}
+		&.kbs-flex-gap-md {
+			gap: 10px;
+		}
+		&.kbs-flex-gap-lg {
+			gap: 20px;
+		}
+		&.kbs-flex-gap-xl {
+			gap: 40px;
+		}
 	}
+
+	.kbs-column {
+		flex: 1;
+	}
+}
+
+.kbs-control-heading {
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-transform: capitalize;
+	margin-bottom: 10px;
 }
 
 // Tab Styles
@@ -89,5 +110,19 @@ $editor-control-sidebar-width: 300px;
 			border-bottom-color: var(--wp-admin-theme-color);
 			color: var(--wp-admin-theme-color);
 		}
+	}
+}
+
+// Preview hook ups
+.kbs-style-book-preview-typography {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p {
+		font-family: var(--kbs-preview-font-family);
+		font-weight: var(--kbs-preview-font-weight);
 	}
 }

@@ -45,12 +45,12 @@ export default function ComponentPresetControl(props) {
 
 	const fakeMeta = {
 		attributes: {
-			[property]: { 
+			[property]: {
 				component: property,
 				renderCSS: true,
-				selector: "--kbs-cont",
+				selector: '--kbs-cont',
 				initial: {},
-				type: "object" 
+				type: 'object',
 			},
 		},
 	};
@@ -60,7 +60,6 @@ export default function ComponentPresetControl(props) {
 
 	return (
 		<>
-			<div class="kbs-component-preset-control">A component Preset control</div>
 			<Component
 				label={label}
 				// customOnChange={onPresetChange}

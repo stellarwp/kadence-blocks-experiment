@@ -7,7 +7,6 @@ export default function useEditorElement(ref, dependencies, className = 'editor-
 	const [editorElement, setEditorElement] = useState();
 
 	function calculateEditorElement() {
-		console.log(ref);
 		if (ref?.current?.ownerDocument) {
 			setEditorElement(ref.current.ownerDocument.querySelector('.' + className));
 		}
