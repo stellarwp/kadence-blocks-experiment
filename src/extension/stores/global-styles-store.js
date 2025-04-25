@@ -313,7 +313,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				// action.presetId,
 				// action.presetAttrs,
 				const presetVal = {
-					attributes: action.presetAttrs,
+					attributes: action.presetAttrs[action.componentId],
 				};
 
 				const presetObjectToSet2 = {

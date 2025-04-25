@@ -222,10 +222,10 @@ function KadenceConfig() {
 	};
 
 	const colorComponentPreviewContent = (
-		<div className="kbs-style-book-block-preview">
+		<div className="kbs-style-book-component-preview">
 			<h2 className={'kbs-style-book-preview-heading'}>{__('Color Palette', 'kadence-blocks')}</h2>
 			<div
-				className="kbs-style-book-preview-color"
+				className="kbs-style-book-preview-element kbs-color-preview"
 				onClick={() => {
 					setSelectedComponent('color');
 				}}
@@ -237,7 +237,7 @@ function KadenceConfig() {
 	);
 
 	const typographyComponentPreviewContent = (
-		<div className="kbs-style-book-block-preview">
+		<div className="kbs-style-book-component-preview">
 			<h2 className={'kbs-style-book-preview-heading'}>{__('Typography', 'kadence-blocks')}</h2>
 			<div className="kbs-flex-horizontal kbs-flex-gap-lg">
 				<div className={'kbs-column'}>
@@ -264,7 +264,7 @@ function KadenceConfig() {
 						onClick={() => {
 							setSelectedComponent('typography');
 							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-heading' } },
+								components: { typography: { selectedPreset: 'text-heading-1' } },
 							});
 						}}
 						role="button"

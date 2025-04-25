@@ -89,10 +89,8 @@
 					"name": "Heading 4",
 					"description": "Heading 4",
 					"attributes": {
-						"typography": {
-							"desktop": {
-								"fontSize": "xl"
-							}
+						"desktop": {
+							"fontSize": "xl"
 						}
 					}
 				},
