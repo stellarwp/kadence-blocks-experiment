@@ -222,134 +222,140 @@ function KadenceConfig() {
 	};
 
 	const colorComponentPreviewContent = (
-		<div className="kbs-style-book-component-preview">
+		<div className="kbs-style-book-component-preview-container">
 			<h2 className={'kbs-style-book-preview-heading'}>{__('Color Palette', 'kadence-blocks')}</h2>
-			<div
-				className="kbs-style-book-preview-element kbs-color-preview"
-				onClick={() => {
-					setSelectedComponent('color');
-				}}
-				role="button"
-			>
-				this would be a color pallete
+			<div className="kbs-style-book-component-preview">
+				<div
+					className="kbs-style-book-preview-element kbs-color-preview"
+					onClick={() => {
+						setSelectedComponent('color');
+					}}
+					role="button"
+				>
+					this would be a color pallete
+				</div>
 			</div>
 		</div>
 	);
 
 	const typographyComponentPreviewContent = (
-		<div className="kbs-style-book-component-preview">
+		<div className="kbs-style-book-component-preview-container">
 			<h2 className={'kbs-style-book-preview-heading'}>{__('Typography', 'kadence-blocks')}</h2>
-			<div className="kbs-flex-horizontal kbs-flex-gap-lg">
-				<div className={'kbs-column'}>
-					<div
-						className={'kbs-style-book-preview-element kbs-heading-main-preview'}
-						onClick={() => {
-							setSelectedComponent('typography');
-							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-heading' } },
-							});
-						}}
-						role="button"
-					>
-						<h1 aria-hidden="true">{__('Headings', 'kadence-blocks')}</h1>
-						<h2>
-							{__(
-								'A a B b C c D d E e F f G g H h I i J j K k L l M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z',
-								'kadence-blocks'
-							)}
-						</h2>
+			<div className="kbs-style-book-component-preview">
+				<div className="kbs-flex-horizontal kbs-flex-gap-lg">
+					<div className={'kbs-column'}>
+						<div
+							className={'kbs-style-book-preview-element kbs-heading-main-preview'}
+							onClick={() => {
+								setSelectedComponent('typography');
+								setStyleBookAttributes({
+									components: { typography: { selectedPreset: 'text-heading' } },
+								});
+							}}
+							role="button"
+						>
+							<h1 aria-hidden="true">{__('Headings', 'kadence-blocks')}</h1>
+							<h2>
+								{__(
+									'A a B b C c D d E e F f G g H h I i J j K k L l M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z',
+									'kadence-blocks'
+								)}
+							</h2>
+						</div>
+						<div
+							className={'kbs-style-book-preview-element kbs-heading-1-preview'}
+							onClick={() => {
+								setSelectedComponent('typography');
+								setStyleBookAttributes({
+									components: { typography: { selectedPreset: 'text-heading-1' } },
+								});
+							}}
+							role="button"
+						>
+							<h1 aria-hidden="true">{__('Heading 1', 'kadence-blocks')}</h1>
+						</div>
+						<div
+							className={'kbs-style-book-preview-element kbs-heading-2-preview'}
+							onClick={() => {
+								setSelectedComponent('typography');
+								setStyleBookAttributes({
+									components: { typography: { selectedPreset: 'text-heading-2' } },
+								});
+							}}
+							role="button"
+						>
+							<h2 aria-hidden="true">{__('Heading 2', 'kadence-blocks')}</h2>
+						</div>
+						<div
+							className={'kbs-style-book-preview-element kbs-heading-3-preview'}
+							onClick={() => {
+								setSelectedComponent('typography');
+								setStyleBookAttributes({
+									components: { typography: { selectedPreset: 'text-heading-3' } },
+								});
+							}}
+							role="button"
+						>
+							<h3 aria-hidden="true">{__('Heading 3', 'kadence-blocks')}</h3>
+						</div>
+						<div
+							className={'kbs-style-book-preview-element kbs-heading-4-preview'}
+							onClick={() => {
+								setSelectedComponent('typography');
+								setStyleBookAttributes({
+									components: { typography: { selectedPreset: 'text-heading-4' } },
+								});
+							}}
+							role="button"
+						>
+							<h4 aria-hidden="true">{__('Heading 4', 'kadence-blocks')}</h4>
+						</div>
+						<div
+							className={'kbs-style-book-preview-element kbs-heading-5-preview'}
+							onClick={() => {
+								setSelectedComponent('typography');
+								setStyleBookAttributes({
+									components: { typography: { selectedPreset: 'text-heading-5' } },
+								});
+							}}
+							role="button"
+						>
+							<h5 aria-hidden="true">{__('Heading 5', 'kadence-blocks')}</h5>
+						</div>
+						<div
+							className={'kbs-style-book-preview-element kbs-heading-6-preview'}
+							onClick={() => {
+								setSelectedComponent('typography');
+								setStyleBookAttributes({
+									components: { typography: { selectedPreset: 'text-heading-6' } },
+								});
+							}}
+							role="button"
+						>
+							<h6 aria-hidden="true">{__('Heading 6', 'kadence-blocks')}</h6>
+						</div>
 					</div>
-					<div
-						className={'kbs-style-book-preview-element kbs-heading-1-preview'}
-						onClick={() => {
-							setSelectedComponent('typography');
-							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-heading-1' } },
-							});
-						}}
-						role="button"
-					>
-						<h1 aria-hidden="true">{__('Heading 1', 'kadence-blocks')}</h1>
-					</div>
-					<div
-						className={'kbs-style-book-preview-element kbs-heading-2-preview'}
-						onClick={() => {
-							setSelectedComponent('typography');
-							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-heading-2' } },
-							});
-						}}
-						role="button"
-					>
-						<h2 aria-hidden="true">{__('Heading 2', 'kadence-blocks')}</h2>
-					</div>
-					<div
-						className={'kbs-style-book-preview-element kbs-heading-3-preview'}
-						onClick={() => {
-							setSelectedComponent('typography');
-							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-heading-3' } },
-							});
-						}}
-						role="button"
-					>
-						<h3 aria-hidden="true">{__('Heading 3', 'kadence-blocks')}</h3>
-					</div>
-					<div
-						className={'kbs-style-book-preview-element kbs-heading-4-preview'}
-						onClick={() => {
-							setSelectedComponent('typography');
-							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-heading-4' } },
-							});
-						}}
-						role="button"
-					>
-						<h4 aria-hidden="true">{__('Heading 4', 'kadence-blocks')}</h4>
-					</div>
-					<div
-						className={'kbs-style-book-preview-element kbs-heading-5-preview'}
-						onClick={() => {
-							setSelectedComponent('typography');
-							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-heading-5' } },
-							});
-						}}
-						role="button"
-					>
-						<h5 aria-hidden="true">{__('Heading 5', 'kadence-blocks')}</h5>
-					</div>
-					<div
-						className={'kbs-style-book-preview-element kbs-heading-6-preview'}
-						onClick={() => {
-							setSelectedComponent('typography');
-							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-heading-6' } },
-							});
-						}}
-						role="button"
-					>
-						<h6 aria-hidden="true">{__('Heading 6', 'kadence-blocks')}</h6>
-					</div>
-				</div>
-				<div className={'kbs-column'}>
-					<div
-						className={'kbs-style-book-preview-element kbs-body-preview'}
-						onClick={() => {
-							setSelectedComponent('typography');
-							setStyleBookAttributes({
-								components: { typography: { selectedPreset: 'text-body' } },
-							});
-						}}
-						role="button"
-					>
-						<p aria-hidden="true">{__('This is what your body text will look like.', 'kadence-blocks')}</p>
-						<p aria-hidden="true">
-							{__(
-								'When you hear a true story, there is a part of you that responds to it regardless of art, regardless of evidence. Let it be the most obvious fabrication and you will still believe whatever truth is in it, because you can not deny truth no matter how shabbily it is dressed.',
-								'kadence-blocks'
-							)}
-						</p>
+					<div className={'kbs-column'}>
+						<div
+							className={'kbs-style-book-preview-element kbs-body-preview'}
+							onClick={() => {
+								setSelectedComponent('typography');
+								setStyleBookAttributes({
+									components: { typography: { selectedPreset: 'text-body' } },
+								});
+							}}
+							role="button"
+						>
+							<p aria-hidden="true">
+								{__('This is what your body text will look like.', 'kadence-blocks')}
+							</p>
+							<p aria-hidden="true">
+								{__(
+									'When you hear a true story, there is a part of you that responds to it regardless of art, regardless of evidence. Let it be the most obvious fabrication and you will still believe whatever truth is in it, because you can not deny truth no matter how shabbily it is dressed.',
+									'kadence-blocks'
+								)}
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>

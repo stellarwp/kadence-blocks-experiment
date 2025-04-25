@@ -247,7 +247,7 @@ class GlobalStylesController extends WP_REST_Controller {
                     'ID' => isset( $global_style['postId'] ) ? $global_style['postId'] : 0,
                     'post_type' => self::$slug,
                     'post_title' => isset( $global_style['name'] ) ? $global_style['name'] : __( 'Global Style', 'kadence-blocks' ),
-                    'post_content' => wp_json_encode( $global_style ),
+                    'post_content' => wp_slash( wp_json_encode( $global_style ) ),                    
                     'post_status' => 'publish',
                     'meta_input' => array(
                         self::$meta_style_id_slug => $style_id,
