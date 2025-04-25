@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Icon, info } from '@wordpress/icons';
-import { useState, useCallback } from '@wordpress/element';
+import { useState, useCallback, useRef } from '@wordpress/element';
 import { Popover } from '@wordpress/components';
 
 /**
@@ -21,11 +21,8 @@ export default function InheritanceIndicator({ inheritedSource, inheritedType })
 	const [isHovering, setIsHovering] = useState(false);
 	const [detailedData, setDetailedData] = useState(null);
 	const [anchorRef, setAnchorRef] = useState(null);
+	const timerRef = useRef(null);
 	
-	if (!inheritedSource || inheritedType === 'none') {
-		return null;
-	}
-
 	// Determine icon color based on the inheritance source
 	let iconColor = 'rgba(0, 0, 0, 0.6)';
 	
@@ -41,18 +38,34 @@ export default function InheritanceIndicator({ inheritedSource, inheritedType })
 			source: inheritedSource,
 		};
 	}, [inheritedType, inheritedSource]);
-
+	
 	const handleMouseEnter = () => {
-		setIsHovering(true);
-		
-		if (!detailedData) {
-			setDetailedData(fetchdData());
+		if (timerRef.current) {
+			clearTimeout(timerRef.current);
 		}
-	};
 
+        if (!detailedData) {
+            setDetailedData(fetchdData());
+        }
+		
+		// Delay showing the popover
+		timerRef.current = setTimeout(() => {
+			setIsHovering(true);
+		}, 250);
+	};
+	
 	const handleMouseLeave = () => {
+		if (timerRef.current) {
+			clearTimeout(timerRef.current);
+			timerRef.current = null;
+		}
+		
 		setIsHovering(false);
 	};
+	
+	if (!inheritedSource || inheritedType === 'none') {
+		return null;
+	}
 
 	return (
 		<div className="kbs-inheritance-indicator">
