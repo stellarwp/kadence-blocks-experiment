@@ -19,7 +19,7 @@ export default function getResolvedValue( attributeName, attributes, device, met
 	const directValue = getDeviceValue( attributeName, attributes, device, attributeMeta, type );
 
 	// Get the inherited value and its source.
-	const { inheritedValue, inheritedSource } = getInheritedDeviceValue(
+	const { inheritedValue, inheritedSource, inheritedType } = getInheritedDeviceValue(
 		attributeName,
 		attributes,
 		device,
@@ -33,7 +33,8 @@ export default function getResolvedValue( attributeName, attributes, device, met
 	return {
 		directValue, // The value set directly for the current device.
 		inheritedValue, // The value inherited from a parent device.
-		inheritedSource, // The source of the inherited value ('direct', 'parent', 'preset').
+		inheritedSource, // The name of the source ( base styles, dark mode global style, etc.)
+		inheritedType, // The type of inheritance ('direct', 'parent', 'preset').
 		isInherited, // Whether the current value is inherited.
 		appliedValue: isInherited ? inheritedValue : directValue, // The value to be applied to the element.
 	};

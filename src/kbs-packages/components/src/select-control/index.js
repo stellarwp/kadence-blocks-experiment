@@ -26,6 +26,7 @@ import {
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
 import { getPlaceholderLabel, useSelectOptions } from './helpers';
+import InheritanceIndicator from '../inheritance-indicator';
 import './editor.scss';
 
 /**
@@ -64,7 +65,7 @@ export default function SelectControl({
 	forStyleBook,
 	hasDeviceControls = true
 }) {
-	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
+	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue, inheritedType } = getResolvedValue(
 		attributeName,
 		attributes,
 		previewDevice,
@@ -155,9 +156,7 @@ export default function SelectControl({
 					noOptionsMessage={() => __('No results', 'kadence-blocks')}
 					isRtl={IS_RTL}
 				/>
-				<div className="kbs-select-control-inherited-source">
-					<em>Source: {inheritedSource}</em>
-				</div>
+				<InheritanceIndicator inheritedSource={inheritedSource} inheritedType={inheritedType} />
 			</div>
 		</div>
 	);

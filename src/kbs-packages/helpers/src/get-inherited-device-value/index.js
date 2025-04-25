@@ -24,7 +24,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 	// Check if there's a direct value on the block (highest priority)
 	const directValue = getDeviceValue(attributeName, attributes, device, attributeMeta, type);
 	if (directValue) {
-		return { inheritedValue: directValue, inheritedSource: 'direct' };
+		return { inheritedValue: directValue, inheritedSource: 'direct', inheritedType: 'direct' };
 	}
 		
 	// Check direct value from parent device
@@ -34,7 +34,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		
 		const parentValue = getDeviceValue(attributeName, attributes, parentDeviceName, attributeMeta, type);
 		if (parentValue) {
-			return { inheritedValue: parentValue, inheritedSource: 'parent' };
+			return { inheritedValue: parentValue, inheritedSource: 'parent', inheritedType: 'parent' };
 		}
 	}
 
@@ -42,7 +42,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 	// If no direct value, check for preset value for current device
 	const { value: presetValue, source: presetSource } = getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle);
 	if (presetValue) {
-		return { inheritedValue: presetValue, inheritanceType: 'preset', inheritedSource: presetSource };
+		return { inheritedValue: presetValue, inheritanceType: 'preset', inheritedSource: presetSource, inheritedType: 'preset' };
 	}
 
 	// Check preset value from parent device
@@ -53,7 +53,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		const { value: parentPresetValue, source: parentPresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, mergedGlobalStyle);
 		
 		if (parentPresetValue) {
-			return { inheritedValue: parentPresetValue, inheritanceType: 'preset-parent', inheritedSource: parentPresetSource };
+			return { inheritedValue: parentPresetValue, inheritanceType: 'preset-parent', inheritedSource: parentPresetSource, inheritedType: 'preset' };
 		}
 	}
 
@@ -62,7 +62,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 
 	const { value: basePresetValue, source: basePresetSource } = getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle, basePresetKey);
 	if (basePresetValue) {
-		return { inheritedValue: basePresetValue, inheritanceType: 'preset-base', inheritedSource: basePresetKey };
+		return { inheritedValue: basePresetValue, inheritanceType: 'preset-base', inheritedSource: basePresetKey, inheritedType: 'preset' };
 	}
 	
 	// Check base styles from parent device
@@ -72,7 +72,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		
 		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, mergedGlobalStyle, basePresetKey);
 		if (parentBasePresetValue) {
-			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: basePresetKey };
+			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: basePresetKey, inheritedType: 'preset' };
 		}
 	}
 
@@ -80,7 +80,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 	if( 'typography' === attributeMeta?.component && basePresetKey?.includes( 'text-heading-' ) ) {
 		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle, 'text-heading');
 		if (parentBasePresetValue) {
-			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading' };
+			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading', inheritedType: 'preset' };
 		}
 
 		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
@@ -89,7 +89,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 			
 			const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, mergedGlobalStyle, 'text-heading');
 			if (parentBasePresetValue) {
-				return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading' };
+				return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading', inheritedType: 'preset' };
 			}
 		}
 	
@@ -100,12 +100,12 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		const deviceOption = deviceOptions[i];
 		const deviceKey = deviceOption.key || deviceOption.name;
 		if (initialValue?.[deviceKey]?.[type]) {
-			return { inheritedValue: initialValue?.[deviceKey]?.[type], inheritedSource: 'initial' };
+			return { inheritedValue: initialValue?.[deviceKey]?.[type], inheritedSource: 'initial', inheritedType: 'initial' };
 		}
 	}
 
 	// Return empty values if nothing found
-	return { inheritedValue: '', inheritedSource: 'none' };
+	return { inheritedValue: '', inheritedSource: 'none', inheritedType: 'none' };
 } 
 
 function getBasePresetKey(attributeName, meta) {

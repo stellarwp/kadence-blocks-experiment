@@ -14,7 +14,7 @@ import {
 } from '@kadence/kbsHelpers';
 import './editor.scss';
 import { fontSizeOptions, letterCaseOptions } from './constants';
-
+import InheritanceIndicator from '../../inheritance-indicator';
 /**
  * Build the Responsive Radio Range Controls
  *
@@ -42,7 +42,7 @@ export default function ResponsiveRadioRangeControls({
 	units = ['px', 'em', 'rem'],
 	disableCustomSizes = false,
 }) {
-	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
+	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue, inheritedType } = getResolvedValue(
 		attributeName,
 		attributes,
 		previewDevice,
@@ -100,9 +100,7 @@ export default function ResponsiveRadioRangeControls({
                     units={units}
                     disableCustomSizes={disableCustomSizes}
                 />
-				<div className="kbs-radio-range-inherited-source">
-					<em>Source: {inheritedSource}</em>
-				</div>
+				<InheritanceIndicator inheritedSource={inheritedSource} inheritedType={inheritedType} />
 			</div>
 		</div>
 	);

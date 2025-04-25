@@ -10,7 +10,7 @@ import { __ } from '@wordpress/i18n';
 import UnitControl from '../unit-control'; // Adjusted path
 import { getResolvedValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
-
+import InheritanceIndicator from '../inheritance-indicator';
 /**
  * Build the Measure controls
  * @returns {object} Measure settings.
@@ -34,7 +34,7 @@ export default function ResponsiveUnitControl( {
 	} ) {
 
 
-        const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
+        const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue, inheritedType } = getResolvedValue(
             attributeName,
             attributes,
             previewDevice,
@@ -82,9 +82,7 @@ export default function ResponsiveUnitControl( {
                             min={ min }
                             unit={ controlUnits }
                         />
-                        <div className="kb-unit-control-inherited-source">
-                            <em>Source: {inheritedSource}</em>
-                        </div>
+                        <InheritanceIndicator inheritedSource={inheritedSource} inheritedType={inheritedType} />
                     </div>
                 </div>
         );

@@ -2,7 +2,7 @@ import { RangeControl } from '@wordpress/components';
 import TitleBar from '../title-bar';
 import { __ } from '@wordpress/i18n';
 import { handleAttributeChange, getResolvedValue } from '@kadence/kbsHelpers';
-
+import InheritanceIndicator from '../inheritance-indicator';
 export default function ResponsiveRangeControl({
 	label,
 	attributes,
@@ -20,7 +20,7 @@ export default function ResponsiveRangeControl({
 }) {
 
 	const attributeMeta = meta?.attributes?.[attributeName];
-	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
+	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue, inheritedType } = getResolvedValue(
 		attributeName,
 		attributes,
 		previewDevice,
@@ -65,9 +65,7 @@ export default function ResponsiveRangeControl({
 					initialPosition={ initialPosition }
 				/>
 			</div>
-			<div className="kbs-select-control-inherited-source">
-					<em>Source: {inheritedSource}</em>
-				</div>
+			<InheritanceIndicator inheritedSource={inheritedSource} inheritedType={inheritedType} />
 		</div>
 	);
 }
