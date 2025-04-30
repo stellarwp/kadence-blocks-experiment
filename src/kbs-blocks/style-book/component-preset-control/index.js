@@ -21,15 +21,14 @@ export default function ComponentPresetControl(props) {
 			previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
 		};
 	}, []);
-	const { styleBookComponent, mergedGlobalStyle } = useSelect(
+	const { styleBookComponent } = useSelect(
 		(select) => {
 			return {
 				styleBookComponent: select('kadenceblocks/global-styles').getStyleBookComponentPresetByStyleId(
 					globalStyleId,
 					componentId,
 					presetId
-				),
-				mergedGlobalStyle: select('kadenceblocks/global-styles').getMergedGlobalStyle([globalStyleId], true),
+				)
 			};
 		},
 		[globalStyleId, componentId, presetId]
@@ -68,7 +67,7 @@ export default function ComponentPresetControl(props) {
 				meta={fakeMeta}
 				previewDevice={previewDevice}
 				attributeName={property}
-				mergedGlobalStyle={mergedGlobalStyle}
+				globalStyleId={globalStyleId}
 				forStyleBook={true}
 				forPresetControl={true}
 			/>

@@ -33,7 +33,7 @@ export default function ResponsiveRadioRangeControls({
 	previewDevice,
 	options = [],
 	meta,
-	mergedGlobalStyle,
+	globalStylesIds,
 	step = 1,
 	max = 200,
 	min = 0,
@@ -48,7 +48,7 @@ export default function ResponsiveRadioRangeControls({
 		previewDevice,
 		meta,
 		type,
-		mergedGlobalStyle
+		globalStylesIds
 	);
 
 	let controlOptions = [];

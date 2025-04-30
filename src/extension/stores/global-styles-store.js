@@ -2,6 +2,7 @@ import { createReduxStore, register, select } from '@wordpress/data';
 import { deepMerge } from '@kadence/kbsHelpers';
 import apiFetch from '@wordpress/api-fetch';
 import { components } from 'react-select';
+import memize from 'memize';
 
 /**
  * Default state for the global styles store
@@ -218,16 +219,53 @@ const actions = {
 };
 
 /**
+ * Standalone function for merging styles, to be memoized.
+ *
+ * @param {Object} globalStyles - The full globalStyles object from the state.
+ * @param {string[]} styleIds - Array of global style IDs to merge.
+ * @returns {Object} The deeply merged style object.
+ */
+const performStyleMerge = (globalStyles, styleIds) => {
+	// Ensure 'kbs-base' is always included and handle potential null/undefined styleIds
+	const fullStyleIds = ['kbs-base', ...(styleIds || [])].filter(Boolean);
+
+	// Filter and retrieve the actual style objects from the state
+	const stylesToMerge = fullStyleIds
+		.map((id) => globalStyles?.[id])
+		.filter(Boolean); // Remove any undefined/falsey values
+
+	if (stylesToMerge.length === 0) {
+		return {}; // Return empty object if no styles found
+	}
+
+	// Deep merge the styles, with later items in the array taking precedence
+	const mergedStyles = deepMerge(stylesToMerge);
+
+	// Remove the id property from the merged result if it exists (optional cleanup)
+	if (mergedStyles.id) {
+		delete mergedStyles.id;
+	}
+
+	return mergedStyles;
+};
+
+// Memoized merge of global styles merge function.
+const getMemoizedMergedStyles = memize(performStyleMerge);
+
+/**
  * Resolvers for the store
  */
 const resolvers = {
 	*getGlobalStyles() {
 		// Directly initiate the fetch without any checks for the first load
-		return yield actions.fetchGlobalStyles();
+		yield actions.fetchGlobalStyles();
+	},
+	*getMergedStylesByIds() {
+		yield resolvers.getGlobalStyles();
 	},
 	*getStyleBookLocalGlobalStyles() {
 		// Directly initiate the fetch without any checks for the first load
-		return yield actions.fetchStyleBookLocalGlobalStyles();
+		yield actions.fetchStyleBookLocalGlobalStyles();
 	},
 	*getGlobalStyleByName() {
 		yield resolvers.getGlobalStyles();
@@ -242,6 +280,9 @@ const resolvers = {
 		yield resolvers.getGlobalStyles();
 	},
 	*getMergedGlobalStyle() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getResolvedStyleData() {
 		yield resolvers.getGlobalStyles();
 	},
 };
@@ -363,6 +404,18 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		getStyleBookAttributes(state) {
 			return state.styleBookAttributes;
 		},
+		/**
+		 * Gets merged global styles based on provided IDs using a memoized function.
+		 *
+		 * @param {Object} state - The store state.
+		 * @param {string[]} styleIds - Array of global style IDs to merge.
+		 * @returns {Object} The deeply merged style object (memoized).
+		 */
+		getMergedStylesByIds(state, styleIds) {
+			return getMemoizedMergedStyles(state.globalStyles, styleIds);
+		},
+
+		// Original getMergedGlobalStyle - kept for potential backward compatibility or other uses
 		getMergedGlobalStyle(state, styleIds, forStyleBook = false) {
 			styleIds = ['kbs-base', ...styleIds];
 
@@ -442,6 +495,41 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		getError(state) {
 			return state.error;
 		},
+		/**
+		 * Uses the memoized getMergedStylesByIds selector and then extracts the raw style data
+		 * for a specific component attribute path.
+		 *
+		 * @param {Object} state - The store state.
+		 * @param {string[]} styleIds - Array of global style IDs to merge.
+		 * @param {string} componentName - The name of the component (e.g., 'button', 'typography').
+		 * @param {string} attributeName - The attribute path (e.g., 'color', 'typography.fontSize', 'presets.primary').
+		 * @returns {Object|undefined} The raw style data object or undefined if not found.
+		 */
+		getResolvedStyleData(state, styleIds, componentName, attributeName) {
+			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIds);
+
+			// Safely access component styles from the merged styles
+			let componentStyles = mergedStyles?.components?.[componentName];
+			if (!componentStyles) {
+				return undefined; // Component not found in merged styles
+			}
+
+			// Navigate the attribute path (e.g., 'typography.fontSize' or 'presets.primary')
+			const attributePath = attributeName.split('.');
+			let rawValueData = componentStyles;
+			for (const key of attributePath) {
+				// Ensure we are traversing objects and the key exists
+				if (rawValueData && typeof rawValueData === 'object' && key in rawValueData) {
+					rawValueData = rawValueData[key];
+				} else {
+					rawValueData = undefined; // Path broken or not found
+					break;
+				}
+			}
+
+			// Return the raw data found at the end of the path
+			return rawValueData;
+		}
 	},
 	resolvers,
 });

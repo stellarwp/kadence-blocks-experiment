@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { select } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -50,6 +51,10 @@ export const getPlaceholderLabel = (currentValue, inheritedValue, type, options)
  * @param {Object} params.attributes The attributes object
  * @param {string} params.attributeName The attribute name
  * @param {string} params.previewDevice The preview device
+ * @param {string} params.meta The meta object
+ * @param {string} params.currentValue The current value
+ * @param {string} params.globalStylesIds The global styles IDs
+ * @param {boolean} params.forStyleBook Whether it's for style book
  * @return {Object} The options and loading state
  */
 export const useSelectOptions = ({
@@ -59,7 +64,7 @@ export const useSelectOptions = ({
 	previewDevice,
 	meta,
 	currentValue,
-	mergedGlobalStyle,
+	globalStylesIds,
 	forStyleBook,
 }) => {
 	let isLoadingOptions = false;
@@ -83,9 +88,9 @@ export const useSelectOptions = ({
 					attributeName,
 					attributes,
 					previewDevice,
-					null,
 					meta,
-					'fontFamily'
+					'fontFamily',
+					globalStylesIds
 				);
 				fontFamily = inheritedFontData.value;
 			}
@@ -97,9 +102,14 @@ export const useSelectOptions = ({
 		case 'preset': {
 			let presetOptions = [];
 
-			const presets = mergedGlobalStyle?.components?.[attributeName]?.presets;
+			// Fetch raw preset data using the store selector
+			const presets = select('kadenceblocks/global-styles').getResolvedStyleData(
+				globalStylesIds,
+				attributeName,
+				'presets'
+			);
 
-			// // Map presets to options format
+			// Map presets to options format
 			if (presets && Object.keys(presets).length > 0) {
 				presetOptions = Object.keys(presets).map((key) => ({
 					value: key,

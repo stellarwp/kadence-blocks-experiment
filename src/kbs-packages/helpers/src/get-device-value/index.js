@@ -17,7 +17,7 @@ export default function getDeviceValue( attributeName, attributes, device, meta,
 		return deviceValue;
 	}
 	//for devicless values like preset
-	if ( device == 'none' ) {
+	if ( device === 'none' ) {
 		return attributes?.[attributeName]?.[type] ?? '';
 	}
 	if ( ! attributes?.[ attributeName ]?.[ deviceSlug ] ) {

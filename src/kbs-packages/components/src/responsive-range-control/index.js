@@ -16,7 +16,7 @@ export default function ResponsiveRangeControl({
 	type,
 	initialPosition = null,
 	step = 1,
-	mergedGlobalStyle
+	globalStylesIds
 }) {
 
 	const attributeMeta = meta?.attributes?.[attributeName];
@@ -26,7 +26,7 @@ export default function ResponsiveRangeControl({
 		previewDevice,
 		meta,
 		type,
-		mergedGlobalStyle
+		globalStylesIds
 	);
 	
 	const onReset = () => {

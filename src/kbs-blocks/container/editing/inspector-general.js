@@ -31,7 +31,7 @@ import { __ } from '@wordpress/i18n';
  * Build the section edit.
  */
 export default function InspectorGeneral(props) {
-	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, mergedGlobalStyle } =
+	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, globalStylesIds } =
 		props;
 	const previewDirection = getPreviewValue('direction', attributes, metadata, previewDevice);
 	return (
@@ -93,7 +93,7 @@ export default function InspectorGeneral(props) {
 					setAttributes={setAttributes}
 					meta={metadata}
 					previewDevice={previewDevice}
-					mergedGlobalStyle={mergedGlobalStyle}
+					globalStylesIds={globalStylesIds}
 				/> */}
 				<Typography
 					label={__('Typography', 'kadence-blocks')}
@@ -102,7 +102,7 @@ export default function InspectorGeneral(props) {
 					meta={metadata}
 					previewDevice={previewDevice}
 					attributeName={'typography'}
-					mergedGlobalStyle={mergedGlobalStyle}
+					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>
 		</>

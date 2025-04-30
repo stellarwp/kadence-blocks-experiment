@@ -12,7 +12,7 @@ export default function FontWeight({
 	customOnChange,
 	forStyleBook,
 	label,
-	mergedGlobalStyle,
+	globalStylesIds,
 }) {	
 	// Get direct font family value if set
 	const fontFamilyValue = getResolvedValue(
@@ -21,7 +21,7 @@ export default function FontWeight({
 		previewDevice,
 		meta,
 		'fontFamily',
-		mergedGlobalStyle
+		globalStylesIds
 	);
 
 	const fontFamily = fontFamilyValue?.appliedValue;

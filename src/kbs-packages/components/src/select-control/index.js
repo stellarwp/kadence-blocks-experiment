@@ -61,7 +61,7 @@ export default function SelectControl({
 	reset = true,
 	previewDevice,
 	meta,
-	mergedGlobalStyle,
+	globalStylesIds,
 	forStyleBook,
 	hasDeviceControls = true
 }) {
@@ -71,7 +71,7 @@ export default function SelectControl({
 		previewDevice,
 		meta,
 		type,
-		mergedGlobalStyle
+		globalStylesIds
 	);
 
 	const customStyles = useMemo(() => getCustomStyles(isInherited), [isInherited]);
@@ -84,7 +84,7 @@ export default function SelectControl({
 		previewDevice,
 		attributeMeta,
 		appliedValue,
-		mergedGlobalStyle,
+		globalStylesIds,
 		forStyleBook
 	});
 

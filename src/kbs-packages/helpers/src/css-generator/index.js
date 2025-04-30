@@ -64,7 +64,7 @@ class CSSGenerator {
 	 * @returns {CSSGenerator} - Returns this instance for chaining
 	 */
 	addComponent(attributeName, meta, props, metadata) {
-		const { attributes, previewDevice, mergedGlobalStyle} = props;
+		const { attributes, previewDevice, globalStylesIds } = props;
 		// const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[attributeName] || {});
 
 		// if (!mergedAttribute) {
@@ -95,7 +95,7 @@ class CSSGenerator {
 						previewDevice,
 						metadata,
 						key,
-						mergedGlobalStyle
+						globalStylesIds
 					);
 					
 					if( appliedValue) {

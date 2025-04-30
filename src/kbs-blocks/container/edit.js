@@ -37,7 +37,7 @@ export default function ContainerEdit(props) {
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
 
-	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice, mergedGlobalStyle } = useSelect(
+	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice } = useSelect(
 		(select) => {
 			const { getBlock, getBlockRootClientId, getBlockParentsByBlockName, getBlocksByClientId } =
 				select(blockEditorStore);
@@ -62,10 +62,9 @@ export default function ContainerEdit(props) {
 				hasInnerBlocks: !!(block && block.innerBlocks.length),
 				inFormBlock,
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-				mergedGlobalStyle: select('kadenceblocks/global-styles').getMergedGlobalStyle(globalStylesIds),
 			};
 		},
-		[clientId, globalStylesIds]
+		[clientId]
 	);
 	uniqueIdHelper(props);
 	useEffect(() => {
@@ -100,11 +99,11 @@ export default function ContainerEdit(props) {
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<div {...blockProps}>
-				<Inspector {...props} previewDevice={previewDevice} mergedGlobalStyle={mergedGlobalStyle} />
+				<Inspector {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				{/* <Toolbar {...props} />
 					<Inspector {...props} />
 					*/}
-				<Styles {...props} previewDevice={previewDevice} mergedGlobalStyle={mergedGlobalStyle} />
+				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				{children}
 			</div>
 		</GlobalStylesContext.Provider>

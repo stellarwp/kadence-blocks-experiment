@@ -26,7 +26,7 @@ export default function ResponsiveUnitControl( {
         reset = true,
         previewDevice,
         meta,
-        mergedGlobalStyle,
+        globalStylesIds,
         step = 1,
         max = 200,
         min = 0,
@@ -40,7 +40,7 @@ export default function ResponsiveUnitControl( {
             previewDevice,
             meta,
             type,
-            mergedGlobalStyle
+            globalStylesIds
         );
 
         const onReset = () => {

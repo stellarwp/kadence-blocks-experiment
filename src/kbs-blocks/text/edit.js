@@ -52,7 +52,6 @@ export default function TextEdit(props) {
 
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
-	const mergedGlobalStyle = select('kadenceblocks/global-styles').getMergedGlobalStyle(globalStylesIds);
 
 	const { previewDevice } = useSelect(
 		(select) => {
@@ -86,8 +85,8 @@ export default function TextEdit(props) {
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<div {...blockProps}>
-				<Inspector {...{ previewDevice, ...props, mergedGlobalStyle }} />
-				<Styles {...{ previewDevice, ...props, mergedGlobalStyle }} />
+				<Inspector {...props } previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+				<Styles {...props }  previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
 					<AlignmentToolbar value={align} onChange={onAlignChange} />
 				</BlockControls>

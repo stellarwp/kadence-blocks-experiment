@@ -10,7 +10,7 @@ export default function Typography({
 	meta,
 	previewDevice,
 	attributeName,
-	mergedGlobalStyle,
+	globalStylesIds,
 	customOnChange,
 	forStyleBook,
 	forPresetControl,
@@ -26,7 +26,7 @@ export default function Typography({
 					meta={meta}
 					previewDevice={'none'}
 					type={'preset'}
-					mergedGlobalStyle={mergedGlobalStyle}
+					globalStylesIds={globalStylesIds}
 					customOnChange={customOnChange}
 					forStyleBook={forStyleBook}
 					hasDeviceControls={false}
@@ -41,7 +41,7 @@ export default function Typography({
 				meta={meta}
 				previewDevice={previewDevice}
 				type={'fontFamily'}
-				mergedGlobalStyle={mergedGlobalStyle}
+				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>
@@ -53,7 +53,7 @@ export default function Typography({
 				meta={meta}
 				previewDevice={previewDevice}
 				attributeName={attributeName}
-				mergedGlobalStyle={mergedGlobalStyle}
+				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>
@@ -72,7 +72,7 @@ export default function Typography({
 				unit="px"
 				showUnit={true}
 				units={['px', 'em', 'rem']}
-				mergedGlobalStyle={mergedGlobalStyle}
+				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>
@@ -87,7 +87,7 @@ export default function Typography({
 				previewDevice={previewDevice}
 				disableCustomSizes={true}
 				showUnit={false}
-				mergedGlobalStyle={mergedGlobalStyle}
+				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>
@@ -102,7 +102,7 @@ export default function Typography({
 				previewDevice={previewDevice}
 				disableCustomSizes={true}
 				showUnit={false}
-				mergedGlobalStyle={mergedGlobalStyle}
+				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>
@@ -117,7 +117,7 @@ export default function Typography({
 				previewDevice={previewDevice}
 				disableCustomSizes={true}
 				showUnit={false}
-				mergedGlobalStyle={mergedGlobalStyle}
+				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>

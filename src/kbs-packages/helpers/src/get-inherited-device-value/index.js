@@ -9,9 +9,10 @@ import getPresetValue from '../get-preset-value';
  * @param {string} device - The current device (e.g., 'desktop', 'tablet', 'mobile')
  * @param {object} meta - Metadata object for the attribute
  * @param {string} type - The specific property type (e.g., 'fontFamily')
+ * @param {string[]} globalStylesIds - Array of global style IDs.
  * @returns {object} - An object containing the value and its source
  */
-export default function getInheritedDeviceValue(attributeName, attributes, device, meta, type, mergedGlobalStyle) {
+export default function getInheritedDeviceValue(attributeName, attributes, device, meta, type, globalStylesIds) {
 	const deviceOptions = window?.kadence_blocks_params?.responsive_device_options || [];
 	const attributeMeta = meta?.attributes?.[attributeName];
 	const initialValue = attributeMeta?.initial ? attributeMeta?.initial : null;
@@ -40,7 +41,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 
 
 	// If no direct value, check for preset value for current device
-	const { value: presetValue, source: presetSource } = getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle);
+	const { value: presetValue, source: presetSource } = getPresetValue(attributeName, attributes, device, type, globalStylesIds);
 	if (presetValue) {
 		return { inheritedValue: presetValue, inheritanceType: 'preset', inheritedSource: presetSource, inheritedType: 'preset' };
 	}
@@ -50,7 +51,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		const parentDevice = deviceOptions[i];
 		const parentDeviceName = parentDevice.key;
 		
-		const { value: parentPresetValue, source: parentPresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, mergedGlobalStyle);
+		const { value: parentPresetValue, source: parentPresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, globalStylesIds);
 		
 		if (parentPresetValue) {
 			return { inheritedValue: parentPresetValue, inheritanceType: 'preset-parent', inheritedSource: parentPresetSource, inheritedType: 'preset' };
@@ -60,7 +61,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 	// Check base styles
 	const basePresetKey = getBasePresetKey(attributeName, meta);
 
-	const { value: basePresetValue, source: basePresetSource } = getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle, basePresetKey);
+	const { value: basePresetValue, source: basePresetSource } = getPresetValue(attributeName, attributes, device, type, globalStylesIds, basePresetKey);
 	if (basePresetValue) {
 		return { inheritedValue: basePresetValue, inheritanceType: 'preset-base', inheritedSource: basePresetKey, inheritedType: 'preset' };
 	}
@@ -70,7 +71,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		const parentDevice = deviceOptions[i];
 		const parentDeviceName = parentDevice.key;
 		
-		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, mergedGlobalStyle, basePresetKey);
+		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, globalStylesIds, basePresetKey);
 		if (parentBasePresetValue) {
 			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: basePresetKey, inheritedType: 'preset' };
 		}
@@ -78,7 +79,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 
 	// If typography and using a heading preset, check the generic text-heading preset
 	if( 'typography' === attributeMeta?.component && basePresetKey?.includes( 'text-heading-' ) ) {
-		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, device, type, mergedGlobalStyle, 'text-heading');
+		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, device, type, globalStylesIds, 'text-heading');
 		if (parentBasePresetValue) {
 			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading', inheritedType: 'preset' };
 		}
@@ -87,7 +88,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 			const parentDevice = deviceOptions[i];
 			const parentDeviceName = parentDevice.key;
 			
-			const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, mergedGlobalStyle, 'text-heading');
+			const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, globalStylesIds, 'text-heading');
 			if (parentBasePresetValue) {
 				return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading', inheritedType: 'preset' };
 			}

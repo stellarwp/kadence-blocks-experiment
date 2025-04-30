@@ -9,10 +9,10 @@ import getInheritedDeviceValue from '../get-inherited-device-value';
  * @param {string} device - The current preview device ('desktop', 'tablet', 'mobile').
  * @param {Object} meta - The block's metadata.
  * @param {string} type - The attribute type (e.g., 'fontFamily', 'integer').
- * @param {Object} mergedGlobalStyle - The merged global style object.
+ * @param {string[]} globalStylesIds - Array of global style IDs.
  * @returns {Object} An object containing { directValue, inheritedValue, inheritedSource, isInherited }.
  */
-export default function getResolvedValue( attributeName, attributes, device, meta, type, mergedGlobalStyle ) {
+export default function getResolvedValue( attributeName, attributes, device, meta, type, globalStylesIds ) {
 	const attributeMeta = meta?.attributes?.[attributeName];
 
 	// Get the direct value set for the specific device.
@@ -25,7 +25,7 @@ export default function getResolvedValue( attributeName, attributes, device, met
 		device,
 		meta,
 		type,
-		mergedGlobalStyle
+		globalStylesIds
 	);
 
 	const isInherited = directValue === '';
