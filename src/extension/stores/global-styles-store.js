@@ -163,6 +163,23 @@ const actions = {
 			presetAttrs,
 		};
 	},
+	*setStyleBookComponentMappingsByStyleId(styleId, componentId, mappings) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_MAPPINGS_BY_STYLE_ID',
+			styleId,
+			componentId,
+			mappings,
+		};
+	},
+	*setStyleBookComponentMappingByStyleId(styleId, componentId, mappingKey, mapping) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_MAPPING_BY_STYLE_ID',
+			styleId,
+			componentId,
+			mappingKey,
+			mapping,
+		};
+	},
 	*saveStyleBookGlobalStyles() {
 		// Check if we're already loading to prevent duplicate requests
 		const isSavingStyleBook = yield {
@@ -230,9 +247,7 @@ const performStyleMerge = (globalStyles, styleIds) => {
 	const fullStyleIds = ['kbs-base', ...(styleIds || [])].filter(Boolean);
 
 	// Filter and retrieve the actual style objects from the state
-	const stylesToMerge = fullStyleIds
-		.map((id) => globalStyles?.[id])
-		.filter(Boolean); // Remove any undefined/falsey values
+	const stylesToMerge = fullStyleIds.map((id) => globalStyles?.[id]).filter(Boolean); // Remove any undefined/falsey values
 
 	if (stylesToMerge.length === 0) {
 		return {}; // Return empty object if no styles found
@@ -371,6 +386,39 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				return {
 					...state,
 					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, presetObjectToSet2]),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_MAPPINGS_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.mappings
+
+				const mappingsObjectToSet = {
+					[action.styleId]: {
+						mappings: {
+							[action.componentId]: action.mappings,
+						},
+					},
+				};
+				return {
+					...state,
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, mappingsObjectToSet]),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_MAPPING_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.mappingKey
+				// action.mapping
+
+				const mappingObjectToSet = {
+					[action.styleId]: {
+						mappings: {
+							[action.componentId]: { [action.mappingKey]: action.mapping },
+						},
+					},
+				};
+				return {
+					...state,
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, mappingObjectToSet]),
 				};
 			case 'SET_HAS_RESOLVED':
 				return {
@@ -529,7 +577,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 
 			// Return the raw data found at the end of the path
 			return rawValueData;
-		}
+		},
 	},
 	resolvers,
 });

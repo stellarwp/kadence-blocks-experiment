@@ -11,6 +11,7 @@ import { KadencePanelBody } from '@kadence/components';
 import * as BlockIcons from '@kadence/icons';
 
 import ComponentPresetControl from './component-preset-control';
+import ComponentMappingControl from './component-mapping-control';
 import Styles from './editing/styles';
 
 import { uniqueId } from 'lodash';
@@ -386,7 +387,12 @@ function KadenceConfig() {
 					</>
 				);
 			case 'component-settings':
-				return <div className="kadence-style-book-widget-blocks">this is where setting previews would go</div>;
+				return (
+					<>
+						<ComponentMappingControl globalStyleId={currentGlobalStyleId} />
+					</>
+				);
+
 			default:
 				return null;
 		}
