@@ -54,7 +54,7 @@ function KadenceConfig() {
 	const tabs = [
 		{
 			name: 'all',
-			title: __('All', 'kadence-blocks'),
+			title: __('General', 'kadence-blocks'),
 			className: 'kadence-style-book-tab-global',
 		},
 		{
@@ -64,7 +64,7 @@ function KadenceConfig() {
 		},
 		{
 			name: 'component-settings',
-			title: __('Component Settings', 'kadence-blocks'),
+			title: __('Mappings', 'kadence-blocks'),
 			className: 'kadence-style-book-tab-component-settings',
 		},
 	];
