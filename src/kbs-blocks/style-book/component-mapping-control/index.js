@@ -34,7 +34,7 @@ export default function ComponentPresetControl(props) {
 			return (
 				<TextControl
 					key={mappingComponentKey + '-' + mappingKey}
-					label={__(mappingKey, 'kadence-blocks')}
+					label={mappingKey}
 					placeholder={''}
 					value={styleBookLocalGlobalStyles?.[globalStyleId]?.mappings?.[mappingComponentKey]?.[mappingKey]}
 					onChange={(value) => {
@@ -49,7 +49,7 @@ export default function ComponentPresetControl(props) {
 				key={mappingComponentKey}
 				className={'kbs-style-book-settings-group kbs-style-book-settings-group-' + mappingComponentKey}
 			>
-				<h2 className={'kbs-style-book-preview-heading'}>{__(label, 'kadence-blocks')}</h2>
+				<h2 className={'kbs-style-book-preview-heading'}>{label}</h2>
 				{optionsOutput}
 			</div>
 		);
