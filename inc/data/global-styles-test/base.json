@@ -41,40 +41,40 @@
 						}
 					}
 				},
-				"text-heading": {
+				"heading": {
 					"label": "Heading text",
 					"name": "Heading text",
 					"description": "Heading text",
 					"attributes": {
 						"desktop": {
-							"fontFamily": "Courier, monospace",
-							"fontSource": "system",
+							"fontFamily": "Times New Roman, serif",
 							"fontSize": "lg"
 						}
 					}
 				},
-				"text-heading-1": {
+				"heading-1": {
 					"label": "Heading 1",
 					"name": "Heading 1",
 					"description": "Heading 1",
 					"attributes": {
 						"desktop": {
-							"fontFamily": "Helvetica, sans-serif",
+							"fontFamily": "Comic Sans MS, cursive, sans-serif",
 							"fontSize": "3xl"
 						}
 					}
 				},
-				"text-heading-2": {
+				"heading-2": {
 					"label": "Heading 2",
 					"name": "Heading 2",
 					"description": "Heading 2",
 					"attributes": {
 						"desktop": {
+							"fontFamily": "Comic Sans MS, cursive, sans-serif",
 							"fontSize": "xxl"
 						}
 					}
 				},
-				"text-heading-3": {
+				"heading-3": {
 					"label": "Heading 3",
 					"name": "Heading 3",
 					"description": "Heading 3",
@@ -84,7 +84,7 @@
 						}
 					}
 				},
-				"text-heading-4": {
+				"heading-4": {
 					"label": "Heading 4",
 					"name": "Heading 4",
 					"description": "Heading 4",
@@ -94,7 +94,7 @@
 						}
 					}
 				},
-				"text-heading-5": {
+				"heading-5": {
 					"label": "Heading 5",
 					"name": "Heading 5",
 					"description": "Heading 5",
@@ -104,7 +104,7 @@
 						}
 					}
 				},
-				"text-heading-6": {
+				"heading-6": {
 					"label": "Heading 6",
 					"name": "Heading 6",
 					"description": "Heading 6",
@@ -117,42 +117,28 @@
 			}
 		}
 	},
-	"settings": {
-		"typography": {
-			"body": {
-				"preset": "text-body"
-			},
-			"headings": {
-				"preset": "text-heading"
-			},
-			"h1": {
-				"preset": "text-heading-1"
-			},
-			"h2": {
-				"preset": "text-heading-2"
-			},
-			"h3": {
-				"preset": "text-heading-3"
-			},
-			"h4": {
-				"preset": "text-heading-4"
-			},
-			"h5": {
-				"preset": "text-heading-5"
-			},
-			"h6": {
-				"preset": "text-heading-6"
-			}
-		}
-	},
 	"mappings": {
-		"typography": {
+		"fontSize": {
 			"sm": { "value": "var(--global-kb-font-size-sm, 0.9rem)" },
 			"md": { "value": "var(--global-kb-font-size-md, 1.25rem)" },
 			"lg": { "value": "var(--global-kb-font-size-lg, 2rem)" },
 			"xl": { "value": "var(--global-kb-font-size-xl, 3rem)" },
 			"xxl": { "value": "var(--global-kb-font-size-xxl, 56px)" },
 			"3xl": { "value": "var(--global-kb-font-size-xxxl, 5rem)" }
+		},
+		"letterSpacing": {
+			"none": { "value": "var(--global-kb-letter-spacing-none, 0rem)" },
+			"xs": { "value": "var(--global-kb-letter-spacing-xs, 0.5rem)" },
+			"sm": { "value": "var(--global-kb-letter-spacing-sm, 1rem)" },
+			"md": { "value": "var(--global-kb-letter-spacing-md, 2rem)" },
+			"lg": { "value": "var(--global-kb-letter-spacing-lg, 4rem)" }
+		},
+		"line-height": {
+			"none": { "value": "var(--global-kb-line-height-none, 0rem)" },
+			"xs": { "value": "var(--global-kb-line-height-xs, 0.5rem)" },
+			"sm": { "value": "var(--global-kb-line-height-sm, 1rem)" },
+			"md": { "value": "var(--global-kb-line-height-md, 2rem)" },
+			"lg": { "value": "var(--global-kb-line-height-lg, 4rem)" }
 		},
 		"gap": {
 			"none": { "value": "var(--global-kb-gap-none, 0rem)" },
