@@ -59,7 +59,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 	}
 
 	// Check base styles
-	const basePresetKey = getBasePresetKey(attributeName, meta);
+	const basePresetKey = getBasePresetKey(attributeName, meta, attributes);
 
 	const { value: basePresetValue, source: basePresetSource } = getPresetValue(attributeName, attributes, device, type, globalStylesIds, basePresetKey);
 	if (basePresetValue) {
@@ -77,20 +77,20 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		}
 	}
 
-	// If typography and using a heading preset, check the generic text-heading preset
-	if( 'typography' === attributeMeta?.component && basePresetKey?.includes( 'text-heading-' ) ) {
-		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, device, type, globalStylesIds, 'text-heading');
+	// If typography and using a heading preset, check the generic heading preset
+	if( 'typography' === attributeMeta?.component && basePresetKey?.includes( 'heading-' ) ) {
+		const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, device, type, globalStylesIds, 'heading');
 		if (parentBasePresetValue) {
-			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading', inheritedType: 'preset' };
+			return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'heading', inheritedType: 'preset' };
 		}
 
 		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
 			const parentDevice = deviceOptions[i];
 			const parentDeviceName = parentDevice.key;
 			
-			const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, globalStylesIds, 'text-heading');
+			const { value: parentBasePresetValue, source: parentBasePresetSource } = getPresetValue(attributeName, attributes, parentDeviceName, type, globalStylesIds, 'heading');
 			if (parentBasePresetValue) {
-				return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'text-heading', inheritedType: 'preset' };
+				return { inheritedValue: parentBasePresetValue, inheritanceType: 'preset-base-parent', inheritedSource: 'heading', inheritedType: 'preset' };
 			}
 		}
 	
@@ -109,31 +109,39 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 	return { inheritedValue: '', inheritedSource: 'none', inheritedType: 'none' };
 } 
 
-function getBasePresetKey(attributeName, meta) {
+export function getBasePresetKey(attributeName, meta, attributes) {
 	const component = meta?.attributes?.[attributeName]?.component;
 
 	if( component === 'typography' ) {
-		const tag = meta?.attributes?.[attributeName]?.tag || 'p';
+		const tagAttribute = meta?.attributes?.[attributeName]?.tagAttribute || null;
+
+		let tag = 'p';
+
+		if( tagAttribute && attributes?.[tagAttribute] ) {
+			tag = attributes?.[tagAttribute];
+		} else if( meta?.attributes?.[attributeName]?.tag ) {
+			tag = meta?.attributes?.[attributeName]?.tag;
+		}
 
 		switch( tag ) {
 			case 'h1':
-				return 'text-heading-1';
+				return 'heading-1';
 			case 'h2':
-				return 'text-heading-2';
+				return 'heading-2';
 			case 'h3':
-				return 'text-heading-3';
+				return 'heading-3';
 			case 'h4':
-				return 'text-heading-4';
+				return 'heading-4';
 			case 'h5':
-				return 'text-heading-5';
+				return 'heading-5';
 			case 'h6':
-				return 'text-heading-6';
+				return 'heading-6';
 			case 'p':
-				return 'text-body';
+				return 'body';
 			case 'span':
-				return 'text-body';
+				return 'body';
 			default:
-				return 'text-body';
+				return 'body';
 		}
 	}
 

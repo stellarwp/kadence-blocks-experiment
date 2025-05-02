@@ -11,7 +11,7 @@ export default function Styles(props) {
 		if (metadata.attributes) {
 			Object.entries(metadata.attributes).forEach(([attributeName, value]) => {			
 				if (value.renderCSS) {
-					if( value?.component === 'typography' ) {
+					if( value?.component ) {
 						css.addComponent(attributeName, value, props, metadata);
 					} else {
 						css.addAttribute(attributeName, value, props);

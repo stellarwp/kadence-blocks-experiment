@@ -58,8 +58,15 @@
 					"description": "Heading 1",
 					"attributes": {
 						"desktop": {
-							"fontFamily": "Comic Sans MS, cursive, sans-serif",
+							"fontFamily": "Impact, Charcoal, sans-serif",
 							"fontSize": "3xl"
+						},
+						"tablet": {
+							"fontFamily": "Comic Sans MS, cursive, sans-serif",
+							"fontSize": "sm"
+						},
+						"mobile": {
+							"fontSize": "xl"
 						}
 					}
 				},

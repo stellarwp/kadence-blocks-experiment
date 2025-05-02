@@ -2,6 +2,7 @@ import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { SPACING_SIZES_MAP } from '../constants';
 import { merge } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
+import { getBasePresetKey } from '../get-inherited-device-value';
 
 const deviceOptions = kadence_blocks_params.responsive_device_options || [];
 
@@ -77,18 +78,12 @@ class CSSGenerator {
 
 		switch (meta.component) {
 			case 'typography':
-				const typographyProperties = [
-					{ key: 'fontFamily', selector: meta.selector + '-font-family' },
-					{ key: 'fontWeight', selector: meta.selector + '-font-weight' },
-					{ key: 'fontSize', selector: meta.selector + '-font-size' },
-					{ key: 'lineHeight', selector: meta.selector + '-line-height' },
-					{ key: 'letterSpacing', selector: meta.selector + '-letter-spacing' },
-					{ key: 'textTransform', selector: meta.selector + '-text-transform' },
+				const typographyKeys = [
+					'fontFamily', 'fontWeight', 'fontSize', 'lineHeight', 'letterSpacing', 'textTransform',
 				];
 
-				// Process each typography property
-				typographyProperties.forEach(({ key, selector }) => {
-
+				// Process each typography property key
+				typographyKeys.forEach((key) => {
 					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
 						attributeName,
 						attributes,
@@ -97,9 +92,31 @@ class CSSGenerator {
 						key,
 						globalStylesIds
 					);
-					
-					if( appliedValue) {
-						this.add({ [selector]: this.getSizingOutput(appliedValue) });
+
+					// If set directly or on parent, use the applied value directly
+					let cssValue;
+					if( inheritedSource === 'direct'  || inheritedSource === 'parent' ) {
+						cssValue = this.getSizingOutput(appliedValue);
+					} else if ( inheritedSource === 'preset' || inheritedSource === 'preset-parent' )  {
+						// Preset is set on this component.
+						cssValue = this.getSizingOutput(appliedValue);
+					} else if ( inheritedSource ) {
+						const basePresetKey = getBasePresetKey(attributeName, meta, attributes);
+						const variableName = this.getGlobalStyleVariableName(
+							'heading-1', // inheritedSource
+							key // attributeKey
+						);
+						cssValue = `var(${variableName})`;
+					}
+
+					const cssProperty = String(key).replace(/([A-Z])/g, '-$1').replace(/^-+|-+$/g, '').toLowerCase();
+
+					// Ensure we have a valid CSS property and a selector from the metadata
+					if (cssProperty && meta.selector) {
+						const currentSelectorBackup = this.currentSelector; // Backup current selector
+						this.setSelector(this.currentSelector); // Combine base selector with meta selector
+						this.add({ [ meta.selector + '-' + cssProperty]: cssValue });
+						this.setSelector(currentSelectorBackup); // Restore selector
 					}
 				});
 				break;
@@ -281,6 +298,15 @@ class CSSGenerator {
 		});
 		ruleString += '}\n';
 		return ruleString;
+	}
+
+	// Helper function to generate CSS variable names for global styles (Simplified)
+	getGlobalStyleVariableName(componentId, attributeKey) {
+		const componentSlug = String(componentId).replace(/[^a-zA-Z0-9-_]/g, '-').replace(/^-+|-+$/g, '');
+		const attributeKeySlug = String(attributeKey).replace(/([A-Z])/g, '-$1').replace(/^-+|-+$/g, '');
+		const response = `--kbs-${attributeKeySlug}-${componentSlug}`;
+
+		return response.toLowerCase(); // --kbs-fontfamily-heading-1
 	}
 }
 

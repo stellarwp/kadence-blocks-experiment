@@ -141,13 +141,8 @@
 			"renderCSS": true,
 			"component": "typography",
 			"selector": "--kbs-cont",
-			"tag": "h2",
-			"initial": {
-				"desktop": {
-					"fontFamily": "\"Comic Sans MS\", cursive, sans-serif",
-  					"fontSource": "system"
-				}
-			},
+			"tag": "h1",
+			"initial": {},
 			"type": "object"
 		},
 		"globalStyleIds": {

@@ -35,8 +35,7 @@
 					"description": "Standard hero text",
 					"attributes": {
 						"desktop": {
-							"fontFamily": "Impact, cursive, sans-serif",
-							"fontSource": "system"
+							"fontFamily": "Comic Sans MS, cursive, sans-serif"
 						}	
 					}
 				},
@@ -54,43 +53,57 @@
 		}
 	},
 	"mappings": {
-		"typography": {
-			"sm": { "value": "var(--global-kb-font-size-sm, 0.9rem)" },
-			"md": { "value": "var(--global-kb-font-size-md, 1.25rem)" },
-			"lg": { "value": "var(--global-kb-font-size-lg, 2rem)" },
-			"xl": { "value": "var(--global-kb-font-size-xl, 3rem)" },
-			"xxl": { "value": "var(--global-kb-font-size-xxl, 56px)" },
-			"3xl": { "value": "var(--global-kb-font-size-xxxl, 5rem)" }
+		"fontSize": {
+			"sm": { "value": "0.9rem" },
+			"md": { "value": "1.25rem" },
+			"lg": { "value": "2rem" },
+			"xl": { "value": "3rem" },
+			"xxl": { "value": "56px" },
+			"3xl": { "value": "5rem" }
+		},
+		"letterSpacing": {
+			"none": { "value": "0rem" },
+			"xs": { "value": "0.5rem" },
+			"sm": { "value": "1rem" },
+			"md": { "value": "2rem" },
+			"lg": { "value": "4rem" }
+		},
+		"line-height": {
+			"none": { "value": "0rem" },
+			"xs": { "value": "0.5rem" },
+			"sm": { "value": "1rem" },
+			"md": { "value": "2rem" },
+			"lg": { "value": "4rem" }
 		},
 		"gap": {
-			"none": { "value": "var(--global-kb-gap-none, 0rem)" },
-			"xs": { "value": "var(--global-kb-gap-xs, 0.5rem)" },
-			"sm": { "value": "var(--global-kb-gap-sm, 1rem)" },
-			"md": { "value": "var(--global-kb-gap-md, 2rem)" },
-			"lg": { "value": "var(--global-kb-gap-lg, 4rem)" }
+			"none": { "value": "0rem" },
+			"xs": { "value": "0.5rem" },
+			"sm": { "value": "1rem" },
+			"md": { "value": "2rem" },
+			"lg": { "value": "4rem" }
 		},
 		"spacing": {
-			"xxs": { "value": "var(--global-kb-spacing-xxs, 0.5rem)" },
-			"xs": { "value": "var(--global-kb-spacing-xs, 1rem)" },
-			"sm": { "value": "var(--global-kb-spacing-sm, 1.5rem)" },
-			"md": { "value": "var(--global-kb-spacing-md, 2rem)" },
-			"lg": { "value": "var(--global-kb-spacing-lg, 3rem)" },
-			"xl": { "value": "var(--global-kb-spacing-xl, 4rem)" },
-			"xxl": { "value": "var(--global-kb-spacing-xxl, 5rem)" },
-			"3xl": { "value": "var(--global-kb-spacing-3xl, 6.5rem)" },
-			"4xl": { "value": "var(--global-kb-spacing-4xl, 8rem)" },
-			"5xl": { "value": "var(--global-kb-spacing-5xl, 10rem)" }
+			"xxs": { "value": "0.5rem" },
+			"xs": { "value": "1rem" },
+			"sm": { "value": "1.5rem" },
+			"md": { "value": "2rem" },
+			"lg": { "value": "3rem" },
+			"xl": { "value": "4rem" },
+			"xxl": { "value": "5rem" },
+			"3xl": { "value": "6.5rem" },
+			"4xl": { "value": "8rem" },
+			"5xl": { "value": "10rem" }
 		},
 		"colors": {
-			"palette1": "#3296ff",
-			"palette2": "#003174",
-			"palette3": "#FFFFFF",
-			"palette4": "#f7fafc",
-			"palette5": "#edf2f7",
-			"palette6": "#cbd2d9",
-			"palette7": "#1a202c",
-			"palette8": "#252c39",
-			"palette9": "#2d3748"
+			"palette1": { "value": "#3296ff" },
+			"palette2": { "value": "#003174" },
+			"palette3": { "value": "#FFFFFF" },
+			"palette4": { "value": "#f7fafc" },
+			"palette5": { "value": "#edf2f7" },
+			"palette6": { "value": "#cbd2d9" },
+			"palette7": { "value": "#1a202c" },
+			"palette8": { "value": "#252c39" },
+			"palette9": { "value": "#2d3748" }
 		}
 	}
 }
