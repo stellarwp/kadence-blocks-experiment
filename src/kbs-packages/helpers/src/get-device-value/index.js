@@ -1,9 +1,9 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { COMPONENTS } from '../handle-attribute-change/constants';
+import { COMPONENTS } from '../constants';
 /**
  * Simple get a device attribute value.
  */
-export default function getDeviceValue( attributeName, attributes, device, meta, type ) {
+export default function getDeviceValue( attributeName, attributes, device, type = null ) {
 	
 	const deviceSlug = getDeviceAttributeSlug( device );
 	let deviceValue = '';
@@ -16,17 +16,21 @@ export default function getDeviceValue( attributeName, attributes, device, meta,
 	if ( ! attributes?.[ attributeName ] ) {
 		return deviceValue;
 	}
-	//for devicless values like preset
+	// for deviceless values like preset
 	if ( device === 'none' ) {
-		return attributes?.[attributeName]?.[type] ?? '';
+		if ( type ) {
+			return attributes?.[attributeName]?.[type] ?? '';
+		}
+		return attributes?.[attributeName] ?? '';
 	}
+	// If there are no device specific values, return empty string.
 	if ( ! attributes?.[ attributeName ]?.[ deviceSlug ] ) {
 		return deviceValue;
 	}
-
-	if( COMPONENTS.includes( meta?.component ) ) {
+	// If the attribute is part of a component, return the device specific value for the sub-attribute or if the subAttribute is set.
+	if( type ) {
 		return attributes?.[attributeName]?.[deviceSlug]?.[type] ?? '';
 	}
-
+	// Return the device specific value for the attribute.
 	return attributes[ attributeName ][ deviceSlug ];
 }

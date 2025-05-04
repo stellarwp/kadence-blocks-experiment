@@ -54,7 +54,7 @@ function RadioButtonUI( {
 			controls={ controls.map( ( control ) => {
 				const { align } = control;
 				const isActive = value === align;
-				const isInherited = !value && align === inherited;
+				const isInherited = !value && align === inherited?.inheritedValue;
 				return {
 					...control,
 					className: isInherited ? 'is-inherited' : '',

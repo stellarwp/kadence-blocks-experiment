@@ -23,7 +23,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 	);
 	
 	// Check if there's a direct value on the block (highest priority)
-	const directValue = getDeviceValue(attributeName, attributes, device, attributeMeta, type);
+	const directValue = getDeviceValue(attributeName, attributes, device, type);
 	if (directValue) {
 		return { inheritedValue: directValue, inheritedSource: 'direct', inheritedType: 'direct' };
 	}
@@ -33,7 +33,7 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		const parentDevice = deviceOptions[i];
 		const parentDeviceName = parentDevice.key || parentDevice.name;
 		
-		const parentValue = getDeviceValue(attributeName, attributes, parentDeviceName, attributeMeta, type);
+		const parentValue = getDeviceValue(attributeName, attributes, parentDeviceName, type);
 		if (parentValue) {
 			return { inheritedValue: parentValue, inheritedSource: 'parent', inheritedType: 'parent' };
 		}

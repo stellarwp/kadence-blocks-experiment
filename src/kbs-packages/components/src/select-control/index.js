@@ -129,7 +129,7 @@ export default function SelectControl({
 			setAttributes,
 			customOnChange,
 			type,
-			attributeMeta
+			meta
 		);
 	};
 

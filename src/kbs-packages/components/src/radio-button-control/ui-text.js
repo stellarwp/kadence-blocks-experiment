@@ -59,7 +59,7 @@ function RadioTextButtonUI( {
 			{ controls.map( ( control ) => {
 				const { align } = control;
 				const isActive = value === align;
-				const isInherited = !value && align === inherited;
+				const isInherited = !value && align === inherited?.inheritedValue;
 				return (
 					<div key={ align } className="kadence-radio-button-control__item">
 						<Button

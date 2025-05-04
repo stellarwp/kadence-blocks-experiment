@@ -78,3 +78,8 @@ export const SPACING_SIZES_MAP = [
 		name: __('5X Large', 'kadence-blocks'),
 	},
 ];
+
+export const COMPONENTS = [
+    'typography',
+    'flexBox',
+];

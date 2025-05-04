@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { COMPONENTS } from './constants';
+import { COMPONENTS } from '../constants';
 
 /**
  * Handles updating attributes for all devices
@@ -11,8 +11,8 @@ import { COMPONENTS } from './constants';
  * @param {string} type The type of attribute being changed
  * @returns {Object} Updated attributes
  */
-const handleAllDevices = (value, newAttributes, attributeName, isComponent, deviceOptions, type) => {
-	if (!isComponent) {
+const handleAllDevices = (value, newAttributes, attributeName, deviceOptions, type) => {
+	if (!type) {
 		if (typeof value === 'object' && value !== null) {
 			Object.entries(value).forEach(([key, val]) => {
 				newAttributes[key] = val;
@@ -52,8 +52,8 @@ const handleAllDevices = (value, newAttributes, attributeName, isComponent, devi
  * @param {string} type The type of attribute being changed
  * @returns {Object} Updated attributes
  */
-const handleNoDevice = (value, newAttributes, attributeName, isComponent, deviceOptions, type) => {
-	if (!isComponent) {
+const handleNoDevice = (value, newAttributes, attributeName, type) => {
+	if (!type) {
 		if (typeof value === 'object' && value !== null) {
 			Object.entries(value).forEach(([key, val]) => {
 				newAttributes[key] = val;
@@ -82,8 +82,8 @@ const handleNoDevice = (value, newAttributes, attributeName, isComponent, device
  * @param {string} type The type of attribute being changed
  * @returns {Object} Updated attributes
  */
-const handleSpecificDevice = (value, newAttributes, attributeName, isComponent, deviceSlug, type) => {
-	if (!isComponent) {
+const handleSpecificDevice = (value, newAttributes, attributeName, deviceSlug, type) => {
+	if (!type) {
 		if (!newAttributes[attributeName]) {
 			newAttributes[attributeName] = {};
 		}
@@ -107,7 +107,6 @@ const handleSpecificDevice = (value, newAttributes, attributeName, isComponent, 
 			...(typeof value === 'object' && value !== null ? value : { [type]: value }),
 		},
 	};
-
 	return newAttributes;
 };
 
@@ -130,7 +129,7 @@ export const handleAttributeChange = (
 	attributes,
 	setAttributes,
 	customOnChange,
-	type,
+	type = null,
 	meta
 ) => {
 	if (customOnChange) {
@@ -138,17 +137,15 @@ export const handleAttributeChange = (
 		return;
 	}
 
-	const isComponent = COMPONENTS.includes(meta?.component);
 	const deviceOptions = kadence_blocks_params?.responsive_device_options || [];
-
+	let newAttributes = JSON.parse(JSON.stringify(attributes));
 	if (device === 'all') {
-		handleAllDevices(value, attributes, attributeName, isComponent, deviceOptions, type);
+		newAttributes = handleAllDevices(value, newAttributes, attributeName, deviceOptions, type);
 	} else if (device === 'none') {
-		handleNoDevice(value, attributes, attributeName, isComponent, deviceOptions, type);
+		newAttributes = handleNoDevice(value, newAttributes, attributeName, type);
 	} else {
 		const deviceSlug = getDeviceAttributeSlug(device);
-		handleSpecificDevice(value, attributes, attributeName, isComponent, deviceSlug, type);
+		newAttributes = handleSpecificDevice(value, newAttributes, attributeName, deviceSlug, type);
 	}
-
-	setAttributes(attributes);
+	setAttributes(newAttributes);
 };

@@ -157,19 +157,6 @@ export const GlobalStyleVariableOutput = () => {
 			return;
 		}
 
-
-		if (!iframeDoc) {
-			const timeoutId = setTimeout(() => {
-				iframeDoc = document.querySelector( 'iframe[name="editor-canvas"]' )?.contentWindow?.document;
-				if(iframeDoc) {
-					updateOrCreateStyleTag(iframeDoc, styleId, cssVariables);
-				} else {
-					console.warn('Editor iframe still not found after delay.');
-				}
-			}, 250);
-			return () => clearTimeout(timeoutId);
-		}
-
 		const updateOrCreateStyleTag = (doc, id, css) => {
 			let styleTag = doc.getElementById(id);
 
@@ -190,6 +177,18 @@ export const GlobalStyleVariableOutput = () => {
 				styleTag.textContent = css;
 			}
 		};
+		if (!iframeDoc) {
+			const timeoutId = setTimeout(() => {
+				iframeDoc = document.querySelector( 'iframe[name="editor-canvas"]' )?.contentWindow?.document;
+				if(iframeDoc) {
+					updateOrCreateStyleTag(iframeDoc, styleId, cssVariables);
+				} else {
+					console.warn('Editor iframe still not found after delay.');
+				}
+			}, 250);
+			return () => clearTimeout(timeoutId);
+		}
+
 
 		updateOrCreateStyleTag(iframeDoc, styleId, cssVariables);
 

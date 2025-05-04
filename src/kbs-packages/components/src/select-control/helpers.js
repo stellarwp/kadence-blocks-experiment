@@ -80,7 +80,7 @@ export const useSelectOptions = ({
 			break;
 		}
 		case 'fontWeight': {
-			let fontFamily = getDeviceValue(attributeName, attributes, previewDevice, meta, 'fontFamily');
+			let fontFamily = getDeviceValue(attributeName, attributes, previewDevice, 'fontFamily');
 
 			// If no direct font family value, get inherited value
 			if (!fontFamily) {

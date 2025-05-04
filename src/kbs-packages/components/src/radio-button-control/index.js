@@ -25,31 +25,29 @@ export default function RadioButtonControl( {
 	defaultValue,
 	attributeName,
 	options,
-	initial,
 	attributes,
 	setAttributes,
 	isCollapsed = false,
-	type = 'textAlign',
+	type = '',
+	radioType = 'textAlign',
 	reset = true,
 	previewDevice,
 	meta,
 	previewDirection = 'column',
+	hasDeviceControls = false,
 } ) {
 	// Get the globalStylesIds from context
 	const globalStylesIds = useContext(GlobalStylesContext);
-	
-	const radioType = meta?.property ? meta?.property : type;
-	const initialValue = meta?.initial ? meta?.initial : initial;
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice);
-	const inheritedValue = getInheritedDeviceValue(attributeName, attributes, previewDevice, initialValue, meta, type, globalStylesIds);
-	const { UIComponent, controls } = getRadioConfig(radioType, previewDirection);
-
+	const radioConfig = type ? type : radioType;
+	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
+	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+	const { UIComponent, controls } = getRadioConfig(radioConfig, previewDirection);
 	const onReset = () => {
 		let resetValue = undefined;
 		if ( defaultValue ) {
 			resetValue = defaultValue;
 		}
-		onChange( resetValue, 'all' );
+		onChange( resetValue, 'all', type );
 	}
 	const onChange = (value, device, type) => {
 		handleAttributeChange(
@@ -70,14 +68,14 @@ export default function RadioButtonControl( {
 				label={ label }
 				reset={ reset }
 				onReset={ onReset }
-				hasDeviceControls={true}
+				hasDeviceControls={ hasDeviceControls }
 			/>
 			<div className="kbs-control-inner">
 				<UIComponent
 					value={ currentValue }
-					inherited={ inheritedValue }
+					inherited={ inherited }
 					isCollapsed={ isCollapsed }
-					onChange={ ( itemValue ) => onChange( itemValue, previewDevice ) }
+					onChange={ ( itemValue ) => onChange( itemValue, previewDevice, type ) }
 					controls={ controls ? controls : undefined }
 				/>
 			</div>

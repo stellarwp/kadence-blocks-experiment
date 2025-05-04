@@ -22,7 +22,7 @@ export default function TitleBar( {
 	label,
 	reset,
 	onReset,
-	hasDeviceControls = true,
+	hasDeviceControls = false,
  }) {
 	return (
 		<div className="kbs-control-title-bar">

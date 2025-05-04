@@ -41,16 +41,20 @@ export const getRadioConfig = (radioType, previewDirection) => {
             UIComponent = BlockVerticalAlignmentToolbar;
             break;
         case 'flex-wrap':
+        case 'flexWrap':
             UIComponent = RadioTextButtonUI;
             controls = getFlexWrapControls();
             break;
         case 'flex-direction':
+        case 'flexDirection':
             controls = getFlexDirectionControls();
             break;
         case 'justify-content':
+        case 'justifyContent':
             controls = getJustifyContentControls(previewDirection);
             break;
         case 'align-items':
+        case 'alignItems':
             controls = getAlignItemsControls(previewDirection);
             break;
     }

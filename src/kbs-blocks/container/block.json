@@ -23,6 +23,21 @@
 			"type": "string",
 			"initial": "section"
 		},
+		"flexBox": {
+			"renderCSS": true,
+			"component": "flexBox",
+			"nonInheritable": true,
+			"type": "object",
+			"selector": "--kbs-cont-",
+			"initial": {
+				"desktop": {
+					"flexDirection": "column",
+					"justifyContent": "flex-start",
+					"alignItems": "stretch",
+					"flexWrap": "wrap"
+				}
+			}
+		},
 		"direction": {
 			"renderCSS": true,
 			"selector": "--kbs-cont-direction",

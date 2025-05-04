@@ -16,7 +16,7 @@ export default function getResolvedValue( attributeName, attributes, device, met
 	const attributeMeta = meta?.attributes?.[attributeName];
 
 	// Get the direct value set for the specific device.
-	const directValue = getDeviceValue( attributeName, attributes, device, attributeMeta, type );
+	const directValue = getDeviceValue( attributeName, attributes, device, type );
 
 	// Get the inherited value and its source.
 	const { inheritedValue, inheritedSource, inheritedType } = getInheritedDeviceValue(

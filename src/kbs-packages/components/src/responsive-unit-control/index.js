@@ -56,7 +56,7 @@ export default function ResponsiveUnitControl( {
                 setAttributes,
                 customOnChange,
                 type,
-                meta?.attributes?.[attributeName]
+                meta
             );
         };
 
