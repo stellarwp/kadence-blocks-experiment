@@ -68,6 +68,7 @@ export default function ContainerEdit(props) {
 	);
 	uniqueIdHelper(props);
 	useEffect(() => {
+		console.log('previewDevice', previewDevice);
 		// const isInQueryBlock = getInQueryBlock(context, inQueryBlock);
 		// if (attributes.inQueryBlock !== isInQueryBlock) {
 		// 	attributes.inQueryBlock = isInQueryBlock;
@@ -87,21 +88,18 @@ export default function ContainerEdit(props) {
 		...(globalStylesIds || []).reduce((acc, styleId) => {
 			acc[`kbs-global-style-${styleId}`] = true;
 			return acc;
-		}, {})
+		}, {}),
 	});
 	const blockProps = useBlockProps({
 		className: classes,
 		'data-align': !inRowBlock && ('full' === align || 'wide' === align) ? align : undefined,
 	});
-	const innerBlocksProps = useInnerBlocksProps(
-		blockProps,
-		{
-			orientation: previewDirection === 'row' || previewDirection === 'row-reverse' ? 'horizontal' : 'vertical',
-			templateLock,
-			renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
-			allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
-		}
-	);
+	const innerBlocksProps = useInnerBlocksProps(blockProps, {
+		orientation: previewDirection === 'row' || previewDirection === 'row-reverse' ? 'horizontal' : 'vertical',
+		templateLock,
+		renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+		allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
+	});
 
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>

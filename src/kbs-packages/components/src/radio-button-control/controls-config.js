@@ -33,6 +33,7 @@ import RadioToggleGroupButtonUI from './ui-toggle-group';
 export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioButtonUI;
 	let controls;
+	let advancedControls;
 
 	switch (radioType) {
 		case 'justify':
@@ -48,7 +49,9 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'flex-direction':
 		case 'flexDirection':
+			//UIComponent = RadioToggleGroupButtonUI;
 			controls = getFlexDirectionControls();
+			advancedControls = getFlexDirectionAdvancedControls();
 			break;
 		case 'justify-content':
 		case 'justifyContent':
@@ -61,7 +64,7 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 	}
 
-	return { UIComponent, controls };
+	return { UIComponent, controls, advancedControls };
 };
 
 export const getFlexWrapControls = () => [
@@ -78,6 +81,18 @@ export const getFlexWrapControls = () => [
 ];
 
 export const getFlexDirectionControls = () => [
+	{
+		icon: arrowDown,
+		title: __('Vertical Direction', 'kadence-blocks'),
+		align: 'column',
+	},
+	{
+		icon: arrowRight,
+		title: __('Horizontal Direction', 'kadence-blocks'),
+		align: 'row',
+	},
+];
+export const getFlexDirectionAdvancedControls = () => [
 	{
 		icon: arrowDown,
 		title: __('Vertical Direction', 'kadence-blocks'),

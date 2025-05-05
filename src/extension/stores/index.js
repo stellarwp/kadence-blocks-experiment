@@ -18,8 +18,8 @@ const DEFAULT_STATE = {
 		google: [],
 		theme: [],
 		custom: [],
-		loaded: false
-	}
+		loaded: false,
+	},
 };
 
 const actions = {
@@ -137,7 +137,7 @@ const actions = {
 	*setFonts(fonts) {
 		return {
 			type: 'SET_FONTS',
-			fonts
+			fonts,
 		};
 	},
 	*fetchFonts() {
@@ -145,7 +145,7 @@ const actions = {
 		try {
 			const response = yield {
 				type: 'API_FETCH',
-				request: { path }
+				request: { path },
 			};
 			return {
 				type: 'SET_FONTS',
@@ -153,8 +153,8 @@ const actions = {
 					google: response?.google || [],
 					theme: response?.theme_json || [],
 					custom: response?.kadence_custom || [],
-					loaded: true
-				}
+					loaded: true,
+				},
 			};
 		} catch (error) {
 			console.error('Error fetching fonts:', error);
@@ -164,11 +164,11 @@ const actions = {
 					google: [],
 					theme: [],
 					custom: [],
-					loaded: true
-				}
+					loaded: true,
+				},
 			};
 		}
-	}
+	},
 };
 
 const controls = {
@@ -212,10 +212,10 @@ const getPreviewDeviceType = createRegistrySelector((select) => (state) => {
 		return editPost.__experimentalGetPreviewDeviceType();
 	}
 
-	const editSite = select('core/edit-site');
+	const editSite = select('core/editor');
 
 	if (editSite) {
-		return editSite.__experimentalGetPreviewDeviceType();
+		return editSite.getDeviceType();
 	}
 
 	return state.previewDevice;
@@ -354,8 +354,8 @@ const store = createReduxStore('kadenceblocks/data', {
 					fonts: {
 						...state.fonts,
 						...action.fonts,
-						loaded: true
-					}
+						loaded: true,
+					},
 				};
 			default:
 				return state;
@@ -478,7 +478,7 @@ const store = createReduxStore('kadenceblocks/data', {
 		},
 		areFontsLoaded(state) {
 			return state.fonts.loaded;
-		}
+		},
 	},
 });
 

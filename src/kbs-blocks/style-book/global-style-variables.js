@@ -7,22 +7,39 @@ import { registerPlugin } from '@wordpress/plugins';
  * Gets variable name from category and type
  */
 export function getMappingVariableName(category, type) {
-	const categorySlug = String(category).replace(/[^a-zA-Z0-9-_]/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
-	const typeSlug = String(type).replace(/[^a-zA-Z0-9-_]/g, '-').replace(/^-+|-+$/g, '').toLowerCase();
+	const categorySlug = String(category)
+		.replace(/[^a-zA-Z0-9-_]/g, '-')
+		.replace(/^-+|-+$/g, '')
+		.toLowerCase();
+	const typeSlug = String(type)
+		.replace(/[^a-zA-Z0-9-_]/g, '-')
+		.replace(/^-+|-+$/g, '')
+		.toLowerCase();
 	return `--kbs-${categorySlug}-${typeSlug}`;
 }
 
 /**
  * Component to output global style variables to the editor
  */
-const specialTypographyPresets = [ 'body', 'heading', 'heading-1', 'heading-2', 'heading-3', 'heading-4', 'heading-5', 'heading-6' ];
-
+const specialTypographyPresets = [
+	'body',
+	'heading',
+	'heading-1',
+	'heading-2',
+	'heading-3',
+	'heading-4',
+	'heading-5',
+	'heading-6',
+];
 
 export const GlobalStyleVariableOutput = () => {
-	const { globalStyles, previewDevice } = useSelect((select) => ({
-		globalStyles: select('kadenceblocks/global-styles').getGlobalStyles(),
-		previewDevice: select(editPostStore).__experimentalGetPreviewDeviceType(),
-	}), []);
+	const { globalStyles, previewDevice } = useSelect(
+		(select) => ({
+			globalStyles: select('kadenceblocks/global-styles').getGlobalStyles(),
+			previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+		}),
+		[]
+	);
 
 	const cssVariables = useMemo(() => {
 		let rootCssString = '';
@@ -32,22 +49,21 @@ export const GlobalStyleVariableOutput = () => {
 			return '';
 		}
 
-        const deviceOptions = window?.kadence_blocks_params?.responsive_device_options || [];
-        const currentDeviceIndex = deviceOptions.findIndex(option => 
-            option.key?.toLowerCase() === previewDevice.toLowerCase() || 
-            option.name?.toLowerCase() === previewDevice.toLowerCase()
-        );
+		const deviceOptions = window?.kadence_blocks_params?.responsive_device_options || [];
+		const currentDeviceIndex = deviceOptions.findIndex(
+			(option) =>
+				option.key?.toLowerCase() === previewDevice.toLowerCase() ||
+				option.name?.toLowerCase() === previewDevice.toLowerCase()
+		);
 
 		// Loop through global styles
 		Object.entries(globalStyles).forEach(([styleId, styleData]) => {
 			let currentCssBlock = ''; // Accumulator for the current styleId
 
 			if (styleData?.mappings && typeof styleData.mappings === 'object') {
-
 				// Loop through mappings
 				Object.entries(styleData.mappings).forEach(([category, tokens]) => {
 					if (tokens && typeof tokens === 'object') {
-
 						// Loop through mapping values
 						Object.entries(tokens).forEach(([token, tokenData]) => {
 							if (tokenData.value !== undefined && tokenData.value !== null && tokenData.value !== '') {
@@ -59,68 +75,71 @@ export const GlobalStyleVariableOutput = () => {
 				});
 			}
 
-            // Loop through components
-            if (styleData?.components && typeof styleData.components === 'object') {
-                Object.entries(styleData.components).forEach(([component, componentData]) => {
+			// Loop through components
+			if (styleData?.components && typeof styleData.components === 'object') {
+				Object.entries(styleData.components).forEach(([component, componentData]) => {
+					// Loop through special presets on components
+					if (componentData?.presets && typeof componentData.presets === 'object') {
+						Object.entries(componentData.presets).forEach(([preset, presetData]) => {
+							if ('typography' === component && specialTypographyPresets.includes(preset)) {
+								// Try to get attributes for the current device
+								let attributes = presetData?.attributes?.[previewDevice.toLowerCase()];
 
-                    // Loop through special presets on components
-                    if (componentData?.presets && typeof componentData.presets === 'object') {
-                        Object.entries(componentData.presets).forEach(([preset, presetData]) => {
+								// If attributes aren't found for the current device, check parent devices
+								if (!attributes && currentDeviceIndex > 0) {
+									for (let i = currentDeviceIndex - 1; i >= 0; i--) {
+										const parentDevice = deviceOptions[i];
+										const parentDeviceName = parentDevice.key || parentDevice.name;
 
-                            if( 'typography' === component && specialTypographyPresets.includes(preset) ) {                            
-                                // Try to get attributes for the current device
-                                let attributes = presetData?.attributes?.[previewDevice.toLowerCase()];
-                                
-                                // If attributes aren't found for the current device, check parent devices
-                                if (!attributes && currentDeviceIndex > 0) {
-                                    for (let i = currentDeviceIndex - 1; i >= 0; i--) {
-                                        const parentDevice = deviceOptions[i];
-                                        const parentDeviceName = parentDevice.key || parentDevice.name;
-                                        
-                                        if (presetData?.attributes?.[parentDeviceName]) {
-                                            attributes = presetData.attributes[parentDeviceName];
-                                            break;
-                                        }
-                                    }
-                                }
+										if (presetData?.attributes?.[parentDeviceName]) {
+											attributes = presetData.attributes[parentDeviceName];
+											break;
+										}
+									}
+								}
 
-                                if (typeof attributes === 'object' && attributes !== null) {
+								if (typeof attributes === 'object' && attributes !== null) {
+									Object.entries(attributes).forEach(([key, value]) => {
+										const kebabCaseKey = String(key)
+											.replace(/([A-Z])/g, '-$1')
+											.replace(/^-+|-+$/g, '')
+											.toLowerCase();
 
-                                    Object.entries(attributes).forEach(([key, value]) => {
-                                        const kebabCaseKey = String(key).replace(/([A-Z])/g, '-$1').replace(/^-+|-+$/g, '').toLowerCase();
+										// Initialize mappingValue variable
+										let mappingValue;
 
-                                        // Initialize mappingValue variable
-                                        let mappingValue;
-                                        
-                                        if (key === 'fontSize' && styleData.mappings && 
-                                            styleData.mappings[key] && 
-                                            styleData.mappings[key][value]) {
-                                            // Get mapping value
-                                            mappingValue = styleData.mappings[key][value];
-                                        }
+										if (
+											key === 'fontSize' &&
+											styleData.mappings &&
+											styleData.mappings[key] &&
+											styleData.mappings[key][value]
+										) {
+											// Get mapping value
+											mappingValue = styleData.mappings[key][value];
+										}
 
-                                        const returnValue = mappingValue !== undefined ? mappingValue.value : value;
+										const returnValue = mappingValue !== undefined ? mappingValue.value : value;
 
-                                        const variableName = getMappingVariableName(kebabCaseKey, preset);
+										const variableName = getMappingVariableName(kebabCaseKey, preset);
 
-                                        currentCssBlock += `  ${variableName}: ${returnValue};\n`;
-                                    });
-                                }
-
-        
-                            }
-
-                        });
-                    }
-                });
-            }
+										currentCssBlock += `  ${variableName}: ${returnValue};\n`;
+									});
+								}
+							}
+						});
+					}
+				});
+			}
 
 			// Assign the generated CSS block to the correct scope
 			if (currentCssBlock) {
 				if (styleId === 'kbs-base') {
 					rootCssString += currentCssBlock;
 				} else {
-					const styleSlug = String(styleId).replace(/^kbs-/, '').replace(/[^a-zA-Z0-9-_]/g, '-').replace(/^-+|-+$/g, '');
+					const styleSlug = String(styleId)
+						.replace(/^kbs-/, '')
+						.replace(/[^a-zA-Z0-9-_]/g, '-')
+						.replace(/^-+|-+$/g, '');
 					const className = `.kbs-global-style-${styleSlug}`;
 					if (!classCssStrings[className]) {
 						classCssStrings[className] = '';
@@ -141,19 +160,18 @@ export const GlobalStyleVariableOutput = () => {
 			}
 		});
 
-        // console.log(finalCssString);
+		// console.log(finalCssString);
 
 		return finalCssString;
-
 	}, [globalStyles, previewDevice]);
 
 	useEffect(() => {
 		const styleId = 'kadence-global-styles-variables';
 		let iframeDoc;
 		try {
-			iframeDoc = document.querySelector( 'iframe[name="editor-canvas"]' )?.contentWindow?.document;
+			iframeDoc = document.querySelector('iframe[name="editor-canvas"]')?.contentWindow?.document;
 		} catch (e) {
-			console.error("Could not access iframe document:", e);
+			console.error('Could not access iframe document:', e);
 			return;
 		}
 
@@ -179,8 +197,8 @@ export const GlobalStyleVariableOutput = () => {
 		};
 		if (!iframeDoc) {
 			const timeoutId = setTimeout(() => {
-				iframeDoc = document.querySelector( 'iframe[name="editor-canvas"]' )?.contentWindow?.document;
-				if(iframeDoc) {
+				iframeDoc = document.querySelector('iframe[name="editor-canvas"]')?.contentWindow?.document;
+				if (iframeDoc) {
 					updateOrCreateStyleTag(iframeDoc, styleId, cssVariables);
 				} else {
 					console.warn('Editor iframe still not found after delay.');
@@ -188,7 +206,6 @@ export const GlobalStyleVariableOutput = () => {
 			}, 250);
 			return () => clearTimeout(timeoutId);
 		}
-
 
 		updateOrCreateStyleTag(iframeDoc, styleId, cssVariables);
 
@@ -209,4 +226,4 @@ export const GlobalStyleVariableOutput = () => {
 registerPlugin('kadence-global-style-variable-output', {
 	render: GlobalStyleVariableOutput,
 	icon: null,
-}); 
+});

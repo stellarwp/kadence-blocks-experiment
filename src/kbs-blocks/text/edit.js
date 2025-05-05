@@ -12,12 +12,7 @@ import classnames from 'classnames';
 /**
  * Kadence Helpers.
  */
-import {
-	uniqueIdHelper,
-	getPreviewValue,
-	GlobalStylesContext,
-	useGlobalStylesIds
-} from '@kadence/kbsHelpers';
+import { uniqueIdHelper, getPreviewValue, GlobalStylesContext, useGlobalStylesIds } from '@kadence/kbsHelpers';
 
 import metadata from './block.json';
 import Styles from './editing/styles';
@@ -35,7 +30,7 @@ import {
 	useBlockProps,
 	store as blockEditorStore,
 	BlockControls,
-	AlignmentToolbar
+	AlignmentToolbar,
 } from '@wordpress/block-editor';
 
 /**
@@ -43,24 +38,16 @@ import {
  */
 export default function TextEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
-	const {
-		uniqueID,
-		content,
-		align,
-		globalStyleIds
-	} = attributes;
+	const { uniqueID, content, align, globalStyleIds } = attributes;
 
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
 
-	const { previewDevice } = useSelect(
-		(select) => {
-			return {
-				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-			};
-		},
-		[]
-	);
+	const { previewDevice } = useSelect((select) => {
+		return {
+			previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+		};
+	}, []);
 
 	uniqueIdHelper(props);
 
@@ -69,7 +56,7 @@ export default function TextEdit(props) {
 		[`kbs-text-${uniqueID}`]: uniqueID,
 		[`has-text-align-${align}`]: align,
 	});
-	
+
 	const blockProps = useBlockProps({
 		className: classes,
 	});
@@ -85,8 +72,8 @@ export default function TextEdit(props) {
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<div {...blockProps}>
-				<Inspector {...props } previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
-				<Styles {...props }  previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+				<Inspector {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
 					<AlignmentToolbar value={align} onChange={onAlignChange} />
 				</BlockControls>
@@ -101,4 +88,4 @@ export default function TextEdit(props) {
 			</div>
 		</GlobalStylesContext.Provider>
 	);
-} 
+}
