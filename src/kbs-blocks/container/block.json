@@ -19,9 +19,9 @@
 		"preset": {
 			"type": "array"
 		},
-		"htmlTag": {
+		"tagName": {
 			"type": "string",
-			"initial": "section"
+			"initial": "div"
 		},
 		"flexBox": {
 			"renderCSS": true,

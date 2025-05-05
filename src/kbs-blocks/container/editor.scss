@@ -12,9 +12,14 @@
 	box-sizing: border-box;
 	&.kbs-only-appender {
 		.block-list-appender.wp-block {
-			padding: 6px;
-			outline: 1px dashed #d5dadf;
-			box-shadow: none;
+			align-self: stretch;
+			margin-left: 0;
+			margin-right: 0;
+			.block-editor-button-block-appender {
+				padding: 6px;
+				outline: 1px dashed #d5dadf;
+				box-shadow: none;
+			}
 		}
 	}
 	* {

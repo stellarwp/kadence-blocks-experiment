@@ -32,7 +32,7 @@ import { FORM_ALLOWED_BLOCKS } from './constants';
  */
 export default function ContainerEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
-	const { uniqueID, templateLock, align, globalStyleIds } = attributes;
+	const { uniqueID, templateLock, align, globalStyleIds, tagName: TagName = 'div' } = attributes;
 
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
@@ -93,23 +93,24 @@ export default function ContainerEdit(props) {
 		className: classes,
 		'data-align': !inRowBlock && ('full' === align || 'wide' === align) ? align : undefined,
 	});
-	const { children, ...innerBlocksProps } = useInnerBlocksProps({
-		orientation: previewDirection === 'row' || previewDirection === 'row-reverse' ? 'horizontal' : 'vertical',
-		templateLock,
-		renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
-		allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
-	});
+	const innerBlocksProps = useInnerBlocksProps(
+		blockProps,
+		{
+			orientation: previewDirection === 'row' || previewDirection === 'row-reverse' ? 'horizontal' : 'vertical',
+			templateLock,
+			renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
+			allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
+		}
+	);
 
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
-			<div {...blockProps}>
-				<Inspector {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
-				{/* <Toolbar {...props} />
-					<Inspector {...props} />
-					*/}
-				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
-				{children}
-			</div>
+			<Inspector {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+			{/* <Toolbar {...props} />
+				<Inspector {...props} />
+				*/}
+			<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+			<TagName {...innerBlocksProps} />
 		</GlobalStylesContext.Provider>
 	);
 }
