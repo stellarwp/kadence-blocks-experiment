@@ -38,56 +38,11 @@
 				}
 			}
 		},
-		"direction": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-direction",
-			"initial": { "desktop": "column" },
-			"property": "flex-direction",
-			"type": "object"
-		},
-		"justify": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-justify",
-			"initial": { "desktop": "flex-start" },
-			"property": "justify-content",
-			"nonInheritable": true,
-			"type": "object"
-		},
-		"flexBoxDONOTUSEME": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-",
-			"initial": {},
-			"property": "flex-component",
-			"nonInheritable": true,
-			"type": "object"
-		},
-		"innerFlexBoxDONOTUSEME": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-inner",
-			"initial": {},
-			"property": "flex-component",
-			"nonInheritable": true,
-			"type": "object"
-		},
 		"alignContent": {
 			"renderCSS": true,
 			"selector": "--kbs-cont-align-content",
 			"initial": { "desktop": "initial" },
 			"property": "align-content",
-			"type": "object"
-		},
-		"alignItems": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-align-items",
-			"initial": { "desktop": "stretch" },
-			"property": "align-items",
-			"type": "object"
-		},
-		"wrap": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-wrap",
-			"initial": { "desktop": "wrap" },
-			"property": "flex-wrap",
 			"type": "object"
 		},
 		"columnGap": {
@@ -155,7 +110,7 @@
 		"typography": {
 			"renderCSS": true,
 			"component": "typography",
-			"selector": "--kbs-cont",
+			"selector": "--kbs-cont-",
 			"tag": "h1",
 			"initial": {},
 			"type": "object"

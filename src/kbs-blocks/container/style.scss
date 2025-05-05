@@ -6,11 +6,11 @@
 
 .kbs-container {
     display: flex;
-    flex-direction: var(--kbs-cont-direction, column );
-	justify-content: var(--kbs-cont-justify, initial );
+    flex-direction: var(--kbs-cont-flex-direction, column );
+	justify-content: var(--kbs-cont-justify-content, initial );
 	align-items: var(--kbs-cont-align-items, initial );
 	align-content: var(--kbs-cont-align-content, initial );
-	flex-wrap: var(--kbs-cont-wrap, initial );
+	flex-wrap: var(--kbs-cont-flex-wrap, initial );
 	min-width: 0;
 	min-height: 0;
 	column-gap: var(--kbs-cont-column-gap, initial );

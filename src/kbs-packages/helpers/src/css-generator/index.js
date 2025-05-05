@@ -71,12 +71,39 @@ class CSSGenerator {
 		// if (!mergedAttribute) {
 		// 	return this;
 		// }
-
 		if (!meta?.component) {
 			return this;
 		}
 
 		switch (meta.component) {
+			case 'flexBox':
+				const componentKeys = this.getComponentKeys(meta.component);
+				// Process each componentKeys property key
+				componentKeys.forEach((key) => {
+					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
+						attributeName,
+						attributes,
+						previewDevice,
+						metadata,
+						key,
+						globalStylesIds
+					);
+					// If set directly or on parent, use the applied value directly
+					let cssValue;
+					if( inheritedSource === 'direct'  || inheritedSource === 'parent' ) {
+						cssValue = appliedValue;
+					} else if ( ! meta?.nonInheritable && ( inheritedSource === 'preset' || inheritedSource === 'preset-parent' ) ) {
+						cssValue = appliedValue;
+					}
+					const cssProperty = String(key).replace(/([A-Z])/g, '-$1').replace(/^-+|-+$/g, '').toLowerCase();
+					// Ensure we have a valid CSS property and a selector from the metadata
+					if (cssProperty && meta.selector && cssValue ) {
+						const currentSelectorBackup = this.currentSelector; // Backup current selector
+						this.setSelector(this.currentSelector); // Combine base selector with meta selector
+						this.add({ [ meta.selector + cssProperty]: cssValue });
+						this.setSelector(currentSelectorBackup); // Restore selector
+					}
+				});
 			case 'typography':
 				const typographyKeys = [
 					'fontFamily', 'fontWeight', 'fontSize', 'lineHeight', 'letterSpacing', 'textTransform',
@@ -115,7 +142,7 @@ class CSSGenerator {
 					if (cssProperty && meta.selector) {
 						const currentSelectorBackup = this.currentSelector; // Backup current selector
 						this.setSelector(this.currentSelector); // Combine base selector with meta selector
-						this.add({ [ meta.selector + '-' + cssProperty]: cssValue });
+						this.add({ [ meta.selector + cssProperty]: cssValue });
 						this.setSelector(currentSelectorBackup); // Restore selector
 					}
 				});
@@ -127,7 +154,17 @@ class CSSGenerator {
 
 		return this;
 	}
-
+	getComponentKeys(component) {
+		let componentKeys = [];
+		switch (component) {
+			case 'flexBox':
+				componentKeys = [
+					'flexDirection', 'justifyContent', 'alignItems', 'flexWrap',
+				];
+				break;
+		}
+		return componentKeys;
+	}
 	/**
 	 * Merge the initial attribute
 	 * @param {Object} meta - The metadata of the attribute
