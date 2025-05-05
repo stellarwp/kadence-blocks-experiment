@@ -19,11 +19,13 @@ export default function FlexBoxControl({
 	forPresetControl,
 }) {
 	const previewDirection = getInheritedDeviceValue(attributeName, attributes, previewDevice, metaData, 'flexDirection');
-	console.log(previewDirection);
 	return (
 		<ToolsPanelBody
 			title={__('Flex Settings', 'kadence-blocks')}
-			panelName={'kbs-container-flex-settings'}
+			panelName={'container-flex-settings'}
+			componentName={'flexbox-control'}
+			setAttributes={setAttributes}
+			attributeName={attributeName}
 		>
 			{/* <PresetSelectControl
 				attributes={ attributes }

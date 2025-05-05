@@ -24,4 +24,8 @@
 	text-transform: var(--kbs-cont-text-transform);
 	font-style: var(--kbs-cont-font-style);
 	text-decoration: var(--kbs-cont-text-decoration);
+	> :is(*, div), > .wp-block {
+		margin-left: 0;
+		margin-right: 0;
+	}
 }

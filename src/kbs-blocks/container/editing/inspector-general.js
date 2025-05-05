@@ -87,7 +87,7 @@ export default function InspectorGeneral(props) {
 				<SelectGlobalStyles attributes={attributes} setAttributes={setAttributes} />
 			</KadencePanelBody>
 
-			<ToolsPanelBody title={__('Typography Settings', 'kadence-blocks')} panelName={'kb-container-typography'}>
+			<ToolsPanelBody title={__('Typography Settings', 'kadence-blocks')} panelName={'container-typography'} componentName={'typography-control'}>
 				{/* <BlockComponentControls
 					attributes={attributes}
 					setAttributes={setAttributes}

@@ -4,8 +4,7 @@
 import { PanelRow, Panel, Icon, DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components'
 import { compose } from '@wordpress/compose'
 import { withSelect, withDispatch } from '@wordpress/data'
-import { showSettings } from '@kadence/helpers';
-import { get } from 'lodash';
+import { getComponentView } from '@kadence/kbs-helpers';
 import { moreVertical, check } from '@wordpress/icons';
 import { speak } from '@wordpress/a11y';
 import { __ } from '@wordpress/i18n';
@@ -29,37 +28,42 @@ export default function ToolsPanelBody( {
 		title,
 		className = '',
 		extraProps = {},
-		blockSlug = false,
 		proTag = false,
+		componentName,
 		panelName,
 		resetAll,
+		setAttributes,
+		attributeName,
 		canResetAll = true,
-		view = 'normal',
-		selectView,
 	} ) {
-
-	/* If the block slug is set, check the panel name against the allowed settings for the user */
-	if( blockSlug !== false && !showSettings( panelName, blockSlug ) ) {
-		return null;
-	}
 
 	if ( proTag ) {
 		extraProps.icon = proSvg;
 	}
-	const tools = [
-		{
-			label: __( 'Preset Only', 'kadence-blocks' ),
-			value: 'preset',
-		},
-		{
-			label: __( 'Normal', 'kadence-blocks' ),
-			value: 'normal',
-		},
-		{
-			label: __( 'Advanced', 'kadence-blocks' ),
-			value: 'advanced',
-		},
-	]
+	const onResetAll = () => {
+		if( typeof resetAll === 'function' ) {
+			resetAll();
+		} else if( setAttributes && attributeName ) {
+			setAttributes( { [attributeName]: undefined } );
+		}
+	}
+	
+	// TODO: Decide later if we want to pursue Component View settings and implement or fully remove.
+	// const currentView = getComponentView( componentName );
+	// const tools = [
+	// 	{
+	// 		label: __( 'Preset Only', 'kadence-blocks' ),
+	// 		value: 'preset',
+	// 	},
+	// 	{
+	// 		label: __( 'Normal', 'kadence-blocks' ),
+	// 		value: 'normal',
+	// 	},
+	// 	{
+	// 		label: __( 'Advanced', 'kadence-blocks' ),
+	// 		value: 'advanced',
+	// 	},
+	// ]
 	const header = (
 		<>
 			<span className={ `components-panel__body-title-text ${ extraProps?.icon ? 'kbs-tools-panel-body__title-text-with-icon' : '' }` }>
@@ -79,9 +83,9 @@ export default function ToolsPanelBody( {
 				>
 					{ () => (
 						<>
-							<MenuGroup label={ __( 'Component View', 'kadence-blocks' ) }>
+							{/* <MenuGroup label={ __( 'Component View', 'kadence-blocks' ) }>
 								{ tools.map( ( control, index ) => {
-									const isSelected = control?.value === view;
+									const isSelected = control?.value === currentView;
 									const label = control?.label;
 									return (
 										<MenuItem
@@ -109,14 +113,14 @@ export default function ToolsPanelBody( {
 										</MenuItem>
 									);
 								} ) }
-							</MenuGroup>
+							</MenuGroup> */}
 							<MenuGroup label={ __( 'Reset Component Settings', 'kadence-blocks' ) }>
 								<MenuItem
 									disabled={ ! canResetAll }
 									variant="tertiary"
 									onClick={ () => {
 										if ( canResetAll ) {
-											resetAll();
+											onResetAll();
 											speak(
 												__( 'All component options reset' ),
 												'assertive'
@@ -135,7 +139,7 @@ export default function ToolsPanelBody( {
 	);
 	return (
 		<Panel
-			className={ 'kbs-tools-panel-body' + ( className ? ' ' + className : '' ) }
+			className={ `kbs-tools-panel-body${ panelName ? ` kbs-panel--${panelName}` : '' } ${ className ? ' ' + className : '' }` }
 		>
 			<div className="kbs-tools-panel-body__content components-panel__body is-opened">
 				<h2 className="kbs-tools-panel-body__title">

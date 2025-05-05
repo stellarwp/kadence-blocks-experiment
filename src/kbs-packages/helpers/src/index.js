@@ -14,3 +14,4 @@ export { default as getGlobalStylesPresetOptions } from './get-global-styles-pre
 export { default as deepMerge } from './deep-merge';
 export { default as getPresetValue } from './get-preset-value';
 export { default as useEditorElement } from './use-editor-element';
+export { default as getComponentView } from './get-component-view';
