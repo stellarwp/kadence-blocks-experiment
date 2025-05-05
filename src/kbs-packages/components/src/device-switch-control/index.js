@@ -12,6 +12,9 @@ import { map } from 'lodash';
 import { capitalizeFirstLetter } from '@kadence/helpers';
 import { mobile, tablet, desktop } from '@wordpress/icons';
 import {
+	DropdownMenu,
+	MenuGroup,
+	MenuItem,
     __experimentalToggleGroupControl as ToggleGroupControl,
     __experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 } from '@wordpress/components';
@@ -25,7 +28,7 @@ const availableIcons = {
 /**
  * Build the Device Switch control.
  */
-export default function DeviceSwitchControl( ) {
+export default function DeviceSwitchControl( { compact = false } ) {
 	const {
 		setPreviewDeviceType,
 	} = useDispatch( 'kadenceblocks/data' );
@@ -42,7 +45,35 @@ export default function DeviceSwitchControl( ) {
 		}
 		return [];
 	}, [ kadence_blocks_params.responsive_device_options ] );
-	
+	if ( compact ) {
+		// Get the icon to match the device type
+		const currentDeviceIcon = devices.find( device => device.name === deviceType )?.icon;
+		return ( 
+			<DropdownMenu className="kbs-device-options-compact kbs-device-button-group" icon={ currentDeviceIcon } label={ __( 'Select Device', 'kadence-blocks' ) }>
+				{ ( { onClose } ) => (
+					<>
+						<MenuGroup>
+							{ map( devices, ( { name, key, icon, itemClass } ) => (
+								<MenuItem
+									className={ `kbs-device-menu-btn ${ itemClass }` }
+									key={ key }
+									icon={ icon }
+									iconPosition="left"
+									isSelected={ name === deviceType }
+									onClick={ () => {
+										setPreviewDeviceType( capitalizeFirstLetter( name ) );
+										onClose();
+									} }
+								>
+									{ capitalizeFirstLetter( name ) }
+								</MenuItem>
+							) ) }
+						</MenuGroup>
+					</>
+				) }
+			</DropdownMenu>
+		);
+	}
 	return (
 		<ToggleGroupControl
 			className="kbs-device-options kbs-device-button-group"

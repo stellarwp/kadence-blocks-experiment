@@ -8,6 +8,7 @@ import { getComponentView } from '@kadence/kbs-helpers';
 import { moreVertical, check } from '@wordpress/icons';
 import { speak } from '@wordpress/a11y';
 import { __ } from '@wordpress/i18n';
+import DeviceSwitchControl from '../device-switch-control';
 
 import './editor.scss';
 const proSvg = <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style={ { paddingTop: '1px' } }>
@@ -35,6 +36,7 @@ export default function ToolsPanelBody( {
 		setAttributes,
 		attributeName,
 		canResetAll = true,
+		hasDeviceControls = true,
 	} ) {
 
 	if ( proTag ) {
@@ -77,9 +79,12 @@ export default function ToolsPanelBody( {
 				) }
 			</span>
 			<span className='kbs-tools-panel-body__tools'>
+				{ hasDeviceControls && (
+					<DeviceSwitchControl compact={ true } />
+				) }
 				<DropdownMenu
 					icon={ moreVertical }
-					label="Select a direction"
+					label="Component Settings"
 				>
 					{ () => (
 						<>
