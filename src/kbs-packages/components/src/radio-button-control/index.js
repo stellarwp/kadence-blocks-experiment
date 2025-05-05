@@ -19,7 +19,7 @@ import './editor.scss';
 /**
  * Build the Radio Button control.
  */
-export default function RadioButtonControl( {
+export default function RadioButtonControl({
 	label,
 	customOnChange,
 	defaultValue,
@@ -35,7 +35,7 @@ export default function RadioButtonControl( {
 	meta,
 	previewDirection = 'column',
 	hasDeviceControls = false,
-} ) {
+}) {
 	// Get the globalStylesIds from context
 	const globalStylesIds = useContext(GlobalStylesContext);
 	const radioConfig = type ? type : radioType;
@@ -44,39 +44,26 @@ export default function RadioButtonControl( {
 	const { UIComponent, controls } = getRadioConfig(radioConfig, previewDirection);
 	const onReset = () => {
 		let resetValue = undefined;
-		if ( defaultValue ) {
+		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange( resetValue, 'all', type );
-	}
+		onChange(resetValue, 'all', type);
+	};
 	const onChange = (value, device, type) => {
-		handleAttributeChange(
-			value,
-			device,
-			attributeName,
-			attributes,
-			setAttributes,
-			customOnChange,
-			type,
-			meta
-		);
+		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
 	};
 
 	return (
-		<div className={ `components-base-control kbs-control kbs-radio-control kbs-radio-control-${ radioType }` }>
-			<TitleBar
-				label={ label }
-				reset={ reset }
-				onReset={ onReset }
-				hasDeviceControls={ hasDeviceControls }
-			/>
+		<div className={`components-base-control kbs-control kbs-radio-control kbs-radio-control-${radioType}`}>
+			<TitleBar label={label} reset={reset} onReset={onReset} hasDeviceControls={hasDeviceControls} />
 			<div className="kbs-control-inner">
 				<UIComponent
-					value={ currentValue }
-					inherited={ inherited }
-					isCollapsed={ isCollapsed }
-					onChange={ ( itemValue ) => onChange( itemValue, previewDevice, type ) }
-					controls={ controls ? controls : undefined }
+					value={currentValue}
+					label={label}
+					inherited={inherited}
+					isCollapsed={isCollapsed}
+					onChange={(itemValue) => onChange(itemValue, previewDevice, type)}
+					controls={controls ? controls : undefined}
 				/>
 			</div>
 		</div>

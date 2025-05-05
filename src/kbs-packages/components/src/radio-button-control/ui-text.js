@@ -48,7 +48,6 @@ function RadioTextButtonUI( {
 			},
 			popoverProps: POPOVER_PROPS,
 	  } : { isCollapsed };
-	
 	return (
 		<UIComponent
 			icon={ setIcon() }
