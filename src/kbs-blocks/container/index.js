@@ -10,7 +10,7 @@ import './editor.scss';
 /**
  * Internal dependencies
  */
-import{ SECTION_ICON } from './constants';
+import { SECTION_ICON } from './constants';
 import edit from './edit';
 import metadata from './block.json';
 

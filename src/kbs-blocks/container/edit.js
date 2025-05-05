@@ -68,7 +68,6 @@ export default function ContainerEdit(props) {
 	);
 	uniqueIdHelper(props);
 	useEffect(() => {
-		console.log('previewDevice', previewDevice);
 		// const isInQueryBlock = getInQueryBlock(context, inQueryBlock);
 		// if (attributes.inQueryBlock !== isInQueryBlock) {
 		// 	attributes.inQueryBlock = isInQueryBlock;

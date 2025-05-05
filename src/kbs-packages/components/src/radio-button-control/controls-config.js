@@ -44,22 +44,24 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'flex-wrap':
 		case 'flexWrap':
-			// UIComponent = RadioToggleGroupButtonUI;
+			UIComponent = RadioToggleGroupButtonUI;
 			controls = getFlexWrapControls();
 			break;
 		case 'flex-direction':
 		case 'flexDirection':
-			//UIComponent = RadioToggleGroupButtonUI;
+			UIComponent = RadioToggleGroupButtonUI;
 			controls = getFlexDirectionControls();
 			advancedControls = getFlexDirectionAdvancedControls();
 			break;
 		case 'justify-content':
 		case 'justifyContent':
-			// UIComponent = RadioToggleGroupButtonUI;
+			UIComponent = RadioToggleGroupButtonUI;
 			controls = getJustifyContentControls(previewDirection);
+			advancedControls = getJustifyContentAdvancedControls(previewDirection);
 			break;
 		case 'align-items':
 		case 'alignItems':
+			UIComponent = RadioToggleGroupButtonUI;
 			controls = getAlignItemsControls(previewDirection);
 			break;
 	}
@@ -114,8 +116,7 @@ export const getFlexDirectionAdvancedControls = () => [
 		align: 'row-reverse',
 	},
 ];
-
-export const getJustifyContentControls = (direction) => {
+export const getJustifyContentAdvancedControls = (direction) => {
 	const controlsByDirection = {
 		column: [
 			{
@@ -156,24 +157,39 @@ export const getJustifyContentControls = (direction) => {
 		],
 		'column-reverse': [
 			{
-				icon: justifyRight,
+				icon: alignBottom,
 				title: __('Start', 'kadence-blocks'),
 				align: 'flex-start',
 			},
 			{
-				icon: justifyCenter,
+				icon: alignCenter,
 				title: __('Center', 'kadence-blocks'),
 				align: 'center',
 			},
 			{
-				icon: justifyLeft,
+				icon: alignTop,
 				title: __('End', 'kadence-blocks'),
 				align: 'flex-end',
 			},
 			{
-				icon: justifyStretch,
+				icon: alignStretch,
 				title: __('Stretch', 'kadence-blocks'),
 				align: 'stretch',
+			},
+			{
+				icon: verticalSpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				align: 'space-between',
+			},
+			{
+				icon: verticalSpaceAround,
+				title: __('Space Around', 'kadence-blocks'),
+				align: 'space-around',
+			},
+			{
+				icon: verticalSpaceEvenly,
+				title: __('Space Evenly', 'kadence-blocks'),
+				align: 'space-evenly',
 			},
 		],
 		row: [
@@ -238,6 +254,110 @@ export const getJustifyContentControls = (direction) => {
 				icon: spaceEvenly,
 				title: __('Space Evenly', 'kadence-blocks'),
 				align: 'space-evenly',
+			},
+		],
+	};
+
+	return controlsByDirection[direction] || [];
+};
+export const getJustifyContentControls = (direction) => {
+	const controlsByDirection = {
+		column: [
+			{
+				icon: alignTop,
+				title: __('Start', 'kadence-blocks'),
+				align: 'flex-start',
+			},
+			{
+				icon: alignCenter,
+				title: __('Center', 'kadence-blocks'),
+				align: 'center',
+			},
+			{
+				icon: alignBottom,
+				title: __('End', 'kadence-blocks'),
+				align: 'flex-end',
+			},
+			{
+				icon: alignStretch,
+				title: __('Stretch', 'kadence-blocks'),
+				align: 'stretch',
+			},
+			{
+				icon: verticalSpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				align: 'space-between',
+			},
+		],
+		'column-reverse': [
+			{
+				icon: alignBottom,
+				title: __('Start', 'kadence-blocks'),
+				align: 'flex-start',
+			},
+			{
+				icon: alignCenter,
+				title: __('Center', 'kadence-blocks'),
+				align: 'center',
+			},
+			{
+				icon: alignTop,
+				title: __('End', 'kadence-blocks'),
+				align: 'flex-end',
+			},
+			{
+				icon: alignStretch,
+				title: __('Stretch', 'kadence-blocks'),
+				align: 'stretch',
+			},
+			{
+				icon: verticalSpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				align: 'space-between',
+			},
+		],
+		row: [
+			{
+				icon: justifyLeft,
+				title: __('Start', 'kadence-blocks'),
+				align: 'flex-start',
+			},
+			{
+				icon: justifyCenter,
+				title: __('Center', 'kadence-blocks'),
+				align: 'center',
+			},
+			{
+				icon: justifyRight,
+				title: __('End', 'kadence-blocks'),
+				align: 'flex-end',
+			},
+			{
+				icon: justifySpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				align: 'space-between',
+			},
+		],
+		'row-reverse': [
+			{
+				icon: justifyRight,
+				title: __('Start', 'kadence-blocks'),
+				align: 'flex-start',
+			},
+			{
+				icon: justifyCenter,
+				title: __('Center', 'kadence-blocks'),
+				align: 'center',
+			},
+			{
+				icon: justifyLeft,
+				title: __('End', 'kadence-blocks'),
+				align: 'flex-end',
+			},
+			{
+				icon: justifySpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				align: 'space-between',
 			},
 		],
 	};

@@ -39,7 +39,6 @@ export default function uniqueIdHelper(props) {
 		addUniqueID(newUniqueID, clientId);
 	};
 	useEffect(() => {
-		console.log('clientId', clientId);
 		const { postId, reusableParent, rootBlock, editedPostId } = parentData;
 		let blockPostId = getPostOrWidgetId(props, postId, reusableParent, 0);
 		if (blockPostId === 0) {
