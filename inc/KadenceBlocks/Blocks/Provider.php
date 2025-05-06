@@ -31,6 +31,8 @@ class Provider extends Service_Provider {
 	 * {@inheritdoc}
 	 */
 	public function register(): void {
+		$this->container->singleton( CSS_Engine::class, CSS_Engine::class );
+		$this->container->singleton( Font_Engine::class, Font_Engine::class );
 		$this->container->singleton( Container::class, Container::class );
 		add_action( 'init', $this->container->callback( Container::class, 'on_init' ), 20 );
 		add_filter( 'kbs_blocks_to_generate_post_css', $this->container->callback( Container::class, 'register_blocks_to_generate_post_css' ) );
