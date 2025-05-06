@@ -25,60 +25,94 @@ import {
 	nowrap,
 } from './constants';
 
-import { JustifyToolbar, BlockVerticalAlignmentToolbar } from '@wordpress/blockEditor';
-import RadioButtonUI from './ui';
-import RadioTextButtonUI from './ui-text';
 import RadioToggleGroupButtonUI from './ui-toggle-group';
+import RadioToggleGroupInputUI from './ui-toggle-group-input';
 
 export const getRadioConfig = (radioType, previewDirection) => {
-	let UIComponent = RadioButtonUI;
+	let UIComponent = RadioToggleGroupButtonUI;
 	let controls;
 	let advancedControls;
 
 	switch (radioType) {
-		case 'justify':
-			UIComponent = JustifyToolbar;
-			break;
-		case 'vertical':
-			UIComponent = BlockVerticalAlignmentToolbar;
-			break;
 		case 'flex-wrap':
 		case 'flexWrap':
-			UIComponent = RadioToggleGroupButtonUI;
 			controls = getFlexWrapControls();
 			break;
 		case 'flex-direction':
 		case 'flexDirection':
-			UIComponent = RadioToggleGroupButtonUI;
 			controls = getFlexDirectionControls();
 			advancedControls = getFlexDirectionAdvancedControls();
 			break;
 		case 'justify-content':
 		case 'justifyContent':
-			UIComponent = RadioToggleGroupButtonUI;
 			controls = getJustifyContentControls(previewDirection);
 			advancedControls = getJustifyContentAdvancedControls(previewDirection);
 			break;
+		case 'align-content':
+		case 'alignContent':
+			controls = getAlignContentControls(previewDirection);
+			break;
 		case 'align-items':
 		case 'alignItems':
-			UIComponent = RadioToggleGroupButtonUI;
 			controls = getAlignItemsControls(previewDirection);
+			break;
+		case 'row-gap':
+		case 'rowGap':
+			UIComponent = RadioToggleGroupInputUI;
+			controls = getGapControls();
+			break;
+		case 'column-gap':
+		case 'columnGap':
+			UIComponent = RadioToggleGroupInputUI;
+			controls = getGapControls();
 			break;
 	}
 
 	return { UIComponent, controls, advancedControls };
 };
 
+export const getGapControls = () => [
+	{
+		title: __('None', 'kadence-blocks'),
+		name: '0',
+		key: '0',
+	},
+	{
+		title: __('X Small', 'kadence-blocks'),
+		name: 'XS',
+		key: 'xs',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: 'sm',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: 'md',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: 'lg',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: 'xl',
+	},
+];
 export const getFlexWrapControls = () => [
 	{
 		icon: wrap,
 		title: __('Wrap', 'kadence-blocks'),
-		align: 'wrap',
+		key: 'wrap',
 	},
 	{
 		icon: nowrap,
 		title: __('No Wrap', 'kadence-blocks'),
-		align: 'nowrap',
+		key: 'nowrap',
 	},
 ];
 
@@ -86,34 +120,34 @@ export const getFlexDirectionControls = () => [
 	{
 		icon: arrowDown,
 		title: __('Vertical Direction', 'kadence-blocks'),
-		align: 'column',
+		key: 'column',
 	},
 	{
 		icon: arrowRight,
 		title: __('Horizontal Direction', 'kadence-blocks'),
-		align: 'row',
+		key: 'row',
 	},
 ];
 export const getFlexDirectionAdvancedControls = () => [
 	{
 		icon: arrowDown,
 		title: __('Vertical Direction', 'kadence-blocks'),
-		align: 'column',
+		key: 'column',
 	},
 	{
 		icon: arrowRight,
 		title: __('Horizontal Direction', 'kadence-blocks'),
-		align: 'row',
+		key: 'row',
 	},
 	{
 		icon: arrowUp,
 		title: __('Vertical Reverse', 'kadence-blocks'),
-		align: 'column-reverse',
+		key: 'column-reverse',
 	},
 	{
 		icon: arrowLeft,
 		title: __('Horizontal Reverse', 'kadence-blocks'),
-		align: 'row-reverse',
+		key: 'row-reverse',
 	},
 ];
 export const getJustifyContentAdvancedControls = (direction) => {
@@ -122,138 +156,138 @@ export const getJustifyContentAdvancedControls = (direction) => {
 			{
 				icon: alignTop,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: alignCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: alignBottom,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: alignStretch,
 				title: __('Stretch', 'kadence-blocks'),
-				align: 'stretch',
+				key: 'stretch',
 			},
 			{
 				icon: verticalSpaceBetween,
 				title: __('Space Between', 'kadence-blocks'),
-				align: 'space-between',
+				key: 'space-between',
 			},
 			{
 				icon: verticalSpaceAround,
 				title: __('Space Around', 'kadence-blocks'),
-				align: 'space-around',
+				key: 'space-around',
 			},
 			{
 				icon: verticalSpaceEvenly,
 				title: __('Space Evenly', 'kadence-blocks'),
-				align: 'space-evenly',
+				key: 'space-evenly',
 			},
 		],
 		'column-reverse': [
 			{
 				icon: alignBottom,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: alignCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: alignTop,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: alignStretch,
 				title: __('Stretch', 'kadence-blocks'),
-				align: 'stretch',
+				key: 'stretch',
 			},
 			{
 				icon: verticalSpaceBetween,
 				title: __('Space Between', 'kadence-blocks'),
-				align: 'space-between',
+				key: 'space-between',
 			},
 			{
 				icon: verticalSpaceAround,
 				title: __('Space Around', 'kadence-blocks'),
-				align: 'space-around',
+				key: 'space-around',
 			},
 			{
 				icon: verticalSpaceEvenly,
 				title: __('Space Evenly', 'kadence-blocks'),
-				align: 'space-evenly',
+				key: 'space-evenly',
 			},
 		],
 		row: [
 			{
 				icon: justifyLeft,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: justifyCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: justifyRight,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: justifySpaceBetween,
 				title: __('Space Between', 'kadence-blocks'),
-				align: 'space-between',
+				key: 'space-between',
 			},
 			{
 				icon: spaceAround,
 				title: __('Space Around', 'kadence-blocks'),
-				align: 'space-around',
+				key: 'space-around',
 			},
 			{
 				icon: spaceEvenly,
 				title: __('Space Evenly', 'kadence-blocks'),
-				align: 'space-evenly',
+				key: 'space-evenly',
 			},
 		],
 		'row-reverse': [
 			{
 				icon: justifyRight,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: justifyCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: justifyLeft,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: justifySpaceBetween,
 				title: __('Space Between', 'kadence-blocks'),
-				align: 'space-between',
+				key: 'space-between',
 			},
 			{
 				icon: spaceAround,
 				title: __('Space Around', 'kadence-blocks'),
-				align: 'space-around',
+				key: 'space-around',
 			},
 			{
 				icon: spaceEvenly,
 				title: __('Space Evenly', 'kadence-blocks'),
-				align: 'space-evenly',
+				key: 'space-evenly',
 			},
 		],
 	};
@@ -266,98 +300,98 @@ export const getJustifyContentControls = (direction) => {
 			{
 				icon: alignTop,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: alignCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: alignBottom,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: alignStretch,
 				title: __('Stretch', 'kadence-blocks'),
-				align: 'stretch',
+				key: 'stretch',
 			},
 			{
 				icon: verticalSpaceBetween,
 				title: __('Space Between', 'kadence-blocks'),
-				align: 'space-between',
+				key: 'space-between',
 			},
 		],
 		'column-reverse': [
 			{
 				icon: alignBottom,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: alignCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: alignTop,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: alignStretch,
 				title: __('Stretch', 'kadence-blocks'),
-				align: 'stretch',
+				key: 'stretch',
 			},
 			{
 				icon: verticalSpaceBetween,
 				title: __('Space Between', 'kadence-blocks'),
-				align: 'space-between',
+				key: 'space-between',
 			},
 		],
 		row: [
 			{
 				icon: justifyLeft,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: justifyCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: justifyRight,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: justifySpaceBetween,
 				title: __('Space Between', 'kadence-blocks'),
-				align: 'space-between',
+				key: 'space-between',
 			},
 		],
 		'row-reverse': [
 			{
 				icon: justifyRight,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: justifyCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: justifyLeft,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: justifySpaceBetween,
 				title: __('Space Between', 'kadence-blocks'),
-				align: 'space-between',
+				key: 'space-between',
 			},
 		],
 	};
@@ -371,88 +405,232 @@ export const getAlignItemsControls = (direction) => {
 			{
 				icon: justifyStretch,
 				title: __('Stretch', 'kadence-blocks'),
-				align: 'stretch',
+				key: 'stretch',
 			},
 			{
 				icon: justifyLeft,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: justifyCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: justifyRight,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 		],
 		'column-reverse': [
 			{
 				icon: justifyStretch,
 				title: __('Stretch', 'kadence-blocks'),
-				align: 'stretch',
+				key: 'stretch',
 			},
 			{
 				icon: justifyLeft,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 			{
 				icon: justifyCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: justifyRight,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 		],
 		row: [
 			{
 				icon: alignStretch,
 				title: __('Stretch', 'kadence-blocks'),
-				align: 'stretch',
+				key: 'stretch',
 			},
 			{
 				icon: alignTop,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
 			},
 			{
 				icon: alignCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: alignBottom,
 				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				key: 'flex-end',
 			},
 		],
 		'row-reverse': [
 			{
 				icon: alignStretch,
 				title: __('Stretch', 'kadence-blocks'),
-				align: 'stretch',
+				key: 'stretch',
 			},
 			{
 				icon: alignBottom,
-				title: __('End', 'kadence-blocks'),
-				align: 'flex-end',
+				title: __('Start', 'kadence-blocks'),
+				key: 'flex-start',
 			},
 			{
 				icon: alignCenter,
 				title: __('Center', 'kadence-blocks'),
-				align: 'center',
+				key: 'center',
 			},
 			{
 				icon: alignTop,
+				title: __('End', 'kadence-blocks'),
+				key: 'flex-end',
+			},
+		],
+	};
+
+	return controlsByDirection[direction] || [];
+};
+export const getAlignContentControls = (direction) => {
+	const controlsByDirection = {
+		column: [
+			{
+				icon: justifyLeft,
 				title: __('Start', 'kadence-blocks'),
-				align: 'flex-start',
+				key: 'flex-start',
+			},
+			{
+				icon: justifyCenter,
+				title: __('Center', 'kadence-blocks'),
+				key: 'center',
+			},
+			{
+				icon: justifyRight,
+				title: __('End', 'kadence-blocks'),
+				key: 'flex-end',
+			},
+			{
+				icon: justifySpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				key: 'space-between',
+			},
+			{
+				icon: spaceAround,
+				title: __('Space Around', 'kadence-blocks'),
+				key: 'space-around',
+			},
+			{
+				icon: spaceEvenly,
+				title: __('Space Evenly', 'kadence-blocks'),
+				key: 'space-evenly',
+			},
+		],
+		'column-reverse': [
+			{
+				icon: justifyRight,
+				title: __('Start', 'kadence-blocks'),
+				key: 'flex-start',
+			},
+			{
+				icon: justifyCenter,
+				title: __('Center', 'kadence-blocks'),
+				key: 'center',
+			},
+			{
+				icon: justifyLeft,
+				title: __('End', 'kadence-blocks'),
+				key: 'flex-end',
+			},
+			{
+				icon: justifySpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				key: 'space-between',
+			},
+			{
+				icon: spaceAround,
+				title: __('Space Around', 'kadence-blocks'),
+				key: 'space-around',
+			},
+			{
+				icon: spaceEvenly,
+				title: __('Space Evenly', 'kadence-blocks'),
+				key: 'space-evenly',
+			},
+		],
+		row: [
+			{
+				icon: alignTop,
+				title: __('Start', 'kadence-blocks'),
+				key: 'flex-start',
+			},
+			{
+				icon: alignCenter,
+				title: __('Center', 'kadence-blocks'),
+				key: 'center',
+			},
+			{
+				icon: alignBottom,
+				title: __('End', 'kadence-blocks'),
+				key: 'flex-end',
+			},
+			{
+				icon: alignStretch,
+				title: __('Stretch', 'kadence-blocks'),
+				key: 'stretch',
+			},
+			{
+				icon: verticalSpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				key: 'space-between',
+			},
+			{
+				icon: verticalSpaceAround,
+				title: __('Space Around', 'kadence-blocks'),
+				key: 'space-around',
+			},
+			{
+				icon: verticalSpaceEvenly,
+				title: __('Space Evenly', 'kadence-blocks'),
+				key: 'space-evenly',
+			},
+		],
+		'row-reverse': [
+			{
+				icon: alignBottom,
+				title: __('Start', 'kadence-blocks'),
+				key: 'flex-start',
+			},
+			{
+				icon: alignCenter,
+				title: __('Center', 'kadence-blocks'),
+				key: 'center',
+			},
+			{
+				icon: alignTop,
+				title: __('End', 'kadence-blocks'),
+				key: 'flex-end',
+			},
+			{
+				icon: alignStretch,
+				title: __('Stretch', 'kadence-blocks'),
+				key: 'stretch',
+			},
+			{
+				icon: verticalSpaceBetween,
+				title: __('Space Between', 'kadence-blocks'),
+				key: 'space-between',
+			},
+			{
+				icon: verticalSpaceAround,
+				title: __('Space Around', 'kadence-blocks'),
+				key: 'space-around',
+			},
+			{
+				icon: verticalSpaceEvenly,
+				title: __('Space Evenly', 'kadence-blocks'),
+				key: 'space-evenly',
 			},
 		],
 	};

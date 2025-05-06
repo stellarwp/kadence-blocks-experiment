@@ -16,3 +16,4 @@ export { default as getPresetValue } from './get-preset-value';
 export { default as useEditorElement } from './use-editor-element';
 export { default as getComponentView } from './get-component-view';
 export { isAdvancedOption } from './is-advanced-option';
+export { isCustomOption } from './is-custom-option';

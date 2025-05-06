@@ -79,7 +79,4 @@ export const SPACING_SIZES_MAP = [
 	},
 ];
 
-export const COMPONENTS = [
-    'typography',
-    'flexBox',
-];
+export const COMPONENTS = ['typography', 'flexBox'];

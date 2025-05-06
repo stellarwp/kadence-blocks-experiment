@@ -80,54 +80,56 @@ class CSSGenerator {
 				const componentKeys = this.getComponentKeys(meta.component);
 				// Process each componentKeys property key
 				componentKeys.forEach((key) => {
-					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
-						attributeName,
-						attributes,
-						previewDevice,
-						metadata,
-						key,
-						globalStylesIds
-					);
+					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } =
+						getResolvedValue(attributeName, attributes, previewDevice, metadata, key, globalStylesIds);
 					// If set directly or on parent, use the applied value directly
 					let cssValue;
-					if( inheritedSource === 'direct'  || inheritedSource === 'parent' ) {
+					if (inheritedSource === 'direct' || inheritedSource === 'parent') {
 						cssValue = appliedValue;
-					} else if ( ! meta?.nonInheritable && ( inheritedSource === 'preset' || inheritedSource === 'preset-parent' ) ) {
+					} else if (
+						!meta?.nonInheritable &&
+						(inheritedSource === 'preset' || inheritedSource === 'preset-parent')
+					) {
 						cssValue = appliedValue;
 					}
-					const cssProperty = String(key).replace(/([A-Z])/g, '-$1').replace(/^-+|-+$/g, '').toLowerCase();
+					if (cssValue && (key === 'rowGap' || key === 'columnGap')) {
+						cssValue = this.getSpacingOutput(cssValue);
+					}
+					const cssProperty = String(key)
+						.replace(/([A-Z])/g, '-$1')
+						.replace(/^-+|-+$/g, '')
+						.toLowerCase();
 					// Ensure we have a valid CSS property and a selector from the metadata
-					if (cssProperty && meta.selector && cssValue ) {
+					if (cssProperty && meta.selector && cssValue) {
 						const currentSelectorBackup = this.currentSelector; // Backup current selector
 						this.setSelector(this.currentSelector); // Combine base selector with meta selector
-						this.add({ [ meta.selector + cssProperty]: cssValue });
+						this.add({ [meta.selector + cssProperty]: cssValue });
 						this.setSelector(currentSelectorBackup); // Restore selector
 					}
 				});
 			case 'typography':
 				const typographyKeys = [
-					'fontFamily', 'fontWeight', 'fontSize', 'lineHeight', 'letterSpacing', 'textTransform',
+					'fontFamily',
+					'fontWeight',
+					'fontSize',
+					'lineHeight',
+					'letterSpacing',
+					'textTransform',
 				];
 
 				// Process each typography property key
 				typographyKeys.forEach((key) => {
-					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
-						attributeName,
-						attributes,
-						previewDevice,
-						metadata,
-						key,
-						globalStylesIds
-					);
+					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } =
+						getResolvedValue(attributeName, attributes, previewDevice, metadata, key, globalStylesIds);
 
 					// If set directly or on parent, use the applied value directly
 					let cssValue;
-					if( inheritedSource === 'direct'  || inheritedSource === 'parent' ) {
+					if (inheritedSource === 'direct' || inheritedSource === 'parent') {
 						cssValue = this.getSizingOutput(appliedValue);
-					} else if ( inheritedSource === 'preset' || inheritedSource === 'preset-parent' )  {
+					} else if (inheritedSource === 'preset' || inheritedSource === 'preset-parent') {
 						// Preset is set on this component.
 						cssValue = this.getSizingOutput(appliedValue);
-					} else if ( inheritedSource ) {
+					} else if (inheritedSource) {
 						const basePresetKey = getBasePresetKey(attributeName, meta, attributes);
 						const variableName = this.getGlobalStyleVariableName(
 							'heading-1', // inheritedSource
@@ -136,13 +138,16 @@ class CSSGenerator {
 						cssValue = `var(${variableName})`;
 					}
 
-					const cssProperty = String(key).replace(/([A-Z])/g, '-$1').replace(/^-+|-+$/g, '').toLowerCase();
+					const cssProperty = String(key)
+						.replace(/([A-Z])/g, '-$1')
+						.replace(/^-+|-+$/g, '')
+						.toLowerCase();
 
 					// Ensure we have a valid CSS property and a selector from the metadata
 					if (cssProperty && meta.selector) {
 						const currentSelectorBackup = this.currentSelector; // Backup current selector
 						this.setSelector(this.currentSelector); // Combine base selector with meta selector
-						this.add({ [ meta.selector + cssProperty]: cssValue });
+						this.add({ [meta.selector + cssProperty]: cssValue });
 						this.setSelector(currentSelectorBackup); // Restore selector
 					}
 				});
@@ -159,7 +164,13 @@ class CSSGenerator {
 		switch (component) {
 			case 'flexBox':
 				componentKeys = [
-					'flexDirection', 'justifyContent', 'alignItems', 'flexWrap',
+					'flexDirection',
+					'justifyContent',
+					'alignItems',
+					'alignContent',
+					'flexWrap',
+					'rowGap',
+					'columnGap',
 				];
 				break;
 		}
@@ -205,39 +216,43 @@ class CSSGenerator {
 	 * @param {string} previewDevice - The preview device
 	 * @returns {string} - The preview property
 	 */
-	getPreviewProperty(attributeValue, previewDevice) {		
+	getPreviewProperty(attributeValue, previewDevice) {
 		// Get the current device option
-		const currentDevice = deviceOptions.find(device => device.name === previewDevice);
+		const currentDevice = deviceOptions.find((device) => device.name === previewDevice);
 		if (!currentDevice) {
 			// Default to desktop if device not found
-			const desktop = deviceOptions.find(device => device.key === 'desktop')?.attributeSlug || 'desktop';
+			const desktop = deviceOptions.find((device) => device.key === 'desktop')?.attributeSlug || 'desktop';
 			return attributeValue?.[desktop] || '';
 		}
-		
+
 		// Get the attribute slug for the current device
 		const currentDeviceSlug = currentDevice.attributeSlug;
-		
+
 		// Check if we have a value for the current device
-		if (attributeValue?.[currentDeviceSlug] !== undefined && 
-			attributeValue?.[currentDeviceSlug] !== '' && 
-			attributeValue?.[currentDeviceSlug] !== null) {
+		if (
+			attributeValue?.[currentDeviceSlug] !== undefined &&
+			attributeValue?.[currentDeviceSlug] !== '' &&
+			attributeValue?.[currentDeviceSlug] !== null
+		) {
 			return attributeValue[currentDeviceSlug];
 		}
-		
+
 		// Find the current device index in the array
-		const currentDeviceIndex = deviceOptions.findIndex(device => device.name === previewDevice);
-		
+		const currentDeviceIndex = deviceOptions.findIndex((device) => device.name === previewDevice);
+
 		// Implement inheritance based on device order
 		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
 			const inheritFromSlug = deviceOptions[i].attributeSlug;
-			
-			if (attributeValue?.[inheritFromSlug] !== undefined && 
-				attributeValue?.[inheritFromSlug] !== '' && 
-				attributeValue?.[inheritFromSlug] !== null) {
+
+			if (
+				attributeValue?.[inheritFromSlug] !== undefined &&
+				attributeValue?.[inheritFromSlug] !== '' &&
+				attributeValue?.[inheritFromSlug] !== null
+			) {
 				return attributeValue[inheritFromSlug];
 			}
 		}
-		
+
 		return '';
 	}
 	/**
@@ -295,6 +310,30 @@ class CSSGenerator {
 	 * @param {string} value - The value of the attribute
 	 * @returns {string} - The spacing option output
 	 */
+	getSpacingOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!SPACING_SIZES_MAP) {
+			return value;
+		}
+		if (value === '0') {
+			return '0';
+		}
+		if (value === 0) {
+			return '0';
+		}
+		const found = SPACING_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
+	/**
+	 * Get the font sizing option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The font sizing option output
+	 */
 	getSizingOutput(value) {
 		if (undefined === value) {
 			return '';
@@ -339,8 +378,12 @@ class CSSGenerator {
 
 	// Helper function to generate CSS variable names for global styles (Simplified)
 	getGlobalStyleVariableName(componentId, attributeKey) {
-		const componentSlug = String(componentId).replace(/[^a-zA-Z0-9-_]/g, '-').replace(/^-+|-+$/g, '');
-		const attributeKeySlug = String(attributeKey).replace(/([A-Z])/g, '-$1').replace(/^-+|-+$/g, '');
+		const componentSlug = String(componentId)
+			.replace(/[^a-zA-Z0-9-_]/g, '-')
+			.replace(/^-+|-+$/g, '');
+		const attributeKeySlug = String(attributeKey)
+			.replace(/([A-Z])/g, '-$1')
+			.replace(/^-+|-+$/g, '');
 		const response = `--kbs-${attributeKeySlug}-${componentSlug}`;
 
 		return response.toLowerCase(); // --kbs-fontfamily-heading-1

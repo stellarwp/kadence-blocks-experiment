@@ -10,7 +10,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import DeviceSwitchControl from '../device-switch-control';
-import { undo, settings } from '@wordpress/icons';
+import { undo, settings, cog } from '@wordpress/icons';
 import { Button } from '@wordpress/components';
 import './editor.scss';
 /**
@@ -24,6 +24,9 @@ export default function TitleBar({
 	isAdvanced = false,
 	onToggleView,
 	hasAdvancedControls = false,
+	isCustom = false,
+	onToggleCustom,
+	hasCustomControls = false,
 }) {
 	return (
 		<div className="kbs-control-title-bar">
@@ -51,7 +54,7 @@ export default function TitleBar({
 			{hasDeviceControls && <DeviceSwitchControl />}
 			{hasAdvancedControls && onToggleView && (
 				<Button
-					icon={settings}
+					icon={cog}
 					className="kbs-advanced-controls-button"
 					isPressed={isAdvanced}
 					onClick={onToggleView}
@@ -60,6 +63,18 @@ export default function TitleBar({
 						isAdvanced
 							? __('Switch to Basic', 'kadence-blocks')
 							: __('Switch to Advanced', 'kadence-blocks')
+					}
+				/>
+			)}
+			{hasCustomControls && onToggleCustom && (
+				<Button
+					icon={settings}
+					className="kbs-custom-controls-button"
+					isPressed={isCustom}
+					onClick={onToggleCustom}
+					iconSize={18}
+					label={
+						isCustom ? __('Switch to Basic', 'kadence-blocks') : __('Switch to Custom', 'kadence-blocks')
 					}
 				/>
 			)}

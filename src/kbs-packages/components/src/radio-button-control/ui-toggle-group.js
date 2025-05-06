@@ -1,26 +1,20 @@
 /**
  * WordPress dependencies
  */
-import classnames from 'classnames';
-import { __, isRTL } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { map } from 'lodash';
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 } from '@wordpress/components';
-import { alignLeft, alignRight, alignCenter } from '@wordpress/icons';
-
-/**
- * Internal dependencies.
- */
-import { TEXT_ALIGNMENT_OPTIONS } from './constants';
 
 function RadioToggleGroupButtonUI({
 	value,
 	onChange,
 	inherited,
-	controls = TEXT_ALIGNMENT_OPTIONS,
-	label = __('Align text', 'kadence-blocks'),
+	controls = [],
+	label = __('Align', 'kadence-blocks'),
 }) {
 	return (
 		<ToggleGroupControl
@@ -34,15 +28,26 @@ function RadioToggleGroupButtonUI({
 			__nextHasNoMarginBottom
 			__next40pxDefaultSize
 		>
-			{map(controls, ({ align, title, icon }) => (
-				<ToggleGroupControlOptionIcon
-					className={`kadence-radio-button-control__toggle_item${value === align ? ' kb-is-pressed' : ''}${!value && align === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
-					key={align}
-					label={title}
-					icon={icon}
-					value={align}
-				/>
-			))}
+			{map(controls, ({ key, title, icon, name }) =>
+				icon ? (
+					<ToggleGroupControlOptionIcon
+						className={`kadence-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
+						key={key}
+						label={title}
+						icon={icon}
+						value={key}
+					/>
+				) : (
+					<ToggleGroupControlOption
+						className={`kadence-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
+						key={key}
+						label={name}
+						aria-label={title}
+						showTooltip={true}
+						value={key}
+					/>
+				)
+			)}
 		</ToggleGroupControl>
 	);
 }

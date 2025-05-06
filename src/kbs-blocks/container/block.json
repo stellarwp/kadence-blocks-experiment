@@ -34,29 +34,9 @@
 					"flexDirection": "column",
 					"justifyContent": "flex-start",
 					"alignItems": "stretch",
-					"flexWrap": "wrap"
+					"columnGap": "xs"
 				}
 			}
-		},
-		"alignContent": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-align-content",
-			"initial": { "desktop": "initial" },
-			"property": "align-content",
-			"type": "object"
-		},
-		"columnGap": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-column-gap",
-			"initial": { "desktop": "xs" },
-			"property": "column-gap",
-			"type": "object"
-		},
-		"rowGap": {
-			"renderCSS": true,
-			"selector": "--kbs-cont-row-gap",
-			"property": "row-gap",
-			"type": "object"
 		},
 		"color": {
 			"type": "object"

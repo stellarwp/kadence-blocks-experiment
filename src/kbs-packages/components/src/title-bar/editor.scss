@@ -41,7 +41,8 @@
 			margin: 0 0 0 0;
 		}
 	}
-	.kbs-advanced-controls-button {
+	.kbs-advanced-controls-button,
+	.kbs-custom-controls-button {
 		color: var(--kb-subtle-color, #a0aec0);
 		font-size: 16px;
 		background: transparent;

@@ -9,7 +9,7 @@
 import { __ } from '@wordpress/i18n';
 import { useContext } from '@wordpress/element';
 import { getDeviceValue, getInheritedDeviceValue, GlobalStylesContext } from '@kadence/kbsHelpers';
-import { handleAttributeChange, isAdvancedOption } from '@kadence/kbsHelpers';
+import { handleAttributeChange, isAdvancedOption, isCustomOption } from '@kadence/kbsHelpers';
 import { useEffect, useState } from '@wordpress/element';
 import { getRadioConfig } from './controls-config';
 import TitleBar from '../title-bar';
@@ -35,6 +35,7 @@ export default function RadioButtonControl({
 	meta,
 	previewDirection = 'column',
 	hasDeviceControls = false,
+	hasCustomControls = false,
 	view = 'default',
 }) {
 	// Get the globalStylesIds from context
@@ -54,11 +55,21 @@ export default function RadioButtonControl({
 		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
 	};
 	const [isAdvanced, setIsAdvanced] = useState(view === 'advanced');
+	const [isCustom, setIsCustom] = useState(false);
 	useEffect(() => {
 		if (view !== 'advanced' && currentValue && advancedControls) {
 			setIsAdvanced(isAdvancedOption(controls, advancedControls, currentValue));
+		} else if (view === 'advanced' && !isAdvanced) {
+			setIsAdvanced(true);
+		} else if (view !== 'advanced' && isAdvanced) {
+			setIsAdvanced(false);
 		}
-	}, []);
+	}, [view]);
+	useEffect(() => {
+		if (!isCustom && currentValue && hasCustomControls) {
+			setIsCustom(isCustomOption(controls, currentValue));
+		}
+	}, [currentValue]);
 
 	return (
 		<div className={`components-base-control kbs-control kbs-radio-control kbs-radio-control-${radioType}`}>
@@ -70,6 +81,9 @@ export default function RadioButtonControl({
 				isAdvanced={isAdvanced}
 				onToggleView={() => setIsAdvanced(!isAdvanced)}
 				hasAdvancedControls={advancedControls && advancedControls.length > 0}
+				isCustom={isCustom}
+				onToggleCustom={() => setIsCustom(!isCustom)}
+				hasCustomControls={hasCustomControls}
 			/>
 			<div className="kbs-control-inner">
 				<UIComponent
@@ -79,6 +93,7 @@ export default function RadioButtonControl({
 					isCollapsed={isCollapsed}
 					onChange={(itemValue) => onChange(itemValue, previewDevice, type)}
 					controls={isAdvanced && advancedControls ? advancedControls : controls}
+					isCustom={isCustom}
 				/>
 			</div>
 		</div>

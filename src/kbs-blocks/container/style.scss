@@ -5,16 +5,16 @@
  */
 
 .kbs-container {
-    display: flex;
-    flex-direction: var(--kbs-cont-flex-direction, column );
-	justify-content: var(--kbs-cont-justify-content, initial );
-	align-items: var(--kbs-cont-align-items, initial );
-	align-content: var(--kbs-cont-align-content, initial );
-	flex-wrap: var(--kbs-cont-flex-wrap, initial );
+	display: flex;
+	flex-direction: var(--kbs-cont-flex-direction, column);
+	justify-content: var(--kbs-cont-justify-content, initial);
+	align-items: var(--kbs-cont-align-items, initial);
+	align-content: var(--kbs-cont-align-content, initial);
+	flex-wrap: var(--kbs-cont-flex-wrap, initial);
 	min-width: 0;
 	min-height: 0;
-	column-gap: var(--kbs-cont-column-gap, initial );
-	row-gap: var(--kbs-cont-row-gap, initial );
+	column-gap: var(--kbs-cont-column-gap, var(--global-kb-spacing-xs, 1rem));
+	row-gap: var(--kbs-cont-row-gap, initial);
 
 	font-family: var(--kbs-cont-font-family);
 	font-weight: var(--kbs-cont-font-weight);
@@ -24,7 +24,8 @@
 	text-transform: var(--kbs-cont-text-transform);
 	font-style: var(--kbs-cont-font-style);
 	text-decoration: var(--kbs-cont-text-decoration);
-	> :is(*, div), > .wp-block {
+	> :is(*, div),
+	> .wp-block {
 		margin-left: 0;
 		margin-right: 0;
 	}
