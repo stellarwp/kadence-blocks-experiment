@@ -78,17 +78,13 @@ class Container extends Abstract_Block {
 		$html_tag     = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
 		$classes      = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
 		$classes[] = 'kbs-container-block'. $unique_id;
+		$classes = array_merge( $classes, $this->get_global_style_classes( $attributes ) );
+
 		$wrapper_args = [
 			'class' => implode( ' ', $classes ),
 		];
 		if ( ! empty( $attributes['anchor'] ) ) {
 			$wrapper_args['id'] = $attributes['anchor'];
-		}
-		
-		if ( ! empty( $attributes['_combinedGlobalStyles'] ) ) {
-			$wrapper_args['data-parent-id'] = json_encode($attributes['_combinedGlobalStyles']);
-		} else {
-			$wrapper_args['data-parent-id'] = '';
 		}
 
 		$wrapper_args       = apply_filters( 'kbs_wrapper_args', $wrapper_args, $attributes, $this->block_name, $unique_id, $block_instance );
