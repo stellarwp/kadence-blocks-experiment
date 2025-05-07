@@ -6,6 +6,8 @@
 namespace KadenceWP\KadenceBlocks\Frontend;
 
 use KadenceWP\KadenceBlocks\Container;
+use KadenceWP\KadenceBlocks\Frontend\Global_Style_Css;
+use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -79,58 +81,18 @@ class CSS_Engine {
 	protected $_selector_states = array();
 
 	/**
-	 * The array that holds all of the css to output inside of the tablet media query
+	 * Arrays that hold all of the css to output inside of media queries for each device
 	 *
 	 * @access protected
 	 * @var array
 	 */
-	protected $_tablet_media_query = array();
+	protected $_device_media_queries = array();
 
 	/**
-	 * The array that holds all of the css to output inside of the tablet media query
+	 * The current media state (device) being targeted
 	 *
 	 * @access protected
-	 * @var array
-	 */
-	protected $_tablet_only_media_query = array();
-
-	/**
-	 * The array that holds all of the css to output inside of the tablet media query
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $_tablet_pro_media_query = array();
-
-	/**
-	 * The array that holds all of the css to output inside of the tablet media query
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $_tablet_only_pro_media_query = array();
-
-	/**
-	 * The array that holds all of the css to output inside of the tablet media query
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $_desktop_only_media_query = array();
-
-	/**
-	 * The array that holds all of the css to output inside of the mobile media query
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $_mobile_media_query = array();
-
-	/**
-	 * The array that holds all of the css to output inside of the mobile media query
-	 *
-	 * @access protected
-	 * @var array
+	 * @var string
 	 */
 	protected $_media_state = 'desktop';
 
@@ -195,6 +157,13 @@ class CSS_Engine {
 	protected $media_queries = null;
 
 	/**
+	 * The device options
+	 *
+	 * @var array
+	 */
+	protected $device_options = null;
+
+	/**
 	 * The singleton instance
 	 */
 	private static $instance = null;
@@ -205,11 +174,7 @@ class CSS_Engine {
 	 * 
 	 * @var array
 	 */
-	protected $device_slugs = array(
-		'desktop' => 'dt',
-		'tablet' => 'tb',
-		'mobile' => 'mb',
-	);
+	protected $device_slugs = array();
 
 	/**
 	 * Spacing variables used in string based padding / margin.
@@ -257,19 +222,33 @@ class CSS_Engine {
 	);
 
 	/**
-	 * Complex attributes
-	 *
-	 * @var array
-	 */
-	protected $components = array(
-		'typography',
-	);
-
-	/**
 	 * constructor
 	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'frontend_block_css' ], 180 );
+
+		$this->device_options = Editor_Assets::get_responsive_device_options();
+		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
+		
+		// Generate global styles CSS when the CSS engine is initialized
+		if ( $this->global_styles_css->has_data() ) {
+			$this->global_styles_css->generate_css();
+		}
+
+		// Initialize device slugs and media query arrays dynamically
+		foreach ( $this->device_options as $device_option ) {
+			$device_key = isset( $device_option['key'] ) ? $device_option['key'] : '';
+			if ( $device_key ) {
+				// Initialize device media query array
+				$this->_device_media_queries[ $device_key ] = array();
+				
+				// Create shorthand slugs
+				if ( ! isset( $this->device_slugs[ $device_key ] ) ) {
+					// Create a shorthand 2-character code from the device key
+					$this->device_slugs[ $device_key ] = substr( $device_key, 0, 2 );
+				}
+			}
+		}
 	}
 
 	/**
@@ -280,6 +259,10 @@ class CSS_Engine {
 			self::$head_styles = self::$styles;
 			$output = '';
 			foreach ( self::$styles as $key => $value ) {
+				if ( strpos( $key, 'global-styles' ) !== false ) {
+					// Global styles go in head_styles but not regular output
+					continue;
+				}
 				$output .= $value;
 			}
 			$custom_output = '';
@@ -394,13 +377,11 @@ class CSS_Engine {
 	public function get_media_queries( $device ) {
 		if ( ! isset( $this->media_queries[ $device ] ) ) {
 			$media_query            = array();
-			$media_query['mobile']  = apply_filters( 'kadence_mobile_media_query', '(max-width: 767px)' );
-			$media_query['tablet']  = apply_filters( 'kadence_tablet_media_query', '(max-width: 1024px)' );
-			$media_query['tabletPro']  = apply_filters( 'kadence_tablet_pro_media_query', '(max-width: 1024px), only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) and (hover: none)' );
-			$media_query['desktop'] = apply_filters( 'kadence_desktop_media_query', '(min-width: 1025px)' );
-			$media_query['mobileReverse'] = apply_filters( 'kadence_mobile_reverse_media_query', '(min-width: 768px)' );
-			$media_query['tabletOnlyPro']    = apply_filters( 'kadence_tablet_only_pro_media_query', '(min-width: 768px) and (max-width: 1024px), only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) and (hover: none)' );
-			$media_query['tabletOnly']    = apply_filters( 'kadence_tablet_only_media_query', '(min-width: 768px) and (max-width: 1024px)' );
+
+			foreach ( $this->device_options as $device_option ) {
+				$media_query[ $device_option['key'] ] = $device_option['mediaQuery'];
+			}
+
 			$this->media_queries    = $media_query;
 		}
 		return isset( $this->media_queries[ $device ] ) ? $this->media_queries[ $device ] : '';
@@ -494,36 +475,13 @@ class CSS_Engine {
 	public function add_rule( $property, $value, $prefix = null ) {
 		$format = is_null( $prefix ) ? '%1$s:%2$s;' : '%3$s%1$s:%2$s;';
 		if ( $value && ! empty( $value ) ) {
-			if ( 'mobile' === $this->_media_state ) {
-				if ( ! isset( $this->_mobile_media_query[ $this->_selector ] ) ) {
-					$this->_mobile_media_query[ $this->_selector ] = '';
+			if ( $this->_media_state !== 'desktop' ) {
+				if ( isset( $this->_device_media_queries[ $this->_media_state ] ) ) {
+					if ( ! isset( $this->_device_media_queries[ $this->_media_state ][ $this->_selector ] ) ) {
+						$this->_device_media_queries[ $this->_media_state ][ $this->_selector ] = '';
+					}
+					$this->_device_media_queries[ $this->_media_state ][ $this->_selector ] .= sprintf( $format, $property, $value, $prefix );
 				}
-				$this->_mobile_media_query[ $this->_selector ] .= sprintf( $format, $property, $value, $prefix );
-			} elseif ( 'tablet' === $this->_media_state ) {
-				if ( ! isset( $this->_tablet_media_query[ $this->_selector ] ) ) {
-					$this->_tablet_media_query[ $this->_selector ] = '';
-				}
-				$this->_tablet_media_query[ $this->_selector ] .= sprintf( $format, $property, $value, $prefix );
-			} elseif ( 'tabletPro' === $this->_media_state ) {
-				if ( ! isset( $this->_tablet_pro_media_query[ $this->_selector ] ) ) {
-					$this->_tablet_pro_media_query[ $this->_selector ] = '';
-				}
-				$this->_tablet_pro_media_query[ $this->_selector ] .= sprintf( $format, $property, $value, $prefix );
-			} elseif ( 'tabletOnly' === $this->_media_state ) {
-				if ( ! isset( $this->_tablet_only_media_query[ $this->_selector ] ) ) {
-					$this->_tablet_only_media_query[ $this->_selector ] = '';
-				}
-				$this->_tablet_only_media_query[ $this->_selector ] .= sprintf( $format, $property, $value, $prefix );
-			} elseif ( 'tabletOnlyPro' === $this->_media_state ) {
-				if ( ! isset( $this->_tablet_only_pro_media_query[ $this->_selector ] ) ) {
-					$this->_tablet_only_pro_media_query[ $this->_selector ] = '';
-				}
-				$this->_tablet_only_pro_media_query[ $this->_selector ] .= sprintf( $format, $property, $value, $prefix );
-			} elseif ( 'desktopOnly' === $this->_media_state ) {
-				if ( ! isset( $this->_desktop_only_media_query[ $this->_selector ] ) ) {
-					$this->_desktop_only_media_query[ $this->_selector ] = '';
-				}
-				$this->_desktop_only_media_query[ $this->_selector ] .= sprintf( $format, $property, $value, $prefix );
 			} else {
 				$this->_css .= sprintf( $format, $property, $value, $prefix );
 			}
@@ -799,7 +757,8 @@ class CSS_Engine {
 		}
 		return $initial_attribute;
 	}
-		/**
+	
+	/**
 	 * Merge the initial attribute with the attribute value.
 	 *
 	 * @param array $attributes_meta The meta of the attribute.
@@ -827,14 +786,14 @@ class CSS_Engine {
 			foreach ( $block_instance->block_type->attributes as $key => $attribute ) {
 				$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
 
-				if ( ! empty( $attributes_meta['renderCSS'] ) ) {
+				if ( empty( $attributes_meta['renderCSS'] ) ) {
 					continue;
 				}
 				if ( ! isset( $attributes_meta['selector'] ) ) {
 					continue;
 				}
 				// If the attribute is a component, add the complex attribute.
-				if ( isset( $attributes_meta['component'] ) && is_component( $attributes_meta['component'] ) ) {
+				if ( !empty( $attributes_meta['component'] ) ) {
 					$this->add_component( $key, $attributes, $block_instance, $attributes_meta );
 					continue;
 				}
@@ -885,6 +844,28 @@ class CSS_Engine {
 		return $this;
 	}
 
+	public function add_component_array( $attributes, $selector_prefix, $expected_keys = [], $variable_name = '' ) {
+
+		foreach ( $attributes as $device_name => $device_attributes ) {
+			if( isset( $this->_device_media_queries[ $device_name ] ) && is_array( $this->_device_media_queries[ $device_name ] ) ) {
+				foreach ( $device_attributes as $attribute_name => $device_attribute ) {
+					if ( 'preset' === $attribute_name || ! in_array( $attribute_name, $expected_keys ) ) {
+						continue;
+					}
+
+					$this->set_media_state( $device_name );
+					$kebab_attribute_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $attribute_name);
+					$kebab_attribute_name = strtolower($kebab_attribute_name);
+
+					$kebab_variable_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $variable_name);
+					$this->add_property( $selector_prefix . $kebab_attribute_name, $device_attribute );
+				}
+			}
+		}
+
+		$this->set_media_state( 'desktop' );
+	}
+
 	/**
 	 * Add components to the css output based on the attributes.
 	 *
@@ -895,43 +876,27 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function add_component( $key, $attributes, $block_instance, $attributes_meta = [] ) {
-		if ( empty( $attributes_meta ) ) {
-			$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
-		}
-		if ( ! isset( $attributes_meta['component'], $attributes_meta['selector'] ) ) {
-			return $this;
-		}
 		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
-		if ( empty( $merged_attribute ) ) {
+		if ( empty( $merged_attribute ) || !isset( $attributes[$key] ) ) {
 			return $this;
 		}
+
+		$expected_keys = [];
+
+		// TODO: Merge in preset values if set directly on component here
+		// if( isset( $$attributes['preset'] ) ) {
+
+		// }
 
 		switch ( $attributes_meta['component'] ) {
 			case 'typography':
-				$typography_properties = array(
-					array( 'key' => 'fontFamily', 'selector' => $attributes_meta['selector'] . '-font-family' ),
-					array( 'key' => 'fontWeight', 'selector' => $attributes_meta['selector'] . '-font-weight' ),
-				);
-
-				foreach ( $typography_properties as $property ) {
-					// Check if any device has this property
-					if ( 
-						! empty( $merged_attribute['dt'][ $property['key'] ] ) || 
-						! empty( $merged_attribute['tb'][ $property['key'] ] ) || 
-						! empty( $merged_attribute['mb'][ $property['key'] ] )
-					) {
-						$device_values = array(
-							'dt' => isset( $merged_attribute['dt'][ $property['key'] ] ) ? $merged_attribute['dt'][ $property['key'] ] : '',
-							'tb' => isset( $merged_attribute['tb'][ $property['key'] ] ) ? $merged_attribute['tb'][ $property['key'] ] : '',
-							'mb' => isset( $merged_attribute['mb'][ $property['key'] ] ) ? $merged_attribute['mb'][ $property['key'] ] : '',
-						);
-
-						$this->array_string_property( $property['selector'], $device_values );
-					}
-				}
+				$expected_keys = ['fontSize', 'fontFamily', 'fontWeight', 'textTransform', 'letterSpacing', 'lineHeight'];
+				$variable_name = $this->get_typography_variable_name( $attributes, $key, $attributes_meta );
+				$this->add_component_array( $attributes[$key], $attributes_meta['selector'], $expected_keys, $variable_name );			
 				break;
 			default:
-				// For other components, add specific handling here
+				$variable_name = 'button';
+				$this->add_component_array( $attributes[$key], $attributes_meta['selector'], $expected_keys, $variable_name );			
 				break;
 		}
 
@@ -949,14 +914,14 @@ class CSS_Engine {
 		if ( ! is_array( $value_array ) ) {
 			return $this;
 		}
-		foreach ( $this->device_slugs as $device_name => $device_slug ) {
-			if ( empty( $value_array[ $device_slug ] ) ) {
+		foreach ( $this->device_options as $device_option ) {
+			if ( empty( $value_array[ $device_option['key'] ] ) ) {
 				continue;
 			}
-			if ( 'desktop' !== $device_name ) {
-				$this->set_media_state( $device_name );
+			if ( 'desktop' !== $device_option['key'] ) {
+				$this->set_media_state( $device_option['key'] );
 			}
-			$this->add_property( $selector, $this->get_variable_value( $value_array[ $device_slug ] ) );
+			$this->add_property( $selector, $this->get_variable_value( $value_array[ $device_option['key'] ] ) );
 		}
 		$this->set_media_state( 'desktop' );
 		return $this;
@@ -1084,53 +1049,40 @@ class CSS_Engine {
 	 * @return void
 	 */
 	public function render_media_queries() {
-		if ( isset( $this->_desktop_only_media_query ) && is_array( $this->_desktop_only_media_query ) && ! empty( $this->_desktop_only_media_query ) ) {
-			$this->start_media_query( $this->get_media_queries( 'desktop' ) );
-			foreach ( $this->_desktop_only_media_query as $selector => $string ) {
-				$this->set_selector( $selector );
-				$this->_css .= $string;
+		// Handle all device media queries
+		foreach ( $this->device_options as $device_option ) {
+			$device_key = isset( $device_option['key'] ) ? $device_option['key'] : '';
+			
+			// Skip desktop as it's handled as default CSS
+			if ( $device_key && $device_key !== 'desktop' && isset( $this->_device_media_queries[ $device_key ] ) ) {
+				$device_queries = $this->_device_media_queries[ $device_key ];
+				
+				if ( is_array( $device_queries ) && ! empty( $device_queries ) ) {
+					$media_query = $this->get_media_queries( $device_key );
+					
+					if ( $media_query ) {
+						foreach ( $device_queries as $selector => $string ) {
+							$this->start_media_query( $media_query );
+							$this->set_selector( $selector );
+							$this->_css .= $string;
+							$this->stop_media_query();
+						}
+					}
+				}
 			}
-			$this->stop_media_query();
 		}
-		if ( isset( $this->_tablet_pro_media_query ) && is_array( $this->_tablet_pro_media_query ) && ! empty( $this->_tablet_pro_media_query ) ) {
-			foreach ( $this->_tablet_pro_media_query as $selector => $string ) {
-				$this->start_media_query( $this->get_media_queries( 'tabletPro' ) );
-				$this->set_selector( $selector );
-				$this->_css .= $string;
+		
+		// Handle desktop specific media query
+		if ( isset( $this->_device_media_queries['desktop'] ) && is_array( $this->_device_media_queries['desktop'] ) && ! empty( $this->_device_media_queries['desktop'] ) ) {
+			$desktop_media_query = $this->get_media_queries( 'desktop' );
+			if ( $desktop_media_query ) {
+				$this->start_media_query( $desktop_media_query );
+				foreach ( $this->_device_media_queries['desktop'] as $selector => $string ) {
+					$this->set_selector( $selector );
+					$this->_css .= $string;
+				}
+				$this->stop_media_query();
 			}
-			$this->stop_media_query();
-		}
-		if ( isset( $this->_tablet_media_query ) && is_array( $this->_tablet_media_query ) && ! empty( $this->_tablet_media_query ) ) {
-			foreach ( $this->_tablet_media_query as $selector => $string ) {
-				$this->start_media_query( $this->get_media_queries( 'tablet' ) );
-				$this->set_selector( $selector );
-				$this->_css .= $string;
-			}
-			$this->stop_media_query();
-		}
-		if ( isset( $this->_tablet_only_pro_media_query ) && is_array( $this->_tablet_only_pro_media_query ) && ! empty( $this->_tablet_only_pro_media_query ) ) {
-			$this->start_media_query( $this->get_media_queries( 'tabletOnlyPro' ) );
-			foreach ( $this->_tablet_only_pro_media_query as $selector => $string ) {
-				$this->set_selector( $selector );
-				$this->_css .= $string;
-			}
-			$this->stop_media_query();
-		}
-		if ( isset( $this->_tablet_only_media_query ) && is_array( $this->_tablet_only_media_query ) && ! empty( $this->_tablet_only_media_query ) ) {
-			$this->start_media_query( $this->get_media_queries( 'tabletOnly' ) );
-			foreach ( $this->_tablet_only_media_query as $selector => $string ) {
-				$this->set_selector( $selector );
-				$this->_css .= $string;
-			}
-			$this->stop_media_query();
-		}
-		if ( isset( $this->_mobile_media_query ) && is_array( $this->_mobile_media_query ) && ! empty( $this->_mobile_media_query ) ) {
-			$this->start_media_query( $this->get_media_queries( 'mobile' ) );
-			foreach ( $this->_mobile_media_query as $selector => $string ) {
-				$this->set_selector( $selector );
-				$this->_css .= $string;
-			}
-			$this->stop_media_query();
 		}
 	}
 
@@ -1158,12 +1110,12 @@ class CSS_Engine {
 		self::$google_fonts = array();
 		$this->_selector_output = '';
 		$this->_selector_states = array();
-		$this->_tablet_media_query = array();
-		$this->_tablet_pro_media_query = array();
-		$this->_desktop_only_media_query = array();
-		$this->_tablet_only_media_query = array();
-		$this->_tablet_only_pro_media_query = array();
-		$this->_mobile_media_query = array();
+		
+		// Clear all device media queries
+		foreach ( $this->_device_media_queries as $device => $queries ) {
+			$this->_device_media_queries[ $device ] = array();
+		}
+		
 		$this->_media_state = 'desktop';
 		$this->_css = '';
 		$this->_css_string = '';
@@ -1282,7 +1234,30 @@ class CSS_Engine {
 		$this->spacing_sizes = $sizes;
 	}
 
-	public function is_component( $name ) {
-		return in_array( $component, $this->components );
+	public function get_typography_variable_name(  $attributes, $key, $attributes_meta ) {
+		$tag = 'p';
+
+		if( !empty( $attributes_meta['tag'] ) ) {
+			$tag = $attributes_meta['tag'];
+		} else if( !empty( $attributes_meta['tagAttribute'] ) && !empty( $attributes[$attributes_meta['tagAttribute']] ) ) {
+			$tag = $attributes[$attributes_meta['tagAttribute']];
+		}
+
+		switch( $tag ) {
+			case 'h1':
+				return 'heading-1';
+			case 'h2':
+				return 'heading-2';
+			case 'h3':
+				return 'heading-3';
+			case 'h4':
+				return 'heading-4';
+			case 'h5':
+				return 'heading-5';
+			case 'h6':
+				return 'heading-6';
+			default:
+				return 'body';
+		}
 	}
 }

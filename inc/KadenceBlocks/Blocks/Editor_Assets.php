@@ -122,7 +122,7 @@ class Editor_Assets {
 		}
 	}
 
-	public function get_responsive_device_options() {
+	public static function get_responsive_device_options() {
 		$responsive_device_options = apply_filters( 'kadence_blocks_responsive_device_options', [
 			[
 				'name' => 'Desktop',
@@ -130,6 +130,7 @@ class Editor_Assets {
 				'icon' => 'desktop',
 				'itemClass' => 'kbs-desk-size',
 				'attributeSlug' => 'desktop',
+				'mediaQuery' => apply_filters( 'kadence_desktop_media_query', '(min-width: 1025px)' ),
 			],
 			[
 				'name' => 'Tablet',
@@ -137,6 +138,7 @@ class Editor_Assets {
 				'icon' => 'tablet',
 				'itemClass' => 'kbs-tablet-size',
 				'attributeSlug' => 'tablet',
+				'mediaQuery' => apply_filters( 'kadence_tablet_media_query', '(max-width: 1024px)' ),
 			],
 			[
 				'name' => 'Mobile',
@@ -144,6 +146,7 @@ class Editor_Assets {
 				'icon' => 'mobile',
 				'itemClass' => 'kbs-mobile-size',
 				'attributeSlug' => 'mobile',
+				'mediaQuery' => apply_filters( 'kadence_mobile_media_query', '(max-width: 767px)' ),
 			],
 		] );
 
