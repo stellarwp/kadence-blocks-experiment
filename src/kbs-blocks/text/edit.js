@@ -99,8 +99,8 @@ export default function TextEdit(props) {
 				<BlockControls>
 					<AlignmentToolbar value={align} onChange={onAlignChange} />
 				</BlockControls>
-				{link && linkContentHTML}
-				{!link && contentHTML}
+				{link?.url && linkContentHTML}
+				{!link?.url && contentHTML}
 			</div>
 		</GlobalStylesContext.Provider>
 	);

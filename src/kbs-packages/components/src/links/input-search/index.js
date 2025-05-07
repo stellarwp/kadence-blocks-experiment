@@ -45,7 +45,7 @@ export default function InputSearch(props) {
 		`block-editor-url-input-suggestion-${instanceId}`
 	);
 	const [isEditing, setIsEditing] = useState(false);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	const autocompleteRef = props.autocompleteRef || createRef();
 	const inputRef = createRef();
