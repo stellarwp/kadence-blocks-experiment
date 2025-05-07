@@ -19,3 +19,5 @@ export { default as FlexBoxControl } from './flexbox-control';
 
 export { BLOCK_COMPONENTS } from './constants';
 export { default as BlockComponentControls } from './block-component-controls';
+
+export { default as LinkControl } from './links/link-control';

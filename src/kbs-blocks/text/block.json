@@ -3,7 +3,14 @@
 	"title": "Text",
 	"name": "kbs/text",
 	"category": "kadence-blocks",
-	"usesContext": ["postId", "queryId", "kbs/globalStyles", "kadence/dynamicSource", "kadence/repeaterRowData", "kadence/repeaterRow"],
+	"usesContext": [
+		"postId",
+		"queryId",
+		"kbs/globalStyles",
+		"kadence/dynamicSource",
+		"kadence/repeaterRowData",
+		"kadence/repeaterRow"
+	],
 	"textdomain": "kadence-blocks",
 	"attributes": {
 		"uniqueID": {
@@ -27,6 +34,9 @@
 		"htmlTag": {
 			"type": "string",
 			"initial": "div"
+		},
+		"link": {
+			"type": "object"
 		},
 		"color": {
 			"type": "object"
@@ -69,8 +79,8 @@
 		"ktdynamic": true,
 		"kbcss": true,
 		"kbMetadata": true,
-		"align": [ "wide", "full" ]
+		"align": ["wide", "full"]
 	},
 	"editorStyle": "kbs-text-editor",
 	"style": "kbs-text"
-} 
+}

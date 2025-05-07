@@ -106,6 +106,7 @@ class Editor_Assets {
 			'kadence_blocks_params',
 			[
 				'responsive_device_options'  => $this->get_responsive_device_options(),
+				'dynamic_enabled'  => true,
 			]
 		);
 	}

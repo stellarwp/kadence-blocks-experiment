@@ -37,8 +37,8 @@ import {
  * Build the text editor.
  */
 export default function TextEdit(props) {
-	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
-	const { uniqueID, content, align, globalStyleIds } = attributes;
+	const { attributes, setAttributes, className } = props;
+	const { uniqueID, content, align, globalStyleIds, htmlTag, link } = attributes;
 
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
@@ -69,6 +69,28 @@ export default function TextEdit(props) {
 		setAttributes({ align: nextAlign });
 	};
 
+	const contentHTML = (
+		<RichText
+			tagName={htmlTag}
+			className="kbs-text-content"
+			value={content}
+			onChange={onContentChange}
+			placeholder={__('Write something…', 'kadence-blocks')}
+		/>
+	);
+
+	const linkContentHTML = (
+		<a
+			href={link?.url}
+			className={`kbs-text-link${link?.linkStyle ? ' hls-' + link?.linkStyle : ''}`}
+			onClick={(event) => {
+				event.preventDefault();
+			}}
+		>
+			{contentHTML}
+		</a>
+	);
+
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<div {...blockProps}>
@@ -77,14 +99,8 @@ export default function TextEdit(props) {
 				<BlockControls>
 					<AlignmentToolbar value={align} onChange={onAlignChange} />
 				</BlockControls>
-				<RichText
-					tagName="div"
-					className="kbs-text-content"
-					value={content}
-					onChange={onContentChange}
-					placeholder={__('Add text…', 'kadence-blocks')}
-					keepPlaceholderOnFocus
-				/>
+				{link && linkContentHTML}
+				{!link && contentHTML}
 			</div>
 		</GlobalStylesContext.Provider>
 	);
