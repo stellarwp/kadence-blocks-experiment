@@ -17,3 +17,4 @@ export { default as useEditorElement } from './use-editor-element';
 export { default as getComponentView } from './get-component-view';
 export { isAdvancedOption } from './is-advanced-option';
 export { isCustomOption } from './is-custom-option';
+export { default as useUpdateEffect } from './use-update-effect';
