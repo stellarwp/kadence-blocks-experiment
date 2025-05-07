@@ -22,3 +22,4 @@ export { BLOCK_COMPONENTS } from './constants';
 export { default as BlockComponentControls } from './block-component-controls';
 
 export { default as LinkControl } from './links/link-control';
+export { default as LinkStyle } from './links/link-style';

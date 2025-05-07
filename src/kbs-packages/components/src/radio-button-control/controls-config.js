@@ -66,6 +66,10 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputUI;
 			controls = getGapControls();
 			break;
+		case 'link-style':
+		case 'linkStyle':
+			controls = getLinkStyleControls();
+			break;
 	}
 
 	return { UIComponent, controls, advancedControls };
@@ -126,6 +130,23 @@ export const getFlexDirectionControls = () => [
 		icon: arrowRight,
 		title: __('Horizontal Direction', 'kadence-blocks'),
 		key: 'row',
+	},
+];
+export const getLinkStyleControls = () => [
+	{
+		icon: arrowDown,
+		title: __('None', 'kadence-blocks'),
+		key: 'none',
+	},
+	{
+		icon: arrowLeft,
+		title: __('Underline', 'kadence-blocks'),
+		key: 'underline',
+	},
+	{
+		icon: arrowRight,
+		title: __('Underline on Hover', 'kadence-blocks'),
+		key: 'hover-underline',
 	},
 ];
 export const getFlexDirectionAdvancedControls = () => [
