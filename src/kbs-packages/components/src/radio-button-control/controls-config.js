@@ -9,6 +9,8 @@ import {
 	justifyRight,
 	justifySpaceBetween,
 	justifyStretch,
+	formatBold,
+	formatUnderline,
 } from '@wordpress/icons';
 
 import {
@@ -66,9 +68,9 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputUI;
 			controls = getGapControls();
 			break;
-		case 'link-style':
-		case 'linkStyle':
-			controls = getLinkStyleControls();
+		case 'text-decoration':
+		case 'textDecoration':
+			controls = getTextDecorationControls();
 			break;
 	}
 
@@ -132,19 +134,19 @@ export const getFlexDirectionControls = () => [
 		key: 'row',
 	},
 ];
-export const getLinkStyleControls = () => [
+export const getTextDecorationControls = () => [
 	{
-		icon: arrowDown,
+		icon: formatBold,
 		title: __('None', 'kadence-blocks'),
 		key: 'none',
 	},
 	{
-		icon: arrowLeft,
+		icon: formatUnderline,
 		title: __('Underline', 'kadence-blocks'),
 		key: 'underline',
 	},
 	{
-		icon: arrowRight,
+		icon: formatUnderline,
 		title: __('Underline on Hover', 'kadence-blocks'),
 		key: 'hover-underline',
 	},

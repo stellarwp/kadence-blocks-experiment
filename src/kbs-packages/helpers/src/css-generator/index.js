@@ -3,6 +3,7 @@ import { SPACING_SIZES_MAP } from '../constants';
 import { merge } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { getBasePresetKey } from '../get-inherited-device-value';
+import { LinkStyle } from '../../../components/src';
 
 const deviceOptions = kadence_blocks_params.responsive_device_options || [];
 
@@ -58,6 +59,100 @@ class CSSGenerator {
 		return this;
 	}
 	/**
+	 * Process a single component key and add its CSS properties
+	 * @private
+	 * @param {string} attributeName - The name of the attribute
+	 * @param {Object} meta - The metadata of the attribute
+	 * @param {Object} props - The props of the block
+	 * @param {Object} metadata - The metadata object
+	 * @param {string} key - The component key to process
+	 * @returns {void}
+	 */
+	processComponentKey(attributeName, meta, props, metadata, key) {
+		//get the components for the line to add
+		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
+		const cssProperty = this.getCssProperty(key);
+		const cssSelector = this.getCssSelector(meta, key);
+
+		if (cssValue && cssProperty && cssSelector && meta.selector) {
+			const currentSelectorBackup = this.currentSelector;
+			this.setSelector(cssSelector);
+			this.add({ [meta.selector + cssProperty]: cssValue });
+			this.setSelector(currentSelectorBackup);
+		}
+	}
+
+	/**
+	 * Process and format a CSS value based on the property type
+	 */
+	getCssValue(attributeName, meta, props, metadata, key) {
+		const { attributes, previewDevice, globalStylesIds } = props;
+		const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
+			attributeName,
+			attributes,
+			previewDevice,
+			metadata,
+			key,
+			globalStylesIds
+		);
+		const isDirectOrParent = inheritedSource === 'direct' || inheritedSource === 'parent';
+		const isPresetOrPresetParent = inheritedSource === 'preset' || inheritedSource === 'preset-parent';
+		const isNonInheritable = meta?.nonInheritable;
+
+		let cssValue;
+
+		switch (meta.component) {
+			case 'flexBox':
+			case 'linkStyle':
+				if (isDirectOrParent || (isNonInheritable && isPresetOrPresetParent)) {
+					cssValue = appliedValue;
+				}
+				if (cssValue && (key === 'rowGap' || key === 'columnGap')) {
+					cssValue = this.getSpacingOutput(value);
+				}
+				break;
+			case 'typography':
+				if (isDirectOrParent || (isNonInheritable && isPresetOrPresetParent)) {
+					cssValue = this.getSizingOutput(appliedValue);
+				} else if (inheritedSource) {
+					// const basePresetKey = getBasePresetKey(attributeName, meta, attributes);
+					const variableName = this.getGlobalStyleVariableName(
+						'heading-1', // inheritedSource
+						key // attributeKey
+					);
+					cssValue = `var(${variableName})`;
+				}
+				break;
+		}
+
+		return cssValue;
+	}
+
+	/**
+	 * Convert a camelCase property name to CSS property format
+	 * @private
+	 * @param {string} key - The property key
+	 * @returns {string} - The CSS property name
+	 */
+	getCssProperty(key) {
+		return String(key)
+			.replace(/([A-Z])/g, '-$1')
+			.replace(/^-+|-+$/g, '')
+			.toLowerCase();
+	}
+
+	/**
+	 * Apply a CSS property to the current selector
+	 * @private
+	 * @param {Object} meta - The metadata object
+	 * @param {string} key - The original property key
+	 * @returns {void}
+	 */
+	getCssSelector(meta, key) {
+		return this.currentSelector;
+	}
+
+	/**
 	 * Loops through components and add its CSS attributes to their selector
 	 * @param {string} key - The key of the attribute
 	 * @param {Object} meta - The metadata of the attribute
@@ -65,100 +160,16 @@ class CSSGenerator {
 	 * @returns {CSSGenerator} - Returns this instance for chaining
 	 */
 	addComponent(attributeName, meta, props, metadata) {
-		const { attributes, previewDevice, globalStylesIds } = props;
-		// const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[attributeName] || {});
-
-		// if (!mergedAttribute) {
-		// 	return this;
-		// }
 		if (!meta?.component) {
 			return this;
 		}
 
-		switch (meta.component) {
-			case 'flexBox':
-				const componentKeys = this.getComponentKeys(meta.component);
-				// Process each componentKeys property key
-				componentKeys.forEach((key) => {
-					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } =
-						getResolvedValue(attributeName, attributes, previewDevice, metadata, key, globalStylesIds);
-					// If set directly or on parent, use the applied value directly
-					let cssValue;
-					if (inheritedSource === 'direct' || inheritedSource === 'parent') {
-						cssValue = appliedValue;
-					} else if (
-						!meta?.nonInheritable &&
-						(inheritedSource === 'preset' || inheritedSource === 'preset-parent')
-					) {
-						cssValue = appliedValue;
-					}
-					if (cssValue && (key === 'rowGap' || key === 'columnGap')) {
-						cssValue = this.getSpacingOutput(cssValue);
-					}
-					const cssProperty = String(key)
-						.replace(/([A-Z])/g, '-$1')
-						.replace(/^-+|-+$/g, '')
-						.toLowerCase();
-					// Ensure we have a valid CSS property and a selector from the metadata
-					if (cssProperty && meta.selector && cssValue) {
-						const currentSelectorBackup = this.currentSelector; // Backup current selector
-						this.setSelector(this.currentSelector); // Combine base selector with meta selector
-						this.add({ [meta.selector + cssProperty]: cssValue });
-						this.setSelector(currentSelectorBackup); // Restore selector
-					}
-				});
-			case 'typography':
-				const typographyKeys = [
-					'fontFamily',
-					'fontWeight',
-					'fontSize',
-					'lineHeight',
-					'letterSpacing',
-					'textTransform',
-				];
-
-				// Process each typography property key
-				typographyKeys.forEach((key) => {
-					const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } =
-						getResolvedValue(attributeName, attributes, previewDevice, metadata, key, globalStylesIds);
-
-					// If set directly or on parent, use the applied value directly
-					let cssValue;
-					if (inheritedSource === 'direct' || inheritedSource === 'parent') {
-						cssValue = this.getSizingOutput(appliedValue);
-					} else if (inheritedSource === 'preset' || inheritedSource === 'preset-parent') {
-						// Preset is set on this component.
-						cssValue = this.getSizingOutput(appliedValue);
-					} else if (inheritedSource) {
-						const basePresetKey = getBasePresetKey(attributeName, meta, attributes);
-						const variableName = this.getGlobalStyleVariableName(
-							'heading-1', // inheritedSource
-							key // attributeKey
-						);
-						cssValue = `var(${variableName})`;
-					}
-
-					const cssProperty = String(key)
-						.replace(/([A-Z])/g, '-$1')
-						.replace(/^-+|-+$/g, '')
-						.toLowerCase();
-
-					// Ensure we have a valid CSS property and a selector from the metadata
-					if (cssProperty && meta.selector) {
-						const currentSelectorBackup = this.currentSelector; // Backup current selector
-						this.setSelector(this.currentSelector); // Combine base selector with meta selector
-						this.add({ [meta.selector + cssProperty]: cssValue });
-						this.setSelector(currentSelectorBackup); // Restore selector
-					}
-				});
-				break;
-			default:
-				// For other complex properties, add specific handling here
-				break;
-		}
+		const componentKeys = this.getComponentKeys(meta.component);
+		componentKeys.forEach((key) => this.processComponentKey(attributeName, meta, props, metadata, key));
 
 		return this;
 	}
+
 	getComponentKeys(component) {
 		let componentKeys = [];
 		switch (component) {
@@ -172,6 +183,9 @@ class CSSGenerator {
 					'rowGap',
 					'columnGap',
 				];
+				break;
+			case 'linkStyle':
+				componentKeys = ['textDecoration'];
 				break;
 		}
 		return componentKeys;

@@ -1,21 +1,46 @@
-/**
- * Kadence Text Block CSS
- */
+import { useMemo } from '@wordpress/element';
+import { cssGenerator, getGoogleFontUrl } from '@kadence/kbsHelpers';
+import metadata from '../block.json';
 
-/**
- * Import External
- */
-import { generateRequiredCss, isLocalCSS } from '@kadence/kbsHelpers';
+export default function Styles(props) {
+	const { attributes, previewDevice } = props;
+	const cssOutput = useMemo(() => {
+		const selector = `.kbs-text-${attributes?.uniqueID || 'unknown'}`;
+		const css = new cssGenerator(selector);
 
-export default function Styles({ attributes, uniqueID, previewDevice = 'Desktop' }) {
-	if (!uniqueID) {
-		return null;
-	}
+		if (metadata.attributes) {
+			Object.entries(metadata.attributes).forEach(([attributeName, value]) => {
+				if (value.renderCSS) {
+					if (value?.component) {
+						console.log('adding', attributeName, value, props, metadata);
+						css.addComponent(attributeName, value, props, metadata);
+					} else {
+						css.addAttribute(attributeName, value, props);
+					}
+				}
+			});
+		}
 
-	const usesCustomCSS = isLocalCSS();
-	const output = usesCustomCSS ? <style>{generateCss(attributes, previewDevice)}</style> : null;
+		let output = css.generate();
+		if (attributes?.kbsCSS) {
+			output = output + attributes.kbsCSS.replace(/selector/g, selector);
+		}
+		return output;
+	}, [attributes, previewDevice, JSON.stringify(attributes)]);
 
-	return output;
+	const googleFontUrl = useMemo(() => {
+		if (!metadata.attributes) {
+			return '';
+		}
+		return getGoogleFontUrl(attributes, metadata.attributes);
+	}, [attributes]);
+
+	return (
+		<>
+			{googleFontUrl && <link href={googleFontUrl} rel="stylesheet" />}
+			<style>{cssOutput}</style>
+		</>
+	);
 }
 
 function generateCss(attributes, previewDevice) {
@@ -31,4 +56,4 @@ function generateCss(attributes, previewDevice) {
 	}`;
 
 	return css;
-} 
+}
