@@ -59,7 +59,10 @@
 					"attributes": {
 						"desktop": {
 							"fontFamily": "Impact, Charcoal, sans-serif",
-							"fontSize": "3xl"
+							"fontSize": "3xl",
+							"lineHeight": "sm",
+							"letterSpacing": "none",
+							"textTransform": ""
 						},
 						"tablet": {
 							"fontFamily": "Comic Sans MS, cursive, sans-serif",
@@ -140,7 +143,7 @@
 			"md": { "value": "2rem" },
 			"lg": { "value": "4rem" }
 		},
-		"line-height": {
+		"lineHeight": {
 			"none": { "value": "0rem" },
 			"xs": { "value": "0.5rem" },
 			"sm": { "value": "1rem" },

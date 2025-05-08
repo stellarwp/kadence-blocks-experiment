@@ -845,13 +845,16 @@ class CSS_Engine {
 	}
 
 	public function add_component_array( $attributes, $selector_prefix, $expected_keys = [], $variable_name = '' ) {
-
+		$processed_keys = [];
+		$is_first_iteration = true;
+		
 		foreach ( $attributes as $device_name => $device_attributes ) {
 			if( isset( $this->_device_media_queries[ $device_name ] ) && is_array( $this->_device_media_queries[ $device_name ] ) ) {
 				foreach ( $device_attributes as $attribute_name => $device_attribute ) {
 					if ( 'preset' === $attribute_name || ! in_array( $attribute_name, $expected_keys ) ) {
 						continue;
 					}
+					$processed_keys[$attribute_name] = true;
 
 					$this->set_media_state( $device_name );
 					$kebab_attribute_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $attribute_name);
@@ -860,7 +863,25 @@ class CSS_Engine {
 					$kebab_variable_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $variable_name);
 					$this->add_property( $selector_prefix . $kebab_attribute_name, $device_attribute );
 				}
+
+				// If this is the first device (largest breakpoint), like desktop, handle unprocessed keys
+				if( $is_first_iteration ) {
+					$unprocessed_keys = array_diff($expected_keys, array_keys($processed_keys));
+					
+					if( !empty( $unprocessed_keys ) ) {
+						foreach( $unprocessed_keys as $unprocessed_key ) {
+							$this->set_media_state( $device_name );
+							$kebab_attribute_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $unprocessed_key);
+							$kebab_attribute_name = strtolower($kebab_attribute_name);
+
+						$kebab_variable_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $variable_name);
+
+							$this->add_property( $selector_prefix . $kebab_attribute_name, 'var( --kbs-' . $kebab_attribute_name . '-' . $kebab_variable_name . ')' );
+						}
+					}
+				}
 			}
+			$is_first_iteration = false;
 		}
 
 		$this->set_media_state( 'desktop' );
