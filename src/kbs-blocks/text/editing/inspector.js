@@ -8,7 +8,7 @@
 import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, SelectControl } from '@wordpress/components';
-import { LinkControl, LinkStyle, ToolsPanelBody } from '@kadence/kbsComponents';
+import { LinkControl, LinkStyle, ToolsPanelBody, Typography } from '@kadence/kbsComponents';
 import metadata from '../block.json';
 
 /**
@@ -56,6 +56,22 @@ export default function Inspector(props) {
 					meta={metadata}
 					previewDevice={previewDevice}
 					attributeName={'linkStyle'}
+					globalStylesIds={globalStylesIds}
+				/>
+			</ToolsPanelBody>
+
+			<ToolsPanelBody
+				title={__('Typography Settings', 'kadence-blocks')}
+				panelName={'container-typography'}
+				componentName={'typography-control'}
+			>
+				<Typography
+					label={__('Typography', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					previewDevice={previewDevice}
+					attributeName={'typography'}
 					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>

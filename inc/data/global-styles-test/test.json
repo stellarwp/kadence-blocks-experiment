@@ -29,6 +29,24 @@
 		},
 		"typography": {
 			"presets": {
+				"heading-1": {
+					"label": "Heading 1",
+					"name": "Heading 1",
+					"description": "Heading 1",
+					"attributes": {
+						"desktop": {
+							"fontFamily": "Comic Sans MS, cursive, sans-serif",
+							"fontSize": "3xl"
+						},
+						"tablet": {
+							"fontFamily": "Comic Sans MS, cursive, sans-serif",
+							"fontSize": "sm"
+						},
+						"mobile": {
+							"fontSize": "xl"
+						}
+					}
+				},
 				"base-99857": {
 					"label": "Hero",
 					"name": "Hero 1 - Dark Mode",

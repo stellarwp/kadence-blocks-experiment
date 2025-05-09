@@ -5,8 +5,15 @@
  */
 
 .kbs-text {
-    font-family: var(--kbs-text-font-family);
-    font-weight: var(--kbs-text-font-weight);
+	font-family: var(--kbs-text-font-family);
+	font-weight: var(--kbs-text-font-weight);
+	font-size: var(--kbs-text-font-size);
+	line-height: var(--kbs-text-line-height);
+	letter-spacing: var(--kbs-text-letter-spacing);
+	text-transform: var(--kbs-text-text-transform);
+	font-style: var(--kbs-text-font-style);
+	text-decoration: var(--kbs-text-text-decoration);
+
     min-width: 0;
 
     // Alignment classes
