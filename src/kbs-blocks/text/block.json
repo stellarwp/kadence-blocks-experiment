@@ -38,6 +38,13 @@
 		"link": {
 			"type": "object"
 		},
+		"linkStyle": {
+			"renderCSS": true,
+			"component": "typography",
+			"selector": "--kbs-text-link-style-",
+			"initial": {},
+			"type": "object"
+		},
 		"color": {
 			"type": "object"
 		},
@@ -61,8 +68,9 @@
 		},
 		"typography": {
 			"renderCSS": true,
-			"property": "typography",
-			"selector": "--kbs-text",
+			"component": "typography",
+			"selector": "--kbs-text-",
+			"tag": "h1",
 			"initial": {},
 			"type": "object"
 		},

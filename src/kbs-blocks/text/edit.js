@@ -12,7 +12,13 @@ import classnames from 'classnames';
 /**
  * Kadence Helpers.
  */
-import { uniqueIdHelper, getPreviewValue, GlobalStylesContext, useGlobalStylesIds } from '@kadence/kbsHelpers';
+import {
+	uniqueIdHelper,
+	getPreviewValue,
+	GlobalStylesContext,
+	useGlobalStylesIds,
+	getLinkHTML,
+} from '@kadence/kbsHelpers';
 
 import metadata from './block.json';
 import Styles from './editing/styles';
@@ -79,17 +85,7 @@ export default function TextEdit(props) {
 		/>
 	);
 
-	const linkContentHTML = (
-		<a
-			href={link?.url}
-			className={`kbs-text-link${link?.linkStyle ? ' hls-' + link?.linkStyle : ''}`}
-			onClick={(event) => {
-				event.preventDefault();
-			}}
-		>
-			{contentHTML}
-		</a>
-	);
+	const linkContentHTML = getLinkHTML(link, contentHTML);
 
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>

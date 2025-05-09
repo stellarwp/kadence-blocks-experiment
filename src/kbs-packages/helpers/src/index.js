@@ -18,3 +18,4 @@ export { default as getComponentView } from './get-component-view';
 export { isAdvancedOption } from './is-advanced-option';
 export { isCustomOption } from './is-custom-option';
 export { default as useUpdateEffect } from './use-update-effect';
+export { default as getLinkHTML } from './links';
