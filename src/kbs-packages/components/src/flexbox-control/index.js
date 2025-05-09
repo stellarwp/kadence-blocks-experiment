@@ -89,6 +89,7 @@ export default function FlexBoxControl({
 				view={currentView}
 			/>
 			{(currentView === 'advanced' ||
+				previewWrap?.inheritedValue === 'wrap' ||
 				previewDirection?.inheritedValue === 'row' ||
 				previewDirection?.inheritedValue === 'row-reverse') && (
 				<RadioButtonControl

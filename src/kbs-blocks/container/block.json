@@ -38,6 +38,18 @@
 				}
 			}
 		},
+		"flexChild": {
+			"renderCSS": true,
+			"component": "flexChild",
+			"nonInheritable": true,
+			"type": "object",
+			"selector": "--kbs-cont-",
+			"initial": {
+				"desktop": {
+					"flex": "initial"
+				}
+			}
+		},
 		"color": {
 			"type": "object"
 		},

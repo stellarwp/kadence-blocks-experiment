@@ -72,7 +72,7 @@ export default function RadioButtonControl({
 	}, [currentValue]);
 
 	return (
-		<div className={`components-base-control kbs-control kbs-radio-control kbs-radio-control-${radioType}`}>
+		<div className={`components-base-control kbs-control kbs-radio-control kbs-radio-control-${radioConfig}`}>
 			<TitleBar
 				label={label}
 				reset={reset}
@@ -94,6 +94,7 @@ export default function RadioButtonControl({
 					onChange={(itemValue) => onChange(itemValue, previewDevice, type)}
 					controls={isAdvanced && advancedControls ? advancedControls : controls}
 					isCustom={isCustom}
+					type={type}
 				/>
 			</div>
 		</div>

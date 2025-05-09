@@ -15,6 +15,7 @@ import {
 	SelectGlobalStyles,
 	BlockComponentControls,
 	FlexBoxControl,
+	FlexChildControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -37,12 +38,20 @@ export default function InspectorAdvanced(props) {
 	return (
 		<>
 			<FlexBoxControl
-				attributeName={ 'flexBox' }
-				attributes={ attributes }
-				setAttributes={ setAttributes }
-				metaData={ metadata }
-				previewDevice={ previewDevice }
-				globalStylesIds={ globalStylesIds }
+				attributeName={'flexBox'}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				metaData={metadata}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+			/>
+			<FlexChildControl
+				attributeName={'flexChild'}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				metaData={metadata}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
 			/>
 		</>
 	);
