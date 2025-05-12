@@ -7,6 +7,7 @@
 
 namespace KadenceWP\KadenceBlocks\REST;
 
+use KadenceWP\KadenceBlocks\Settings\Global_Style;
 use WP_REST_Controller;
 use WP_REST_Server;
 use WP_REST_Response;
@@ -105,6 +106,7 @@ class GlobalStylesController extends WP_REST_Controller {
      * @return bool|\WP_Error
      */
     public function get_items_permissions_check( $request ) {
+        // TODO: Check if user has access to get items
         return true;
     }
 
@@ -126,22 +128,29 @@ class GlobalStylesController extends WP_REST_Controller {
      * @return WP_REST_Response
      */
     public function get_items( $request ) {
-        $post_contents = array();
+        $post_contents = [
+            'kbs-base' => Global_Style::options( 'base' ),
+            'kbs-dark' => Global_Style::options( 'dark' ),
+            'kbs-accent' => Global_Style::options( 'accent' ),
+        ];
 
         $all_posts = get_posts( 
             array(
                 'post_type' => self::$slug,
                 'numberposts' => -1,
-                'post_status' => array( 'publish' )
+                'post_status' => [ 'publish' ]
             ) 
         );
 
-        if( $all_posts ) {
+        if ( $all_posts ) {
             foreach ( $all_posts as $_post ) {
                 $decoded_content = json_decode( $_post->post_content, true );
                 $decoded_content['postId'] = $_post->ID;
                 $global_style_id = $decoded_content['styleId'] ?? '';
-                $post_contents[ $global_style_id ] = $decoded_content;
+                // If data is corrupt, skip it
+                if ( !empty( $global_style_id ) ) {
+                    $post_contents[ $global_style_id ] = $decoded_content;
+                }
             }
         }
 
@@ -243,21 +252,26 @@ class GlobalStylesController extends WP_REST_Controller {
 
         if ( $data && gettype( $data ) == 'array' ) {
             foreach ( $data as $style_id => $global_style ) {
-                 $post_arr = array(
-                    'ID' => isset( $global_style['postId'] ) ? $global_style['postId'] : 0,
-                    'post_type' => self::$slug,
-                    'post_title' => isset( $global_style['name'] ) ? $global_style['name'] : __( 'Global Style', 'kadence-blocks' ),
-                    'post_content' => wp_slash( wp_json_encode( $global_style ) ),                    
-                    'post_status' => 'publish',
-                    'meta_input' => array(
-                        self::$meta_style_id_slug => $style_id,
-                    ),
-                );
-                $result = wp_insert_post( $post_arr );
+                if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
+                    $core_style = str_replace( 'kbs-', '', $style_id );
+                    $global_style = Global_Style::save_options( wp_slash( wp_json_encode( $global_style ) ), $core_style );
+                } else {
+                    $post_arr = array(
+                        'ID' => isset( $global_style['postId'] ) ? $global_style['postId'] : 0,
+                        'post_type' => self::$slug,
+                        'post_title' => isset( $global_style['name'] ) ? $global_style['name'] : __( 'Global Style', 'kadence-blocks' ),
+                        'post_content' => wp_slash( wp_json_encode( $global_style ) ),                    
+                        'post_status' => 'publish',
+                        'meta_input' => array(
+                            self::$meta_style_id_slug => $style_id,
+                        ),
+                    );
+                    $result = wp_insert_post( $post_arr );
 
-                //set the postId if it's not already set
-                if ( $result && gettype( $result ) != 'WP_Error' && ! isset( $data[$style_id]['postId'] ) ) {
-                    $data[$style_id]['postId'] = $result;
+                    //set the postId if it's not already set
+                    if ( $result && gettype( $result ) != 'WP_Error' && ! isset( $data[$style_id]['postId'] ) ) {
+                        $data[$style_id]['postId'] = $result;
+                    }
                 }
             }
         }

@@ -62,6 +62,7 @@ class Core {
 		Backend\Provider::class,
 		Frontend\Provider::class,
 		Blocks\Provider::class,
+		Settings\Provider::class,
 		REST\Provider::class,
 	];
 	/**

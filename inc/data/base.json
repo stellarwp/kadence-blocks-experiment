@@ -1,0 +1,184 @@
+{
+	"styleId": "kbs-base",
+	"name": "Base Style",
+	"version": "1.0.0",
+	"components": {
+		"flex": {
+			"presets": {
+				"base-54321": {
+					"label": "Base",
+					"name": "Basic Vertical",
+					"description": "A basic vertical flex container",
+					"clear": false,
+					"attributes": {
+						"desktop": {
+							"direction": "column",
+							"justify": "flex-start",
+							"alignItems": "stretch",
+							"alignContent": "initial",
+							"wrap": "nowrap",
+							"rowGap": "none",
+							"columnGap": "initial",
+							"flexShrink": "initial",
+							"flexGrow": "initial",
+							"flexBasis": "auto"
+						}
+					}
+				}
+			}
+		},
+		"typography": {
+			"presets": {
+				"text-body": {
+					"label": "Body text",
+					"name": "Body text",
+					"description": "Body text",
+					"attributes": {
+						"desktop": {
+							"fontFamily": "Arial, sans-serif",
+							"fontSource": "system",
+							"fontSize": "md"
+						}
+					}
+				},
+				"heading": {
+					"label": "Heading text",
+					"name": "Heading text",
+					"description": "Heading text",
+					"attributes": {
+						"desktop": {
+							"fontFamily": "Times New Roman, serif",
+							"fontSize": "lg"
+						}
+					}
+				},
+				"heading-1": {
+					"label": "Heading 1",
+					"name": "Heading 1",
+					"description": "Heading 1",
+					"attributes": {
+						"desktop": {
+							"fontFamily": "Impact, Charcoal, sans-serif",
+							"fontSize": "3xl",
+							"lineHeight": "sm",
+							"letterSpacing": "none",
+							"textTransform": ""
+						},
+						"tablet": {
+							"fontFamily": "Comic Sans MS, cursive, sans-serif",
+							"fontSize": "sm"
+						},
+						"mobile": {
+							"fontSize": "xl"
+						}
+					}
+				},
+				"heading-2": {
+					"label": "Heading 2",
+					"name": "Heading 2",
+					"description": "Heading 2",
+					"attributes": {
+						"desktop": {
+							"fontFamily": "Comic Sans MS, cursive, sans-serif",
+							"fontSize": "xxl"
+						}
+					}
+				},
+				"heading-3": {
+					"label": "Heading 3",
+					"name": "Heading 3",
+					"description": "Heading 3",
+					"attributes": {
+						"desktop": {
+							"fontSize": "xl"
+						}
+					}
+				},
+				"heading-4": {
+					"label": "Heading 4",
+					"name": "Heading 4",
+					"description": "Heading 4",
+					"attributes": {
+						"desktop": {
+							"fontSize": "xl"
+						}
+					}
+				},
+				"heading-5": {
+					"label": "Heading 5",
+					"name": "Heading 5",
+					"description": "Heading 5",
+					"attributes": {
+						"desktop": {
+							"fontSize": "lg"
+						}
+					}
+				},
+				"heading-6": {
+					"label": "Heading 6",
+					"name": "Heading 6",
+					"description": "Heading 6",
+					"attributes": {
+						"desktop": {
+							"fontSize": "lg"
+						}
+					}
+				}
+			}
+		}
+	},
+	"mappings": {
+		"fontSize": {
+			"sm": { "value": "0.9rem" },
+			"md": { "value": "1.25rem" },
+			"lg": { "value": "2rem" },
+			"xl": { "value": "3rem" },
+			"xxl": { "value": "56px" },
+			"3xl": { "value": "5rem" }
+		},
+		"letterSpacing": {
+			"none": { "value": "0rem" },
+			"xs": { "value": "0.5rem" },
+			"sm": { "value": "1rem" },
+			"md": { "value": "2rem" },
+			"lg": { "value": "4rem" }
+		},
+		"lineHeight": {
+			"none": { "value": "0rem" },
+			"xs": { "value": "0.5rem" },
+			"sm": { "value": "1rem" },
+			"md": { "value": "2rem" },
+			"lg": { "value": "4rem" }
+		},
+		"gap": {
+			"none": { "value": "0rem" },
+			"xs": { "value": "0.5rem" },
+			"sm": { "value": "1rem" },
+			"md": { "value": "2rem" },
+			"lg": { "value": "4rem" }
+		},
+		"spacing": {
+			"xxs": { "value": "0.5rem" },
+			"xs": { "value": "1rem" },
+			"sm": { "value": "1.5rem" },
+			"md": { "value": "2rem" },
+			"lg": { "value": "3rem" },
+			"xl": { "value": "4rem" },
+			"xxl": { "value": "5rem" },
+			"3xl": { "value": "6.5rem" },
+			"4xl": { "value": "8rem" },
+			"5xl": { "value": "10rem" }
+		},
+		"colors": {
+			"palette1": { "value": "#3296ff" },
+			"palette2": { "value": "#003174" },
+			"palette3": { "value": "#FFFFFF" },
+			"palette4": { "value": "#f7fafc" },
+			"palette5": { "value": "#edf2f7" },
+			"palette6": { "value": "#cbd2d9" },
+			"palette7": { "value": "#1a202c" },
+			"palette8": { "value": "#252c39" },
+			"palette9": { "value": "#2d3748" }
+		}
+	}
+}
