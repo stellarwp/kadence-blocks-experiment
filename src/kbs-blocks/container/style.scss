@@ -29,4 +29,9 @@
 		margin-left: 0;
 		margin-right: 0;
 	}
+	> .kbs-container {
+		flex: var(--kbs-cont-flex, auto);
+		align-self: var(--kbs-cont-align-self, initial);
+		justify-self: var(--kbs-cont-justify-self, initial);
+	}
 }

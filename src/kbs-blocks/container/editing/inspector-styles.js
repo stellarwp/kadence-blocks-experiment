@@ -16,6 +16,7 @@ import {
 	BlockComponentControls,
 	FlexBoxControl,
 	FlexChildControl,
+	BackgroundControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -32,21 +33,13 @@ import { __ } from '@wordpress/i18n';
 /**
  * Build the section edit.
  */
-export default function InspectorAdvanced(props) {
+export default function InspectorStyles(props) {
 	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, globalStylesIds } =
 		props;
 	return (
 		<>
-			<FlexBoxControl
-				attributeName={'flexBox'}
-				attributes={attributes}
-				setAttributes={setAttributes}
-				metaData={metadata}
-				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
-			/>
-			<FlexChildControl
-				attributeName={'flexChild'}
+			<BackgroundControl
+				attributeName={'background'}
 				attributes={attributes}
 				setAttributes={setAttributes}
 				metaData={metadata}

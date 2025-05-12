@@ -5,14 +5,16 @@ import './editor.scss';
 
 export { default as ToolsPanelBody } from './tools-panel-body';
 export { default as RadioButtonControl } from './radio-button-control';
-export { default as PresetSelectControl } from './preset-select-control';
+export { default as PresetDropdownControl } from './preset-dropdown-control';
 export { default as SelectControl } from './select-control';
 export { default as Typography } from './typography';
 export { default as SelectGlobalStyles } from './select-global-styles';
 export { default as ResponsiveUnitControl } from './responsive-unit-control';
 export { default as UnitControl } from './unit-control';
 export { default as FlexBoxControl } from './flexbox-control';
+export { default as FlexChildControl } from './flexchild-control';
 export { default as InspectorControlTabs } from './inspector-control-tabs';
+export { default as BackgroundControl } from './background-control';
 // export { default as PopColorControl } from './pop-color-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';
 // export { default as SinglePopColorControl } from './single-pop-color-control';

@@ -25,10 +25,15 @@ import {
 	spaceEvenly,
 	wrap,
 	nowrap,
+	flexShrink,
+	flexGrow,
+	flexForce,
+	flexAuto,
 } from './constants';
 
 import RadioToggleGroupButtonUI from './ui-toggle-group';
 import RadioToggleGroupInputUI from './ui-toggle-group-input';
+import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
 
 export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioToggleGroupButtonUI;
@@ -47,6 +52,7 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'justify-content':
 		case 'justifyContent':
+		case 'justifySelf':
 			controls = getJustifyContentControls(previewDirection);
 			advancedControls = getJustifyContentAdvancedControls(previewDirection);
 			break;
@@ -56,6 +62,7 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'align-items':
 		case 'alignItems':
+		case 'alignSelf':
 			controls = getAlignItemsControls(previewDirection);
 			break;
 		case 'row-gap':
@@ -71,12 +78,36 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'text-decoration':
 		case 'textDecoration':
 			controls = getTextDecorationControls();
-			break;
+		case 'flex':
+			UIComponent = RadioToggleGroupFlexSizeUI;
+			controls = getFlexSizeControls();
 	}
 
 	return { UIComponent, controls, advancedControls };
 };
 
+export const getFlexSizeControls = () => [
+	{
+		title: __('Auto', 'kadence-blocks'),
+		icon: flexAuto,
+		key: 'auto',
+	},
+	{
+		title: __('Shrink if needed', 'kadence-blocks'),
+		icon: flexShrink,
+		key: 'shrink',
+	},
+	{
+		title: __('Grow if possible', 'kadence-blocks'),
+		icon: flexGrow,
+		key: 'grow',
+	},
+	{
+		title: __('Force size', 'kadence-blocks'),
+		icon: flexForce,
+		key: 'force',
+	},
+];
 export const getGapControls = () => [
 	{
 		title: __('None', 'kadence-blocks'),

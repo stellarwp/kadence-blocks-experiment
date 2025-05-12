@@ -1,0 +1,27 @@
+// Preset Radio Control Editor.
+.kbs-radio-preset-control .kbs-control-inner {
+	display: flex;
+	gap: 6px;
+	.kbs-radio-preset-control-button {
+		flex: 1;
+		border-radius: 2px;
+		box-shadow: inset 0 0 0 1px var(--kb-border-color, #859cb6);
+		&:hover {
+			box-shadow: inset 0 0 0 1px var(--kb-border-color, #859cb6);
+		}
+		&.is-pressed {
+			box-shadow: inset 0 0 0 1px var(--wp-components-color-foreground, #1e1e1e);
+		}
+	}
+}
+
+// Move this to pull in real global presets.
+.kbs-bg-base {
+	background: var(--kbs-bg-base, var(--global-palette9));
+}
+.kbs-bg-variant-1 {
+	background: var(--kbs-bg-variant-1, var(--global-palette8));
+}
+.kbs-bg-variant-2 {
+	background: var(--kbs-bg-variant-2, var(--global-palette7));
+}

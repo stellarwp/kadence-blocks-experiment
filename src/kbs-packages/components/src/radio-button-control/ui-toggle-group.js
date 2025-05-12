@@ -18,7 +18,7 @@ function RadioToggleGroupButtonUI({
 }) {
 	return (
 		<ToggleGroupControl
-			className="kadence-radio-button-control__toggle-group"
+			className="kbs-radio-button-control__toggle-group"
 			hideLabelFromVision={true}
 			label={label}
 			onChange={(value) => onChange(value)}
@@ -31,7 +31,7 @@ function RadioToggleGroupButtonUI({
 			{map(controls, ({ key, title, icon, name }) =>
 				icon ? (
 					<ToggleGroupControlOptionIcon
-						className={`kadence-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
+						className={`kbs-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
 						key={key}
 						label={title}
 						icon={icon}
@@ -39,7 +39,7 @@ function RadioToggleGroupButtonUI({
 					/>
 				) : (
 					<ToggleGroupControlOption
-						className={`kadence-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
+						className={`kbs-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
 						key={key}
 						label={name}
 						aria-label={title}

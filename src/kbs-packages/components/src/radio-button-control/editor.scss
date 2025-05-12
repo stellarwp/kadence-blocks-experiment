@@ -31,7 +31,7 @@
 					box-shadow:
 						inset 0 0 0 1px var(--kb-subtle-background, #edf2f7),
 						0 0 0 var(--wp-admin-border-width-focus) var(--kb-border-color, #859cb6);
-					outline: 2px solid #0000;
+					outline: 2px solid var(--wp-components-color-foreground, #1e1e1e);
 					background: var(--kb-subtle-background, #eaf3f5);
 				}
 				&:hover:before,
@@ -39,7 +39,7 @@
 					box-shadow:
 						inset 0 0 0 1px #fff,
 						0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
-					outline: 2px solid #0000;
+					outline: 2px solid var(--wp-components-color-foreground, #1e1e1e);
 					background: var(--kb-subtle-focus-background, #d9e7ec);
 				}
 			}
@@ -49,7 +49,7 @@
 				}
 			}
 		}
-		&.kadence-radio-button-control__group {
+		&.kbs-radio-button-control__group {
 			.components-button {
 				max-width: 100%;
 				justify-content: center;
@@ -60,7 +60,7 @@
 			}
 		}
 	}
-	.kadence-radio-button-control__toggle-group {
+	.kbs-radio-button-control__toggle-group {
 		background: var(--kb-subtle-background, #edf2f7);
 		padding: 2px;
 		min-height: 40px;
@@ -70,7 +70,7 @@
 			border-radius: 4px;
 			box-shadow: inset 0px 0px 0px 1px var(--kb-subtle-background, #edf2f7);
 		}
-		.kadence-radio-button-control__toggle_item {
+		.kbs-radio-button-control__toggle_item {
 			height: 36px;
 			&:focus {
 				box-shadow:
@@ -83,5 +83,52 @@
 				border-radius: 4px;
 			}
 		}
+	}
+}
+.kbs-control .kbs-input-control .components-input-control__container {
+	background: var(--kb-subtle-background, #edf2f7);
+	.components-input-control__backdrop {
+		border-color: var(--kb-subtle-background, #edf2f7);
+	}
+	.components-input-control__suffix .components-unit-control__select {
+		color: var(--wp-components-color-foreground, #1e1e1e);
+		background: transparent;
+	}
+	&:focus-within:not(:has(:is(.components-input-control__suffix):focus-within)) .components-input-control__backdrop {
+		border-color: var(--wp-components-color-foreground, #1e1e1e);
+	}
+}
+.kbs-control .kbs-input-control .kbs-input-unit-control__input .kbs-input-unit-control__select {
+	appearance: none;
+	background: transparent;
+	border-radius: 1px;
+	border: none;
+	outline: none;
+	margin: 0px;
+	min-height: auto;
+	font-family: inherit;
+	box-sizing: border-box;
+	min-width: 24px;
+	max-width: 48px;
+	height: 24px;
+	margin-inline-end: calc(8px);
+	padding: calc(4px);
+	font-size: 13px;
+	line-height: 1;
+	text-align-last: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	field-sizing: content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.kbs-control .kbs-flex-input-unit-control {
+	display: flex;
+	gap: 4px;
+	.kbs-input-unit-control__input-number {
+		flex: 0 1 130px;
+		margin-bottom: 0;
 	}
 }

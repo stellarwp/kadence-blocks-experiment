@@ -8,16 +8,17 @@ import { useEffect, useState, useMemo } from '@wordpress/element';
  * Internal dependencies.
  */
 import RadioToggleGroupButtonUI from './ui-toggle-group';
-import InputUIControl from './ui-input';
-
-function RadioToggleGroupInputUI({
+import FlexInputUnitControl from './ui-flex-input';
+import { parseValueTypeFromRawValue } from './utils';
+function RadioToggleGroupFlexSizeUI({
 	value,
 	onChange,
 	inherited,
 	controls = [],
-	label = __('Gap', 'kadence-blocks'),
+	label = __('Flex Size', 'kadence-blocks'),
 	isCustom = false,
 }) {
+	const isValueControlled = useMemo(() => parseValueTypeFromRawValue(value, controls), [value]);
 	const units = [
 		{
 			value: 'px',
@@ -56,13 +57,18 @@ function RadioToggleGroupInputUI({
 			step: 0.1,
 		},
 		{
+			value: 'auto',
+			label: 'auto',
+			a11yLabel: __('Auto', 'kadence-blocks'),
+			step: 0.1,
+		},
+		{
 			value: 'custom',
 			label: 'custom',
 			a11yLabel: __('Custom', 'kadence-blocks'),
 			step: 0.1,
 		},
 	];
-
 	return (
 		<div key={label} className="kbs-radio-button-control__toggle-group-input">
 			{!isCustom && (
@@ -74,9 +80,17 @@ function RadioToggleGroupInputUI({
 					label={label}
 				/>
 			)}
-			{isCustom && <InputUIControl value={value} onChange={onChange} controls={controls} units={units} />}
+			{isCustom && (
+				<FlexInputUnitControl
+					className="kbs-unit-control kbs-input-control"
+					__next40pxDefaultSize={true}
+					value={isValueControlled ? '' : value}
+					onChange={onChange}
+					units={units}
+				/>
+			)}
 		</div>
 	);
 }
 
-export default RadioToggleGroupInputUI;
+export default RadioToggleGroupFlexSizeUI;

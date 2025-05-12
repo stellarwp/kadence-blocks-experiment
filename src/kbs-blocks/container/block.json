@@ -38,10 +38,26 @@
 				}
 			}
 		},
-		"color": {
-			"type": "object"
+		"flexChild": {
+			"renderCSS": true,
+			"component": "flexChild",
+			"nonInheritable": true,
+			"type": "object",
+			"selector": "--kbs-cont-",
+			"initial": {
+				"desktop": {
+					"flex": "initial"
+				}
+			}
 		},
 		"background": {
+			"renderCSS": true,
+			"component": "background",
+			"nonInheritable": true,
+			"type": "object",
+			"selector": "--kbs-cont-"
+		},
+		"color": {
 			"type": "object"
 		},
 		"border": {
