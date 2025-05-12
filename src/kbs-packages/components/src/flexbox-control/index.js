@@ -4,7 +4,6 @@ import ResponsiveRadioRangeControls from '../range/responsive-radio-range-contro
 import ResponsiveUnitControl from '../responsive-unit-control';
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
-import PresetSelectControl from '../preset-select-control';
 import { getPreviewValue, getInheritedDeviceValue } from '@kadence/kbsHelpers';
 import { useState } from '@wordpress/element';
 export default function FlexBoxControl({
@@ -49,12 +48,6 @@ export default function FlexBoxControl({
 			currentView={currentView}
 			hasViewControls={true}
 		>
-			{/* <PresetSelectControl
-				attributes={ attributes }
-				setAttributes={ setAttributes }
-				attributeName={ 'direction' }
-				meta={ meta }
-			/> */}
 			<RadioButtonControl
 				label={__('Direction', 'kadence-blocks')}
 				attributes={attributes}

@@ -8,9 +8,10 @@ import { useSelect } from '@wordpress/data'
 import { showSettings } from '@kadence/helpers';
 import { get } from 'lodash';
 import { __ } from '@wordpress/i18n';
+import { select } from '@wordpress/data';
 import { useRef, useEffect } from '@wordpress/element';
 import { shadow as shadowIcon, check, reset } from '@wordpress/icons';
-
+import { useSelectOptions } from '../select-control/helpers';
 import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
@@ -69,19 +70,46 @@ function renderPresetToggle( presetType, presetValue, onClear ) {
 	};
 }
 
-
-export default function PresetSelectControl( {
+const getPresets = (presetType) => {
+	switch (presetType) {
+		case 'background':
+			return [
+				{
+					value: 'kbs-bg-base',
+					label: 'Base',
+				},
+				{
+					value: 'kbs-bg-variant-1',
+					label: 'Variant 1',
+				},
+				{
+					value: 'kbs-bg-variant-2',
+					label: 'Variant 2',
+				},
+			];
+		default:
+			return [];
+	}
+}
+export default function PresetDropdownControl( {
 		attributes,
 		setAttributes,
 		attributeName,
 		meta,
+		previewDevice,
+		globalStylesIds,
+		forStyleBook = false,
 	} ) {
 	const popoverProps = {
 		placement: 'left-start',
 		offset: 36,
 		shift: true,
 	};
-	const presetType = meta?.property ? meta?.property : '';
+	const presetType = meta?.attributes?.[ attributeName ]?.component ? meta?.attributes?.[ attributeName ]?.component : '';
+	const attributeMeta = meta?.attributes?.[ attributeName ];
+	if ( !presetType ) {
+		return null;
+	}
 	const presetValue = attributes?.[ attributeName ]?.preset;
 	const onClear = () => {
 		setAttributes( {
@@ -90,19 +118,36 @@ export default function PresetSelectControl( {
 			},
 		} );
 	};
-	if ( true ) {
-		return null;
-	}
 
+	// Fetch available presets
+	const presets = getPresets(presetType);
+	console.log( presets );
 	return (
 		<Dropdown
 			popoverProps={ popoverProps }
 			className="kbs-preset-select-control__dropdown"
-			renderToggle={ renderPresetToggle( presetType, presetValue, onClear ) }
+			//renderToggle={ renderPresetToggle( presetType, presetValue, onClear ) }
+			renderToggle={ ( { isOpen, onToggle } ) => (
+				<Button
+					variant="primary"
+					onClick={ onToggle }
+					aria-expanded={ isOpen }
+				>
+					Toggle Popover!
+				</Button>
+			) }
 			renderContent={ () => (
-				<DropdownContentWrapper paddingSize="medium">
-					
-				</DropdownContentWrapper>
+				<div className="kbs-preset-select-control__dropdown-content">
+					{ presets.map( ( option ) => (
+						<Button key={ option.value } onClick={ () => setAttributes( {
+							[ attributeName ]: {
+								preset: option.value,
+							},
+						} ) }>
+						{ option.label }
+						</Button>
+					) ) }
+				</div>
 			) }
 		/>
 	);

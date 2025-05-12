@@ -31,7 +31,7 @@ export default function RadioButtonControl({
 	type = '',
 	radioType = 'textAlign',
 	reset = true,
-	previewDevice,
+	previewDevice = 'desktop',
 	meta,
 	previewDirection = 'column',
 	hasDeviceControls = false,

@@ -1,0 +1,63 @@
+// Preset Select Control Editor.
+.kbs-color-control {
+	.kbs-color-select-control__dropdown {
+		width: 100%;
+		.kbs-color-select-control__toggle-button {
+			width: 100%;
+			gap: 4px;
+			background: var(--kb-subtle-background, #edf2f7);
+			&:hover {
+				background: color-mix(in srgb, var(--kb-subtle-background, #edf2f7) 50%, transparent);
+				color: var(--wp-components-color-foreground, #1e1e1e);
+			}
+		}
+	}
+	.kbs-color-select-button {
+		display: flex;
+		color: var(--wp-components-color-foreground, #1e1e1e);
+		&:hover {
+			background: color-mix(in srgb, var(--kb-subtle-background, #edf2f7) 50%, transparent);
+			color: var(--wp-components-color-foreground, #1e1e1e);
+		}
+		.kbs-color-select-control__toggle-label {
+			flex-grow: 1;
+			text-align: left;
+		}
+		.component-color-indicator {
+			width: 30px;
+			height: 30px;
+			border-radius: 4px;
+		}
+	}
+	.kbs-color-select-control__select-button {
+		padding: 0;
+	}
+}
+.kbs-color-select-control__dropdown-content .components-popover__content {
+    padding: 12px;
+	min-width: 300px;
+	min-height: 300px;
+}
+.kbs-color-select-tabs {
+	.components-tab-panel__tabs {
+		gap: 4px;
+		padding-bottom: 12px;
+		border-bottom: 1px solid var(--kb-border-subtle-color, #d9e7ec);
+		.components-tab-panel__tabs-item {
+			height: 36px !important;
+			padding: 3px 8px;
+			border-radius: 4px;
+			color: var(--wp-components-color-foreground, #1e1e1e);
+			&:after {
+				display:none;
+			}
+			&.is-active {
+				background: var(--kb-subtle-background, #edf2f7);
+				color: var(--wp-components-color-foreground, #1e1e1e);
+			}
+		}
+	}
+	.components-tab-panel__tab-content {
+		padding-top: 12px;
+	}
+}

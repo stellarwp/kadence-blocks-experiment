@@ -12,6 +12,7 @@ import { InspectorControlTabs } from '@kadence/kbs-components';
 import metadata from '../block.json';
 import InspectorGeneral from './inspector-general';
 import InspectorAdvanced from './inspector-advanced';
+import InspectorStyles from './inspector-styles';
 /**
  * Import WordPress
  */
@@ -30,6 +31,7 @@ export default function Inspector(props) {
 		<InspectorControls>
 			<InspectorControlTabs panelName={PANEL_NAME} setActiveTab={setActiveTab} activeTab={activeTab} />
 			{activeTab === 'general' && <InspectorGeneral {...props} />}
+			{activeTab === 'style' && <InspectorStyles {...props} />}
 			{activeTab === 'advanced' && <InspectorAdvanced {...props} />}
 		</InspectorControls>
 	);
