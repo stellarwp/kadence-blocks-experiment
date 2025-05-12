@@ -53,25 +53,24 @@ export default function BackgroundControl({
 			<PresetControl
 				label={__('Background Presets', 'kadence-blocks')}
 				type={'background'}
-				attributes={ attributes }
-				setAttributes={ setAttributes }
-				attributeName={ attributeName }
-				meta={ metaData }
-				previewDevice={ previewDevice }
-				globalStylesIds={ globalStylesIds }
-				forStyleBook={ forStyleBook }
+				attributes={attributes}
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				meta={metaData}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+				forStyleBook={forStyleBook}
 			/>
 			<ColorControl
 				label={__('Background Color', 'kadence-blocks')}
-				attributes={ attributes }
+				attributes={attributes}
 				type={'color'}
-				setAttributes={ setAttributes }
-				attributeName={ attributeName }
-				meta={ metaData }
-				previewDevice={ previewDevice }
-				globalStylesIds={ globalStylesIds }
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				meta={metaData}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
 			/>
-			
 		</ToolsPanelBody>
 	);
 }

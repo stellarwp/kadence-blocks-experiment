@@ -27,14 +27,23 @@
 			width: 30px;
 			height: 30px;
 			border-radius: 4px;
+			box-shadow: inset 0 0 0 1px #0003;
+			transition: box-shadow 0.2s ease-in-out;
 		}
 	}
 	.kbs-color-select-control__select-button {
 		padding: 0;
+		&:hover {
+			background: transparent;
+			color: var(--wp-components-color-foreground, #1e1e1e);
+			.component-color-indicator {
+				box-shadow: inset 0 0 0 2px #0003;
+			}
+		}
 	}
 }
 .kbs-color-select-control__dropdown-content .components-popover__content {
-    padding: 12px;
+	padding: 12px;
 	min-width: 300px;
 	min-height: 300px;
 }
@@ -49,7 +58,7 @@
 			border-radius: 4px;
 			color: var(--wp-components-color-foreground, #1e1e1e);
 			&:after {
-				display:none;
+				display: none;
 			}
 			&.is-active {
 				background: var(--kb-subtle-background, #edf2f7);
@@ -59,5 +68,30 @@
 	}
 	.components-tab-panel__tab-content {
 		padding-top: 12px;
+	}
+}
+.kbs-color-select-control__checked-color-indicator {
+	position: relative;
+	display: flex;
+	background-image:
+		linear-gradient(45deg, #ddd 25%, transparent 0), linear-gradient(-45deg, #ddd 25%, transparent 0),
+		linear-gradient(45deg, transparent 75%, #ddd 0), linear-gradient(-45deg, transparent 75%, #ddd 0);
+	background-size: 10px 10px;
+	background-position:
+		0 0,
+		0 5px,
+		5px -5px,
+		-5px 0;
+	border-radius: 4px;
+	.kbs-color-select-control__checked-color-icon {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background: white;
+		color: black;
+		width: 16px;
+		height: 16px;
+		border-radius: 4px;
 	}
 }

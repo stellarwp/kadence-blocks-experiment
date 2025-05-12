@@ -5,52 +5,59 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { Icon, Dropdown, ColorIndicator, Button, HStack, FlexItem, TabPanel } from '@wordpress/components'
+import { Icon, Dropdown, ColorIndicator, Button, HStack, FlexItem, TabPanel } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useRef, useMemo } from '@wordpress/element';
-import { color as colorIcon } from '@wordpress/icons';
+import { color as colorIcon, check as checkIcon } from '@wordpress/icons';
 import { useSetting } from '@wordpress/block-editor';
 /**
  * Internal dependencies
  */
-import { getPreviewValue,getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
+import { getPreviewValue, getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import './editor.scss';
 
-const getColorLabel = ( value, colors ) => {
-	if ( value ) {
-		switch ( value ) {
+const CheckedColorIndicator = ({ colorValue, isChecked = false }) => (
+	<div className="kbs-color-select-control__checked-color-indicator">
+		<ColorIndicator className="kbs-color-select-control__color-indicator" colorValue={colorValue} />
+		{isChecked && <Icon className="kbs-color-select-control__checked-color-icon" icon={checkIcon} size={24} />}
+	</div>
+);
+
+const getColorLabel = (value, colors) => {
+	if (value) {
+		switch (value) {
 			case 'palette1':
-				return __( 'Accent', 'kadence-blocks' );
+				return __('Accent', 'kadence-blocks');
 			case 'palette2':
-				return __( 'Accent Alt', 'kadence-blocks' );
+				return __('Accent Alt', 'kadence-blocks');
 			case 'palette3':
-				return __( 'Strongest Contrast', 'kadence-blocks' );
+				return __('Strongest Contrast', 'kadence-blocks');
 			case 'palette4':
-				return __( 'Strong Contrast', 'kadence-blocks' );
+				return __('Strong Contrast', 'kadence-blocks');
 			case 'palette5':
-				return __( 'Medium Contrast', 'kadence-blocks' );
+				return __('Medium Contrast', 'kadence-blocks');
 			case 'palette6':
-				return __( 'Subtle Contrast', 'kadence-blocks' );
+				return __('Subtle Contrast', 'kadence-blocks');
 			case 'palette7':
-				return __( 'Subtle Background', 'kadence-blocks' );
+				return __('Subtle Background', 'kadence-blocks');
 			case 'palette8':
-				return __( 'Lighter Background', 'kadence-blocks' );
+				return __('Lighter Background', 'kadence-blocks');
 			case 'palette9':
-				return __( 'Background Base', 'kadence-blocks' );
+				return __('Background Base', 'kadence-blocks');
 		}
 	}
-	if ( colors ) {
-		const color = colors.find( ( { color } ) => color === value );
-		if ( color?.name ) {
+	if (colors) {
+		const color = colors.find(({ color }) => color === value);
+		if (color?.name) {
 			return color.name;
 		}
 	}
 	return value;
 };
-const getColorPreview = ( value ) => {
+const getColorPreview = (value) => {
 	let previewColorString = value;
-	if ( value ) {
+	if (value) {
 		switch (value) {
 			case 'palette1':
 				previewColorString = 'var(--global-palette1,#2B6CB0)';
@@ -84,66 +91,67 @@ const getColorPreview = ( value ) => {
 	return previewColorString;
 };
 
-function renderColorToggle( currentValue, inherited, colors ) {
-	return ( { onToggle, isOpen } ) => {
-		const presetButtonRef = useRef( undefined );
+function renderColorToggle(currentValue, inherited, colors) {
+	return ({ onToggle, isOpen }) => {
+		const presetButtonRef = useRef(undefined);
 
 		const toggleProps = {
 			onClick: onToggle,
-			className: clsx( 'kbs-color-select-button', 'kbs-color-select-control__toggle-button', 
-				{ 
-					'is-open': isOpen,
-					'is-inherited': ! currentValue && inherited,
-				 } ),
+			className: clsx('kbs-color-select-button', 'kbs-color-select-control__toggle-button', {
+				'is-open': isOpen,
+				'is-inherited': !currentValue && inherited,
+			}),
 			'aria-expanded': isOpen,
 			ref: presetButtonRef,
 		};
-		const isPaletteColor = useMemo( () => {
-			return ( currentValue && currentValue.startsWith( 'palette' ) ) || ( inherited && inherited.startsWith( 'palette' ) );
-		}, [ currentValue, inherited ] );
-		const displayValue = useMemo( () => {
-			if ( currentValue ) {
+		const isPaletteColor = useMemo(() => {
+			return (
+				(currentValue && currentValue.startsWith('palette')) || (inherited && inherited.startsWith('palette'))
+			);
+		}, [currentValue, inherited]);
+		const displayValue = useMemo(() => {
+			if (currentValue) {
 				return currentValue;
 			}
 			return inherited;
-		}, [ inherited, currentValue ] );
-		const previewColorString = useMemo( () => {
-			if ( displayValue ) {
-				return getColorPreview( displayValue );
+		}, [inherited, currentValue]);
+		const previewColorString = useMemo(() => {
+			if (displayValue) {
+				return getColorPreview(displayValue);
 			}
 			return '';
-		}, [ displayValue ] );
+		}, [displayValue]);
 		return (
 			<>
-				<Button __next40pxDefaultSize { ...toggleProps }>
-					{ isPaletteColor && (
-						<Icon
-							className="kbs-color-select-control__toggle-icon"
-							icon={ colorIcon }
-							size={ 24 }
-						/>
-					) }
-					<span className="kbs-color-select-control__toggle-label">{ displayValue ? getColorLabel( displayValue, colors ) : __( 'Unset', 'kadence-blocks' ) }</span>
-					<ColorIndicator className="kbs-color-select-control__toggle-preview" colorValue={previewColorString} />
+				<Button __next40pxDefaultSize {...toggleProps}>
+					{isPaletteColor && (
+						<Icon className="kbs-color-select-control__toggle-icon" icon={colorIcon} size={24} />
+					)}
+					<span className="kbs-color-select-control__toggle-label">
+						{displayValue ? getColorLabel(displayValue, colors) : __('Unset', 'kadence-blocks')}
+					</span>
+					<ColorIndicator
+						className="kbs-color-select-control__toggle-preview"
+						colorValue={previewColorString}
+					/>
 				</Button>
 			</>
 		);
 	};
 }
 
-function renderColorDropdown( colors, currentValue, onChange, previewDevice, type ) {
-	return ( { onToggle, isOpen } ) => {
-		const paletteDropdown = colors.map( ( { color, slug, name } ) => {
+function renderColorDropdown(colors, currentValue, onChange, previewDevice, type) {
+	return ({ onToggle, isOpen }) => {
+		const paletteDropdown = colors.map(({ color, slug, name }) => {
 			const palette = slug.replace('theme-', '');
 			const isActive = palette === currentValue || (!slug.startsWith('theme-palette') && currentValue === color);
 			return (
-				<Button __next40pxDefaultSize
-					className={ clsx( 'kbs-color-select-button', 'kbs-color-select-control__select-button', 
-					{ 
+				<Button
+					__next40pxDefaultSize
+					className={clsx('kbs-color-select-button', 'kbs-color-select-control__select-button', {
 						'is-selected': isActive,
-					 } )
-					}
-					label={name ? name : getColorLabel( color, colors )}
+					})}
+					label={name ? name : getColorLabel(color, colors)}
 					onClick={() => {
 						if (slug.startsWith('theme-palette')) {
 							onChange(palette, previewDevice, type);
@@ -151,11 +159,12 @@ function renderColorDropdown( colors, currentValue, onChange, previewDevice, typ
 							onChange(color, previewDevice, type);
 						}
 						onToggle();
-				}}>
-					<ColorIndicator className="kbs-color-select-control__toggle-preview" colorValue={getColorPreview(color)} />
+					}}
+				>
+					<CheckedColorIndicator colorValue={getColorPreview(color)} isChecked={isActive} />
 				</Button>
 			);
-		} );
+		});
 		const defaultTabs = [
 			{
 				name: 'storybook',
@@ -172,15 +181,9 @@ function renderColorDropdown( colors, currentValue, onChange, previewDevice, typ
 					{(tab) => {
 						if (tab.name) {
 							if ('custom' === tab.name) {
-								return (
-									<>
-										
-									</>
-								);
+								return <></>;
 							} else {
-								return <>{
-									paletteDropdown
-								}</>;
+								return paletteDropdown;
 							}
 						}
 					}}
@@ -190,24 +193,24 @@ function renderColorDropdown( colors, currentValue, onChange, previewDevice, typ
 	};
 }
 
-export default function ColorControl( {
-		attributes,
-		setAttributes,
-		attributeName,
-		meta,
-		type,
-		globalStylesIds,
-		reset = true,
-		label,
-		hasDeviceControls = false,
-		isAdvanced = false,
-		advancedControls = [],
-		isCustom = false,
-		hasCustomControls = false,
-		previewDevice = 'desktop',
-		forStyleBook = false,
-		customOnChange,
-	} ) {
+export default function ColorControl({
+	attributes,
+	setAttributes,
+	attributeName,
+	meta,
+	type,
+	globalStylesIds,
+	reset = true,
+	label,
+	hasDeviceControls = false,
+	isAdvanced = false,
+	advancedControls = [],
+	isCustom = false,
+	hasCustomControls = false,
+	previewDevice = 'desktop',
+	forStyleBook = false,
+	customOnChange,
+}) {
 	const popoverProps = {
 		placement: 'left-start',
 		//offset: 36,
@@ -245,11 +248,14 @@ export default function ColorControl( {
 			/>
 			<div className="kbs-control-inner">
 				<Dropdown
-					popoverProps={ popoverProps }
+					popoverProps={popoverProps}
 					className="kbs-color-select-control__dropdown"
 					contentClassName="kbs-color-select-control__dropdown-content"
-					renderToggle={ renderColorToggle( currentValue, inherited?.inheritedValue ? inherited.inheritedValue : '' ) }
-					renderContent={ renderColorDropdown( colors, currentValue, onChange, previewDevice, type ) }
+					renderToggle={renderColorToggle(
+						currentValue,
+						inherited?.inheritedValue ? inherited.inheritedValue : ''
+					)}
+					renderContent={renderColorDropdown(colors, currentValue, onChange, previewDevice, type)}
 				/>
 			</div>
 		</div>

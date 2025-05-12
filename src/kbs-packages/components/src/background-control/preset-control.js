@@ -18,7 +18,6 @@ import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import TitleBar from '../title-bar';
 
-
 const getPresets = (presetType) => {
 	switch (presetType) {
 		case 'background':
@@ -39,8 +38,8 @@ const getPresets = (presetType) => {
 		default:
 			return [];
 	}
-}
-export default function PresetControl( {
+};
+export default function PresetControl({
 	label,
 	reset = true,
 	attributes,
@@ -51,19 +50,26 @@ export default function PresetControl( {
 	globalStylesIds,
 	customOnChange,
 	view = 'default',
-} ) {
-	const attributeMeta = meta?.attributes?.[ attributeName ];
+}) {
+	const attributeMeta = meta?.attributes?.[attributeName];
 	const presetType = attributeMeta?.component ? attributeMeta?.component : '';
-	if ( !presetType ) {
+	if (!presetType) {
 		return null;
 	}
 	// Fetch available presets
 	const presets = getPresets(presetType);
 	// Get the first three presets in a custom array
 	const presetOptions = presets.slice(0, 3);
-	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, 'preset', globalStylesIds);
-	const currentValue = attributes?.[ attributeName ]?.preset;
-	
+	const inherited = getInheritedDeviceValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		'preset',
+		globalStylesIds
+	);
+	const currentValue = attributes?.[attributeName]?.preset;
+
 	const [isAdvanced, setIsAdvanced] = useState(view === 'advanced');
 	const onChange = (value) => {
 		handleAttributeChange(value, 'none', attributeName, attributes, setAttributes, customOnChange, 'preset', meta);
@@ -72,7 +78,7 @@ export default function PresetControl( {
 		onChange(undefined);
 	};
 	useEffect(() => {
-		if (view !== 'advanced' && currentValue && presets.length > 3 ) {
+		if (view !== 'advanced' && currentValue && presets.length > 3) {
 			setIsAdvanced(isAdvancedOption(presetOptions, presets, currentValue));
 		} else if (view === 'advanced' && !isAdvanced) {
 			setIsAdvanced(true);
@@ -82,7 +88,9 @@ export default function PresetControl( {
 	}, [view]);
 
 	return (
-		<div className={`components-base-control kbs-control kbs-radio-preset-control kbs-radio-preset-control-${presetType}`}>
+		<div
+			className={`components-base-control kbs-control kbs-radio-preset-control kbs-radio-preset-control-${presetType}`}
+		>
 			<TitleBar
 				label={label}
 				reset={reset}
@@ -93,11 +101,17 @@ export default function PresetControl( {
 				hasAdvancedControls={presets.length > 3}
 			/>
 			<div className="kbs-control-inner">
-				{ presets.map( ( option ) => (
-					<Button key={ option.value } label={ option.label } isPressed={option.value === currentValue} className={`kbs-radio-preset-control-button`} onClick={ () => onChange( option.value ) }>
+				{presets.map((option) => (
+					<Button
+						key={option.value}
+						label={option.label}
+						isPressed={option.value === currentValue}
+						className={`kbs-radio-preset-control-button`}
+						onClick={() => onChange(option.value)}
+					>
 						<span className={`kbs-radio-preset-control-style ${option.value}`}></span>
 					</Button>
-				) ) }
+				))}
 			</div>
 		</div>
 	);
