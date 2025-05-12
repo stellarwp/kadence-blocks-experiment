@@ -92,7 +92,7 @@ export default function RadioButtonControl({
 					inherited={inherited}
 					isCollapsed={isCollapsed}
 					onChange={(itemValue) => onChange(itemValue, previewDevice, type)}
-					controls={isAdvanced && advancedControls ? advancedControls : controls}
+					controls={isAdvanced && advancedControls?.length > 0 ? advancedControls : controls}
 					isCustom={isCustom}
 					type={type}
 				/>

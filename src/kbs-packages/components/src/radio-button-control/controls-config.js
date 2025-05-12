@@ -37,7 +37,6 @@ export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioToggleGroupButtonUI;
 	let controls;
 	let advancedControls;
-
 	switch (radioType) {
 		case 'flex-wrap':
 		case 'flexWrap':
@@ -76,6 +75,7 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'flex':
 			UIComponent = RadioToggleGroupFlexSizeUI;
 			controls = getFlexSizeControls();
+			break;
 		case 'link-style':
 		case 'linkStyle':
 			controls = getLinkStyleControls();
