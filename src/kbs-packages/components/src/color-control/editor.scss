@@ -5,7 +5,7 @@
 		.kbs-color-select-control__toggle-button {
 			width: 100%;
 			gap: 4px;
-			background: var(--kb-subtle-background, #edf2f7);
+			box-shadow: inset 0 0 0 1px var(--kb-border-color, #859cb6);
 			&:hover {
 				background: color-mix(in srgb, var(--kb-subtle-background, #edf2f7) 50%, transparent);
 				color: var(--wp-components-color-foreground, #1e1e1e);
@@ -22,10 +22,14 @@
 		.kbs-color-select-control__toggle-label {
 			flex-grow: 1;
 			text-align: left;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 		.component-color-indicator {
 			width: 30px;
 			height: 30px;
+			min-width: 30px;
 			border-radius: 4px;
 			box-shadow: inset 0 0 0 1px #0003;
 			transition: box-shadow 0.2s ease-in-out;
@@ -33,6 +37,7 @@
 	}
 	.kbs-color-select-control__select-button {
 		padding: 0;
+		height: auto;
 		&:hover {
 			background: transparent;
 			color: var(--wp-components-color-foreground, #1e1e1e);
@@ -40,6 +45,22 @@
 				box-shadow: inset 0 0 0 2px #0003;
 			}
 		}
+		&:focus:not(:disabled) {
+			background: transparent;
+			box-shadow: none;
+			outline: none;
+		}
+	}
+	.kbs-color-select-control__dropdown-category-title {
+		margin: 0;
+		font-size: 13px;
+		font-weight: 500;
+		color: var(--kb-color-medium-foreground, #4e5a65);
+	}
+	.kbs-color-select-control__dropdown-category-palette-inner {
+		display: flex;
+		gap: 6px;
+		padding: 6px 0;
 	}
 }
 .kbs-color-select-control__dropdown-content .components-popover__content {
@@ -94,4 +115,20 @@
 		height: 16px;
 		border-radius: 4px;
 	}
+}
+.kbs-color-select-control__dropdown-content-inner {
+	position: relative;
+	.kbs-color-select-control__dropdown-content-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 1;
+	}
+}
+
+.kbs-color-picker {
+	--github-border: 0px;
+	--github-background-color: transparent;
+	--github-box-shadow: none;
+	--github-arrow-border-color: transparent;
 }
