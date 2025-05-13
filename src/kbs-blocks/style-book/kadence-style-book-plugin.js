@@ -45,6 +45,7 @@ function KadenceConfig() {
 	);
 
 	const {
+		saveStyleBookGlobalStyle,
 		saveStyleBookGlobalStyles,
 		setStyleBookAttributes,
 		updateStyleBookLocalGlobalStyle,
@@ -214,7 +215,11 @@ function KadenceConfig() {
 				{controlContentUpper}
 				{controlContent}
 				<PanelBody>
-					<Button onClick={() => saveStyleBookGlobalStyles()} variant="secondary" isBusy={isSavingStyleBook}>
+					<Button
+						onClick={() => saveStyleBookGlobalStyle(currentGlobalStyleId)}
+						variant="secondary"
+						isBusy={isSavingStyleBook}
+					>
 						{__('Save Style Book', 'kadence-blocks')}
 					</Button>
 				</PanelBody>

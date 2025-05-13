@@ -201,7 +201,6 @@ const actions = {
 			selectorName: 'getStyleBookLocalGlobalStyles',
 			args: [],
 		};
-
 		if (!styleBookLocalGlobalStyles) {
 			return false;
 		}
@@ -222,6 +221,62 @@ const actions = {
 				yield {
 					type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLES',
 					styleBookLocalGlobalStyles: result.data,
+				};
+			}
+			yield actions.setIsSavingStyleBook(false);
+			return result;
+		} catch (error) {
+			console.error('Error saving global styles:', error);
+			yield actions.setError(error);
+			yield actions.setIsSavingStyleBook(false);
+			return [];
+		}
+	},
+	*saveStyleBookGlobalStyle(currentGlobalStyleId) {
+		// Check if we're already loading to prevent duplicate requests
+		const isSavingStyleBook = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'isSavingStyleBook',
+			args: [],
+		};
+
+		// If already loading, don't make another request
+		if (isSavingStyleBook) {
+			return isSavingStyleBook;
+		}
+		yield actions.setIsSavingStyleBook(true);
+
+		const styleBookLocalGlobalStyles = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'getStyleBookLocalGlobalStyles',
+			args: [],
+		};
+		if (!styleBookLocalGlobalStyles?.[currentGlobalStyleId]) {
+			return false;
+		}
+
+		const path = '/kadence-blocks/v1/global-styles/save-single';
+		try {
+			const result = yield {
+				type: 'API_FETCH',
+				request: {
+					path: path,
+					method: 'POST',
+					data: { data: styleBookLocalGlobalStyles[currentGlobalStyleId] },
+				},
+			};
+
+			//the saving might have modified the global styles, namely adding a postId so update the data store as well
+			if (result.success && result.data) {
+				if (result?.data?.postID) {
+					styleBookLocalGlobalStyles[currentGlobalStyleId].postId = result.data.postID;
+				}
+				yield {
+					type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLE',
+					globalStyleId: currentGlobalStyleId,
+					styleBookLocalGlobalStyle: styleBookLocalGlobalStyles[currentGlobalStyleId],
 				};
 			}
 			yield actions.setIsSavingStyleBook(false);

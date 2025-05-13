@@ -77,6 +77,18 @@ class GlobalStylesController extends WP_REST_Controller {
         );
         register_rest_route(
             $this->namespace,
+            '/' . $this->rest_base . '/save-single',
+            [
+                [
+                    'methods'             => WP_REST_Server::EDITABLE,
+                    'callback'            => [ $this, 'save_single_item' ],
+                    'permission_callback' => [ $this, 'save_items_permissions_check' ],
+					'args'                => $this->get_collection_params(),
+                ],
+            ]
+        );
+        register_rest_route(
+            $this->namespace,
             '/' . $this->rest_base . '/save-demo',
             [
                 [
@@ -106,8 +118,7 @@ class GlobalStylesController extends WP_REST_Controller {
      * @return bool|\WP_Error
      */
     public function get_items_permissions_check( $request ) {
-        // TODO: Check if user has access to get items
-        return true;
+        return current_user_can( 'edit_posts' );
     }
 
     /**
@@ -117,8 +128,7 @@ class GlobalStylesController extends WP_REST_Controller {
      * @return bool|\WP_Error
      */
     public function save_items_permissions_check( $request ) {
-        // return current_user_can( 'edit_posts' );
-        return true;
+        return current_user_can( 'manage_options' );
     }
 
     /**
@@ -145,6 +155,9 @@ class GlobalStylesController extends WP_REST_Controller {
         if ( $all_posts ) {
             foreach ( $all_posts as $_post ) {
                 $decoded_content = json_decode( $_post->post_content, true );
+                if ( ! is_array( $decoded_content ) ) {
+                    continue;
+                }
                 $decoded_content['postId'] = $_post->ID;
                 $global_style_id = $decoded_content['styleId'] ?? '';
                 // If data is corrupt, skip it
@@ -238,7 +251,78 @@ class GlobalStylesController extends WP_REST_Controller {
 
         return new WP_REST_Response( $result, 200 );
     }
+    /**
+     * Saves a collection of global styles.
+     *
+     * @param \WP_REST_Request $request Full data about the request.
+     * @return WP_REST_Response
+     */
+    public function save_single_item( $request ) {
+        $parameters = $request->get_json_params();
+        $data = ( isset( $parameters['data'] ) && is_array( $parameters['data'] ) ? $parameters['data'] : array() );
+        if ( empty( $data ) ) {
+            return new WP_REST_Response( array( 'success' => false, 'error' => 'No data provided' ), 400 );
+        }
+        $result = '';
+        $style_id = $data['styleId'] ?? '';
+        $sanitized_global_style = $this->sanitize_global_style( $data );
+        if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
+            $core_style = str_replace( 'kbs-', '', $style_id );
+            if ( $core_style == 'base' ) {
+                $sanitized_global_style = Global_Style::save_base_palette( $sanitized_global_style );
+            }
+            $result = Global_Style::save_options( wp_json_encode( $sanitized_global_style ), $core_style );
+        } else {
+            $post_arr = array(
+                'ID' => ! empty( $sanitized_global_style['postId'] ) ? $sanitized_global_style['postId'] : 0,
+                'post_type' => self::$slug,
+                'post_title' => ! empty( $sanitized_global_style['name'] ) ? $sanitized_global_style['name'] : __( 'Global Style', 'kadence-blocks' ),
+                'post_content' => wp_json_encode( $sanitized_global_style ),                    
+                'post_status' => 'publish',
+                'meta_input' => array(
+                    self::$meta_style_id_slug => $style_id,
+                ),
+            );
+            $result = wp_insert_post( $post_arr );
 
+            //set the postId if it's not already set
+            if ( $result && gettype( $result ) != 'WP_Error' && ! isset( $sanitized_global_style['postId'] ) ) {
+                $sanitized_global_style['postId'] = $result;
+            }
+        }
+        if ( ! $result || gettype( $result ) == 'WP_Error' ) {
+            $response = array( 'success' => false, 'error' => $result );
+        } else {
+            $response = array( 'success' => true, 'data' => $sanitized_global_style );
+        }
+
+        return new WP_REST_Response( $response, 200 );
+    }
+    /**
+     * Sanitizes a global style.
+     *
+     * @param array $global_style The global style to sanitize.
+     * @return array The sanitized global style.
+     */
+    public function sanitize_global_style( $global_style ) {
+        $sanitized_global_style = array();
+        foreach ( $global_style as $key => $value ) {
+            if ( is_array( $value ) ) {
+                // If the type is locked, remove all the other keys except value
+                if ( isset( $value['locked'] ) && $value['locked'] ) {
+                    foreach ( $value as $sub_key => $sub_value ) {
+                        if ( 'value' !== $sub_key && 'attributes' !== $sub_key ) {
+                            unset( $value[$sub_key] );
+                        }
+                    }
+                }
+                $sanitized_global_style[$key] = $this->sanitize_global_style( $value );
+            } else {
+                $sanitized_global_style[$key] = sanitize_text_field( $value );
+            }
+        }
+        return $sanitized_global_style;
+    }
     /**
      * Saves a collection of global styles.
      *
@@ -252,15 +336,16 @@ class GlobalStylesController extends WP_REST_Controller {
 
         if ( $data && gettype( $data ) == 'array' ) {
             foreach ( $data as $style_id => $global_style ) {
+                $sanitized_global_style = $this->sanitize_global_style( $global_style );
                 if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
                     $core_style = str_replace( 'kbs-', '', $style_id );
-                    $global_style = Global_Style::save_options( wp_slash( wp_json_encode( $global_style ) ), $core_style );
+                    $global_style = Global_Style::save_options( wp_json_encode( $sanitized_global_style ), $core_style );
                 } else {
                     $post_arr = array(
-                        'ID' => isset( $global_style['postId'] ) ? $global_style['postId'] : 0,
+                        'ID' => isset( $sanitized_global_style['postId'] ) ? $sanitized_global_style['postId'] : 0,
                         'post_type' => self::$slug,
-                        'post_title' => isset( $global_style['name'] ) ? $global_style['name'] : __( 'Global Style', 'kadence-blocks' ),
-                        'post_content' => wp_slash( wp_json_encode( $global_style ) ),                    
+                        'post_title' => isset( $sanitized_global_style['name'] ) ? $sanitized_global_style['name'] : __( 'Global Style', 'kadence-blocks' ),
+                        'post_content' => wp_json_encode( $sanitized_global_style ),                    
                         'post_status' => 'publish',
                         'meta_input' => array(
                             self::$meta_style_id_slug => $style_id,
@@ -269,8 +354,8 @@ class GlobalStylesController extends WP_REST_Controller {
                     $result = wp_insert_post( $post_arr );
 
                     //set the postId if it's not already set
-                    if ( $result && gettype( $result ) != 'WP_Error' && ! isset( $data[$style_id]['postId'] ) ) {
-                        $data[$style_id]['postId'] = $result;
+                    if ( $result && gettype( $result ) != 'WP_Error' && ! isset( $sanitized_global_style['postId'] ) ) {
+                        $sanitized_global_style['postId'] = $result;
                     }
                 }
             }
@@ -279,7 +364,7 @@ class GlobalStylesController extends WP_REST_Controller {
         if ( ! $result || gettype( $result ) == 'WP_Error' ) {
             $response = array( 'success' => false, 'error' => $result );
         } else {
-            $response = array( 'success' => true, 'data' => $data );
+            $response = array( 'success' => true, 'data' => $sanitized_global_style );
         }
 
         return new WP_REST_Response( $response, 200 );

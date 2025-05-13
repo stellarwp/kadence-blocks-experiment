@@ -1,6 +1,6 @@
 {
 	"styleId": "kbs-base",
-	"label": "Base Style",
+	"name": "Base Style",
 	"version": "1.0.0",
 	"components": {
 		"background": {

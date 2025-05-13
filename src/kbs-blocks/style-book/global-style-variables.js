@@ -7,15 +7,20 @@ import { registerPlugin } from '@wordpress/plugins';
  * Gets variable name from category and type
  */
 export function getMappingVariableName(category, type) {
-	const categorySlug = String(category)
+	let prefix = 'kbs-';
+	let categorySlug = String(category)
 		.replace(/[^a-zA-Z0-9-_]/g, '-')
 		.replace(/^-+|-+$/g, '')
 		.toLowerCase();
+	if (categorySlug === 'colors') {
+		categorySlug = 'global';
+		prefix = '';
+	}
 	const typeSlug = String(type)
 		.replace(/[^a-zA-Z0-9-_]/g, '-')
 		.replace(/^-+|-+$/g, '')
 		.toLowerCase();
-	return `--kbs-${categorySlug}-${typeSlug}`;
+	return `--${prefix}${categorySlug}-${typeSlug}`;
 }
 
 /**
@@ -160,7 +165,7 @@ export const GlobalStyleVariableOutput = () => {
 			}
 		});
 
-		// console.log(finalCssString);
+		console.log(finalCssString);
 
 		return finalCssString;
 	}, [globalStyles, previewDevice]);

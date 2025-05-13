@@ -11,6 +11,10 @@ declare( strict_types=1 );
 
 namespace KadenceWP\KadenceBlocks\Settings;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Handles all functionality related to the A/B Testing Block.
  *
@@ -75,7 +79,59 @@ class Global_Style {
 	 * @var array
 	 */
 	private static $accent_opt_name = null;
+	/**
+	 * Holds default palette values
+	 *
+	 * @var values of the theme settings.
+	 */
+	protected static $default_palette = null;
 
+	/**
+	 * Holds palette values
+	 *
+	 * @var values of the theme settings.
+	 */
+	protected static $palette = null;
+	
+	/**
+	 * Get Palette Option.
+	 *
+	 * @param string $subkey option subkey.
+	 * @param string $active_palette the active palette.
+	 */
+	public static function palette_option( $subkey, $active_palette = null ) {
+		if ( is_null( self::$palette ) ) {
+			$palette = get_option( 'kadence_global_palette' );
+			if ( $palette && ! empty( $palette ) ) {
+				self::$palette = json_decode( $palette, true );
+			} else {
+				self::$palette = json_decode( self::palette_defaults(), true );
+			}
+		}
+		$active = ! empty( $active_palette ) ? $active_palette : apply_filters( 'kadence_active_palette', ( self::$palette && is_array( self::$palette ) && isset( self::$palette['active'] ) && ! empty( self::$palette['active'] ) ? self::$palette['active'] : 'palette' ) );
+		$value = '';
+		if ( self::$palette && is_array( self::$palette ) && isset( self::$palette[ $active ] ) && is_array( self::$palette[ $active ] ) ) {
+			$palette_number = (int) substr( $subkey, -1 ) - 1;
+			$palette_item   = ( isset( self::$palette[ $active ][ $palette_number ] ) && is_array( self::$palette[ $active ][ $palette_number ] ) ? self::$palette[ $active ][ $palette_number ] : array() );
+			if ( isset( $palette_item['slug'] ) && $palette_item['slug'] === $subkey ) {
+				$value = ( isset( $palette_item['color'] ) && ! empty( $palette_item['color'] ) ? $palette_item['color'] : '' );
+			}
+		}
+
+		return apply_filters( 'kadence_palette_option', $value, $subkey );
+	}
+	/**
+	 * Set default theme option values
+	 *
+	 * @return string values of the theme.
+	 */
+	public static function palette_defaults() {
+		// Don't store defaults until after init.
+		if ( is_null( self::$default_palette ) ) {
+			self::$default_palette = apply_filters( 'kadence_global_palette_defaults', '{"palette":[{"color":"#2B6CB0","slug":"palette1","name":"Palette Color 1"},{"color":"#215387","slug":"palette2","name":"Palette Color 2"},{"color":"#1A202C","slug":"palette3","name":"Palette Color 3"},{"color":"#2D3748","slug":"palette4","name":"Palette Color 4"},{"color":"#4A5568","slug":"palette5","name":"Palette Color 5"},{"color":"#718096","slug":"palette6","name":"Palette Color 6"},{"color":"#EDF2F7","slug":"palette7","name":"Palette Color 7"},{"color":"#F7FAFC","slug":"palette8","name":"Palette Color 8"},{"color":"#ffffff","slug":"palette9","name":"Palette Color 9"}],"second-palette":[{"color":"#2B6CB0","slug":"palette1","name":"Palette Color 1"},{"color":"#215387","slug":"palette2","name":"Palette Color 2"},{"color":"#1A202C","slug":"palette3","name":"Palette Color 3"},{"color":"#2D3748","slug":"palette4","name":"Palette Color 4"},{"color":"#4A5568","slug":"palette5","name":"Palette Color 5"},{"color":"#718096","slug":"palette6","name":"Palette Color 6"},{"color":"#EDF2F7","slug":"palette7","name":"Palette Color 7"},{"color":"#F7FAFC","slug":"palette8","name":"Palette Color 8"},{"color":"#ffffff","slug":"palette9","name":"Palette Color 9"}],"third-palette":[{"color":"#2B6CB0","slug":"palette1","name":"Palette Color 1"},{"color":"#215387","slug":"palette2","name":"Palette Color 2"},{"color":"#1A202C","slug":"palette3","name":"Palette Color 3"},{"color":"#2D3748","slug":"palette4","name":"Palette Color 4"},{"color":"#4A5568","slug":"palette5","name":"Palette Color 5"},{"color":"#718096","slug":"palette6","name":"Palette Color 6"},{"color":"#EDF2F7","slug":"palette7","name":"Palette Color 7"},{"color":"#F7FAFC","slug":"palette8","name":"Palette Color 8"},{"color":"#ffffff","slug":"palette9","name":"Palette Color 9"}],"active":"palette"}' );
+		}
+		return self::$default_palette;
+	}
 	/**
 	 * Set default theme option values
 	 *
@@ -100,10 +156,86 @@ class Global_Style {
 		return self::$default_options;
 	}
 	/**
-	 * Set default theme option values
-	 *
-	 * @return default values of the theme.
+	 * Get Palette
 	 */
+	public static function get_palette() {
+		$palette = get_option( 'kadence_global_palette' );
+		if ( ! $palette || empty( $palette ) ) {
+			$palette = self::palette_defaults();
+		}
+		return $palette;
+	}
+	/**
+	 * Save Base Palette
+	 */
+	public static function save_base_palette( $global_style ) {
+		$global_palette = json_decode( self::get_palette(), true );
+		if ( isset( $global_palette['active'] ) && ! empty( $global_palette['active'] ) ) {
+			$active = $global_palette['active'];
+		} else {
+			$active = 'palette';
+		}
+		$update_palette = false;
+		if ( isset( $global_style['components']['colors'] ) && is_array( $global_style['components']['colors'] ) ) {
+			foreach ( $global_style['components']['colors'] as $key => $value ) {
+				if ( $key === 'palette1' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][0]['color'] = $value['value'];
+					$update_palette = true;
+				}
+				if ( $key === 'palette2' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][1]['color'] = $value['value'];
+					$update_palette = true;
+				}
+				if ( $key === 'palette3' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][2]['color'] = $value['value'];
+					$update_palette = true;
+				}
+				if ( $key === 'palette4' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][3]['color'] = $value['value'];
+					$update_palette = true;
+				}
+				if ( $key === 'palette5' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][4]['color'] = $value['value'];
+					$update_palette = true;
+				}
+				if ( $key === 'palette6' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][5]['color'] = $value['value'];
+					$update_palette = true;
+				}
+				if ( $key === 'palette7' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][6]['color'] = $value['value'];
+					$update_palette = true;
+				}
+				if ( $key === 'palette8' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][7]['color'] = $value['value'];
+					$update_palette = true;
+				}
+				if ( $key === 'palette9' && ! empty( $value['value'] ) ) {
+					$global_palette[$active][8]['color'] = $value['value'];
+					$update_palette = true;
+				}
+			}
+		}
+		if ( $update_palette ) {
+			update_option( 'kadence_global_palette', json_encode( $global_palette ) );
+		}
+		return $global_style;
+	}
+	/**
+	 * Merge colors
+	 *
+	 * @param array $styles styles.
+	 * @param array $global_colors global colors.
+	 * @return array
+	 */
+	public static function merge_colors( $colors, $global_colors ) {
+		foreach ( $colors as $key => $value ) {
+			if ( ! empty( $global_colors[ $key ] ) ) {
+				$colors[ $key ] = [ 'value' => $global_colors[ $key ] ];
+			}
+		}
+		return $colors;
+	}
 	public static function dark_defaults() {
 		// Don't store defaults until after init.
 		if ( is_null( self::$default_dark_options ) ) {
@@ -196,7 +328,21 @@ class Global_Style {
 	public static function get_base_options() {
 		if ( is_null( self::$base_options ) ) {
 			$options       = json_decode( get_option( self::get_base_option_name(), '[]' ), true );
-			self::$base_options = wp_parse_args( $options, self::defaults() );
+			
+			$settings_options = wp_parse_args( $options, self::defaults() );
+			$global_colors = [
+				'palette1' => self::palette_option( 'palette1' ),
+				'palette2' => self::palette_option( 'palette2' ),
+				'palette3' => self::palette_option( 'palette3' ),
+				'palette4' => self::palette_option( 'palette4' ),
+				'palette5' => self::palette_option( 'palette5' ),
+				'palette6' => self::palette_option( 'palette6' ),
+				'palette7' => self::palette_option( 'palette7' ),
+				'palette8' => self::palette_option( 'palette8' ),
+				'palette9' => self::palette_option( 'palette9' ),
+			];
+			$settings_options['components']['colors'] = self::merge_colors( $settings_options['components']['colors'], $global_colors );
+			self::$base_options = $settings_options;
 		}
 		return self::$base_options;
 	}

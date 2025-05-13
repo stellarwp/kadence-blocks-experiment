@@ -1,17 +1,17 @@
 {
 	"styleId": "kbs-dark",
 	"name": "Dark Style",
-	"mappings": {
+	"components": {
 		"colors": {
-			"palette1": { "value": "var(--global-color-palette1)" },
-			"palette2": { "value": "var(--global-color-palette2)" },
-			"palette3": { "value": "var(--global-color-palette9)" },
-			"palette4": { "value": "var(--global-color-palette8)" },
-			"palette5": { "value": "var(--global-color-palette7)" },
-			"palette6": { "value": "color-mix(in srgb, var(--global-color-palette7) 90%, black)" },
-			"palette7": { "value": "var(--global-color-palette5)" },
-			"palette8": { "value": "var(--global-color-palette4)" },
-			"palette9": { "value": "var(--global-color-palette3)" }
+			"palette1": { "value": "var(--global-palette1)" },
+			"palette2": { "value": "var(--global-palette2)" },
+			"palette3": { "value": "var(--global-palette9)" },
+			"palette4": { "value": "var(--global-palette8)" },
+			"palette5": { "value": "var(--global-palette7)" },
+			"palette6": { "value": "color-mix(in srgb, var(--global-palette7) 90%, black)" },
+			"palette7": { "value": "var(--global-palette5)" },
+			"palette8": { "value": "var(--global-palette4)" },
+			"palette9": { "value": "var(--global-palette3)" }
 		}
 	}
 }
