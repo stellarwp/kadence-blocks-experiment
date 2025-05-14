@@ -26,7 +26,7 @@ class Global_Style_Css {
 	 *
 	 * @var array
 	 */
-	private $global_styles = [];
+	private $global_styles = null;
 	/**
 	 * Responsive device options.
 	 *
@@ -59,7 +59,6 @@ class Global_Style_Css {
 	public function __construct( CSS_Engine $css_engine, $device_options ) {
 		$this->css = $css_engine;
 		$this->device_options = $device_options;
-        $this->global_styles = $this->fetch_global_styles();
 	}
 
 	/**
@@ -95,6 +94,10 @@ class Global_Style_Css {
 	 * Generates the CSS variables.
 	 */
 	public function generate_css() {
+        if( null === $this->global_styles ) {
+            $this->global_styles = $this->fetch_global_styles();
+        }
+
 		if ( empty( $this->global_styles ) || ! is_array( $this->global_styles ) ) {
 			return;
 		}
