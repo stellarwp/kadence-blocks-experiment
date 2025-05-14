@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class to create a minified css output.
  */
-class GlobalStyleCPT {
+class Global_Style_CPT {
     const SLUG = 'kadence_global_style';
 	/**
 	 * Instance Control

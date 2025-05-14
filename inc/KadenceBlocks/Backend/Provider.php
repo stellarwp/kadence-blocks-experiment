@@ -29,7 +29,7 @@ class Provider extends Service_Provider {
 	 */
 	public function register(): void {
 		add_action( 'init', function() {
-			$gs_cpt = new GlobalStyleCPT();
+			$gs_cpt = new Global_Style_CPT();
 		});
 	}
 }
