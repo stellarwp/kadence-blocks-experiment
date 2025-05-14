@@ -231,10 +231,8 @@ class CSS_Engine {
 		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
 		
 		// Generate global styles CSS when the CSS engine is initialized
-		if ( $this->global_styles_css->has_data() ) {
-			$this->global_styles_css->generate_css();
-		}
-
+		$this->global_styles_css->generate_css();
+		
 		// Initialize device slugs and media query arrays dynamically
 		foreach ( $this->device_options as $device_option ) {
 			$device_key = isset( $device_option['key'] ) ? $device_option['key'] : '';
