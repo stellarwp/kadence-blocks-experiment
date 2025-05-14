@@ -20,10 +20,10 @@ class Provider {
 	 */
 	public function register( ContainerInterface $container ): void {
 		add_action( 'rest_api_init', function() {
-			$fonts_controller = new FontsController();
+			$fonts_controller = new Fonts_Controller();
 			$fonts_controller->register_routes();
 
-			$global_styles_controller = new GlobalStylesController();
+			$global_styles_controller = new Global_Styles_Controller();
 			$global_styles_controller->register_routes();
 		});
 	}

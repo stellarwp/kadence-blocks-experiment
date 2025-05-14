@@ -83,7 +83,7 @@ class GlobalStyleCPT {
 			'show_in_admin_bar'     => false,
 			'can_export'            => true,
 			'show_in_rest'          => true,
-			'rest_controller_class' => \KadenceWP\KadenceBlocks\REST\GlobalStylesController::class,
+			'rest_controller_class' => \KadenceWP\KadenceBlocks\REST\Global_Styles_Controller::class,
 			'rest_base'             => 'kadence_global_style',
 			'capability_type'       => array( 'kadence_global_style', 'kadence_global_styles' ),
 			'map_meta_cap'          => true,

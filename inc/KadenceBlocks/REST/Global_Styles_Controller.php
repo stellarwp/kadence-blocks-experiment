@@ -15,7 +15,7 @@ use WP_REST_Response;
 /**
  * Global Styles Controller class
  */
-class GlobalStylesController extends WP_REST_Controller {
+class Global_Styles_Controller extends WP_REST_Controller {
     private static $slug = 'kadence_global_style';
     private static $meta_style_id_slug = 'kadence_global_style_id';
 

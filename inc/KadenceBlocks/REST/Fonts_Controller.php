@@ -16,7 +16,7 @@ use WP_Error;
 /**
  * Fonts REST API Controller class
  */
-class FontsController extends WP_REST_Controller {
+class Fonts_Controller extends WP_REST_Controller {
 
 	/**
 	 * Constructor.
