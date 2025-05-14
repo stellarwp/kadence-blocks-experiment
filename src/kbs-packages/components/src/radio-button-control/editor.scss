@@ -132,3 +132,30 @@
 		margin-bottom: 0;
 	}
 }
+.kbs-control .kbs-range-control {
+
+	.components-range-control__wrapper {
+		& > span:first-of-type {
+			height: 8px;
+		}
+	}
+
+	.components-range-control__track {
+		background: #000;
+		height: 8px;
+		border-radius: 6px;
+	}
+
+	.components-range-control__thumb-wrapper {
+		width: 16px;
+		height: 16px;
+
+		& > span {
+			width: 16px;
+			height: 16px;
+			background: #000;
+		}
+	}
+
+
+}

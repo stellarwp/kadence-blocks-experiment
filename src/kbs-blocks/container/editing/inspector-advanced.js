@@ -8,14 +8,13 @@
  * Kadence Components.
  */
 import {
-	ToolsPanelBody,
-	RadioButtonControl,
 	PresetSelectControl,
 	Typography,
 	SelectGlobalStyles,
 	BlockComponentControls,
 	FlexBoxControl,
 	FlexChildControl,
+	MaxWidthControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -37,6 +36,19 @@ export default function InspectorAdvanced(props) {
 		props;
 	return (
 		<>
+
+			<MaxWidthControl
+				attributes={attributes}
+				setAttributes={setAttributes}
+				previewDevice={previewDevice}
+				attributeName={'maxHeight'}
+				metaData={metadata}
+				globalStylesIds={globalStylesIds}
+				title={__('Max Height Settings', 'kadence-blocks')}
+				label={__('Max Height', 'kadence-blocks')}
+				type={'maxHeight'}
+			/>
+
 			<FlexBoxControl
 				attributeName={'flexBox'}
 				attributes={attributes}

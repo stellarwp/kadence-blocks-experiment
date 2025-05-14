@@ -25,3 +25,5 @@ export { default as BlockComponentControls } from './block-component-controls';
 
 export { default as LinkControl } from './links/link-control';
 export { default as LinkStyle } from './links/link-style';
+
+export { default as MaxWidthControl } from './max-width-control';

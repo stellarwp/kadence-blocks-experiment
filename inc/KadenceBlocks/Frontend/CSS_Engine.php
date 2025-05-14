@@ -914,8 +914,8 @@ class CSS_Engine {
 				$this->add_component_array( $attributes[$key], $attributes_meta['selector'], $expected_keys, $variable_name );			
 				break;
 			default:
-				$variable_name = 'button';
-				$this->add_component_array( $attributes[$key], $attributes_meta['selector'], $expected_keys, $variable_name );			
+				$expected_keys = [ $attributes_meta['component'] ];
+				$this->add_component_array( $attributes[$key], $attributes_meta['selector'], $expected_keys );			
 				break;
 		}
 

@@ -32,11 +32,13 @@ import {
 import RadioToggleGroupButtonUI from './ui-toggle-group';
 import RadioToggleGroupInputUI from './ui-toggle-group-input';
 import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
+import RadioToggleGroupInputRangeUI from './ui-toggle-group-input-range';
 
 export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioToggleGroupButtonUI;
 	let controls;
 	let advancedControls;
+
 	switch (radioType) {
 		case 'flex-wrap':
 		case 'flexWrap':
@@ -75,10 +77,18 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'flex':
 			UIComponent = RadioToggleGroupFlexSizeUI;
 			controls = getFlexSizeControls();
-			break;
 		case 'link-style':
 		case 'linkStyle':
 			controls = getLinkStyleControls();
+			break;
+		case 'max-width':
+		case 'maxWidth':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			controls = getMaxWidthControls();
+			break;
+		case 'max-height':
+		case 'maxHeight':
+			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
 	}
 
@@ -138,6 +148,23 @@ export const getGapControls = () => [
 		name: 'XL',
 		key: 'xl',
 	},
+];
+export const getMaxWidthControls = () => [
+	{
+		title: __('Normal', 'kadence-blocks'),
+		name: 'Normal',
+		key: 'normal',
+	},
+	{
+		title: __('Narrow', 'kadence-blocks'),
+		name: 'Narrow',
+		key: 'narrow',
+	},
+	{
+		title: __('Full Width', 'kadence-blocks'),
+		name: 'Full Width',
+		key: 'full',
+	}	
 ];
 export const getFlexWrapControls = () => [
 	{

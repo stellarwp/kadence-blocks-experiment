@@ -6,7 +6,7 @@
  * @param {string} value The value to check
  */
 export const isCustomOption = (controls, value, key = 'key') => {
-	if (!value) {
+	if (!value || !controls) {
 		return false;
 	}
 	// Check if the value is not in the controls array and is in the advanced controls array.

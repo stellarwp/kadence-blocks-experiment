@@ -16,6 +16,8 @@
 	column-gap: var(--kbs-cont-column-gap, var(--global-kb-spacing-xs, 1rem));
 	row-gap: var(--kbs-cont-row-gap, initial);
 
+	max-height: var(--kbs-cont-max-height, unset);
+
 	font-family: var(--kbs-cont-font-family);
 	font-weight: var(--kbs-cont-font-weight);
 	font-size: var(--kbs-cont-font-size);

@@ -103,6 +103,13 @@
 		"linkExtras": {
 			"type": "object"
 		},
+		"maxHeight": {
+			"renderCSS": true,
+			"component": "maxHeight",
+			"selector": "--kbs-cont-",
+			"initial": {},
+			"type": "object"
+		},
 		"typography": {
 			"renderCSS": true,
 			"component": "typography",

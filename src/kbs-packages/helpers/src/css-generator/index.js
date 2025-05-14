@@ -1,6 +1,6 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { SPACING_SIZES_MAP } from '../constants';
-import { merge } from 'lodash';
+import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { getBasePresetKey } from '../get-inherited-device-value';
 
@@ -151,6 +151,15 @@ class CSSGenerator {
 						this.setSelector(currentSelectorBackup); // Restore selector
 					}
 				});
+				break;
+
+			case 'maxWidth':
+			case 'maxHeight':
+				const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } =
+					getResolvedValue(attributeName, attributes, previewDevice, metadata, meta.component, globalStylesIds);
+				
+				const kebabCaseKey = kebabCase(meta.component);
+				this.add({ [meta.selector + kebabCaseKey]: appliedValue });
 				break;
 			default:
 				// For other complex properties, add specific handling here
