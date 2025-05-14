@@ -130,6 +130,7 @@
 	"mappings": {
 		"fontSize": {
 			"sm": { "value": "0.9rem" },
+			"p": { "value": "1rem" },
 			"md": { "value": "1.25rem" },
 			"lg": { "value": "2rem" },
 			"xl": { "value": "3rem" },
@@ -137,21 +138,21 @@
 			"3xl": { "value": "5rem" }
 		},
 		"letterSpacing": {
-			"none": { "value": "0rem" },
+			"none": { "value": "0" },
 			"xs": { "value": "0.5rem" },
 			"sm": { "value": "1rem" },
 			"md": { "value": "2rem" },
 			"lg": { "value": "4rem" }
 		},
 		"lineHeight": {
-			"none": { "value": "0rem" },
+			"none": { "value": "0" },
 			"xs": { "value": "0.5rem" },
 			"sm": { "value": "1rem" },
 			"md": { "value": "2rem" },
 			"lg": { "value": "4rem" }
 		},
 		"gap": {
-			"none": { "value": "0rem" },
+			"none": { "value": "0" },
 			"xs": { "value": "0.5rem" },
 			"sm": { "value": "1rem" },
 			"md": { "value": "2rem" },
