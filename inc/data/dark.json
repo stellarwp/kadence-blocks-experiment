@@ -1,7 +1,7 @@
 {
 	"styleId": "kbs-dark",
-	"name": "Dark Style",
-	"components": {
+	"label": "Dark Style",
+	"mappings": {
 		"colors": {
 			"palette1": { "value": "var(--global-palette1)" },
 			"palette2": { "value": "var(--global-palette2)" },

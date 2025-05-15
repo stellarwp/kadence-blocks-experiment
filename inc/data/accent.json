@@ -1,7 +1,7 @@
 {
 	"styleId": "kbs-accent",
-	"name": "Accent Style",
-	"components": {
+	"label": "Accent Style",
+	"mappings": {
 		"colors": {
 			"palette1": { "value": "var(--global-palette9)" },
 			"palette2": { "value": "var(--global-palette8)" },

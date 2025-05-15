@@ -21,7 +21,7 @@ export const useSelectOptions = ({forStyleBook = false}) => {
 	if (globalStyles && Object.keys(globalStyles).length > 0) {
 		options = Object.keys(globalStyles).map((key) => ({
 			value: key,
-			label: globalStyles[key].name || `Style ${key}`,
+			label: globalStyles[key].label || `Style ${key}`,
 		}));
 	} else {
 		// Fallback options if no global styles are found
