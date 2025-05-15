@@ -12,25 +12,32 @@
 	letter-spacing: var(--kbs-text-letter-spacing);
 	text-transform: var(--kbs-text-text-transform);
 	font-style: var(--kbs-text-font-style);
-	text-decoration: var(--kbs-text-text-decoration);
 
-    min-width: 0;
+	min-width: 0;
 
-    // Alignment classes
-    &.has-text-align-left {
-        text-align: left;
-    }
-    
-    &.has-text-align-center {
-        text-align: center;
-    }
-    
-    &.has-text-align-right {
-        text-align: right;
-    }
+	// Alignment classes
+	&.has-text-align-left {
+		text-align: left;
+	}
+
+	&.has-text-align-center {
+		text-align: center;
+	}
+
+	&.has-text-align-right {
+		text-align: right;
+	}
+
+	a {
+		text-decoration: var(--kbs-text-link-text-decoration);
+
+		&:hover {
+			text-decoration: var(--kbs-text-link-text-decoration-hover, var(--kbs-text-link-text-decoration));
+		}
+	}
 }
 
 .kbs-text-content {
-    margin: 0;
-    padding: 0;
-} 
+	margin: 0;
+	padding: 0;
+}

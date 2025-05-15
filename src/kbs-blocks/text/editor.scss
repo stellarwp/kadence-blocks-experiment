@@ -4,8 +4,8 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
- @use './style.scss';
- 
+@use "./style.scss";
+
 // Remove WP margin added to all blocks.
 .wp-block-kbs-text {
 	margin-top: 0;
@@ -17,8 +17,14 @@
 	}
 }
 
+.kbs-text {
+	a {
+		cursor: text;
+	}
+}
+
 .kbs-text-content {
 	&:focus {
 		outline: none;
 	}
-} 
+}

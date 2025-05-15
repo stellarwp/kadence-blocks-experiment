@@ -42,7 +42,7 @@ export default function LinkStyle({
 				attributes={attributes}
 				setAttributes={setAttributes}
 				attributeName={attributeName}
-				type={'linkStyle'}
+				type={'textDecoration'}
 				previewDevice={previewDevice}
 				meta={meta}
 				view={currentView}

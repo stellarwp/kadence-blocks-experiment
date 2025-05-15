@@ -40,8 +40,8 @@
 		},
 		"linkStyle": {
 			"renderCSS": true,
-			"component": "typography",
-			"selector": "--kbs-text-link-style-",
+			"component": "linkStyle",
+			"selector": "--kbs-text-link-",
 			"initial": {},
 			"type": "object"
 		},
