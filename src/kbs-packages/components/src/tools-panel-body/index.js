@@ -10,7 +10,6 @@ import { PanelRow, Button, PanelBody, Panel, Icon, DropdownMenu, MenuGroup, Menu
 import { useReducedMotion, useMergeRefs } from '@wordpress/compose';
 import { forwardRef, useRef } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { getComponentView } from '@kadence/kbs-helpers';
 import { moreVertical, check, chevronUp, chevronDown } from '@wordpress/icons';
 import { speak } from '@wordpress/a11y';
 import { __ } from '@wordpress/i18n';
@@ -19,7 +18,7 @@ import DeviceSwitchControl from '../device-switch-control';
 /**
  * Internal dependencies
  */
-import { useUpdateEffect } from '@kadence/kbs-helpers';
+import { useUpdateEffect, getComponentView } from '@kadence/kbsHelpers';
 import './editor.scss';
 
 const proSvg = (

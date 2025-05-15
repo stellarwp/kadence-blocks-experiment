@@ -165,7 +165,7 @@ export const GlobalStyleVariableOutput = () => {
 			}
 		});
 
-		console.log(finalCssString);
+		// console.log(finalCssString);
 
 		return finalCssString;
 	}, [globalStyles, previewDevice]);
@@ -213,6 +213,7 @@ export const GlobalStyleVariableOutput = () => {
 		}
 
 		updateOrCreateStyleTag(iframeDoc, styleId, cssVariables);
+		updateOrCreateStyleTag(document, styleId, cssVariables);
 
 		// Cleanup the style tag when the component unmounts
 		return () => {

@@ -8,7 +8,7 @@ import { Button } from '@wordpress/components';
 /**
  * Internal libraries
  */
-import { getPreviewValue, getInheritedDeviceValue, handleAttributeChange, isAdvancedOption } from '@kadence/kbsHelpers';
+import { getPreviewValue, getGlobalStylesPresetOptions, getInheritedDeviceValue, handleAttributeChange, isAdvancedOption } from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
  */
@@ -58,6 +58,8 @@ export default function PresetControl({
 	}
 	// Fetch available presets
 	const presets = getPresets(presetType);
+	// const presets = getGlobalStylesPresetOptions(presetType);
+	// console.log(presets);
 	// Get the first three presets in a custom array
 	const presetOptions = presets.slice(0, 3);
 	const inherited = getInheritedDeviceValue(

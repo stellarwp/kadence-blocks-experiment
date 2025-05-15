@@ -7,7 +7,7 @@
 /**
  * Kadence Components.
  */
-import { InspectorControlTabs } from '@kadence/kbs-components';
+import { InspectorControlTabs } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 import InspectorGeneral from './inspector-general';

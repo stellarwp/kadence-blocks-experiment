@@ -341,7 +341,7 @@ class Global_Style {
 				'palette8' => self::palette_option( 'palette8' ),
 				'palette9' => self::palette_option( 'palette9' ),
 			];
-			$settings_options['components']['colors'] = self::merge_colors( $settings_options['components']['colors'], $global_colors );
+			$settings_options['mappings']['colors'] = self::merge_colors( $settings_options['mappings']['colors'], $global_colors );
 			self::$base_options = $settings_options;
 		}
 		return self::$base_options;
