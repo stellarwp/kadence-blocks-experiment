@@ -328,8 +328,7 @@ class Global_Style {
 	public static function get_base_options() {
 		if ( is_null( self::$base_options ) ) {
 			$options       = json_decode( get_option( self::get_base_option_name(), '[]' ), true );
-			
-			$settings_options = wp_parse_args( $options, self::defaults() );
+			$settings_options = self::deep_merge( self::defaults(), $options );
 			$global_colors = [
 				'palette1' => self::palette_option( 'palette1' ),
 				'palette2' => self::palette_option( 'palette2' ),
@@ -417,5 +416,29 @@ class Global_Style {
 	 */
 	public static function save_options( $global_style, $type = 'base' ) {
 		return update_option( self::get_option_name( $type ), $global_style );
+	}
+	/**
+	 * Deep merge arrays with defaults
+	 *
+	 * @param array $defaults The default array to merge into.
+	 * @param array $args The array to merge from.
+	 * @return array The merged array.
+	 */
+	public static function deep_merge( $defaults, $args ) {
+		$result = $defaults;
+
+		if ( ! is_array( $defaults ) || ! is_array( $args ) ) {
+			return $args;
+		}
+
+		foreach ( $args as $key => $value ) {
+			if ( is_array( $value ) && isset( $result[ $key ] ) && is_array( $result[ $key ] ) ) {
+				$result[ $key ] = self::deep_merge( $result[ $key ], $value );
+			} else {
+				$result[ $key ] = $value;
+			}
+		}
+
+		return $result;
 	}
 }
