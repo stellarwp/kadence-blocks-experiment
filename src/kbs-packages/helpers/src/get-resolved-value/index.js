@@ -12,11 +12,11 @@ import getInheritedDeviceValue from '../get-inherited-device-value';
  * @param {string[]} globalStylesIds - Array of global style IDs.
  * @returns {Object} An object containing { directValue, inheritedValue, inheritedSource, isInherited }.
  */
-export default function getResolvedValue( attributeName, attributes, device, meta, type, globalStylesIds ) {
+export default function getResolvedValue(attributeName, attributes, device, meta, type, globalStylesIds) {
 	const attributeMeta = meta?.attributes?.[attributeName];
 
 	// Get the direct value set for the specific device.
-	const directValue = getDeviceValue( attributeName, attributes, device, type );
+	const directValue = getDeviceValue(attributeName, attributes, device, type);
 
 	// Get the inherited value and its source.
 	const { inheritedValue, inheritedSource, inheritedType } = getInheritedDeviceValue(
@@ -27,6 +27,9 @@ export default function getResolvedValue( attributeName, attributes, device, met
 		type,
 		globalStylesIds
 	);
+	if ('color' === type) {
+		console.log('globalStylesIds', globalStylesIds);
+	}
 
 	const isInherited = directValue === '';
 
@@ -38,4 +41,4 @@ export default function getResolvedValue( attributeName, attributes, device, met
 		isInherited, // Whether the current value is inherited.
 		appliedValue: isInherited ? inheritedValue : directValue, // The value to be applied to the element.
 	};
-} 
+}

@@ -55,7 +55,7 @@
 			"component": "background",
 			"nonInheritable": true,
 			"type": "object",
-			"selector": "--kbs-cont-"
+			"selector": "--kbs-cont-bg-"
 		},
 		"color": {
 			"type": "object"

@@ -8,7 +8,9 @@ import memize from 'memize';
  * Default state for the global styles store
  */
 const DEFAULT_STATE = {
-	globalStyles: [],
+	globalStyles: {},
+	globalPresets: {},
+	globalMappings: {},
 	// styleBookLocalGlobalStyles: [],
 	styleBookAttributes: { globalStyleIds: ['kbs-base'] },
 	isLoading: false,
@@ -40,15 +42,23 @@ const actions = {
 		};
 	},
 	setGlobalPresets(globalStyles) {
-		console.log( 'setGlobalPresets', globalStyles );
 		const globalPresets = Object.keys(globalStyles['kbs-base'].components).reduce((acc, component) => {
 			acc[component] = globalStyles['kbs-base'].components[component].presets;
 			return acc;
 		}, {});
-		console.log( 'globalPresets', globalPresets );
 		return {
 			type: 'SET_GLOBAL_PRESETS',
 			globalPresets,
+		};
+	},
+	setGlobalMappings(globalStyles) {
+		const globalMappings = Object.keys(globalStyles['kbs-base'].mappings).reduce((acc, component) => {
+			acc[component] = globalStyles['kbs-base'].mappings[component];
+			return acc;
+		}, {});
+		return {
+			type: 'SET_GLOBAL_MAPPINGS',
+			globalMappings,
 		};
 	},
 	setIsLoading(isLoading) {
@@ -82,6 +92,7 @@ const actions = {
 		};
 	},
 	*fetchGlobalStyles() {
+		console.log('fetchGlobalStyles');
 		// Check if we're already loading to prevent duplicate requests
 		const isLoading = yield {
 			type: 'SELECT',
@@ -111,6 +122,7 @@ const actions = {
 			};
 			yield actions.setGlobalStyles(globalStyles);
 			yield actions.setGlobalPresets(globalStyles);
+			yield actions.setGlobalMappings(globalStyles);
 			yield actions.setHasResolved(true);
 			yield actions.setIsLoading(false);
 			return globalStyles;
@@ -340,7 +352,17 @@ const getMemoizedMergedStyles = memize(performStyleMerge);
 const resolvers = {
 	*getGlobalStyles() {
 		// Directly initiate the fetch without any checks for the first load
-		yield actions.fetchGlobalStyles();
+		//yield actions.fetchGlobalStyles();
+		// Get the global presets
+		yield selectors.getGlobalStyles();
+	},
+	*getGlobalPresets() {
+		// Get the global presets
+		yield selectors.getGlobalPresets();
+	},
+	*getGlobalMappings() {
+		// Get the global mappings
+		yield selectors.getGlobalMappings();
 	},
 	*getMergedStylesByIds() {
 		yield resolvers.getGlobalStyles();
@@ -379,6 +401,16 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				return {
 					...state,
 					globalStyles: action.globalStyles,
+				};
+			case 'SET_GLOBAL_PRESETS':
+				return {
+					...state,
+					globalPresets: action.globalPresets,
+				};
+			case 'SET_GLOBAL_MAPPINGS':
+				return {
+					...state,
+					globalMappings: action.globalMappings,
 				};
 			case 'SET_IS_LOADING':
 				return {
@@ -514,8 +546,13 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 	controls,
 	selectors: {
 		getGlobalStyles(state) {
-			console.log(state);
 			return state.globalStyles;
+		},
+		getGlobalPresets(state) {
+			return state.globalPresets;
+		},
+		getGlobalMappings(state) {
+			return state.globalMappings;
 		},
 		getStyleBookAttributes(state) {
 			return state.styleBookAttributes;
@@ -622,8 +659,13 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		 * @returns {Object|undefined} The raw style data object or undefined if not found.
 		 */
 		getResolvedStyleData(state, styleIds, componentName, attributeName) {
-			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIds);
+			// Check if global styles have been resolved and exist
+			if (!state.hasResolved || !state.globalStyles || Object.keys(state.globalStyles).length === 0) {
+				return undefined;
+			}
 
+			const styleIdsToMerge = styleIds ? [...styleIds, 'kbs-base'] : ['kbs-base'];
+			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIdsToMerge);
 			// Safely access component styles from the merged styles
 			let componentStyles = mergedStyles?.components?.[componentName];
 			if (!componentStyles) {

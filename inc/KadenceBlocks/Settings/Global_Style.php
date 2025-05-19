@@ -354,7 +354,7 @@ class Global_Style {
 	public static function get_dark_options() {
 		if ( is_null( self::$dark_options ) ) {
 			$options       = json_decode( get_option( self::get_dark_option_name(), '[]' ), true );
-			self::$dark_options = wp_parse_args( $options, self::dark_defaults() );
+			self::$dark_options = self::deep_merge( $options, self::dark_defaults() );
 		}
 		return self::$dark_options;
 	}
@@ -367,7 +367,7 @@ class Global_Style {
 	public static function get_accent_options() {
 		if ( is_null( self::$accent_options ) ) {
 			$options       = json_decode( get_option( self::get_accent_option_name(), '[]' ), true );
-			self::$accent_options = wp_parse_args( $options, self::accent_defaults() );
+			self::$accent_options = self::deep_merge( $options, self::accent_defaults() );
 		}
 		return self::$accent_options;
 	}

@@ -3,6 +3,7 @@ import { SPACING_SIZES_MAP } from '../constants';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { getBasePresetKey } from '../get-inherited-device-value';
+import getColorOutput from '../get-color-output';
 
 const deviceOptions = kadence_blocks_params.responsive_device_options || [];
 
@@ -80,7 +81,13 @@ class CSSGenerator {
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
 		const cssProperty = this.getCssProperty(key);
 		const cssSelector = this.getCssSelector(meta, key);
-
+		if ('color' === key) {
+			console.log('cssValue', cssValue);
+			console.log('cssProperty', cssProperty);
+			console.log('cssSelector', cssSelector);
+			console.log('meta', meta);
+			console.log('props', props);
+		}
 		if (cssValue && cssProperty && cssSelector && meta.selector) {
 			const currentSelectorBackup = this.currentSelector;
 			this.setSelector(cssSelector);
@@ -89,7 +96,6 @@ class CSSGenerator {
 		}
 		this.currentAppliedValue = '';
 	}
-
 	/**
 	 * Process and format a CSS value based on the property type
 	 */
@@ -103,6 +109,13 @@ class CSSGenerator {
 			key,
 			globalStylesIds
 		);
+		if ('color' === key) {
+			console.log('directValue', directValue);
+			console.log('inheritedValue', inheritedValue);
+			console.log('inheritedSource', inheritedSource);
+			console.log('isInherited', isInherited);
+			console.log('appliedValue', appliedValue);
+		}
 		this.currentAppliedValue = appliedValue;
 		const isDirectOrParent = inheritedSource === 'direct' || inheritedSource === 'parent';
 		const isPresetOrPresetParent = inheritedSource === 'preset' || inheritedSource === 'preset-parent';
@@ -139,6 +152,16 @@ class CSSGenerator {
 				break;
 			case 'maxWidth':
 			case 'maxHeight':
+				cssValue = appliedValue;
+				break;
+			case 'background':
+				if (key === 'color') {
+					cssValue = getColorOutput(appliedValue);
+				} else {
+					cssValue = appliedValue;
+				}
+				break;
+			default:
 				cssValue = appliedValue;
 				break;
 		}
@@ -189,6 +212,19 @@ class CSSGenerator {
 	getComponentKeys(component) {
 		let componentKeys = [];
 		switch (component) {
+			case 'background':
+				componentKeys = [
+					'color',
+					'gradient',
+					'image',
+					'pattern',
+					'size',
+					'position',
+					'repeat',
+					'attachment',
+					'blendMode',
+				];
+				break;
 			case 'flexBox':
 				componentKeys = [
 					'flexDirection',

@@ -6,13 +6,13 @@ import { registerPlugin } from '@wordpress/plugins';
 /**
  * Gets variable name from category and type
  */
-export function getMappingVariableName(category, type) {
+export function getMappingVariableName(category, type, isBase = false) {
 	let prefix = 'kbs-';
 	let categorySlug = String(category)
 		.replace(/[^a-zA-Z0-9-_]/g, '-')
 		.replace(/^-+|-+$/g, '')
 		.toLowerCase();
-	if (categorySlug === 'colors') {
+	if (isBase && categorySlug === 'colors') {
 		categorySlug = 'global';
 		prefix = '';
 	}
@@ -73,7 +73,13 @@ export const GlobalStyleVariableOutput = () => {
 						Object.entries(tokens).forEach(([token, tokenData]) => {
 							if (tokenData.value !== undefined && tokenData.value !== null && tokenData.value !== '') {
 								const variableName = getMappingVariableName(category, token);
-								currentCssBlock += `  ${variableName}: ${tokenData.value};\n`;
+								if (category === 'colors' && styleId === 'kbs-base') {
+									const baseVariableName = getMappingVariableName(category, token, true);
+									currentCssBlock += `  ${variableName}: ${tokenData.value};\n`;
+									currentCssBlock += `  ${baseVariableName}: ${tokenData.value};\n`;
+								} else {
+									currentCssBlock += `  ${variableName}: ${tokenData.value};\n`;
+								}
 							}
 						});
 					}
@@ -122,11 +128,8 @@ export const GlobalStyleVariableOutput = () => {
 											// Get mapping value
 											mappingValue = styleData.mappings[key][value];
 										}
-
 										const returnValue = mappingValue !== undefined ? mappingValue.value : value;
-
 										const variableName = getMappingVariableName(kebabCaseKey, preset);
-
 										currentCssBlock += `  ${variableName}: ${returnValue};\n`;
 									});
 								}
@@ -142,7 +145,6 @@ export const GlobalStyleVariableOutput = () => {
 					rootCssString += currentCssBlock;
 				} else {
 					const styleSlug = String(styleId)
-						.replace(/^kbs-/, '')
 						.replace(/[^a-zA-Z0-9-_]/g, '-')
 						.replace(/^-+|-+$/g, '');
 					const className = `.kbs-global-style-${styleSlug}`;

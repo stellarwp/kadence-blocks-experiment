@@ -13,10 +13,10 @@ import { useSettings } from '@wordpress/block-editor';
 /**
  * Internal dependencies
  */
-import { getPreviewValue, getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
+import { getColorOutput, getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import ColorPicker from './color-picker';
-import { getGlobalColors, getColorLabel, getColorPreview, getColorHex } from './utils';
+import { getGlobalColors, getColorLabel, getColorHex } from './utils';
 import './editor.scss';
 
 const CheckedColorIndicator = ({ colorValue, isChecked = false }) => (
@@ -34,6 +34,7 @@ function renderColorToggle(currentValue, inherited, colors) {
 			onClick: onToggle,
 			className: clsx('kbs-color-select-button', 'kbs-color-select-control__toggle-button', {
 				'is-open': isOpen,
+				'is-selected': currentValue,
 				'is-inherited': !currentValue && inherited,
 			}),
 			'aria-expanded': isOpen,
@@ -52,7 +53,7 @@ function renderColorToggle(currentValue, inherited, colors) {
 		}, [inherited, currentValue]);
 		const previewColorString = useMemo(() => {
 			if (displayValue) {
-				return getColorPreview(displayValue);
+				return getColorOutput(displayValue);
 			}
 			return '';
 		}, [displayValue]);
@@ -113,7 +114,7 @@ function renderColorDropdown(colors, currentValue, onChange, previewDevice, type
 										}
 									}}
 								>
-									<CheckedColorIndicator colorValue={getColorPreview(color)} isChecked={isActive} />
+									<CheckedColorIndicator colorValue={getColorOutput(color)} isChecked={isActive} />
 								</Button>
 							);
 						})}
@@ -142,7 +143,7 @@ function renderColorDropdown(colors, currentValue, onChange, previewDevice, type
 							if ('custom' === tab.name) {
 								return (
 									<ColorPicker
-										color={getColorPreview(getColorHex(currentValue, presetButtonRef))}
+										color={getColorOutput(getColorHex(currentValue, presetButtonRef))}
 										onChange={handleColorChange}
 									/>
 								);
@@ -178,6 +179,7 @@ export default function ColorControl({
 	hasCustomControls = false,
 	previewDevice = 'desktop',
 	forStyleBook = false,
+	defaultValue,
 	customOnChange,
 }) {
 	const popoverProps = {

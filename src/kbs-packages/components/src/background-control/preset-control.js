@@ -8,7 +8,13 @@ import { Button } from '@wordpress/components';
 /**
  * Internal libraries
  */
-import { getPreviewValue, getGlobalStylesPresetOptions, getInheritedDeviceValue, handleAttributeChange, isAdvancedOption } from '@kadence/kbsHelpers';
+import {
+	getPreviewValue,
+	getPresetOptions,
+	getInheritedDeviceValue,
+	handleAttributeChange,
+	isAdvancedOption,
+} from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
  */
@@ -57,8 +63,8 @@ export default function PresetControl({
 		return null;
 	}
 	// Fetch available presets
-	const presets = getPresets(presetType);
-	// const presets = getGlobalStylesPresetOptions(presetType);
+	//const presets = getPresets(presetType);
+	const presets = getPresetOptions(presetType);
 	// console.log(presets);
 	// Get the first three presets in a custom array
 	const presetOptions = presets.slice(0, 3);
@@ -102,7 +108,7 @@ export default function PresetControl({
 				onToggleView={() => setIsAdvanced(!isAdvanced)}
 				hasAdvancedControls={presets.length > 3}
 			/>
-			<div className="kbs-control-inner">
+			<div className="kbs-control-inner kbs-radio-preset-control-inner">
 				{presets.map((option) => (
 					<Button
 						key={option.value}

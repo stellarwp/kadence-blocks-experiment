@@ -19,3 +19,7 @@ export { isAdvancedOption } from './is-advanced-option';
 export { isCustomOption } from './is-custom-option';
 export { default as useUpdateEffect } from './use-update-effect';
 export { default as getLinkHTML } from './links';
+export { default as getPresetOptions } from './get-preset-options';
+export { default as getColorOutput } from './get-color-output';
+export { default as getColorOptions } from './get-color-options';
+export { default as getMappingOptions } from './get-mapping-options';
