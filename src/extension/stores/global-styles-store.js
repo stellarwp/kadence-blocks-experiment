@@ -39,6 +39,18 @@ const actions = {
 			globalStyles,
 		};
 	},
+	setGlobalPresets(globalStyles) {
+		console.log( 'setGlobalPresets', globalStyles );
+		const globalPresets = Object.keys(globalStyles['kbs-base'].components).reduce((acc, component) => {
+			acc[component] = globalStyles['kbs-base'].components[component].presets;
+			return acc;
+		}, {});
+		console.log( 'globalPresets', globalPresets );
+		return {
+			type: 'SET_GLOBAL_PRESETS',
+			globalPresets,
+		};
+	},
 	setIsLoading(isLoading) {
 		return {
 			type: 'SET_IS_LOADING',
@@ -98,6 +110,7 @@ const actions = {
 				request: { path },
 			};
 			yield actions.setGlobalStyles(globalStyles);
+			yield actions.setGlobalPresets(globalStyles);
 			yield actions.setHasResolved(true);
 			yield actions.setIsLoading(false);
 			return globalStyles;
@@ -116,7 +129,6 @@ const actions = {
 			selectorName: 'getStyleBookLocalGlobalStyles',
 			args: [],
 		};
-
 		//if we don't have any local global styles yet, use the global styles from the server.
 		if (styleBookLocalGlobalStyles) {
 			return styleBookLocalGlobalStyles;
@@ -502,6 +514,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 	controls,
 	selectors: {
 		getGlobalStyles(state) {
+			console.log(state);
 			return state.globalStyles;
 		},
 		getStyleBookAttributes(state) {
