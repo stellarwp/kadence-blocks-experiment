@@ -28,7 +28,7 @@ export default function ComponentPresetControl(props) {
 					globalStyleId,
 					componentId,
 					presetId
-				)
+				),
 			};
 		},
 		[globalStyleId, componentId, presetId]
@@ -50,6 +50,7 @@ export default function ComponentPresetControl(props) {
 				selector: '--kbs-cont',
 				initial: {},
 				type: 'object',
+				tag: 'h1',
 			},
 		},
 	};
@@ -62,7 +63,7 @@ export default function ComponentPresetControl(props) {
 			<Component
 				label={label}
 				// customOnChange={onPresetChange}
-				attributes={styleBookLocalPreset}
+				attributes={{ [property]: styleBookLocalPreset }}
 				setAttributes={setStyleBookLocalPreset}
 				meta={fakeMeta}
 				previewDevice={previewDevice}

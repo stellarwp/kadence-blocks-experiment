@@ -255,7 +255,7 @@ function KadenceConfig() {
 							onClick={() => {
 								setSelectedComponent('typography');
 								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'text-heading' } },
+									components: { typography: { selectedPreset: 'heading' } },
 								});
 							}}
 							role="button"
@@ -273,7 +273,7 @@ function KadenceConfig() {
 							onClick={() => {
 								setSelectedComponent('typography');
 								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'text-heading-1' } },
+									components: { typography: { selectedPreset: 'heading-1' } },
 								});
 							}}
 							role="button"
@@ -285,7 +285,7 @@ function KadenceConfig() {
 							onClick={() => {
 								setSelectedComponent('typography');
 								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'text-heading-2' } },
+									components: { typography: { selectedPreset: 'heading-2' } },
 								});
 							}}
 							role="button"
@@ -297,7 +297,7 @@ function KadenceConfig() {
 							onClick={() => {
 								setSelectedComponent('typography');
 								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'text-heading-3' } },
+									components: { typography: { selectedPreset: 'heading-3' } },
 								});
 							}}
 							role="button"
@@ -309,7 +309,7 @@ function KadenceConfig() {
 							onClick={() => {
 								setSelectedComponent('typography');
 								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'text-heading-4' } },
+									components: { typography: { selectedPreset: 'heading-4' } },
 								});
 							}}
 							role="button"
@@ -321,7 +321,7 @@ function KadenceConfig() {
 							onClick={() => {
 								setSelectedComponent('typography');
 								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'text-heading-5' } },
+									components: { typography: { selectedPreset: 'heading-5' } },
 								});
 							}}
 							role="button"
@@ -333,7 +333,7 @@ function KadenceConfig() {
 							onClick={() => {
 								setSelectedComponent('typography');
 								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'text-heading-6' } },
+									components: { typography: { selectedPreset: 'heading-6' } },
 								});
 							}}
 							role="button"

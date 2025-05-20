@@ -17,65 +17,74 @@ export default function Styles(props) {
 			typography: {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-heading',
+				selector: '--kbs-preview-heading-',
 				initial: {},
 				type: 'object',
+				tag: 'h1',
 			},
-			'text-heading': {
+			heading: {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-heading',
+				selector: '--kbs-preview-heading-',
 				initial: {},
 				type: 'object',
+				tag: 'h1',
 			},
-			'text-heading-1': {
+			'heading-1': {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-heading-1',
+				selector: '--kbs-preview-heading-1-',
 				initial: {},
 				type: 'object',
+				tag: 'h1',
 			},
-			'text-heading-2': {
+			'heading-2': {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-heading-2',
+				selector: '--kbs-preview-heading-2-',
 				initial: {},
 				type: 'object',
+				tag: 'h2',
 			},
-			'text-heading-3': {
+			'heading-3': {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-heading-3',
+				selector: '--kbs-preview-heading-3-',
 				initial: {},
 				type: 'object',
+				tag: 'h3',
 			},
-			'text-heading-4': {
+			'heading-4': {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-heading-4',
+				selector: '--kbs-preview-heading-4-',
 				initial: {},
 				type: 'object',
+				tag: 'h4',
 			},
-			'text-heading-5': {
+			'heading-5': {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-heading-5',
+				selector: '--kbs-preview-heading-5-',
 				initial: {},
 				type: 'object',
+				tag: 'h5',
 			},
-			'text-heading-6': {
+			'heading-6': {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-heading-6',
+				selector: '--kbs-preview-heading-6-',
 				initial: {},
 				type: 'object',
+				tag: 'h6',
 			},
 			'text-body': {
 				renderCSS: true,
 				component: 'typography',
-				selector: '--kbs-preview-body',
+				selector: '--kbs-preview-body-',
 				initial: {},
 				type: 'object',
+				tag: 'p',
 			},
 		},
 	};
@@ -110,13 +119,13 @@ export default function Styles(props) {
 				'typography',
 			];
 			const presetsToRender = [
-				'text-heading',
-				'text-heading-1',
-				'text-heading-2',
-				'text-heading-3',
-				'text-heading-4',
-				'text-heading-5',
-				'text-heading-6',
+				'heading',
+				'heading-1',
+				'heading-2',
+				'heading-3',
+				'heading-4',
+				'heading-5',
+				'heading-6',
 				'text-body',
 			];
 			var i = 0;
