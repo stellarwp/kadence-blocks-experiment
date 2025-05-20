@@ -417,7 +417,9 @@ class Global_Style {
 	 * @return array
 	 */
 	public static function save_options( $global_style, $type = 'base' ) {
-		return update_option( self::get_option_name( $type ), $global_style );
+		$options = json_decode( get_option( self::get_option_name( $type ), '[]' ), true );
+		$new_options = self::deep_merge( $options, json_decode( $global_style, true ) );
+		return update_option( self::get_option_name( $type ), json_encode( $new_options ) );
 	}
 	/**
 	 * Deep merge arrays with defaults
@@ -450,7 +452,7 @@ class Global_Style {
 	 * @return array
 	 */
 	public static function get_global_styles() {
-		$post_contents = [
+		$gs_contents = [
 			'kbs-base'   => self::options( 'base' ),
 			'kbs-dark'   => self::options( 'dark' ),
 			'kbs-accent' => self::options( 'accent' ),
@@ -474,10 +476,10 @@ class Global_Style {
 				$global_style_id           = $decoded_content['styleId'] ?? '';
 				// If data is corrupt, skip it
 				if ( ! empty( $global_style_id ) ) {
-					$post_contents[ $global_style_id ] = $decoded_content;
+					$gs_contents[ $global_style_id ] = $decoded_content;
 				}
 			}
 		}
-		return $post_contents;
+		return $gs_contents;
 	}
 }

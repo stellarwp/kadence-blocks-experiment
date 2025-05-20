@@ -138,15 +138,15 @@ class Global_Styles_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response
 	 */
 	public function get_items( $request ) {
-		$post_contents = Global_Style::get_global_styles();
+		$global_style_data = Global_Style::get_global_styles();
 
-		if ( ! $post_contents ) {
+		if ( ! $global_style_data ) {
 			$response = [
 				'success' => false,
 				'error'   => $all_posts,
 			];
 		} else {
-			$response = $post_contents;
+			$response = $global_style_data;
 		}
 
 		return new WP_REST_Response( $response, 200 );
@@ -236,7 +236,8 @@ class Global_Styles_Controller extends WP_REST_Controller {
 	public function save_single_item( $request ) {
 		$parameters = $request->get_json_params();
 		$data       = ( isset( $parameters['data'] ) && is_array( $parameters['data'] ) ? $parameters['data'] : [] );
-		if ( empty( $data ) ) {
+		$changes    = ( isset( $parameters['changes'] ) && is_array( $parameters['changes'] ) ? $parameters['changes'] : [] );
+		if ( empty( $data ) || empty( $changes ) ) {
 			return new WP_REST_Response(
 				[
 					'success' => false,
@@ -246,15 +247,18 @@ class Global_Styles_Controller extends WP_REST_Controller {
 			);
 		}
 		$result                 = '';
+		$sanitized_global_style = [];
 		$style_id               = $data['styleId'] ?? '';
-		$sanitized_global_style = $this->sanitize_global_style( $data );
 		if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
+			$stamped_changes        = $this->stamp_changes( $data, $changes );
+			$sanitized_global_style = $this->sanitize_global_style( $stamped_changes );
 			$core_style = str_replace( 'kbs-', '', $style_id );
 			if ( $core_style == 'base' ) {
 				$sanitized_global_style = Global_Style::save_base_palette( $sanitized_global_style );
 			}
 			$result = Global_Style::save_options( wp_json_encode( $sanitized_global_style ), $core_style );
 		} else {
+			$sanitized_global_style = $this->sanitize_global_style( $data );
 			$post_arr = [
 				'ID'           => ! empty( $sanitized_global_style['postId'] ) ? $sanitized_global_style['postId'] : 0,
 				'post_type'    => self::$slug,
@@ -311,6 +315,31 @@ class Global_Styles_Controller extends WP_REST_Controller {
 		}
 		return $sanitized_global_style;
 	}
+
+	/**
+	 * Stamps changes to a global style.
+	 *
+	 * @param array $data The global style data.
+	 * @param array $changes The changes to stamp.
+	 * @return array The stamped changes.
+	 */
+	public function stamp_changes( $data, $changes ) {
+		$style_id = $data['styleId'] ?? '';
+		$version = $data['version'] ?? '';
+		$post_id = $data['postId'] ?? '';
+		if ( $style_id ) {
+			$changes[ 'styleId' ] = $style_id;
+		}
+		if ( $version ) {
+			$changes[ 'version' ] = $version;
+		}
+		if ( $post_id ) {
+			$changes[ 'postId' ] = $post_id;
+		}
+		return $changes;
+	}
+
+
 	/**
 	 * Saves a collection of global styles.
 	 *
