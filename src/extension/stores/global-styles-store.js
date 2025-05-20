@@ -8,7 +8,7 @@ import memize from 'memize';
  * Default state for the global styles store
  */
 const DEFAULT_STATE = {
-	globalStyles: {},
+	globalStyles: window?.kbs_params?.global_styles,
 	globalPresets: {},
 	globalMappings: {},
 	// styleBookLocalGlobalStyles: [],
@@ -351,8 +351,6 @@ const getMemoizedMergedStyles = memize(performStyleMerge);
  */
 const resolvers = {
 	*getGlobalStyles() {
-		// Directly initiate the fetch without any checks for the first load
-		//yield actions.fetchGlobalStyles();
 		// Get the global presets
 		yield selectors.getGlobalStyles();
 	},
@@ -659,13 +657,8 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		 * @returns {Object|undefined} The raw style data object or undefined if not found.
 		 */
 		getResolvedStyleData(state, styleIds, componentName, attributeName) {
-			// Check if global styles have been resolved and exist
-			if (!state.hasResolved || !state.globalStyles || Object.keys(state.globalStyles).length === 0) {
-				return undefined;
-			}
 
-			const styleIdsToMerge = styleIds ? [...styleIds, 'kbs-base'] : ['kbs-base'];
-			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIdsToMerge);
+			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIds);
 			// Safely access component styles from the merged styles
 			let componentStyles = mergedStyles?.components?.[componentName];
 			if (!componentStyles) {

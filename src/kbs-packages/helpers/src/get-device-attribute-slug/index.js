@@ -9,8 +9,8 @@ export default function getDeviceAttributeSlug(device) {
 	// make lowercase
 	device = device.toLowerCase();
 	
-	if( kadence_blocks_params.responsive_device_options.find( option => option.key === device ) ){
-		deviceSlug = kadence_blocks_params.responsive_device_options.find( option => option.key === device ).attributeSlug;
+	if( window?.kbs_params?.responsive_device_options?.find( option => option.key === device ) ){
+		deviceSlug = window?.kbs_params?.responsive_device_options?.find( option => option.key === device ).attributeSlug;
 	}
 	return deviceSlug;
 }

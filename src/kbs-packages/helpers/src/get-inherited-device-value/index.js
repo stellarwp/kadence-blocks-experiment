@@ -13,7 +13,7 @@ import getPresetValue from '../get-preset-value';
  * @returns {object} - An object containing the value and its source
  */
 export default function getInheritedDeviceValue(attributeName, attributes, device, meta, type, globalStylesIds) {
-	const deviceOptions = window?.kadence_blocks_params?.responsive_device_options || [];
+	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 	const attributeMeta = meta?.attributes?.[attributeName];
 	const initialValue = attributeMeta?.initial ? attributeMeta?.initial : null;
 

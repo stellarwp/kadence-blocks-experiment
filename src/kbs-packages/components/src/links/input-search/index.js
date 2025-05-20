@@ -286,7 +286,7 @@ export default function InputSearch(props) {
 							/>
 						</BaseControl>
 					)}
-					{dynamicAttribute && kadence_blocks_params.dynamic_enabled && <DynamicLinkControl {...props} />}
+					{dynamicAttribute && window?.kbs_params?.dynamic_enabled && <DynamicLinkControl {...props} />}
 					{additionalControls && (
 						<Button
 							className="kb-link-settings-toggle"

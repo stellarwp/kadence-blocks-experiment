@@ -11,6 +11,7 @@ declare( strict_types=1 );
 
 namespace KadenceWP\KadenceBlocks\Blocks;
 
+use KadenceWP\KadenceBlocks\Settings\Global_Style;
 use function kbs_get_asset_file;
 /**
  * Handles all functionality related to the A/B Testing Block.
@@ -103,10 +104,11 @@ class Editor_Assets {
 
 		wp_localize_script(
 			'kadence-blocks-js',
-			'kadence_blocks_params',
+			'kbs_params',
 			[
 				'responsive_device_options'  => $this->get_responsive_device_options(),
 				'dynamic_enabled'  => true,
+				'global_styles' => Global_Style::get_global_styles(),
 			]
 		);
 	}

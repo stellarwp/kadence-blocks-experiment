@@ -116,7 +116,7 @@ export default function LinkControl(props) {
 
 	return (
 		<div
-			className={`components-base-control kb-side-link-control${dynamicAttribute && kadence_blocks_params.dynamic_enabled ? ' has-dynamic-support' : ''}`}
+			className={`components-base-control kb-side-link-control${dynamicAttribute && window?.kbs_params?.dynamic_enabled ? ' has-dynamic-support' : ''}`}
 		>
 			{label && <label className="components-base-control__label">{label}</label>}
 			<InputSearch

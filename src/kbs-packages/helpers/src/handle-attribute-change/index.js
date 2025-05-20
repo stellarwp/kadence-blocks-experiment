@@ -137,7 +137,7 @@ export const handleAttributeChange = (
 		return;
 	}
 
-	const deviceOptions = kadence_blocks_params?.responsive_device_options || [];
+	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 	let newAttributes = JSON.parse(JSON.stringify(attributes));
 	if (device === 'all') {
 		newAttributes = handleAllDevices(value, newAttributes, attributeName, deviceOptions, type);

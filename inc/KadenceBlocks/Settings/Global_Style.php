@@ -92,6 +92,8 @@ class Global_Style {
 	 * @var values of the theme settings.
 	 */
 	protected static $palette = null;
+
+	private static $slug               = 'kadence_global_style';
 	
 	/**
 	 * Get Palette Option.
@@ -440,5 +442,42 @@ class Global_Style {
 		}
 
 		return $result;
+	}
+	/**
+	 * Get Global Styles
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public static function get_global_styles() {
+		$post_contents = [
+			'kbs-base'   => self::options( 'base' ),
+			'kbs-dark'   => self::options( 'dark' ),
+			'kbs-accent' => self::options( 'accent' ),
+		];
+
+		$all_posts = get_posts( 
+			[
+				'post_type'   => self::$slug,
+				'numberposts' => -1,
+				'post_status' => [ 'publish' ],
+			] 
+		);
+
+		if ( $all_posts ) {
+			foreach ( $all_posts as $_post ) {
+				$decoded_content = json_decode( $_post->post_content, true );
+				if ( ! is_array( $decoded_content ) ) {
+					continue;
+				}
+				$decoded_content['postId'] = $_post->ID;
+				$global_style_id           = $decoded_content['styleId'] ?? '';
+				// If data is corrupt, skip it
+				if ( ! empty( $global_style_id ) ) {
+					$post_contents[ $global_style_id ] = $decoded_content;
+				}
+			}
+		}
+		return $post_contents;
 	}
 }

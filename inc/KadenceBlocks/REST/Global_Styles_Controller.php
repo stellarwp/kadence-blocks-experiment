@@ -138,34 +138,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response
 	 */
 	public function get_items( $request ) {
-		$post_contents = [
-			'kbs-base'   => Global_Style::options( 'base' ),
-			'kbs-dark'   => Global_Style::options( 'dark' ),
-			'kbs-accent' => Global_Style::options( 'accent' ),
-		];
-
-		$all_posts = get_posts( 
-			[
-				'post_type'   => self::$slug,
-				'numberposts' => -1,
-				'post_status' => [ 'publish' ],
-			] 
-		);
-
-		if ( $all_posts ) {
-			foreach ( $all_posts as $_post ) {
-				$decoded_content = json_decode( $_post->post_content, true );
-				if ( ! is_array( $decoded_content ) ) {
-					continue;
-				}
-				$decoded_content['postId'] = $_post->ID;
-				$global_style_id           = $decoded_content['styleId'] ?? '';
-				// If data is corrupt, skip it
-				if ( ! empty( $global_style_id ) ) {
-					$post_contents[ $global_style_id ] = $decoded_content;
-				}
-			}
-		}
+		$post_contents = Global_Style::get_global_styles();
 
 		if ( ! $post_contents ) {
 			$response = [

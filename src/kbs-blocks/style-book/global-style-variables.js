@@ -54,7 +54,7 @@ export const GlobalStyleVariableOutput = () => {
 			return '';
 		}
 
-		const deviceOptions = window?.kadence_blocks_params?.responsive_device_options || [];
+		const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 		const currentDeviceIndex = deviceOptions.findIndex(
 			(option) =>
 				option.key?.toLowerCase() === previewDevice.toLowerCase() ||

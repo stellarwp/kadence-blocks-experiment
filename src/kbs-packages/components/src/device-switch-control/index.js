@@ -36,10 +36,10 @@ export default function DeviceSwitchControl({ compact = false }) {
 
 	const devices = useMemo(() => {
 		if (
-			kadence_blocks_params.responsive_device_options &&
-			kadence_blocks_params.responsive_device_options.length > 0
+			window?.kbs_params?.responsive_device_options &&
+			window?.kbs_params?.responsive_device_options.length > 0
 		) {
-			return kadence_blocks_params.responsive_device_options.map((device) => ({
+			return window?.kbs_params?.responsive_device_options.map((device) => ({
 				...device,
 				icon:
 					typeof device.icon === 'string' && availableIcons[device.icon]
@@ -48,7 +48,7 @@ export default function DeviceSwitchControl({ compact = false }) {
 			}));
 		}
 		return [];
-	}, [kadence_blocks_params.responsive_device_options]);
+	}, [window?.kbs_params?.responsive_device_options]);
 	if (compact) {
 		// Get the icon to match the device type
 		const currentDeviceIcon = devices.find((device) => device.name === deviceType)?.icon;

@@ -5,7 +5,7 @@ import { default as getResolvedValue } from '../get-resolved-value';
 import { getBasePresetKey } from '../get-inherited-device-value';
 import getColorOutput from '../get-color-output';
 
-const deviceOptions = kadence_blocks_params.responsive_device_options || [];
+const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 
 /**
  * CSS Generator class for building CSS strings
@@ -81,13 +81,7 @@ class CSSGenerator {
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
 		const cssProperty = this.getCssProperty(key);
 		const cssSelector = this.getCssSelector(meta, key);
-		if ('color' === key) {
-			console.log('cssValue', cssValue);
-			console.log('cssProperty', cssProperty);
-			console.log('cssSelector', cssSelector);
-			console.log('meta', meta);
-			console.log('props', props);
-		}
+
 		if (cssValue && cssProperty && cssSelector && meta.selector) {
 			const currentSelectorBackup = this.currentSelector;
 			this.setSelector(cssSelector);
@@ -109,13 +103,7 @@ class CSSGenerator {
 			key,
 			globalStylesIds
 		);
-		if ('color' === key) {
-			console.log('directValue', directValue);
-			console.log('inheritedValue', inheritedValue);
-			console.log('inheritedSource', inheritedSource);
-			console.log('isInherited', isInherited);
-			console.log('appliedValue', appliedValue);
-		}
+
 		this.currentAppliedValue = appliedValue;
 		const isDirectOrParent = inheritedSource === 'direct' || inheritedSource === 'parent';
 		const isPresetOrPresetParent = inheritedSource === 'preset' || inheritedSource === 'preset-parent';
