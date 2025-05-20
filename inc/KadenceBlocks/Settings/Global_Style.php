@@ -233,7 +233,7 @@ class Global_Style {
 	public static function merge_colors( $colors, $global_colors ) {
 		foreach ( $colors as $key => $value ) {
 			if ( ! empty( $global_colors[ $key ] ) ) {
-				$colors[ $key ] = [ 'value' => $global_colors[ $key ] ];
+				$colors[ $key ]['value'] = $global_colors[ $key ];
 			}
 		}
 		return $colors;

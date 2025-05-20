@@ -13,10 +13,10 @@ import { useSettings } from '@wordpress/block-editor';
 /**
  * Internal dependencies
  */
-import { getColorOutput, getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
+import { getColorOutput, getColorOptions, getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import ColorPicker from './color-picker';
-import { getGlobalColors, getColorLabel, getColorHex } from './utils';
+import { getColorLabel, getColorHex } from './utils';
 import './editor.scss';
 
 const CheckedColorIndicator = ({ colorValue, isChecked = false }) => (
@@ -94,6 +94,7 @@ function renderColorDropdown(colors, currentValue, onChange, previewDevice, type
 							const isActive =
 								palette === currentValue ||
 								(!slug.startsWith('theme-palette') && currentValue === color);
+							const isGlobal = slug.startsWith('palette');
 							return (
 								<Button
 									key={slug}
@@ -114,7 +115,7 @@ function renderColorDropdown(colors, currentValue, onChange, previewDevice, type
 										}
 									}}
 								>
-									<CheckedColorIndicator colorValue={getColorOutput(color)} isChecked={isActive} />
+									<CheckedColorIndicator colorValue={getColorOutput(isGlobal ? palette : color)} isChecked={isActive} />
 								</Button>
 							);
 						})}
@@ -189,63 +190,7 @@ export default function ColorControl({
 	};
 	const [colors, customColors] = useSettings('color.palette', 'color.custom');
 	const presetButtonRef = useRef(undefined);
-	const globalStyles = getGlobalColors();
-	const kadenceColors = [
-		{
-			color: 'var(--global-palette1,#2B6CB0)',
-			slug: 'palette1',
-			name: __('Accent', 'kadence-blocks'),
-			category: __('Accent', 'kadence-blocks'),
-		},
-		{
-			color: 'var(--global-palette2,#215387)',
-			slug: 'palette2',
-			name: __('Accent Alt', 'kadence-blocks'),
-			category: __('Accent', 'kadence-blocks'),
-		},
-		{
-			color: 'var(--global-palette3,#1A202C)',
-			slug: 'palette3',
-			name: __('Strongest Contrast', 'kadence-blocks'),
-			category: __('Contrast', 'kadence-blocks'),
-		},
-		{
-			color: 'var(--global-palette4,#2D3748)',
-			slug: 'palette4',
-			name: __('Strong Contrast', 'kadence-blocks'),
-			category: __('Contrast', 'kadence-blocks'),
-		},
-		{
-			color: 'var(--global-palette5,#4A5568)',
-			slug: 'palette5',
-			name: __('Medium Contrast', 'kadence-blocks'),
-			category: __('Contrast', 'kadence-blocks'),
-		},
-		{
-			color: 'var(--global-palette6,#718096)',
-			slug: 'palette6',
-			name: __('Subtle Contrast', 'kadence-blocks'),
-			category: __('Contrast', 'kadence-blocks'),
-		},
-		{
-			color: 'var(--global-palette7,#EDF2F7)',
-			slug: 'palette7',
-			name: __('Subtle Background', 'kadence-blocks'),
-			category: __('Background', 'kadence-blocks'),
-		},
-		{
-			color: 'var(--global-palette8,#F7FAFC)',
-			slug: 'palette8',
-			name: __('Lighter Background', 'kadence-blocks'),
-			category: __('Background', 'kadence-blocks'),
-		},
-		{
-			color: 'var(--global-palette9,#ffffff)',
-			slug: 'palette9',
-			name: __('Background Base', 'kadence-blocks'),
-			category: __('Background', 'kadence-blocks'),
-		},
-	];
+	const globalColors = getColorOptions();
 	const isDisableCustomColors = !customColors ? true : false;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
 	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
@@ -285,7 +230,7 @@ export default function ColorControl({
 						inherited?.inheritedValue ? inherited.inheritedValue : ''
 					)}
 					renderContent={renderColorDropdown(
-						[...kadenceColors, ...colors],
+						[...globalColors, ...colors],
 						currentValue,
 						onChange,
 						previewDevice,

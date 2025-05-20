@@ -96,15 +96,3 @@ export const getColorPreview = (value) => {
 	return previewColorString;
 };
 
-export const getGlobalColors = () => {
-	const { globalStyles } = useSelect(
-		(select) => ({
-			globalStyles: select('kadenceblocks/global-styles').getGlobalStyles(),
-		}),
-		[]
-	);
-	useEffect(() => {
-		console.log(globalStyles);
-	}, [globalStyles]);
-	return globalStyles?.mappings?.colors || [];
-};
