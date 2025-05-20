@@ -241,6 +241,36 @@
 				"value": "var(--global-palette9)",
 				"locked": true,
 				"category": "Background"
+			},
+			"palette-success": {
+				"label": "Success",
+				"value": "#13612e",
+				"locked": true,
+				"category": "Notices & Feedback"
+			},
+			"palette-info": {
+				"label": "Info",
+				"value": "#1159af",
+				"locked": true,
+				"category": "Notices & Feedback"
+			},
+			"palette-alert": {
+				"label": "Alert",
+				"value": "#b82105",
+				"locked": true,
+				"category": "Notices & Feedback"
+			},
+			"palette-warning": {
+				"label": "Warning",
+				"value": "#f7630c",
+				"locked": true,
+				"category": "Notices & Feedback"
+			},
+			"palette-rating": {
+				"label": "Rating",
+				"value": "#f5a524",
+				"locked": true,
+				"category": "Notices & Feedback"
 			}
 		}
 	}

@@ -80,12 +80,15 @@
 		display: flex;
 		gap: 6px;
 		padding: 6px 0;
+		flex-wrap: wrap;
 	}
 }
 .kbs-color-select-control__dropdown-content .components-popover__content {
 	padding: 12px;
 	min-width: 300px;
 	min-height: 300px;
+	height: 340px;
+	width: 300px;
 }
 .kbs-color-select-tabs {
 	.components-tab-panel__tabs {

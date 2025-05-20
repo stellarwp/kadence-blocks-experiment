@@ -10,7 +10,10 @@ import { __, isRTL } from '@wordpress/i18n';
 /**
  * External dependencies
  */
-import Select from 'react-select';
+import Select, { components, MultiValueProps, Props as RSProps, OnChangeValue } from 'react-select';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+import { SortableContext, horizontalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 // RTL configuration is determined once at module load
 const IS_RTL = isRTL();
@@ -23,14 +26,74 @@ import { useGlobalStylesIds } from '@kadence/kbsHelpers';
 import { useMemo } from '@wordpress/element';
 import './editor.scss';
 
+function DraggableMultiValue(props) {
+	const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: props.data.value });
+
+	const style = {
+		...props.getStyles('multiValue', props),
+		transform: CSS.Transform.toString(transform),
+		transition,
+		cursor: 'grab',
+	};
+
+	/* prevent simple clicks on a chip from re-opening the menu while still
+	   allowing keyboard focus */
+	const onMouseDown = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+	};
+
+	return (
+		<div ref={setNodeRef} style={style} {...attributes} {...listeners} onMouseDown={onMouseDown}>
+			<components.MultiValue {...props} />
+		</div>
+	);
+}
+
+export const SortableMultiSelect = ({ value, onChange, ...rest }) => {
+	/* dnd-kit sensors */
+	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+
+	/* `id`s fed to <SortableContext> must reflect the current order */
+	const ids = useMemo(() => value.map((v) => v.value), [value]);
+
+	/* When the drag ends, swap the chips in the array */
+	const handleDragEnd = ({ active, over }) => {
+		if (!over || active.id === over.id) return;
+		const oldIndex = ids.indexOf(active.id);
+		const newIndex = ids.indexOf(over.id);
+		onChange(arrayMove(value, oldIndex, newIndex));
+	};
+
+	return (
+		<DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+			<SortableContext items={ids} strategy={horizontalListSortingStrategy}>
+				<Select
+					isMulti /* keeps the chips */
+					closeMenuOnSelect={false}
+					components={{ MultiValue: DraggableMultiValue }}
+					value={value}
+					onChange={(next) => onChange(next)}
+					{...rest}
+				/>
+			</SortableContext>
+		</DndContext>
+	);
+};
 /**
  * Build the Font Select control
  *
  * @param {Object} props Component props.
  * @return {JSX.Element} Font select control.
  */
-export default function SelectGlobalStyles({ attributes, setAttributes, isMulti = true, forStyleBook = false }) {
-	const { options, isLoadingOptions } = useSelectOptions({forStyleBook});
+export default function SelectGlobalStyles({
+	attributes,
+	setAttributes,
+	isMulti = true,
+	forStyleBook = false,
+	isSortable = false,
+}) {
+	const { options, isLoadingOptions } = useSelectOptions({ forStyleBook });
 	const globalStylesIds = useGlobalStylesIds();
 	const inheritGlobalStyles = useMemo(() => {
 		// Get current style IDs (always an array)
@@ -73,9 +136,10 @@ export default function SelectGlobalStyles({ attributes, setAttributes, isMulti 
 	// Find selected options based on the IDs
 	const selectedOptions =
 		(attributes.globalStyleIds || []).length > 0
-			? options.filter((option) => attributes.globalStyleIds.includes(option.value))
+			? isSortable
+				? attributes.globalStyleIds.map((id) => options.find((option) => option.value === id)).filter(Boolean)
+				: options.filter((option) => attributes.globalStyleIds.includes(option.value))
 			: [];
-
 	// Find inherited style options
 	const inheritedStyleOptions = inheritGlobalStyles.map((id) => {
 		const idStr = id.toString();
@@ -87,26 +151,49 @@ export default function SelectGlobalStyles({ attributes, setAttributes, isMulti 
 	return (
 		<div className="components-base-control kbs-global-style-select-control">
 			<div className="kbs-global-style-select-control-inner">
-				<Select
-					value={selectedOptions}
-					options={options}
-					onChange={(selectedOption) => {
-						if (Array.isArray(selectedOption)) {
-							setAttributes({ globalStyleIds: selectedOption.map((option) => option.value) });
-						} else if (selectedOption) {
-							setAttributes({ globalStyleIds: [selectedOption.value] });
-						} else {
-							setAttributes({ globalStyleIds: [] });
-						}
-					}}
-					className="kb-select-control"
-					placeholder={__('Select Global Style', 'kadence-blocks')}
-					isSearchable={true}
-					isLoading={isLoadingOptions}
-					noOptionsMessage={() => __('No results', 'kadence-blocks')}
-					isRtl={IS_RTL}
-					isMulti={isMulti}
-				/>
+				{isMulti && isSortable ? (
+					<SortableMultiSelect
+						value={selectedOptions}
+						options={options}
+						onChange={(selectedOption) => {
+							if (Array.isArray(selectedOption)) {
+								// Need to maintain the order of the selected options.
+								setAttributes({ globalStyleIds: selectedOption.map((option) => option.value) });
+							} else if (selectedOption) {
+								setAttributes({ globalStyleIds: [selectedOption.value] });
+							} else {
+								setAttributes({ globalStyleIds: [] });
+							}
+						}}
+						className="kb-select-control"
+						placeholder={__('Select Global Style', 'kadence-blocks')}
+						isSearchable={true}
+						isLoading={isLoadingOptions}
+						noOptionsMessage={() => __('No results', 'kadence-blocks')}
+						isRtl={IS_RTL}
+					/>
+				) : (
+					<Select
+						value={selectedOptions}
+						options={options}
+						onChange={(selectedOption) => {
+							if (Array.isArray(selectedOption)) {
+								setAttributes({ globalStyleIds: selectedOption.map((option) => option.value) });
+							} else if (selectedOption) {
+								setAttributes({ globalStyleIds: [selectedOption.value] });
+							} else {
+								setAttributes({ globalStyleIds: [] });
+							}
+						}}
+						className="kb-select-control"
+						placeholder={__('Select Global Style', 'kadence-blocks')}
+						isSearchable={true}
+						isLoading={isLoadingOptions}
+						noOptionsMessage={() => __('No results', 'kadence-blocks')}
+						isRtl={IS_RTL}
+						isMulti={isMulti}
+					/>
+				)}
 			</div>
 
 			{inheritedStyleOptions.length > 0 && (

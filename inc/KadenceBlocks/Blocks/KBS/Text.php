@@ -66,7 +66,7 @@ class Text extends Abstract_Block {
 			$css->add_property( 'text-align', $attributes['align'] );
 		}
 
-		$css = $this->add_custom_css( $attributes, $css, $root_selector );
+		$css = $this->add_custom_css( $css, $attributes, $root_selector );
 
 		return $css->css_output();
 	}

@@ -13,7 +13,13 @@ import { useSettings } from '@wordpress/block-editor';
 /**
  * Internal dependencies
  */
-import { getColorOutput, getColorOptions, getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
+import {
+	getColorOutput,
+	getColorOptions,
+	getDeviceValue,
+	getInheritedDeviceValue,
+	handleAttributeChange,
+} from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import ColorPicker from './color-picker';
 import { getColorLabel, getColorHex } from './utils';
@@ -76,7 +82,7 @@ function renderColorToggle(currentValue, inherited, colors) {
 	};
 }
 
-function renderColorDropdown(colors, currentValue, onChange, previewDevice, type, presetButtonRef) {
+function renderColorDropdown(colors, currentValue, inherited, onChange, previewDevice, type, presetButtonRef) {
 	return ({ onToggle, isOpen }) => {
 		// Memoize the colors by category
 		const themeLabel = __('Theme', 'kadence-blocks');
@@ -115,7 +121,10 @@ function renderColorDropdown(colors, currentValue, onChange, previewDevice, type
 										}
 									}}
 								>
-									<CheckedColorIndicator colorValue={getColorOutput(isGlobal ? palette : color)} isChecked={isActive} />
+									<CheckedColorIndicator
+										colorValue={getColorOutput(isGlobal ? palette : color)}
+										isChecked={isActive}
+									/>
 								</Button>
 							);
 						})}
@@ -144,7 +153,9 @@ function renderColorDropdown(colors, currentValue, onChange, previewDevice, type
 							if ('custom' === tab.name) {
 								return (
 									<ColorPicker
-										color={getColorOutput(getColorHex(currentValue, presetButtonRef))}
+										color={getColorOutput(
+											getColorHex(currentValue ? currentValue : inherited, presetButtonRef)
+										)}
 										onChange={handleColorChange}
 									/>
 								);
@@ -204,6 +215,12 @@ export default function ColorControl({
 	const onChange = (value, device, type) => {
 		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
 	};
+	const classes = clsx('kbs-color-select-control__dropdown-content', {
+		...(globalStylesIds || []).reduce((acc, styleId) => {
+			acc[`kbs-global-style-${styleId}`] = true;
+			return acc;
+		}, {}),
+	});
 
 	return (
 		<div className={`components-base-control kbs-control kbs-color-control`}>
@@ -224,14 +241,16 @@ export default function ColorControl({
 					ref={presetButtonRef}
 					popoverProps={popoverProps}
 					className="kbs-color-select-control__dropdown"
-					contentClassName="kbs-color-select-control__dropdown-content"
+					contentClassName={classes}
 					renderToggle={renderColorToggle(
 						currentValue,
-						inherited?.inheritedValue ? inherited.inheritedValue : ''
+						inherited?.inheritedValue ? inherited.inheritedValue : '',
+						[...globalColors, ...colors]
 					)}
 					renderContent={renderColorDropdown(
 						[...globalColors, ...colors],
 						currentValue,
+						inherited?.inheritedValue ? inherited.inheritedValue : '',
 						onChange,
 						previewDevice,
 						type,

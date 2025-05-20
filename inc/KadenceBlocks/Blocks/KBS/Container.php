@@ -59,7 +59,7 @@ class Container extends Abstract_Block {
 
 		$css->add_attributes( $attributes, $block_instance );
 
-		$css = $this->add_custom_css( $attributes, $css, $root_selector );
+		$css = $this->add_custom_css( $css, $attributes, $root_selector );
 
 		return $css->css_output();
 	}
@@ -74,11 +74,10 @@ class Container extends Abstract_Block {
 	 * @return string
 	 */
 	public function build_html( $attributes, $unique_id, $content, $block_instance ) {
-		$initial_tag  = $this->get_initial_attribute( $block_instance, 'htmlTag', 'div' );
-		$html_tag     = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
-		$classes      = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
-		$classes[] = 'kbs-container-block'. $unique_id;
-		$classes = array_merge( $classes, $this->get_global_style_classes( $attributes ) );
+		$initial_tag = $this->get_initial_attribute( $block_instance, 'htmlTag', 'div' );
+		$html_tag    = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
+		$classes     = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
+		$classes     = array_merge( $classes, $this->get_global_style_classes( $attributes ) );
 
 		$wrapper_args = [
 			'class' => implode( ' ', $classes ),

@@ -500,31 +500,11 @@ class CSS_Engine {
 	public function add_special_rules( $property, $value ) {
 		// Switch through the property types and add prefixed rules.
 		switch ( $property ) {
-			case 'border-top-left-radius':
-				$this->add_rule( $property, $value, '-webkit-' );
-				$this->add_rule( $property, $value );
-				break;
-			case 'border-top-right-radius':
-				$this->add_rule( $property, $value, '-webkit-' );
-				$this->add_rule( $property, $value );
-				break;
-			case 'border-bottom-left-radius':
-				$this->add_rule( $property, $value, '-webkit-' );
-				$this->add_rule( $property, $value );
-				break;
-			case 'border-bottom-right-radius':
-				$this->add_rule( $property, $value, '-webkit-' );
-				$this->add_rule( $property, $value );
-				break;
 			case 'background-image':
 				$this->add_rule( $property, sprintf( "url('%s')", $value ) );
 				break;
 			case 'content':
 				$this->add_rule( $property, sprintf( '%s', $value ) );
-				break;
-			case 'flex':
-				$this->add_rule( $property, $value, '-webkit-' );
-				$this->add_rule( $property, $value );
 				break;
 			default:
 				$this->add_rule( $property, $value, '-webkit-' );
@@ -841,11 +821,103 @@ class CSS_Engine {
 		}
 		return $this;
 	}
-
-	public function add_component_array( $attributes, $selector_prefix, $expected_keys = [], $variable_name = '' ) {
+	/**
+	 * Get the expected keys for the component.
+	 *
+	 * @param array $attributes_meta The meta of the attribute.
+	 * @return array
+	 */
+	public function get_expected_keys( $attributes_meta ) {
+		if ( empty( $attributes_meta['component'] ) ) {
+			return [];
+		}
+		switch ( $attributes_meta['component'] ) {
+			case 'typography':
+				$expected_keys = ['fontSize', 'fontFamily', 'fontWeight', 'textTransform', 'letterSpacing', 'lineHeight'];
+				break;
+			case 'flexBox':
+				$expected_keys = ['flexDirection', 'flexWrap', 'alignContent', 'alignItems', 'justifyContent', 'rowGap', 'columnGap'];
+				break;
+			case 'background':
+				$expected_keys = ['color'];		
+				break;
+			default:
+				$expected_keys = [ $attributes_meta['component'] ];		
+				break;
+		}
+		return $expected_keys;
+	}
+	/**
+	 * Get the output value for the attribute.
+	 *
+	 * @param string $value The value of the attribute.
+	 * @param string $attribute_name The name of the attribute.
+	 * @return string
+	 */
+	public function get_output_value( $value, $attribute_name ) {
+		if ( empty( $attribute_name ) ) {
+			return $value;
+		}
+		switch ( $attribute_name ) {
+			case 'rowGap':
+			case 'columnGap':
+			case 'column-gap':
+			case 'row-gap':
+				return $this->get_gap_size( $value );
+			case 'color':
+				return $this->sanitize_color( $value );
+			default:
+				return $value;
+		}
+	}
+	/**
+	 * Get the attribute selector.
+	 *
+	 * @param string $attribute_name The name of the attribute.
+	 * @param array $attributes_meta The meta of the attribute.
+	 * @return string
+	 */
+	public function get_attribute_selector( $attribute_name, $attributes_meta ) {
+		if ( empty( $attribute_name ) ) {
+			return '';
+		}
+		$use_variable_name = ( isset( $attributes_meta['nonInheritable'] ) && $attributes_meta['nonInheritable'] ) ? false : true;
+		$selector_prefix = ( isset( $attributes_meta['selector'] ) ) ? $attributes_meta['selector'] : '';
+		$component_name = ( isset( $attributes_meta['component'] ) ) ? $attributes_meta['component'] : '';
+		$attribute_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $attribute_name);
+		$attribute_name = strtolower($attribute_name);
+		if ( $use_variable_name ) {
+			return $selector_prefix . $attribute_name;
+		}
+		$attribute_name = $this->map_attribute_for_component( $attribute_name, $component_name );
+		return $attribute_name;
+	}
+	/**
+	 * Map the attribute for the component.
+	 *
+	 * @param string $attribute_name The name of the attribute.
+	 * @param string $component_name The name of the component.
+	 * @return string
+	 */
+	public function map_attribute_for_component( $attribute_name, $component_name ) {
+		if ( empty( $component_name ) ) {
+			return $attribute_name;
+		}
+		switch ( $component_name ) {
+			case 'background':
+				if ( 'color' === $attribute_name ) {
+					return 'background-color';
+				}
+				return $attribute_name;
+			default:
+				return $attribute_name;
+		}
+	}
+	public function add_component_array( $attributes, $attributes_meta, $variable_name = '' ) {
 		$processed_keys = [];
 		$is_first_iteration = true;
-		
+		$expected_keys   = $this->get_expected_keys( $attributes_meta );
+
 		foreach ( $attributes as $device_name => $device_attributes ) {
 			if( isset( $this->_device_media_queries[ $device_name ] ) && is_array( $this->_device_media_queries[ $device_name ] ) ) {
 				foreach ( $device_attributes as $attribute_name => $device_attribute ) {
@@ -855,26 +927,25 @@ class CSS_Engine {
 					$processed_keys[$attribute_name] = true;
 
 					$this->set_media_state( $device_name );
-					$kebab_attribute_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $attribute_name);
-					$kebab_attribute_name = strtolower($kebab_attribute_name);
 
-					$kebab_variable_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $variable_name);
-					$this->add_property( $selector_prefix . $kebab_attribute_name, $device_attribute );
+					$attribute_selector = $this->get_attribute_selector( $attribute_name, $attributes_meta );
+					$device_attribute   = $this->get_output_value( $device_attribute, $attribute_name );
+					if ( !empty( $device_attribute ) ) {
+						$this->add_property( $attribute_selector, $device_attribute );
+					}
 				}
 
 				// If this is the first device (largest breakpoint), like desktop, handle unprocessed keys
-				if( $is_first_iteration ) {
+				if( $is_first_iteration && !empty( $variable_name ) ) {
 					$unprocessed_keys = array_diff($expected_keys, array_keys($processed_keys));
-					
+
 					if( !empty( $unprocessed_keys ) ) {
 						foreach( $unprocessed_keys as $unprocessed_key ) {
 							$this->set_media_state( $device_name );
-							$kebab_attribute_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $unprocessed_key);
-							$kebab_attribute_name = strtolower($kebab_attribute_name);
 
-						$kebab_variable_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $variable_name);
-
-							$this->add_property( $selector_prefix . $kebab_attribute_name, 'var( --kbs-' . $kebab_attribute_name . '-' . $kebab_variable_name . ')' );
+							$kebab_variable_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $variable_name);
+							$attribute_selector = $this->get_attribute_selector( $unprocessed_key, $attributes_meta );
+							$this->add_property( $attribute_selector, 'var( --kbs-' . $attribute_selector . '-' . $kebab_variable_name . ')' );
 						}
 					}
 				}
@@ -906,16 +977,14 @@ class CSS_Engine {
 		// if( isset( $$attributes['preset'] ) ) {
 
 		// }
-
 		switch ( $attributes_meta['component'] ) {
 			case 'typography':
-				$expected_keys = ['fontSize', 'fontFamily', 'fontWeight', 'textTransform', 'letterSpacing', 'lineHeight'];
+				// I think we want to get rid of this, we will use presets for this kind of thing.
 				$variable_name = $this->get_typography_variable_name( $attributes, $key, $attributes_meta );
-				$this->add_component_array( $attributes[$key], $attributes_meta['selector'], $expected_keys, $variable_name );			
+				$this->add_component_array( $attributes[$key], $attributes_meta, $variable_name );			
 				break;
 			default:
-				$expected_keys = [ $attributes_meta['component'] ];
-				$this->add_component_array( $attributes[$key], $attributes_meta['selector'], $expected_keys );			
+				$this->add_component_array( $attributes[$key], $attributes_meta );			
 				break;
 		}
 
@@ -951,9 +1020,9 @@ class CSS_Engine {
 	 * @param string $color any color attribute.
 	 * @return string
 	 */
-	public function sanitize_color( $color, $opacity = null ) {
+	public function sanitize_color( $color ) {
 		if ( empty( $color ) ) {
-			return false;
+			return '';
 		}
 		if ( ! is_array( $color ) && strpos( $color, 'palette' ) === 0 ) {
 			switch ( $color ) {
@@ -981,42 +1050,28 @@ class CSS_Engine {
 				case 'palette9':
 					$fallback = '#ffffff';
 					break;
+				case 'palette-success':
+					$fallback = '#13612e';
+					break;
+				case 'palette-info':
+					$fallback = '#1159af';
+					break;
+				case 'palette-alert':
+					$fallback = '#b82105';
+					break;
+				case 'palette-warning':
+					$fallback = '#f7630c';
+					break;
+				case 'palette-rating':
+					$fallback = '#F5A524';
+					break;
 				default:
 					$fallback = '#3182CE';
 					break;
 			}
 			$color = 'var(--global-' . $color . ', ' . $fallback . ')';
-		} elseif ( isset( $opacity ) && is_numeric( $opacity ) && 1 !== (int) $opacity ) {
-			$color = $this->convert_hex( $color, $opacity );
 		}
 		return $color;
-	}
-
-	/**
-	 * Hex to RGBA
-	 *
-	 * @param string $hex string hex code.
-	 * @param number $alpha alpha number.
-	 */
-	public function convert_hex( $hex, $alpha ) {
-		if ( empty( $hex ) ) {
-			return '';
-		}
-		if ( 'transparent' === $hex ) {
-			return $hex;
-		}
-		$hex = str_replace( '#', '', $hex );
-		if ( strlen( $hex ) == 3 ) {
-			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
-			$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
-			$b = hexdec( substr( $hex, 2, 1 ) . substr( $hex, 2, 1 ) );
-		} else {
-			$r = hexdec( substr( $hex, 0, 2 ) );
-			$g = hexdec( substr( $hex, 2, 2 ) );
-			$b = hexdec( substr( $hex, 4, 2 ) );
-		}
-		$rgba = 'rgba(' . $r . ', ' . $g . ', ' . $b . ', ' . $alpha . ')';
-		return $rgba;
 	}
 
 
@@ -1176,7 +1231,7 @@ class CSS_Engine {
 	 * @param string $unit a string with the unit type.
 	 * @return string
 	 */
-	public function get_gap_size( $size, $unit ) {
+	public function get_gap_size( $size, $unit = '' ) {
 		if ( $this->is_variable_gap_value( $size ) ) {
 			return $this->get_variable_gap_value( $size );
 		}

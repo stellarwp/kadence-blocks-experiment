@@ -496,11 +496,11 @@ class Abstract_Block {
 	/**
 	 * Add Custom CSS for block.
 	 *
+	 * @param object $css the css class for blocks.
 	 * @param array  $attributes the blocks attributes.
-	 * @param string $css the css class for blocks.
 	 * @param string $root_selector the selector for the block.
 	 */
-	public function add_custom_css( $attributes, $css, $root_selector ) {
+	public function add_custom_css( $css, $attributes, $root_selector ) {
 		if ( ! empty( $attributes['kbsCSS'] ) ) {
 			$css->add_css_string( str_replace( 'selector', $root_selector, $attributes['kbsCSS'] ) );
 		}
