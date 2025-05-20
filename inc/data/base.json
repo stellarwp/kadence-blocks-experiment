@@ -43,6 +43,7 @@
 					"label": "Body text",
 					"name": "Body text",
 					"description": "Body text",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontFamily": "Arial, sans-serif",
@@ -55,6 +56,7 @@
 					"label": "Heading text",
 					"name": "Heading text",
 					"description": "Heading text",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontFamily": "Times New Roman, serif",
@@ -66,6 +68,7 @@
 					"label": "Heading 1",
 					"name": "Heading 1",
 					"description": "Heading 1",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontFamily": "Impact, Charcoal, sans-serif",
@@ -87,6 +90,7 @@
 					"label": "Heading 2",
 					"name": "Heading 2",
 					"description": "Heading 2",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontFamily": "Comic Sans MS, cursive, sans-serif",
@@ -98,6 +102,7 @@
 					"label": "Heading 3",
 					"name": "Heading 3",
 					"description": "Heading 3",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontSize": "xl"
@@ -108,6 +113,7 @@
 					"label": "Heading 4",
 					"name": "Heading 4",
 					"description": "Heading 4",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontSize": "xl"
@@ -118,6 +124,7 @@
 					"label": "Heading 5",
 					"name": "Heading 5",
 					"description": "Heading 5",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontSize": "lg"
@@ -128,6 +135,7 @@
 					"label": "Heading 6",
 					"name": "Heading 6",
 					"description": "Heading 6",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontSize": "lg"
