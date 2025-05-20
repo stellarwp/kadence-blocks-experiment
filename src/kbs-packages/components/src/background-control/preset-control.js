@@ -24,27 +24,6 @@ import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import TitleBar from '../title-bar';
 
-const getPresets = (presetType) => {
-	switch (presetType) {
-		case 'background':
-			return [
-				{
-					value: 'kbs-bg-base',
-					label: 'Base',
-				},
-				{
-					value: 'kbs-bg-variant-1',
-					label: 'Variant 1',
-				},
-				{
-					value: 'kbs-bg-variant-2',
-					label: 'Variant 2',
-				},
-			];
-		default:
-			return [];
-	}
-};
 export default function PresetControl({
 	label,
 	reset = true,
@@ -63,7 +42,6 @@ export default function PresetControl({
 		return null;
 	}
 	// Fetch available presets
-	//const presets = getPresets(presetType);
 	const presets = getPresetOptions(presetType);
 	// console.log(presets);
 	// Get the first three presets in a custom array

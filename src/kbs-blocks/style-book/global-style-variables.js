@@ -167,7 +167,7 @@ export const GlobalStyleVariableOutput = () => {
 			}
 		});
 
-		// console.log(finalCssString);
+		//console.log(finalCssString);
 
 		return finalCssString;
 	}, [globalStyles, previewDevice]);
@@ -207,13 +207,13 @@ export const GlobalStyleVariableOutput = () => {
 				iframeDoc = document.querySelector('iframe[name="editor-canvas"]')?.contentWindow?.document;
 				if (iframeDoc) {
 					updateOrCreateStyleTag(iframeDoc, styleId, cssVariables);
+					updateOrCreateStyleTag(document, styleId, cssVariables);
 				} else {
 					console.warn('Editor iframe still not found after delay.');
 				}
 			}, 250);
 			return () => clearTimeout(timeoutId);
 		}
-
 		updateOrCreateStyleTag(iframeDoc, styleId, cssVariables);
 		updateOrCreateStyleTag(document, styleId, cssVariables);
 
@@ -224,6 +224,10 @@ export const GlobalStyleVariableOutput = () => {
 				if (styleTag) {
 					styleTag.remove();
 				}
+			}
+			const docStyleTag = document.getElementById(styleId);
+			if (docStyleTag) {
+				docStyleTag.remove();
 			}
 		};
 	}, [cssVariables, previewDevice]);

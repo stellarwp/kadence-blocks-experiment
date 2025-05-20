@@ -11,7 +11,7 @@ const DEFAULT_STATE = {
 	globalStyles: window?.kbs_params?.global_styles,
 	globalPresets: {},
 	globalMappings: {},
-	// styleBookLocalGlobalStyles: [],
+	styleBookLocalGlobalStyles: window?.kbs_params?.global_styles,
 	styleBookAttributes: { globalStyleIds: ['kbs-base'] },
 	isLoading: false,
 	isSavingStyleBook: false,
@@ -41,25 +41,31 @@ const actions = {
 			globalStyles,
 		};
 	},
-	setGlobalPresets(globalStyles) {
+	getGlobalPresets(globalStyles) {
 		const globalPresets = Object.keys(globalStyles['kbs-base'].components).reduce((acc, component) => {
 			acc[component] = globalStyles['kbs-base'].components[component].presets;
 			return acc;
 		}, {});
+		return globalPresets;
+	},
+	setGlobalPresets(globalPresets) {
 		return {
 			type: 'SET_GLOBAL_PRESETS',
 			globalPresets,
 		};
 	},
-	setGlobalMappings(globalStyles) {
-		const globalMappings = Object.keys(globalStyles['kbs-base'].mappings).reduce((acc, component) => {
-			acc[component] = globalStyles['kbs-base'].mappings[component];
-			return acc;
-		}, {});
+	setGlobalMappings(globalMappings) {
 		return {
 			type: 'SET_GLOBAL_MAPPINGS',
 			globalMappings,
 		};
+	},
+	getGlobalMappings(globalStyles) {
+		const globalMappings = Object.keys(globalStyles['kbs-base'].mappings).reduce((acc, component) => {
+			acc[component] = globalStyles['kbs-base'].mappings[component];
+			return acc;
+		}, {});
+		return globalMappings;
 	},
 	setIsLoading(isLoading) {
 		return {
@@ -121,8 +127,10 @@ const actions = {
 				request: { path },
 			};
 			yield actions.setGlobalStyles(globalStyles);
-			yield actions.setGlobalPresets(globalStyles);
-			yield actions.setGlobalMappings(globalStyles);
+			const globalPresets = yield actions.getGlobalPresets(globalStyles);
+			yield actions.setGlobalPresets(globalPresets);
+			const globalMappings = yield actions.getGlobalMappings(globalStyles);
+			yield actions.setGlobalMappings(globalMappings);
 			yield actions.setHasResolved(true);
 			yield actions.setIsLoading(false);
 			return globalStyles;
@@ -547,9 +555,19 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			return state.globalStyles;
 		},
 		getGlobalPresets(state) {
+			if ( !state?.globalPresets?.length ) {
+				const globalPresets = actions.getGlobalPresets(state.globalStyles);
+				actions.setGlobalPresets(globalPresets);
+				return globalPresets;
+			}
 			return state.globalPresets;
 		},
 		getGlobalMappings(state) {
+			if ( !state?.globalMappings?.length ) {
+				const globalMappings = actions.getGlobalMappings(state.globalStyles);
+				actions.setGlobalMappings(globalMappings);
+				return globalMappings;
+			}
 			return state.globalMappings;
 		},
 		getStyleBookAttributes(state) {
