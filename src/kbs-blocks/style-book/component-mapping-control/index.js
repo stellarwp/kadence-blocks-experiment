@@ -36,7 +36,10 @@ export default function ComponentPresetControl(props) {
 					key={mappingComponentKey + '-' + mappingKey}
 					label={mappingKey}
 					placeholder={''}
-					value={styleBookLocalGlobalStyles?.[globalStyleId]?.mappings?.[mappingComponentKey]?.[mappingKey]}
+					value={
+						styleBookLocalGlobalStyles?.[globalStyleId]?.mappings?.[mappingComponentKey]?.[mappingKey]
+							?.value
+					}
 					onChange={(value) => {
 						setStyleBookLocalMapping(mappingComponentKey, mappingKey, value);
 					}}

@@ -11,6 +11,8 @@ declare( strict_types=1 );
 
 namespace KadenceWP\KadenceBlocks\Settings;
 
+use KadenceWP\KadenceBlocks\REST\Global_Styles_Controller;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -134,6 +136,24 @@ class Global_Style {
 		}
 		return self::$default_palette;
 	}
+
+	/**
+	 * Get default options by type
+	 *
+	 * @param string $type The type of options to get.
+	 * @return array The default options.
+	 */
+	public static function get_default_options_by_type( $type = 'base' ) {
+		switch ( $type ) {
+			case 'base':
+				return self::defaults();
+			case 'dark':
+				return self::dark_defaults();
+			case 'accent':
+				return self::accent_defaults();
+		}
+	}
+
 	/**
 	 * Set default theme option values
 	 *
@@ -412,14 +432,17 @@ class Global_Style {
 	}
 	/**
 	 * Get Global Style
-	 *
-	 * @access public
-	 * @return array
+	 * 
+	 * @param array $global_style The global style to save.	
+	 * @param string $type The type of options to save.
+	 * @return bool True if the options were saved, false otherwise.
 	 */
-	public static function save_options( $global_style, $type = 'base' ) {
-		$options = json_decode( get_option( self::get_option_name( $type ), '[]' ), true );
-		$new_options = self::deep_merge( $options, json_decode( $global_style, true ) );
-		return update_option( self::get_option_name( $type ), json_encode( $new_options ) );
+	public static function save_options( $global_style = [], $type = 'base' ) {
+		$default_options = self::get_default_options_by_type( $type );
+		$new_options = self::deep_diff( $default_options, $global_style, true );
+		$stamped_new_options = Global_Styles_Controller::stamp_changes( $global_style, $new_options );
+		$sanitized_new_options = Global_Styles_Controller::sanitize_global_style( $stamped_new_options );
+		return update_option( self::get_option_name( $type ), json_encode( $sanitized_new_options ) );
 	}
 	/**
 	 * Deep merge arrays with defaults
@@ -445,6 +468,57 @@ class Global_Style {
 
 		return $result;
 	}
+
+	/**
+	 * Get deep differences between two arrays
+	 *
+	 * @param array $array1 The first array to compare.
+	 * @param array $array2 The second array to compare.
+	 * @param bool  $ignore_empty Whether to ignore empty values.
+	 * @return array The differences between the arrays.
+	 */
+	public static function deep_diff( $array1, $array2, $ignore_empty = false ) {
+		$diff = [];
+
+		// Handle non-array inputs
+		if ( ! is_array( $array1 ) || ! is_array( $array2 ) ) {
+			if ( $ignore_empty && empty( $array2 ) ) {
+				return [];
+			} else {
+				return $array1 !== $array2 ? $array2 : [];
+			}
+		}
+
+		// Check for keys in array2 that are different or not in array1
+		foreach ( $array2 as $key => $value ) {
+			if ( ! isset( $array1[ $key ] ) ) {
+				if ( $ignore_empty && empty( $value ) ) {
+					continue;
+				}
+				$diff[ $key ] = $value;
+			} elseif ( is_array( $value ) && is_array( $array1[ $key ] ) ) {
+				$nested_diff = self::deep_diff( $array1[ $key ], $value, $ignore_empty );
+				if ( ! empty( $nested_diff ) ) {
+					$diff[ $key ] = $nested_diff;
+				}
+			} elseif ( $value !== $array1[ $key ] ) {
+				if ( $ignore_empty && empty( $value ) ) {
+					continue;
+				}
+				$diff[ $key ] = $value;
+			}
+		}
+
+		// Check for keys in array1 that are not in array2
+		foreach ( $array1 as $key => $value ) {
+			if ( ! $ignore_empty && ! isset( $array2[ $key ] ) ) {
+				$diff[ $key ] = null;
+			}
+		}
+
+		return $diff;
+	}
+
 	/**
 	 * Get Global Styles
 	 *

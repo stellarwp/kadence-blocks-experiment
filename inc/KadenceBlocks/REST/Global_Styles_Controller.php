@@ -250,13 +250,12 @@ class Global_Styles_Controller extends WP_REST_Controller {
 		$sanitized_global_style = [];
 		$style_id               = $data['styleId'] ?? '';
 		if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
-			$stamped_changes        = $this->stamp_changes( $data, $changes );
-			$sanitized_global_style = $this->sanitize_global_style( $stamped_changes );
+			$sanitized_global_style = $this->sanitize_global_style( $data );
 			$core_style = str_replace( 'kbs-', '', $style_id );
 			if ( $core_style == 'base' ) {
 				$sanitized_global_style = Global_Style::save_base_palette( $sanitized_global_style );
 			}
-			$result = Global_Style::save_options( wp_json_encode( $sanitized_global_style ), $core_style );
+			$result = Global_Style::save_options( $data, $core_style );
 		} else {
 			$sanitized_global_style = $this->sanitize_global_style( $data );
 			$post_arr = [
@@ -296,7 +295,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 	 * @param array $global_style The global style to sanitize.
 	 * @return array The sanitized global style.
 	 */
-	public function sanitize_global_style( $global_style ) {
+	public static function sanitize_global_style( $global_style ) {
 		$sanitized_global_style = [];
 		foreach ( $global_style as $key => $value ) {
 			if ( is_array( $value ) ) {
@@ -308,7 +307,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 						}
 					}
 				}
-				$sanitized_global_style[ $key ] = $this->sanitize_global_style( $value );
+				$sanitized_global_style[ $key ] = self::sanitize_global_style( $value );
 			} else {
 				$sanitized_global_style[ $key ] = sanitize_text_field( $value );
 			}
@@ -323,7 +322,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 	 * @param array $changes The changes to stamp.
 	 * @return array The stamped changes.
 	 */
-	public function stamp_changes( $data, $changes ) {
+	public static function stamp_changes( $data, $changes ) {
 		$style_id = $data['styleId'] ?? '';
 		$version = $data['version'] ?? '';
 		$post_id = $data['postId'] ?? '';
@@ -356,7 +355,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 				$sanitized_global_style = $this->sanitize_global_style( $global_style );
 				if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
 					$core_style   = str_replace( 'kbs-', '', $style_id );
-					$global_style = Global_Style::save_options( wp_json_encode( $sanitized_global_style ), $core_style );
+					$global_style = Global_Style::save_options( $global_style, $core_style );
 				} else {
 					$post_arr = [
 						'ID'           => $sanitized_global_style['postId'] ?? 0,

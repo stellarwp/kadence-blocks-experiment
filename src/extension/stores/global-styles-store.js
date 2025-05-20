@@ -546,7 +546,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				const mappingObjectToSet = {
 					[action.styleId]: {
 						mappings: {
-							[action.componentId]: { [action.mappingKey]: action.mapping },
+							[action.componentId]: { [action.mappingKey]: { value: action.mapping } },
 						},
 					},
 				};
