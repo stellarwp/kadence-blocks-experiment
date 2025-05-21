@@ -251,14 +251,14 @@ class Global_Styles_Controller extends WP_REST_Controller {
 		$style_id               = $data['styleId'] ?? '';
 		if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
 			$sanitized_global_style = $this->sanitize_global_style( $data );
-			$core_style = str_replace( 'kbs-', '', $style_id );
+			$core_style             = str_replace( 'kbs-', '', $style_id );
 			if ( $core_style == 'base' ) {
 				$sanitized_global_style = Global_Style::save_base_palette( $sanitized_global_style );
 			}
 			$result = Global_Style::save_options( $data, $core_style );
 		} else {
 			$sanitized_global_style = $this->sanitize_global_style( $data );
-			$post_arr = [
+			$post_arr               = [
 				'ID'           => ! empty( $sanitized_global_style['postId'] ) ? $sanitized_global_style['postId'] : 0,
 				'post_type'    => self::$slug,
 				'post_title'   => ! empty( $sanitized_global_style['name'] ) ? $sanitized_global_style['name'] : __( 'Global Style', 'kadence-blocks' ),
@@ -268,7 +268,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 					self::$meta_style_id_slug => $style_id,
 				],
 			];
-			$result   = wp_insert_post( $post_arr );
+			$result                 = wp_insert_post( $post_arr );
 
 			// set the postId if it's not already set
 			if ( $result && gettype( $result ) != 'WP_Error' && ! isset( $sanitized_global_style['postId'] ) ) {
@@ -324,16 +324,16 @@ class Global_Styles_Controller extends WP_REST_Controller {
 	 */
 	public static function stamp_changes( $data, $changes ) {
 		$style_id = $data['styleId'] ?? '';
-		$version = $data['version'] ?? '';
-		$post_id = $data['postId'] ?? '';
+		$version  = $data['version'] ?? '';
+		$post_id  = $data['postId'] ?? '';
 		if ( $style_id ) {
-			$changes[ 'styleId' ] = $style_id;
+			$changes['styleId'] = $style_id;
 		}
 		if ( $version ) {
-			$changes[ 'version' ] = $version;
+			$changes['version'] = $version;
 		}
 		if ( $post_id ) {
-			$changes[ 'postId' ] = $post_id;
+			$changes['postId'] = $post_id;
 		}
 		return $changes;
 	}

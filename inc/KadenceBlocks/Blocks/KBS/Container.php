@@ -78,6 +78,7 @@ class Container extends Abstract_Block {
 		$html_tag    = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
 		$classes     = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
 		$classes     = array_merge( $classes, $this->get_global_style_classes( $attributes ) );
+		$classes     = array_merge( $classes, $this->get_preset_style_classes( $attributes ) );
 
 		$wrapper_args = [
 			'class' => implode( ' ', $classes ),

@@ -114,7 +114,7 @@ class Abstract_Block {
 	 * @param  CSS_Engine $css_engine The CSS engine instance.
 	 */
 	public function __construct( CSS_Engine $css_engine, Font_Engine $font_engine ) {
-		$this->css_engine = $css_engine;
+		$this->css_engine  = $css_engine;
 		$this->font_engine = $font_engine;
 	}
 
@@ -228,7 +228,7 @@ class Abstract_Block {
 	/**
 	 * Process fonts for a block and add them to the font engine
 	 *
-	 * @param array $attributes Block attributes
+	 * @param array         $attributes Block attributes
 	 * @param WP_Block|null $block_instance The block instance
 	 * @return void
 	 */
@@ -325,7 +325,7 @@ class Abstract_Block {
 			$unique_id = ! empty( $attributes['uniqueID'] ) ? $attributes['uniqueID'] : '';
 		}
 		if ( ! empty( $unique_id ) ) {
-			$unique_id = str_replace( '/', '-', $unique_id );
+			$unique_id       = str_replace( '/', '-', $unique_id );
 			$unique_style_id = apply_filters( 'kadence_blocks_build_render_unique_id', $unique_id, $this->block_name, $attributes );
 
 			// If filter didn't run in header (which would have enqueued the specific css id ) then filter attributes for easier dynamic css.
@@ -558,5 +558,23 @@ class Abstract_Block {
 			}
 		}
 		return $generated_classes;
+	}
+
+	/**
+	 * Get the preset style classes for a block.
+	 *
+	 * @param array $attributes The blocks attributes.
+	 * @return array
+	 */
+	protected function get_preset_style_classes( $attributes ) {
+		$classes = [];
+		if ( ! empty( $attributes ) && is_array( $attributes ) ) {
+			foreach ( $attributes as $key => $sub_attributes ) {
+				if ( ! empty( $sub_attributes['preset'] ) ) {
+					$classes[] = $sub_attributes['preset'];
+				}
+			}
+		}
+		return $classes;
 	}
 }

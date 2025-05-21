@@ -40,6 +40,13 @@ class CSS_Engine {
 	public static $custom_styles = array();
 
 	/**
+	 * Global styles css
+	 *
+	 * @var object
+	 */
+	protected $global_styles_css = null;
+
+	/**
 	 * The css group id.
 	 *
 	 * @access protected
@@ -228,11 +235,6 @@ class CSS_Engine {
 		add_action( 'wp_enqueue_scripts', [ $this, 'frontend_block_css' ], 180 );
 
 		$this->device_options = Editor_Assets::get_responsive_device_options();
-		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
-		
-		// Generate global styles CSS when the CSS engine is initialized
-		$this->global_styles_css->generate_css();
-		
 		// Initialize device slugs and media query arrays dynamically
 		foreach ( $this->device_options as $device_option ) {
 			$device_key = isset( $device_option['key'] ) ? $device_option['key'] : '';
@@ -247,6 +249,12 @@ class CSS_Engine {
 				}
 			}
 		}
+
+		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
+		
+		// Generate global styles CSS when the CSS engine is initialized
+		$this->global_styles_css->generate_css();
+		
 	}
 
 	/**
@@ -348,8 +356,8 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function set_selector( $selector = '' ) {
-		// Render the css in the output string everytime the selector changes.
-		if ( '' !== $this->_selector ) {
+		// Render the css in the output string every time the selector changes from what it is currently set to.
+		if ( '' !== $this->_selector && $selector !== $this->_selector ) {
 			$this->add_selector_rules_to_output();
 		}
 		$this->_selector = $selector;
@@ -772,14 +780,14 @@ class CSS_Engine {
 				}
 				// If the attribute is a component, add the complex attribute.
 				if ( !empty( $attributes_meta['component'] ) ) {
-					$this->add_component( $key, $attributes, $block_instance, $attributes_meta );
+					$this->add_component( $key, $attributes, $attributes_meta, $block_instance );
 					continue;
 				}
 				if ( ! isset( $attributes_meta['property'] ) ) {
 					continue;
 				}
 
-				$this->add_attribute( $key, $attributes, $block_instance, $attributes_meta );
+				$this->add_attribute( $key, $attributes, $attributes_meta, $block_instance );
 			}
 		}
 		return $this;
@@ -790,11 +798,11 @@ class CSS_Engine {
 	 *
 	 * @param string $key The key of the attribute to get.
 	 * @param array $attributes an array of attributes.
-	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 * @param array $attributes_meta The meta of the attribute.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 * @return $this
 	 */
-	public function add_attribute( $key, $attributes, $block_instance, $attributes_meta = [] ) {
+	public function add_attribute( $key, $attributes, $attributes_meta = [], $block_instance = null ) {
 		if ( empty( $attributes_meta ) ) {
 			$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
 		}
@@ -961,18 +969,15 @@ class CSS_Engine {
 	 *
 	 * @param string $key The key of the attribute to get.
 	 * @param array $attributes an array of attributes.
-	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 * @param array $attributes_meta The meta of the attribute.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 * @return $this
 	 */
-	public function add_component( $key, $attributes, $block_instance, $attributes_meta = [] ) {
+	public function add_component( $key, $attributes, $attributes_meta = [], $block_instance = null ) {
 		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
 		if ( empty( $merged_attribute ) || !isset( $attributes[$key] ) ) {
 			return $this;
 		}
-
-		$expected_keys = [];
-
 		// TODO: Merge in preset values if set directly on component here
 		// if( isset( $$attributes['preset'] ) ) {
 
@@ -1069,7 +1074,7 @@ class CSS_Engine {
 					$fallback = '#3182CE';
 					break;
 			}
-			$color = 'var(--global-' . $color . ', ' . $fallback . ')';
+			$color = 'var(--kbs-colors-' . $color . ', ' . $fallback . ')';
 		}
 		return $color;
 	}

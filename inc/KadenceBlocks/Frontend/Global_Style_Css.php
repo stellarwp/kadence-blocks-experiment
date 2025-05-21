@@ -4,6 +4,7 @@
  */
 
 namespace KadenceWP\KadenceBlocks\Frontend;
+use KadenceWP\KadenceBlocks\Settings\Global_Style;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -65,20 +66,12 @@ class Global_Style_Css {
 	 * Fetches global styles from the REST API endpoint.
 	 */
 	private function fetch_global_styles() {
-		$request = new \WP_REST_Request( 'GET', '/kadence-blocks/v1/global-styles/get-demo' );
-		$response = rest_do_request( $request );
-
-		if ( $response->is_error() || $response->get_status() !== 200 ) {
+		$global_style_data = Global_Style::get_global_styles();
+		if ( ! $global_style_data ) {
 			return [];
 		}
 
-		$data = $response->get_data();
-
-		if ( ! is_array( $data ) ) {
-			return [];
-		}
-
-		return $data;
+		return $global_style_data;
 	}
 
 	/**
@@ -90,6 +83,34 @@ class Global_Style_Css {
 		return ! empty( $this->global_styles );
 	}
 
+	/**
+	 * Get the non inheritable attribute for a component.
+	 *
+	 * @param string $component The component name.
+	 * @return bool
+	 */
+	private function get_non_inheritable_attribute( $component ) {
+		switch ( $component ) {
+			case 'typography':
+				return false;
+			default:
+				return true;
+		}
+	}
+	/**
+	 * Get the component selector.
+	 *
+	 * @param string $component The component name.
+	 * @return string
+	 */
+	private function get_component_selector( $component ) {
+		switch ( $component ) {
+			case 'typography':
+				return '--kbs-typo-';
+			default:
+				return '';
+		}
+	}
 	/**
 	 * Generates the CSS variables.
 	 */
@@ -117,6 +138,10 @@ class Global_Style_Css {
 								// Mappings apply globally, no media queries needed here.
 								if ( 'kbs-base' === $style_id ) {
 									$this->css->set_selector( ':root' );
+									if ( 'colors' === $category ) {
+										// Add the base global variable for colors.
+										$this->css->add_property( '--global-' . strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', (string) $token ) ), $token_data['value'] );
+									}
 									$this->css->add_property( $variable_name, $token_data['value'] );
 								} else {
 									$selector = $this->get_style_selector( $style_id );
@@ -132,6 +157,19 @@ class Global_Style_Css {
 			// Components
 			if ( ! empty( $style_data['components'] ) && is_array( $style_data['components'] ) ) {
 				foreach ( $style_data['components'] as $component => $component_data ) {
+					if ( ! empty( $component_data['presets'] ) && is_array( $component_data['presets'] ) ) {
+						foreach ( $component_data['presets'] as $preset => $preset_data ) {
+							$component_attributes = $preset_data['attributes'] ?? [];
+							$component_meta = [
+								'component' => $component,
+								'nonInheritable' => $this->get_non_inheritable_attribute( $component ),
+								'selector' => $this->get_component_selector( $component ),
+							];
+							$this->css->set_selector( '.' . $preset );
+							$this->css->add_component( $component, [$component => $component_attributes], $component_meta );
+						}
+					}
+					// TODO: I'm not sure if this is needed, need to follow up with josh & mark.
 					if ( 'typography' === $component && ! empty( $component_data['presets'] ) && is_array( $component_data['presets'] ) ) {
 						foreach ( $component_data['presets'] as $preset => $preset_data ) {
 							if ( in_array( $preset, self::$special_typography_presets ) && ! empty( $preset_data['attributes'] ) && is_array( $preset_data['attributes'] ) ) {
@@ -194,8 +232,7 @@ class Global_Style_Css {
 	 * @return string The CSS selector (e.g., '.kbs-global-style-abc').
 	 */
 	private function get_style_selector( $style_id ) {
-		$style_slug = str_replace( 'kbs-', '', $style_id );
-		$style_slug = preg_replace( '/[^a-zA-Z0-9-_]/', '-', $style_slug );
+		$style_slug = preg_replace( '/[^a-zA-Z0-9-_]/', '-', $style_id );
 		$style_slug = trim( $style_slug, '-' );
 		return '.kbs-global-style-' . $style_slug;
 	}
