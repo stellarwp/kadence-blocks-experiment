@@ -16,7 +16,7 @@ import { blockDefault, brush, settings } from '@wordpress/icons';
  */
 import './editor.scss';
 
-function InspectorControlTabs({ allowedTabs = null, activeTab, setActiveTab, panelName, tabs = null }) {
+function InspectorControlTabs({ allowedTabs = null, activeTab, setActiveTab, panelName = '', tabs = null }) {
 	const defaultTabs = [
 		{
 			key: 'general',
@@ -60,9 +60,13 @@ function InspectorControlTabs({ allowedTabs = null, activeTab, setActiveTab, pan
 		componentsPanel = tabsContainer.current.closest('.components-panel');
 	});
 
-	if (activeTab !== openedTab) {
-		setActiveTab(openedTab);
-	}
+	useEffect(() => {
+		if (activeTab !== openedTab) {
+			console.log('activeTab', activeTab);
+			console.log('openedTab', openedTab);
+			setActiveTab(openedTab);
+		}
+	}, [activeTab, openedTab]);
 
 	const setDataAttr = (key) => {
 		if (componentsPanel) {

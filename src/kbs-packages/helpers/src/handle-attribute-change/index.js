@@ -99,7 +99,12 @@ const handleSpecificDevice = (value, newAttributes, attributeName, deviceSlug, t
 		}
 		return newAttributes;
 	}
-
+	if (value === undefined) {
+		if (newAttributes?.[attributeName]?.[deviceSlug]?.[type]) {
+			delete newAttributes[attributeName][deviceSlug][type];
+		}
+		return newAttributes;
+	}
 	newAttributes[attributeName] = {
 		...newAttributes[attributeName],
 		[deviceSlug]: {
@@ -133,7 +138,7 @@ export const handleAttributeChange = (
 	meta
 ) => {
 	if (customOnChange) {
-		customOnChange(value, device, type);
+		customOnChange(value, device, attributeName, type);
 		return;
 	}
 
@@ -148,4 +153,51 @@ export const handleAttributeChange = (
 		newAttributes = handleSpecificDevice(value, newAttributes, attributeName, deviceSlug, type);
 	}
 	setAttributes(newAttributes);
+};
+
+/**
+ * Helper function to handle attribute changes in Kadence controls
+ *
+ * @param {*} value The new value to set - can be a single value or an object of values
+ * @param {string} device The device type ('all', 'Desktop', 'Tablet', 'Mobile')
+ * @param {string} attributeName The name of the attribute to update
+ * @param {Object} attributes Current attributes object
+ * @param {Function} setAttributes Function to update attributes
+ * @param {Function|undefined} customOnChange Optional custom onChange handler
+ * @param {string} type The type of attribute being changed
+ * @param {Object} meta The meta object
+ */
+export const handleMultipleAttributeChange = (
+	value,
+	device,
+	attributeName,
+	attributes,
+	setAttributes,
+	customOnChange,
+	type = null,
+	meta
+) => {
+	if (customOnChange) {
+		customOnChange(value, device, attributeName, type);
+		return;
+	}
+	console.log('here?');
+
+	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
+	let newAttributes = JSON.parse(JSON.stringify(attributes));
+	if (Array.isArray(type)) {
+		type.forEach((itemType, index) => {
+			if (device === 'all') {
+				newAttributes = handleAllDevices(value[index], newAttributes, attributeName, deviceOptions, itemType);
+			} else if (device === 'none') {
+				newAttributes = handleNoDevice(value[index], newAttributes, attributeName, itemType);
+			} else {
+				const deviceSlug = getDeviceAttributeSlug(device);
+				newAttributes = handleSpecificDevice(value[index], newAttributes, attributeName, deviceSlug, itemType);
+			}
+		});
+		setAttributes(newAttributes);
+	} else {
+		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
+	}
 };

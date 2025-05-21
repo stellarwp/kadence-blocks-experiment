@@ -5,7 +5,7 @@ import clsx from 'clsx';
 /**
  * Import WordPress
  */
-import { useState } from '@wordpress/element';
+import { useState, useMemo } from '@wordpress/element';
 import { InspectorControls } from '@wordpress/block-editor';
 /**
  * Kadence Components.
@@ -28,13 +28,15 @@ const PANEL_NAME = metadata.name;
 export default function Inspector(props) {
 	const [activeTab, setActiveTab] = useState('general');
 	const { globalStylesIds } = props;
-
-	const classes = clsx('kbs-container-inspector', {
-		...(globalStylesIds || []).reduce((acc, styleId) => {
-			acc[`kbs-global-style-${styleId}`] = true;
-			return acc;
-		}, {}),
-	});
+	const globalClasses = useMemo(() => {
+		return Object.keys(
+			(globalStylesIds || []).reduce((acc, styleId) => {
+				acc[`kbs-global-style-${styleId}`] = true;
+				return acc;
+			}, {})
+		);
+	}, [globalStylesIds]);
+	const classes = clsx('kbs-container-inspector', globalClasses);
 	return (
 		<InspectorControls>
 			<div className={classes}>

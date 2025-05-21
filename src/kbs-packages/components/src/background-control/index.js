@@ -19,6 +19,7 @@ import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import PresetControl from './preset-control';
 import ColorControl from '../color-control';
+import BackgroundImageControl from '../background-image-control';
 import './editor.scss';
 
 export default function BackgroundControl({
@@ -70,6 +71,17 @@ export default function BackgroundControl({
 				meta={metaData}
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
+			/>
+			<BackgroundImageControl
+				label={__('Background Image', 'kadence-blocks')}
+				attributes={attributes}
+				type={'image'}
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				meta={metaData}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+				dynamicAttribute={attributeName + ':image'}
 			/>
 		</ToolsPanelBody>
 	);

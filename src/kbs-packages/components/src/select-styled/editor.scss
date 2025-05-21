@@ -1,0 +1,28 @@
+.kbs-select-styled {
+	.kbs-select__control {
+		background: var(--kb-subtle-background, #eaf3f5);
+		border: 0;
+		height: 40px;
+		border-radius: 3px;
+		.kbs-select__input-container {
+			padding-top: 0;
+			padding-bottom: 0;
+			margin: 0;
+			color: var(--wp-components-color-foreground, #1e1e1e);
+		}
+		input[type="text"] {
+			box-shadow: none;
+			border: 0;
+			color: var(--wp-components-color-foreground, #1e1e1e);
+		}
+		.kbs-select__indicator {
+			color: var(--wp-components-color-foreground, #1e1e1e);
+		}
+		.kbs-select__indicator-separator {
+			background: var(--kb-border-color, #859cb6);
+		}
+		&.kbs-select__control--is-focused {
+			box-shadow: 0px 0px 0px 1px var(--kb-border-color, #859cb6);
+		}
+	}
+}

@@ -215,13 +215,23 @@ export default function ColorControl({
 	const onChange = (value, device, type) => {
 		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
 	};
-	const classes = clsx('kbs-color-select-control__dropdown-content', {
-		...(globalStylesIds || []).reduce((acc, styleId) => {
-			acc[`kbs-global-style-${styleId}`] = true;
-			return acc;
-		}, {}),
-	});
-
+	const globalClasses = useMemo(() => {
+		return Object.keys(
+			(globalStylesIds || []).reduce((acc, styleId) => {
+				acc[`kbs-global-style-${styleId}`] = true;
+				return acc;
+			}, {})
+		);
+	}, [globalStylesIds]);
+	const classes = clsx('kbs-color-select-control__dropdown-content', globalClasses);
+	// Remove Kadence Theme Colors from the colors array
+	const themeColors = useMemo(() => {
+		let additionalThemeColors = JSON.parse(JSON.stringify(colors));
+		if (window?.kbs_params?.isKadenceTheme) {
+			additionalThemeColors = additionalThemeColors.filter((color) => !color.slug.startsWith('theme-palette'));
+		}
+		return additionalThemeColors;
+	}, [colors]);
 	return (
 		<div className={`components-base-control kbs-control kbs-color-control`}>
 			<TitleBar
@@ -245,10 +255,10 @@ export default function ColorControl({
 					renderToggle={renderColorToggle(
 						currentValue,
 						inherited?.inheritedValue ? inherited.inheritedValue : '',
-						[...globalColors, ...colors]
+						[...globalColors, ...themeColors]
 					)}
 					renderContent={renderColorDropdown(
-						[...globalColors, ...colors],
+						[...globalColors, ...themeColors],
 						currentValue,
 						inherited?.inheritedValue ? inherited.inheritedValue : '',
 						onChange,

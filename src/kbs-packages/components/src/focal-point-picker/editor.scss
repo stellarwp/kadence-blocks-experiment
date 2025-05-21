@@ -1,0 +1,27 @@
+.kbs-image-control__focal-point-picker {
+	.focal-point-picker__controls {
+		.components-input-control__container {
+			background: var(--kb-subtle-background, #edf2f7);
+			.components-input-control__backdrop {
+				border-color: var(--kb-subtle-background, #edf2f7);
+			}
+			.components-input-control__suffix .components-unit-control__unit-label {
+				color: var(--wp-components-color-foreground, #1e1e1e);
+				background: transparent;
+			}
+			.components-input-control__suffix .components-unit-control__select {
+				color: var(--wp-components-color-foreground, #1e1e1e);
+				background: transparent;
+			}
+			&:focus-within:not(:has(:is(.components-input-control__suffix):focus-within))
+				.components-input-control__backdrop {
+				border-color: var(--wp-components-color-foreground, #1e1e1e);
+			}
+		}
+	}
+	.components-focal-point-picker {
+		&::after {
+			box-shadow: inset 0px 0px 0px 1px var(--kb-border-subtle-color, #d9e7ec);
+		}
+	}
+}

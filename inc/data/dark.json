@@ -11,7 +11,12 @@
 			"palette6": { "value": "color-mix(in srgb, var(--global-palette7) 90%, black)" },
 			"palette7": { "value": "var(--global-palette5)" },
 			"palette8": { "value": "var(--global-palette4)" },
-			"palette9": { "value": "var(--global-palette3)" }
+			"palette9": { "value": "var(--global-palette3)" },
+			"palette-success": { "value": "color-mix(in srgb, var(--global-palette-success) 60%, white)" },
+			"palette-info": { "value": "color-mix(in srgb, var(--global-palette-info) 60%, white)" },
+			"palette-alert": { "value": "color-mix(in srgb, var(--global-palette-alert) 60%, white)" },
+			"palette-warning": { "value": "color-mix(in srgb, var(--global-palette-warning) 60%, white)" },
+			"palette-rating": { "value": "color-mix(in srgb, var(--global-palette-rating) 60%, white)" }
 		}
 	}
 }

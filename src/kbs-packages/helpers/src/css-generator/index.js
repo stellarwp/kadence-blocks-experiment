@@ -79,13 +79,13 @@ class CSSGenerator {
 	processComponentKey(attributeName, meta, props, metadata, key) {
 		//get the components for the line to add
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
-		const cssProperty = this.getCssProperty(key);
 		const cssSelector = this.getCssSelector(meta, key);
+		const attributeSelector = this.getAttributeSelector(key, meta);
 
-		if (cssValue && cssProperty && cssSelector && meta.selector) {
+		if (cssValue && cssSelector && attributeSelector) {
 			const currentSelectorBackup = this.currentSelector;
 			this.setSelector(cssSelector);
-			this.add({ [meta.selector + cssProperty]: cssValue });
+			this.add({ [attributeSelector]: cssValue });
 			this.setSelector(currentSelectorBackup);
 		}
 		this.currentAppliedValue = '';
@@ -155,17 +155,50 @@ class CSSGenerator {
 		}
 		return cssValue;
 	}
-
 	/**
-	 * Convert a camelCase property name to CSS property format
-	 * @private
-	 * @param {string} key - The property key
+	 * Get the attribute selector.
+	 *
+	 * @param {string} attributeName The name of the attribute.
+	 * @param {Object} attributesMeta The meta of the attribute.
+	 * @return {string}
 	 */
-	getCssProperty(key) {
-		if (key === 'textDecoration' && this.currentAppliedValue === 'hover-underline') {
-			return kebabCase('textDecorationHover');
+	getAttributeSelector(attributeName, attributesMeta) {
+		if (!attributeName) {
+			return '';
 		}
-		return kebabCase(key);
+		const useVariableName = attributesMeta?.nonInheritable ? false : true;
+		const selectorPrefix = attributesMeta?.selector || '';
+		const componentName = attributesMeta?.component || '';
+		const attributeNameSlug =
+			attributeName === 'textDecoration' && this.currentAppliedValue === 'hover-underline'
+				? kebabCase('textDecorationHover')
+				: kebabCase(attributeName);
+		if (useVariableName) {
+			return selectorPrefix + attributeNameSlug;
+		}
+		const attributeNameForComponent = this.getCssPropertyForComponent(attributeNameSlug, componentName);
+		return attributeNameForComponent;
+	}
+	/**
+	 * Map the attribute for the component.
+	 *
+	 * @param {string} attributeName The name of the attribute.
+	 * @param {string} componentName The name of the component.
+	 * @return {string}
+	 */
+	getCssPropertyForComponent(attributeName, componentName) {
+		if (!componentName) {
+			return attributeName;
+		}
+		switch (componentName) {
+			case 'background':
+				if (attributeName === 'color') {
+					return 'background-color';
+				}
+				return attributeName;
+			default:
+				return attributeName;
+		}
 	}
 
 	/**

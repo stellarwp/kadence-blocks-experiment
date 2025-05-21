@@ -196,7 +196,9 @@ export const GlobalStyleVariableOutput = () => {
 			if (!styleTag) {
 				styleTag = doc.createElement('style');
 				styleTag.id = id;
-				doc.head.appendChild(styleTag);
+				if (doc?.head) {
+					doc.head.appendChild(styleTag);
+				}
 			}
 			if (styleTag.textContent !== css) {
 				styleTag.textContent = css;

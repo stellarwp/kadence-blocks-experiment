@@ -272,11 +272,10 @@ const store = createReduxStore('kadenceblocks/data', {
 				};
 			case 'SWITCH_EDITOR_TAB_OPENED':
 				const { tabName, key } = action;
-
 				return {
 					...state,
 					editorTabs: {
-						...state.editorPanels,
+						...state.editorTabs,
 						[tabName]: key,
 					},
 				};

@@ -23,7 +23,7 @@ import Styles from './editing/styles';
 import { __ } from '@wordpress/i18n';
 
 import { useSelect, select } from '@wordpress/data';
-import { useEffect, Fragment } from '@wordpress/element';
+import { useEffect, useMemo } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, useInnerBlocksProps, store as blockEditorStore } from '@wordpress/block-editor';
 import { FORM_ALLOWED_BLOCKS } from './constants';
 
@@ -80,14 +80,18 @@ export default function ContainerEdit(props) {
 	}, []);
 
 	const previewDirection = getPreviewValue('direction', attributes, metadata, previewDevice);
-	const classes = classnames('kbs-container', {
+	const globalClasses = useMemo(() => {
+		return Object.keys(
+			(globalStylesIds || []).reduce((acc, styleId) => {
+				acc[`kbs-global-style-${styleId}`] = true;
+				return acc;
+			}, {})
+		);
+	}, [globalStylesIds]);
+	const classes = classnames('kbs-container', globalClasses, {
 		[className]: className,
 		[`kbs-container-${uniqueID}`]: uniqueID,
 		['kbs-only-appender']: !hasInnerBlocks,
-		...(globalStylesIds || []).reduce((acc, styleId) => {
-			acc[`kbs-global-style-${styleId}`] = true;
-			return acc;
-		}, {}),
 	});
 	const blockProps = useBlockProps({
 		className: classes,

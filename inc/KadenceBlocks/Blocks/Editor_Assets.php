@@ -106,9 +106,10 @@ class Editor_Assets {
 			'kadence-blocks-js',
 			'kbs_params',
 			[
-				'responsive_device_options'  => $this->get_responsive_device_options(),
-				'dynamic_enabled'  => true,
-				'global_styles' => Global_Style::get_global_styles(),
+				'responsive_device_options' => $this->get_responsive_device_options(),
+				'dynamic_enabled'           => true,
+				'global_styles'             => Global_Style::get_global_styles(),
+				'isKadenceTheme'            => class_exists( 'Kadence\Theme' ),
 			]
 		);
 	}
@@ -125,32 +126,35 @@ class Editor_Assets {
 	}
 
 	public static function get_responsive_device_options() {
-		$responsive_device_options = apply_filters( 'kadence_blocks_responsive_device_options', [
+		$responsive_device_options = apply_filters(
+			'kadence_blocks_responsive_device_options',
 			[
-				'name' => 'Desktop',
-				'key' => 'desktop',
-				'icon' => 'desktop',
-				'itemClass' => 'kbs-desk-size',
-				'attributeSlug' => 'desktop',
-				'mediaQuery' => apply_filters( 'kadence_desktop_media_query', '(min-width: 1025px)' ),
-			],
-			[
-				'name' => 'Tablet',
-				'key' => 'tablet',
-				'icon' => 'tablet',
-				'itemClass' => 'kbs-tablet-size',
-				'attributeSlug' => 'tablet',
-				'mediaQuery' => apply_filters( 'kadence_tablet_media_query', '(max-width: 1024px)' ),
-			],
-			[
-				'name' => 'Mobile',
-				'key' => 'mobile',
-				'icon' => 'mobile',
-				'itemClass' => 'kbs-mobile-size',
-				'attributeSlug' => 'mobile',
-				'mediaQuery' => apply_filters( 'kadence_mobile_media_query', '(max-width: 767px)' ),
-			],
-		] );
+				[
+					'name'          => 'Desktop',
+					'key'           => 'desktop',
+					'icon'          => 'desktop',
+					'itemClass'     => 'kbs-desk-size',
+					'attributeSlug' => 'desktop',
+					'mediaQuery'    => apply_filters( 'kadence_desktop_media_query', '(min-width: 1025px)' ),
+				],
+				[
+					'name'          => 'Tablet',
+					'key'           => 'tablet',
+					'icon'          => 'tablet',
+					'itemClass'     => 'kbs-tablet-size',
+					'attributeSlug' => 'tablet',
+					'mediaQuery'    => apply_filters( 'kadence_tablet_media_query', '(max-width: 1024px)' ),
+				],
+				[
+					'name'          => 'Mobile',
+					'key'           => 'mobile',
+					'icon'          => 'mobile',
+					'itemClass'     => 'kbs-mobile-size',
+					'attributeSlug' => 'mobile',
+					'mediaQuery'    => apply_filters( 'kadence_mobile_media_query', '(max-width: 767px)' ),
+				],
+			] 
+		);
 
 		/*
 		 * The editor is dependent on these keys to set values.
