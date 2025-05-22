@@ -247,15 +247,7 @@ class CSSGenerator {
 		let componentKeys = [];
 		switch (component) {
 			case 'background':
-				componentKeys = [
-					'color',
-					'gradient',
-					'image',
-					'size',
-					'position',
-					'repeat',
-					'attachment',
-				];
+				componentKeys = ['color', 'gradient', 'image', 'size', 'position', 'repeat', 'attachment'];
 				break;
 			case 'flexBox':
 				componentKeys = [

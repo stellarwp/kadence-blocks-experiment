@@ -13,7 +13,7 @@ import { Chrome } from '@uiw/react-color';
 const ColorPicker = ({ color, onChange }) => {
 	return (
 		<Chrome
-			color={color}
+			color={color ? color : '#ffffff'}
 			className="kbs-color-picker"
 			style={{
 				width: '100%',

@@ -74,7 +74,6 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder, he
 					{...rest}
 				/>
 			)}
-			1
 			{isCustomUnit && (
 				<InputUnitControl
 					className={classes}

@@ -54,8 +54,23 @@
 			"renderCSS": true,
 			"component": "background",
 			"nonInheritable": true,
-			"type": "object",
-			"selector": "--kbs-cont-bg-"
+			"type": "array",
+			"selector": "--kbs-cont-",
+			"hasLayers": true,
+			"initial": {
+				"layers": [
+					{
+						"desktop": {
+							"backgroundColor": "palette7"
+						}
+					},
+					{
+						"desktop": {
+							"backgroundColor": "palette4"
+						}
+					}
+				]
+			}
 		},
 		"color": {
 			"type": "object"

@@ -12,15 +12,12 @@ import {
 	Typography,
 	SelectGlobalStyles,
 	BlockComponentControls,
+	ToolsPanelBody,
 	FlexBoxControl,
 	FlexChildControl,
 	MaxWidthControl,
+	ColorControl,
 } from '@kadence/kbsComponents';
-/**
- * Kadence Helpers.
- */
-import { getPreviewValue } from '@kadence/kbsHelpers';
-import { KadencePanelBody } from '@kadence/components';
 
 import metadata from '../block.json';
 /**
@@ -36,6 +33,16 @@ export default function InspectorAdvanced(props) {
 		props;
 	return (
 		<>
+			<ColorControl
+				label={__('Background Color', 'kadence-blocks')}
+				attributes={attributes}
+				type={'color'}
+				setAttributes={setAttributes}
+				attributeName={'color'}
+				meta={metadata}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+			/>
 
 			<MaxWidthControl
 				attributes={attributes}

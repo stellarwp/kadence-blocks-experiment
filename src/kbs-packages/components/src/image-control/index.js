@@ -17,6 +17,7 @@ import { getDeviceValue, getInheritedDeviceValue, handleMultipleAttributeChange 
 import TitleBar from '../title-bar';
 import MediaPlaceholder from '../media-placeholder';
 import DynamicImageControl from '../dynamic-image';
+import ImageSizeControl from '../image-size-control';
 import './editor.scss';
 
 export default function ImageControl(props) {
@@ -38,6 +39,8 @@ export default function ImageControl(props) {
 		forStyleBook = false,
 		defaultValue,
 		customOnChange,
+		hasSizeControls = false,
+		hasClearControls = true,
 		dynamicAttribute = '',
 	} = props;
 	const idAttribute = type + 'Id';
@@ -145,13 +148,25 @@ export default function ImageControl(props) {
 										</Button>
 									)}
 								/>
-								<Button
-									icon={closeSmall}
-									label={__('Remove Image', 'kadence-blocks')}
-									className={'kbs-upload-remove-btn'}
-									variant="secondary"
-									onClick={() => onRemoveImage(previewDevice)}
-								/>
+								{hasClearControls && (
+									<Button
+										icon={closeSmall}
+										label={__('Remove Image', 'kadence-blocks')}
+										className={'kbs-upload-remove-btn'}
+										variant="secondary"
+										onClick={() => onRemoveImage(previewDevice)}
+									/>
+								)}
+								{hasSizeControls && imageID && (
+									<ImageSizeControl
+										buttonMode={true}
+										id={inherited?.inheritedValue?.imageId}
+										url={inherited?.inheritedValue?.image}
+										onChange={(newImage) => {
+											onImageSelect({ url: newImage.value, id: imageID }, previewDevice);
+										}}
+									/>
+								)}
 								{dynamicAttribute && kbs_params.dynamic_enabled && <DynamicImageControl {...props} />}
 							</div>
 						)}

@@ -29,6 +29,10 @@ import {
 	flexGrow,
 	flexForce,
 	flexAuto,
+	noRepeat,
+	repeat,
+	repeatX,
+	repeatY,
 } from './constants';
 
 import RadioToggleGroupButtonUI from './ui-toggle-group';
@@ -93,16 +97,62 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'maxHeight':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
-		case 'size':
 		case 'backgroundSize':
 		case 'background-size':
 			UIComponent = RadioToggleGroupBackgroundSizeUI;
 			controls = getBackgroundSizeControls();
 			break;
+		case 'background-repeat':
+		case 'backgroundRepeat':
+			controls = getBackgroundRepeatControls();
+			break;
+		case 'background-attachment':
+		case 'backgroundAttachment':
+			controls = getBackgroundAttachmentControls();
+			break;
 	}
 
 	return { UIComponent, controls, advancedControls };
 };
+export const getBackgroundAttachmentControls = () => [
+	{
+		title: __('Scroll', 'kadence-blocks'),
+		name: __('Scroll', 'kadence-blocks'),
+		key: 'scroll',
+	},
+	{
+		title: __('Fixed', 'kadence-blocks'),
+		name: __('Fixed', 'kadence-blocks'),
+		key: 'fixed',
+	},
+	{
+		title: __('Parallax', 'kadence-blocks'),
+		name: __('Parallax', 'kadence-blocks'),
+		key: 'parallax',
+	},
+];
+export const getBackgroundRepeatControls = () => [
+	{
+		title: __('No Repeat', 'kadence-blocks'),
+		icon: noRepeat,
+		key: 'no-repeat',
+	},
+	{
+		title: __('Repeat', 'kadence-blocks'),
+		icon: repeat,
+		key: 'repeat',
+	},
+	{
+		title: __('Repeat X', 'kadence-blocks'),
+		icon: repeatX,
+		key: 'repeat-x',
+	},
+	{
+		title: __('Repeat Y', 'kadence-blocks'),
+		icon: repeatY,
+		key: 'repeat-y',
+	},
+];
 export const getBackgroundSizeControls = () => [
 	{
 		title: __('Cover', 'kadence-blocks'),

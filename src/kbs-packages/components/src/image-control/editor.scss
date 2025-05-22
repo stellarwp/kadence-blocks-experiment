@@ -21,14 +21,22 @@
 }
 .kbs-image-edit-wrap {
 	display: flex;
-	gap: 6px;
+	gap: 4px;
 	background: var(--kb-subtle-background, #edf2f7);
 	padding: 2px;
 	border-radius: 3px;
 	.components-button.kbs-upload-edit-btn {
 		flex-grow: 1;
 	}
-	.components-button.is-secondary {
+	.kbs-image-size-control__dropdown {
+		.components-button {
+			svg {
+				width: 16px;
+				height: 16px;
+			}
+		}
+	}
+	.components-button.has-icon {
 		box-shadow: inset 0px 0px 0px 1px var(--kb-border-subtle-color, #d9e7ec);
 		background: var(--kb-background-color, #fff);
 		color: var(--wp-components-color-foreground, #1e1e1e);
