@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
@@ -10,31 +11,32 @@ import { useEffect, useState, useMemo } from '@wordpress/element';
 import InputUnitControl from './ui-input-unit';
 import { parseUnitTypeFromRawValue, parseValueTypeFromRawValue } from './utils';
 
-function InputUIControl({ value, onChange, controls = [], units, placeholder, help }) {
+function InputUIControl({ value, onChange, controls = [], units, placeholder, help, className, ...rest }) {
 	const [isCustomUnit, setIsCustomUnit] = useState(false);
 	const isValueControlled = useMemo(
 		() => controls.length > 0 && parseValueTypeFromRawValue(value, controls),
 		[value]
 	);
+	const classes = clsx('kbs-input-control', className);
 	useEffect(() => {
-		if (!isValueControlled) {
+		if (!isValueControlled && value) {
 			const unit = parseUnitTypeFromRawValue(value, units);
 			if (unit === 'unmatched') {
 				setIsCustomUnit(true);
 			}
 		}
-	}, []);
+	}, [isValueControlled]);
 	const onCustomUnitChange = (value) => {
-		if (value === 'custom' || value === 'auto') {
+		if (value === 'custom') {
 			setIsCustomUnit(true);
 		} else {
-			const newValue = value.replace('auto', '').replace('custom', '');
+			const newValue = value.replace('custom', '');
 			setIsCustomUnit(false);
 			onChange(newValue);
 		}
 	};
 	const onUnitChange = (value) => {
-		if (value === 'custom' || value === 'auto') {
+		if (value === 'custom') {
 			setIsCustomUnit(true);
 		} else if (isCustomUnit) {
 			setIsCustomUnit(false);
@@ -47,9 +49,12 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder, he
 			// Remove the custom from the value.
 			const newValue = value.replace('custom', '');
 			onChange(newValue);
-		} else if (value.includes('auto')) {
-			setIsCustomUnit(true);
-			onChange(value);
+		} else if (value) {
+			const numbers = value.replace(/\D/g, '');
+			// Check if the value contains a number or is just a unit.
+			if (numbers.length > 0) {
+				onChange(value);
+			}
 		} else {
 			onChange(value);
 		}
@@ -58,7 +63,7 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder, he
 		<>
 			{!isCustomUnit && (
 				<UnitControl
-					className="kbs-unit-control kbs-input-control"
+					className={clsx('kbs-unit-control', classes)}
 					__next40pxDefaultSize={true}
 					placeholder={placeholder}
 					value={isValueControlled ? '' : value}
@@ -66,17 +71,20 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder, he
 					onUnitChange={onUnitChange}
 					units={units}
 					help={help}
+					{...rest}
 				/>
 			)}
+			1
 			{isCustomUnit && (
 				<InputUnitControl
-					className="kbs-input-control"
-					value={value}
+					className={classes}
+					value={isValueControlled ? '' : value}
 					placeholder={placeholder}
 					onChange={onChange}
 					onUnitChange={onCustomUnitChange}
 					units={units}
 					help={help}
+					{...rest}
 				/>
 			)}
 		</>

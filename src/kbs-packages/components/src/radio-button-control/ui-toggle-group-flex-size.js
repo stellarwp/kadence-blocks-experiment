@@ -57,12 +57,6 @@ function RadioToggleGroupFlexSizeUI({
 			step: 0.1,
 		},
 		{
-			value: 'auto',
-			label: 'auto',
-			a11yLabel: __('Auto', 'kadence-blocks'),
-			step: 0.1,
-		},
-		{
 			value: 'custom',
 			label: 'custom',
 			a11yLabel: __('Custom', 'kadence-blocks'),

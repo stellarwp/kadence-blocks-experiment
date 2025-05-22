@@ -98,7 +98,7 @@
 		border-color: var(--wp-components-color-foreground, #1e1e1e);
 	}
 }
-.kbs-control .kbs-input-control .kbs-input-unit-control__input .kbs-input-unit-control__select {
+.kbs-control .kbs-input-unit-control__input .kbs-input-unit-control__select {
 	appearance: none;
 	background: transparent;
 	border-radius: 1px;
@@ -133,14 +133,17 @@
 	}
 }
 .kbs-background-size-input-unit-control {
-    display: flex;
-    gap: 4px;
+	display: flex;
+	gap: 4px;
+	.kbs-input-control {
+		margin-bottom: 0;
+		flex: 1;
+	}
 	.kbs-input-unit-control__input-number {
 		margin-bottom: 0;
 	}
 }
 .kbs-control .kbs-range-control {
-
 	.components-range-control__wrapper {
 		& > span:first-of-type {
 			height: 8px;
@@ -163,6 +166,4 @@
 			background: #000;
 		}
 	}
-
-
 }

@@ -56,18 +56,6 @@ function RadioToggleGroupBackgroundSizeUI({
 			a11yLabel: __('Viewport height (vh)', 'kadence-blocks'),
 			step: 0.1,
 		},
-		{
-			value: 'auto',
-			label: 'auto',
-			a11yLabel: __('Auto', 'kadence-blocks'),
-			step: 0.1,
-		},
-		{
-			value: 'custom',
-			label: 'custom',
-			a11yLabel: __('Custom', 'kadence-blocks'),
-			step: 0.1,
-		},
 	];
 	return (
 		<div key={label} className="kbs-radio-button-control__toggle-group-input">
@@ -86,6 +74,7 @@ function RadioToggleGroupBackgroundSizeUI({
 					__next40pxDefaultSize={true}
 					value={isValueControlled ? '' : value}
 					onChange={onChange}
+					controls={controls}
 					units={units}
 				/>
 			)}

@@ -26,35 +26,32 @@ function UnitSelectControl({ unit, onChange, units, className }) {
 	);
 }
 
-function InputUnitControl({ value, onChange, onUnitChange, units, className, placeholder, help }) {
-	const classes = clsx('components-unit-control', 'kbs-input-unit-control', className);
+function InputUnitControl({ value, onChange, onUnitChange, units, className, placeholder, help, unit = 'custom' }) {
+	const classes = clsx('components-unit-control', 'kbs-input-unit-control__input', className);
 	const handleUnitChange = (event) => {
 		const { value: unitValue } = event.target;
 		const data = units.find((option) => option.value === unitValue);
 
 		onUnitChange?.(unitValue, { event, data });
 	};
-	const isAuto = useMemo(() => value === 'auto', [value]);
 	const inputSuffix = (
 		<UnitSelectControl
 			aria-label={__('Select unit', 'kadence-blocks')}
 			onChange={handleUnitChange}
-			unit={isAuto ? 'auto' : 'custom'}
+			unit={unit}
 			units={units}
 		/>
 	);
 	return (
-		<div className={classes}>
-			<InputControl
-				__next40pxDefaultSize={true}
-				value={isAuto ? '' : value}
-				placeholder={isAuto ? '' : placeholder}
-				onChange={onChange}
-				className="kbs-input-unit-control__input"
-				suffix={inputSuffix}
-				help={help}
-			/>
-		</div>
+		<InputControl
+			__next40pxDefaultSize={true}
+			value={value}
+			placeholder={placeholder}
+			onChange={onChange}
+			className={classes}
+			suffix={inputSuffix}
+			help={help}
+		/>
 	);
 }
 

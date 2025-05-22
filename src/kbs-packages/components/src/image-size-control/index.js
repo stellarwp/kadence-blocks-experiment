@@ -1,18 +1,24 @@
 /**
- * Measure Component
+ * Image Size Control.
  *
  */
 
 /**
- * Import Icons
+ * Import External Libraries
  */
 import { isEmpty, compact, get, map } from 'lodash';
 /**
- * Internal block libraries
+ * WordPress libraries
  */
 import { useState, useEffect } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal libraries
+ */
 import SelectStyled from '../select-styled';
+import TitleBar from '../title-bar';
 import './editor.scss';
 
 /**
@@ -122,21 +128,33 @@ const ImageSizeControl = (props) => {
 		}
 	}, [image]);
 	return (
-		<div className="components-base-control kbs-image-size-container">
+		<>
 			{!isEmpty(imageSizeOptions) && (
-				<>
-					<SelectStyled
-						options={imageSizeOptions}
-						value={imageSizeOptions.filter(({ value }) => value === url)}
-						isMulti={false}
-						maxMenuHeight={250}
-						isClearable={false}
-						placeholder={''}
-						onChange={onChange}
-					/>
-				</>
+				<div className="components-base-control kbs-control kbs-image-size-control">
+					{label && (
+						<TitleBar
+							label={label}
+							reset={false}
+							hasDeviceControls={false}
+							hasAdvancedControls={false}
+							isCustom={false}
+							hasCustomControls={false}
+						/>
+					)}
+					<div className="kbs-control-inner">
+						<SelectStyled
+							options={imageSizeOptions}
+							value={imageSizeOptions.filter(({ value }) => value === url)}
+							isMulti={false}
+							maxMenuHeight={250}
+							isClearable={false}
+							placeholder={''}
+							onChange={onChange}
+						/>
+					</div>
+				</div>
 			)}
-		</div>
+		</>
 	);
 };
 
