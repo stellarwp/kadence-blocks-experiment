@@ -132,6 +132,13 @@
 		margin-bottom: 0;
 	}
 }
+.kbs-background-size-input-unit-control {
+    display: flex;
+    gap: 4px;
+	.kbs-input-unit-control__input-number {
+		margin-bottom: 0;
+	}
+}
 .kbs-control .kbs-range-control {
 
 	.components-range-control__wrapper {

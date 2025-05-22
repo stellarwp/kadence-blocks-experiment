@@ -145,6 +145,8 @@ class CSSGenerator {
 			case 'background':
 				if (key === 'color') {
 					cssValue = getColorOutput(appliedValue);
+				} else if (key === 'image') {
+					cssValue = 'url(' + appliedValue + ')';
 				} else {
 					cssValue = appliedValue;
 				}
@@ -192,8 +194,19 @@ class CSSGenerator {
 		}
 		switch (componentName) {
 			case 'background':
-				if (attributeName === 'color') {
-					return 'background-color';
+				switch (attributeName) {
+					case 'color':
+						return 'background-color';
+					case 'image':
+						return 'background-image';
+					case 'size':
+						return 'background-size';
+					case 'position':
+						return 'background-position';
+					case 'repeat':
+						return 'background-repeat';
+					case 'attachment':
+						return 'background-attachment';
 				}
 				return attributeName;
 			default:
@@ -238,12 +251,10 @@ class CSSGenerator {
 					'color',
 					'gradient',
 					'image',
-					'pattern',
 					'size',
 					'position',
 					'repeat',
 					'attachment',
-					'blendMode',
 				];
 				break;
 			case 'flexBox':

@@ -35,7 +35,7 @@ import RadioToggleGroupButtonUI from './ui-toggle-group';
 import RadioToggleGroupInputUI from './ui-toggle-group-input';
 import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
 import RadioToggleGroupInputRangeUI from './ui-toggle-group-input-range';
-
+import RadioToggleGroupBackgroundSizeUI from './ui-toggle-group-background-size';
 export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioToggleGroupButtonUI;
 	let controls;
@@ -93,11 +93,33 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'maxHeight':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
+		case 'size':
+		case 'backgroundSize':
+		case 'background-size':
+			UIComponent = RadioToggleGroupBackgroundSizeUI;
+			controls = getBackgroundSizeControls();
+			break;
 	}
 
 	return { UIComponent, controls, advancedControls };
 };
-
+export const getBackgroundSizeControls = () => [
+	{
+		title: __('Cover', 'kadence-blocks'),
+		name: __('Cover', 'kadence-blocks'),
+		key: 'cover',
+	},
+	{
+		title: __('Contain', 'kadence-blocks'),
+		name: __('Contain', 'kadence-blocks'),
+		key: 'contain',
+	},
+	{
+		title: __('Auto', 'kadence-blocks'),
+		name: __('Auto', 'kadence-blocks'),
+		key: 'auto',
+	},
+];
 export const getFlexSizeControls = () => [
 	{
 		title: __('Auto', 'kadence-blocks'),

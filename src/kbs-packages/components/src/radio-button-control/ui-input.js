@@ -10,7 +10,7 @@ import { useEffect, useState, useMemo } from '@wordpress/element';
 import InputUnitControl from './ui-input-unit';
 import { parseUnitTypeFromRawValue, parseValueTypeFromRawValue } from './utils';
 
-function InputUIControl({ value, onChange, controls = [], units, placeholder }) {
+function InputUIControl({ value, onChange, controls = [], units, placeholder, help }) {
 	const [isCustomUnit, setIsCustomUnit] = useState(false);
 	const isValueControlled = useMemo(
 		() => controls.length > 0 && parseValueTypeFromRawValue(value, controls),
@@ -65,6 +65,7 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder }) 
 					onChange={unitControlOnChange}
 					onUnitChange={onUnitChange}
 					units={units}
+					help={help}
 				/>
 			)}
 			{isCustomUnit && (
@@ -75,6 +76,7 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder }) 
 					onChange={onChange}
 					onUnitChange={onCustomUnitChange}
 					units={units}
+					help={help}
 				/>
 			)}
 		</>

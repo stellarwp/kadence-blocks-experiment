@@ -22,6 +22,7 @@ import TitleBar from '../title-bar';
 import ImageControl from '../image-control';
 import FocalPointPicker from '../focal-point-picker';
 import ImageSizeControl from '../image-size-control';
+import RadioButtonControl from '../radio-button-control';
 import './editor.scss';
 
 export default function BackgroundImageControl(props) {
@@ -138,6 +139,19 @@ export default function BackgroundImageControl(props) {
 						onChange={(newImage) => {
 							onChange(newImage.value, previewDevice, 'image');
 						}}
+					/>
+				)}
+				{hasImage && (
+					<RadioButtonControl
+						label={__('Background Size', 'kadence-blocks')}
+						attributes={attributes}
+						setAttributes={setAttributes}
+						attributeName={attributeName}
+						type={'size'}
+						meta={meta}
+						previewDevice={previewDevice}
+						view={'normal'}
+						hasCustomControls={true}
 					/>
 				)}
 			</div>
