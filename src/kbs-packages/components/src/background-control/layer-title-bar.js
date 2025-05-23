@@ -9,7 +9,7 @@
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { undo, plusCircle } from '@wordpress/icons';
+import { undo, plus } from '@wordpress/icons';
 import { Button } from '@wordpress/components';
 /**
  * Build the Radio Button control.
@@ -40,7 +40,7 @@ export default function LayerTitleBar({ label, reset, onReset, onTogglePlus }) {
 			</div>
 			{onTogglePlus && (
 				<Button
-					icon={plusCircle}
+					icon={plus}
 					className="kbs-advanced-controls-button"
 					onClick={onTogglePlus}
 					iconSize={18}

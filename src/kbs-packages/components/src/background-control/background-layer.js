@@ -15,8 +15,16 @@ import {
 	TabPanel,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useRef, useMemo } from '@wordpress/element';
-import { color as colorIcon, check as checkIcon, close as closeIcon } from '@wordpress/icons';
+import { useRef, useMemo, useEffect } from '@wordpress/element';
+import {
+	color as colorIcon,
+	check as checkIcon,
+	close as closeIcon,
+	image as imageIcon,
+	video as videoIcon,
+	background as gradientIcon,
+	grid as patternIcon,
+} from '@wordpress/icons';
 import { useSettings } from '@wordpress/block-editor';
 /**
  * Internal dependencies
@@ -25,76 +33,207 @@ import {
 	getColorOutput,
 	getColorOptions,
 	getDeviceValue,
-	getInheritedDeviceValue,
-	handleAttributeChange,
+	getInheritedValue,
+	handleLayerAttributeChange,
 } from '@kadence/kbsHelpers';
 import ColorSelector from '../color-control/color-selector';
+import BackgroundImageControl from '../background-image-control';
 import { getColorLabel } from '../color-control/utils';
 
-function renderColorToggle(currentValue, inherited, colors) {
-	return ({ onToggle, isOpen }) => {
-		const presetButtonRef = useRef(undefined);
+const getLayerInheritedDeviceValue = (layerAttribute, layer, device) => {
+	if (layer?.[device?.toLowerCase()]?.[layerAttribute]) {
+		return layer?.[device?.toLowerCase()]?.[layerAttribute];
+	}
+	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
+	const currentDeviceIndex = deviceOptions.findIndex(
+		(option) =>
+			option.key?.toLowerCase() === device?.toLowerCase() || option.name?.toLowerCase() === device?.toLowerCase()
+	);
 
+	if (device !== 'none') {
+		// Check direct value from parent device
+		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
+			const parentDevice = deviceOptions[i];
+			const parentDeviceName = parentDevice.key || parentDevice.name;
+			if (layer?.[parentDeviceName]?.[layerAttribute]) {
+				return layer?.[parentDeviceName]?.[layerAttribute];
+			}
+		}
+	}
+	// Check for inherited from parent device
+	return '';
+};
+function renderBackgroundToggle(layer, isInherited, colors, previewDevice) {
+	return ({ onToggle, isOpen }) => {
+		const { color, image, video, gradient, pattern, type } = useMemo(() => {
+			return {
+				color: getLayerInheritedDeviceValue('backgroundColor', layer, previewDevice),
+				image: getLayerInheritedDeviceValue('backgroundImage', layer, previewDevice),
+				video: getLayerInheritedDeviceValue('backgroundVideo', layer, previewDevice),
+				gradient: getLayerInheritedDeviceValue('backgroundGradient', layer, previewDevice),
+				pattern: getLayerInheritedDeviceValue('backgroundPattern', layer, previewDevice),
+				type: getLayerInheritedDeviceValue('backgroundType', layer, previewDevice) || 'color',
+			};
+		}, [layer, previewDevice]);
+		const displayValue = useMemo(() => {
+			switch (type) {
+				case 'color':
+					return getColorLabel(color, colors);
+				case 'image':
+					return image;
+				case 'video':
+					return video;
+				case 'gradient':
+					return gradient;
+				case 'pattern':
+					return pattern;
+				default:
+					return '';
+			}
+		}, [type, color, image, video, gradient, pattern]);
+		const previewColorString = useMemo(() => {
+			switch (type) {
+				case 'color':
+					return getColorOutput(color);
+				case 'image':
+					return image;
+				case 'video':
+					return video;
+				case 'gradient':
+					return gradient;
+				case 'pattern':
+					return pattern;
+				default:
+					return '';
+			}
+		}, [type, color, image, video, gradient, pattern]);
+		const typeIcon = useMemo(() => {
+			switch (type) {
+				case 'color':
+					return colorIcon;
+				case 'image':
+					return imageIcon;
+				case 'video':
+					return videoIcon;
+				case 'gradient':
+					return gradientIcon;
+				case 'pattern':
+					return patternIcon;
+				default:
+					return colorIcon;
+			}
+		}, [type]);
 		const toggleProps = {
 			onClick: onToggle,
-			className: clsx('kbs-color-select-button', 'kbs-color-select-control__toggle-button', {
+			className: clsx('kbs-background-select-button', 'kbs-background-select-control__toggle-button', {
 				'is-open': isOpen,
-				'is-selected': currentValue,
-				'is-inherited': !currentValue && inherited,
+				'is-inherited': isInherited,
+				'is-selected': !isInherited && displayValue,
 			}),
 			'aria-expanded': isOpen,
-			ref: presetButtonRef,
 		};
-		const isPaletteColor = useMemo(() => {
-			return (
-				(currentValue && currentValue.startsWith('palette')) || (inherited && inherited.startsWith('palette'))
-			);
-		}, [currentValue, inherited]);
-		const displayValue = useMemo(() => {
-			if (currentValue) {
-				return currentValue;
-			}
-			return inherited;
-		}, [inherited, currentValue]);
-		const previewColorString = useMemo(() => {
-			if (displayValue) {
-				return getColorOutput(displayValue);
-			}
-			return '';
-		}, [displayValue]);
 		return (
-			<div className="kbs-background-layer-toggle">
-				<Button __next40pxDefaultSize {...toggleProps}>
-					{isPaletteColor && (
-						<Icon className="kbs-color-select-control__toggle-icon" icon={colorIcon} size={24} />
-					)}
-					<span className="kbs-color-select-control__toggle-label">
-						{displayValue ? getColorLabel(displayValue, colors) : __('Unset', 'kadence-blocks')}
-					</span>
-					<CoreColorIndicator
-						className="kbs-color-select-control__toggle-preview"
-						colorValue={previewColorString}
-					/>
-				</Button>
-			</div>
+			<Button __next40pxDefaultSize {...toggleProps}>
+				{displayValue && (
+					<Icon className="kbs-background-select-control__toggle-icon" icon={typeIcon} size={24} />
+				)}
+				<span className="kbs-background-select-control__toggle-label">
+					{displayValue ? displayValue : __('Unset', 'kadence-blocks')}
+				</span>
+				<CoreColorIndicator
+					className="kbs-background-select-control__toggle-preview"
+					colorValue={previewColorString}
+				/>
+			</Button>
 		);
 	};
 }
 
-function renderColorDropdown(colors, currentValue, inherited, onChange, previewDevice, type) {
+function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice) {
 	return ({ onToggle, isOpen }) => {
 		const handleColorChange = (color) => {
-			onChange(color, previewDevice, type);
+			onChange(color, previewDevice, 'backgroundColor');
 		};
+		const handleTypeChange = (type) => {
+			onChange(type, previewDevice, 'backgroundType');
+		};
+		const handleCustomOnChange = (value, device, type) => {
+			onChange(value, device, type);
+		};
+		// const { color, image, video, gradient, pattern, type } = useMemo(() => {
+		// 	return {
+		// 		color: getLayerInheritedDeviceValue('backgroundColor', layer, previewDevice),
+		// 		image: getLayerInheritedDeviceValue('backgroundImage', layer, previewDevice),
+		// 		video: getLayerInheritedDeviceValue('backgroundVideo', layer, previewDevice),
+		// 		gradient: getLayerInheritedDeviceValue('backgroundGradient', layer, previewDevice),
+		// 		pattern: getLayerInheritedDeviceValue('backgroundPattern', layer, previewDevice),
+		// 		type: getLayerInheritedDeviceValue('backgroundType', layer, previewDevice) || 'color',
+		// 	};
+		// }, [previewDevice]);
+		const color = getLayerInheritedDeviceValue('backgroundColor', layer, previewDevice);
+		const image = getLayerInheritedDeviceValue('backgroundImage', layer, previewDevice);
+		const video = getLayerInheritedDeviceValue('backgroundVideo', layer, previewDevice);
+		const gradient = getLayerInheritedDeviceValue('backgroundGradient', layer, previewDevice);
+		const pattern = getLayerInheritedDeviceValue('backgroundPattern', layer, previewDevice);
+		const type = getLayerInheritedDeviceValue('backgroundType', layer, previewDevice) || 'color';
+		const defaultTabs = [
+			{
+				name: 'color',
+				icon: colorIcon,
+				title: __('Color', 'kadence-blocks'),
+			},
+			{
+				name: 'gradient',
+				icon: gradientIcon,
+				title: __('Gradient', 'kadence-blocks'),
+			},
+			{
+				name: 'image',
+				icon: imageIcon,
+				title: __('Image', 'kadence-blocks'),
+			},
+			{
+				name: 'video',
+				icon: videoIcon,
+				title: __('Video', 'kadence-blocks'),
+			},
+			{
+				name: 'pattern',
+				icon: patternIcon,
+				title: __('Pattern', 'kadence-blocks'),
+			},
+		];
 		return (
-			<div className="kbs-color-control kbs-color-select-control__dropdown-content-inner">
-				<ColorSelector
-					handleColorChange={handleColorChange}
-					colors={colors}
-					currentValue={currentValue}
-					inherited={inherited}
-				/>
-				<div className="kbs-color-select-control__dropdown-content-close">
+			<div className="kbs-background-layer-control__dropdown-content-inner kbs-color-control">
+				<TabPanel
+					className="kbs-color-select-tabs"
+					activeClass="is-active"
+					onSelect={(tabName) => {
+						if (tabName !== type) {
+							handleCustomOnChange(tabName, previewDevice, 'backgroundType');
+						}
+					}}
+					activeTab={type ? type : 'color'}
+					tabs={defaultTabs}
+				>
+					{(tab) => {
+						if (tab.name) {
+							if ('image' === tab.name) {
+								return <></>;
+							} else {
+								return (
+									<ColorSelector
+										handleColorChange={handleColorChange}
+										colors={colors}
+										currentValue={color ? color : ''}
+										inherited={''}
+									/>
+								);
+							}
+						}
+					}}
+				</TabPanel>
+				<div className="kbs-background-layer-control__dropdown-content-close">
 					<Button __next40pxDefaultSize onClick={onToggle}>
 						<Icon icon={closeIcon} size={24} />
 					</Button>
@@ -122,6 +261,8 @@ export default function BackgroundLayer({
 	previewDevice = 'desktop',
 	defaultValue = undefined,
 	customOnChange = undefined,
+	layer,
+	isInherited = false,
 }) {
 	const popoverProps = {
 		placement: 'left-start',
@@ -132,9 +273,28 @@ export default function BackgroundLayer({
 	const globalColors = getColorOptions();
 	const isDisableCustomColors = !customColors ? true : false;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+	const inherited = getInheritedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		'backgroundColor',
+		globalStylesIds,
+		layerKey
+	);
 	const onChange = (value, device, type) => {
-		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
+		console.log('onChange', value, device, type, layerKey);
+		handleLayerAttributeChange(
+			value,
+			device,
+			attributeName,
+			attributes,
+			setAttributes,
+			customOnChange,
+			type,
+			meta,
+			layerKey
+		);
 	};
 	const globalClasses = useMemo(() => {
 		return Object.keys(
@@ -144,29 +304,20 @@ export default function BackgroundLayer({
 			}, {})
 		);
 	}, [globalStylesIds]);
-	const classes = clsx('kbs-color-select-control__dropdown-content', globalClasses);
+	const classes = clsx('kbs-background-layer-control__dropdown-content', globalClasses);
+	useEffect(() => {
+		//console.log('inherited', inherited);
+	}, [inherited]);
+
 	return (
-		<div key={layerKey} className={`components-base-control kbs-control kbs-color-control`}>
-			<div className="kbs-control-inner">
-				<Dropdown
-					popoverProps={popoverProps}
-					className="kbs-color-select-control__dropdown"
-					contentClassName={classes}
-					renderToggle={renderColorToggle(
-						currentValue,
-						inherited?.inheritedValue ? inherited.inheritedValue : '',
-						globalColors
-					)}
-					renderContent={renderColorDropdown(
-						globalColors,
-						currentValue,
-						inherited?.inheritedValue ? inherited.inheritedValue : '',
-						onChange,
-						previewDevice,
-						type
-					)}
-				/>
-			</div>
+		<div className={`kbs-background-layer-control`}>
+			<Dropdown
+				popoverProps={popoverProps}
+				className="kbs-background-layer-control__dropdown"
+				contentClassName={classes}
+				renderToggle={renderBackgroundToggle(layer, isInherited, globalColors, previewDevice)}
+				renderContent={renderColorDropdown(globalColors, layer, isInherited, onChange, previewDevice)}
+			/>
 		</div>
 	);
 }

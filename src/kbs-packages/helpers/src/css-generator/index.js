@@ -3,6 +3,7 @@ import { SPACING_SIZES_MAP } from '../constants';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { getBasePresetKey } from '../get-inherited-device-value';
+import { default as getInheritedValue } from '../get-inherited-value';
 import getColorOutput from '../get-color-output';
 
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
@@ -230,10 +231,25 @@ class CSSGenerator {
 	 * @param {string} key - The key of the attribute
 	 * @param {Object} meta - The metadata of the attribute
 	 * @param {Object} props - The props of the block
+	 * @param {Object} metadata - The metadata of the block
 	 * @returns {CSSGenerator} - Returns this instance for chaining
 	 */
 	addComponent(attributeName, meta, props, metadata) {
 		if (!meta?.component) {
+			return this;
+		}
+		if (meta?.hasLayers) {
+			// Add the CSS for the layers.
+			const componentKeys = this.getComponentKeys(meta.component);
+			// const layers = getInheritedValue(
+			// 	attributeName,
+			// 	props.attributes,
+			// 	'none',
+			// 	metadata,
+			// 	'layers',
+			// 	props.globalStylesIds
+			// );
+			// console.log('css-generator', layers);
 			return this;
 		}
 

@@ -143,7 +143,7 @@ export const handleAttributeChange = (
 	}
 
 	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
-	let newAttributes = JSON.parse(JSON.stringify(attributes));
+	let newAttributes = attributes ? JSON.parse(JSON.stringify(attributes)) : {};
 	if (device === 'all') {
 		newAttributes = handleAllDevices(value, newAttributes, attributeName, deviceOptions, type);
 	} else if (device === 'none') {
@@ -181,7 +181,6 @@ export const handleMultipleAttributeChange = (
 		customOnChange(value, device, attributeName, type);
 		return;
 	}
-	console.log('here?');
 
 	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 	let newAttributes = JSON.parse(JSON.stringify(attributes));

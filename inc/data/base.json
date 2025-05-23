@@ -20,9 +20,18 @@
 					"description": "A variant 1 background preset",
 					"locked": true,
 					"attributes": {
-						"desktop": {
-							"color": "palette8"
-						}
+						"layers": [
+							{
+								"desktop": {
+									"backgroundColor": "palette7"
+								}
+							},
+							{
+								"desktop": {
+									"backgroundColor": "palette4"
+								}
+							}
+						]
 					}
 				},
 				"kbs-bg-variant-2": {

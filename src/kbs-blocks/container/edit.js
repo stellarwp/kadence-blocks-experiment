@@ -13,7 +13,7 @@ import classnames from 'classnames';
  * Kadence Helpers.
  */
 import { uniqueIdHelper, getPreviewValue, GlobalStylesContext, useGlobalStylesIds } from '@kadence/kbsHelpers';
-
+import { BackgroundStyles } from '@kadence/kbsComponents';
 import metadata from './block.json';
 import Inspector from './editing/inspector';
 import Styles from './editing/styles';
@@ -97,7 +97,7 @@ export default function ContainerEdit(props) {
 		className: classes,
 		'data-align': !inRowBlock && ('full' === align || 'wide' === align) ? align : undefined,
 	});
-	const innerBlocksProps = useInnerBlocksProps(blockProps, {
+	const { children, ...innerBlocksProps } = useInnerBlocksProps(blockProps, {
 		orientation: previewDirection === 'row' || previewDirection === 'row-reverse' ? 'horizontal' : 'vertical',
 		templateLock,
 		renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
@@ -111,7 +111,16 @@ export default function ContainerEdit(props) {
 				<Inspector {...props} />
 				*/}
 			<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
-			<TagName {...innerBlocksProps} />
+			<TagName {...innerBlocksProps}>
+				<BackgroundStyles
+					previewDevice={previewDevice}
+					meta={metadata}
+					globalStylesIds={globalStylesIds}
+					backgroundAttribute="background"
+					{...props}
+				/>
+				{children}
+			</TagName>
 		</GlobalStylesContext.Provider>
 	);
 }
