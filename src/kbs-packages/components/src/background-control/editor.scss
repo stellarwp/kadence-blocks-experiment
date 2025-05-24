@@ -54,7 +54,7 @@
 .kbs-background-layer-wrapper {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 0px;
 	// position: relative;
 	//transition: transform 0s ease, opacity 0.2s ease !important;
 	will-change: transform, opacity;
@@ -73,6 +73,7 @@
 	.kbs-background-layer-control {
 		display: block;
 		flex-grow: 1;
+		max-width: calc(100% - 24px);
 	}
 	.components-dropdown.kbs-background-layer-control__dropdown {
 		display: block;
@@ -112,6 +113,7 @@
 		.kbs-background-select-control__toggle-icon {
 			width: 18px;
 			height: 18px;
+			min-width: 18px;
 		}
 		.component-color-indicator {
 			width: 28px;
@@ -170,10 +172,13 @@
 		}
 	}
 }
-.kbs-background-layer-control__dropdown-content .components-popover__content {
-	padding: 12px;
-	min-width: 300px;
-	min-height: 300px;
-	width: 340px;
-	height: 400px;
+.components-popover.kbs-background-layer-control__dropdown-content {
+	z-index: 159990;
+	.components-popover__content {
+		padding: 12px;
+		min-width: 300px;
+		min-height: 300px;
+		width: 340px;
+		height: 400px;
+	}
 }

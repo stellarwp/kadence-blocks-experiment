@@ -244,8 +244,11 @@ class CSSGenerator {
 					this.add({ 'background-color': getColorOutput(backgroundColor) });
 				}
 				break;
-			case 'gradient':
-				this.add({ 'background-color': getLayerDeviceValue('backgroundColor', layer, props.previewDevice) });
+			case 'image':
+				const backgroundImage = getLayerDeviceValue('backgroundImage', layer, props.previewDevice);
+				if ( backgroundImage ) {
+					this.add({ 'background-image': 'url(' + backgroundImage + ')' });
+				}
 				break;
 		}
 		this.setSelector(currentSelector);

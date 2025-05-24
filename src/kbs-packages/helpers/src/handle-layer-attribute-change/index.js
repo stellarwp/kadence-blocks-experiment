@@ -104,7 +104,7 @@ const handleLayerSpecificDevice = (value, layerAttributes, layerKey, deviceSlug,
 	};
 	return layerAttributes;
 };
-export const handleLayerAttributeChange = (
+export const handleSingleLayerAttributeChange = (
 	value,
 	device,
 	attributeName,
@@ -135,6 +135,56 @@ export const handleLayerAttributeChange = (
 		const deviceSlug = getDeviceAttributeSlug(device);
 		newLayers = handleLayerSpecificDevice(value, newLayers, layerKey, deviceSlug, type);
 	}
-	console.log('newLayers', { [attributeName]: { ...attributes?.[attributeName], layers: newLayers } });
 	setAttributes({ [attributeName]: { ...attributes?.[attributeName], layers: newLayers } });
+};
+/**
+ * Helper function to handle attribute changes in Kadence controls
+ *
+ * @param {*} value The new value to set - can be a single value or an object of values
+ * @param {string} device The device type ('all', 'Desktop', 'Tablet', 'Mobile')
+ * @param {string} attributeName The name of the attribute to update
+ * @param {Object} attributes Current attributes object
+ * @param {Function} setAttributes Function to update attributes
+ * @param {Function|undefined} customOnChange Optional custom onChange handler
+ * @param {string} type The type of attribute being changed
+ * @param {Object} meta The meta object
+ */
+export const handleLayerAttributeChange = (
+	value,
+	device,
+	attributeName,
+	attributes,
+	setAttributes,
+	customOnChange,
+	type = null,
+	meta,
+	layerKey
+) => {
+	if (customOnChange) {
+		customOnChange(value, device, attributeName, type, layerKey);
+		return;
+	}
+
+	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
+	if (Array.isArray(type)) {
+		let newLayers = attributes?.[attributeName]?.layers
+			? JSON.parse(JSON.stringify(attributes?.[attributeName]?.layers))
+			: [];
+		if (!newLayers?.[layerKey]) {
+			newLayers[layerKey] = {};
+		}
+		type.forEach((itemType, index) => {
+			if (device === 'all') {
+				newLayers = handleLayerAllDevices(value[index], newLayers, layerKey, deviceOptions, itemType);
+			} else if (device === 'none') {
+				newLayers = handleLayerNoDevice(value[index], newLayers, layerKey, itemType);
+			} else {
+				const deviceSlug = getDeviceAttributeSlug(device);
+				newLayers = handleLayerSpecificDevice(value[index], newLayers, layerKey, deviceSlug, itemType);
+			}
+		});
+		setAttributes({ [attributeName]: { ...attributes?.[attributeName], layers: newLayers } });
+	} else {
+		handleSingleLayerAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta, layerKey);
+	}
 };

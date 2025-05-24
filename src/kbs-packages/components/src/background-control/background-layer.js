@@ -35,11 +35,12 @@ import {
 	getDeviceValue,
 	getInheritedValue,
 	handleLayerAttributeChange,
+	getLayerDeviceValue,
 } from '@kadence/kbsHelpers';
 import ColorSelector from '../color-control/color-selector';
 import BackgroundImageControl from '../background-image-control';
 import { getColorLabel } from '../color-control/utils';
-
+import ImageSelector from '../image-control/image-selector';
 const getLayerInheritedDeviceValue = (layerAttribute, layer, device) => {
 	if (layer?.[device?.toLowerCase()]?.[layerAttribute]) {
 		return layer?.[device?.toLowerCase()]?.[layerAttribute];
@@ -67,12 +68,12 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice) {
 	return ({ onToggle, isOpen }) => {
 		const { color, image, video, gradient, pattern, type } = useMemo(() => {
 			return {
-				color: getLayerInheritedDeviceValue('backgroundColor', layer, previewDevice),
-				image: getLayerInheritedDeviceValue('backgroundImage', layer, previewDevice),
-				video: getLayerInheritedDeviceValue('backgroundVideo', layer, previewDevice),
-				gradient: getLayerInheritedDeviceValue('backgroundGradient', layer, previewDevice),
-				pattern: getLayerInheritedDeviceValue('backgroundPattern', layer, previewDevice),
-				type: getLayerInheritedDeviceValue('backgroundType', layer, previewDevice) || 'color',
+				color: getLayerDeviceValue('backgroundColor', layer, previewDevice),
+				image: getLayerDeviceValue('backgroundImage', layer, previewDevice),
+				video: getLayerDeviceValue('backgroundVideo', layer, previewDevice),
+				gradient: getLayerDeviceValue('backgroundGradient', layer, previewDevice),
+				pattern: getLayerDeviceValue('backgroundPattern', layer, previewDevice),
+				type: getLayerDeviceValue('backgroundType', layer, previewDevice) || 'color',
 			};
 		}, [layer, previewDevice]);
 		const displayValue = useMemo(() => {
@@ -160,22 +161,13 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 		const handleCustomOnChange = (value, device, type) => {
 			onChange(value, device, type);
 		};
-		// const { color, image, video, gradient, pattern, type } = useMemo(() => {
-		// 	return {
-		// 		color: getLayerInheritedDeviceValue('backgroundColor', layer, previewDevice),
-		// 		image: getLayerInheritedDeviceValue('backgroundImage', layer, previewDevice),
-		// 		video: getLayerInheritedDeviceValue('backgroundVideo', layer, previewDevice),
-		// 		gradient: getLayerInheritedDeviceValue('backgroundGradient', layer, previewDevice),
-		// 		pattern: getLayerInheritedDeviceValue('backgroundPattern', layer, previewDevice),
-		// 		type: getLayerInheritedDeviceValue('backgroundType', layer, previewDevice) || 'color',
-		// 	};
-		// }, [previewDevice]);
-		const color = getLayerInheritedDeviceValue('backgroundColor', layer, previewDevice);
-		const image = getLayerInheritedDeviceValue('backgroundImage', layer, previewDevice);
-		const video = getLayerInheritedDeviceValue('backgroundVideo', layer, previewDevice);
-		const gradient = getLayerInheritedDeviceValue('backgroundGradient', layer, previewDevice);
-		const pattern = getLayerInheritedDeviceValue('backgroundPattern', layer, previewDevice);
-		const type = getLayerInheritedDeviceValue('backgroundType', layer, previewDevice) || 'color';
+		const color = getLayerDeviceValue('backgroundColor', layer, previewDevice);
+		const image = getLayerDeviceValue('backgroundImage', layer, previewDevice);
+		const imageID = getLayerDeviceValue('backgroundImageId', layer, previewDevice);
+		const video = getLayerDeviceValue('backgroundVideo', layer, previewDevice);
+		const gradient = getLayerDeviceValue('backgroundGradient', layer, previewDevice);
+		const pattern = getLayerDeviceValue('backgroundPattern', layer, previewDevice);
+		const type = getLayerDeviceValue('backgroundType', layer, previewDevice) || 'color';
 		const defaultTabs = [
 			{
 				name: 'color',
@@ -213,13 +205,24 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 							handleCustomOnChange(tabName, previewDevice, 'backgroundType');
 						}
 					}}
-					activeTab={type ? type : 'color'}
+					initialTabName={type ? type : 'color'}
 					tabs={defaultTabs}
 				>
 					{(tab) => {
 						if (tab.name) {
 							if ('image' === tab.name) {
-								return <></>;
+								return (
+									<ImageSelector
+										type={'backgroundImage'}
+										onChange={handleCustomOnChange}
+										previewDevice={previewDevice}
+										dynamicAttribute={'dynamic'}
+										hasSizeControls={true}
+										hasClearControls={false}
+										imageURL={image}
+										imageID={imageID}
+									/>
+								);
 							} else {
 								return (
 									<ColorSelector
