@@ -10,6 +10,7 @@ export * from './get-font-family-options';
 export { default as getGoogleFontUrl } from './get-google-font-url';
 export { handleAttributeChange, handleMultipleAttributeChange } from './handle-attribute-change';
 export { handleLayerAttributeChange } from './handle-layer-attribute-change';
+export { default as getLayerDeviceValue } from './get-layer-device-value';
 export { GlobalStylesContext } from './global-styles-context';
 export { default as useGlobalStylesIds } from './use-global-styles-ids';
 export { default as getGlobalStylesPresetOptions } from './get-global-styles-preset-options';

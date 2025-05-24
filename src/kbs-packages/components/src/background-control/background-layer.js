@@ -273,15 +273,15 @@ export default function BackgroundLayer({
 	const globalColors = getColorOptions();
 	const isDisableCustomColors = !customColors ? true : false;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	const inherited = getInheritedValue(
-		attributeName,
-		attributes,
-		previewDevice,
-		meta,
-		'backgroundColor',
-		globalStylesIds,
-		layerKey
-	);
+	// const inherited = getInheritedValue(
+	// 	attributeName,
+	// 	attributes,
+	// 	previewDevice,
+	// 	meta,
+	// 	'backgroundColor',
+	// 	globalStylesIds,
+	// 	layerKey
+	// );
 	const onChange = (value, device, type) => {
 		console.log('onChange', value, device, type, layerKey);
 		handleLayerAttributeChange(
@@ -305,9 +305,6 @@ export default function BackgroundLayer({
 		);
 	}, [globalStylesIds]);
 	const classes = clsx('kbs-background-layer-control__dropdown-content', globalClasses);
-	useEffect(() => {
-		//console.log('inherited', inherited);
-	}, [inherited]);
 
 	return (
 		<div className={`kbs-background-layer-control`}>

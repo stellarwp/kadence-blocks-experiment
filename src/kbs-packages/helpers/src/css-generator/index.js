@@ -5,7 +5,8 @@ import { default as getResolvedValue } from '../get-resolved-value';
 import { getBasePresetKey } from '../get-inherited-device-value';
 import { default as getInheritedValue } from '../get-inherited-value';
 import getColorOutput from '../get-color-output';
-
+import { default as getLayerDeviceValue } from '../get-layer-device-value';
+import { useMemo } from 'react';
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 
 /**
@@ -216,14 +217,38 @@ class CSSGenerator {
 	}
 
 	/**
-	 * Apply a CSS property to the current selector
+	 * Get the current selector
 	 * @private
-	 * @param {Object} meta - The metadata object
-	 * @param {string} key - The original property key
 	 * @returns {void}
 	 */
-	getCssSelector(meta, key) {
+	getCssSelector() {
 		return this.currentSelector;
+	}
+	/**
+	 * Process the layer
+	 * @param {string} attributeName - The name of the attribute
+	 * @param {Object} layer - The layer object
+	 * @param {number} index - The index of the layer
+	 * @param {Object} meta - The metadata of the attribute
+	 * @param {Object} props - The props of the block
+	 * @param {Object} metadata - The metadata of the block
+	 */
+	processBackgroundLayer( layer, index, meta, props, metadata) {
+		const currentSelector = this.getCssSelector();
+		const backgroundType = getLayerDeviceValue('backgroundType', layer, props.previewDevice) || 'color';
+		this.setSelector(currentSelector + ' .kbs-bg-style-' + index);
+		switch (backgroundType) {
+			case 'color':
+				const backgroundColor = getLayerDeviceValue('backgroundColor', layer, props.previewDevice);
+				if ( backgroundColor ) {
+					this.add({ 'background-color': getColorOutput(backgroundColor) });
+				}
+				break;
+			case 'gradient':
+				this.add({ 'background-color': getLayerDeviceValue('backgroundColor', layer, props.previewDevice) });
+				break;
+		}
+		this.setSelector(currentSelector);
 	}
 
 	/**
@@ -240,16 +265,20 @@ class CSSGenerator {
 		}
 		if (meta?.hasLayers) {
 			// Add the CSS for the layers.
-			const componentKeys = this.getComponentKeys(meta.component);
-			// const layers = getInheritedValue(
-			// 	attributeName,
-			// 	props.attributes,
-			// 	'none',
-			// 	metadata,
-			// 	'layers',
-			// 	props.globalStylesIds
-			// );
-			// console.log('css-generator', layers);
+			const layers = getInheritedValue(
+				attributeName,
+				props.attributes,
+				'none',
+				metadata,
+				'layers',
+				props.globalStylesIds
+			);
+			if ( meta?.component === 'background') {
+				const reverseLayers = (Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : []);
+				if (reverseLayers.length > 0) {
+					reverseLayers.forEach((layer, index) => this.processBackgroundLayer( layer, index, meta, props, metadata));
+				}
+			}
 			return this;
 		}
 

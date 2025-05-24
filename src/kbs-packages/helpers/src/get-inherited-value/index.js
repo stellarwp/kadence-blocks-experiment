@@ -22,11 +22,9 @@ export default function getInheritedValue(
 	globalStylesIds,
 	layerKey = null
 ) {
-	return useMemo(() => {
 		const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 		const attributeMeta = meta?.attributes?.[attributeName];
 		const initialValue = attributeMeta?.initial ? attributeMeta?.initial : null;
-		const useLayers = attributeMeta?.hasLayers && 'none' !== device;
 		const currentDeviceIndex = deviceOptions.findIndex(
 			(option) =>
 				option.key?.toLowerCase() === device?.toLowerCase() ||
@@ -157,5 +155,4 @@ export default function getInheritedValue(
 
 		// Return empty values if nothing found
 		return { inheritedValue: '', inheritedSource: 'none', inheritedType: 'none' };
-	}, [attributeName, attributes, device, meta, type, globalStylesIds]);
 }
