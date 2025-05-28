@@ -90,7 +90,8 @@
 	.components-input-control__backdrop {
 		border-color: var(--kb-subtle-background, #edf2f7);
 	}
-	.components-input-control__suffix .components-unit-control__select {
+	.components-input-control__suffix .components-unit-control__select,
+	.components-input-control__suffix .components-unit-control__unit-label {
 		color: var(--wp-components-color-foreground, #1e1e1e);
 		background: transparent;
 	}

@@ -1,7 +1,5 @@
 import SelectControl from '../select-control';
 import { __ } from '@wordpress/i18n';
-import ResponsiveRadioRangeControls from '../range/responsive-radio-range-control';
-import ResponsiveUnitControl from '../responsive-unit-control';
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import { getPreviewValue, getInheritedDeviceValue } from '@kadence/kbsHelpers';

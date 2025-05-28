@@ -33,37 +33,27 @@ import ColorSelector from './color-selector';
 import ColorToggle from './color-toggle';
 import ColorDropdown from './color-dropdown';
 import { getColorLabel } from './utils';
-import './editor.scss';
 
-export default function ColorControl({
-	attributes,
-	setAttributes,
-	attributeName,
-	meta,
+export default function ColorSelect({
+	value,
+	inherited,
 	type,
-	globalStylesIds,
 	reset = true,
 	label,
-	hasDeviceControls = false,
-	isAdvanced = false,
-	advancedControls = [],
-	isCustom = false,
-	hasCustomControls = false,
 	previewDevice = 'desktop',
-	forStyleBook = false,
+	onChange,
 	defaultValue = undefined,
-	customOnChange = undefined,
+	globalClasses = [],
 }) {
 	const popoverProps = {
-		placement: 'left-start',
+		placement: 'left-end',
 		//offset: 36,
 		shift: true,
 	};
 	const [customColors] = useSettings('color.custom');
 	const globalColors = getColorOptions();
 	const isDisableCustomColors = !customColors ? true : false;
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+
 	const onReset = () => {
 		let resetValue = undefined;
 		if (defaultValue) {
@@ -71,17 +61,6 @@ export default function ColorControl({
 		}
 		onChange(resetValue, 'all', type);
 	};
-	const onChange = (value, device, type) => {
-		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
-	};
-	const globalClasses = useMemo(() => {
-		return Object.keys(
-			(globalStylesIds || []).reduce((acc, styleId) => {
-				acc[`kbs-global-style-${styleId}`] = true;
-				return acc;
-			}, {})
-		);
-	}, [globalStylesIds]);
 	const classes = clsx('kbs-color-select-control__dropdown-content', globalClasses);
 	return (
 		<div className={`components-base-control kbs-control kbs-color-control`}>
@@ -89,13 +68,10 @@ export default function ColorControl({
 				label={label}
 				reset={reset}
 				onReset={onReset}
-				hasDeviceControls={hasDeviceControls}
-				isAdvanced={isAdvanced}
-				onToggleView={() => setIsAdvanced(!isAdvanced)}
-				hasAdvancedControls={advancedControls && advancedControls.length > 0}
-				isCustom={isCustom}
-				onToggleCustom={() => setIsCustom(!isCustom)}
-				hasCustomControls={hasCustomControls}
+				hasDeviceControls={false}
+				hasAdvancedControls={false}
+				isCustom={false}
+				hasCustomControls={false}
 			/>
 			<div className="kbs-control-inner">
 				<Dropdown
@@ -103,13 +79,13 @@ export default function ColorControl({
 					className="kbs-color-select-control__dropdown"
 					contentClassName={classes}
 					renderToggle={ColorToggle({
-						currentValue: currentValue,
+						currentValue: value,
 						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
 						colors: globalColors,
 					})}
 					renderContent={ColorDropdown({
 						colors: globalColors,
-						currentValue: currentValue,
+						currentValue: value,
 						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
 						onChange: onChange,
 						previewDevice: previewDevice,

@@ -41,32 +41,25 @@ import ColorSelector from '../color-control/color-selector';
 import BackgroundImageControl from '../background-image-control';
 import { getColorLabel } from '../color-control/utils';
 import ImageSelector from '../image-control/image-selector';
-const getLayerInheritedDeviceValue = (layerAttribute, layer, device) => {
-	if (layer?.[device?.toLowerCase()]?.[layerAttribute]) {
-		return layer?.[device?.toLowerCase()]?.[layerAttribute];
-	}
-	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
-	const currentDeviceIndex = deviceOptions.findIndex(
-		(option) =>
-			option.key?.toLowerCase() === device?.toLowerCase() || option.name?.toLowerCase() === device?.toLowerCase()
-	);
+import { getImageFileName } from '../image-control/utils';
+import BackgroundImageLayer from './background-image-layer';
+import UnitControl from '../unit-control/unit-control';
 
-	if (device !== 'none') {
-		// Check direct value from parent device
-		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
-			const parentDevice = deviceOptions[i];
-			const parentDeviceName = parentDevice.key || parentDevice.name;
-			if (layer?.[parentDeviceName]?.[layerAttribute]) {
-				return layer?.[parentDeviceName]?.[layerAttribute];
-			}
-		}
-	}
-	// Check for inherited from parent device
-	return '';
-};
-function renderBackgroundToggle(layer, isInherited, colors, previewDevice) {
+function BackgroundIndicator({ value, type, colorValue }) {
+	const style = {
+		background: type !== 'color' ? colorValue : value,
+	};
+	return (
+		<div className="kbs-background-indicator component-color-indicator" style={style}>
+			{type !== 'color' && (
+				<div className="kbs-background-indicator-layer" style={{ backgroundImage: value }}></div>
+			)}
+		</div>
+	);
+}
+function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onChange) {
 	return ({ onToggle, isOpen }) => {
-		const { color, image, video, gradient, pattern, type } = useMemo(() => {
+		const { color, image, video, gradient, pattern, type, opacity } = useMemo(() => {
 			return {
 				color: getLayerDeviceValue('backgroundColor', layer, previewDevice),
 				image: getLayerDeviceValue('backgroundImage', layer, previewDevice),
@@ -74,6 +67,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice) {
 				gradient: getLayerDeviceValue('backgroundGradient', layer, previewDevice),
 				pattern: getLayerDeviceValue('backgroundPattern', layer, previewDevice),
 				type: getLayerDeviceValue('backgroundType', layer, previewDevice) || 'color',
+				opacity: getLayerDeviceValue('backgroundOpacity', layer, previewDevice),
 			};
 		}, [layer, previewDevice]);
 		const displayValue = useMemo(() => {
@@ -81,7 +75,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice) {
 				case 'color':
 					return getColorLabel(color, colors);
 				case 'image':
-					return image;
+					return getImageFileName(image);
 				case 'video':
 					return video;
 				case 'gradient':
@@ -92,12 +86,15 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice) {
 					return '';
 			}
 		}, [type, color, image, video, gradient, pattern]);
-		const previewColorString = useMemo(() => {
+		const previewString = useMemo(() => {
 			switch (type) {
 				case 'color':
 					return getColorOutput(color);
 				case 'image':
-					return image;
+					if (image) {
+						return 'url(' + image + ')';
+					}
+					return '';
 				case 'video':
 					return video;
 				case 'gradient':
@@ -134,23 +131,74 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice) {
 			'aria-expanded': isOpen,
 		};
 		return (
-			<Button __next40pxDefaultSize {...toggleProps}>
-				{displayValue && (
-					<Icon className="kbs-background-select-control__toggle-icon" icon={typeIcon} size={24} />
-				)}
-				<span className="kbs-background-select-control__toggle-label">
-					{displayValue ? displayValue : __('Unset', 'kadence-blocks')}
-				</span>
-				<CoreColorIndicator
-					className="kbs-background-select-control__toggle-preview"
-					colorValue={previewColorString}
+			<>
+				<Button __next40pxDefaultSize {...toggleProps}>
+					{displayValue && (
+						<Icon className="kbs-background-select-control__toggle-icon" icon={typeIcon} size={24} />
+					)}
+					<span className="kbs-background-select-control__toggle-label">
+						{displayValue ? displayValue : __('Unset', 'kadence-blocks')}
+					</span>
+					<BackgroundIndicator
+						className="kbs-background-select-control__toggle-preview"
+						value={previewString}
+						type={type}
+						colorValue={getColorOutput(color)}
+					/>
+				</Button>
+				<UnitControl
+					label={__('Opacity', 'kadence-blocks')}
+					labelPosition="left"
+					className="kbs-background-image-layer-control-opacity"
+					max={100}
+					min={0}
+					units={[{ value: '%', label: '%' }]}
+					value={opacity}
+					previewDevice={previewDevice}
+					placeholder={100}
+					step={1}
+					onChange={(value) => onChange(value, previewDevice, 'backgroundOpacity')}
 				/>
-			</Button>
+			</>
 		);
 	};
 }
+/**
+ * Get the inherited value for a device, following the inheritance chain
+ *
+ * @param {string} layerAttribute - The attribute name (e.g., 'typography')
+ * @param {object} layer - The layer object
+ * @param {string} device - The current device (e.g., 'desktop', 'tablet', 'mobile')
+ * @returns {object} - An object containing the value and its source
+ */
+function getFullLayerDeviceValue(layer, device) {
+	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
+	const currentDeviceIndex = deviceOptions.findIndex(
+		(option) =>
+			option.key?.toLowerCase() === device?.toLowerCase() || option.name?.toLowerCase() === device?.toLowerCase()
+	);
 
-function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice) {
+	if (device !== 'none') {
+		// Check direct value from parent device
+		const layerReturn = {};
+		for (let i = currentDeviceIndex; i >= 0; i--) {
+			const parentDevice = deviceOptions[i];
+			const parentDeviceName = parentDevice.key || parentDevice.name;
+			// Make sure it's an object
+			if (layer?.[parentDeviceName] && typeof layer?.[parentDeviceName] === 'object') {
+				Object.keys(layer?.[parentDeviceName]).forEach((key) => {
+					if (!layerReturn?.[key] && layer?.[parentDeviceName]?.[key]) {
+						layerReturn[key] = layer?.[parentDeviceName][key];
+					}
+				});
+			}
+		}
+		return layerReturn;
+	}
+	return {};
+}
+
+function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice, globalClasses) {
 	return ({ onToggle, isOpen }) => {
 		const handleColorChange = (color) => {
 			onChange(color, previewDevice, 'backgroundColor');
@@ -168,6 +216,7 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 		const gradient = getLayerDeviceValue('backgroundGradient', layer, previewDevice);
 		const pattern = getLayerDeviceValue('backgroundPattern', layer, previewDevice);
 		const type = getLayerDeviceValue('backgroundType', layer, previewDevice) || 'color';
+		const flattenLayer = getFullLayerDeviceValue(layer, previewDevice);
 		const defaultTabs = [
 			{
 				name: 'color',
@@ -212,15 +261,11 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 						if (tab.name) {
 							if ('image' === tab.name) {
 								return (
-									<ImageSelector
-										type={'backgroundImage'}
+									<BackgroundImageLayer
 										onChange={handleCustomOnChange}
 										previewDevice={previewDevice}
-										dynamicAttribute={'dynamic'}
-										hasSizeControls={true}
-										hasClearControls={false}
-										imageURL={image}
-										imageID={imageID}
+										layer={flattenLayer}
+										globalClasses={globalClasses}
 									/>
 								);
 							} else {
@@ -268,7 +313,7 @@ export default function BackgroundLayer({
 	isInherited = false,
 }) {
 	const popoverProps = {
-		placement: 'left-start',
+		placement: 'left',
 		//offset: 36,
 		shift: true,
 	};
@@ -315,8 +360,15 @@ export default function BackgroundLayer({
 				popoverProps={popoverProps}
 				className="kbs-background-layer-control__dropdown"
 				contentClassName={classes}
-				renderToggle={renderBackgroundToggle(layer, isInherited, globalColors, previewDevice)}
-				renderContent={renderColorDropdown(globalColors, layer, isInherited, onChange, previewDevice)}
+				renderToggle={renderBackgroundToggle(layer, isInherited, globalColors, previewDevice, onChange)}
+				renderContent={renderColorDropdown(
+					globalColors,
+					layer,
+					isInherited,
+					onChange,
+					previewDevice,
+					globalClasses
+				)}
 			/>
 		</div>
 	);

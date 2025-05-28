@@ -7,6 +7,9 @@ import { useMemo } from '@wordpress/element';
 import InputUIControl from './ui-input';
 
 function parseBackgroundSizeValue(value) {
+	if (!value) {
+		return ['', ''];
+	}
 	const [width, height] = value.split(' ');
 	return [width, height];
 }

@@ -98,19 +98,13 @@ function BackgroundStyles(props) {
 		<>
 			{Array.from({ length: layersCount }).map((_, index) => {
 				const layer = reverseLayers[index];
-				const color = getLayerInheritedDeviceValue('backgroundColor', layer, previewDevice);
-				const image = getLayerInheritedDeviceValue('backgroundImage', layer, previewDevice);
 				const video = getLayerInheritedDeviceValue('backgroundVideo', layer, previewDevice);
-				const gradient = getLayerInheritedDeviceValue('backgroundGradient', layer, previewDevice);
-				const pattern = getLayerInheritedDeviceValue('backgroundPattern', layer, previewDevice);
 				const type = getLayerInheritedDeviceValue('backgroundType', layer, previewDevice) || 'color';
-				return (
-					<div
-						key={index}
-						className={`kbs-bg-layer ${metaClassPrefix}${index} bg-type-${type}`}
-						style={{ backgroundColor: color }}
-					></div>
-				);
+				const anyBackgroundOpacity = getLayerInheritedDeviceValue('backgroundOpacity', layer, 'Mobile');
+				if (index === 0 && type !== 'video' && '' === anyBackgroundOpacity) {
+					return null;
+				}
+				return <div key={index} className={`kbs-bg-layer ${metaClassPrefix}${index} bg-type-${type}`}></div>;
 			})}
 		</>
 	);

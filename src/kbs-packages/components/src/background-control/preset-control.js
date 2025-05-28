@@ -18,8 +18,6 @@ import {
 /**
  * Internal Dependencies
  */
-import ResponsiveRadioRangeControls from '../range/responsive-radio-range-control';
-import ResponsiveUnitControl from '../responsive-unit-control';
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import TitleBar from '../title-bar';

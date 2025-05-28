@@ -233,21 +233,57 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @param {Object} metadata - The metadata of the block
 	 */
-	processBackgroundLayer( layer, index, meta, props, metadata) {
+	processBackgroundLayer(layer, index, meta, props, metadata) {
 		const currentSelector = this.getCssSelector();
 		const backgroundType = getLayerDeviceValue('backgroundType', layer, props.previewDevice) || 'color';
-		this.setSelector(currentSelector + ' .kbs-bg-style-' + index);
+		const metaClassPrefix = meta?.classPrefix || 'kbs-bg-style-';
+		const anyBackgroundOpacity = getLayerDeviceValue('backgroundOpacity', layer, 'Mobile');
+		if (index === 0 && backgroundType !== 'video' && '' === anyBackgroundOpacity) {
+			this.setSelector(currentSelector);
+		} else {
+			this.setSelector(currentSelector + ' > .' + metaClassPrefix + index);
+		}
+		const backgroundColor = getLayerDeviceValue('backgroundColor', layer, props.previewDevice);
+		const backgroundOpacity = getLayerDeviceValue('backgroundOpacity', layer, props.previewDevice);
 		switch (backgroundType) {
 			case 'color':
-				const backgroundColor = getLayerDeviceValue('backgroundColor', layer, props.previewDevice);
-				if ( backgroundColor ) {
+				if (backgroundColor) {
 					this.add({ 'background-color': getColorOutput(backgroundColor) });
 				}
 				break;
 			case 'image':
 				const backgroundImage = getLayerDeviceValue('backgroundImage', layer, props.previewDevice);
-				if ( backgroundImage ) {
+				if (backgroundColor) {
+					this.add({ 'background-color': getColorOutput(backgroundColor) });
+				}
+				if (backgroundImage) {
 					this.add({ 'background-image': 'url(' + backgroundImage + ')' });
+					const backgroundPosition = getLayerDeviceValue('backgroundPosition', layer, props.previewDevice);
+					if (backgroundPosition) {
+						this.add({ 'background-position': backgroundPosition });
+					}
+					const backgroundSize = getLayerDeviceValue('backgroundSize', layer, props.previewDevice);
+					if (backgroundSize) {
+						this.add({ 'background-size': backgroundSize });
+					}
+					const backgroundRepeat = getLayerDeviceValue('backgroundRepeat', layer, props.previewDevice);
+					if (backgroundRepeat) {
+						this.add({ 'background-repeat': backgroundRepeat });
+					}
+					const backgroundAttachment = getLayerDeviceValue(
+						'backgroundAttachment',
+						layer,
+						props.previewDevice
+					);
+					if (backgroundAttachment) {
+						this.add({
+							'background-attachment':
+								backgroundAttachment === 'parallax' ? 'fixed' : backgroundAttachment,
+						});
+					}
+					if (backgroundOpacity || backgroundOpacity === 0) {
+						this.add({ opacity: backgroundOpacity });
+					}
 				}
 				break;
 		}
@@ -276,10 +312,12 @@ class CSSGenerator {
 				'layers',
 				props.globalStylesIds
 			);
-			if ( meta?.component === 'background') {
-				const reverseLayers = (Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : []);
+			if (meta?.component === 'background') {
+				const reverseLayers = Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : [];
 				if (reverseLayers.length > 0) {
-					reverseLayers.forEach((layer, index) => this.processBackgroundLayer( layer, index, meta, props, metadata));
+					reverseLayers.forEach((layer, index) =>
+						this.processBackgroundLayer(layer, index, meta, props, metadata)
+					);
 				}
 			}
 			return this;

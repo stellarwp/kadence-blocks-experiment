@@ -12,19 +12,17 @@ import './editor.scss';
  */
 import { __ } from '@wordpress/i18n';
 import { __experimentalUnitControl as CoreUnitControl } from '@wordpress/components';
-import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
+
 import TitleBar from '../title-bar';
 /**
  * Build the Measure controls
  * @returns {object} Measure settings.
  */
-export default function UnitInputControl({
-	attributes,
-	setAttributes,
-	attributeName,
-	meta,
+export default function UnitControl({
+	onChange,
 	type,
-	globalStylesIds,
+	value = '',
+	inheritedValue = '',
 	placeholder = '',
 	className = '',
 	defaultValue = '',
@@ -33,44 +31,41 @@ export default function UnitInputControl({
 	min = 0,
 	units = [],
 	label = '',
+	labelPosition = 'top',
 	step = undefined,
 	reset = true,
-	hasDeviceControls = false,
 }) {
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
 	const onReset = () => {
 		let resetValue = undefined;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange(resetValue, 'all', type);
-	};
-	const onChange = (value, device, type) => {
-		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
+		onChange(resetValue, 'Desktop' === previewDevice ? 'all' : previewDevice, type);
 	};
 	// Return the JSX directly, not inside an array
 	return (
 		<div className={`components-base-control kbs-control kbs-unit-control${className ? ' ' + className : ''}`}>
-			{label && (
+			{label && 'top' === labelPosition && (
 				<TitleBar
 					label={label}
 					reset={reset}
 					onReset={onReset}
-					hasDeviceControls={hasDeviceControls}
+					hasDeviceControls={false}
 					hasAdvancedControls={false}
 				/>
 			)}
-			<div className={'kadence-controls-content kadence-single-unit-control'}>
+			<div className={'kbs-unit-control-inner'}>
 				<CoreUnitControl
+					label={label && 'top' !== labelPosition ? label : ''}
+					labelPosition={label && 'top' !== labelPosition ? labelPosition : undefined}
 					className={'kbs-input-control'}
 					__next40pxDefaultSize={true}
 					min={min}
 					max={max}
 					step={step}
 					units={units}
-					value={currentValue}
-					placeholder={inherited?.inheritedValue || placeholder}
+					value={value}
+					placeholder={inheritedValue || placeholder}
 					disableUnits={false}
 					onChange={onChange}
 				/>
