@@ -17,12 +17,10 @@ import {
 import { __ } from '@wordpress/i18n';
 import { useRef, useMemo, useEffect } from '@wordpress/element';
 import {
-	color as colorIcon,
 	check as checkIcon,
 	close as closeIcon,
 	image as imageIcon,
 	video as videoIcon,
-	background as gradientIcon,
 	grid as patternIcon,
 } from '@wordpress/icons';
 import { useSettings } from '@wordpress/block-editor';
@@ -37,6 +35,7 @@ import {
 	handleLayerAttributeChange,
 	getLayerDeviceValue,
 } from '@kadence/kbsHelpers';
+import { gradient as gradientIcon, color as colorIcon, fill as fillIcon } from './constants';
 import ColorSelector from '../color-control/color-selector';
 import BackgroundImageControl from '../background-image-control';
 import { getColorLabel } from '../color-control/utils';
@@ -45,6 +44,7 @@ import { getImageFileName } from '../image-control/utils';
 import BackgroundImageLayer from './background-image-layer';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import UnitControl from '../unit-control/unit-control';
+import GradientPicker from '../gradient-control';
 
 function BackgroundIndicator({ value, type, colorValue }) {
 	const style = {
@@ -58,6 +58,20 @@ function BackgroundIndicator({ value, type, colorValue }) {
 		</div>
 	);
 }
+function getGradientLabel(gradient) {
+	if (gradient && gradient.length > 0) {
+		// get the gradient type from the gradient css string.
+		const gradientType = gradient.split('(')[0] || '';
+		if (gradientType === 'linear-gradient') {
+			return __('Linear Gradient', 'kadence-blocks');
+		} else if (gradientType === 'radial-gradient') {
+			return __('Radial Gradient', 'kadence-blocks');
+		} else if (gradientType === 'conic-gradient') {
+			return __('Conic Gradient', 'kadence-blocks');
+		}
+	}
+	return '';
+}
 function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onChange) {
 	return ({ onToggle, isOpen }) => {
 		const { color, image, video, gradient, pattern, type, opacity } = useMemo(() => {
@@ -65,7 +79,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				color: getLayerDeviceValue('backgroundColor', layer, previewDevice),
 				image: getLayerDeviceValue('backgroundImage', layer, previewDevice),
 				video: getLayerDeviceValue('backgroundVideo', layer, previewDevice),
-				gradient: getLayerDeviceValue('backgroundGradient', layer, previewDevice),
+				gradient: getLayerDeviceValue('gradient', layer, previewDevice),
 				pattern: getLayerDeviceValue('backgroundPattern', layer, previewDevice),
 				type: getLayerDeviceValue('backgroundType', layer, previewDevice) || 'color',
 				opacity: getLayerDeviceValue('backgroundOpacity', layer, previewDevice),
@@ -76,11 +90,11 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'color':
 					return getColorLabel(color, colors);
 				case 'image':
-					return getImageFileName(image);
+					return getImageFileName(image) || __('Unset', 'kadence-blocks');
 				case 'video':
 					return video;
 				case 'gradient':
-					return gradient;
+					return getGradientLabel(gradient);
 				case 'pattern':
 					return pattern;
 				default:
@@ -147,7 +161,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 						colorValue={getColorOutput(color)}
 					/>
 				</Button>
-				<RadioButtonSelect
+				{/* <RadioButtonSelect
 					type={'opacity'}
 					value={opacity}
 					onChange={ (value) => onChange(value, previewDevice, 'backgroundOpacity') }
@@ -157,10 +171,9 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					min={0}
 					max={100}
 					step={1}
-				/>
-				{/* <UnitControl
-					label={__('Opacity', 'kadence-blocks')}
-					labelPosition="left"
+				/> */}
+				<UnitControl
+					label={''}
 					className="kbs-background-image-layer-control-opacity"
 					max={100}
 					min={0}
@@ -170,7 +183,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					placeholder={100}
 					step={1}
 					onChange={(value) => onChange(value, previewDevice, 'backgroundOpacity')}
-				/> */}
+				/>
 			</>
 		);
 	};
@@ -225,7 +238,7 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 		const image = getLayerDeviceValue('backgroundImage', layer, previewDevice);
 		const imageID = getLayerDeviceValue('backgroundImageId', layer, previewDevice);
 		const video = getLayerDeviceValue('backgroundVideo', layer, previewDevice);
-		const gradient = getLayerDeviceValue('backgroundGradient', layer, previewDevice);
+		const gradient = getLayerDeviceValue('gradient', layer, previewDevice);
 		const pattern = getLayerDeviceValue('backgroundPattern', layer, previewDevice);
 		const type = getLayerDeviceValue('backgroundType', layer, previewDevice) || 'color';
 		const flattenLayer = getFullLayerDeviceValue(layer, previewDevice);
@@ -280,6 +293,14 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 										globalClasses={globalClasses}
 									/>
 								);
+							} else if ('gradient' === tab.name) {
+								return (
+									<GradientPicker
+										value={gradient}
+										previewDevice={previewDevice}
+										onChange={handleCustomOnChange}
+									/>
+								);
 							} else {
 								return (
 									<ColorSelector
@@ -332,16 +353,6 @@ export default function BackgroundLayer({
 	const [customColors] = useSettings('color.custom');
 	const globalColors = getColorOptions();
 	const isDisableCustomColors = !customColors ? true : false;
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	// const inherited = getInheritedValue(
-	// 	attributeName,
-	// 	attributes,
-	// 	previewDevice,
-	// 	meta,
-	// 	'backgroundColor',
-	// 	globalStylesIds,
-	// 	layerKey
-	// );
 	const onChange = (value, device, type) => {
 		console.log('onChange', value, device, type, layerKey);
 		handleLayerAttributeChange(

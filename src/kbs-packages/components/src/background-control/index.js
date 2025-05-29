@@ -5,7 +5,11 @@ import clsx from 'clsx';
 import { isEqual } from 'lodash';
 import { DragDropProvider } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
-import { useSortable } from '@dnd-kit/react/sortable';
+//import { useSortable } from '@dnd-kit/react/sortable';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy, arrayMove, useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 /**
  * WordPress libraries
  */
@@ -36,34 +40,39 @@ import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import BackgroundLayer from './background-layer';
 import LayerTitleBar from './layer-title-bar';
 
-
 import './editor.scss';
 
 function SortableBackgroundLayer({ layer, index, ...props }) {
 	const {
 		attributes: sortableAttributes,
 		listeners,
-		ref,
-		handleRef,
+		setNodeRef,
+		transform,
+		transition,
 		isDragging,
 	} = useSortable({
-		id: JSON.stringify(layer),
-		index,
+		id: index,
+		transition: {
+			duration: 0,
+		},
 	});
 	const style = {
+		transform: CSS.Transform.toString(transform),
+		transition,
 		opacity: isDragging ? 0.8 : 1,
 		zIndex: isDragging ? 1 : 0,
 	};
 	return (
 		<div
+			key={index}
 			className={clsx('kbs-background-layer-wrapper', {
 				'is-dragging': isDragging,
 			})}
-			ref={ref}
+			ref={setNodeRef}
 			style={style}
 		>
 			<div className="kbs-background-layer-inner">
-				<div className="kbs-background-layer-handle" ref={handleRef} {...listeners} {...sortableAttributes}>
+				<div className="kbs-background-layer-handle" {...listeners} {...sortableAttributes}>
 					<Icon className="kbs-layer-handle-icon" icon={dragHandle} size={24} />
 				</div>
 				<BackgroundLayer layer={layer} layerKey={index} {...props} />
@@ -105,15 +114,19 @@ export default function BackgroundControl({
 		);
 	};
 	const onTogglePlus = () => {
-		console.log('onTogglePlus');
-		// setAttributes({
-		// 	[attributeName]: [...(attributes[attributeName] || []), {}],
-		// });
+		const newLayers = [{}, ...(inherited.inheritedValue || [])];
+		const newAttributes = JSON.parse(JSON.stringify({ ...attributes[attributeName], layers: newLayers }));
+		setAttributes({
+			[attributeName]: newAttributes,
+		});
 	};
-	// useEffect(() => {
-	// 	console.log('inherited');
-	// 	console.log(inherited);
-	// }, [inherited]);
+	const sensors = useSensors(
+		useSensor(PointerSensor, {
+			activationConstraint: {
+				distance: 5,
+			},
+		})
+	);
 	const onSetAttributes = (newAttributes) => {
 		if (
 			newAttributes[attributeName]?.preset &&
@@ -136,28 +149,28 @@ export default function BackgroundControl({
 	};
 
 	const handleDragEnd = (event) => {
-		const initialLayers = JSON.parse(JSON.stringify(inherited.inheritedValue));
-		console.log('initialLayers', initialLayers);
-		const newLayers = move(initialLayers, event);
-		console.log('newLayers', newLayers);
-		if (isEqual(initialLayers, newLayers)) {
-			return;
+		const { active, over } = event;
+		if (active.id !== over.id) {
+			const oldIndex = parseInt(active.id);
+			const newIndex = parseInt(over.id);
+			const newLayers = arrayMove(inherited.inheritedValue, oldIndex, newIndex);
+			if (attributes[attributeName]?.preset) {
+				delete attributes[attributeName]?.preset;
+			}
+			const newAttributes = JSON.parse(
+				JSON.stringify({
+					...attributes[attributeName],
+					layers: newLayers,
+				})
+			);
+			setAttributes({
+				[attributeName]: newAttributes,
+			});
 		}
-		console.log('newLayers', newLayers);
-
-		if (attributes[attributeName]?.preset) {
-			delete attributes[attributeName]?.preset;
-		}
-		const newAttributes = JSON.parse(
-			JSON.stringify({
-				...attributes[attributeName],
-				layers: newLayers,
-			})
-		);
-		setAttributes({
-			[attributeName]: newAttributes,
-		});
 	};
+	const itemOrder = useMemo(() => {
+		return inherited?.inheritedValue ? inherited.inheritedValue.map((_, index) => index) : [0];
+	}, [inherited?.inheritedValue]);
 	return (
 		<ToolsPanelBody
 			title={title || __('Background', 'kadence-blocks')}
@@ -188,40 +201,45 @@ export default function BackgroundControl({
 						onReset={onLayerReset}
 						onTogglePlus={onTogglePlus}
 					/>
-					<DragDropProvider onDragEnd={handleDragEnd}>
-						<div className="kbs-background-layers-wrapper">
-							{inherited?.inheritedValue?.length > 0 ? (
-								inherited.inheritedValue.map((layer, index) => (
+					<DndContext
+						sensors={sensors}
+						modifiers={[restrictToVerticalAxis]}
+						collisionDetection={closestCenter}
+						onDragEnd={handleDragEnd}
+					>
+						<SortableContext items={itemOrder} strategy={verticalListSortingStrategy}>
+							<div className="kbs-background-layers-wrapper">
+								{inherited?.inheritedValue?.length > 0 ? (
+									inherited.inheritedValue.map((layer, index) => (
+										<SortableBackgroundLayer
+											key={index}
+											layer={layer}
+											index={index}
+											attributes={attributes}
+											setAttributes={onSetAttributes}
+											attributeName={attributeName}
+											meta={metaData}
+											previewDevice={previewDevice}
+											globalStylesIds={globalStylesIds}
+											isInherited={inherited.inheritedSource !== 'direct'}
+										/>
+									))
+								) : (
 									<SortableBackgroundLayer
-										key={index}
-										layer={layer}
-										index={index}
+										key={0}
+										layer={{}}
+										index={0}
 										attributes={attributes}
-										type={'backgroundColor'}
 										setAttributes={onSetAttributes}
 										attributeName={attributeName}
 										meta={metaData}
 										previewDevice={previewDevice}
 										globalStylesIds={globalStylesIds}
-										isInherited={inherited.inheritedSource !== 'direct'}
 									/>
-								))
-							) : (
-								<SortableBackgroundLayer
-									key={0}
-									layer={{}}
-									index={0}
-									attributes={attributes}
-									type={'backgroundColor'}
-									setAttributes={onSetAttributes}
-									attributeName={attributeName}
-									meta={metaData}
-									previewDevice={previewDevice}
-									globalStylesIds={globalStylesIds}
-								/>
-							)}
-						</div>
-					</DragDropProvider>
+								)}
+							</div>
+						</SortableContext>
+					</DndContext>
 				</>
 			)}
 			{/* <ColorControl

@@ -110,7 +110,7 @@ export default function BackgroundImageLayer({ previewDevice = 'desktop', layer,
 							hasCustomControls={true}
 							onChange={onChange}
 						/>
-						{layer?.backgroundSize !== 'cover' && (
+						{layer?.backgroundSize && layer?.backgroundSize !== 'cover' && (
 							<RadioButtonSelect
 								label={__('Background Repeat', 'kadence-blocks')}
 								value={layer?.backgroundRepeat}

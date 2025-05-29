@@ -70,6 +70,31 @@
 	.kbs-background-layer-inner {
 		display: flex;
 	}
+	.kbs-background-select-button {
+		flex: 1;
+		max-width: calc(100% - 50px);
+	}
+	.kbs-background-image-layer-control-opacity {
+		width: 50px;
+		.kbs-input-control {
+			.components-input-control__container {
+				.components-input-control__suffix .components-unit-control__unit-label {
+					width: 16px;
+					min-width: 16px;
+					padding: 0;
+					margin: 0;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 12px;
+				}
+				.components-input-control__input {
+					padding: 0 0 0 3px;
+					text-align: right;
+				}
+			}
+		}
+	}
 	.kbs-radio-control-opacity {
 		padding: 0 4px;
 		.components-base-control__field {
@@ -94,9 +119,6 @@
 				min-width: 20px;
 			}
 		}
-		.kbs-range-control .components-range-control__thumb-wrapper > span, .kbs-range-control .components-range-control__track {
-			// background: var(--kb-subtle-color, #a0aec0);
-		}
 		.kbs-range-control .components-range-control__track {
 			height: 4px;
 		}
@@ -104,14 +126,13 @@
 			width: 12px;
 			height: 12px;
 		}
-		
+
 		.kbs-range-control .components-range-control__thumb-wrapper > span {
 			width: 100%;
 			height: 100%;
 		}
 		.kbs-range-control .components-range-control__wrapper > span:first-of-type {
 			height: 4px;
-			// background: #fff;
 		}
 	}
 }
@@ -122,15 +143,16 @@
 	.kbs-background-layer-control {
 		display: block;
 		flex-grow: 1;
-		max-width: calc(100% - 24px);
+		max-width: calc(100% - 18px);
 	}
 	.components-dropdown.kbs-background-layer-control__dropdown {
-		display: block;
+		display: flex;
+		align-items: center;
 	}
 	.kbs-background-select-button {
 		width: 100%;
 		gap: 4px;
-		height: 46px;
+		height: 40px;
 		border-radius: 4px;
 		box-shadow: none;
 		background: transparent;
@@ -199,6 +221,8 @@
 	.kbs-layer-handle-icon {
 		color: var(--kb-subtle-color, #a0aec0);
 		transition: color 0.2s ease;
+		width: 18px;
+		height: 18px;
 	}
 	&:hover {
 		.kbs-layer-handle-icon {
