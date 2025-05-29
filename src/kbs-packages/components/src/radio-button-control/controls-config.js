@@ -95,6 +95,12 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'max-height':
 		case 'maxHeight':
+		case 'minHeight':
+		case 'min-height':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			break;
+		case 'opacity':
+		case 'backgroundOpacity':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
 		case 'backgroundSize':
@@ -102,10 +108,12 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupBackgroundSizeUI;
 			controls = getBackgroundSizeControls();
 			break;
+		case 'repeat':
 		case 'background-repeat':
 		case 'backgroundRepeat':
 			controls = getBackgroundRepeatControls();
 			break;
+		case 'attachment':
 		case 'background-attachment':
 		case 'backgroundAttachment':
 			controls = getBackgroundAttachmentControls();

@@ -10,7 +10,7 @@ import { useEffect, useState, useMemo } from '@wordpress/element';
 import InputUnitControl from './ui-input-unit';
 import { parseUnitTypeFromRawValue, parseValueTypeFromRawValue, getUnitFromRawValue, getNumberFromRawValue } from './utils';
 
-function RangeUIControl({ value, onChange, controls = [], units, placeholder }) {
+function RangeUIControl({ value, onChange, controls = [], min = null, max = null, units, placeholder, labelPosition = 'top', label = '', step = null }) {
 	const [isCustomUnit, setIsCustomUnit] = useState(false);
 	const [minValue, maxValue] = useMemo(() => {
 		const existingUnit = getUnitFromRawValue(value, units) ?? 'px';
@@ -35,24 +35,24 @@ function RangeUIControl({ value, onChange, controls = [], units, placeholder }) 
 		[value]
 	);
 	useEffect(() => {
-		if (!isValueControlled) {
+		if (!isValueControlled && value) {
 			const unit = parseUnitTypeFromRawValue(value, units);
 			if (unit === 'unmatched') {
 				setIsCustomUnit(true);
 			}
 		}
-	}, []);
+	}, [isValueControlled]);
 	const onCustomUnitChange = (value) => {
-		if (value === 'custom' || value === 'auto') {
+		if (value === 'custom') {
 			setIsCustomUnit(true);
 		} else {
-			const newValue = value.replace('auto', '').replace('custom', '');
+			const newValue = value.replace('custom', '');
 			setIsCustomUnit(false);
 			onChange(newValue);
 		}
 	};
 	const onUnitChange = (value) => {
-		if (value === 'custom' || value === 'auto') {
+		if (value === 'custom') {
 			setIsCustomUnit(true);
 		} else if (isCustomUnit) {
 			setIsCustomUnit(false);
@@ -65,16 +65,23 @@ function RangeUIControl({ value, onChange, controls = [], units, placeholder }) 
 			// Remove the custom from the value.
 			const newValue = value.replace('custom', '');
 			onChange(newValue);
-		} else if (value.includes('auto')) {
-			setIsCustomUnit(true);
-			onChange(value);
+		} else if (value) {
+			const numbers = value.replace(/\D/g, '');
+			// Check if the value contains a number or is just a unit.
+			if (numbers.length > 0) {
+				onChange(value);
+			}
 		} else {
 			onChange(value);
 		}
 	};
 
-	const rangeControlOnChange = (newValue) => {		
-		const existingUnit = getUnitFromRawValue(value, units) ?? 'px';
+	const rangeControlOnChange = (newValue) => {
+		let existingUnit = getUnitFromRawValue(value, units) ?? 'px';
+
+		if ( units.length === 1 ) {
+			existingUnit = units[0].value;
+		}
 
 		onChange(newValue + existingUnit);
 	}
@@ -82,26 +89,34 @@ function RangeUIControl({ value, onChange, controls = [], units, placeholder }) 
 		<>
 			{!isCustomUnit && (
 				<Flex>
-					<FlexItem style={{ width: '100%' }}>
+					<FlexItem className="kbs-range-control-wrapper" style={{ width: '100%' }}>
 						<RangeControl
 							className="kbs-range-control kbs-input-control"
+							__next40pxDefaultSize={true}
+							__nextHasNoMarginBottom={true}
 							value={getNumberFromRawValue(value)}
+							initialPosition={placeholder}
 							onChange={rangeControlOnChange}
-							min={minValue}
-							max={maxValue}
-							step={ units.length > 0 ? units.find(unit => unit.value === getUnitFromRawValue(value, units))?.step : 1 }
+							min={null !== min ? min : minValue}
+							max={null !== max ? max : maxValue}
+							step={ step || (units.length > 0 ? units.find(unit => unit.value === getUnitFromRawValue(value, units))?.step : 1) }
+							showTooltip={false}
 							withInputField={false}
 						/>
 					</FlexItem>
-					<FlexItem>
+					<FlexItem className="kbs-unit-control-wrapper">
 						<UnitControl
 							className="kbs-unit-control kbs-input-control"
 							__next40pxDefaultSize={true}
 							placeholder={placeholder}
+							label={label && 'top' !== labelPosition ? label : undefined}
+							labelPosition={'top' !== labelPosition ? labelPosition : undefined}
 							value={isValueControlled ? '' : value}
 							onChange={unitControlOnChange}
 							onUnitChange={onUnitChange}
 							units={units}
+							min={null !== min ? min : minValue}
+							max={null !== max ? max : maxValue}
 						/>
 					</FlexItem>
 				</Flex>
@@ -110,6 +125,8 @@ function RangeUIControl({ value, onChange, controls = [], units, placeholder }) 
 				<InputUnitControl
 					className="kbs-input-control"
 					value={value}
+					label={label && 'top' !== labelPosition ? label : undefined}
+					labelPosition={'top' !== labelPosition ? labelPosition : undefined}
 					placeholder={placeholder}
 					onChange={onChange}
 					onUnitChange={onCustomUnitChange}

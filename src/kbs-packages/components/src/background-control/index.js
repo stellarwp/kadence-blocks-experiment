@@ -1,7 +1,11 @@
 /**
  * External libraries
  */
+import clsx from 'clsx';
 import { isEqual } from 'lodash';
+import { DragDropProvider } from '@dnd-kit/react';
+import { move } from '@dnd-kit/helpers';
+import { useSortable } from '@dnd-kit/react/sortable';
 /**
  * WordPress libraries
  */
@@ -17,6 +21,8 @@ import {
 	getInheritedDeviceValue,
 	getInheritedValue,
 	handleAttributeChange,
+	handleLayerAttributeChange,
+	getLayerDeviceValue,
 } from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
@@ -26,13 +32,12 @@ import RadioButtonControl from '../radio-button-control';
 import PresetControl from './preset-control';
 import ColorControl from '../color-control';
 import BackgroundImageControl from '../background-image-control';
+import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import BackgroundLayer from './background-layer';
 import LayerTitleBar from './layer-title-bar';
-import { DragDropProvider } from '@dnd-kit/react';
-import { move } from '@dnd-kit/helpers';
-import { useSortable } from '@dnd-kit/react/sortable';
+
+
 import './editor.scss';
-import clsx from 'clsx';
 
 function SortableBackgroundLayer({ layer, index, ...props }) {
 	const {
@@ -49,7 +54,6 @@ function SortableBackgroundLayer({ layer, index, ...props }) {
 		opacity: isDragging ? 0.8 : 1,
 		zIndex: isDragging ? 1 : 0,
 	};
-
 	return (
 		<div
 			className={clsx('kbs-background-layer-wrapper', {
@@ -58,10 +62,12 @@ function SortableBackgroundLayer({ layer, index, ...props }) {
 			ref={ref}
 			style={style}
 		>
-			<div className="kbs-background-layer-handle" ref={handleRef} {...listeners} {...sortableAttributes}>
-				<Icon className="kbs-layer-handle-icon" icon={dragHandle} size={24} />
+			<div className="kbs-background-layer-inner">
+				<div className="kbs-background-layer-handle" ref={handleRef} {...listeners} {...sortableAttributes}>
+					<Icon className="kbs-layer-handle-icon" icon={dragHandle} size={24} />
+				</div>
+				<BackgroundLayer layer={layer} layerKey={index} {...props} />
 			</div>
-			<BackgroundLayer layer={layer} layerKey={index} {...props} />
 		</div>
 	);
 }

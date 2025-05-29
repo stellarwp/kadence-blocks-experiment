@@ -34,6 +34,7 @@ export default function UnitControl({
 	labelPosition = 'top',
 	step = undefined,
 	reset = true,
+	hasRange = false,
 }) {
 	const onReset = () => {
 		let resetValue = undefined;

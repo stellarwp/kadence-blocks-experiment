@@ -15,10 +15,16 @@ function RadioToggleGroupInputRangeUI({
 	onChange,
 	inherited,
 	controls = [],
-	label = __('Gap', 'kadence-blocks'),
+	label = '',
 	isCustom = false,
+	units = [],
+	labelPosition = 'top',
+	placeholder = '',
+	min = null,
+	max = null,
+	step = null,
 }) {
-	const units = [
+	const defaultUnits = [
 		{
 			value: 'px',
 			label: 'px',
@@ -64,7 +70,7 @@ function RadioToggleGroupInputRangeUI({
 	];
 	
 	return (
-		<div key={label} className="kbs-radio-button-control__toggle-group-input">
+		<div className="kbs-radio-button-control__toggle-group-input">
 			{(controls.length > 0 && !isCustom) && (
 				<RadioToggleGroupButtonUI
 					value={value}
@@ -72,9 +78,10 @@ function RadioToggleGroupInputRangeUI({
 					inherited={inherited}
 					controls={controls}
 					label={label}
+					labelPosition={labelPosition}
 				/>
 			)}
-			{(isCustom || controls.length === 0) && <RangeUIControl value={value} onChange={onChange} controls={controls} units={units} />}
+			{(isCustom || controls.length === 0) && <RangeUIControl value={value} onChange={onChange} controls={controls} units={units.length > 0 ? units : defaultUnits} label={label} labelPosition={labelPosition} placeholder={placeholder} min={min} max={max} step={step} />}
 		</div>
 	);
 }

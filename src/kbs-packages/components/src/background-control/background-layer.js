@@ -43,6 +43,7 @@ import { getColorLabel } from '../color-control/utils';
 import ImageSelector from '../image-control/image-selector';
 import { getImageFileName } from '../image-control/utils';
 import BackgroundImageLayer from './background-image-layer';
+import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import UnitControl from '../unit-control/unit-control';
 
 function BackgroundIndicator({ value, type, colorValue }) {
@@ -146,7 +147,18 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 						colorValue={getColorOutput(color)}
 					/>
 				</Button>
-				<UnitControl
+				<RadioButtonSelect
+					type={'opacity'}
+					value={opacity}
+					onChange={ (value) => onChange(value, previewDevice, 'backgroundOpacity') }
+					units={[{ value: '%', label: '%' }]}
+					previewDevice={previewDevice}
+					placeholder={100}
+					min={0}
+					max={100}
+					step={1}
+				/>
+				{/* <UnitControl
 					label={__('Opacity', 'kadence-blocks')}
 					labelPosition="left"
 					className="kbs-background-image-layer-control-opacity"
@@ -158,7 +170,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					placeholder={100}
 					step={1}
 					onChange={(value) => onChange(value, previewDevice, 'backgroundOpacity')}
-				/>
+				/> */}
 			</>
 		);
 	};

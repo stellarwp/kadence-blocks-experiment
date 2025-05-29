@@ -245,6 +245,9 @@ class CSSGenerator {
 		}
 		const backgroundColor = getLayerDeviceValue('backgroundColor', layer, props.previewDevice);
 		const backgroundOpacity = getLayerDeviceValue('backgroundOpacity', layer, props.previewDevice);
+		if (backgroundOpacity || backgroundOpacity === 0) {
+			this.add({ opacity: backgroundOpacity });
+		}
 		switch (backgroundType) {
 			case 'color':
 				if (backgroundColor) {
@@ -280,9 +283,6 @@ class CSSGenerator {
 							'background-attachment':
 								backgroundAttachment === 'parallax' ? 'fixed' : backgroundAttachment,
 						});
-					}
-					if (backgroundOpacity || backgroundOpacity === 0) {
-						this.add({ opacity: backgroundOpacity });
 					}
 				}
 				break;

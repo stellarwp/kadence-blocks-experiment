@@ -55,6 +55,8 @@
 	display: flex;
 	align-items: center;
 	gap: 0px;
+	flex-direction: column;
+	align-items: stretch;
 	// position: relative;
 	//transition: transform 0s ease, opacity 0.2s ease !important;
 	will-change: transform, opacity;
@@ -64,6 +66,53 @@
 	border-radius: 3px;
 	&.is-dragging {
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+	.kbs-background-layer-inner {
+		display: flex;
+	}
+	.kbs-radio-control-opacity {
+		padding: 0 4px;
+		.components-base-control__field {
+			margin: 0;
+			.components-range-control__root {
+				min-height: 30px;
+			}
+		}
+		.kbs-unit-control-wrapper {
+			min-width: 70px;
+			.components-input-control__input {
+				min-height: 30px;
+				line-height: 30px;
+				height: 30px;
+			}
+			.components-unit-control__unit-label {
+				margin: 0;
+				padding: 0;
+				align-items: center;
+				display: inline-flex;
+				justify-content: center;
+				min-width: 20px;
+			}
+		}
+		.kbs-range-control .components-range-control__thumb-wrapper > span, .kbs-range-control .components-range-control__track {
+			// background: var(--kb-subtle-color, #a0aec0);
+		}
+		.kbs-range-control .components-range-control__track {
+			height: 4px;
+		}
+		.kbs-range-control .components-range-control__thumb-wrapper {
+			width: 12px;
+			height: 12px;
+		}
+		
+		.kbs-range-control .components-range-control__thumb-wrapper > span {
+			width: 100%;
+			height: 100%;
+		}
+		.kbs-range-control .components-range-control__wrapper > span:first-of-type {
+			height: 4px;
+			// background: #fff;
+		}
 	}
 }
 .kbs-background-layers-wrapper {
@@ -81,7 +130,7 @@
 	.kbs-background-select-button {
 		width: 100%;
 		gap: 4px;
-		height: 36px;
+		height: 46px;
 		border-radius: 4px;
 		box-shadow: none;
 		background: transparent;

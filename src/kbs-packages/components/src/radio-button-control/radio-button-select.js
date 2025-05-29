@@ -31,6 +31,12 @@ export default function RadioButtonSelect({
 	previewDirection = 'column',
 	hasCustomControls = false,
 	view = 'default',
+	labelPosition = 'top',
+	units = [],
+	min = null,
+	max = null,
+	placeholder = '',
+	step = null,
 }) {
 	const radioConfig = type ? type : radioType;
 	const { UIComponent, controls, advancedControls } = getRadioConfig(radioConfig, previewDirection);
@@ -60,28 +66,36 @@ export default function RadioButtonSelect({
 
 	return (
 		<div className={`components-base-control kbs-control kbs-radio-control kbs-radio-control-${radioConfig}`}>
-			<TitleBar
-				label={label}
-				reset={reset}
-				onReset={onReset}
-				hasDeviceControls={false}
-				isAdvanced={isAdvanced}
-				onToggleView={() => setIsAdvanced(!isAdvanced)}
-				hasAdvancedControls={advancedControls && advancedControls.length > 0}
-				isCustom={isCustom}
-				onToggleCustom={() => setIsCustom(!isCustom)}
-				hasCustomControls={hasCustomControls}
-			/>
+			{label && 'top' === labelPosition && (
+				<TitleBar
+					label={label}
+					reset={reset}
+					onReset={onReset}
+					hasDeviceControls={false}
+					isAdvanced={isAdvanced}
+					onToggleView={() => setIsAdvanced(!isAdvanced)}
+					hasAdvancedControls={advancedControls && advancedControls.length > 0}
+					isCustom={isCustom}
+					onToggleCustom={() => setIsCustom(!isCustom)}
+					hasCustomControls={hasCustomControls}
+				/>
+			)}
 			<div className="kbs-control-inner">
 				<UIComponent
 					value={value}
 					label={label}
+					placeholder={placeholder}
+					labelPosition={labelPosition}
 					isCollapsed={isCollapsed}
 					inherited={inherited}
 					onChange={(itemValue) => onChange(itemValue, previewDevice, type)}
 					controls={isAdvanced && advancedControls?.length > 0 ? advancedControls : controls}
 					isCustom={isCustom}
 					type={type}
+					units={units}
+					min={min}
+					max={max}
+					step={step}
 				/>
 			</div>
 		</div>
