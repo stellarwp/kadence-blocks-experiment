@@ -143,7 +143,15 @@
 	.kbs-background-layer-control {
 		display: block;
 		flex-grow: 1;
-		max-width: calc(100% - 18px);
+		max-width: calc(100% - 24px);
+	}
+	.kbs-background-layer-controls {
+		.components-button {
+			min-width: 24px;
+			height: 40px;
+			padding: 0;
+			box-shadow: none;
+		}
 	}
 	.components-dropdown.kbs-background-layer-control__dropdown {
 		display: flex;
@@ -170,7 +178,8 @@
 			box-shadow: inset 0px 0px 0px 1px var(--kb-border-subtle-color, #d9e7ec);
 			background: white;
 		}
-		&.is-selected {
+		&.is-selected,
+		&:focus {
 			box-shadow: inset 0px 0px 0px 1px var(--kb-border-color, #859cb6);
 			background: white;
 		}
@@ -259,6 +268,14 @@
 			}
 		}
 	}
+	.kbs-focal-point-picker {
+		.components-base-control__field {
+			margin-bottom: 0;
+		}
+		.focal-point-picker__controls {
+			padding-bottom: 0;
+		}
+	}
 }
 .components-popover.kbs-background-layer-control__dropdown-content {
 	z-index: 159990;
@@ -274,7 +291,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
-	.kbs-image-control__focal-point-picker {
+	.kbs-focal-point-picker {
 		.components-focal-point-picker__media {
 			aspect-ratio: 2 / 1;
 			object-fit: var(--focal-size, cover);

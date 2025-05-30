@@ -144,6 +144,9 @@
 		margin-bottom: 0;
 	}
 }
+.kbs-control .kbs-range-control-wrapper {
+	flex-grow: 1;
+}
 .kbs-control .kbs-range-control {
 	.components-range-control__wrapper {
 		& > span:first-of-type {
@@ -165,6 +168,12 @@
 			width: 16px;
 			height: 16px;
 			background: var(--wp-components-color-foreground, #1e1e1e);
+			&:before {
+				top: -4px;
+				left: -4px;
+				width: 24px;
+				height: 24px;
+			}
 		}
 	}
 }

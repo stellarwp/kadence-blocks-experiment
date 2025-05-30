@@ -33,7 +33,16 @@ import ColorSelector from './color-selector';
 import ColorToggle from './color-toggle';
 import { getColorLabel } from './utils';
 
-export default function ColorDropdown({ colors, currentValue, inherited, onChange, previewDevice, type }) {
+export default function ColorDropdown({
+	colors,
+	currentValue,
+	inherited,
+	onChange,
+	previewDevice,
+	type,
+	hasGradient,
+	hasMix,
+}) {
 	return ({ onToggle, isOpen }) => {
 		const handleColorChange = (color) => {
 			onChange(color, previewDevice, type);
@@ -45,6 +54,8 @@ export default function ColorDropdown({ colors, currentValue, inherited, onChang
 					colors={colors}
 					currentValue={currentValue}
 					inherited={inherited}
+					hasGradient={hasGradient}
+					hasMix={hasMix}
 				/>
 				<div className="kbs-color-select-control__dropdown-content-close">
 					<Button __next40pxDefaultSize onClick={onToggle}>

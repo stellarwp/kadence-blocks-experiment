@@ -1,10 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
-import { colord } from 'colord';
-import { map } from 'lodash';
-
+import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
@@ -26,8 +23,6 @@ import {
 	Button,
 	VisuallyHidden,
 	Popover,
-	Dashicon,
-	Tooltip,
 	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
 import {
@@ -41,6 +36,7 @@ import {
 } from './utils';
 import { MINIMUM_SIGNIFICANT_MOVE, KEYBOARD_CONTROL_POINT_VARIATION } from './constants';
 import { getColorOptions } from '@kadence/kbsHelpers';
+import UnitControl from '../../unit-control/unit-control';
 
 function useObservableState(initialState, onStateChange) {
 	const [state, setState] = useState(initialState);
@@ -124,7 +120,7 @@ function CustomDropdown(props) {
 
 	return (
 		<div
-			className={classnames('components-dropdown', className)}
+			className={clsx('components-dropdown', className)}
 			ref={useMergeRefs([setFallbackPopoverAnchor, containerRef])}
 			// Some UAs focus the closest focusable parent when the toggle is
 			// clicked. Making this div focusable ensures such UAs will focus
@@ -146,7 +142,7 @@ function CustomDropdown(props) {
 					offset={13}
 					anchor={!popoverPropsHaveAnchor ? fallbackPopoverAnchor : undefined}
 					{...popoverProps}
-					className={classnames(
+					className={clsx(
 						'components-dropdown__content',
 						popoverProps ? popoverProps.className : undefined,
 						contentClassName
@@ -159,7 +155,12 @@ function CustomDropdown(props) {
 	);
 }
 
-function CustomColorPickerDropdown({ isRenderedInSidebar, popoverProps: receivedPopoverProps, ...props }) {
+function CustomColorPickerDropdown({
+	isRenderedInSidebar,
+	popoverProps: receivedPopoverProps,
+	globalClasses,
+	...props
+}) {
 	const popoverProps = useMemo(
 		() => ({
 			shift: true,
@@ -182,7 +183,10 @@ function CustomColorPickerDropdown({ isRenderedInSidebar, popoverProps: received
 
 	return (
 		<CustomDropdown
-			contentClassName="components-color-palette__custom-color-dropdown-content kbs-color-control"
+			contentClassName={clsx(
+				'components-color-palette__custom-color-dropdown-content kbs-color-control',
+				globalClasses
+			)}
 			popoverProps={popoverProps}
 			{...props}
 		/>
@@ -204,7 +208,7 @@ function ControlPointButton({ isOpen, position, color, ...additionalProps }) {
 				aria-describedby={descriptionId}
 				aria-haspopup="true"
 				aria-expanded={isOpen}
-				className={classnames('kbs-gradient-control__control-point-button', {
+				className={clsx('kbs-gradient-control__control-point-button', {
 					'is-active': isOpen,
 				})}
 				{...additionalProps}
@@ -228,7 +232,7 @@ function GradientColorPickerDropdown({ isRenderedInSidebar, className, ...props 
 		[]
 	);
 
-	const mergedClassName = classnames('kbs-gradient-control__control-point-dropdown', className);
+	const mergedClassName = clsx('kbs-gradient-control__control-point-dropdown', className);
 
 	return (
 		<CustomColorPickerDropdown
@@ -297,6 +301,7 @@ function ControlPoints({
 	onStartControlPointChange,
 	onStopControlPointChange,
 	isRenderedInSidebar,
+	globalClasses,
 }) {
 	const controlPointMoveState = useRef();
 
@@ -346,6 +351,7 @@ function ControlPoints({
 					isRenderedInSidebar={isRenderedInSidebar}
 					key={index}
 					onClose={onStopControlPointChange}
+					globalClasses={globalClasses}
 					renderToggle={({ isOpen, onToggle }) => (
 						<ControlPointButton
 							key={index}
@@ -420,9 +426,15 @@ function ControlPoints({
 								/>
 							)}
 							{point?.position !== undefined && (
-								<NumberControl
-									label={__('Control Point Position %', 'kadence-blocks')}
+								<UnitControl
+									label={__('Control Point Position', 'kadence-blocks')}
+									className="kbs-gradient-control__control-point-position"
+									max={100}
+									min={0}
+									units={[{ value: '%', label: '%' }]}
 									value={point.position}
+									placeholder={100}
+									step={0.01}
 									onChange={(value) => {
 										onChange(
 											updateControlPointPosition(
@@ -432,10 +444,6 @@ function ControlPoints({
 											)
 										);
 									}}
-									min={0}
-									step={0.01}
-									max={100}
-									style={{ paddingBottom: '10px' }}
 								/>
 							)}
 							{!disableRemove && controlPoints.length > 2 && (
@@ -450,7 +458,7 @@ function ControlPoints({
 										}}
 										variant="link"
 									>
-										{__('Remove Control Point')}
+										{__('Remove Control Point', 'kadence-blocks')}
 									</Button>
 								</HStack>
 							)}
@@ -473,6 +481,7 @@ function InsertPoint({
 	onCloseInserter,
 	insertPosition,
 	isRenderedInSidebar,
+	globalClasses,
 }) {
 	const [alreadyInsertedPoint, setAlreadyInsertedPoint] = useState(false);
 	const disableCustomColors = !useSetting('color.custom');
@@ -483,6 +492,7 @@ function InsertPoint({
 		<GradientColorPickerDropdown
 			isRenderedInSidebar={isRenderedInSidebar}
 			className="kbs-gradient-control__inserter"
+			globalClasses={globalClasses}
 			onClose={() => {
 				onCloseInserter();
 			}}

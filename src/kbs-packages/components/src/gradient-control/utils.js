@@ -2,7 +2,6 @@
  * External dependencies
  */
 import gradientParser from './parser';
-import { colord, extend } from 'colord';
 
 /**
  * Internal dependencies
@@ -60,44 +59,13 @@ export function getGradientAstWithControlPoints(gradientAST, newControlPoints) {
 		...gradientAST,
 		colorStops: newControlPoints.map(({ position, color }) => {
 			const tempColor = getColorOutput(color);
-			if (tempColor.startsWith('var(')) {
-				return {
-					length: {
-						type: '%',
-						value: position?.toString(),
-					},
-					type: 'literal',
-					value: tempColor,
-				};
-			}
-			if (!tempColor) {
-				return {
-					length: {
-						type: '%',
-						value: position?.toString(),
-					},
-					type: 'literal',
-					value: 'transparent',
-				};
-			}
-			if (tempColor) {
-				return {
-					length: {
-						type: '%',
-						value: position?.toString(),
-					},
-					type: 'literal',
-					value: tempColor,
-				};
-			}
-			const { r, g, b, a } = colord(color).toRgb();
 			return {
 				length: {
 					type: '%',
 					value: position?.toString(),
 				},
-				type: a < 1 ? 'rgba' : 'rgb',
-				value: a < 1 ? [r, g, b, a] : [r, g, b],
+				type: 'literal',
+				value: tempColor,
 			};
 		}),
 	};

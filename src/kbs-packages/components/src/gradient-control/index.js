@@ -6,18 +6,10 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	AnglePickerControl,
-	Flex,
-	FlexItem,
-	__experimentalUnitControl as UnitControl,
-	SelectControl,
-	Button,
-} from '@wordpress/components';
+import { AnglePickerControl, Flex, FlexItem, SelectControl } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import { settings } from '@wordpress/icons';
 import CustomGradientBar from './gradient-bar';
 import {
 	getGradientAstWithDefault,
@@ -29,19 +21,45 @@ import { serializeGradient } from './serializer';
 import {
 	DEFAULT_LINEAR_GRADIENT_ANGLE,
 	HORIZONTAL_GRADIENT_ORIENTATION,
+	CONIC_GRADIENT_ORIENTATION,
 	GRADIENT_OPTIONS,
 	RADIAL_GRADIENT_ORIENTATION,
 	DEFAULT_GRADIENT,
 	DEFAULT_RADIAL_GRADIENT_POSITION,
-	GRADIENT_POSITION_OPTIONS,
 	DEFAULT_RADIAL_GRADIENT_SHAPE,
 } from './constants';
+import FocalPointPicker from '../focal-point-picker';
 
 import './editor.scss';
 
 const GradientAnglePicker = ({ gradientAST, hasGradient, onChange }) => {
 	const angle = gradientAST?.orientation?.value ?? DEFAULT_LINEAR_GRADIENT_ANGLE;
 	const onAngleChange = (newAngle) => {
+		if (gradientAST.type === 'conic-gradient') {
+			onChange(
+				serializeGradient({
+					...gradientAST,
+					orientation: {
+						type: 'from_angular',
+						value: newAngle,
+						at: {
+							type: gradientAST.orientation.at.type,
+							value: {
+								x: {
+									type: gradientAST.orientation.at.value.x.type,
+									value: gradientAST.orientation.at.value.x.value,
+								},
+								y: {
+									type: gradientAST.orientation.at.value.y.type,
+									value: gradientAST.orientation.at.value.y.value,
+								},
+							},
+						},
+					},
+				})
+			);
+			return;
+		}
 		onChange(
 			serializeGradient({
 				...gradientAST,
@@ -54,7 +72,10 @@ const GradientAnglePicker = ({ gradientAST, hasGradient, onChange }) => {
 	};
 	return (
 		<AnglePickerControl
+			__next40pxDefaultSize
 			__nextHasNoMarginBottom
+			className="kbs-input-control kbs-gradient-control__angle-picker"
+			label={__('Angle', 'kadence-blocks')}
 			onChange={onAngleChange}
 			labelPosition="top"
 			value={hasGradient ? angle : ''}
@@ -84,6 +105,16 @@ const GradientTypePicker = ({ gradientAST, hasGradient, onChange }) => {
 		);
 	};
 
+	const onSetConicGradient = () => {
+		onChange(
+			serializeGradient({
+				...gradientAST,
+				...{ orientation: CONIC_GRADIENT_ORIENTATION },
+				type: 'conic-gradient',
+			})
+		);
+	};
+
 	const handleOnChange = (next) => {
 		if (next === 'linear-gradient') {
 			onSetLinearGradient();
@@ -91,186 +122,80 @@ const GradientTypePicker = ({ gradientAST, hasGradient, onChange }) => {
 		if (next === 'radial-gradient') {
 			onSetRadialGradient();
 		}
+		if (next === 'conic-gradient') {
+			onSetConicGradient();
+		}
 	};
 
 	return (
 		<SelectControl
-			className="kbs-gradient-control__type-picker kadence-select-large"
-			label={__('Type')}
+			__next40pxDefaultSize
+			__nextHasNoMarginBottom
+			className="kbs-gradient-control__type-picker kbs-core-select-control"
+			label={__('Type', 'kadence-blocks')}
 			labelPosition="top"
 			onChange={handleOnChange}
 			options={GRADIENT_OPTIONS}
-			//size="__unstable-large"
 			value={hasGradient && type}
 		/>
 	);
 };
-const GradientPositionPicker = ({ gradientAST, hasGradient, onChange }) => {
+const GradientPositionPicker = ({ gradient, gradientAST, hasGradient, onChange }) => {
 	let position = DEFAULT_RADIAL_GRADIENT_POSITION;
-	let positionLeft = '50%';
-	let positionTop = '50%';
-	let positionType = 'position-keyword';
-	if (gradientAST?.orientation && gradientAST?.orientation[0]?.at?.value?.x?.value) {
-		positionType = gradientAST.orientation[0].at.value.x.type;
-		if (positionType !== 'position-keyword') {
-			position =
-				gradientAST.orientation[0].at.value.x.value + '% ' + gradientAST.orientation[0].at.value.y.value + '%';
-			positionLeft = gradientAST.orientation[0].at.value.x.value + '%';
-			positionTop = gradientAST.orientation[0].at.value.y.value + '%';
+	if (gradientAST?.orientation?.at?.value?.x?.value) {
+		if (gradientAST.orientation.at.value.x.type !== 'position-keyword') {
+			position = gradientAST.orientation.at.value.x.value + '% ' + gradientAST.orientation.at.value.y.value + '%';
 		} else {
-			position = gradientAST.orientation[0].at.value.x.value + ' ' + gradientAST.orientation[0].at.value.y.value;
+			position = gradientAST.orientation.at.value.x.value + ' ' + gradientAST.orientation.at.value.y.value;
 		}
 	}
 	const onPositionChange = (newPosition) => {
 		const positionArray = newPosition.split(' ');
-		onChange(
-			serializeGradient({
-				...gradientAST,
-				orientation: [
-					{
-						type: 'shape',
-						value: gradientAST.orientation[0].value,
-						at: {
-							type: 'position',
-							value: {
-								x: {
-									type: 'position-keyword',
-									value:
-										undefined !== positionArray[0] && positionArray[0]
-											? positionArray[0]
-											: 'center',
-								},
-								y: {
-									type: 'position-keyword',
-									value:
-										undefined !== positionArray[1] && positionArray[1]
-											? positionArray[1]
-											: 'center',
-								},
-							},
-						},
-					},
-				],
-			})
-		);
-	};
-	const onLeftPositionChange = (left) => {
-		onChange(
-			serializeGradient({
-				...gradientAST,
-				orientation: [
-					{
-						type: 'shape',
-						value: gradientAST.orientation[0].value,
+		if (gradientAST.type === 'conic-gradient') {
+			onChange(
+				serializeGradient({
+					...gradientAST,
+					orientation: {
+						type: 'from_angular',
+						value: gradientAST?.orientation?.value || 90,
 						at: {
 							type: 'position',
 							value: {
 								x: {
 									type: '%',
-									value: parseInt(left, 10),
+									value: positionArray?.[0] ? parseInt(positionArray?.[0]) : 50,
 								},
-								y: gradientAST.orientation[0].at.value.y,
-							},
-						},
-					},
-				],
-			})
-		);
-	};
-	const onTopPositionChange = (top) => {
-		onChange(
-			serializeGradient({
-				...gradientAST,
-				orientation: [
-					{
-						type: 'shape',
-						value: gradientAST.orientation[0].value,
-						at: {
-							type: 'position',
-							value: {
-								x: gradientAST.orientation[0].at.value.x,
 								y: {
 									type: '%',
-									value: parseInt(top, 10),
+									value: positionArray?.[1] ? parseInt(positionArray?.[1]) : 50,
 								},
 							},
 						},
 					},
-				],
-			})
-		);
-	};
-
-	const onPositionTypeChange = (type) => {
-		const positionArray = position.split(' ');
-		let positionX = '%' === type ? 50 : 'center';
-		let positionY = '%' === type ? 50 : 'center';
-		if (positionArray[0]) {
-			switch (positionArray[0]) {
-				case 'left':
-					positionX = 0;
-					break;
-				case 'right':
-					positionX = '100';
-					break;
-				case 'center':
-					positionX = 50;
-					break;
-				case 0:
-					positionY = 'left';
-					break;
-				case 100:
-					positionY = 'right';
-					break;
-				case 50:
-					positionY = 'center';
-					break;
-			}
-		}
-		if (positionArray[1]) {
-			switch (positionArray[1]) {
-				case 'top':
-					positionY = 0;
-					break;
-				case 'bottom':
-					positionY = 100;
-					break;
-				case 'center':
-					positionY = 50;
-					break;
-				case 0:
-					positionY = 'top';
-					break;
-				case 100:
-					positionY = 'bottom';
-					break;
-				case 50:
-					positionY = 'center';
-					break;
-			}
+				})
+			);
+			return;
 		}
 		onChange(
 			serializeGradient({
 				...gradientAST,
-				orientation: [
-					{
-						type: 'shape',
-						value: gradientAST.orientation[0].value,
-						at: {
-							type: 'position',
-							value: {
-								x: {
-									type: type,
-									value: positionX,
-								},
-								y: {
-									type: type,
-									value: positionY,
-								},
+				orientation: {
+					type: 'shape',
+					value: gradientAST?.orientation?.value || 'ellipse',
+					at: {
+						type: 'position',
+						value: {
+							x: {
+								type: '%',
+								value: positionArray?.[0] ? parseInt(positionArray?.[0]) : 50,
+							},
+							y: {
+								type: '%',
+								value: positionArray?.[1] ? parseInt(positionArray?.[1]) : 50,
 							},
 						},
 					},
-				],
+				},
 			})
 		);
 	};
@@ -284,56 +209,15 @@ const GradientPositionPicker = ({ gradientAST, hasGradient, onChange }) => {
 					<label className="kadence-gradient-position__label">{__('Position', 'kadence-blocks')}</label>
 				</FlexItem>
 			</Flex>
-			{positionType === 'position-keyword' && (
-				<div className={'kadence-controls-content'}>
-					<SelectControl
-						className="kbs-gradient-control__position-picker"
-						// label={ __( 'Position', 'kadence-blocks' ) }
-						// labelPosition="top"
-						onChange={onPositionChange}
-						options={GRADIENT_POSITION_OPTIONS}
-						value={position}
-					/>
-					<Button
-						className={'kadence-control-toggle-advanced only-icon'}
-						label={__('Set custom position', 'kadence-blocks')}
-						icon={settings}
-						onClick={() => onPositionTypeChange('%')}
-						isPressed={false}
-						isTertiary={true}
-					/>
-				</div>
-			)}
-			{positionType !== 'position-keyword' && (
-				<div className={'kadence-controls-content'}>
-					<UnitControl
-						labelPosition="left"
-						label={__('Left', 'kadence-blocks')}
-						max={100}
-						min={0}
-						units={[{ value: '%', label: '%' }]}
-						value={positionLeft}
-						onChange={onLeftPositionChange}
-					/>
-					<UnitControl
-						labelPosition="left"
-						label={__('Top', 'kadence-blocks')}
-						max={100}
-						min={0}
-						value={positionTop}
-						units={[{ value: '%', label: '%' }]}
-						onChange={onTopPositionChange}
-					/>
-					<Button
-						className={'kadence-control-toggle-advanced only-icon'}
-						label={__('Set standard position', 'kadence-blocks')}
-						icon={settings}
-						onClick={() => onPositionTypeChange('position-keyword')}
-						isPrimary={true}
-						isPressed={true}
-					/>
-				</div>
-			)}
+			<FocalPointPicker
+				className="kbs-focal-point-picker kbs-gradient-control__focal-point-picker"
+				style={{
+					'--background-gradient': gradient,
+				}}
+				url={''}
+				value={position}
+				onChange={(position) => onPositionChange(position)}
+			/>
 		</div>
 	);
 };
@@ -341,29 +225,29 @@ const GradientShapePicker = ({ gradientAST, hasGradient, onChange }) => {
 	let shape = DEFAULT_RADIAL_GRADIENT_SHAPE;
 	if (
 		gradientAST?.orientation &&
-		gradientAST?.orientation[0]?.type &&
-		'shape' === gradientAST?.orientation[0]?.type &&
-		gradientAST?.orientation[0]?.value
+		gradientAST?.orientation?.type &&
+		'shape' === gradientAST?.orientation?.type &&
+		gradientAST?.orientation?.value
 	) {
-		shape = gradientAST?.orientation && gradientAST?.orientation[0]?.value;
+		shape = gradientAST?.orientation && gradientAST?.orientation?.value;
 	}
 	const onShapeChange = (newShape) => {
 		onChange(
 			serializeGradient({
 				...gradientAST,
-				orientation: [
-					{
-						type: 'shape',
-						value: newShape,
-						at: gradientAST.orientation[0].at,
-					},
-				],
+				orientation: {
+					type: 'shape',
+					value: newShape,
+					at: gradientAST.orientation.at,
+				},
 			})
 		);
 	};
 	return (
 		<SelectControl
-			className="kbs-gradient-control__shape-picker"
+			__next40pxDefaultSize
+			__nextHasNoMarginBottom
+			className="kbs-gradient-control__shape-picker kbs-core-select-control"
 			label={__('Shape', 'kadence-blocks')}
 			labelPosition="top"
 			onChange={onShapeChange}
@@ -376,13 +260,7 @@ const GradientShapePicker = ({ gradientAST, hasGradient, onChange }) => {
 	);
 };
 
-export default function GradientPicker({
-	value,
-	onChange,
-	isRenderedInSidebar = true,
-	previewDevice = 'desktop',
-	type = 'gradient',
-}) {
+export default function GradientPicker({ value, onChange, isRenderedInSidebar = true, globalClasses }) {
 	const gradientAST = getGradientAstWithDefault(value);
 	// On radial gradients the bar should display a linear gradient.
 	// On radial gradients the bar represents a slice of the gradient from the center until the outside.
@@ -395,55 +273,41 @@ export default function GradientPicker({
 		color: getStopCssColor(colorStop),
 		position: parseInt(colorStop.length.value),
 	}));
-	const handleOnChange = (value) => {
-		onChange(value, previewDevice, type);
-	};
 	return (
-		<div className={'components-base-control kbs-gradient-control'}>
+		<div className={'components-base-control kbs-control kbs-gradient-control'}>
 			<CustomGradientBar
 				isRenderedInSidebar={isRenderedInSidebar}
 				background={background}
 				hasGradient={hasGradient}
 				value={controlPoints}
+				globalClasses={globalClasses}
 				onChange={(newControlPoints) => {
-					console.log('newControlPoints', newControlPoints);
-					console.log(
-						'getGradientAstWithControlPoints(gradientAST, newControlPoints)',
-						getGradientAstWithControlPoints(gradientAST, newControlPoints)
-					);
-					handleOnChange(serializeGradient(getGradientAstWithControlPoints(gradientAST, newControlPoints)));
+					onChange(serializeGradient(getGradientAstWithControlPoints(gradientAST, newControlPoints)));
 				}}
 			/>
 			<Flex gap={3} className="kbs-gradient-control__ui-line">
 				<div className="kbs-gradient-control__item kbs-gradient-control__type">
-					<GradientTypePicker gradientAST={gradientAST} hasGradient={hasGradient} onChange={handleOnChange} />
+					<GradientTypePicker gradientAST={gradientAST} hasGradient={hasGradient} onChange={onChange} />
 				</div>
-				{gradientAST.type === 'linear-gradient' && (
+				{gradientAST.type !== 'radial-gradient' && (
 					<div className="kbs-gradient-control__item kbs-gradient-control__angle">
-						<GradientAnglePicker
-							gradientAST={gradientAST}
-							hasGradient={hasGradient}
-							onChange={handleOnChange}
-						/>
+						<GradientAnglePicker gradientAST={gradientAST} hasGradient={hasGradient} onChange={onChange} />
 					</div>
 				)}
 				{gradientAST.type === 'radial-gradient' && (
 					<div className="kbs-gradient-control__item kbs-gradient-control__shape">
-						<GradientShapePicker
-							gradientAST={gradientAST}
-							hasGradient={hasGradient}
-							onChange={handleOnChange}
-						/>
+						<GradientShapePicker gradientAST={gradientAST} hasGradient={hasGradient} onChange={onChange} />
 					</div>
 				)}
 			</Flex>
-			{gradientAST.type === 'radial-gradient' && (
+			{gradientAST.type !== 'linear-gradient' && (
 				<Flex gap={3} className="kbs-gradient-control__ui-line">
 					<div className="kbs-gradient-control__item kbs-gradient-control__position">
 						<GradientPositionPicker
+							gradient={value}
 							gradientAST={gradientAST}
 							hasGradient={hasGradient}
-							onChange={handleOnChange}
+							onChange={onChange}
 						/>
 					</div>
 				</Flex>

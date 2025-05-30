@@ -3,7 +3,7 @@
  */
 
 import { some } from 'lodash';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -75,6 +75,7 @@ export default function CustomGradientBar({
 	onChange,
 	disableInserter = false,
 	isRenderedInSidebar,
+	globalClasses,
 }) {
 	const gradientMarkersContainerDomRef = useRef();
 
@@ -112,7 +113,7 @@ export default function CustomGradientBar({
 
 	return (
 		<div
-			className={classnames('kbs-gradient-control__gradient-bar', { 'has-gradient': hasGradient })}
+			className={clsx('kbs-gradient-control__gradient-bar', { 'has-gradient': hasGradient })}
 			onMouseEnter={onMouseEnterAndMove}
 			onMouseMove={onMouseEnterAndMove}
 			style={{ background }}
@@ -125,6 +126,7 @@ export default function CustomGradientBar({
 						insertPosition={gradientBarState.insertPosition}
 						value={controlPoints}
 						onChange={onChange}
+						globalClasses={globalClasses}
 						onOpenInserter={() => {
 							gradientBarStateDispatch({
 								type: 'OPEN_INSERTER',
@@ -144,6 +146,7 @@ export default function CustomGradientBar({
 					ignoreMarkerPosition={isInsertingControlPoint ? gradientBarState.insertPosition : undefined}
 					value={controlPoints}
 					onChange={onChange}
+					globalClasses={globalClasses}
 					onStartControlPointChange={() => {
 						gradientBarStateDispatch({
 							type: 'START_CONTROL_CHANGE',

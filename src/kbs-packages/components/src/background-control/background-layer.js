@@ -45,6 +45,7 @@ import BackgroundImageLayer from './background-image-layer';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import UnitControl from '../unit-control/unit-control';
 import GradientPicker from '../gradient-control';
+import BackgroundVideoLayer from './background-video-layer';
 
 function BackgroundIndicator({ value, type, colorValue }) {
 	const style = {
@@ -76,13 +77,13 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 	return ({ onToggle, isOpen }) => {
 		const { color, image, video, gradient, pattern, type, opacity } = useMemo(() => {
 			return {
-				color: getLayerDeviceValue('backgroundColor', layer, previewDevice),
-				image: getLayerDeviceValue('backgroundImage', layer, previewDevice),
-				video: getLayerDeviceValue('backgroundVideo', layer, previewDevice),
+				color: getLayerDeviceValue('color', layer, previewDevice),
+				image: getLayerDeviceValue('image', layer, previewDevice),
+				video: getLayerDeviceValue('video', layer, previewDevice),
 				gradient: getLayerDeviceValue('gradient', layer, previewDevice),
-				pattern: getLayerDeviceValue('backgroundPattern', layer, previewDevice),
-				type: getLayerDeviceValue('backgroundType', layer, previewDevice) || 'color',
-				opacity: getLayerDeviceValue('backgroundOpacity', layer, previewDevice),
+				pattern: getLayerDeviceValue('pattern', layer, previewDevice),
+				type: getLayerDeviceValue('type', layer, previewDevice) || 'color',
+				opacity: getLayerDeviceValue('opacity', layer, previewDevice),
 			};
 		}, [layer, previewDevice]);
 		const displayValue = useMemo(() => {
@@ -92,7 +93,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'image':
 					return getImageFileName(image) || __('Unset', 'kadence-blocks');
 				case 'video':
-					return video;
+					return getImageFileName(video) || __('Unset', 'kadence-blocks');
 				case 'gradient':
 					return getGradientLabel(gradient);
 				case 'pattern':
@@ -182,7 +183,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					previewDevice={previewDevice}
 					placeholder={100}
 					step={1}
-					onChange={(value) => onChange(value, previewDevice, 'backgroundOpacity')}
+					onChange={(value) => onChange(value, previewDevice, 'opacity')}
 				/>
 			</>
 		);
@@ -223,24 +224,24 @@ function getFullLayerDeviceValue(layer, device) {
 	return {};
 }
 
-function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice, globalClasses) {
+function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewDevice, globalClasses) {
 	return ({ onToggle, isOpen }) => {
 		const handleColorChange = (color) => {
-			onChange(color, previewDevice, 'backgroundColor');
+			onChange(color, previewDevice, 'color');
 		};
 		const handleTypeChange = (type) => {
-			onChange(type, previewDevice, 'backgroundType');
+			onChange(type, previewDevice, 'type');
 		};
 		const handleCustomOnChange = (value, device, type) => {
 			onChange(value, device, type);
 		};
-		const color = getLayerDeviceValue('backgroundColor', layer, previewDevice);
-		const image = getLayerDeviceValue('backgroundImage', layer, previewDevice);
-		const imageID = getLayerDeviceValue('backgroundImageId', layer, previewDevice);
-		const video = getLayerDeviceValue('backgroundVideo', layer, previewDevice);
+		const color = getLayerDeviceValue('color', layer, previewDevice);
+		const image = getLayerDeviceValue('image', layer, previewDevice);
+		const imageID = getLayerDeviceValue('imageId', layer, previewDevice);
+		const video = getLayerDeviceValue('video', layer, previewDevice);
 		const gradient = getLayerDeviceValue('gradient', layer, previewDevice);
-		const pattern = getLayerDeviceValue('backgroundPattern', layer, previewDevice);
-		const type = getLayerDeviceValue('backgroundType', layer, previewDevice) || 'color';
+		const pattern = getLayerDeviceValue('pattern', layer, previewDevice);
+		const type = getLayerDeviceValue('type', layer, previewDevice) || 'color';
 		const flattenLayer = getFullLayerDeviceValue(layer, previewDevice);
 		const defaultTabs = [
 			{
@@ -276,7 +277,7 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 					activeClass="is-active"
 					onSelect={(tabName) => {
 						if (tabName !== type) {
-							handleCustomOnChange(tabName, previewDevice, 'backgroundType');
+							handleCustomOnChange(tabName, previewDevice, 'type');
 						}
 					}}
 					initialTabName={type ? type : 'color'}
@@ -297,8 +298,16 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 								return (
 									<GradientPicker
 										value={gradient}
-										previewDevice={previewDevice}
+										globalClasses={globalClasses}
+										onChange={(value) => handleCustomOnChange(value, previewDevice, 'gradient')}
+									/>
+								);
+							} else if ('video' === tab.name) {
+								return (
+									<BackgroundVideoLayer
 										onChange={handleCustomOnChange}
+										previewDevice={previewDevice}
+										layer={flattenLayer}
 									/>
 								);
 							} else {
@@ -308,6 +317,8 @@ function renderColorDropdown(colors, layer, isInherited, onChange, previewDevice
 										colors={colors}
 										currentValue={color ? color : ''}
 										inherited={''}
+										hasMix={true}
+										globalClasses={globalClasses}
 									/>
 								);
 							}
@@ -346,9 +357,12 @@ export default function BackgroundLayer({
 	isInherited = false,
 }) {
 	const popoverProps = {
-		placement: 'left',
+		placement: 'left-start',
 		//offset: 36,
 		shift: true,
+		// style: {
+		// 	marginTop: '-72px',
+		// },
 	};
 	const [customColors] = useSettings('color.custom');
 	const globalColors = getColorOptions();
@@ -384,7 +398,7 @@ export default function BackgroundLayer({
 				className="kbs-background-layer-control__dropdown"
 				contentClassName={classes}
 				renderToggle={renderBackgroundToggle(layer, isInherited, globalColors, previewDevice, onChange)}
-				renderContent={renderColorDropdown(
+				renderContent={renderBackgroundDropdown(
 					globalColors,
 					layer,
 					isInherited,

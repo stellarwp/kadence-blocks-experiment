@@ -42,6 +42,8 @@ export default function InspectorAdvanced(props) {
 				meta={metadata}
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
+				hasGradient={true}
+				hasMix={true}
 			/>
 
 			<MaxWidthControl

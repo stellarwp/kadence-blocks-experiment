@@ -97,43 +97,42 @@ export default function BackgroundImageControl(props) {
 				<ImageControl
 					label={''}
 					attributes={attributes}
-					type={'backgroundImage'}
+					type={'image'}
 					setAttributes={setAttributes}
 					attributeName={attributeName}
 					meta={meta}
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
-					dynamicAttribute={attributeName + ':backgroundImage'}
+					dynamicAttribute={attributeName + ':image'}
 					hasSizeControls={true}
 					hasClearControls={false}
 				/>
 				{hasImage && (
 					<>
 						<FocalPointPicker
-							__nextHasNoMarginBottom
-							className="kbs-image-control__focal-point-picker"
+							className="kbs-focal-point-picker kbs-image-control__focal-point-picker"
 							url={inherited?.inheritedValue?.backgroundImage}
 							value={inherited?.inheritedValue?.backgroundPosition}
-							onChange={(position) => onChange(position, previewDevice, 'backgroundPosition')}
+							onChange={(position) => onChange(position, previewDevice, 'position')}
 						/>
 						<RadioButtonControl
 							label={__('Background Size', 'kadence-blocks')}
 							attributes={attributes}
 							setAttributes={setAttributes}
 							attributeName={attributeName}
-							type={'backgroundSize'}
+							type={'size'}
 							meta={meta}
 							previewDevice={previewDevice}
 							view={'normal'}
 							hasCustomControls={true}
 						/>
-						{inherited?.inheritedValue?.backgroundSize !== 'cover' && (
+						{inherited?.inheritedValue?.size && inherited?.inheritedValue?.size !== 'cover' && (
 							<RadioButtonControl
 								label={__('Background Repeat', 'kadence-blocks')}
 								attributes={attributes}
 								setAttributes={setAttributes}
 								attributeName={attributeName}
-								type={'backgroundRepeat'}
+								type={'repeat'}
 								meta={meta}
 								previewDevice={previewDevice}
 								view={'normal'}
@@ -145,7 +144,7 @@ export default function BackgroundImageControl(props) {
 							attributes={attributes}
 							setAttributes={setAttributes}
 							attributeName={attributeName}
-							type={'backgroundAttachment'}
+							type={'attachment'}
 							meta={meta}
 							previewDevice={previewDevice}
 							view={'normal'}

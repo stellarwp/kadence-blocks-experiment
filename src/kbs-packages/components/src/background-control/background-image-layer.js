@@ -37,35 +37,23 @@ import {
 	handleLayerAttributeChange,
 	getLayerDeviceValue,
 } from '@kadence/kbsHelpers';
-import ColorSelector from '../color-control/color-selector';
-import BackgroundImageControl from '../background-image-control';
-import { getColorLabel } from '../color-control/utils';
 import ImageSelector from '../image-control/image-selector';
 import FocalPointPicker from '../focal-point-picker';
-import { getImageFileName } from '../image-control/utils';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import ColorSelect from '../color-control/color-select';
 import UnitControl from '../unit-control/unit-control';
 import TitleBar from '../title-bar';
 
 export default function BackgroundImageLayer({ previewDevice = 'desktop', layer, onChange, globalClasses }) {
-	const hasImage = layer?.backgroundImage;
+	const hasImage = layer?.image;
 	const onReset = () => {
 		onChange(
-			[undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+			[undefined, undefined, undefined, undefined, undefined, undefined],
 			'Desktop' === previewDevice ? 'all' : previewDevice,
-			[
-				'backgroundImage',
-				'backgroundImageId',
-				'backgroundPosition',
-				'backgroundSize',
-				'backgroundRepeat',
-				'backgroundAttachment',
-				'backgroundOpacity',
-			]
+			['image', 'imageId', 'position', 'size', 'repeat', 'attachment']
 		);
 	};
-	let focalPointSize = layer?.backgroundSize || 'cover';
+	let focalPointSize = layer?.size || 'cover';
 	if ('contain' !== focalPointSize && 'cover' !== focalPointSize) {
 		focalPointSize = 'initial';
 	}
@@ -81,40 +69,39 @@ export default function BackgroundImageLayer({ previewDevice = 'desktop', layer,
 			/>
 			<div className={`kbs-background-layer-image-control-inner`}>
 				<ImageSelector
-					type={'backgroundImage'}
+					type={'image'}
 					onChange={onChange}
 					previewDevice={previewDevice}
 					dynamicAttribute={'dynamic'}
 					hasSizeControls={true}
 					hasClearControls={false}
-					imageURL={layer?.backgroundImage}
-					imageID={layer?.backgroundImageId}
+					imageURL={layer?.image}
+					imageID={layer?.imageId}
 				/>
 				{hasImage && (
 					<>
 						<FocalPointPicker
-							__nextHasNoMarginBottom
-							className="kbs-image-control__focal-point-picker"
-							url={layer?.backgroundImage}
-							value={layer?.backgroundPosition}
-							onChange={(position) => onChange(position, previewDevice, 'backgroundPosition')}
+							className="kbs-focal-point-picker kbs-image-control__focal-point-picker"
+							url={layer?.image}
+							value={layer?.position}
+							onChange={(position) => onChange(position, previewDevice, 'position')}
 							backgroundSize={focalPointSize}
 						/>
 						<RadioButtonSelect
 							label={__('Background Size', 'kadence-blocks')}
-							value={layer?.backgroundSize}
-							type={'backgroundSize'}
+							value={layer?.size}
+							type={'size'}
 							inherited={{ inheritedValue: 'cover' }}
 							previewDevice={previewDevice}
 							view={'normal'}
 							hasCustomControls={true}
 							onChange={onChange}
 						/>
-						{layer?.backgroundSize && layer?.backgroundSize !== 'cover' && (
+						{layer?.size && layer?.size !== 'cover' && (
 							<RadioButtonSelect
 								label={__('Background Repeat', 'kadence-blocks')}
-								value={layer?.backgroundRepeat}
-								type={'backgroundRepeat'}
+								value={layer?.repeat}
+								type={'repeat'}
 								inherited={{ inheritedValue: 'no-repeat' }}
 								previewDevice={previewDevice}
 								view={'normal'}
@@ -124,8 +111,8 @@ export default function BackgroundImageLayer({ previewDevice = 'desktop', layer,
 						)}
 						<RadioButtonSelect
 							label={__('Background Attachment', 'kadence-blocks')}
-							value={layer?.backgroundAttachment}
-							type={'backgroundAttachment'}
+							value={layer?.attachment}
+							type={'attachment'}
 							inherited={{ inheritedValue: 'scroll' }}
 							previewDevice={previewDevice}
 							view={'normal'}
@@ -135,11 +122,12 @@ export default function BackgroundImageLayer({ previewDevice = 'desktop', layer,
 						<div className="kbs-background-image-layer-control-color-opacity">
 							<ColorSelect
 								label={__('Background Color', 'kadence-blocks')}
-								value={layer?.backgroundColor}
+								value={layer?.color}
 								onChange={onChange}
-								type={'backgroundColor'}
+								type={'color'}
 								previewDevice={previewDevice}
 								globalClasses={globalClasses}
+								hasMix={true}
 							/>
 							<UnitControl
 								label={__('Opacity', 'kadence-blocks')}
@@ -147,11 +135,11 @@ export default function BackgroundImageLayer({ previewDevice = 'desktop', layer,
 								max={100}
 								min={0}
 								units={[{ value: '%', label: '%' }]}
-								value={layer?.backgroundOpacity}
+								value={layer?.opacity}
 								previewDevice={previewDevice}
 								placeholder={100}
 								step={1}
-								onChange={(value) => onChange(value, previewDevice, 'backgroundOpacity')}
+								onChange={(value) => onChange(value, previewDevice, 'opacity')}
 							/>
 						</div>
 					</>

@@ -46,6 +46,10 @@ export const getRadioConfig = (radioType, previewDirection) => {
 	let advancedControls;
 
 	switch (radioType) {
+		case 'color-mix':
+		case 'colorMix':
+			controls = getColorMixControls();
+			break;
 		case 'flex-wrap':
 		case 'flexWrap':
 			controls = getFlexWrapControls();
@@ -103,8 +107,15 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'backgroundOpacity':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
+		case 'mix':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			break;
+		case 'objectFit':
+			controls = getObjectFitControls();
+			break;
 		case 'backgroundSize':
 		case 'background-size':
+		case 'size':
 			UIComponent = RadioToggleGroupBackgroundSizeUI;
 			controls = getBackgroundSizeControls();
 			break;
@@ -122,6 +133,47 @@ export const getRadioConfig = (radioType, previewDirection) => {
 
 	return { UIComponent, controls, advancedControls };
 };
+
+export const getObjectFitControls = () => [
+	{
+		title: __('Cover', 'kadence-blocks'),
+		name: __('Cover', 'kadence-blocks'),
+		key: 'cover',
+	},
+	{
+		title: __('Contain', 'kadence-blocks'),
+		name: __('Contain', 'kadence-blocks'),
+		key: 'contain',
+	},
+	{
+		title: __('Fill', 'kadence-blocks'),
+		name: __('Fill', 'kadence-blocks'),
+		key: 'fill',
+	},
+	{
+		title: __('None', 'kadence-blocks'),
+		name: __('None', 'kadence-blocks'),
+		key: 'none',
+	},
+];
+export const getColorMixControls = () => [
+	{
+		title: __('Darken', 'kadence-blocks'),
+		name: __('Darken', 'kadence-blocks'),
+		key: 'black',
+	},
+	{
+		title: __('Lighten', 'kadence-blocks'),
+		name: __('Lighten', 'kadence-blocks'),
+		key: 'white',
+	},
+	{
+		title: __('Transparent', 'kadence-blocks'),
+		name: __('Transparent', 'kadence-blocks'),
+		key: 'transparent',
+	},
+];
+
 export const getBackgroundAttachmentControls = () => [
 	{
 		title: __('Scroll', 'kadence-blocks'),

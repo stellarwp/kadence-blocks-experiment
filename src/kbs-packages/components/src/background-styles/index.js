@@ -98,13 +98,52 @@ function BackgroundStyles(props) {
 		<>
 			{Array.from({ length: layersCount }).map((_, index) => {
 				const layer = reverseLayers[index];
-				const video = getLayerInheritedDeviceValue('backgroundVideo', layer, previewDevice);
-				const type = getLayerInheritedDeviceValue('backgroundType', layer, previewDevice) || 'color';
-				const anyBackgroundOpacity = getLayerInheritedDeviceValue('backgroundOpacity', layer, 'Mobile');
+				const video = getLayerInheritedDeviceValue('video', layer, previewDevice);
+				const videoType = getLayerInheritedDeviceValue('videoType', layer, previewDevice) || 'local';
+				const youtube = getLayerInheritedDeviceValue('youtube', layer, previewDevice);
+				const vimeo = getLayerInheritedDeviceValue('vimeo', layer, previewDevice);
+				const videoPoster = getLayerInheritedDeviceValue('image', layer, previewDevice);
+				const type = getLayerInheritedDeviceValue('type', layer, previewDevice) || 'color';
+
+				const anyBackgroundOpacity = getLayerInheritedDeviceValue('opacity', layer, 'Mobile');
 				if (index === 0 && type !== 'video' && '' === anyBackgroundOpacity) {
 					return null;
 				}
-				return <div key={index} className={`kbs-bg-layer ${metaClassPrefix}${index} bg-type-${type}`}></div>;
+				return (
+					<div key={index} className={`kbs-bg-layer ${metaClassPrefix}${index} bg-type-${type}`}>
+						{type === 'video' && (
+							<>
+								{videoType === 'local' && (
+									<video
+										src={video}
+										className="kbs-bg-video"
+										autoPlay
+										muted
+										loop
+										playsInline
+										poster={videoPoster}
+									/>
+								)}
+								{videoType === 'youtube' && (
+									<div
+										style={{
+											backgroundImage: `url(https://img.youtube.com/vi/${youtube}/maxresdefault.jpg)`,
+										}}
+										className="kbs-bg-video"
+									/>
+								)}
+								{videoType === 'vimeo' && (
+									<div
+										style={{
+											backgroundImage: `url(https://vumbnail.com/${vimeo}.jpg)`,
+										}}
+										className="kbs-bg-video"
+									/>
+								)}
+							</>
+						)}
+					</div>
+				);
 			})}
 		</>
 	);

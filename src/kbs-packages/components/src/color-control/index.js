@@ -29,7 +29,6 @@ import {
 	handleAttributeChange,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
-import ColorSelector from './color-selector';
 import ColorToggle from './color-toggle';
 import ColorDropdown from './color-dropdown';
 import { getColorLabel } from './utils';
@@ -53,6 +52,8 @@ export default function ColorControl({
 	forStyleBook = false,
 	defaultValue = undefined,
 	customOnChange = undefined,
+	hasGradient = false,
+	hasMix = false,
 }) {
 	const popoverProps = {
 		placement: 'left-start',
@@ -114,6 +115,8 @@ export default function ColorControl({
 						onChange: onChange,
 						previewDevice: previewDevice,
 						type: type,
+						hasGradient: hasGradient,
+						hasMix: hasMix,
 					})}
 				/>
 			</div>

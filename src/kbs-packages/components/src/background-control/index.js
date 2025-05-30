@@ -2,10 +2,6 @@
  * External libraries
  */
 import clsx from 'clsx';
-import { isEqual } from 'lodash';
-import { DragDropProvider } from '@dnd-kit/react';
-import { move } from '@dnd-kit/helpers';
-//import { useSortable } from '@dnd-kit/react/sortable';
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -15,8 +11,19 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
  */
 import { useState, useEffect, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Icon } from '@wordpress/components';
-import { dragHandle } from '@wordpress/icons';
+import { Icon, DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
+import {
+	dragHandle,
+	more,
+	arrowUp,
+	arrowDown,
+	trash,
+	copy,
+	moreVertical,
+	check,
+	chevronUp,
+	chevronDown,
+} from '@wordpress/icons';
 /**
  * Internal libraries
  */
@@ -42,7 +49,7 @@ import LayerTitleBar from './layer-title-bar';
 
 import './editor.scss';
 
-function SortableBackgroundLayer({ layer, index, ...props }) {
+function SortableBackgroundLayer({ layer, index, totalLayers, ...props }) {
 	const {
 		attributes: sortableAttributes,
 		listeners,
@@ -62,6 +69,32 @@ function SortableBackgroundLayer({ layer, index, ...props }) {
 		opacity: isDragging ? 0.8 : 1,
 		zIndex: isDragging ? 1 : 0,
 	};
+	const handleLayerMove = (oldIndex, newIndex) => {
+		const newLayers = arrayMove(props.attributes[props.attributeName].layers, oldIndex, newIndex);
+		const newAttributes = JSON.parse(
+			JSON.stringify({
+				...props.attributes[props.attributeName],
+				layers: newLayers,
+			})
+		);
+		props.setAttributes({
+			[props.attributeName]: newAttributes,
+		});
+	};
+	const handleLayerDuplicate = (index) => {
+		const newLayers = [...props.attributes[props.attributeName].layers];
+		newLayers.splice(index + 1, 0, newLayers[index]);
+		props.setAttributes({
+			[props.attributeName]: { ...props.attributes[props.attributeName], layers: newLayers },
+		});
+	};
+	const handleLayerRemove = (index) => {
+		const newLayers = [...props.attributes[props.attributeName].layers];
+		newLayers.splice(index, 1);
+		props.setAttributes({
+			[props.attributeName]: { ...props.attributes[props.attributeName], layers: newLayers },
+		});
+	};
 	return (
 		<div
 			key={index}
@@ -72,10 +105,64 @@ function SortableBackgroundLayer({ layer, index, ...props }) {
 			style={style}
 		>
 			<div className="kbs-background-layer-inner">
-				<div className="kbs-background-layer-handle" {...listeners} {...sortableAttributes}>
-					<Icon className="kbs-layer-handle-icon" icon={dragHandle} size={24} />
-				</div>
 				<BackgroundLayer layer={layer} layerKey={index} {...props} />
+				<div className="kbs-background-layer-handle-wrap" {...listeners} {...sortableAttributes}>
+					<DropdownMenu
+						icon={moreVertical}
+						label={__('Item Controls', 'kadence-blocks')}
+						className="kbs-background-layer-controls"
+					>
+						{({ onClose }) => (
+							<>
+								<MenuGroup>
+									<MenuItem
+										disabled={index === 0}
+										icon={arrowUp}
+										onClick={() => {
+											handleLayerMove(index, index - 1);
+											onClose();
+										}}
+									>
+										{__('Move Up', 'kadence-blocks')}
+									</MenuItem>
+									<MenuItem
+										disabled={index === totalLayers - 1}
+										icon={arrowDown}
+										onClick={() => {
+											handleLayerMove(index, index + 1);
+											onClose();
+										}}
+									>
+										{__('Move Down', 'kadence-blocks')}
+									</MenuItem>
+								</MenuGroup>
+								<MenuGroup>
+									<MenuItem
+										icon={copy}
+										onClick={() => {
+											handleLayerDuplicate(index);
+											onClose();
+										}}
+									>
+										{__('Duplicate', 'kadence-blocks')}
+									</MenuItem>
+								</MenuGroup>
+								<MenuGroup>
+									<MenuItem
+										icon={trash}
+										disabled={totalLayers === 1}
+										onClick={() => {
+											handleLayerRemove(index);
+											onClose();
+										}}
+									>
+										{__('Remove', 'kadence-blocks')}
+									</MenuItem>
+								</MenuGroup>
+							</>
+						)}
+					</DropdownMenu>
+				</div>
 			</div>
 		</div>
 	);
@@ -215,6 +302,7 @@ export default function BackgroundControl({
 											key={index}
 											layer={layer}
 											index={index}
+											totalLayers={inherited.inheritedValue.length}
 											attributes={attributes}
 											setAttributes={onSetAttributes}
 											attributeName={attributeName}
@@ -230,6 +318,7 @@ export default function BackgroundControl({
 										layer={{}}
 										index={0}
 										attributes={attributes}
+										totalLayers={1}
 										setAttributes={onSetAttributes}
 										attributeName={attributeName}
 										meta={metaData}
@@ -242,27 +331,6 @@ export default function BackgroundControl({
 					</DndContext>
 				</>
 			)}
-			{/* <ColorControl
-					label={__('Background Color', 'kadence-blocks')}
-					attributes={attributes}
-					type={'backgroundcolor'}
-					setAttributes={setAttributes}
-					attributeName={attributeName}
-					meta={metaData}
-					previewDevice={previewDevice}
-					globalStylesIds={globalStylesIds}
-				/>
-			<BackgroundImageControl
-				label={__('Background Image', 'kadence-blocks')}
-				attributes={attributes}
-				type={'image'}
-				setAttributes={setAttributes}
-				attributeName={attributeName}
-				meta={metaData}
-				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
-				dynamicAttribute={attributeName + ':image'}
-			/> */}
 		</ToolsPanelBody>
 	);
 }

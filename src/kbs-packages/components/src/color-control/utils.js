@@ -27,12 +27,29 @@ export const getColorLabel = (value, colors) => {
 				const color = colors.find(({ slug }) => slug === value);
 				if (color?.name) {
 					return color.name;
+				} else {
+					const color = colors.find(({ slug }) => getColorOutput(slug) === value);
+					if (color?.name) {
+						return color.name;
+					}
 				}
 			}
 			const color = colors.find(({ color }) => color === value);
 			if (color?.name) {
 				return color.name;
 			}
+		}
+		if (value.startsWith('linear-gradient')) {
+			return __('Linear Gradient', 'kadence-blocks');
+		}
+		if (value.startsWith('radial-gradient')) {
+			return __('Radial Gradient', 'kadence-blocks');
+		}
+		if (value.startsWith('conic-gradient')) {
+			return __('Conic Gradient', 'kadence-blocks');
+		}
+		if (value.startsWith('color-mix')) {
+			return __('Color Mix', 'kadence-blocks');
 		}
 	}
 	return value;
@@ -48,6 +65,13 @@ export const getColorHex = (value, ref) => {
 		return window
 			.getComputedStyle(ref.current)
 			.getPropertyValue(value.replace('var(', '').split(',')[0].replace(')', ''));
+	} else if (
+		value.startsWith('color-mix') ||
+		value.startsWith('linear-gradient') ||
+		value.startsWith('radial-gradient') ||
+		value.startsWith('conic-gradient')
+	) {
+		return '';
 	}
 	return value;
 };

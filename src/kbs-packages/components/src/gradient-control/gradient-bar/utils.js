@@ -131,7 +131,6 @@ export function updateControlPointPosition(points, index, newPosition) {
  * @return {ControlPoint[]} New array of control points.
  */
 export function updateControlPointColor(points, index, newColor) {
-	console.log('updateControlPointColor', points, index, newColor);
 	const newPoint = {
 		...points[index],
 		color: newColor,

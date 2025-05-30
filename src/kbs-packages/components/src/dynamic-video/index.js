@@ -23,8 +23,6 @@ const DynamicMediaControl = (props) => {
 		shift: true,
 	};
 	const presetButtonRef = useRef(undefined);
-	const attributeName = props?.attributeName || '';
-	const component = props?.meta?.attributes?.[attributeName]?.component || '';
 
 	// @todo: Replace with icon from @kadence/icons once created
 	const icons = {
@@ -43,32 +41,24 @@ const DynamicMediaControl = (props) => {
 			contentClassName={'kbs-dynamic-control__dropdown_content'}
 			renderToggle={({ isOpen, onToggle }) => (
 				<Button
-					className="kb-dynamic-image-sidebar"
+					className="kb-dynamic-video-sidebar"
 					variant="secondary"
 					icon={icons.dynamic}
 					onClick={onToggle}
 					isPressed={isOpen}
 					aria-haspopup="true"
 					aria-expanded={isOpen}
-					label={
-						component === 'background'
-							? __('Dynamic Background Image', 'kadence-blocks')
-							: __('Dynamic Image', 'kadence-blocks')
-					}
+					label={__('Dynamic Video', 'kadence-blocks')}
 					showTooltip={true}
 				/>
 			)}
 			renderContent={() => (
 				<div className="kb-dynamic-popover-inner-wrap">
 					<div className="kb-pro-notice">
-						<h2>
-							{component === 'background'
-								? __('Dynamic Background Image', 'kadence-blocks')
-								: __('Dynamic Image', 'kadence-blocks')}{' '}
-						</h2>
+						<h2>{__('Dynamic Video', 'kadence-blocks')}</h2>
 						<p>
 							{__(
-								'Create dynamic sites by populating images from various sources.',
+								'Create dynamic sites by populating videos from various sources.',
 								'kadence-blocks'
 							)}{' '}
 						</p>
@@ -85,15 +75,8 @@ const DynamicMediaControl = (props) => {
 		/>
 	);
 };
-export const DynamicBackgroundControl = withFilters('kadence.BackgroundDynamicControl')(DynamicMediaControl);
-export const DynamicControl = withFilters('kadence.ImageDynamicControl')(DynamicMediaControl);
+export const DynamicControl = withFilters('kadence.VideoDynamicControl')(DynamicMediaControl);
 
-export default function DynamicImageControl(props) {
-	const attributeName = props?.attributeName || '';
-	const component = props?.meta?.attributes?.[attributeName]?.component || '';
-
-	if (component === 'background') {
-		return <DynamicBackgroundControl {...props} />;
-	}
+export default function DynamicVideoControl(props) {
 	return <DynamicControl {...props} />;
 }

@@ -8,14 +8,30 @@ import { useEffect, useState, useMemo } from '@wordpress/element';
  * Internal dependencies.
  */
 import InputUnitControl from './ui-input-unit';
-import { parseUnitTypeFromRawValue, parseValueTypeFromRawValue, getUnitFromRawValue, getNumberFromRawValue } from './utils';
+import {
+	parseUnitTypeFromRawValue,
+	parseValueTypeFromRawValue,
+	getUnitFromRawValue,
+	getNumberFromRawValue,
+} from './utils';
 
-function RangeUIControl({ value, onChange, controls = [], min = null, max = null, units, placeholder, labelPosition = 'top', label = '', step = null }) {
+function RangeUIControl({
+	value,
+	onChange,
+	controls = [],
+	min = null,
+	max = null,
+	units,
+	placeholder,
+	labelPosition = 'top',
+	label = '',
+	step = null,
+}) {
 	const [isCustomUnit, setIsCustomUnit] = useState(false);
 	const [minValue, maxValue] = useMemo(() => {
 		const existingUnit = getUnitFromRawValue(value, units) ?? 'px';
 
-		switch( existingUnit ) {
+		switch (existingUnit) {
 			case 'px':
 				return [0, 1200];
 			case '%':
@@ -56,7 +72,7 @@ function RangeUIControl({ value, onChange, controls = [], min = null, max = null
 			setIsCustomUnit(true);
 		} else if (isCustomUnit) {
 			setIsCustomUnit(false);
-		}		
+		}
 	};
 	const unitControlOnChange = (value) => {
 		// Check if the value includes custom in the string.
@@ -79,17 +95,17 @@ function RangeUIControl({ value, onChange, controls = [], min = null, max = null
 	const rangeControlOnChange = (newValue) => {
 		let existingUnit = getUnitFromRawValue(value, units) ?? 'px';
 
-		if ( units.length === 1 ) {
+		if (units.length === 1) {
 			existingUnit = units[0].value;
 		}
 
 		onChange(newValue + existingUnit);
-	}
+	};
 	return (
 		<>
 			{!isCustomUnit && (
 				<Flex>
-					<FlexItem className="kbs-range-control-wrapper" style={{ width: '100%' }}>
+					<FlexItem className="kbs-range-control-wrapper">
 						<RangeControl
 							className="kbs-range-control kbs-input-control"
 							__next40pxDefaultSize={true}
@@ -99,7 +115,12 @@ function RangeUIControl({ value, onChange, controls = [], min = null, max = null
 							onChange={rangeControlOnChange}
 							min={null !== min ? min : minValue}
 							max={null !== max ? max : maxValue}
-							step={ step || (units.length > 0 ? units.find(unit => unit.value === getUnitFromRawValue(value, units))?.step : 1) }
+							step={
+								step ||
+								(units.length > 0
+									? units.find((unit) => unit.value === getUnitFromRawValue(value, units))?.step
+									: 1)
+							}
 							showTooltip={false}
 							withInputField={false}
 						/>

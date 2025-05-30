@@ -14,7 +14,7 @@ import './editor.scss';
  * @returns {JSX.Element} The focal point picker component.
  */
 export default function FocalPointPicker(props) {
-	const { url, value, onChange, backgroundSize = 'cover', ...rest } = props;
+	const { url, value, onChange, backgroundSize = 'cover', style, ...rest } = props;
 	const [position, setPosition] = useState(null);
 
 	const convertPosition = useCallback((position) => {
@@ -69,7 +69,6 @@ export default function FocalPointPicker(props) {
 
 			if (newPosition && newPosition.x !== undefined && newPosition.x !== '') {
 				const focalPoint = `${newPosition.x * 100}% ${newPosition.y * 100}%`;
-				console.log('focalPoint', focalPoint);
 				onChange(focalPoint);
 			}
 		},
@@ -79,7 +78,10 @@ export default function FocalPointPicker(props) {
 	const imagePosition = position ?? convertPosition(value);
 
 	return (
-		<div className="kbs-focal-point-picker" style={{ '--focal-size': backgroundSize, '--focal-position': value }}>
+		<div
+			className="kbs-focal-point-picker"
+			style={{ '--focal-size': backgroundSize, '--focal-position': value, ...style }}
+		>
 			<CoreFocalPointPicker url={url} value={imagePosition} onChange={onPositionChange} {...rest} />
 		</div>
 	);
