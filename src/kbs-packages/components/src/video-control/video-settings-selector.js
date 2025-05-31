@@ -21,6 +21,7 @@ function renderImageButtonDropdown(props) {
 			posterURL = '',
 			posterID = '',
 			label = '',
+			showPoster = true,
 			loopAttribute,
 			muteAttribute,
 			posterAttribute,
@@ -49,12 +50,19 @@ function renderImageButtonDropdown(props) {
 					hasAdvancedControls={false}
 					hasCustomControls={false}
 				/>
-				{posterURL && (
-					<div className="kbs-image-button-selector-control__preview">
-						<img src={posterURL} />
-					</div>
+				{showPoster && (
+					<>
+						<div className="kbs-image-button-selector-control__content_label">
+							{__('Poster Image', 'kadence-blocks')}
+						</div>
+						{posterURL && (
+							<div className="kbs-image-button-selector-control__preview">
+								<img src={posterURL} />
+							</div>
+						)}
+						<ImageSelector imageURL={posterURL} imageID={posterID} type={posterAttribute} {...props} />
+					</>
 				)}
-				<ImageSelector imageURL={posterURL} imageID={posterID} type={posterAttribute} {...props} />
 				<ToggleControl
 					className="kbs-toggle-control"
 					__next40pxDefaultSize
@@ -128,8 +136,8 @@ function renderImageButtonToggle(hasImage, label) {
 	};
 }
 export default function VideoSettingsSelector(props) {
-	const { posterURL = '', label = '' } = props;
-	const hasImage = posterURL;
+	const { posterURL = '', label = '', showPoster = true } = props;
+	const hasImage = showPoster && posterURL;
 	const popoverProps = {
 		placement: 'left-start',
 		//offset: 36,

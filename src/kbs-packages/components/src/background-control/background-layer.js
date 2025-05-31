@@ -53,7 +53,17 @@ function BackgroundIndicator({ value, type, colorValue }) {
 	};
 	return (
 		<div className="kbs-background-indicator component-color-indicator" style={style}>
-			{type !== 'color' && (
+			{type === 'video' && (
+				<video
+					src={value}
+					className="kbs-background-indicator-layer kbs-bg-video-preview"
+					autoPlay={false}
+					muted
+					loop
+					playsInline
+				/>
+			)}
+			{type !== 'color' && type !== 'video' && (
 				<div className="kbs-background-indicator-layer" style={{ backgroundImage: value }}></div>
 			)}
 		</div>
@@ -73,13 +83,34 @@ function getGradientLabel(gradient) {
 	}
 	return '';
 }
+function getVideoLabel(video, videoType) {
+	if (videoType && videoType === 'youtube') {
+		return __('YouTube', 'kadence-blocks');
+	} else if (videoType && videoType === 'vimeo') {
+		return __('Vimeo', 'kadence-blocks');
+	} else if (video) {
+		return getImageFileName(video) || __('Unset', 'kadence-blocks');
+	}
+	return '';
+}
+function getVideoPreview(video, videoType, youtube, vimeo) {
+	if (videoType && videoType === 'youtube') {
+		return youtube ? `url(https://img.youtube.com/vi/${youtube}/maxresdefault.jpg)` : '';
+	} else if (videoType && videoType === 'vimeo') {
+		return vimeo ? `url(https://vumbnail.com/${vimeo}.jpg)` : '';
+	}
+	return video;
+}
 function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onChange) {
 	return ({ onToggle, isOpen }) => {
-		const { color, image, video, gradient, pattern, type, opacity } = useMemo(() => {
+		const { color, image, video, videoType, youtube, vimeo, gradient, pattern, type, opacity } = useMemo(() => {
 			return {
 				color: getLayerDeviceValue('color', layer, previewDevice),
 				image: getLayerDeviceValue('image', layer, previewDevice),
 				video: getLayerDeviceValue('video', layer, previewDevice),
+				videoType: getLayerDeviceValue('videoType', layer, previewDevice),
+				youtube: getLayerDeviceValue('youtube', layer, previewDevice),
+				vimeo: getLayerDeviceValue('vimeo', layer, previewDevice),
 				gradient: getLayerDeviceValue('gradient', layer, previewDevice),
 				pattern: getLayerDeviceValue('pattern', layer, previewDevice),
 				type: getLayerDeviceValue('type', layer, previewDevice) || 'color',
@@ -93,7 +124,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'image':
 					return getImageFileName(image) || __('Unset', 'kadence-blocks');
 				case 'video':
-					return getImageFileName(video) || __('Unset', 'kadence-blocks');
+					return getVideoLabel(video, videoType) || __('Unset', 'kadence-blocks');
 				case 'gradient':
 					return getGradientLabel(gradient);
 				case 'pattern':
@@ -101,7 +132,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				default:
 					return '';
 			}
-		}, [type, color, image, video, gradient, pattern]);
+		}, [type, color, image, video, videoType, gradient, pattern]);
 		const previewString = useMemo(() => {
 			switch (type) {
 				case 'color':
@@ -112,7 +143,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					}
 					return '';
 				case 'video':
-					return video;
+					return getVideoPreview(video, videoType, youtube, vimeo);
 				case 'gradient':
 					return gradient;
 				case 'pattern':
@@ -120,7 +151,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				default:
 					return '';
 			}
-		}, [type, color, image, video, gradient, pattern]);
+		}, [type, color, image, video, videoType, gradient, youtube, vimeo, pattern]);
 		const typeIcon = useMemo(() => {
 			switch (type) {
 				case 'color':
@@ -158,21 +189,10 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					<BackgroundIndicator
 						className="kbs-background-select-control__toggle-preview"
 						value={previewString}
-						type={type}
+						type={type === 'video' && videoType && videoType !== 'local' ? 'image' : type}
 						colorValue={getColorOutput(color)}
 					/>
 				</Button>
-				{/* <RadioButtonSelect
-					type={'opacity'}
-					value={opacity}
-					onChange={ (value) => onChange(value, previewDevice, 'backgroundOpacity') }
-					units={[{ value: '%', label: '%' }]}
-					previewDevice={previewDevice}
-					placeholder={100}
-					min={0}
-					max={100}
-					step={1}
-				/> */}
 				<UnitControl
 					label={''}
 					className="kbs-background-image-layer-control-opacity"
@@ -308,6 +328,8 @@ function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewD
 										onChange={handleCustomOnChange}
 										previewDevice={previewDevice}
 										layer={flattenLayer}
+										hasYouTube={true}
+										hasVimeo={true}
 									/>
 								);
 							} else {
@@ -357,7 +379,8 @@ export default function BackgroundLayer({
 	isInherited = false,
 }) {
 	const popoverProps = {
-		placement: 'left-start',
+		//placement: 'left-start',
+		placement: 'left',
 		//offset: 36,
 		shift: true,
 		// style: {
