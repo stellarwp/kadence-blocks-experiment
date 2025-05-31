@@ -316,3 +316,6 @@
 	border-radius: 4px;
 	margin-bottom: 12px;
 }
+.kbs-responsive-locked .components-tab-panel__tabs .components-tab-panel__tabs-item[aria-disabled="true"]:not(.is-active) {
+    opacity: 0.3;
+}

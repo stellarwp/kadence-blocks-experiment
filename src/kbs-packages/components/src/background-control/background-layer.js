@@ -268,34 +268,42 @@ function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewD
 				name: 'color',
 				icon: colorIcon,
 				title: __('Color', 'kadence-blocks'),
+				disabled: previewDevice !== 'Desktop',
 			},
 			{
 				name: 'gradient',
 				icon: gradientIcon,
 				title: __('Gradient', 'kadence-blocks'),
+				disabled: previewDevice !== 'Desktop',
 			},
 			{
 				name: 'image',
 				icon: imageIcon,
 				title: __('Image', 'kadence-blocks'),
+				disabled: previewDevice !== 'Desktop',
 			},
 			{
 				name: 'video',
 				icon: videoIcon,
 				title: __('Video', 'kadence-blocks'),
+				disabled: previewDevice !== 'Desktop',
 			},
 			{
 				name: 'pattern',
 				icon: patternIcon,
 				title: __('Pattern', 'kadence-blocks'),
+				disabled: previewDevice !== 'Desktop',
 			},
 		];
 		return (
 			<div className="kbs-background-layer-control__dropdown-content-inner kbs-color-control">
 				<TabPanel
-					className="kbs-color-select-tabs"
+					className="kbs-color-select-tabs kbs-responsive-locked"
 					activeClass="is-active"
 					onSelect={(tabName) => {
+						if ( previewDevice !== 'Desktop' ) {
+							return;
+						}
 						if (tabName !== type) {
 							handleCustomOnChange(tabName, previewDevice, 'type');
 						}
