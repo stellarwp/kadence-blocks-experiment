@@ -15,13 +15,14 @@ import {
 	TabPanel,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useRef, useMemo, useEffect } from '@wordpress/element';
+import { useRef, useMemo, useEffect, useState } from '@wordpress/element';
 import {
 	check as checkIcon,
 	close as closeIcon,
 	image as imageIcon,
 	video as videoIcon,
 	grid as patternIcon,
+	settings as settingsIcon
 } from '@wordpress/icons';
 import { useSettings } from '@wordpress/block-editor';
 /**
@@ -35,7 +36,7 @@ import {
 	handleLayerAttributeChange,
 	getLayerDeviceValue,
 } from '@kadence/kbsHelpers';
-import { gradient as gradientIcon, color as colorIcon, fill as fillIcon } from './constants';
+import { gradient as gradientIcon, color as colorIcon, fill as fillIcon, hover as hoverIcon } from './constants';
 import ColorSelector from '../color-control/color-selector';
 import BackgroundImageControl from '../background-image-control';
 import { getColorLabel } from '../color-control/utils';
@@ -46,6 +47,8 @@ import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import UnitControl from '../unit-control/unit-control';
 import GradientPicker from '../gradient-control';
 import BackgroundVideoLayer from './background-video-layer';
+import ColorSelect from '../color-control/color-select';
+import LayerEffects from './layer-effects';
 
 function BackgroundIndicator({ value, type, colorValue }) {
 	const style = {
@@ -244,7 +247,8 @@ function getFullLayerDeviceValue(layer, device) {
 	return {};
 }
 
-function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewDevice, globalClasses) {
+function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewDevice, globalClasses, useHover = false) {
+	const [isHover, setIsHover] = useState(false);
 	return ({ onToggle, isOpen }) => {
 		const handleColorChange = (color) => {
 			onChange(color, previewDevice, 'color');
@@ -268,31 +272,26 @@ function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewD
 				name: 'color',
 				icon: colorIcon,
 				title: __('Color', 'kadence-blocks'),
-				disabled: previewDevice !== 'Desktop',
 			},
 			{
 				name: 'gradient',
 				icon: gradientIcon,
 				title: __('Gradient', 'kadence-blocks'),
-				disabled: previewDevice !== 'Desktop',
 			},
 			{
 				name: 'image',
 				icon: imageIcon,
 				title: __('Image', 'kadence-blocks'),
-				disabled: previewDevice !== 'Desktop',
 			},
 			{
 				name: 'video',
 				icon: videoIcon,
 				title: __('Video', 'kadence-blocks'),
-				disabled: previewDevice !== 'Desktop',
 			},
 			{
 				name: 'pattern',
 				icon: patternIcon,
 				title: __('Pattern', 'kadence-blocks'),
-				disabled: previewDevice !== 'Desktop',
 			},
 		];
 		return (
@@ -301,11 +300,8 @@ function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewD
 					className="kbs-color-select-tabs kbs-responsive-locked"
 					activeClass="is-active"
 					onSelect={(tabName) => {
-						if ( previewDevice !== 'Desktop' ) {
-							return;
-						}
 						if (tabName !== type) {
-							handleCustomOnChange(tabName, previewDevice, 'type');
+							handleCustomOnChange(tabName, 'Desktop', 'type');
 						}
 					}}
 					initialTabName={type ? type : 'color'}
@@ -342,14 +338,24 @@ function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewD
 								);
 							} else {
 								return (
-									<ColorSelector
-										handleColorChange={handleColorChange}
-										colors={colors}
-										currentValue={color ? color : ''}
-										inherited={''}
-										hasMix={true}
-										globalClasses={globalClasses}
-									/>
+									<>
+										<ColorSelector
+											handleColorChange={handleColorChange}
+											colors={colors}
+											currentValue={color ? color : ''}
+											inherited={''}
+											hasMix={true}
+											globalClasses={globalClasses}
+										/>
+										<LayerEffects
+											layer={flattenLayer}
+											onChange={handleCustomOnChange}
+											previewDevice={previewDevice}
+											globalClasses={globalClasses}
+											isHover={isHover}
+											onToggleHover={() => setIsHover(!isHover)}
+										/>
+									</>
 								);
 							}
 						}

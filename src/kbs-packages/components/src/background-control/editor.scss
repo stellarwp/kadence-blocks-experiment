@@ -288,9 +288,10 @@
 		padding: 12px;
 		min-width: 300px;
 		min-height: 300px;
-		width: 340px;
+		width: 380px;
 		height: auto;
 	}
+
 }
 .kbs-background-layer-image-control-inner {
 	display: flex;
@@ -318,4 +319,21 @@
 }
 .kbs-responsive-locked .components-tab-panel__tabs .components-tab-panel__tabs-item[aria-disabled="true"]:not(.is-active) {
     opacity: 0.3;
+}
+.kbs-background-layer-effects-control-inner {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.kbs-background-layer-effects-control {
+    border-top: 1px solid var(--kb-border-subtle-color, #d9e7ec);
+    margin-top: 12px;
+	> .kbs-control-title-bar {
+		border-bottom: 1px solid var(--kb-border-subtle-color, #d9e7ec);
+		.kbs-control-title {
+			font-size: 16px;
+			line-height: 50px;
+			text-transform: none;
+		}
+	}
 }

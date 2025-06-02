@@ -119,29 +119,6 @@ export default function BackgroundImageLayer({ previewDevice = 'desktop', layer,
 							hasCustomControls={false}
 							onChange={onChange}
 						/>
-						<div className="kbs-background-image-layer-control-color-opacity">
-							<ColorSelect
-								label={__('Background Color', 'kadence-blocks')}
-								value={layer?.color}
-								onChange={onChange}
-								type={'color'}
-								previewDevice={previewDevice}
-								globalClasses={globalClasses}
-								hasMix={true}
-							/>
-							<UnitControl
-								label={__('Opacity', 'kadence-blocks')}
-								className="kbs-background-image-layer-control-opacity"
-								max={100}
-								min={0}
-								units={[{ value: '%', label: '%' }]}
-								value={layer?.opacity}
-								previewDevice={previewDevice}
-								placeholder={100}
-								step={1}
-								onChange={(value) => onChange(value, previewDevice, 'opacity')}
-							/>
-						</div>
 					</>
 				)}
 			</div>
