@@ -22,7 +22,7 @@ import {
 	image as imageIcon,
 	video as videoIcon,
 	grid as patternIcon,
-	settings as settingsIcon
+	settings as settingsIcon,
 } from '@wordpress/icons';
 import { useSettings } from '@wordpress/block-editor';
 /**
@@ -247,12 +247,18 @@ function getFullLayerDeviceValue(layer, device) {
 	return {};
 }
 
-function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewDevice, globalClasses, useHover = false) {
+function renderBackgroundDropdown(
+	colors,
+	layer,
+	isInherited,
+	onChange,
+	previewDevice,
+	globalClasses,
+	layerKey,
+	useHover = false
+) {
 	const [isHover, setIsHover] = useState(false);
 	return ({ onToggle, isOpen }) => {
-		const handleColorChange = (color) => {
-			onChange(color, previewDevice, 'color');
-		};
 		const handleTypeChange = (type) => {
 			onChange(type, previewDevice, 'type');
 		};
@@ -260,6 +266,7 @@ function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewD
 			onChange(value, device, type);
 		};
 		const color = getLayerDeviceValue('color', layer, previewDevice);
+		const hoverColor = getLayerDeviceValue('hoverColor', layer, previewDevice);
 		const image = getLayerDeviceValue('image', layer, previewDevice);
 		const imageID = getLayerDeviceValue('imageId', layer, previewDevice);
 		const video = getLayerDeviceValue('video', layer, previewDevice);
@@ -340,12 +347,21 @@ function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewD
 								return (
 									<>
 										<ColorSelector
-											handleColorChange={handleColorChange}
+											handleColorChange={(value) => {
+												if (isHover) {
+													handleCustomOnChange(value, previewDevice, 'hoverColor');
+												} else {
+													handleCustomOnChange(value, previewDevice, 'color');
+												}
+											}}
 											colors={colors}
-											currentValue={color ? color : ''}
-											inherited={''}
+											currentValue={isHover ? hoverColor : color}
+											inherited={isHover ? { inheritedValue: color } : ''}
 											hasMix={true}
 											globalClasses={globalClasses}
+											isHover={isHover}
+											onToggleHover={() => setIsHover(!isHover)}
+											hasHoverControls={true}
 										/>
 										<LayerEffects
 											layer={flattenLayer}
@@ -354,6 +370,7 @@ function renderBackgroundDropdown(colors, layer, isInherited, onChange, previewD
 											globalClasses={globalClasses}
 											isHover={isHover}
 											onToggleHover={() => setIsHover(!isHover)}
+											layerKey={layerKey}
 										/>
 									</>
 								);
@@ -441,7 +458,8 @@ export default function BackgroundLayer({
 					isInherited,
 					onChange,
 					previewDevice,
-					globalClasses
+					globalClasses,
+					layerKey
 				)}
 			/>
 		</div>

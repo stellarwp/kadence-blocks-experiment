@@ -68,10 +68,10 @@ function RadioToggleGroupInputRangeUI({
 			step: 0.1,
 		},
 	];
-	
+
 	return (
 		<div className="kbs-radio-button-control__toggle-group-input">
-			{(controls.length > 0 && !isCustom) && (
+			{controls.length > 0 && !isCustom && (
 				<RadioToggleGroupButtonUI
 					value={value}
 					onChange={onChange}
@@ -81,7 +81,21 @@ function RadioToggleGroupInputRangeUI({
 					labelPosition={labelPosition}
 				/>
 			)}
-			{(isCustom || controls.length === 0) && <RangeUIControl value={value} onChange={onChange} controls={controls} units={units.length > 0 ? units : defaultUnits} label={label} labelPosition={labelPosition} placeholder={placeholder} min={min} max={max} step={step} />}
+			{(isCustom || controls.length === 0) && (
+				<RangeUIControl
+					value={value}
+					inherited={inherited}
+					onChange={onChange}
+					controls={controls}
+					units={units.length > 0 ? units : defaultUnits}
+					label={label}
+					labelPosition={labelPosition}
+					placeholder={placeholder}
+					min={min}
+					max={max}
+					step={step}
+				/>
+			)}
 		</div>
 	);
 }

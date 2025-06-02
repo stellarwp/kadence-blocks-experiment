@@ -11,14 +11,10 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import DeviceSwitchControl from '../device-switch-control';
 import { undo, settings, cog } from '@wordpress/icons';
-import { Button, SVG, Path } from '@wordpress/components';
-import './editor.scss';
+import { Button, Icon } from '@wordpress/components';
 
-export const hoverIcon = (
-	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-		<Path d="M12.756 21.459q-.189.04-.378.04H12q-1.971 0-3.705-.748t-3.016-2.03-2.031-3.016-.748-3.704.748-3.705 2.03-3.017 3.016-2.031 3.704-.748 3.705.748 3.017 2.031 2.031 3.016.748 3.705v.373q0 .186-.04.373l-1.46-.446V12q0-3.35-2.325-5.675T11.999 4 6.324 6.325 3.999 12t2.325 5.675T11.999 20h.3zm7.384.185L15.606 17.1l-1.086 3.285L12.001 12l8.385 2.519-3.285 1.086 4.544 4.534-1.504 1.504z"/>
-	</SVG>
-);
+import './editor.scss';
+import { hoverIcon } from '../constants/icons';
 /**
  * Build the Radio Button control.
  */
@@ -41,6 +37,11 @@ export default function TitleBar({
 		<div className="kbs-control-title-bar">
 			<div className="kbs-control-title-bar-inner">
 				{label && <span className="kbs-control-title">{label}</span>}
+				{isHover && !hasHoverControls && (
+					<span className="kbs-control-hover-indicator">
+						<Icon icon={hoverIcon} size={14} />
+					</span>
+				)}
 				{reset && (
 					<span className="kbs-reset-wrap">
 						<Button
@@ -67,9 +68,7 @@ export default function TitleBar({
 					isPressed={isHover}
 					onClick={onToggleHover}
 					iconSize={18}
-					label={
-						isHover ? __('Switch to Normal', 'kadence-blocks') : __('Hover State', 'kadence-blocks')
-					}
+					label={isHover ? __('Switch to Normal', 'kadence-blocks') : __('Hover State', 'kadence-blocks')}
 				/>
 			)}
 			{hasDeviceControls && <DeviceSwitchControl />}

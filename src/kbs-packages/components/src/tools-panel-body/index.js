@@ -6,7 +6,18 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { PanelRow, Button, PanelBody, Panel, Icon, DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
+import {
+	PanelRow,
+	Button,
+	PanelBody,
+	Panel,
+	Icon,
+	DropdownMenu,
+	MenuGroup,
+	MenuItem,
+	SVG,
+	Path,
+} from '@wordpress/components';
 import { useReducedMotion, useMergeRefs } from '@wordpress/compose';
 import { forwardRef, useRef } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -19,16 +30,8 @@ import DeviceSwitchControl from '../device-switch-control';
  * Internal dependencies
  */
 import { useUpdateEffect, getComponentView } from '@kadence/kbsHelpers';
+import { hoverIcon, proIcon } from '../constants/icons';
 import './editor.scss';
-
-const proSvg = (
-	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style={{ paddingTop: '1px' }}>
-		<rect width="20" height="16" fill="#0073e6" rx="3" ry="3"></rect>
-		<text x="50%" y="57%" fontSize="9" textAnchor="middle" color={'#fff'}>
-			Pro
-		</text>
-	</svg>
-);
 
 const PanelBodyTitle = forwardRef(
 	(
@@ -45,6 +48,10 @@ const PanelBodyTitle = forwardRef(
 			canResetAll = true,
 			buttonProps = {},
 			componentName,
+			hasHoverControls,
+			onToggleHover,
+			isHover,
+			hasMoreControls = true,
 		},
 		ref
 	) => {
@@ -115,6 +122,7 @@ const PanelBodyTitle = forwardRef(
 		const classes = clsx('components-panel__body-title kbs-tools-panel-body-title', {
 			'kbs-has-device-controls': hasDeviceControls,
 			'kbs-has-view-controls': hasViewControls,
+			'kbs-has-hover-controls': hasHoverControls,
 			'kbs-full-expanded-padding': hasDeviceControls && hasViewControls,
 			'kbs-expanded-padding': hasDeviceControls || hasViewControls,
 		});
@@ -142,33 +150,47 @@ const PanelBodyTitle = forwardRef(
 					{icon && <Icon icon={icon} className="components-panel__icon" size={20} />}
 				</Button>
 				<span className="kbs-tools-panel-body__tools">
+					{hasHoverControls && onToggleHover && (
+						<Button
+							icon={hoverIcon}
+							className="kbs-custom-controls-button"
+							isPressed={isHover}
+							onClick={onToggleHover}
+							iconSize={18}
+							label={
+								isHover ? __('Switch to Normal', 'kadence-blocks') : __('Hover State', 'kadence-blocks')
+							}
+						/>
+					)}
 					{hasDeviceControls && <DeviceSwitchControl compact={true} />}
-					<DropdownMenu
-						icon={moreVertical}
-						className={`kbs-tools-panel-body__tools-dropdown ${isAdvancedView ? 'kbs-tools-panel-body__tools-dropdown-advanced' : ''}`}
-						label="Component Settings"
-					>
-						{({ onClose }) => (
-							<>
-								{hasViewControls && viewControl(onClose)}
-								<MenuGroup label={__('Reset Component Settings', 'kadence-blocks')}>
-									<MenuItem
-										disabled={!canResetAll}
-										variant="tertiary"
-										onClick={() => {
-											if (canResetAll) {
-												onResetAll();
-												speak(__('All component options reset'), 'assertive');
-												onClose();
-											}
-										}}
-									>
-										{__('Reset Settings')}
-									</MenuItem>
-								</MenuGroup>
-							</>
-						)}
-					</DropdownMenu>
+					{hasMoreControls && (
+						<DropdownMenu
+							icon={moreVertical}
+							className={`kbs-tools-panel-body__tools-dropdown ${isAdvancedView ? 'kbs-tools-panel-body__tools-dropdown-advanced' : ''}`}
+							label="Component Settings"
+						>
+							{({ onClose }) => (
+								<>
+									{hasViewControls && viewControl(onClose)}
+									<MenuGroup label={__('Reset Component Settings', 'kadence-blocks')}>
+										<MenuItem
+											disabled={!canResetAll}
+											variant="tertiary"
+											onClick={() => {
+												if (canResetAll) {
+													onResetAll();
+													speak(__('All component options reset'), 'assertive');
+													onClose();
+												}
+											}}
+										>
+											{__('Reset Settings')}
+										</MenuItem>
+									</MenuGroup>
+								</>
+							)}
+						</DropdownMenu>
+					)}
 				</span>
 			</h2>
 		);
@@ -191,6 +213,10 @@ export function UnforwardedToolsPanelBody(props, ref) {
 		canResetAll = true,
 		hasDeviceControls = true,
 		hasViewControls = false,
+		hasHoverControls = false,
+		onToggleHover,
+		isHover,
+		hasMoreControls = true,
 		onSelectView,
 		currentView = 'normal',
 		scrollAfterOpen = true,
@@ -258,7 +284,11 @@ export function UnforwardedToolsPanelBody(props, ref) {
 				onSelectView={onSelectView}
 				onResetAll={onResetAll}
 				componentName={componentName}
-				icon={proTag ? proSvg : null}
+				icon={proTag ? proIcon : null}
+				hasHoverControls={hasHoverControls}
+				onToggleHover={onToggleHover}
+				isHover={isHover}
+				hasMoreControls={hasMoreControls}
 			/>
 			{isOpened && children}
 		</div>

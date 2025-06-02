@@ -4,6 +4,16 @@
 	align-items: center;
 	gap: 8px;
 	margin-bottom: 8px;
+	.kbs-control-hover-indicator {
+		width: 20px;
+		padding: 0 2px;
+		display: flex;
+		color: var(--wp-admin-theme-color, #00669b);
+		justify-content: center;
+		svg {
+			fill: currentColor;
+		}
+	}
 	.kbs-control-title-bar-inner {
 		flex-grow: 1;
 		display: flex;

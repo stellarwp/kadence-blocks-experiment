@@ -104,6 +104,7 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
 		case 'opacity':
+		case 'hoverOpacity':
 		case 'backgroundOpacity':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;

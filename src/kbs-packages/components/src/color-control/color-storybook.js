@@ -23,7 +23,8 @@ const ColorStorybook = ({ onChange, colors, currentValue }) => {
 						const palette = slug.replace('theme-', '');
 						const isActive =
 							(currentValue && palette && palette === currentValue) ||
-							(!slug.startsWith('theme-palette') && currentValue && currentValue === color);
+							(!slug.startsWith('theme-palette') && currentValue && currentValue === color) ||
+							currentValue === getColorOutput(slug ? slug : color);
 						const isGlobal = slug.startsWith('palette');
 						return (
 							<Button

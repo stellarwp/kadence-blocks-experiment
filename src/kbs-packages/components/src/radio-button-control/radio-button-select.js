@@ -36,6 +36,7 @@ export default function RadioButtonSelect({
 	min = null,
 	max = null,
 	placeholder = '',
+	isHover = false,
 	step = null,
 }) {
 	const radioConfig = type ? type : radioType;
@@ -78,6 +79,8 @@ export default function RadioButtonSelect({
 					isCustom={isCustom}
 					onToggleCustom={() => setIsCustom(!isCustom)}
 					hasCustomControls={hasCustomControls}
+					previewDevice={previewDevice}
+					isHover={isHover}
 				/>
 			)}
 			<div className="kbs-control-inner">

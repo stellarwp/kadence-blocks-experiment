@@ -1,4 +1,4 @@
-import { TabPanel } from '@wordpress/components';
+import { TabPanel, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useRef } from '@wordpress/element';
 /**
@@ -10,8 +10,9 @@ import ColorPicker from './color-picker';
 import ColorStorybook from './color-storybook';
 import GradientPicker from '../gradient-control';
 import ColorMix from './color-mix';
+import { hoverIcon } from '../constants/icons';
 const getInitialTabName = (currentValue, inherited, hasGradient, hasMix) => {
-	const tempValue = currentValue ? currentValue : inherited;
+	const tempValue = currentValue ? currentValue : inherited?.inheritedValue ? inherited.inheritedValue : '';
 	if (!tempValue) {
 		return 'storybook';
 	}
@@ -31,7 +32,18 @@ const getInitialTabName = (currentValue, inherited, hasGradient, hasMix) => {
 	}
 	return 'storybook';
 };
-const ColorSelector = ({ handleColorChange, colors, currentValue, inherited, hasGradient, hasMix, globalClasses }) => {
+const ColorSelector = ({
+	handleColorChange,
+	colors,
+	currentValue,
+	inherited,
+	hasGradient,
+	hasMix,
+	globalClasses,
+	hasHoverControls = false,
+	isHover = false,
+	onToggleHover,
+}) => {
 	const presetButtonRef = useRef(undefined);
 	const defaultTabs = [
 		{
@@ -57,44 +69,68 @@ const ColorSelector = ({ handleColorChange, colors, currentValue, inherited, has
 	}
 	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix);
 	return (
-		<TabPanel
-			ref={presetButtonRef}
-			initialTabName={initialTabName}
-			className="kbs-color-select-tabs"
-			activeClass="is-active"
-			tabs={defaultTabs}
-		>
-			{(tab) => {
-				if (tab.name) {
-					if ('custom' === tab.name) {
-						return (
-							<ColorPicker
-								color={getColorOutput(
-									getColorHex(currentValue ? currentValue : inherited, presetButtonRef)
-								)}
-								onChange={handleColorChange}
-							/>
-						);
-					} else if ('gradient' === tab.name) {
-						return (
-							<GradientPicker
-								value={currentValue}
-								onChange={handleColorChange}
-								globalClasses={globalClasses}
-							/>
-						);
-					} else if ('mix' === tab.name) {
-						return (
-							<ColorMix value={currentValue} onChange={handleColorChange} globalClasses={globalClasses} />
-						);
-					} else {
-						return (
-							<ColorStorybook colors={colors} currentValue={currentValue} onChange={handleColorChange} />
-						);
+		<div className="kbs-color-selector-tab-wrapper">
+			<TabPanel
+				ref={presetButtonRef}
+				initialTabName={initialTabName}
+				className="kbs-color-select-tabs"
+				activeClass="is-active"
+				tabs={defaultTabs}
+			>
+				{(tab) => {
+					if (tab.name) {
+						if ('custom' === tab.name) {
+							return (
+								<ColorPicker
+									color={getColorOutput(
+										getColorHex(currentValue ? currentValue : inherited, presetButtonRef)
+									)}
+									onChange={handleColorChange}
+								/>
+							);
+						} else if ('gradient' === tab.name) {
+							return (
+								<GradientPicker
+									value={currentValue}
+									onChange={handleColorChange}
+									globalClasses={globalClasses}
+								/>
+							);
+						} else if ('mix' === tab.name) {
+							return (
+								<ColorMix
+									value={currentValue}
+									onChange={handleColorChange}
+									globalClasses={globalClasses}
+									isHover={isHover}
+									inherited={inherited}
+								/>
+							);
+						} else {
+							return (
+								<ColorStorybook
+									colors={colors}
+									currentValue={currentValue}
+									onChange={handleColorChange}
+								/>
+							);
+						}
 					}
-				}
-			}}
-		</TabPanel>
+				}}
+			</TabPanel>
+			{hasHoverControls && onToggleHover && (
+				<div className="kbs-color-selector-hover-controls">
+					<Button
+						icon={hoverIcon}
+						className="kbs-color-selector-hover-controls-button"
+						isPressed={isHover}
+						onClick={onToggleHover}
+						iconSize={18}
+						label={isHover ? __('Switch to Normal', 'kadence-blocks') : __('Hover State', 'kadence-blocks')}
+					/>
+				</div>
+			)}
+		</div>
 	);
 };
 export default ColorSelector;

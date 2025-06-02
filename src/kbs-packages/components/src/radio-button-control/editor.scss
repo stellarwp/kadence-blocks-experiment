@@ -153,7 +153,6 @@
 			height: 8px;
 		}
 	}
-
 	.components-range-control__track {
 		background: var(--wp-components-color-foreground, #1e1e1e);
 		height: 8px;
@@ -173,6 +172,16 @@
 				left: -4px;
 				width: 24px;
 				height: 24px;
+			}
+		}
+	}
+	&.kbs-inherited {
+		.components-range-control__track {
+			background: var(--kb-subtle-inherited-color, #6c7582);
+		}
+		.components-range-control__thumb-wrapper {
+			& > span {
+				background: var(--kb-subtle-inherited-color, #6c7582);
 			}
 		}
 	}

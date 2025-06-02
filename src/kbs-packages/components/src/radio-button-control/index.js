@@ -49,7 +49,7 @@ export default function RadioButtonControl({
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange(resetValue, 'all', type);
+		onChange(resetValue, previewDevice === 'desktop' ? 'all' : previewDevice, type);
 	};
 	const onChange = (value, device, type) => {
 		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);

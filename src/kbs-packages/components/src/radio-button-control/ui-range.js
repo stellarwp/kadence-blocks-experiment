@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
@@ -26,6 +27,7 @@ function RangeUIControl({
 	labelPosition = 'top',
 	label = '',
 	step = null,
+	inherited,
 }) {
 	const [isCustomUnit, setIsCustomUnit] = useState(false);
 	const [minValue, maxValue] = useMemo(() => {
@@ -101,17 +103,26 @@ function RangeUIControl({
 
 		onChange(newValue + existingUnit);
 	};
+	const placeholderValue = useMemo(() => {
+		if (inherited?.inheritedValue) {
+			return getNumberFromRawValue(inherited?.inheritedValue);
+		}
+		return placeholder;
+	}, [inherited, placeholder]);
 	return (
 		<>
 			{!isCustomUnit && (
 				<Flex>
 					<FlexItem className="kbs-range-control-wrapper">
 						<RangeControl
-							className="kbs-range-control kbs-input-control"
+							className={clsx(
+								'kbs-range-control kbs-input-control',
+								(!value || value === 0) && placeholderValue && 'kbs-inherited'
+							)}
 							__next40pxDefaultSize={true}
 							__nextHasNoMarginBottom={true}
 							value={getNumberFromRawValue(value)}
-							initialPosition={placeholder}
+							initialPosition={placeholderValue}
 							onChange={rangeControlOnChange}
 							min={null !== min ? min : minValue}
 							max={null !== max ? max : maxValue}
@@ -129,7 +140,7 @@ function RangeUIControl({
 						<UnitControl
 							className="kbs-unit-control kbs-input-control"
 							__next40pxDefaultSize={true}
-							placeholder={placeholder}
+							placeholder={placeholderValue}
 							label={label && 'top' !== labelPosition ? label : undefined}
 							labelPosition={'top' !== labelPosition ? labelPosition : undefined}
 							value={isValueControlled ? '' : value}

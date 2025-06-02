@@ -44,6 +44,7 @@ export default function ColorSelect({
 	onChange,
 	defaultValue = undefined,
 	globalClasses = [],
+	isHover = false,
 }) {
 	const popoverProps = {
 		placement: 'left-end',
@@ -72,6 +73,7 @@ export default function ColorSelect({
 				hasAdvancedControls={false}
 				isCustom={false}
 				hasCustomControls={false}
+				isHover={isHover}
 			/>
 			<div className="kbs-control-inner">
 				<Dropdown
