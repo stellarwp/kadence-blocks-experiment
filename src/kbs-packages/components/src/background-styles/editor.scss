@@ -10,6 +10,7 @@
 	background-position: center center;
 	background-attachment: scroll;
 	overflow: hidden;
+	transition: all 0.3s ease-in-out;
 	.kbs-bg-video {
 		position: absolute;
 		width: 100%;

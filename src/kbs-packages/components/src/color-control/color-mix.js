@@ -22,6 +22,15 @@ const getColorMixValues = (value) => {
 		}
 		return ['', 'black', '50%'];
 	}
+	if (value.startsWith('linear-gradient')) {
+		return ['', value, '50%'];
+	}
+	if (value.startsWith('radial-gradient')) {
+		return ['', value, '50%'];
+	}
+	if (value.startsWith('conic-gradient')) {
+		return ['', value, '50%'];
+	}
 	return [getColorOutput(value), 'black', '50%'];
 };
 const ColorMix = ({ onChange, value, globalClasses, isHover, inherited }) => {

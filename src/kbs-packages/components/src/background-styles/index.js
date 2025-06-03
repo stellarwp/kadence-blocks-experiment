@@ -125,20 +125,13 @@ function BackgroundStyles(props) {
 									/>
 								)}
 								{videoType === 'youtube' && (
-									<div
-										style={{
-											backgroundImage: `url(https://img.youtube.com/vi/${youtube}/maxresdefault.jpg)`,
-										}}
+									<img
+										src={`https://img.youtube.com/vi/${youtube}/maxresdefault.jpg`}
 										className="kbs-bg-video"
 									/>
 								)}
 								{videoType === 'vimeo' && (
-									<div
-										style={{
-											backgroundImage: `url(https://vumbnail.com/${vimeo}.jpg)`,
-										}}
-										className="kbs-bg-video"
-									/>
+									<img src={`https://vumbnail.com/${vimeo}.jpg`} className="kbs-bg-video" />
 								)}
 							</>
 						)}

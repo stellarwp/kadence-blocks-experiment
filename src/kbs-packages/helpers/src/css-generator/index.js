@@ -244,7 +244,9 @@ class CSSGenerator {
 			this.setSelector(currentSelector + ' > .' + metaClassPrefix + index);
 		}
 		const backgroundColor = getLayerDeviceValue('color', layer, props.previewDevice);
+		const backgroundHoverColor = getLayerDeviceValue('hoverColor', layer, props.previewDevice);
 		const backgroundOpacity = getLayerDeviceValue('opacity', layer, props.previewDevice);
+		const backgroundHoverOpacity = getLayerDeviceValue('hoverOpacity', layer, props.previewDevice);
 		if (backgroundOpacity || backgroundOpacity === 0) {
 			this.add({ opacity: backgroundOpacity });
 		}
@@ -289,6 +291,35 @@ class CSSGenerator {
 				}
 				if (backgroundGradient) {
 					this.add({ 'background-image': backgroundGradient });
+				}
+				break;
+			case 'video':
+				const objectFit = getLayerDeviceValue('objectFit', layer, props.previewDevice);
+				const objectPosition = getLayerDeviceValue('objectPosition', layer, props.previewDevice);
+				if (backgroundColor) {
+					this.add({ 'background-color': getColorOutput(backgroundColor) });
+				}
+				this.setSelector(currentSelector + ' > .' + metaClassPrefix + index + ' .kbs-bg-video');
+				if (objectFit) {
+					this.add({ 'object-fit': objectFit });
+				}
+				if (objectPosition) {
+					this.add({ 'object-position': objectPosition });
+				}
+				break;
+		}
+		if (index === 0 && backgroundType !== 'video' && '' === anyBackgroundOpacity) {
+			this.setSelector(currentSelector + ':hover');
+		} else {
+			this.setSelector(currentSelector + ' > .' + metaClassPrefix + index + ':hover');
+		}
+		if (backgroundHoverOpacity || backgroundHoverOpacity === 0) {
+			this.add({ opacity: backgroundHoverOpacity });
+		}
+		switch (backgroundType) {
+			case 'color':
+				if (backgroundHoverColor) {
+					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
 				}
 				break;
 		}

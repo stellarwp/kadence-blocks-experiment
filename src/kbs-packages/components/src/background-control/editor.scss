@@ -255,11 +255,12 @@
 
 .kbs-background-layer-control__dropdown-content-inner {
 	position: relative;
+	padding: 12px;
 	overflow: hidden;
 	.kbs-background-layer-control__dropdown-content-close {
 		position: absolute;
-		top: 0;
-		right: 0;
+		top: 12px;
+		right: 12px;
 		z-index: 1;
 		.components-button {
 			height: 36px;
@@ -285,7 +286,7 @@
 .components-popover.kbs-background-layer-control__dropdown-content {
 	z-index: 159990;
 	.components-popover__content {
-		padding: 12px;
+		padding: 0px;
 		min-width: 300px;
 		min-height: 300px;
 		width: 380px;
@@ -328,6 +329,9 @@
 }
 .kbs-background-layer-effects-control {
 	margin-top: 12px;
+	width: auto;
+	margin-left: -12px;
+	margin-right: -12px;
 	> .kbs-control-title-bar {
 		border-bottom: 1px solid var(--kb-border-subtle-color, #d9e7ec);
 		.kbs-control-title {
@@ -337,6 +341,10 @@
 		}
 	}
 	.components-panel__body.kbs-tools-panel-body.is-opened {
-		padding: 16px 0 0;
+		padding: 16px 12px 0;
+		border-bottom: 1px solid transparent;
+		> .components-panel__body-title {
+			margin: -12px -12px 8px;
+		}
 	}
 }
