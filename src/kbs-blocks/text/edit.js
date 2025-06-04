@@ -38,6 +38,7 @@ import {
 	BlockControls,
 	AlignmentToolbar,
 } from '@wordpress/block-editor';
+import { applyFilters } from '@wordpress/hooks';
 
 import { DynamicTextControl } from '@kadence/kbsComponents';
 
@@ -46,14 +47,15 @@ import { DynamicTextControl } from '@kadence/kbsComponents';
  */
 export default function TextEdit(props) {
 	const { attributes, setAttributes, className } = props;
-	const { uniqueID, content, align, globalStyleIds, htmlTag, link } = attributes;
+	const { uniqueID, content, align, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
 
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
 
-	const { previewDevice } = useSelect((select) => {
+	const { previewDevice, allowedFormats } = useSelect((select) => {
 		return {
 			previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+			allowedFormats: select('core/rich-text').getFormatTypes(),
 		};
 	}, []);
 
@@ -77,6 +79,35 @@ export default function TextEdit(props) {
 		setAttributes({ align: nextAlign });
 	};
 
+	const isDynamicReplaced =
+		undefined !== kadenceDynamic &&
+		undefined !== kadenceDynamic.content &&
+		undefined !== kadenceDynamic.content.enable &&
+		kadenceDynamic.content.enable;
+
+	let richTextFormatsBase = applyFilters(
+		'kadence.whitelist_richtext_formats',
+		[
+			'core/bold',
+			'core/italic',
+			'kadence/mark',
+			'kadence/typed',
+			'core/strikethrough',
+			'core/superscript',
+			'core/superscript',
+			'toolset/inline-field',
+		],
+		'kbs/text'
+	);
+
+	let richTextFormats = allowedFormats.map((format) => format.name);
+	if (link || kadenceDynamic?.content?.shouldReplace) {
+		richTextFormatsBase = !kadenceDynamic?.content?.shouldReplace
+			? [...['kadence/insert-dynamic'], ...richTextFormatsBase]
+			: richTextFormatsBase;
+		richTextFormats = richTextFormatsBase;
+	}
+
 	const contentHTML = (
 		<RichText
 			tagName={htmlTag}
@@ -84,6 +115,7 @@ export default function TextEdit(props) {
 			value={content}
 			onChange={onContentChange}
 			placeholder={__('Write something…', 'kadence-blocks')}
+			allowedFormats={richTextFormats}
 		/>
 	);
 
@@ -96,7 +128,9 @@ export default function TextEdit(props) {
 				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
 					<AlignmentToolbar value={align} onChange={onAlignChange} />
-					<DynamicTextControl dynamicAttribute={'content'} {...props} />
+					{Boolean(kadenceDynamic?.content?.shouldReplace) && (
+						<DynamicTextControl dynamicAttribute={'content'} {...props} />
+					)}
 				</BlockControls>
 				{link?.url && linkContentHTML}
 				{!link?.url && contentHTML}
