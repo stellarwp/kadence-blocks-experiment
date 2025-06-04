@@ -243,51 +243,83 @@ function GradientColorPickerDropdown({ isRenderedInSidebar, className, ...props 
 		/>
 	);
 }
-function getReadableColor(value, colors) {
+function getReadableColor(value, colors, containerRef) {
 	if (!value) {
 		return '';
 	}
 	if (!colors) {
 		return value;
 	}
-	if (value.startsWith('var(--global-')) {
-		const foundColor = colors.find((option) => option.value === value);
-		if (foundColor) {
-			return foundColor.color;
-		}
-		let slug = value.replace('var(--global-', '');
-		slug = slug.substring(0, 8);
-		slug = 'theme-' + slug;
-		const found = colors.find((option) => option.slug === slug);
-		if (found) {
-			if (!found.color.startsWith('var(')) {
-				return found.color;
-			}
-		}
-		let temp_value = window
-			.getComputedStyle(document.documentElement)
-			.getPropertyValue(value.replace('var(', '').replace(' ', '').replace(')', ''));
-		if ('' === temp_value) {
-			temp_value = window
-				.getComputedStyle(document.documentElement)
-				.getPropertyValue(value.replace('var(', '').replace(' ', '').split(',')[0].replace(')', ''));
-		}
-		if (temp_value) {
-			return temp_value;
-		}
-	} else if (value.startsWith('var(')) {
-		let temp_value = window
-			.getComputedStyle(document.documentElement)
-			.getPropertyValue(value.replace('var(', '').replace(' ', '').replace(')', ''));
-		if ('' === temp_value) {
-			temp_value = window
-				.getComputedStyle(document.documentElement)
-				.getPropertyValue(value.replace('var(', '').replace(' ', '').split(',')[0].replace(')', ''));
-		}
-		if (temp_value) {
-			return temp_value;
-		}
-	}
+	// if (value.startsWith('var(--global-')) {
+	// 	const foundColor = colors.find((option) => option.value === value);
+	// 	if (foundColor) {
+	// 		return foundColor.color;
+	// 	}
+	// 	let slug = value.replace('var(--global-', '');
+	// 	slug = slug.substring(0, 8);
+	// 	slug = 'theme-' + slug;
+	// 	const found = colors.find((option) => option.slug === slug);
+	// 	if (found) {
+	// 		return found.color;
+	// 	}
+	// 	if (containerRef?.current) {
+	// 		let temp_value = window
+	// 			.getComputedStyle(containerRef.current)
+	// 			.getPropertyValue(value.replace('var(', '').replace(' ', '').replace(')', ''));
+	// 		if ('' === temp_value) {
+	// 			temp_value = window
+	// 				.getComputedStyle(containerRef.current)
+	// 				.getPropertyValue(value.replace('var(', '').replace(' ', '').split(',')[0].replace(')', ''));
+	// 		}
+	// 		if (temp_value) {
+	// 			return temp_value;
+	// 		}
+	// 	}
+	// } else if (value.startsWith('var(--kbs-colors-')) {
+	// 	const foundColor = colors.find((option) => option.value === value);
+	// 	if (foundColor) {
+	// 		console.log('foundColor', foundColor);
+	// 		return foundColor.color;
+	// 	}
+	// 	let slug = value.replace('var(--kbs-colors-', '');
+	// 	slug = slug.substring(0, 8);
+	// 	const foundPalette = colors.find((option) => option.slug === slug);
+	// 	if (foundPalette) {
+	// 		console.log('foundPalette', foundPalette);
+	// 		return foundPalette.color;
+	// 	}
+	// 	slug = 'theme-' + slug;
+	// 	const found = colors.find((option) => option.slug === slug);
+	// 	if (found) {
+	// 		console.log('found', found);
+	// 		return found.color;
+	// 	}
+	// 	if (containerRef?.current) {
+	// 		let temp_value = window
+	// 			.getComputedStyle(containerRef.current)
+	// 			.getPropertyValue(value.replace('var(', '').replace(' ', '').replace(')', ''));
+	// 		if ('' === temp_value) {
+	// 			temp_value = window
+	// 				.getComputedStyle(containerRef.current)
+	// 				.getPropertyValue(value.replace('var(', '').replace(' ', '').split(',')[0].replace(')', ''));
+	// 		}
+	// 		if (temp_value) {
+	// 			return temp_value;
+	// 		}
+	// 	}
+	// } else if (value.startsWith('var(') && containerRef?.current) {
+	// 	let temp_value = window
+	// 		.getComputedStyle(containerRef.current)
+	// 		.getPropertyValue(value.replace('var(', '').replace(' ', '').replace(')', ''));
+	// 	if ('' === temp_value) {
+	// 		temp_value = window
+	// 			.getComputedStyle(containerRef.current)
+	// 			.getPropertyValue(value.replace('var(', '').replace(' ', '').split(',')[0].replace(')', ''));
+	// 	}
+	// 	if (temp_value) {
+	// 		return temp_value;
+	// 	}
+	// }
 
 	return value;
 }
@@ -302,6 +334,8 @@ function ControlPoints({
 	onStopControlPointChange,
 	isRenderedInSidebar,
 	globalClasses,
+	containerRef,
+	globalColors,
 }) {
 	const controlPointMoveState = useRef();
 
@@ -341,10 +375,9 @@ function ControlPoints({
 		};
 	}, []);
 	const disableCustomColors = !useSetting('color.custom');
-	const globalColors = getColorOptions();
 	return controlPoints.map((point, index) => {
 		const initialPosition = point?.position;
-		const pointColor = getReadableColor(point.color, globalColors);
+		const pointColor = getReadableColor(point.color, globalColors, containerRef);
 		return (
 			ignoreMarkerPosition !== initialPosition && (
 				<GradientColorPickerDropdown
@@ -418,7 +451,17 @@ function ControlPoints({
 								<ColorSelector
 									handleColorChange={(value) => {
 										console.log('value', value);
-										onChange(updateControlPointColor(controlPoints, index, value));
+										if (value.startsWith('palette')) {
+											onChange(
+												updateControlPointColor(
+													controlPoints,
+													index,
+													'var(--kbs-colors-' + value + ')'
+												)
+											);
+										} else {
+											onChange(updateControlPointColor(controlPoints, index, value));
+										}
 									}}
 									colors={globalColors}
 									currentValue={pointColor ? pointColor : ''}
@@ -482,12 +525,13 @@ function InsertPoint({
 	insertPosition,
 	isRenderedInSidebar,
 	globalClasses,
+	containerRef,
+	globalColors,
 }) {
 	const [alreadyInsertedPoint, setAlreadyInsertedPoint] = useState(false);
 	const disableCustomColors = !useSetting('color.custom');
-	const globalColors = getColorOptions();
 	const [tempColor, setTempColor] = useState('');
-	const pointColor = getReadableColor(tempColor, globalColors);
+	const pointColor = getReadableColor(tempColor, globalColors, containerRef);
 	return (
 		<GradientColorPickerDropdown
 			isRenderedInSidebar={isRenderedInSidebar}
@@ -520,10 +564,32 @@ function InsertPoint({
 							handleColorChange={(value) => {
 								setTempColor(value);
 								if (!alreadyInsertedPoint) {
-									onChange(addControlPoint(controlPoints, insertPosition, value));
+									if (value.startsWith('palette')) {
+										onChange(
+											addControlPoint(
+												controlPoints,
+												insertPosition,
+												'var(--kbs-colors-' + value + ')'
+											)
+										);
+									} else {
+										onChange(addControlPoint(controlPoints, insertPosition, value));
+									}
 									setAlreadyInsertedPoint(true);
 								} else {
-									onChange(updateControlPointColorByPosition(controlPoints, insertPosition, value));
+									if (value.startsWith('palette')) {
+										onChange(
+											updateControlPointColorByPosition(
+												controlPoints,
+												insertPosition,
+												'var(--kbs-colors-' + value + ')'
+											)
+										);
+									} else {
+										onChange(
+											updateControlPointColorByPosition(controlPoints, insertPosition, value)
+										);
+									}
 								}
 							}}
 							colors={globalColors}

@@ -1,16 +1,20 @@
 /**
  * External dependencies
  */
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { AnglePickerControl, Flex, FlexItem, SelectControl } from '@wordpress/components';
+import { AnglePickerControl, Button, Flex, FlexItem, SelectControl } from '@wordpress/components';
+import { useMemo, useEffect } from '@wordpress/element';
 /**
  * Internal dependencies
  */
+import { getGradientOptions, getColorOptions } from '@kadence/kbsHelpers';
 import CustomGradientBar from './gradient-bar';
+import ColorIndicator from '../color-control/color-indicator';
 import {
 	getGradientAstWithDefault,
 	getLinearGradientRepresentation,
@@ -260,8 +264,51 @@ const GradientShapePicker = ({ gradientAST, hasGradient, onChange }) => {
 	);
 };
 
-export default function GradientPicker({ value, onChange, isRenderedInSidebar = true, globalClasses }) {
-	const gradientAST = getGradientAstWithDefault(value);
+export const getGradientComputedValue = (value, ref, globalColors) => {
+	console.log(ref);
+	if (value.startsWith('var(') && ref?.current) {
+		// Get the raw CSS variable value without computing it
+		const cssVar = value.replace('var(', '').split(',')[0].replace(')', '');
+		// Get the raw value of the CSS variable
+		const rawValue = window.getComputedStyle(ref.current).getPropertyValue(cssVar);
+
+		// If we have a raw value, try to replace hex colors with their CSS variables
+		if (rawValue) {
+			// Get all global colors
+			const computedStyle = window.getComputedStyle(ref.current);
+			const colorMap = {};
+
+			// Map computed colors to their CSS variables
+			for (let i = 0; i < globalColors.length; i++) {
+				const varSlug = globalColors[i]?.slug || '';
+				const varName = `--global-${varSlug.replace('theme-', '')}`;
+				const computedColor = computedStyle.getPropertyValue(varName).trim();
+				if (computedColor) {
+					colorMap[computedColor.toLowerCase()] = `var(${varName})`;
+				}
+			}
+
+			// Replace hex colors with their CSS variables
+			let result = rawValue;
+			Object.entries(colorMap).forEach(([hex, cssVar]) => {
+				result = result.replace(new RegExp(hex, 'gi'), cssVar);
+			});
+
+			return result;
+		}
+		return value;
+	}
+	return value;
+};
+
+export default function GradientPicker({ value, onChange, isRenderedInSidebar = true, globalClasses, containerRef }) {
+	const globalGradients = getGradientOptions();
+	const globalColors = getColorOptions();
+	const currentGradient = useMemo(
+		() => (value.startsWith('var(') ? getGradientComputedValue(value, containerRef, globalColors) : value),
+		[value, containerRef, globalColors]
+	);
+	const gradientAST = getGradientAstWithDefault(currentGradient);
 	// On radial gradients the bar should display a linear gradient.
 	// On radial gradients the bar represents a slice of the gradient from the center until the outside.
 	// On liner gradients the bar represents the color stops from left to right independently of the angle.
@@ -275,12 +322,39 @@ export default function GradientPicker({ value, onChange, isRenderedInSidebar = 
 	}));
 	return (
 		<div className={'components-base-control kbs-control kbs-gradient-control'}>
+			<div className="kbs-gradient-swatches">
+				{globalGradients.map((gradient) => {
+					const isActive = 'var(--kbs-gradients-' + gradient.slug + ')' === value;
+					return (
+						<div key={gradient.slug} className="kbs-gradient-swatch">
+							<Button
+								key={gradient.slug}
+								__next40pxDefaultSize
+								className={clsx('kbs-color-select-button', 'kbs-color-select-control__select-button', {
+									'is-selected': isActive,
+								})}
+								label={gradient.name}
+								onClick={() => {
+									onChange('var(--kbs-gradients-' + gradient.slug + ')');
+								}}
+							>
+								<ColorIndicator
+									colorValue={'var(--kbs-gradients-' + gradient.slug + ')'}
+									isChecked={isActive}
+								/>
+							</Button>
+						</div>
+					);
+				})}
+			</div>
 			<CustomGradientBar
 				isRenderedInSidebar={isRenderedInSidebar}
 				background={background}
 				hasGradient={hasGradient}
 				value={controlPoints}
 				globalClasses={globalClasses}
+				containerRef={containerRef}
+				globalColors={globalColors}
 				onChange={(newControlPoints) => {
 					onChange(serializeGradient(getGradientAstWithControlPoints(gradientAST, newControlPoints)));
 				}}

@@ -108,6 +108,7 @@ export default function LayerEffects({
 								units={[{ value: '%', label: '%' }]}
 								value={isHover ? layer?.hoverOpacity : layer?.opacity}
 								previewDevice={previewDevice}
+								inherited={isHover ? { inheritedValue: layer?.opacity } : { inheritedValue: '' }}
 								placeholder={100}
 								step={1}
 								isHover={isHover}

@@ -76,6 +76,8 @@ export default function CustomGradientBar({
 	disableInserter = false,
 	isRenderedInSidebar,
 	globalClasses,
+	containerRef,
+	globalColors,
 }) {
 	const gradientMarkersContainerDomRef = useRef();
 
@@ -125,6 +127,8 @@ export default function CustomGradientBar({
 						isRenderedInSidebar={isRenderedInSidebar}
 						insertPosition={gradientBarState.insertPosition}
 						value={controlPoints}
+						containerRef={containerRef}
+						globalColors={globalColors}
 						onChange={onChange}
 						globalClasses={globalClasses}
 						onOpenInserter={() => {
@@ -147,6 +151,8 @@ export default function CustomGradientBar({
 					value={controlPoints}
 					onChange={onChange}
 					globalClasses={globalClasses}
+					containerRef={containerRef}
+					globalColors={globalColors}
 					onStartControlPointChange={() => {
 						gradientBarStateDispatch({
 							type: 'START_CONTROL_CHANGE',

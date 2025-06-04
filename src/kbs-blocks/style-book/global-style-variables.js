@@ -12,7 +12,7 @@ export function getMappingVariableName(category, type, isBase = false) {
 		.replace(/[^a-zA-Z0-9-_]/g, '-')
 		.replace(/^-+|-+$/g, '')
 		.toLowerCase();
-	if (isBase && categorySlug === 'colors') {
+	if (isBase && (categorySlug === 'colors' || categorySlug === 'gradients')) {
 		categorySlug = 'global';
 		prefix = '';
 	}
@@ -73,7 +73,7 @@ export const GlobalStyleVariableOutput = () => {
 						Object.entries(tokens).forEach(([token, tokenData]) => {
 							if (tokenData.value !== undefined && tokenData.value !== null && tokenData.value !== '') {
 								const variableName = getMappingVariableName(category, token);
-								if (category === 'colors' && styleId === 'kbs-base') {
+								if ((category === 'colors' || category === 'gradients') && styleId === 'kbs-base') {
 									const baseVariableName = getMappingVariableName(category, token, true);
 									currentCssBlock += `  ${variableName}: ${tokenData.value};\n`;
 									currentCssBlock += `  ${baseVariableName}: ${tokenData.value};\n`;

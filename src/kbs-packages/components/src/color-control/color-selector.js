@@ -13,6 +13,8 @@ import ColorMix from './color-mix';
 import { hoverIcon } from '../constants/icons';
 const getInitialTabName = (currentValue, inherited, hasGradient, hasMix) => {
 	const tempValue = currentValue ? currentValue : inherited?.inheritedValue ? inherited.inheritedValue : '';
+	console.log(tempValue);
+	console.log('tempValue');
 	if (!tempValue) {
 		return 'storybook';
 	}
@@ -48,7 +50,7 @@ const ColorSelector = ({
 	const defaultTabs = [
 		{
 			name: 'storybook',
-			title: __('Storybook', 'kadence-blocks'),
+			title: __('Palette', 'kadence-blocks'),
 		},
 		{
 			name: 'custom',
@@ -94,6 +96,7 @@ const ColorSelector = ({
 									value={currentValue}
 									onChange={handleColorChange}
 									globalClasses={globalClasses}
+									containerRef={presetButtonRef}
 								/>
 							);
 						} else if ('mix' === tab.name) {

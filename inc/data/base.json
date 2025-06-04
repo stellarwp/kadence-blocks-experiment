@@ -10,9 +10,13 @@
 					"description": "A base background preset",
 					"locked": true,
 					"attributes": {
-						"desktop": {
-							"color": "palette9"
-						}
+						"layers": [
+							{
+								"desktop": {
+									"backgroundColor": "palette9"
+								}
+							}
+						]
 					}
 				},
 				"kbs-bg-variant-1": {
@@ -23,12 +27,7 @@
 						"layers": [
 							{
 								"desktop": {
-									"backgroundColor": "palette7"
-								}
-							},
-							{
-								"desktop": {
-									"backgroundColor": "palette4"
+									"backgroundColor": "palette8"
 								}
 							}
 						]
@@ -39,9 +38,13 @@
 					"description": "A variant 2 background preset",
 					"locked": true,
 					"attributes": {
-						"desktop": {
-							"color": "palette7"
-						}
+						"layers": [
+							{
+								"desktop": {
+									"backgroundColor": "palette7"
+								}
+							}
+						]
 					}
 				}
 			}
@@ -195,6 +198,32 @@
 			"3xl": { "value": "6.5rem" },
 			"4xl": { "value": "8rem" },
 			"5xl": { "value": "10rem" }
+		},
+		"gradients": {
+			"gradient1": {
+				"label": "Gradient 1",
+				"value": "linear-gradient(90deg, var(--global-palette1) 0%, var(--global-palette2) 100%)"
+			},
+			"gradient2": {
+				"label": "Gradient 2",
+				"value": "radial-gradient(ellipse at 100% 100%, var(--global-palette1) 0%, var(--global-palette2) 100%)"
+			},
+			"gradient3": {
+				"label": "Gradient 3",
+				"value": "linear-gradient(90deg, var(--global-palette3) 0%, var(--global-palette5) 100%)"
+			},
+			"gradient4": {
+				"label": "Gradient 4",
+				"value": "linear-gradient(180deg, var(--global-palette9) 0%, var(--global-palette7) 100%)"
+			},
+			"gradient5": {
+				"label": "Gradient 5",
+				"value": "radial-gradient(ellipse at 100% 100%, var(--global-palette7) 0%, var(--global-palette9) 100%)"
+			},
+			"gradient6": {
+				"label": "Gradient 6",
+				"value": "linear-gradient(180deg, var(--global-palette8) 0%, var(--global-palette9) 100%)"
+			}
 		},
 		"colors": {
 			"palette1": {

@@ -2,6 +2,26 @@
 	"styleId": "kbs-dark",
 	"label": "Dark Style",
 	"mappings": {
+		"gradients": {
+			"gradient1": {
+				"value": "linear-gradient(90deg, var(--kbs-colors-palette1) 0%, var(--kbs-colors-palette2) 100%)"
+			},
+			"gradient2": {
+				"value": "radial-gradient(ellipse at 100% 100%, var(--kbs-colors-palette1) 0%, var(--kbs-colors-palette2) 100%)"
+			},
+			"gradient3": {
+				"value": "linear-gradient(90deg, var(--kbs-colors-palette3) 0%, var(--kbs-colors-palette5) 100%)"
+			},
+			"gradient4": {
+				"value": "linear-gradient(180deg, var(--kbs-colors-palette9) 0%, var(--kbs-colors-palette7) 100%)"
+			},
+			"gradient5": {
+				"value": "radial-gradient(ellipse at 100% 100%, var(--kbs-colors-palette7) 0%, var(--kbs-colors-palette9) 100%)"
+			},
+			"gradient6": {
+				"value": "linear-gradient(180deg, var(--kbs-colors-palette8) 0%, var(--kbs-colors-palette9) 100%)"
+			}
+		},
 		"colors": {
 			"palette1": { "value": "var(--global-palette1)" },
 			"palette2": { "value": "var(--global-palette2)" },

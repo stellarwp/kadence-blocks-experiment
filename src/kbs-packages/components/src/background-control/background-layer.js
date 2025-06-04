@@ -35,6 +35,7 @@ import {
 	getInheritedValue,
 	handleLayerAttributeChange,
 	getLayerDeviceValue,
+	getGradientOptions,
 } from '@kadence/kbsHelpers';
 import { gradient as gradientIcon, color as colorIcon, fill as fillIcon, hover as hoverIcon } from './constants';
 import ColorSelector from '../color-control/color-selector';
@@ -72,7 +73,14 @@ function BackgroundIndicator({ value, type, colorValue }) {
 		</div>
 	);
 }
-function getGradientLabel(gradient) {
+function getGradientLabel(gradient, gradients) {
+	if (gradient && gradient.startsWith('var(')) {
+		const gradientOption = gradients.find(({ slug }) => 'var(--kbs-gradients-' + slug + ')' === gradient);
+		if (gradientOption?.name) {
+			return gradientOption.name;
+		}
+		return gradient;
+	}
 	if (gradient && gradient.length > 0) {
 		// get the gradient type from the gradient css string.
 		const gradientType = gradient.split('(')[0] || '';
@@ -104,7 +112,7 @@ function getVideoPreview(video, videoType, youtube, vimeo) {
 	}
 	return video;
 }
-function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onChange) {
+function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onChange, gradients) {
 	return ({ onToggle, isOpen }) => {
 		const { color, image, video, videoType, youtube, vimeo, gradient, pattern, type, opacity } = useMemo(() => {
 			return {
@@ -129,7 +137,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'video':
 					return getVideoLabel(video, videoType) || __('Unset', 'kadence-blocks');
 				case 'gradient':
-					return getGradientLabel(gradient);
+					return getGradientLabel(gradient, gradients);
 				case 'pattern':
 					return pattern;
 				default:
@@ -255,6 +263,7 @@ function renderBackgroundDropdown(
 	previewDevice,
 	globalClasses,
 	layerKey,
+	containerRef,
 	useHover = false
 ) {
 	const [isHover, setIsHover] = useState(false);
@@ -302,7 +311,7 @@ function renderBackgroundDropdown(
 			},
 		];
 		return (
-			<div className="kbs-background-layer-control__dropdown-content-inner kbs-color-control">
+			<div className={'kbs-background-layer-control__dropdown-content-inner kbs-color-control'}>
 				<TabPanel
 					className="kbs-color-select-tabs kbs-responsive-locked"
 					activeClass="is-active"
@@ -318,20 +327,34 @@ function renderBackgroundDropdown(
 						if (tab.name) {
 							if ('image' === tab.name) {
 								return (
-									<BackgroundImageLayer
-										onChange={handleCustomOnChange}
-										previewDevice={previewDevice}
-										layer={flattenLayer}
-										globalClasses={globalClasses}
-									/>
+									<>
+										<BackgroundImageLayer
+											onChange={handleCustomOnChange}
+											previewDevice={previewDevice}
+											layer={flattenLayer}
+											globalClasses={globalClasses}
+										/>
+										<LayerEffects
+											layer={flattenLayer}
+											onChange={handleCustomOnChange}
+											previewDevice={previewDevice}
+											globalClasses={globalClasses}
+											isHover={isHover}
+											onToggleHover={() => setIsHover(!isHover)}
+											layerKey={layerKey}
+										/>
+									</>
 								);
 							} else if ('gradient' === tab.name) {
 								return (
-									<GradientPicker
-										value={gradient}
-										globalClasses={globalClasses}
-										onChange={(value) => handleCustomOnChange(value, previewDevice, 'gradient')}
-									/>
+									<>
+										<GradientPicker
+											value={gradient}
+											globalClasses={globalClasses}
+											onChange={(value) => handleCustomOnChange(value, previewDevice, 'gradient')}
+											containerRef={containerRef}
+										/>
+									</>
 								);
 							} else if ('video' === tab.name) {
 								return (
@@ -363,21 +386,21 @@ function renderBackgroundDropdown(
 											onToggleHover={() => setIsHover(!isHover)}
 											hasHoverControls={true}
 										/>
-										<LayerEffects
-											layer={flattenLayer}
-											onChange={handleCustomOnChange}
-											previewDevice={previewDevice}
-											globalClasses={globalClasses}
-											isHover={isHover}
-											onToggleHover={() => setIsHover(!isHover)}
-											layerKey={layerKey}
-										/>
 									</>
 								);
 							}
 						}
 					}}
 				</TabPanel>
+				<LayerEffects
+					layer={flattenLayer}
+					onChange={handleCustomOnChange}
+					previewDevice={previewDevice}
+					globalClasses={globalClasses}
+					isHover={isHover}
+					onToggleHover={() => setIsHover(!isHover)}
+					layerKey={layerKey}
+				/>
 				<div className="kbs-background-layer-control__dropdown-content-close">
 					<Button __next40pxDefaultSize onClick={onToggle}>
 						<Icon icon={closeIcon} size={24} />
@@ -418,8 +441,10 @@ export default function BackgroundLayer({
 		// 	marginTop: '-72px',
 		// },
 	};
+	const containerRef = useRef(undefined);
 	const [customColors] = useSettings('color.custom');
 	const globalColors = getColorOptions();
+	const gradients = getGradientOptions();
 	const isDisableCustomColors = !customColors ? true : false;
 	const onChange = (value, device, type) => {
 		console.log('onChange', value, device, type, layerKey);
@@ -446,12 +471,19 @@ export default function BackgroundLayer({
 	const classes = clsx('kbs-background-layer-control__dropdown-content', globalClasses);
 
 	return (
-		<div className={`kbs-background-layer-control`}>
+		<div ref={containerRef} className={`kbs-background-layer-control`}>
 			<Dropdown
 				popoverProps={popoverProps}
 				className="kbs-background-layer-control__dropdown"
 				contentClassName={classes}
-				renderToggle={renderBackgroundToggle(layer, isInherited, globalColors, previewDevice, onChange)}
+				renderToggle={renderBackgroundToggle(
+					layer,
+					isInherited,
+					globalColors,
+					previewDevice,
+					onChange,
+					gradients
+				)}
 				renderContent={renderBackgroundDropdown(
 					globalColors,
 					layer,
@@ -459,7 +491,8 @@ export default function BackgroundLayer({
 					onChange,
 					previewDevice,
 					globalClasses,
-					layerKey
+					layerKey,
+					containerRef
 				)}
 			/>
 		</div>

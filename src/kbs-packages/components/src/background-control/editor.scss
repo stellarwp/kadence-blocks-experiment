@@ -280,6 +280,7 @@
 		}
 		.focal-point-picker__controls {
 			padding-bottom: 0;
+			margin: 0 auto;
 		}
 	}
 }
@@ -304,11 +305,11 @@
 			object-position: var(--focal-position, center center);
 		}
 	}
-	.kbs-background-image-layer-control-color-opacity {
-		display: grid;
-		grid-template-columns: 5fr 2fr;
-		gap: 12px;
-	}
+}
+.kbs-background-image-layer-control-color-opacity {
+	display: grid;
+	grid-template-columns: 5fr 2fr;
+	gap: 12px;
 }
 .kbs-block-notice {
 	background: #fef8ee;

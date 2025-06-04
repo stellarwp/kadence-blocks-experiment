@@ -26,3 +26,4 @@ export { default as getPresetOptions } from './get-preset-options';
 export { default as getColorOutput } from './get-color-output';
 export { default as getColorOptions } from './get-color-options';
 export { default as getMappingOptions } from './get-mapping-options';
+export { default as getGradientOptions } from './get-gradient-options';

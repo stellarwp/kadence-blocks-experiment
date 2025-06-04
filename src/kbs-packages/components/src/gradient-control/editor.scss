@@ -187,3 +187,20 @@
 		margin-top: 12px;
 	}
 }
+.kbs-gradient-swatches {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 14px;
+	.kbs-gradient-swatch {
+		max-width: 50px;
+		width: 100%;
+		.kbs-color-select-control__select-button {
+			width: 100%;
+			.component-color-indicator {
+				width: 100%;
+				border-radius: 2px;
+			}
+		}
+	}
+}
