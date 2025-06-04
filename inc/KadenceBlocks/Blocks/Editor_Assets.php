@@ -107,9 +107,9 @@ class Editor_Assets {
 			'kbs_params',
 			[
 				'responsive_device_options' => $this->get_responsive_device_options(),
-				'dynamic_enabled'           => true,
 				'global_styles'             => Global_Style::get_global_styles(),
 				'isKadenceTheme'            => class_exists( 'Kadence\Theme' ),
+				'dynamic_enabled'           => apply_filters( 'kadence_blocks_dynamic_enabled', true ),
 			]
 		);
 	}

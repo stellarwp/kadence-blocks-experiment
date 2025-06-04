@@ -39,6 +39,8 @@ import {
 	AlignmentToolbar,
 } from '@wordpress/block-editor';
 
+import { DynamicTextControl } from '@kadence/kbsComponents';
+
 /**
  * Build the text editor.
  */
@@ -94,6 +96,7 @@ export default function TextEdit(props) {
 				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
 					<AlignmentToolbar value={align} onChange={onAlignChange} />
+					<DynamicTextControl dynamicAttribute={'content'} {...props} />
 				</BlockControls>
 				{link?.url && linkContentHTML}
 				{!link?.url && contentHTML}

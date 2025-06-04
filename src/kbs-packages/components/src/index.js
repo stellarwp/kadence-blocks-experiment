@@ -20,6 +20,7 @@ export { default as BackgroundControl } from './background-control';
 export { default as ImageControl } from './image-control';
 export { default as ColorControl } from './color-control';
 export { default as BackgroundStyles } from './background-styles';
+export { default as DynamicTextControl } from './dynamic-text-control';
 // export { default as PopColorControl } from './pop-color-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';
 // export { default as SinglePopColorControl } from './single-pop-color-control';
