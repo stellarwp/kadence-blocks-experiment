@@ -40,6 +40,7 @@ import RadioToggleGroupInputUI from './ui-toggle-group-input';
 import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
 import RadioToggleGroupInputRangeUI from './ui-toggle-group-input-range';
 import RadioToggleGroupBackgroundSizeUI from './ui-toggle-group-background-size';
+import RadioToggleGroupShadeRangeUI from './ui-toggle-group-shade-range';
 export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioToggleGroupButtonUI;
 	let controls;
@@ -49,6 +50,11 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'color-mix':
 		case 'colorMix':
 			controls = getColorMixControls();
+			break;
+		case 'color-shade':
+		case 'colorShade':
+			UIComponent = RadioToggleGroupShadeRangeUI;
+			controls = getColorShadeControls();
 			break;
 		case 'flex-wrap':
 		case 'flexWrap':
@@ -159,19 +165,92 @@ export const getObjectFitControls = () => [
 ];
 export const getColorMixControls = () => [
 	{
-		title: __('Darken', 'kadence-blocks'),
-		name: __('Darken', 'kadence-blocks'),
-		key: 'black',
-	},
-	{
-		title: __('Lighten', 'kadence-blocks'),
-		name: __('Lighten', 'kadence-blocks'),
-		key: 'white',
+		title: __('Shade', 'kadence-blocks'),
+		name: __('Shade', 'kadence-blocks'),
+		key: 'shade',
 	},
 	{
 		title: __('Transparent', 'kadence-blocks'),
 		name: __('Transparent', 'kadence-blocks'),
 		key: 'transparent',
+	},
+	{
+		title: __('Mix', 'kadence-blocks'),
+		name: __('Mix', 'kadence-blocks'),
+		key: 'mix',
+	},
+];
+
+export const getColorShadeControls = () => [
+	{
+		title: __('87.5% Lighter', 'kadence-blocks'),
+		name: '',
+		key: '87.5',
+	},
+	{
+		title: __('75% Lighter', 'kadence-blocks'),
+		name: '',
+		key: '75',
+	},
+	{
+		title: __('62.5% Lighter', 'kadence-blocks'),
+		name: '',
+		key: '62.5',
+	},
+	{
+		title: __('50% Lighter', 'kadence-blocks'),
+		name: '',
+		key: '50',
+	},
+	{
+		title: __('37.5% Lighter', 'kadence-blocks'),
+		name: '',
+		key: '37.5',
+	},
+	{
+		title: __('25% Lighter', 'kadence-blocks'),
+		name: '',
+		key: '25',
+	},
+	{
+		title: __('12.5% Lighter', 'kadence-blocks'),
+		name: '',
+		key: '12.5',
+	},
+	{
+		title: __('12.5% Darker', 'kadence-blocks'),
+		name: '',
+		key: '-12.5',
+	},
+	{
+		title: __('25% Darker', 'kadence-blocks'),
+		name: '',
+		key: '-25',
+	},
+	{
+		title: __('37.5% Darker', 'kadence-blocks'),
+		name: '',
+		key: '-37.5',
+	},
+	{
+		title: __('50% Darker', 'kadence-blocks'),
+		name: '',
+		key: '-50',
+	},
+	{
+		title: __('62.5% Darker', 'kadence-blocks'),
+		name: '',
+		key: '-62.5',
+	},
+	{
+		title: __('75% Darker', 'kadence-blocks'),
+		name: '',
+		key: '-75',
+	},
+	{
+		title: __('87.5% Darker', 'kadence-blocks'),
+		name: '',
+		key: '-87.5',
 	},
 ];
 

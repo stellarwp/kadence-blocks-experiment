@@ -201,26 +201,32 @@
 		},
 		"gradients": {
 			"gradient1": {
+				"locked": true,
 				"label": "Gradient 1",
 				"value": "linear-gradient(90deg, var(--global-palette1) 0%, var(--global-palette2) 100%)"
 			},
 			"gradient2": {
+				"locked": true,
 				"label": "Gradient 2",
 				"value": "radial-gradient(ellipse at 100% 100%, var(--global-palette1) 0%, var(--global-palette2) 100%)"
 			},
 			"gradient3": {
+				"locked": true,
 				"label": "Gradient 3",
 				"value": "linear-gradient(90deg, var(--global-palette3) 0%, var(--global-palette5) 100%)"
 			},
 			"gradient4": {
+				"locked": true,
 				"label": "Gradient 4",
 				"value": "linear-gradient(180deg, var(--global-palette9) 0%, var(--global-palette7) 100%)"
 			},
 			"gradient5": {
+				"locked": true,
 				"label": "Gradient 5",
 				"value": "radial-gradient(ellipse at 100% 100%, var(--global-palette7) 0%, var(--global-palette9) 100%)"
 			},
 			"gradient6": {
+				"locked": true,
 				"label": "Gradient 6",
 				"value": "linear-gradient(180deg, var(--global-palette8) 0%, var(--global-palette9) 100%)"
 			}

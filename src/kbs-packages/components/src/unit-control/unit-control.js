@@ -14,6 +14,8 @@ import { __ } from '@wordpress/i18n';
 import { __experimentalUnitControl as CoreUnitControl } from '@wordpress/components';
 
 import TitleBar from '../title-bar';
+import { getNumberFromRawValue } from '../radio-button-control/utils';
+import { useMemo } from '@wordpress/element';
 /**
  * Build the Measure controls
  * @returns {object} Measure settings.
@@ -22,7 +24,7 @@ export default function UnitControl({
 	onChange,
 	type,
 	value = '',
-	inheritedValue = '',
+	inherited,
 	placeholder = '',
 	className = '',
 	defaultValue = '',
@@ -34,7 +36,7 @@ export default function UnitControl({
 	labelPosition = 'top',
 	step = undefined,
 	reset = true,
-	hasRange = false,
+	isHover = false,
 }) {
 	const onReset = () => {
 		let resetValue = undefined;
@@ -43,6 +45,12 @@ export default function UnitControl({
 		}
 		onChange(resetValue, 'Desktop' === previewDevice ? 'all' : previewDevice, type);
 	};
+	const placeholderValue = useMemo(() => {
+		if (inherited?.inheritedValue) {
+			return getNumberFromRawValue(inherited?.inheritedValue);
+		}
+		return placeholder;
+	}, [inherited, placeholder]);
 	// Return the JSX directly, not inside an array
 	return (
 		<div className={`components-base-control kbs-control kbs-unit-control${className ? ' ' + className : ''}`}>
@@ -51,6 +59,7 @@ export default function UnitControl({
 					label={label}
 					reset={reset}
 					onReset={onReset}
+					isHover={isHover}
 					hasDeviceControls={false}
 					hasAdvancedControls={false}
 				/>
@@ -66,7 +75,7 @@ export default function UnitControl({
 					step={step}
 					units={units}
 					value={value}
-					placeholder={inheritedValue || placeholder}
+					placeholder={placeholderValue}
 					disableUnits={false}
 					onChange={onChange}
 				/>
