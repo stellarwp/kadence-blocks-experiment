@@ -51,10 +51,20 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'colorMix':
 			controls = getColorMixControls();
 			break;
+		case 'color-mix-amount':
+		case 'colorMixAmount':
+			UIComponent = RadioToggleGroupShadeRangeUI;
+			controls = getColorMixAmountControls();
+			break;
 		case 'color-shade':
 		case 'colorShade':
 			UIComponent = RadioToggleGroupShadeRangeUI;
 			controls = getColorShadeControls();
+			break;
+		case 'color-transparent':
+		case 'colorTransparent':
+			UIComponent = RadioToggleGroupShadeRangeUI;
+			controls = getColorTransparentControls();
 			break;
 		case 'flex-wrap':
 		case 'flexWrap':
@@ -183,74 +193,170 @@ export const getColorMixControls = () => [
 
 export const getColorShadeControls = () => [
 	{
-		title: __('87.5% Lighter', 'kadence-blocks'),
+		title: __('70% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '87.5',
+		key: 70,
 	},
 	{
-		title: __('75% Lighter', 'kadence-blocks'),
+		title: __('60% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '75',
-	},
-	{
-		title: __('62.5% Lighter', 'kadence-blocks'),
-		name: '',
-		key: '62.5',
+		key: 60,
 	},
 	{
 		title: __('50% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '50',
+		key: 50,
 	},
 	{
-		title: __('37.5% Lighter', 'kadence-blocks'),
+		title: __('40% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '37.5',
+		key: 40,
 	},
 	{
-		title: __('25% Lighter', 'kadence-blocks'),
+		title: __('30% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '25',
+		key: 30,
 	},
 	{
-		title: __('12.5% Lighter', 'kadence-blocks'),
+		title: __('20% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '12.5',
+		key: 20,
 	},
 	{
-		title: __('12.5% Darker', 'kadence-blocks'),
+		title: __('10% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '-12.5',
+		key: 10,
 	},
 	{
-		title: __('25% Darker', 'kadence-blocks'),
+		title: __('10% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-25',
+		key: -10,
 	},
 	{
-		title: __('37.5% Darker', 'kadence-blocks'),
+		title: __('20% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-37.5',
+		key: -20,
+	},
+	{
+		title: __('30% Darker', 'kadence-blocks'),
+		name: '',
+		key: -30,
+	},
+	{
+		title: __('40% Darker', 'kadence-blocks'),
+		name: '',
+		key: -40,
 	},
 	{
 		title: __('50% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-50',
+		key: -50,
 	},
 	{
-		title: __('62.5% Darker', 'kadence-blocks'),
+		title: __('60% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-62.5',
+		key: -60,
 	},
 	{
-		title: __('75% Darker', 'kadence-blocks'),
+		title: __('70% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-75',
+		key: -70,
+	},
+];
+
+export const getColorTransparentControls = () => [
+	{
+		title: __('90% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 10,
 	},
 	{
-		title: __('87.5% Darker', 'kadence-blocks'),
+		title: __('80% Opacity', 'kadence-blocks'),
 		name: '',
-		key: '-87.5',
+		key: 20,
+	},
+	{
+		title: __('70% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 30,
+	},
+	{
+		title: __('60% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 40,
+	},
+	{
+		title: __('50% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 50,
+	},
+	{
+		title: __('40% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 60,
+	},
+	{
+		title: __('30% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 70,
+	},
+	{
+		title: __('20% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 80,
+	},
+	{
+		title: __('10% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 90,
+	},
+];
+
+export const getColorMixAmountControls = () => [
+	{
+		title: __('10%/90%', 'kadence-blocks'),
+		name: '',
+		key: 10,
+	},
+	{
+		title: __('20%/80%', 'kadence-blocks'),
+		name: '',
+		key: 20,
+	},
+	{
+		title: __('30%/70%', 'kadence-blocks'),
+		name: '',
+		key: 30,
+	},
+	{
+		title: __('40%/60%', 'kadence-blocks'),
+		name: '',
+		key: 40,
+	},
+	{
+		title: __('50%/50%', 'kadence-blocks'),
+		name: '',
+		key: 50,
+	},
+	{
+		title: __('60%/40%', 'kadence-blocks'),
+		name: '',
+		key: 60,
+	},
+	{
+		title: __('70%/30%', 'kadence-blocks'),
+		name: '',
+		key: 70,
+	},
+	{
+		title: __('80%/20%', 'kadence-blocks'),
+		name: '',
+		key: 80,
+	},
+	{
+		title: __('90%/10%', 'kadence-blocks'),
+		name: '',
+		key: 90,
 	},
 ];
 

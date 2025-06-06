@@ -186,3 +186,48 @@
 		}
 	}
 }
+.kbs-radio-control .kbs-control-inner {
+	.kbs-radio-button-control__toggle-group-input-shade-range {
+		.kbs-radio-button-control__toggle_item {
+			padding: 0;
+			border-radius: 0;
+			background: var(--bg-mix);
+			&:hover {
+				box-shadow:
+					inset 0px 0px 0px 2px
+						color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 70%),
+					inset 0px 0px 0px 4px color-mix(in srgb, white, transparent 70%);
+			}
+			&.kb-is-pressed {
+				box-shadow:
+					inset 0px 0px 0px 2px var(--wp-components-color-foreground, #1e1e1e),
+					inset 0px 0px 0px 4px #ffffff;
+			}
+			&.kb-is-inherited {
+				background: var(--bg-mix);
+				border-radius: 0px;
+				box-shadow:
+					inset 0px 0px 0px 2px #ffffff,
+					inset 0px 0px 0px 4px var(--wp-components-color-foreground, #1e1e1e);
+			}
+		}
+		.kbs-radio-button-control__toggle-group {
+			background:
+				linear-gradient(45deg, #ddd 25%, transparent 0), linear-gradient(-45deg, #ddd 25%, transparent 0),
+				linear-gradient(45deg, transparent 75%, #ddd 0), linear-gradient(-45deg, transparent 75%, #ddd 0);
+			background-size: 10px 10px;
+			padding: 0;
+			border: 2px solid var(--kb-subtle-background, #edf2f7);
+			background-position:
+				0 0,
+				0 5px,
+				5px -5px,
+				-5px 0;
+			&:before {
+				background: transparent;
+				box-shadow: none;
+				border-radius: 0;
+			}
+		}
+	}
+}

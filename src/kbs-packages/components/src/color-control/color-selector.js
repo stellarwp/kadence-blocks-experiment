@@ -13,8 +13,6 @@ import ColorMix from './color-mix';
 import { hoverIcon } from '../constants/icons';
 const getInitialTabName = (currentValue, inherited, hasGradient, hasMix) => {
 	const tempValue = currentValue ? currentValue : inherited?.inheritedValue ? inherited.inheritedValue : '';
-	console.log(tempValue);
-	console.log('tempValue');
 	if (!tempValue) {
 		return 'storybook';
 	}
