@@ -8,12 +8,34 @@ import clsx from 'clsx';
  */
 import { __ } from '@wordpress/i18n';
 import { Icon } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch, select } from '@wordpress/data';
 import { createRef, useEffect, useMemo } from '@wordpress/element';
 import { blockDefault, brush, settings } from '@wordpress/icons';
-import { getInheritedValue } from '@kadence/kbsHelpers';
+import { getInheritedValue, getPresetValue, getInheritedDeviceValue, cssGenerator } from '@kadence/kbsHelpers';
 import './editor.scss';
 
+function BackgroundPresetCSSStyles(props) {
+	const { attributes, previewDevice, preset, uniqueID, meta, attributeMeta } = props;
+	const cssOutput = useMemo(() => {
+		const selector = `.preset-${uniqueID}-${preset.value}`;
+		const css = new cssGenerator(selector);
+		const reverseLayers = Array.isArray(attributes?.layers) ? [...attributes.layers].reverse() : [];
+		if (reverseLayers.length > 0) {
+			reverseLayers.forEach((layer, index) =>
+				css.processBackgroundLayer(layer, index, attributeMeta, props, meta)
+			);
+		}
+
+		let output = css.generate();
+		return output;
+	}, [attributes, previewDevice, preset, uniqueID]);
+
+	return (
+		<>
+			<style>{cssOutput}</style>
+		</>
+	);
+}
 const getLayerInheritedDeviceValue = (layerAttribute, layer, device) => {
 	if (layer?.[device?.toLowerCase()]?.[layerAttribute]) {
 		return layer?.[device?.toLowerCase()]?.[layerAttribute];
@@ -38,22 +60,34 @@ const getLayerInheritedDeviceValue = (layerAttribute, layer, device) => {
 	return '';
 };
 
-function BackgroundStyles(props) {
-	const { previewDevice, backgroundAttribute, attributes, meta, globalStylesIds } = props;
-	const background = getInheritedValue(backgroundAttribute, attributes, 'none', meta, 'layers', globalStylesIds);
-	const metaClassPrefix = meta?.attributes?.[backgroundAttribute]?.classPrefix || 'kbs-bg-style-';
-	//
+function BackgroundPresetRender(props) {
+	const { previewDevice, meta, globalStylesIds, preset, attributeName, uniqueID } = props;
+	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
+		globalStylesIds,
+		'background',
+		'presets.' + preset.value
+	);
+	const metaClassPrefix = meta?.attributes?.[attributeName]?.classPrefix || 'kbs-bg-style-';
 	const layersCount = useMemo(
-		() => (Array.isArray(background?.inheritedValue) ? background.inheritedValue.length : 0),
-		[background?.inheritedValue]
+		() => (Array.isArray(rawPresetData?.attributes?.layers) ? rawPresetData?.attributes?.layers.length : 0),
+		[rawPresetData?.attributes?.layers]
 	);
 	const reverseLayers = useMemo(
-		() => (Array.isArray(background?.inheritedValue) ? [...background.inheritedValue].reverse() : []),
-		[background?.inheritedValue]
+		() =>
+			Array.isArray(rawPresetData?.attributes?.layers) ? [...rawPresetData?.attributes?.layers].reverse() : [],
+		[rawPresetData?.attributes?.layers]
 	);
 	// Return a div for each layer
 	return (
-		<>
+		<div className={`kbs-bg-preset-render ${props.className} preset-${uniqueID}-${preset.value}`}>
+			<BackgroundPresetCSSStyles
+				preset={preset}
+				attributes={rawPresetData?.attributes}
+				uniqueID={uniqueID}
+				attributeMeta={meta?.attributes?.[attributeName]}
+				meta={meta}
+				previewDevice={previewDevice}
+			/>
 			{Array.from({ length: layersCount }).map((_, index) => {
 				const layer = reverseLayers[index];
 				const video = getLayerInheritedDeviceValue('video', layer, previewDevice);
@@ -96,8 +130,8 @@ function BackgroundStyles(props) {
 					</div>
 				);
 			})}
-		</>
+		</div>
 	);
 }
 
-export default BackgroundStyles;
+export default BackgroundPresetRender;

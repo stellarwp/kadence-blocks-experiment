@@ -311,7 +311,7 @@ class CSSGenerator {
 		if (index === 0 && backgroundType !== 'video' && '' === anyBackgroundOpacity) {
 			this.setSelector(currentSelector + ':hover');
 		} else {
-			this.setSelector(currentSelector + ' > .' + metaClassPrefix + index + ':hover');
+			this.setSelector(currentSelector + ':hover > .' + metaClassPrefix + index);
 		}
 		if (backgroundHoverOpacity || backgroundHoverOpacity === 0) {
 			this.add({ opacity: backgroundHoverOpacity });

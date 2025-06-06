@@ -185,6 +185,16 @@ export const handleLayerAttributeChange = (
 		});
 		setAttributes({ [attributeName]: { ...attributes?.[attributeName], layers: newLayers } });
 	} else {
-		handleSingleLayerAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta, layerKey);
+		handleSingleLayerAttributeChange(
+			value,
+			device,
+			attributeName,
+			attributes,
+			setAttributes,
+			customOnChange,
+			type,
+			meta,
+			layerKey
+		);
 	}
 };

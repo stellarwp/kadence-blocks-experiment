@@ -50,7 +50,16 @@ import GradientPicker from '../gradient-control';
 import BackgroundVideoLayer from './background-video-layer';
 import ColorSelect from '../color-control/color-select';
 import LayerEffects from './layer-effects';
+import BackgroundPatternLayer from './background-pattern-layer';
+import { patterns } from '../constants/patterns';
+import { PopoverPatternRender } from './popover-select';
 
+function getPatternLabel(pattern) {
+	return patterns.find(({ value }) => value === pattern)?.label || pattern;
+}
+function getPatternObject(pattern) {
+	return patterns.find(({ value }) => value === pattern) || {};
+}
 function BackgroundIndicator({ value, type, colorValue }) {
 	const style = {
 		background: type !== 'color' ? colorValue : value,
@@ -67,7 +76,8 @@ function BackgroundIndicator({ value, type, colorValue }) {
 					playsInline
 				/>
 			)}
-			{type !== 'color' && type !== 'video' && (
+			{type === 'pattern' && <PopoverPatternRender pattern={value} />}
+			{type !== 'color' && type !== 'video' && type !== 'pattern' && (
 				<div className="kbs-background-indicator-layer" style={{ backgroundImage: value }}></div>
 			)}
 		</div>
@@ -139,7 +149,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'gradient':
 					return getGradientLabel(gradient, gradients);
 				case 'pattern':
-					return pattern;
+					return getPatternLabel(pattern);
 				default:
 					return '';
 			}
@@ -158,7 +168,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'gradient':
 					return gradient;
 				case 'pattern':
-					return pattern;
+					return getPatternObject(pattern);
 				default:
 					return '';
 			}
@@ -364,6 +374,14 @@ function renderBackgroundDropdown(
 										layer={flattenLayer}
 										hasYouTube={true}
 										hasVimeo={true}
+									/>
+								);
+							} else if ('pattern' === tab.name) {
+								return (
+									<BackgroundPatternLayer
+										onChange={handleCustomOnChange}
+										previewDevice={previewDevice}
+										layer={flattenLayer}
 									/>
 								);
 							} else {
