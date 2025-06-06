@@ -26,7 +26,6 @@ import { getAIContentHelper } from './fetch-ai';
 import { convertStreamDataToJson } from './convert-stream-data-to-json';
 import { insert, replace, remove, create, registerFormatType, toggleFormat, applyFormat } from '@wordpress/rich-text';
 import { sendEvent } from '../../../extension/analytics/send-event';
-console.log(2);
 const name = 'kadence/ai-text';
 const allowedBlocks = ['kbs/text'];
 export const AIText = {
@@ -36,10 +35,10 @@ export const AIText = {
 	keywords: [__('ai', 'kadence-blocks'), __('kadence', 'kadence-blocks')],
 	attributes: {},
 	edit({ activeAttributes, isActive, value, onChange, contentRef }) {
-		const isAuthorized = window?.kadence_blocks_params?.isAuthorized;
-		const isAIDisabled = window?.kadence_blocks_params?.isAIDisabled ? true : false;
-		const data_key = window?.kadence_blocks_params?.proData?.api_key ? kadence_blocks_params.proData.api_key : '';
-		const activateLink = window?.kadence_blocks_params?.homeLink ? kadence_blocks_params.homeLink : '';
+		const isAuthorized = window?.kbs_params?.isAuthorized;
+		const isAIDisabled = window?.kbs_params?.isAIDisabled ? true : false;
+		const data_key = window?.kbs_params?.proData?.api_key ? kbs_params.proData.api_key : '';
+		const activateLink = window?.kbs_params?.homeLink ? kbs_params.homeLink : '';
 		const selectedBlock = useSelect((select) => {
 			return select('core/block-editor').getSelectedBlock();
 		}, []);

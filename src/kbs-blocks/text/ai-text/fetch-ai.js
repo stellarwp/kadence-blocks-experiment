@@ -28,15 +28,13 @@ export function getAIContentHelper() {
 			const url = new URL(window.location.href);
 			const domain = url.hostname;
 			const token = {
-				domain: window?.kadence_blocks_params?.proData?.domain
-					? window.kadence_blocks_params.proData.domain
-					: domain,
-				key: window?.kadence_blocks_params?.proData?.api_key ? kadence_blocks_params.proData.api_key : '',
-				site_name: window?.kadence_blocks_params?.site_name ? window.kadence_blocks_params.site_name : '',
-				product_slug: window?.kadence_blocks_params?.pSlug ? window.kadence_blocks_params.pSlug : '',
-				product_version: window?.kadence_blocks_params?.pVersion ? window.kadence_blocks_params.pVersion : '',
+				domain: window?.kbs_params?.proData?.domain ? window.kbs_params.proData.domain : domain,
+				key: window?.kbs_params?.proData?.api_key ? kbs_params.proData.api_key : '',
+				site_name: window?.kbs_params?.site_name ? window.kbs_params.site_name : '',
+				product_slug: window?.kbs_params?.pSlug ? window.kbs_params.pSlug : '',
+				product_version: window?.kbs_params?.pVersion ? window.kbs_params.pVersion : '',
 			};
-			const lang = window?.kadence_blocks_params?.aiLang ? window.kadence_blocks_params.aiLang : 'en-US';
+			const lang = window?.kbs_params?.aiLang ? window.kbs_params.aiLang : 'en-US';
 			const response = await fetch(`${API_URL}proxy/generate/content`, {
 				method: 'POST',
 				headers: {
@@ -68,20 +66,18 @@ export function getAIContentHelper() {
 			const url = new URL(window.location.href);
 			const domain = url.hostname;
 			const token = {
-				domain: window?.kadence_blocks_params?.proData?.domain
-					? window.kadence_blocks_params.proData.domain
-					: domain,
-				key: window?.kadence_blocks_params?.proData?.api_key ? kadence_blocks_params.proData.api_key : '',
-				site_name: window?.kadence_blocks_params?.site_name ? window.kadence_blocks_params.site_name : '',
-				product_slug: window?.kadence_blocks_params?.pSlug ? window.kadence_blocks_params.pSlug : '',
-				product_version: window?.kadence_blocks_params?.pVersion ? window.kadence_blocks_params.pVersion : '',
+				domain: window?.kbs_params?.proData?.domain ? window.kbs_params.proData.domain : domain,
+				key: window?.kbs_params?.proData?.api_key ? kbs_params.proData.api_key : '',
+				site_name: window?.kbs_params?.site_name ? window.kbs_params.site_name : '',
+				product_slug: window?.kbs_params?.pSlug ? window.kbs_params.pSlug : '',
+				product_version: window?.kbs_params?.pVersion ? window.kbs_params.pVersion : '',
 			};
 			const body = {
 				text: content,
 				stream: true,
 			};
 			if (type === 'improve' || type === 'simplify' || type === 'spelling' || type === 'tone') {
-				body.lang = window?.kadence_blocks_params?.aiLang ? window.kadence_blocks_params.aiLang : 'en-US';
+				body.lang = window?.kbs_params?.aiLang ? window.kbs_params.aiLang : 'en-US';
 			}
 			const response = await fetch(`${API_URL}proxy/transform/${type}`, {
 				method: 'POST',
@@ -110,13 +106,11 @@ export function getAIContentHelper() {
 			const url = new URL(window.location.href);
 			const domain = url.hostname;
 			const token = {
-				domain: window?.kadence_blocks_params?.proData?.domain
-					? window.kadence_blocks_params.proData.domain
-					: domain,
-				key: window?.kadence_blocks_params?.proData?.api_key ? kadence_blocks_params.proData.api_key : '',
-				site_name: window?.kadence_blocks_params?.site_name ? window.kadence_blocks_params.site_name : '',
-				product_slug: window?.kadence_blocks_params?.pSlug ? window.kadence_blocks_params.pSlug : '',
-				product_version: window?.kadence_blocks_params?.pVersion ? window.kadence_blocks_params.pVersion : '',
+				domain: window?.kbs_params?.proData?.domain ? window.kbs_params.proData.domain : domain,
+				key: window?.kbs_params?.proData?.api_key ? kbs_params.proData.api_key : '',
+				site_name: window?.kbs_params?.site_name ? window.kbs_params.site_name : '',
+				product_slug: window?.kbs_params?.pSlug ? window.kbs_params.pSlug : '',
+				product_version: window?.kbs_params?.pVersion ? window.kbs_params.pVersion : '',
 			};
 			const body = {
 				text: content,
@@ -124,7 +118,7 @@ export function getAIContentHelper() {
 			};
 			if (type === 'tone') {
 				body.tone = prompt;
-				body.lang = window?.kadence_blocks_params?.aiLang ? window.kadence_blocks_params.aiLang : 'en-US';
+				body.lang = window?.kbs_params?.aiLang ? window.kbs_params.aiLang : 'en-US';
 			} else {
 				body.prompt = prompt;
 			}

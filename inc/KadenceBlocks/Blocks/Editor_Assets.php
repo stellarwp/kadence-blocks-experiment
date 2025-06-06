@@ -12,6 +12,10 @@ declare( strict_types=1 );
 namespace KadenceWP\KadenceBlocks\Blocks;
 
 use KadenceWP\KadenceBlocks\Settings\Global_Style;
+use function KadenceWP\KadenceBlocks\StellarWP\Uplink\is_authorized;
+use function KadenceWP\KadenceBlocks\StellarWP\Uplink\get_license_domain;
+use function KadenceWP\KadenceBlocks\StellarWP\Uplink\get_authorization_token;
+use function kbs_is_ai_disabled;
 use function kbs_get_asset_file;
 /**
  * Handles all functionality related to the A/B Testing Block.
@@ -102,6 +106,22 @@ class Editor_Assets {
 
 		$gfont_names_path = KADENCE_BLOCKS_PATH . 'includes/gfonts-names-array.php';
 
+		$pro_data      = kbs_get_current_license_data();
+		if ( ! empty( $pro_data['key'] ) ) {
+			$pro_data['api_key'] = $pro_data['key'];
+		}
+		if ( ! empty( $pro_data['email'] ) ) {
+			$pro_data['api_email'] = $pro_data['email'];
+		}
+		$token         = ! kbs_is_ai_disabled() ? get_authorization_token( 'kadence-blocks' ) : '';
+		$is_authorized = false;
+		if ( ! empty( $pro_data['key'] ) && ! kbs_is_ai_disabled() ) {
+			$is_authorized = is_authorized( $pro_data['key'], 'kadence-blocks', ( ! empty( $token ) ? $token : '' ), get_license_domain() );
+		}
+		if ( empty( $pro_data['domain'] ) ) {
+			$pro_data['domain'] = get_license_domain();
+		}
+
 		wp_localize_script(
 			'kadence-blocks-js',
 			'kbs_params',
@@ -110,6 +130,14 @@ class Editor_Assets {
 				'global_styles'             => Global_Style::get_global_styles(),
 				'isKadenceTheme'            => class_exists( 'Kadence\Theme' ),
 				'dynamic_enabled'           => apply_filters( 'kadence_blocks_dynamic_enabled', true ),
+				'isAuthorized'              => $is_authorized,
+				'isAIDisabled'              => kbs_is_ai_disabled(),
+				'proData'                   => kbs_get_current_license_data(),
+				'homeLink'                  => admin_url( 'admin.php?page=kadence-blocks-home' ),
+				'site_name'                 => sanitize_title( get_bloginfo( 'name' ) ),
+				'pSlug'                     => apply_filters( 'kadence-blocks-auth-slug', 'kadence-blocks' ),
+				'pVersion'                  => KADENCE_BLOCKS_VERSION,
+				'aiLang'                    => apply_filters( 'kadence_blocks_ai_lang', 'en-US' ),
 			]
 		);
 	}
