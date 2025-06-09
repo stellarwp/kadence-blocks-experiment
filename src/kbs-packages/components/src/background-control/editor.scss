@@ -500,6 +500,14 @@
 					border-color: var(--wp-components-color-foreground, #1e1e1e);
 					box-shadow: inset 0 0 0 1px white;
 				}
+				.kbs-divider-svg {
+					fill: currentColor;
+					position: absolute;
+					left: 0;
+					right: 0;
+					top: auto;
+					bottom: 0;
+				}
 			}
 		}
 		.kbs-popover-background-select-control__dropdown-content-close {
@@ -507,6 +515,58 @@
 			top: 0;
 			right: 0;
 			z-index: 1;
+		}
+	}
+	&.kbs-popover-select-type-divider {
+		.components-popover__content {
+			.kbs-popover-background-select-control__dropdown-content-items {
+				.kbs-radio-popover-select-control-button {
+					height: 40px;
+				}
+			}
+		}
+
+	}
+}
+.kbs-popover-background-select-control__dropdown.kbs-popover-select-type-divider .kbs-color-select-control__toggle-preview {
+	border-radius: 0px;
+}
+.kbs-popover-select-type-divider {
+	.kbs-popover-background-select-control-style {
+		.kbs-divider-svg {
+			fill: currentColor;
+			top: auto;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			position: absolute;
+		}
+	}
+	&.kbs-popover-select-position-top {
+		.kbs-popover-background-select-control-style {
+			.kbs-divider-svg {
+				transform: rotate(180deg);
+				bottom: auto;
+				top: 0;
+			}
+		}
+	}
+	&.kbs-popover-select-position-left {
+		.kbs-popover-background-select-control-style {
+			.kbs-divider-svg {
+				transform: rotate(90deg);
+				top:0;
+				right:auto;
+			}
+		}
+	}
+	&.kbs-popover-select-position-right {
+		.kbs-popover-background-select-control-style {
+			.kbs-divider-svg {
+				transform: rotate(-90deg);
+				top:0;
+				left:auto;
+			}
 		}
 	}
 }

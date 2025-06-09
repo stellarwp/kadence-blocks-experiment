@@ -198,21 +198,18 @@ export default function BackgroundVideoLayer({ previewDevice = 'desktop', layer,
 		{
 			name: 'local',
 			title: __('Local File', 'kadence-blocks'),
-			disabled: previewDevice !== 'Desktop',
 		},
 	];
 	if (hasYouTube) {
 		defaultTabs.push({
 			name: 'youtube',
 			title: __('YouTube', 'kadence-blocks'),
-			disabled: previewDevice !== 'Desktop',
 		});
 	}
 	if (hasVimeo) {
 		defaultTabs.push({
 			name: 'vimeo',
 			title: __('Vimeo', 'kadence-blocks'),
-			disabled: previewDevice !== 'Desktop',
 		});
 	}
 	return (
@@ -224,11 +221,8 @@ export default function BackgroundVideoLayer({ previewDevice = 'desktop', layer,
 					activeClass="is-active"
 					tabs={defaultTabs}
 					onSelect={(tabName) => {
-						if ( previewDevice !== 'Desktop' ) {
-							return;
-						}
 						if (tabName !== layer?.videoType) {
-							onChange(tabName, previewDevice, 'videoType');
+							onChange(tabName, 'Desktop', 'videoType');
 						}
 					}}
 				>

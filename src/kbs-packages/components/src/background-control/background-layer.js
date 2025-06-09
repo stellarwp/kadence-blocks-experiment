@@ -36,8 +36,10 @@ import {
 	handleLayerAttributeChange,
 	getLayerDeviceValue,
 	getGradientOptions,
+	getPatternOptions,
 } from '@kadence/kbsHelpers';
 import { gradient as gradientIcon, color as colorIcon, fill as fillIcon, hover as hoverIcon } from './constants';
+import { maskIcon, blurIcon } from '../constants/icons';
 import ColorSelector from '../color-control/color-selector';
 import BackgroundImageControl from '../background-image-control';
 import { getColorLabel } from '../color-control/utils';
@@ -51,14 +53,13 @@ import BackgroundVideoLayer from './background-video-layer';
 import ColorSelect from '../color-control/color-select';
 import LayerEffects from './layer-effects';
 import BackgroundPatternLayer from './background-pattern-layer';
-import { patterns } from '../constants/patterns';
 import { PopoverPatternRender } from './popover-select';
 
 function getPatternLabel(pattern) {
-	return patterns.find(({ value }) => value === pattern)?.label || pattern;
+	return getPatternOptions().find(({ value }) => value === pattern)?.label || pattern;
 }
 function getPatternObject(pattern) {
-	return patterns.find(({ value }) => value === pattern) || {};
+	return getPatternOptions().find(({ value }) => value === pattern) || {};
 }
 function BackgroundIndicator({ value, type, colorValue }) {
 	const style = {
@@ -316,8 +317,13 @@ function renderBackgroundDropdown(
 			},
 			{
 				name: 'pattern',
-				icon: patternIcon,
-				title: __('Pattern', 'kadence-blocks'),
+				icon: maskIcon,
+				title: __('Masks & Patterns', 'kadence-blocks'),
+			},
+			{
+				name: 'blur',
+				icon: blurIcon,
+				title: __('Blur', 'kadence-blocks'),
 			},
 		];
 		return (
@@ -382,6 +388,9 @@ function renderBackgroundDropdown(
 										onChange={handleCustomOnChange}
 										previewDevice={previewDevice}
 										layer={flattenLayer}
+										isHover={isHover}
+										onToggleHover={() => setIsHover(!isHover)}
+										hasHoverControls={true}
 									/>
 								);
 							} else {

@@ -16,7 +16,7 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useRef, useMemo } from '@wordpress/element';
-import { color as colorIcon, check as checkIcon, close as closeIcon } from '@wordpress/icons';
+import { color as colorIcon, check as checkIcon, close as closeIcon, grid as patternIcon } from '@wordpress/icons';
 import { useSettings } from '@wordpress/block-editor';
 /**
  * Internal dependencies
@@ -28,11 +28,11 @@ import {
 	getInheritedDeviceValue,
 	handleAttributeChange,
 } from '@kadence/kbsHelpers';
-import { patternIcon } from '../constants/icons';
 import TitleBar from '../title-bar';
 import './editor.scss';
+import { maskIcon, dividerIcon } from '../constants/icons';
 
-export function PopoverPatternRender({ pattern, className }) {
+export function PopoverPatternRender({ pattern, className, patternSize, patternColor, patternBackground }) {
 	const style = {};
 	if (pattern?.background) {
 		style.background = pattern.background;
@@ -46,10 +46,49 @@ export function PopoverPatternRender({ pattern, className }) {
 	if (pattern?.['background-position']) {
 		style.backgroundPosition = pattern['background-position'];
 	}
+	if (patternSize) {
+		style['--kbs-pattern-size'] = patternSize;
+	}
+	if (patternColor) {
+		style['--kbs-pattern-color'] = getColorOutput(patternColor);
+	}
+	if (patternBackground) {
+		style['--kbs-pattern-bg'] = getColorOutput(patternBackground);
+	}
 	return <div className={clsx('kbs-popover-background-select-control-style', className)} style={style} />;
 }
 
-export function PopoverDropdown({ patterns, value, onChange, previewDevice, type }) {
+export function PopoverDividerRender({ divider, className, dividerColor, dividerBackground }) {
+	const style = {};
+	if (divider?.color) {
+		style['--kbs-divider-color'] = getColorOutput(dividerColor);
+	}
+	return (
+		<div className={clsx('kbs-popover-background-select-control-style', className)} style={style}>
+			{divider?.svg}
+		</div>
+	);
+}
+
+export function PopoverDropdown({ patterns, value, onChange, previewDevice, type, patternSize, patternColor, patternBackground }) {
+	const label = useMemo(() => {
+		if (type === 'color') {
+			return __('SelectColor', 'kadence-blocks');
+		}
+		if (type === 'pattern') {
+			return __('Select Pattern', 'kadence-blocks');
+		}
+		if (type === 'divider') {
+			return __('Select Divider', 'kadence-blocks');
+		}
+		if (type === 'preset') {
+			return __('Select Preset', 'kadence-blocks');
+		}
+		if (type === 'mask') {
+			return __('Select Mask', 'kadence-blocks');
+		}
+		return __('Select', 'kadence-blocks');
+	}, [type]);
 	return ({ onToggle, isOpen }) => {
 		const handlePatternChange = (update) => {
 			onChange(update, previewDevice, type);
@@ -59,6 +98,7 @@ export function PopoverDropdown({ patterns, value, onChange, previewDevice, type
 		};
 		return (
 			<div className="kbs-popover-background-select-control kbs-popover-background-select-control__dropdown-content-inner">
+				<TitleBar label={label} reset={false} />
 				<div className="kbs-popover-background-select-control__dropdown-content-items">
 					{patterns.map((pattern) => (
 						<Button
@@ -68,7 +108,12 @@ export function PopoverDropdown({ patterns, value, onChange, previewDevice, type
 							className={`kbs-radio-popover-select-control-button`}
 							onClick={() => handlePatternChange(pattern.value)}
 						>
-							<PopoverPatternRender pattern={pattern} />
+							{type === 'pattern' && (
+								<PopoverPatternRender pattern={pattern} patternSize={patternSize} patternColor={patternColor} patternBackground={patternBackground} />
+							)}
+							{type === 'divider' && (
+								<PopoverDividerRender dividerColor={patternColor} divider={pattern} />
+							)}
 						</Button>
 					))}
 				</div>
@@ -81,7 +126,7 @@ export function PopoverDropdown({ patterns, value, onChange, previewDevice, type
 		);
 	};
 }
-export function PopoverToggle({ value, patterns, inherited, type }) {
+export function PopoverToggle({ value, patterns, inherited, type, patternSize, patternColor, patternBackground }) {
 	return ({ onToggle, isOpen }) => {
 		const presetButtonRef = useRef(undefined);
 
@@ -115,19 +160,48 @@ export function PopoverToggle({ value, patterns, inherited, type }) {
 			if (type === 'pattern') {
 				return patternIcon;
 			}
+			if (type === 'divider') {
+				return dividerIcon;
+			}
+			if (type === 'mask') {
+				return maskIcon;
+			}
 			return null;
+		}, [type]);
+		const label = useMemo(() => {
+			if (type === 'color') {
+				return __('SelectColor', 'kadence-blocks');
+			}
+			if (type === 'pattern') {
+				return __('Select Pattern', 'kadence-blocks');
+			}
+			if (type === 'divider') {
+				return __('Select Divider', 'kadence-blocks');
+			}
+			if (type === 'preset') {
+				return __('Select Preset', 'kadence-blocks');
+			}
+			if (type === 'mask') {
+				return __('Select Mask', 'kadence-blocks');
+			}
+			return __('Select', 'kadence-blocks');
 		}, [type]);
 		return (
 			<>
 				<Button __next40pxDefaultSize {...toggleProps}>
 					<Icon className="kbs-popover-background-select-control__toggle-icon" icon={icon} size={24} />
 					<span className="kbs-popover-background-select-control__toggle-label">
-						{value ? currentItem?.label : __('Select Pattern', 'kadence-blocks')}
+						{value ? currentItem?.label : label}
 					</span>
 				</Button>
 				{value && currentItem && (
 					<div className="kbs-color-select-control__toggle-preview">
-						<PopoverPatternRender pattern={currentItem} />
+						{type === 'pattern' && (
+							<PopoverPatternRender patternSize={patternSize} patternColor={patternColor} patternBackground={patternBackground} pattern={currentItem} />
+						)}
+						{type === 'divider' && (
+							<PopoverDividerRender dividerColor={patternColor} divider={currentItem} />
+						)}
 					</div>
 				)}
 			</>
@@ -148,6 +222,8 @@ export default function PopoverSelect({
 	patternColor = undefined,
 	patternBackground = undefined,
 	inherited = undefined,
+	patternSize = undefined,
+	patternPosition = undefined,
 }) {
 	const popoverProps = {
 		placement: 'left-start',
@@ -162,7 +238,10 @@ export default function PopoverSelect({
 		}
 		onChange(resetValue, 'all', type);
 	};
-	const classes = clsx('kbs-popover-background-select-control__dropdown-content', globalClasses);
+	const classes = clsx('kbs-popover-background-select-control__dropdown-content', globalClasses, {
+		[`kbs-popover-select-type-${type}`]: type,
+		[`kbs-popover-select-position-${patternPosition}`]: patternPosition,
+	});
 	return (
 		<div className={`components-base-control kbs-control kbs-popover-background-select-control`}>
 			{label && <TitleBar label={label} reset={reset} onReset={onReset} />}
@@ -171,6 +250,8 @@ export default function PopoverSelect({
 					popoverProps={popoverProps}
 					className={clsx('kbs-popover-background-select-control__dropdown', {
 						'has-pattern-value': value || inherited,
+						[`kbs-popover-select-type-${type}`]: type,
+						[`kbs-popover-select-position-${patternPosition}`]: patternPosition,
 					})}
 					contentClassName={classes}
 					renderToggle={PopoverToggle({
@@ -180,6 +261,7 @@ export default function PopoverSelect({
 						inherited: inherited,
 						patternColor: patternColor,
 						patternBackground: patternBackground,
+						patternSize: patternSize,
 					})}
 					renderContent={PopoverDropdown({
 						patterns: patterns,
@@ -189,6 +271,7 @@ export default function PopoverSelect({
 						type: type,
 						patternColor: patternColor,
 						patternBackground: patternBackground,
+						patternSize: patternSize,
 					})}
 				/>
 			</div>

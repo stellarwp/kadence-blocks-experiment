@@ -41,6 +41,7 @@ import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
 import RadioToggleGroupInputRangeUI from './ui-toggle-group-input-range';
 import RadioToggleGroupBackgroundSizeUI from './ui-toggle-group-background-size';
 import RadioToggleGroupShadeRangeUI from './ui-toggle-group-shade-range';
+import RadioToggleGroupInputRangeUINoUnit from './ui-toggle-group-input-range-no-unit';
 export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioToggleGroupButtonUI;
 	let controls;
@@ -50,6 +51,15 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'color-mix':
 		case 'colorMix':
 			controls = getColorMixControls();
+			break;
+		case 'divider-position':
+		case 'dividerPosition':
+			controls = getDividerPositionControls();
+			break;
+		case 'pattern-size':
+		case 'patternSize':
+			controls = getPatternSizeControls();
+			UIComponent = RadioToggleGroupInputRangeUINoUnit;
 			break;
 		case 'color-mix-amount':
 		case 'colorMixAmount':
@@ -173,6 +183,28 @@ export const getObjectFitControls = () => [
 		key: 'none',
 	},
 ];
+export const getDividerPositionControls = () => [
+	{
+		title: __('Top', 'kadence-blocks'),
+		name: __('Top', 'kadence-blocks'),
+		key: 'top',
+	},
+	{
+		title: __('Bottom', 'kadence-blocks'),
+		name: __('Bottom', 'kadence-blocks'),
+		key: 'bottom',
+	},
+	{
+		title: __('Left', 'kadence-blocks'),
+		name: __('Left', 'kadence-blocks'),
+		key: 'left',
+	},
+	{
+		title: __('Right', 'kadence-blocks'),
+		name: __('Right', 'kadence-blocks'),
+		key: 'right',
+	},
+];
 export const getColorMixControls = () => [
 	{
 		title: __('Shade', 'kadence-blocks'),
@@ -190,7 +222,33 @@ export const getColorMixControls = () => [
 		key: 'mix',
 	},
 ];
-
+export const getPatternSizeControls = () => [
+	{
+		title: __('X Small', 'kadence-blocks'),
+		name: 'XS',
+		key: '10',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: '20',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: '30',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: '40',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: '50',
+	},
+];
 export const getColorShadeControls = () => [
 	{
 		title: __('70% Lighter', 'kadence-blocks'),

@@ -6,6 +6,7 @@ import { getBasePresetKey } from '../get-inherited-device-value';
 import { default as getInheritedValue } from '../get-inherited-value';
 import getColorOutput from '../get-color-output';
 import { default as getLayerDeviceValue } from '../get-layer-device-value';
+import { default as getPatternOptions } from '../get-pattern-options';
 import { useMemo } from 'react';
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 
@@ -293,6 +294,49 @@ class CSSGenerator {
 					this.add({ 'background-image': backgroundGradient });
 				}
 				break;
+			case 'pattern':
+				const backgroundPattern = getLayerDeviceValue('pattern', layer, props.previewDevice);
+				if (backgroundColor) {
+					this.add({ 'background-color': getColorOutput(backgroundColor) });
+					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColor) });
+				} else {
+					this.add({ '--kbs-pattern-bg': 'transparent' });
+				}
+				if (backgroundPattern) {
+					const patternSize = getLayerDeviceValue('patternSize', layer, props.previewDevice);
+					if (patternSize) {
+						this.add({ '--kbs-pattern-size': patternSize });
+					} else {
+						this.add({ '--kbs-pattern-size': '20' });
+					}
+					const patternColor = getLayerDeviceValue('patternColor', layer, props.previewDevice);
+					if (patternColor) {
+						this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
+					} else {
+						this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
+					}
+					const pattern = getPatternOptions().find((pattern) => pattern.value === backgroundPattern);
+					if (pattern) {
+						if (pattern?.['background']) {
+							this.add({ 'background': pattern['background'] });
+						}
+						if (pattern?.['background-image']) {
+							this.add({ 'background-image': pattern['background-image'] });
+						}
+						if (pattern?.['background-size']) {
+							this.add({ 'background-size': pattern['background-size'] });
+						}
+						if (pattern?.['background-position']) {
+							this.add({ 'background-position': pattern['background-position'] });
+						}
+						if (pattern?.['background-repeat']) {
+							this.add({ 'background-repeat': pattern['background-repeat'] });
+						} else {
+							this.add({ 'background-repeat': 'repeat' });
+						}
+					}
+				}
+				break;
 			case 'video':
 				const objectFit = getLayerDeviceValue('objectFit', layer, props.previewDevice);
 				const objectPosition = getLayerDeviceValue('objectPosition', layer, props.previewDevice);
@@ -320,6 +364,27 @@ class CSSGenerator {
 			case 'color':
 				if (backgroundHoverColor) {
 					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
+				}
+				break;
+			case 'image':
+			case 'video':
+			case 'gradient':
+				if (backgroundHoverColor) {
+					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
+				}
+				break;
+			case 'pattern':
+				if (backgroundHoverColor) {
+					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
+					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundHoverColor) });
+				}
+				const hoverPatternSize = getLayerDeviceValue('hoverPatternSize', layer, props.previewDevice);
+				if (hoverPatternSize) {
+					this.add({ '--kbs-pattern-size': hoverPatternSize });
+				}
+				const hoverPatternColor = getLayerDeviceValue('hoverPatternColor', layer, props.previewDevice);
+				if (hoverPatternColor) {
+					this.add({ '--kbs-pattern-color': getColorOutput(hoverPatternColor) });
 				}
 				break;
 		}
