@@ -14,7 +14,7 @@ import {
 	FlexItem,
 	TabPanel,
 } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import { useRef, useMemo, useEffect } from '@wordpress/element';
 import {
 	color as colorIcon,
@@ -118,7 +118,11 @@ export default function BackgroundPatternLayer({
 								}
 							}}
 							type={isHover ? 'hoverPatternColor' : 'patternColor'}
-							inherited={isHover ? { inheritedValue: (layer?.patternColor ? layer?.patternColor : 'palette3') } : { inheritedValue: 'palette3' }}
+							inherited={
+								isHover
+									? { inheritedValue: layer?.patternColor ? layer?.patternColor : 'palette3' }
+									: { inheritedValue: 'palette3' }
+							}
 							previewDevice={previewDevice}
 							globalClasses={globalClasses}
 							hasMix={true}
@@ -128,7 +132,11 @@ export default function BackgroundPatternLayer({
 							label={__('Pattern Size', 'kadence-blocks')}
 							value={isHover ? layer?.hoverPatternSize : layer?.patternSize}
 							type={'patternSize'}
-							inherited={isHover ? { inheritedValue: (layer?.patternSize ? layer?.patternSize : '20') } : { inheritedValue: '20' }}
+							inherited={
+								isHover
+									? { inheritedValue: layer?.patternSize ? layer?.patternSize : '20' }
+									: { inheritedValue: '20' }
+							}
 							previewDevice={previewDevice}
 							view={'normal'}
 							hasCustomControls={true}
@@ -168,24 +176,27 @@ export default function BackgroundPatternLayer({
 						onChange(value, previewDevice, 'mask');
 					}}
 					patterns={masks}
-					patternSize={layer?.maskSize}
-					patternColor={layer?.maskColor}
+					patternColor={layer?.patternColor}
 					patternBackground={layer?.color}
 				/>
 				{hasMask && (
 					<>
 						<ColorSelect
 							label={__('Mask Color', 'kadence-blocks')}
-							value={isHover ? layer?.hoverMaskColor : layer?.maskColor}
+							value={isHover ? layer?.hoverPatternColor : layer?.patternColor}
 							onChange={(value) => {
 								if (isHover) {
-									onChange(value, previewDevice, 'hoverMaskColor');
+									onChange(value, previewDevice, 'hoverPatternColor');
 								} else {
-									onChange(value, previewDevice, 'maskColor');
+									onChange(value, previewDevice, 'patternColor');
 								}
 							}}
-							type={isHover ? 'hoverMaskColor' : 'maskColor'}
-							inherited={isHover ? { inheritedValue: (layer?.maskColor ? layer?.maskColor : 'palette3') } : { inheritedValue: 'palette3' }}
+							type={isHover ? 'hoverPatternColor' : 'patternColor'}
+							inherited={
+								isHover
+									? { inheritedValue: layer?.patternColor ? layer?.patternColor : 'palette3' }
+									: { inheritedValue: 'palette3' }
+							}
 							previewDevice={previewDevice}
 							globalClasses={globalClasses}
 							hasMix={true}
@@ -199,7 +210,9 @@ export default function BackgroundPatternLayer({
 							previewDevice={previewDevice}
 							view={'normal'}
 							hasCustomControls={true}
-							onChange={onChange}
+							onChange={(value) => {
+								onChange(value, previewDevice, 'size');
+							}}
 						/>
 					</>
 				)}
@@ -224,25 +237,32 @@ export default function BackgroundPatternLayer({
 					onChange={(value) => {
 						onChange(value, 'Desktop', 'divider');
 					}}
-					patterns={dividers}
-					patternColor={layer?.dividerColor}
+					patterns={dividers.horizontal}
+					sidePatterns={dividers.vertical}
+					patternColor={layer?.patternColor}
 					patternBackground={layer?.color}
 					patternPosition={layer?.dividerPosition || 'bottom'}
+					dividerWidth={layer?.dividerWidth}
+					dividerHeight={layer?.dividerHeight}
 				/>
 				{hasDivider && (
 					<>
 						<ColorSelect
 							label={__('Divider Color', 'kadence-blocks')}
-							value={isHover ? layer?.hoverDividerColor : layer?.dividerColor}
+							value={isHover ? layer?.hoverPatternColor : layer?.patternColor}
 							onChange={(value) => {
 								if (isHover) {
-									onChange(value, previewDevice, 'hoverMaskColor');
+									onChange(value, previewDevice, 'hoverPatternColor');
 								} else {
-									onChange(value, previewDevice, 'maskColor');
+									onChange(value, previewDevice, 'patternColor');
 								}
 							}}
-							type={isHover ? 'hoverMaskColor' : 'maskColor'}
-							inherited={isHover ? { inheritedValue: (layer?.dividerColor ? layer?.dividerColor : 'palette3') } : { inheritedValue: 'palette3' }}
+							type={isHover ? 'hoverPatternColor' : 'patternColor'}
+							inherited={
+								isHover
+									? { inheritedValue: layer?.patternColor ? layer?.patternColor : 'palette3' }
+									: { inheritedValue: 'palette3' }
+							}
 							previewDevice={previewDevice}
 							globalClasses={globalClasses}
 							hasMix={true}
@@ -256,8 +276,148 @@ export default function BackgroundPatternLayer({
 							previewDevice={previewDevice}
 							view={'normal'}
 							hasCustomControls={false}
-							onChange={onChange}
+							onChange={(value) => {
+								onChange(value, 'Desktop', 'dividerPosition');
+							}}
 						/>
+						<div className="kbs-divider-width-height-control">
+							<RadioButtonSelect
+								label={
+									layer?.dividerPosition === 'left' || layer?.dividerPosition === 'right'
+										? __('Height', 'kadence-blocks')
+										: __('Width', 'kadence-blocks')
+								}
+								value={isHover ? layer?.hoverDividerWidth : layer?.dividerWidth}
+								type={'width'}
+								placeholder={isHover ? (layer?.dividerWidth ? layer?.dividerWidth : '100') : '100'}
+								previewDevice={previewDevice}
+								view={'normal'}
+								hasCustomControls={false}
+								onChange={(value) => {
+									if (isHover) {
+										onChange(value, previewDevice, 'hoverDividerWidth');
+									} else {
+										onChange(value, previewDevice, 'dividerWidth');
+									}
+								}}
+								min={0}
+								max={500}
+								defaultUnit={'%'}
+								units={[
+									{
+										value: '%',
+										label: '%',
+										a11yLabel: __('Percent (%)', 'kadence-blocks'),
+										step: 0.1,
+									},
+									{
+										value: 'px',
+										label: 'px',
+										a11yLabel: __('Pixels (px)', 'kadence-blocks'),
+										step: 1,
+									},
+									{
+										value: 'em',
+										label: 'em',
+										a11yLabel: _x('ems', 'Relative to parent font size (em)', 'kadence-blocks'),
+										step: 0.01,
+									},
+									{
+										value: 'rem',
+										label: 'rem',
+										a11yLabel: _x('rems', 'Relative to root font size (rem)', 'kadence-blocks'),
+										step: 0.01,
+									},
+									{
+										value: 'vw',
+										label: 'vw',
+										a11yLabel: __('Viewport width (vw)', 'kadence-blocks'),
+										step: 0.1,
+									},
+									{
+										value: 'vh',
+										label: 'vh',
+										a11yLabel: __('Viewport height (vh)', 'kadence-blocks'),
+										step: 0.1,
+									},
+									{
+										value: 'custom',
+										label: 'custom',
+										a11yLabel: __('Custom', 'kadence-blocks'),
+										step: 0.1,
+									},
+								]}
+								isHover={isHover}
+							/>
+							<RadioButtonSelect
+								label={
+									layer?.dividerPosition === 'left' || layer?.dividerPosition === 'right'
+										? __('Width', 'kadence-blocks')
+										: __('Height', 'kadence-blocks')
+								}
+								value={isHover ? layer?.hoverDividerHeight : layer?.dividerHeight}
+								type={'height'}
+								placeholder={isHover ? (layer?.dividerHeight ? layer?.dividerHeight : '100') : '100'}
+								previewDevice={previewDevice}
+								view={'normal'}
+								hasCustomControls={false}
+								onChange={(value) => {
+									if (isHover) {
+										onChange(value, previewDevice, 'hoverDividerHeight');
+									} else {
+										onChange(value, previewDevice, 'dividerHeight');
+									}
+								}}
+								defaultUnit={'%'}
+								min={0}
+								max={500}
+								units={[
+									{
+										value: '%',
+										label: '%',
+										a11yLabel: __('Percent (%)', 'kadence-blocks'),
+										step: 0.1,
+									},
+									{
+										value: 'px',
+										label: 'px',
+										a11yLabel: __('Pixels (px)', 'kadence-blocks'),
+										step: 1,
+									},
+									{
+										value: 'em',
+										label: 'em',
+										a11yLabel: _x('ems', 'Relative to parent font size (em)', 'kadence-blocks'),
+										step: 0.01,
+									},
+									{
+										value: 'rem',
+										label: 'rem',
+										a11yLabel: _x('rems', 'Relative to root font size (rem)', 'kadence-blocks'),
+										step: 0.01,
+									},
+									{
+										value: 'vw',
+										label: 'vw',
+										a11yLabel: __('Viewport width (vw)', 'kadence-blocks'),
+										step: 0.1,
+									},
+									{
+										value: 'vh',
+										label: 'vh',
+										a11yLabel: __('Viewport height (vh)', 'kadence-blocks'),
+										step: 0.1,
+									},
+									{
+										value: 'custom',
+										label: 'custom',
+										a11yLabel: __('Custom', 'kadence-blocks'),
+										step: 0.1,
+									},
+								]}
+								isHover={isHover}
+							/>
+						</div>
 					</>
 				)}
 			</div>
@@ -295,14 +455,13 @@ export default function BackgroundPatternLayer({
 						if ('pattern' === tab.name) {
 							return patternTab;
 						} else if ('mask' === tab.name) {
-							return <div>Mask</div>;
+							return maskTab;
 						} else if ('divider' === tab.name) {
 							return dividerTab;
 						}
 					}
 				}}
 			</TabPanel>
-			
 		</div>
 	);
 }

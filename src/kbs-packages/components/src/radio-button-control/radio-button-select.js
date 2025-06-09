@@ -40,6 +40,7 @@ export default function RadioButtonSelect({
 	step = null,
 	color = '',
 	shadeType = 'shade',
+	defaultUnit = 'px',
 }) {
 	const radioConfig = type ? type : radioType;
 	const { UIComponent, controls, advancedControls } = getRadioConfig(radioConfig, previewDirection);
@@ -103,6 +104,7 @@ export default function RadioButtonSelect({
 					max={max}
 					step={step}
 					shadeType={shadeType}
+					defaultUnit={defaultUnit}
 				/>
 			</div>
 		</div>

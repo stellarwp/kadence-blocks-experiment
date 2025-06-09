@@ -37,9 +37,11 @@ import {
 	getLayerDeviceValue,
 	getGradientOptions,
 	getPatternOptions,
+	getDividerOptions,
+	getMaskOptions,
 } from '@kadence/kbsHelpers';
 import { gradient as gradientIcon, color as colorIcon, fill as fillIcon, hover as hoverIcon } from './constants';
-import { maskIcon, blurIcon } from '../constants/icons';
+import { maskIcon, blurIcon, dividerIcon } from '../constants/icons';
 import ColorSelector from '../color-control/color-selector';
 import BackgroundImageControl from '../background-image-control';
 import { getColorLabel } from '../color-control/utils';
@@ -53,15 +55,59 @@ import BackgroundVideoLayer from './background-video-layer';
 import ColorSelect from '../color-control/color-select';
 import LayerEffects from './layer-effects';
 import BackgroundPatternLayer from './background-pattern-layer';
-import { PopoverPatternRender } from './popover-select';
+import { PopoverPatternRender, PopoverDividerRender } from './popover-select';
 
-function getPatternLabel(pattern) {
-	return getPatternOptions().find(({ value }) => value === pattern)?.label || pattern;
+export function IndicatorDividerRender({
+	divider,
+	className,
+	dividerColor,
+	dividerBackground,
+	dividerWidth,
+	dividerHeight,
+	dividerPosition,
+}) {
+	const style = {};
+	if (dividerColor) {
+		style['color'] = getColorOutput(dividerColor);
+	}
+	if (dividerWidth) {
+		style['--kbs-divider-width'] = dividerWidth;
+	}
+	if (dividerHeight) {
+		style['--kbs-divider-height'] = dividerHeight;
+	}
+	return (
+		<div
+			className={clsx(
+				'kbs-popover-background-select-control-style',
+				className,
+				`divider-position-${dividerPosition}`
+			)}
+			style={style}
+		>
+			<div className="kbs-divider-svg-wrapper">{divider?.svg}</div>
+		</div>
+	);
 }
-function getPatternObject(pattern) {
-	return getPatternOptions().find(({ value }) => value === pattern) || {};
+function SidebarPatternRender({ pattern, patternType }) {
+	if (patternType === 'divider') {
+		return (
+			<IndicatorDividerRender
+				divider={pattern}
+				dividerPosition={pattern?.dividerPosition}
+				dividerColor={pattern?.patternColor}
+			/>
+		);
+	}
+	return (
+		<PopoverPatternRender
+			pattern={pattern}
+			patternColor={pattern?.patternColor}
+			patternBackground={pattern?.backgroundColor}
+		/>
+	);
 }
-function BackgroundIndicator({ value, type, colorValue }) {
+function BackgroundIndicator({ value, type, colorValue, patternType }) {
 	const style = {
 		background: type !== 'color' ? colorValue : value,
 	};
@@ -77,7 +123,7 @@ function BackgroundIndicator({ value, type, colorValue }) {
 					playsInline
 				/>
 			)}
-			{type === 'pattern' && <PopoverPatternRender pattern={value} />}
+			{type === 'pattern' && <SidebarPatternRender pattern={value} patternType={patternType} />}
 			{type !== 'color' && type !== 'video' && type !== 'pattern' && (
 				<div className="kbs-background-indicator-layer" style={{ backgroundImage: value }}></div>
 			)}
@@ -125,7 +171,22 @@ function getVideoPreview(video, videoType, youtube, vimeo) {
 }
 function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onChange, gradients) {
 	return ({ onToggle, isOpen }) => {
-		const { color, image, video, videoType, youtube, vimeo, gradient, pattern, type, opacity } = useMemo(() => {
+		const {
+			color,
+			image,
+			video,
+			videoType,
+			youtube,
+			vimeo,
+			gradient,
+			pattern,
+			type,
+			opacity,
+			patternType,
+			divider,
+			mask,
+			dividerPosition,
+		} = useMemo(() => {
 			return {
 				color: getLayerDeviceValue('color', layer, previewDevice),
 				image: getLayerDeviceValue('image', layer, previewDevice),
@@ -137,6 +198,10 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				pattern: getLayerDeviceValue('pattern', layer, previewDevice),
 				type: getLayerDeviceValue('type', layer, previewDevice) || 'color',
 				opacity: getLayerDeviceValue('opacity', layer, previewDevice),
+				patternType: getLayerDeviceValue('patternType', layer, previewDevice),
+				divider: getLayerDeviceValue('divider', layer, previewDevice),
+				mask: getLayerDeviceValue('mask', layer, previewDevice),
+				dividerPosition: getLayerDeviceValue('dividerPosition', layer, previewDevice),
 			};
 		}, [layer, previewDevice]);
 		const displayValue = useMemo(() => {
@@ -150,11 +215,19 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'gradient':
 					return getGradientLabel(gradient, gradients);
 				case 'pattern':
-					return getPatternLabel(pattern);
+					if (patternType === 'divider') {
+						return (
+							getDividerOptions()['horizontal'].find(({ value }) => value === divider)?.label || divider
+						);
+					}
+					if (patternType === 'pattern') {
+						return getPatternOptions().find(({ value }) => value === pattern)?.label || pattern;
+					}
+					return getMaskOptions().find(({ value }) => value === mask)?.label || mask;
 				default:
 					return '';
 			}
-		}, [type, color, image, video, videoType, gradient, pattern]);
+		}, [type, color, image, video, videoType, gradient, pattern, patternType]);
 		const previewString = useMemo(() => {
 			switch (type) {
 				case 'color':
@@ -169,11 +242,28 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'gradient':
 					return gradient;
 				case 'pattern':
-					return getPatternObject(pattern);
+					let returnObject = {};
+					if (patternType === 'divider') {
+						returnObject =
+							getDividerOptions()[
+								dividerPosition === 'left' || dividerPosition === 'right' ? 'vertical' : 'horizontal'
+							].find(({ value }) => value === divider) || {};
+						returnObject.dividerPosition = dividerPosition;
+					} else if (patternType === 'pattern') {
+						returnObject = getPatternOptions().find(({ value }) => value === pattern) || {};
+					} else {
+						returnObject = getMaskOptions().find(({ value }) => value === mask) || {};
+					}
+					returnObject.backgroundColor = getColorOutput(color) || 'transparent';
+					returnObject.patternColor =
+						getColorOutput(getLayerDeviceValue('patternColor', layer, previewDevice)) ||
+						getColorOutput('palette3');
+					console.log('returnObject', returnObject);
+					return returnObject;
 				default:
 					return '';
 			}
-		}, [type, color, image, video, videoType, gradient, youtube, vimeo, pattern]);
+		}, [type, color, image, video, videoType, gradient, youtube, vimeo, pattern, patternType, dividerPosition]);
 		const typeIcon = useMemo(() => {
 			switch (type) {
 				case 'color':
@@ -185,6 +275,12 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				case 'gradient':
 					return gradientIcon;
 				case 'pattern':
+					if (patternType === 'divider') {
+						return dividerIcon;
+					}
+					if (patternType === 'pattern') {
+						return patternIcon;
+					}
 					return patternIcon;
 				default:
 					return colorIcon;
@@ -213,6 +309,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 						value={previewString}
 						type={type === 'video' && videoType && videoType !== 'local' ? 'image' : type}
 						colorValue={getColorOutput(color)}
+						patternType={patternType}
 					/>
 				</Button>
 				<UnitControl
@@ -349,15 +446,6 @@ function renderBackgroundDropdown(
 											previewDevice={previewDevice}
 											layer={flattenLayer}
 											globalClasses={globalClasses}
-										/>
-										<LayerEffects
-											layer={flattenLayer}
-											onChange={handleCustomOnChange}
-											previewDevice={previewDevice}
-											globalClasses={globalClasses}
-											isHover={isHover}
-											onToggleHover={() => setIsHover(!isHover)}
-											layerKey={layerKey}
 										/>
 									</>
 								);

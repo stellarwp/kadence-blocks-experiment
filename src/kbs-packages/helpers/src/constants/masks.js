@@ -1,28 +1,38 @@
 import { __ } from '@wordpress/i18n';
+import { SVG, Path } from '@wordpress/components';
 
 export const masks = [
 	{
-		label: __('Dots 1', 'kadence-blocks'),
-		value: 'kbs-pattern-dots-1',
-		'background-image':
-			'radial-gradient(var(--kbs-pattern-color) calc( ( 1px*(var(--kbs-pattern-size) + 4)/20)), var(--kbs-pattern-bg) calc( ( 1px*(var(--kbs-pattern-size) + 4)/20)))',
-		'background-size': 'calc( 1px*(var(--kbs-pattern-size) + 4)) calc( 1px*(var(--kbs-pattern-size) + 4))',
+		label: __('Panels 1', 'kadence-blocks'),
+		value: 'kbs-mask-panels-1',
+		svg: `<svg fill="var(--kbs-mask-color)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200"><path d="M1661.42,0l-1661.42,0l0,1200l461.418,0l1200,-1200Zm258.582,337.987l-862.013,862.013l-172.305,0l1034.32,-1034.32l0,172.305Zm0,600.056l-261.957,261.957l-175.792,0l437.749,-437.749l0,175.792Z" /></svg>`,
 	},
 	{
-		label: __('Dots 2', 'kadence-blocks'),
-		value: 'kbs-pattern-dots-2',
-		'background-image':
-			'radial-gradient(var(--kbs-pattern-color) calc( ( 1px*(var(--kbs-pattern-size) + 4)/20)), transparent calc( ( 1px*(var(--kbs-pattern-size) + 4)/20))), radial-gradient(var(--kbs-pattern-color) calc( ( 1px*(var(--kbs-pattern-size) + 4)/20)), var(--kbs-pattern-bg) calc( ( 1px*(var(--kbs-pattern-size) + 4)/20)))',
-		'background-size':
-			'calc( 2 * (1px*(var(--kbs-pattern-size) + 4))) calc( 2 * (1px*(var(--kbs-pattern-size) + 4)))',
-		'background-position': '0 0,calc( 1px*(var(--kbs-pattern-size) + 4)) calc( 1px*(var(--kbs-pattern-size) + 4))',
+		label: __('Panels 2', 'kadence-blocks'),
+		value: 'kbs-mask-panels-2',
+		svg: (
+			<SVG
+				xmlns="http://www.w3.org/2000/svg"
+				preserveAspectRatio="none"
+				viewBox="0 0 1920 1200"
+				className={'kbs-mask-svg'}
+			>
+				<Path d="M1920,68.988l0,-68.988l-1920,0l0,1200l788.988,0l1131.01,-1131.01Zm0,869.055l-261.957,261.957l-152.737,0l414.694,-414.694l0,152.737Zm0,-435.58l-697.537,697.537l-150.632,0l848.169,-848.169l0,150.632Z" />
+			</SVG>
+		),
 	},
 	{
-		label: __('Plus 1', 'kadence-blocks'),
-		value: 'kbs-pattern-plus-1',
-		background:
-			'radial-gradient(circle, transparent 20%, var(--kbs-pattern-bg) 20%, var(--kbs-pattern-bg) 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, var(--kbs-pattern-bg) 20%, var(--kbs-pattern-bg) 80%, transparent 80%, transparent) calc( 1px*(var(--kbs-pattern-size) + 10)) calc( 1px*(var(--kbs-pattern-size) + 10)), linear-gradient(var(--kbs-pattern-color) calc((1px*(var(--kbs-pattern-size) + 10))/12.5), transparent calc((1px*(var(--kbs-pattern-size) + 10))/12.5)) 0 calc((-1px*(var(--kbs-pattern-size) + 10))/25), linear-gradient( 90deg, var(--kbs-pattern-color) calc((1px*(var(--kbs-pattern-size) + 10))/12.5), var(--kbs-pattern-bg) calc((1px*(var(--kbs-pattern-size) + 10))/12.5)) calc((-1px*(var(--kbs-pattern-size) + 10))/25) 0',
-		'background-size':
-			'calc( 2*(1px*(var(--kbs-pattern-size) + 10))) calc( 2*(1px*(var(--kbs-pattern-size) + 10))), calc( 2*(1px*(var(--kbs-pattern-size) + 10))) calc( 2*(1px*(var(--kbs-pattern-size) + 10))), calc( 1px*(var(--kbs-pattern-size) + 10)) calc( 1px*(var(--kbs-pattern-size) + 10)), calc( 1px*(var(--kbs-pattern-size) + 10)) calc( 1px*(var(--kbs-pattern-size) + 10))',
+		label: __('Panels 3', 'kadence-blocks'),
+		value: 'kbs-mask-panels-3',
+		svg: (
+			<SVG
+				xmlns="http://www.w3.org/2000/svg"
+				preserveAspectRatio="none"
+				viewBox="0 0 1920 1200"
+				className={'kbs-mask-svg'}
+			>
+				<Path d="M1072.83,0l-1072.83,0l0,1200l751.286,0l321.539,-1200Zm314.653,1200l-111.811,0l321.539,-1200l111.811,0l-321.539,1200Zm-318.866,0l-110.27,0l321.539,-1200l110.27,0l-321.539,1200Zm847.461,-1200l-321.539,1200l325.466,0l0,-1200l-3.927,0Z" />
+			</SVG>
+		),
 	},
 ];

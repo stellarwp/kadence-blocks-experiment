@@ -11,7 +11,7 @@ import { useEffect, useState, useMemo } from '@wordpress/element';
 import InputUnitControl from './ui-input-unit';
 import { parseUnitTypeFromRawValue, parseValueTypeFromRawValue } from './utils';
 
-function InputUIControl({ value, onChange, controls = [], units, placeholder, help, className, ...rest }) {
+function InputUIControl({ value, onChange, controls = [], units, placeholder, help, className, inherited, ...rest }) {
 	const [isCustomUnit, setIsCustomUnit] = useState(false);
 	const isValueControlled = useMemo(
 		() => controls.length > 0 && parseValueTypeFromRawValue(value, controls),
@@ -59,13 +59,19 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder, he
 			onChange(value);
 		}
 	};
+	const placeholderValue = useMemo(() => {
+		if (inherited?.inheritedValue) {
+			return parseInt(inherited?.inheritedValue);
+		}
+		return parseInt(placeholder);
+	}, [inherited, placeholder]);
 	return (
 		<>
 			{!isCustomUnit && (
 				<UnitControl
 					className={clsx('kbs-unit-control', classes)}
 					__next40pxDefaultSize={true}
-					placeholder={placeholder}
+					placeholder={placeholderValue}
 					value={isValueControlled ? '' : value}
 					onChange={unitControlOnChange}
 					onUnitChange={onUnitChange}
@@ -78,7 +84,7 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder, he
 				<InputUnitControl
 					className={classes}
 					value={isValueControlled ? '' : value}
-					placeholder={placeholder}
+					placeholder={placeholderValue}
 					onChange={onChange}
 					onUnitChange={onCustomUnitChange}
 					units={units}

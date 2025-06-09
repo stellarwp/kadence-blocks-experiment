@@ -11,7 +11,8 @@
 	background-attachment: scroll;
 	overflow: hidden;
 	transition: all 0.3s ease-in-out;
-	.kbs-bg-video {
+	.kbs-bg-video,
+	.kbs-mask-svg-wrap {
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -21,5 +22,63 @@
 		bottom: 0;
 		object-fit: cover;
 		object-position: 50% 50%;
+	}
+	.kbs-divider-svg-wrapper {
+		bottom: 0;
+		position: absolute;
+		left: 0;
+		right: 0;
+		aspect-ratio: 1000 / 100;
+		top: auto;
+		.kbs-divider-svg {
+			fill: currentColor;
+			top: auto;
+			left: 50%;
+			transform: translateX(-50%);
+			right: auto;
+			bottom: 0;
+			position: absolute;
+			width: var(--kbs-divider-width, 100%);
+			height: var(--kbs-divider-height, 100%);
+		}
+		&.kbs-divider-position-top {
+			bottom: auto;
+			top: 0;
+			.kbs-divider-svg {
+				top: 0;
+				bottom: auto;
+				transform: rotate(180deg) translateX(50%);
+			}
+		}
+		&.kbs-divider-position-left {
+			left: 0;
+			right: auto;
+			top: 0;
+			aspect-ratio: 100 / 1000;
+			.kbs-divider-svg {
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				right: auto;
+				bottom: auto;
+				width: var(--kbs-divider-height, 100%);
+				height: var(--kbs-divider-width, 100%);
+			}
+		}
+		&.kbs-divider-position-right {
+			left: auto;
+			right: 0;
+			top: 0;
+			aspect-ratio: 100 / 1000;
+			.kbs-divider-svg {
+				right: 0;
+				top: 50%;
+				transform: rotate(180deg) translateY(50%);
+				left: auto;
+				bottom: auto;
+				width: var(--kbs-divider-height, 100%);
+				height: var(--kbs-divider-width, 100%);
+			}
+		}
 	}
 }

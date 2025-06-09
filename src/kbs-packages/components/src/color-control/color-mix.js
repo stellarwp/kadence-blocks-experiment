@@ -70,7 +70,7 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited }) => {
 		if (!type) {
 			return '';
 		}
-		if (type === 'black') {
+		if (type === 'var(--kbs-mix-black, #000000)') {
 			// Make the mix a negative value. So 37.5% becomes -37.5%
 			return -parseInt(mix);
 		}

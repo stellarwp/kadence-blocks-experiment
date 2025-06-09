@@ -295,44 +295,47 @@ class CSSGenerator {
 				}
 				break;
 			case 'pattern':
-				const backgroundPattern = getLayerDeviceValue('pattern', layer, props.previewDevice);
+				const patternType = getLayerDeviceValue('patternType', layer, props.previewDevice);
 				if (backgroundColor) {
 					this.add({ 'background-color': getColorOutput(backgroundColor) });
 					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColor) });
 				} else {
 					this.add({ '--kbs-pattern-bg': 'transparent' });
 				}
-				if (backgroundPattern) {
-					const patternSize = getLayerDeviceValue('patternSize', layer, props.previewDevice);
-					if (patternSize) {
-						this.add({ '--kbs-pattern-size': patternSize });
-					} else {
-						this.add({ '--kbs-pattern-size': '20' });
-					}
-					const patternColor = getLayerDeviceValue('patternColor', layer, props.previewDevice);
-					if (patternColor) {
-						this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
-					} else {
-						this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
-					}
-					const pattern = getPatternOptions().find((pattern) => pattern.value === backgroundPattern);
-					if (pattern) {
-						if (pattern?.['background']) {
-							this.add({ 'background': pattern['background'] });
-						}
-						if (pattern?.['background-image']) {
-							this.add({ 'background-image': pattern['background-image'] });
-						}
-						if (pattern?.['background-size']) {
-							this.add({ 'background-size': pattern['background-size'] });
-						}
-						if (pattern?.['background-position']) {
-							this.add({ 'background-position': pattern['background-position'] });
-						}
-						if (pattern?.['background-repeat']) {
-							this.add({ 'background-repeat': pattern['background-repeat'] });
+				if (patternType === 'pattern') {
+					const backgroundPattern = getLayerDeviceValue('pattern', layer, props.previewDevice);
+					if (backgroundPattern) {
+						const patternSize = getLayerDeviceValue('patternSize', layer, props.previewDevice);
+						if (patternSize) {
+							this.add({ '--kbs-pattern-size': patternSize });
 						} else {
-							this.add({ 'background-repeat': 'repeat' });
+							this.add({ '--kbs-pattern-size': '20' });
+						}
+						const patternColor = getLayerDeviceValue('patternColor', layer, props.previewDevice);
+						if (patternColor) {
+							this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
+						} else {
+							this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
+						}
+						const pattern = getPatternOptions().find((pattern) => pattern.value === backgroundPattern);
+						if (pattern) {
+							if (pattern?.['background']) {
+								this.add({ background: pattern['background'] });
+							}
+							if (pattern?.['background-image']) {
+								this.add({ 'background-image': pattern['background-image'] });
+							}
+							if (pattern?.['background-size']) {
+								this.add({ 'background-size': pattern['background-size'] });
+							}
+							if (pattern?.['background-position']) {
+								this.add({ 'background-position': pattern['background-position'] });
+							}
+							if (pattern?.['background-repeat']) {
+								this.add({ 'background-repeat': pattern['background-repeat'] });
+							} else {
+								this.add({ 'background-repeat': 'repeat' });
+							}
 						}
 					}
 				}

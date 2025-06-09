@@ -58,10 +58,35 @@ export function PopoverPatternRender({ pattern, className, patternSize, patternC
 	return <div className={clsx('kbs-popover-background-select-control-style', className)} style={style} />;
 }
 
-export function PopoverDividerRender({ divider, className, dividerColor, dividerBackground }) {
+export function PopoverMaskRender({ mask, className, maskColor, maskBackground, dividerWidth, dividerHeight }) {
 	const style = {};
-	if (divider?.color) {
-		style['--kbs-divider-color'] = getColorOutput(dividerColor);
+	if (maskColor) {
+		style['color'] = getColorOutput(maskColor);
+	}
+	return (
+		<div className={clsx('kbs-popover-background-select-control-style', className)} style={style}>
+			{mask?.svg}
+		</div>
+	);
+}
+
+export function PopoverDividerRender({
+	divider,
+	className,
+	dividerColor,
+	dividerBackground,
+	dividerWidth,
+	dividerHeight,
+}) {
+	const style = {};
+	if (dividerColor) {
+		style['color'] = getColorOutput(dividerColor);
+	}
+	if (dividerWidth) {
+		style['--kbs-divider-width'] = dividerWidth;
+	}
+	if (dividerHeight) {
+		style['--kbs-divider-height'] = dividerHeight;
 	}
 	return (
 		<div className={clsx('kbs-popover-background-select-control-style', className)} style={style}>
@@ -70,7 +95,16 @@ export function PopoverDividerRender({ divider, className, dividerColor, divider
 	);
 }
 
-export function PopoverDropdown({ patterns, value, onChange, previewDevice, type, patternSize, patternColor, patternBackground }) {
+export function PopoverDropdown({
+	patterns,
+	value,
+	onChange,
+	previewDevice,
+	type,
+	patternSize,
+	patternColor,
+	patternBackground,
+}) {
 	const label = useMemo(() => {
 		if (type === 'color') {
 			return __('SelectColor', 'kadence-blocks');
@@ -109,11 +143,14 @@ export function PopoverDropdown({ patterns, value, onChange, previewDevice, type
 							onClick={() => handlePatternChange(pattern.value)}
 						>
 							{type === 'pattern' && (
-								<PopoverPatternRender pattern={pattern} patternSize={patternSize} patternColor={patternColor} patternBackground={patternBackground} />
+								<PopoverPatternRender
+									pattern={pattern}
+									patternSize={patternSize}
+									patternColor={patternColor}
+									patternBackground={patternBackground}
+								/>
 							)}
-							{type === 'divider' && (
-								<PopoverDividerRender dividerColor={patternColor} divider={pattern} />
-							)}
+							{type === 'divider' && <PopoverDividerRender divider={pattern} />}
 						</Button>
 					))}
 				</div>
@@ -126,7 +163,19 @@ export function PopoverDropdown({ patterns, value, onChange, previewDevice, type
 		);
 	};
 }
-export function PopoverToggle({ value, patterns, inherited, type, patternSize, patternColor, patternBackground }) {
+export function PopoverToggle({
+	value,
+	patterns,
+	sidePatterns,
+	patternPosition,
+	inherited,
+	type,
+	patternSize,
+	patternColor,
+	patternBackground,
+	dividerWidth,
+	dividerHeight,
+}) {
 	return ({ onToggle, isOpen }) => {
 		const presetButtonRef = useRef(undefined);
 
@@ -146,13 +195,19 @@ export function PopoverToggle({ value, patterns, inherited, type, patternSize, p
 		};
 		const currentItem = useMemo(() => {
 			if (value) {
+				if (patternPosition === 'left' || patternPosition === 'right') {
+					return sidePatterns.find((pattern) => pattern.value === value);
+				}
 				return patterns.find((pattern) => pattern.value === value);
 			}
 			if (inherited) {
+				if (patternPosition === 'left' || patternPosition === 'right') {
+					return sidePatterns.find((pattern) => pattern.value === inherited);
+				}
 				return patterns.find((pattern) => pattern.value === inherited);
 			}
 			return {};
-		}, [inherited, value]);
+		}, [inherited, value, patternPosition]);
 		const icon = useMemo(() => {
 			if (type === 'color') {
 				return colorIcon;
@@ -195,12 +250,32 @@ export function PopoverToggle({ value, patterns, inherited, type, patternSize, p
 					</span>
 				</Button>
 				{value && currentItem && (
-					<div className="kbs-color-select-control__toggle-preview">
+					<div
+						className="kbs-color-select-control__toggle-preview"
+						style={{ backgroundColor: getColorOutput(patternBackground) }}
+					>
 						{type === 'pattern' && (
-							<PopoverPatternRender patternSize={patternSize} patternColor={patternColor} patternBackground={patternBackground} pattern={currentItem} />
+							<PopoverPatternRender
+								patternSize={patternSize}
+								patternColor={patternColor}
+								patternBackground={patternBackground}
+								pattern={currentItem}
+							/>
 						)}
 						{type === 'divider' && (
-							<PopoverDividerRender dividerColor={patternColor} divider={currentItem} />
+							<PopoverDividerRender
+								dividerColor={patternColor}
+								divider={currentItem}
+								dividerWidth={dividerWidth}
+								dividerHeight={dividerHeight}
+							/>
+						)}
+						{type === 'mask' && (
+							<PopoverMaskRender
+								maskColor={patternColor}
+								mask={currentItem}
+								maskBackground={patternBackground}
+							/>
 						)}
 					</div>
 				)}
@@ -217,6 +292,7 @@ export default function PopoverSelect({
 	defaultValue = undefined,
 	globalClasses,
 	patterns = [],
+	sidePatterns = [],
 	onChange,
 	value,
 	patternColor = undefined,
@@ -224,6 +300,8 @@ export default function PopoverSelect({
 	inherited = undefined,
 	patternSize = undefined,
 	patternPosition = undefined,
+	dividerWidth = undefined,
+	dividerHeight = undefined,
 }) {
 	const popoverProps = {
 		placement: 'left-start',
@@ -257,14 +335,20 @@ export default function PopoverSelect({
 					renderToggle={PopoverToggle({
 						value: value,
 						patterns: patterns,
+						sidePatterns: sidePatterns,
+						patternPosition: patternPosition,
 						type: type,
 						inherited: inherited,
 						patternColor: patternColor,
 						patternBackground: patternBackground,
 						patternSize: patternSize,
+						dividerWidth: dividerWidth,
+						dividerHeight: dividerHeight,
 					})}
 					renderContent={PopoverDropdown({
 						patterns: patterns,
+						sidePatterns: sidePatterns,
+						patternPosition: patternPosition,
 						value: value,
 						onChange: onChange,
 						previewDevice: previewDevice,

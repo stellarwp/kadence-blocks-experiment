@@ -1,6 +1,6 @@
 import { TabPanel, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useRef } from '@wordpress/element';
+import { useRef, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies
  */
@@ -37,36 +37,33 @@ const ColorSelector = ({
 	colors,
 	currentValue,
 	inherited,
-	hasGradient,
-	hasMix,
+	hasGradient = false,
+	hasMix = false,
 	globalClasses,
 	hasHoverControls = false,
 	isHover = false,
 	onToggleHover,
 }) => {
 	const presetButtonRef = useRef(undefined);
-	const defaultTabs = [
-		{
-			name: 'storybook',
-			title: __('Palette', 'kadence-blocks'),
-		},
-		{
-			name: 'custom',
-			title: __('Custom', 'kadence-blocks'),
-		},
-	];
-	if (hasGradient) {
-		defaultTabs.push({
-			name: 'gradient',
-			title: __('Gradient', 'kadence-blocks'),
-		});
-	}
-	if (hasMix) {
-		defaultTabs.push({
-			name: 'mix',
-			title: __('Mix', 'kadence-blocks'),
-		});
-	}
+	const defaultTabs = useMemo(() => {
+		const tempTabs = [
+			{
+				name: 'storybook',
+				title: __('Palette', 'kadence-blocks'),
+			},
+			{
+				name: 'custom',
+				title: __('Custom', 'kadence-blocks'),
+			},
+		];
+		if (hasGradient) {
+			tempTabs.push({ name: 'gradient', title: __('Gradient', 'kadence-blocks') });
+		}
+		if (hasMix) {
+			tempTabs.push({ name: 'mix', title: __('Mix', 'kadence-blocks') });
+		}
+		return tempTabs;
+	}, [hasGradient, hasMix]);
 	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix);
 	return (
 		<div className="kbs-color-selector-tab-wrapper">

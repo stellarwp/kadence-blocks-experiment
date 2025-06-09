@@ -9,6 +9,8 @@ import {
 	justifyRight,
 	justifySpaceBetween,
 	justifyStretch,
+	justifyTop,
+	justifyBottom,
 	formatBold,
 	formatUnderline,
 } from '@wordpress/icons';
@@ -34,7 +36,7 @@ import {
 	repeatX,
 	repeatY,
 } from './constants';
-
+import NoToggleInputUI from './ui-no-toggle-input';
 import RadioToggleGroupButtonUI from './ui-toggle-group';
 import RadioToggleGroupInputUI from './ui-toggle-group-input';
 import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
@@ -48,6 +50,10 @@ export const getRadioConfig = (radioType, previewDirection) => {
 	let advancedControls;
 
 	switch (radioType) {
+		case 'width':
+		case 'height':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			break;
 		case 'color-mix':
 		case 'colorMix':
 			controls = getColorMixControls();
@@ -186,22 +192,22 @@ export const getObjectFitControls = () => [
 export const getDividerPositionControls = () => [
 	{
 		title: __('Top', 'kadence-blocks'),
-		name: __('Top', 'kadence-blocks'),
+		icon: justifyTop,
 		key: 'top',
 	},
 	{
 		title: __('Bottom', 'kadence-blocks'),
-		name: __('Bottom', 'kadence-blocks'),
+		icon: justifyBottom,
 		key: 'bottom',
 	},
 	{
 		title: __('Left', 'kadence-blocks'),
-		name: __('Left', 'kadence-blocks'),
+		icon: justifyLeft,
 		key: 'left',
 	},
 	{
 		title: __('Right', 'kadence-blocks'),
-		name: __('Right', 'kadence-blocks'),
+		icon: justifyRight,
 		key: 'right',
 	},
 ];
