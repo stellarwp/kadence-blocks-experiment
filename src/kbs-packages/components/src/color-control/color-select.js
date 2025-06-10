@@ -45,6 +45,8 @@ export default function ColorSelect({
 	defaultValue = undefined,
 	globalClasses = [],
 	isHover = false,
+	hasGradient = false,
+	hasMix = false,
 }) {
 	const popoverProps = {
 		placement: 'left-end',
@@ -92,6 +94,8 @@ export default function ColorSelect({
 						onChange: onChange,
 						previewDevice: previewDevice,
 						type: type,
+						hasGradient: hasGradient,
+						hasMix: hasMix,
 					})}
 				/>
 			</div>

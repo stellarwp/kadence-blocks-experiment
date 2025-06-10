@@ -27,3 +27,6 @@ export { default as getColorOutput } from './get-color-output';
 export { default as getColorOptions } from './get-color-options';
 export { default as getMappingOptions } from './get-mapping-options';
 export { default as getGradientOptions } from './get-gradient-options';
+export { default as getPatternOptions } from './get-pattern-options';
+export { default as getMaskOptions } from './get-mask-options';
+export { default as getDividerOptions } from './get-divider-options';

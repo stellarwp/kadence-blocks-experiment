@@ -1,6 +1,43 @@
 {
 	"styleId": "kbs-dark",
 	"label": "Dark Style",
+	"components": {
+		"background": {
+			"presets": {
+				"kbs-bg-base": {
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette9"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-1": {
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"gradient": "radial-gradient(ellipse at 83% 67%,var(\u002d\u002dkbs-colors-palette9) 0%,var(\u002d\u002dkbs-colors-palette7) 100%)",
+									"type": "gradient",
+									"opacity": "0%",
+									"hoverOpacity": "100%"
+								}
+							},
+							{
+								"desktop": {
+									"gradient": "radial-gradient(ellipse at 1% 6%,var(\u002d\u002dkbs-colors-palette9) 0%,var(\u002d\u002dkbs-colors-palette7) 100%)",
+									"type": "gradient"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	},
 	"mappings": {
 		"gradients": {
 			"gradient1": {

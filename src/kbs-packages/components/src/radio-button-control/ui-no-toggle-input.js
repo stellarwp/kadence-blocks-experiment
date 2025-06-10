@@ -7,23 +7,16 @@ import { useEffect, useState, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies.
  */
-import RadioToggleGroupButtonUI from './ui-toggle-group';
-import RangeUIControl from './ui-range';
+import InputUIControl from './ui-input';
 
-function RadioToggleGroupInputRangeUI({
+function NoToggleInputUI({
 	value,
 	onChange,
-	inherited,
 	controls = [],
-	label = '',
-	isCustom = false,
-	units = [],
-	labelPosition = 'top',
+	label = __('Gap', 'kadence-blocks'),
 	placeholder = '',
-	min = null,
-	max = null,
-	step = null,
-	defaultUnit = 'px',
+	inherited,
+	units = [],
 }) {
 	const defaultUnits = [
 		{
@@ -71,35 +64,17 @@ function RadioToggleGroupInputRangeUI({
 	];
 
 	return (
-		<div className="kbs-radio-button-control__toggle-group-input">
-			{controls.length > 0 && !isCustom && (
-				<RadioToggleGroupButtonUI
-					value={value}
-					onChange={onChange}
-					inherited={inherited}
-					controls={controls}
-					label={label}
-					labelPosition={labelPosition}
-				/>
-			)}
-			{(isCustom || controls.length === 0) && (
-				<RangeUIControl
-					value={value}
-					inherited={inherited}
-					onChange={onChange}
-					controls={controls}
-					defaultUnit={defaultUnit}
-					units={units.length > 0 ? units : defaultUnits}
-					label={label}
-					labelPosition={labelPosition}
-					placeholder={placeholder}
-					min={min}
-					max={max}
-					step={step}
-				/>
-			)}
+		<div key={label} className="kbs-radio-button-control__toggle-group-input">
+			<InputUIControl
+				value={value}
+				placeholder={placeholder}
+				inherited={inherited}
+				onChange={onChange}
+				controls={controls}
+				units={units || defaultUnits}
+			/>
 		</div>
 	);
 }
 
-export default RadioToggleGroupInputRangeUI;
+export default NoToggleInputUI;

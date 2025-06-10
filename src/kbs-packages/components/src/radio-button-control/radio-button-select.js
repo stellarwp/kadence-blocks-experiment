@@ -38,6 +38,9 @@ export default function RadioButtonSelect({
 	placeholder = '',
 	isHover = false,
 	step = null,
+	color = '',
+	shadeType = 'shade',
+	defaultUnit = 'px',
 }) {
 	const radioConfig = type ? type : radioType;
 	const { UIComponent, controls, advancedControls } = getRadioConfig(radioConfig, previewDirection);
@@ -87,6 +90,7 @@ export default function RadioButtonSelect({
 				<UIComponent
 					value={value}
 					label={label}
+					color={color}
 					placeholder={placeholder}
 					labelPosition={labelPosition}
 					isCollapsed={isCollapsed}
@@ -99,6 +103,8 @@ export default function RadioButtonSelect({
 					min={min}
 					max={max}
 					step={step}
+					shadeType={shadeType}
+					defaultUnit={defaultUnit}
 				/>
 			</div>
 		</div>

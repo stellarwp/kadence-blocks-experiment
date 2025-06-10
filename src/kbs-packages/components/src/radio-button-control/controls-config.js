@@ -9,6 +9,8 @@ import {
 	justifyRight,
 	justifySpaceBetween,
 	justifyStretch,
+	justifyTop,
+	justifyBottom,
 	formatBold,
 	formatUnderline,
 } from '@wordpress/icons';
@@ -34,27 +36,63 @@ import {
 	repeatX,
 	repeatY,
 } from './constants';
-
+import NoToggleInputUI from './ui-no-toggle-input';
 import RadioToggleGroupButtonUI from './ui-toggle-group';
 import RadioToggleGroupInputUI from './ui-toggle-group-input';
 import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
 import RadioToggleGroupInputRangeUI from './ui-toggle-group-input-range';
 import RadioToggleGroupBackgroundSizeUI from './ui-toggle-group-background-size';
 import RadioToggleGroupShadeRangeUI from './ui-toggle-group-shade-range';
+import RadioToggleGroupInputRangeUINoUnit from './ui-toggle-group-input-range-no-unit';
 export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioToggleGroupButtonUI;
 	let controls;
 	let advancedControls;
 
 	switch (radioType) {
+		case 'width':
+		case 'height':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			break;
 		case 'color-mix':
 		case 'colorMix':
 			controls = getColorMixControls();
+			break;
+		case 'align-x':
+		case 'alignX':
+			controls = getAlignXControls();
+			break;
+		case 'align-y':
+		case 'alignY':
+			controls = getAlignYControls();
+			break;
+		case 'mask-size':
+		case 'maskSize':
+			controls = getMaskSizeControls();
+			break;
+		case 'divider-position':
+		case 'dividerPosition':
+			controls = getDividerPositionControls();
+			break;
+		case 'pattern-size':
+		case 'patternSize':
+			controls = getPatternSizeControls();
+			UIComponent = RadioToggleGroupInputRangeUINoUnit;
+			break;
+		case 'color-mix-amount':
+		case 'colorMixAmount':
+			UIComponent = RadioToggleGroupShadeRangeUI;
+			controls = getColorMixAmountControls();
 			break;
 		case 'color-shade':
 		case 'colorShade':
 			UIComponent = RadioToggleGroupShadeRangeUI;
 			controls = getColorShadeControls();
+			break;
+		case 'color-transparent':
+		case 'colorTransparent':
+			UIComponent = RadioToggleGroupShadeRangeUI;
+			controls = getColorTransparentControls();
 			break;
 		case 'flex-wrap':
 		case 'flexWrap':
@@ -141,6 +179,24 @@ export const getRadioConfig = (radioType, previewDirection) => {
 	return { UIComponent, controls, advancedControls };
 };
 
+export const getMaskSizeControls = () => [
+	{
+		title: __('Cover', 'kadence-blocks'),
+		name: __('Cover', 'kadence-blocks'),
+		key: 'cover',
+	},
+	{
+		title: __('Contain', 'kadence-blocks'),
+		name: __('Contain', 'kadence-blocks'),
+		key: 'contain',
+	},
+	{
+		title: __('Stretch', 'kadence-blocks'),
+		name: __('Stretch', 'kadence-blocks'),
+		key: 'stretch',
+	},
+];
+
 export const getObjectFitControls = () => [
 	{
 		title: __('Cover', 'kadence-blocks'),
@@ -163,6 +219,28 @@ export const getObjectFitControls = () => [
 		key: 'none',
 	},
 ];
+export const getDividerPositionControls = () => [
+	{
+		title: __('Top', 'kadence-blocks'),
+		icon: justifyTop,
+		key: 'top',
+	},
+	{
+		title: __('Bottom', 'kadence-blocks'),
+		icon: justifyBottom,
+		key: 'bottom',
+	},
+	{
+		title: __('Left', 'kadence-blocks'),
+		icon: justifyLeft,
+		key: 'left',
+	},
+	{
+		title: __('Right', 'kadence-blocks'),
+		icon: justifyRight,
+		key: 'right',
+	},
+];
 export const getColorMixControls = () => [
 	{
 		title: __('Shade', 'kadence-blocks'),
@@ -180,77 +258,199 @@ export const getColorMixControls = () => [
 		key: 'mix',
 	},
 ];
-
+export const getPatternSizeControls = () => [
+	{
+		title: __('X Small', 'kadence-blocks'),
+		name: 'XS',
+		key: '10',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: '20',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: '30',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: '40',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: '50',
+	},
+];
 export const getColorShadeControls = () => [
 	{
-		title: __('87.5% Lighter', 'kadence-blocks'),
+		title: __('70% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '87.5',
+		key: 70,
 	},
 	{
-		title: __('75% Lighter', 'kadence-blocks'),
+		title: __('60% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '75',
-	},
-	{
-		title: __('62.5% Lighter', 'kadence-blocks'),
-		name: '',
-		key: '62.5',
+		key: 60,
 	},
 	{
 		title: __('50% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '50',
+		key: 50,
 	},
 	{
-		title: __('37.5% Lighter', 'kadence-blocks'),
+		title: __('40% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '37.5',
+		key: 40,
 	},
 	{
-		title: __('25% Lighter', 'kadence-blocks'),
+		title: __('30% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '25',
+		key: 30,
 	},
 	{
-		title: __('12.5% Lighter', 'kadence-blocks'),
+		title: __('20% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '12.5',
+		key: 20,
 	},
 	{
-		title: __('12.5% Darker', 'kadence-blocks'),
+		title: __('10% Lighter', 'kadence-blocks'),
 		name: '',
-		key: '-12.5',
+		key: 10,
 	},
 	{
-		title: __('25% Darker', 'kadence-blocks'),
+		title: __('10% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-25',
+		key: -10,
 	},
 	{
-		title: __('37.5% Darker', 'kadence-blocks'),
+		title: __('20% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-37.5',
+		key: -20,
+	},
+	{
+		title: __('30% Darker', 'kadence-blocks'),
+		name: '',
+		key: -30,
+	},
+	{
+		title: __('40% Darker', 'kadence-blocks'),
+		name: '',
+		key: -40,
 	},
 	{
 		title: __('50% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-50',
+		key: -50,
 	},
 	{
-		title: __('62.5% Darker', 'kadence-blocks'),
+		title: __('60% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-62.5',
+		key: -60,
 	},
 	{
-		title: __('75% Darker', 'kadence-blocks'),
+		title: __('70% Darker', 'kadence-blocks'),
 		name: '',
-		key: '-75',
+		key: -70,
+	},
+];
+
+export const getColorTransparentControls = () => [
+	{
+		title: __('90% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 10,
 	},
 	{
-		title: __('87.5% Darker', 'kadence-blocks'),
+		title: __('80% Opacity', 'kadence-blocks'),
 		name: '',
-		key: '-87.5',
+		key: 20,
+	},
+	{
+		title: __('70% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 30,
+	},
+	{
+		title: __('60% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 40,
+	},
+	{
+		title: __('50% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 50,
+	},
+	{
+		title: __('40% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 60,
+	},
+	{
+		title: __('30% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 70,
+	},
+	{
+		title: __('20% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 80,
+	},
+	{
+		title: __('10% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 90,
+	},
+];
+
+export const getColorMixAmountControls = () => [
+	{
+		title: __('10%/90%', 'kadence-blocks'),
+		name: '',
+		key: 10,
+	},
+	{
+		title: __('20%/80%', 'kadence-blocks'),
+		name: '',
+		key: 20,
+	},
+	{
+		title: __('30%/70%', 'kadence-blocks'),
+		name: '',
+		key: 30,
+	},
+	{
+		title: __('40%/60%', 'kadence-blocks'),
+		name: '',
+		key: 40,
+	},
+	{
+		title: __('50%/50%', 'kadence-blocks'),
+		name: '',
+		key: 50,
+	},
+	{
+		title: __('60%/40%', 'kadence-blocks'),
+		name: '',
+		key: 60,
+	},
+	{
+		title: __('70%/30%', 'kadence-blocks'),
+		name: '',
+		key: 70,
+	},
+	{
+		title: __('80%/20%', 'kadence-blocks'),
+		name: '',
+		key: 80,
+	},
+	{
+		title: __('90%/10%', 'kadence-blocks'),
+		name: '',
+		key: 90,
 	},
 ];
 
@@ -589,6 +789,40 @@ export const getJustifyContentAdvancedControls = (direction) => {
 
 	return controlsByDirection[direction] || [];
 };
+export const getAlignXControls = () => [
+	{
+		icon: justifyLeft,
+		title: __('Left', 'kadence-blocks'),
+		key: 'min',
+	},
+	{
+		icon: justifyCenter,
+		title: __('Center', 'kadence-blocks'),
+		key: 'mid',
+	},
+	{
+		icon: justifyRight,
+		title: __('Right', 'kadence-blocks'),
+		key: 'max',
+	},
+];
+export const getAlignYControls = () => [
+	{
+		icon: alignTop,
+		title: __('Top', 'kadence-blocks'),
+		key: 'min',
+	},
+	{
+		icon: alignCenter,
+		title: __('Center', 'kadence-blocks'),
+		key: 'mid',
+	},
+	{
+		icon: alignBottom,
+		title: __('Bottom', 'kadence-blocks'),
+		key: 'max',
+	},
+];
 export const getJustifyContentControls = (direction) => {
 	const controlsByDirection = {
 		column: [

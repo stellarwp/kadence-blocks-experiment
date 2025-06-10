@@ -42,25 +42,25 @@ export function getUnitFromRawValue(rawValue, allowedUnits) {
 	let trimmedValue;
 	// create a simple array from allowedUnits, exclude empty values
 	const allowedUnitsArray = allowedUnits.filter((unit) => unit.value !== '').map((unit) => unit.value);
-	
+
 	if (typeof rawValue !== 'undefined' && rawValue !== null) {
 		trimmedValue = `${rawValue}`.trim();
 	} else {
 		return undefined;
 	}
-	
+
 	// if trimmedValue is empty, return undefined
 	if (trimmedValue === '') {
 		return undefined;
 	}
-	
+
 	const unitMatch = trimmedValue.match(/[\d.\-\+]*\s*(.*)/);
 	const matchedUnit = unitMatch?.[1]?.toLowerCase();
-	
+
 	if (allowedUnitsArray.includes(matchedUnit)) {
 		return matchedUnit;
 	}
-	
+
 	return undefined;
 }
 
@@ -76,22 +76,22 @@ export function getNumberFromRawValue(rawValue) {
 	}
 
 	const trimmedValue = `${rawValue}`.trim();
-	
+
 	// If trimmedValue is empty, return undefined
 	if (trimmedValue === '') {
 		return undefined;
 	}
-	
+
 	// Extract numeric part from the string
 	const numberMatch = trimmedValue.match(/^([-+]?\d*\.?\d+)/);
 	const numberStr = numberMatch?.[1];
-	
+
 	if (numberStr) {
 		const number = parseFloat(numberStr);
 		// Check if the parsed number is valid
 		return !isNaN(number) ? number : undefined;
 	}
-	
+
 	return undefined;
 }
 

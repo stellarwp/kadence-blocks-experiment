@@ -281,7 +281,7 @@ export const getGradientComputedValue = (value, ref, globalColors) => {
 			// Map computed colors to their CSS variables
 			for (let i = 0; i < globalColors.length; i++) {
 				const varSlug = globalColors[i]?.slug || '';
-				const varName = `--global-${varSlug.replace('theme-', '')}`;
+				const varName = `--kbs-colors-${varSlug.replace('theme-', '')}`;
 				const computedColor = computedStyle.getPropertyValue(varName).trim();
 				if (computedColor) {
 					colorMap[computedColor.toLowerCase()] = `var(${varName})`;

@@ -28,10 +28,11 @@ function RangeUIControl({
 	label = '',
 	step = null,
 	inherited,
+	defaultUnit = 'px',
 }) {
 	const [isCustomUnit, setIsCustomUnit] = useState(false);
 	const [minValue, maxValue] = useMemo(() => {
-		const existingUnit = getUnitFromRawValue(value, units) ?? 'px';
+		const existingUnit = getUnitFromRawValue(value, units) ?? defaultUnit;
 
 		switch (existingUnit) {
 			case 'px':
@@ -95,8 +96,7 @@ function RangeUIControl({
 	};
 
 	const rangeControlOnChange = (newValue) => {
-		let existingUnit = getUnitFromRawValue(value, units) ?? 'px';
-
+		let existingUnit = getUnitFromRawValue(value, units) ?? defaultUnit;
 		if (units.length === 1) {
 			existingUnit = units[0].value;
 		}

@@ -37,6 +37,8 @@ export default function RadioButtonControl({
 	hasDeviceControls = false,
 	hasCustomControls = false,
 	view = 'default',
+	units = [],
+	defaultUnit = 'px',
 }) {
 	// Get the globalStylesIds from context
 	const globalStylesIds = useContext(GlobalStylesContext);
@@ -95,6 +97,8 @@ export default function RadioButtonControl({
 					controls={isAdvanced && advancedControls?.length > 0 ? advancedControls : controls}
 					isCustom={isCustom}
 					type={type}
+					units={units}
+					defaultUnit={defaultUnit}
 				/>
 			</div>
 		</div>
