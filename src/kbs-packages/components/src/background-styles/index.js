@@ -2,13 +2,13 @@
  * External dependencies
  */
 import clsx from 'clsx';
-
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Icon } from '@wordpress/components';
+import { SVG, Path } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
+
 import { createRef, useEffect, useMemo } from '@wordpress/element';
 import { blockDefault, brush, settings } from '@wordpress/icons';
 import { getInheritedValue, getColorOutput, getDividerOptions, getMaskOptions } from '@kadence/kbsHelpers';
@@ -95,29 +95,67 @@ export function PopoverDividerRender({
 	);
 }
 
-export function PopoverMaskRender({ maskSlug, className, maskColor, maskBackground }) {
+export function PopoverMaskRender({ maskSlug, className, maskColor, maskBackground, maskSize, maskAlignX, maskAlignY }) {
 	const maskObject = getMaskOptions().find(({ value }) => value === maskSlug) || {};
 	const style = {};
 	if (maskColor) {
 		style['color'] = getColorOutput(maskColor);
 	}
-	if (maskObject?.svg) {
-		// Ensure the SVG is properly formatted as an XML document
-		const encodedSvg = encodeURIComponent(maskObject.svg);
-		style['backgroundImage'] = `url('data:image/svg+xml;utf8,${encodedSvg}')`;
+	let alignX = 'Mid';
+	let alignY = 'Mid';
+	switch (maskAlignX) {
+		case 'min':
+			alignX = 'Min';
+			break;
+		case 'max':
+			alignX = 'Max';
+			break;
 	}
-	return <div className={clsx('kbs-mask-svg-wrap', className)} style={style} />;
+	switch (maskAlignY) {
+		case 'min':
+			alignY = 'Min';
+			break;
+		case 'max':
+			alignY = 'Max';
+			break;
+	}
+	let ratio = `x${alignX}Y${alignY} slice`;
+	switch (maskSize) {
+		case 'contain':
+			ratio = `x${alignX}Y${alignY} meet`;
+			break;
+		case 'cover':
+			ratio = `x${alignX}Y${alignY} slice`;
+			break;
+		case 'stretch':
+			ratio = 'none';
+			break;
+	}
+	return (
+		<div className="kbs-mask-svg-wrap">
+		<SVG
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 1920 1200"
+			preserveAspectRatio={ratio}
+			className={'kbs-mask-svg'}
+		>
+				<Path d={maskObject?.path} />
+			</SVG>
+		</div>
+	);
 }
 function RenderPattern(props) {
 	const { layer, previewDevice } = props;
 	const patternType = getLayerInheritedDeviceValue('patternType', layer, previewDevice) || 'mask';
-	const pattern = getLayerInheritedDeviceValue('pattern', layer, previewDevice) || 'none';
-	const divider = getLayerInheritedDeviceValue('divider', layer, previewDevice) || 'none';
+	const divider = getLayerInheritedDeviceValue('divider', layer, previewDevice) || 'kbs-divider-ct';
 	const dividerWidth = getLayerInheritedDeviceValue('dividerWidth', layer, previewDevice) || '';
 	const dividerHeight = getLayerInheritedDeviceValue('dividerHeight', layer, previewDevice) || '';
 	const dividerPosition = getLayerInheritedDeviceValue('dividerPosition', layer, previewDevice) || 'bottom';
-	const mask = getLayerInheritedDeviceValue('mask', layer, previewDevice) || 'none';
-	const patternColor = getLayerInheritedDeviceValue('patternColor', layer, previewDevice) || 'none';
+	const maskSize = getLayerInheritedDeviceValue('maskSize', layer, previewDevice) || 'cover';
+	const mask = getLayerInheritedDeviceValue('mask', layer, previewDevice) || 'kbs-mask-panels-1';
+	const patternColor = getLayerInheritedDeviceValue('patternColor', layer, previewDevice) || 'palette3';
+	const alignX = getLayerInheritedDeviceValue('alignX', layer, previewDevice) || 'mid';
+	const alignY = getLayerInheritedDeviceValue('alignY', layer, previewDevice) || 'mid';
 	if (patternType === 'divider') {
 		return (
 			<PopoverDividerRender
@@ -129,8 +167,8 @@ function RenderPattern(props) {
 			/>
 		);
 	}
-	if (patternType === 'mask') {
-		return <PopoverMaskRender maskSlug={mask} maskColor={patternColor} />;
+	if (patternType !== 'pattern' && patternType !== 'divider') {
+		return <PopoverMaskRender maskSlug={mask} maskSize={maskSize} maskAlignX={alignX} maskAlignY={alignY} maskColor={patternColor} />;
 	}
 	return '';
 }

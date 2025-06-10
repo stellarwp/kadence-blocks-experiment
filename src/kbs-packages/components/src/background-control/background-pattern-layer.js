@@ -204,16 +204,70 @@ export default function BackgroundPatternLayer({
 						/>
 						<RadioButtonSelect
 							label={__('Mask Size', 'kadence-blocks')}
-							value={layer?.size}
-							type={'size'}
+							value={layer?.maskSize}
+							type={'maskSize'}
 							inherited={{ inheritedValue: 'cover' }}
 							previewDevice={previewDevice}
 							view={'normal'}
-							hasCustomControls={true}
+							hasCustomControls={false}
 							onChange={(value) => {
-								onChange(value, previewDevice, 'size');
+								onChange(value, previewDevice, 'maskSize');
 							}}
 						/>
+						{layer?.maskSize !== 'stretch' && (
+							<div className="kbs-mask-align-control">
+								<RadioButtonSelect
+									label={__('Horizontal Align', 'kadence-blocks')}
+									value={layer?.alignX}
+									type={'alignX'}
+									inherited={{ inheritedValue: 'mid' }}
+									previewDevice={previewDevice}
+									view={'normal'}
+									hasCustomControls={false}
+									onChange={(value) => {
+										onChange(value, previewDevice, 'alignX');
+									}}
+								/>
+								<RadioButtonSelect
+									label={__('Vertical Align', 'kadence-blocks')}
+									value={layer?.alignY}
+									type={'alignY'}
+									inherited={{ inheritedValue: 'mid' }}
+									previewDevice={previewDevice}
+									view={'normal'}
+									hasCustomControls={false}
+									onChange={(value) => {
+										onChange(value, previewDevice, 'alignY');
+									}}
+								/>
+							</div>
+						)}
+						<div className="kbs-mask-align-control">
+							<RadioButtonSelect
+								label={__('Flip Horizontal', 'kadence-blocks')}
+								value={layer?.flipX}
+								type={'flipX'}
+								inherited={{ inheritedValue: 'no' }}
+								previewDevice={previewDevice}
+								view={'normal'}
+								hasCustomControls={false}
+								onChange={(value) => {
+									onChange(value, previewDevice, 'flipX');
+								}}
+							/>
+							<RadioButtonSelect
+								label={__('Flip Vertical', 'kadence-blocks')}
+								value={layer?.flipY}
+								type={'flipY'}
+								inherited={{ inheritedValue: 'no' }}
+								previewDevice={previewDevice}
+								view={'normal'}
+								hasCustomControls={false}
+								onChange={(value) => {
+									onChange(value, previewDevice, 'flipY');
+								}}
+							/>
+						</div>
 					</>
 				)}
 			</div>

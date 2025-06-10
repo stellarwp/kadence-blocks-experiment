@@ -11,8 +11,7 @@
 	background-attachment: scroll;
 	overflow: hidden;
 	transition: all 0.3s ease-in-out;
-	.kbs-bg-video,
-	.kbs-mask-svg-wrap {
+	.kbs-bg-video {
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -22,6 +21,16 @@
 		bottom: 0;
 		object-fit: cover;
 		object-position: 50% 50%;
+	}
+	.kbs-mask-svg {
+		fill: currentColor;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		height: 100%;
 	}
 	.kbs-divider-svg-wrapper {
 		bottom: 0;

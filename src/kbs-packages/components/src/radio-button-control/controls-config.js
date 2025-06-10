@@ -58,6 +58,18 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'colorMix':
 			controls = getColorMixControls();
 			break;
+		case 'align-x':
+		case 'alignX':
+			controls = getAlignXControls();
+			break;
+		case 'align-y':
+		case 'alignY':
+			controls = getAlignYControls();
+			break;
+		case 'mask-size':
+		case 'maskSize':
+			controls = getMaskSizeControls();
+			break;
 		case 'divider-position':
 		case 'dividerPosition':
 			controls = getDividerPositionControls();
@@ -166,6 +178,24 @@ export const getRadioConfig = (radioType, previewDirection) => {
 
 	return { UIComponent, controls, advancedControls };
 };
+
+export const getMaskSizeControls = () => [
+	{
+		title: __('Cover', 'kadence-blocks'),
+		name: __('Cover', 'kadence-blocks'),
+		key: 'cover',
+	},
+	{
+		title: __('Contain', 'kadence-blocks'),
+		name: __('Contain', 'kadence-blocks'),
+		key: 'contain',
+	},
+	{
+		title: __('Stretch', 'kadence-blocks'),
+		name: __('Stretch', 'kadence-blocks'),
+		key: 'stretch',
+	},
+];
 
 export const getObjectFitControls = () => [
 	{
@@ -759,6 +789,40 @@ export const getJustifyContentAdvancedControls = (direction) => {
 
 	return controlsByDirection[direction] || [];
 };
+export const getAlignXControls = () => [
+	{
+		icon: justifyLeft,
+		title: __('Left', 'kadence-blocks'),
+		key: 'min',
+	},
+	{
+		icon: justifyCenter,
+		title: __('Center', 'kadence-blocks'),
+		key: 'mid',
+	},
+	{
+		icon: justifyRight,
+		title: __('Right', 'kadence-blocks'),
+		key: 'max',
+	},
+];
+export const getAlignYControls = () => [
+	{
+		icon: alignTop,
+		title: __('Top', 'kadence-blocks'),
+		key: 'min',
+	},
+	{
+		icon: alignCenter,
+		title: __('Center', 'kadence-blocks'),
+		key: 'mid',
+	},
+	{
+		icon: alignBottom,
+		title: __('Bottom', 'kadence-blocks'),
+		key: 'max',
+	},
+];
 export const getJustifyContentControls = (direction) => {
 	const controlsByDirection = {
 		column: [
