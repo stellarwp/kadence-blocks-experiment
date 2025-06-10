@@ -192,7 +192,7 @@ function kadence_blocks_init(): void {
 		0
 	);
 }
-// add_action( 'plugins_loaded', 'kadence_blocks_init', 1 );
+add_action( 'plugins_loaded', 'kadence_blocks_init', 1 );
 
 /**
  * Load the plugin textdomain

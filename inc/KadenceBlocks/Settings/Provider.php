@@ -29,5 +29,6 @@ class Provider extends Service_Provider {
 	 */
 	public function register(): void {
 		$this->container->singleton( Global_Style::class, Global_Style::class );
+		$admin = new Admin();
 	}
 }

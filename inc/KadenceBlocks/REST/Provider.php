@@ -25,6 +25,9 @@ class Provider {
 
 			$global_styles_controller = new Global_Styles_Controller();
 			$global_styles_controller->register_routes();
+
+			$ai_admin_controller = new Ai_Admin_Controller();
+			$ai_admin_controller->register_routes();
 		});
 	}
 } 

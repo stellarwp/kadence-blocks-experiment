@@ -9,37 +9,19 @@
  */
 import classnames from 'classnames';
 
-/**
- * Kadence Helpers.
- */
-import {
-	uniqueIdHelper,
-	getPreviewValue,
-	GlobalStylesContext,
-	useGlobalStylesIds,
-	getLinkHTML,
-} from '@kadence/kbsHelpers';
-
-import metadata from './block.json';
 import Styles from './editing/styles';
 import Inspector from './editing/inspector';
+import AIText from './ai-text/ai-text.js';
 
 /**
  * Import WordPress
  */
 import { __ } from '@wordpress/i18n';
-
-import { useSelect, select } from '@wordpress/data';
-import { useEffect, useContext, Fragment } from '@wordpress/element';
-import {
-	RichText,
-	useBlockProps,
-	store as blockEditorStore,
-	BlockControls,
-	AlignmentToolbar,
-} from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
+import { RichText, useBlockProps, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 
+import { uniqueIdHelper, GlobalStylesContext, useGlobalStylesIds, getLinkHTML } from '@kadence/kbsHelpers';
 import { DynamicTextControl } from '@kadence/kbsComponents';
 
 /**
@@ -96,6 +78,7 @@ export default function TextEdit(props) {
 			'core/superscript',
 			'core/superscript',
 			'toolset/inline-field',
+			'kadence/ai-text',
 		],
 		'kbs/text'
 	);
