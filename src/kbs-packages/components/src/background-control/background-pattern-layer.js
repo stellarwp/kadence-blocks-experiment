@@ -13,6 +13,7 @@ import {
 	HStack,
 	FlexItem,
 	TabPanel,
+	ToggleControl,
 } from '@wordpress/components';
 import { __, _x } from '@wordpress/i18n';
 import { useRef, useMemo, useEffect } from '@wordpress/element';
@@ -173,11 +174,12 @@ export default function BackgroundPatternLayer({
 					value={layer?.mask}
 					type={'mask'}
 					onChange={(value) => {
-						onChange(value, previewDevice, 'mask');
+						onChange(value, 'Desktop', 'mask');
 					}}
 					patterns={masks}
 					patternColor={layer?.patternColor}
 					patternBackground={layer?.color}
+					layer={layer}
 				/>
 				{hasMask && (
 					<>
@@ -211,7 +213,7 @@ export default function BackgroundPatternLayer({
 							view={'normal'}
 							hasCustomControls={false}
 							onChange={(value) => {
-								onChange(value, previewDevice, 'maskSize');
+								onChange(value, 'Desktop', 'maskSize');
 							}}
 						/>
 						{layer?.maskSize !== 'stretch' && (
@@ -225,7 +227,7 @@ export default function BackgroundPatternLayer({
 									view={'normal'}
 									hasCustomControls={false}
 									onChange={(value) => {
-										onChange(value, previewDevice, 'alignX');
+										onChange(value, 'Desktop', 'alignX');
 									}}
 								/>
 								<RadioButtonSelect
@@ -237,34 +239,28 @@ export default function BackgroundPatternLayer({
 									view={'normal'}
 									hasCustomControls={false}
 									onChange={(value) => {
-										onChange(value, previewDevice, 'alignY');
+										onChange(value, 'Desktop', 'alignY');
 									}}
 								/>
 							</div>
 						)}
-						<div className="kbs-mask-align-control">
-							<RadioButtonSelect
+						<div className="kbs-mask-align-control kbs-mask-flip-control">
+							<ToggleControl
+								className="kbs-toggle-control"
+								__next40pxDefaultSize
 								label={__('Flip Horizontal', 'kadence-blocks')}
-								value={layer?.flipX}
-								type={'flipX'}
-								inherited={{ inheritedValue: 'no' }}
-								previewDevice={previewDevice}
-								view={'normal'}
-								hasCustomControls={false}
+								checked={'enabled' === layer?.flipX ? true : false}
 								onChange={(value) => {
-									onChange(value, previewDevice, 'flipX');
+									onChange(value ? 'enabled' : 'disabled', previewDevice, 'flipX');
 								}}
 							/>
-							<RadioButtonSelect
+							<ToggleControl
+								className="kbs-toggle-control"
+								__next40pxDefaultSize
 								label={__('Flip Vertical', 'kadence-blocks')}
-								value={layer?.flipY}
-								type={'flipY'}
-								inherited={{ inheritedValue: 'no' }}
-								previewDevice={previewDevice}
-								view={'normal'}
-								hasCustomControls={false}
+								checked={'enabled' === layer?.flipY ? true : false}
 								onChange={(value) => {
-									onChange(value, previewDevice, 'flipY');
+									onChange(value ? 'enabled' : 'disabled', previewDevice, 'flipY');
 								}}
 							/>
 						</div>

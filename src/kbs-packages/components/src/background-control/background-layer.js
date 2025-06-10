@@ -13,6 +13,8 @@ import {
 	HStack,
 	FlexItem,
 	TabPanel,
+	SVG,
+	Path,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useRef, useMemo, useEffect, useState } from '@wordpress/element';
@@ -55,6 +57,7 @@ import BackgroundVideoLayer from './background-video-layer';
 import ColorSelect from '../color-control/color-select';
 import LayerEffects from './layer-effects';
 import BackgroundPatternLayer from './background-pattern-layer';
+import BackgroundBackdropLayer from './background-backdrop';
 import { PopoverPatternRender, PopoverDividerRender } from './popover-select';
 
 export function IndicatorDividerRender({
@@ -89,6 +92,65 @@ export function IndicatorDividerRender({
 		</div>
 	);
 }
+function PopoverMaskRender({ mask, className, maskColor, maskAlignX, maskAlignY, maskSize, maskFlipX, maskFlipY }) {
+	const style = {};
+	if (maskColor) {
+		style['color'] = getColorOutput(maskColor);
+	}
+	if (maskFlipX === 'enabled') {
+		style['transform'] = `scaleX(-1)`;
+	}
+	if (maskFlipY === 'enabled') {
+		if (style?.['transform']) {
+			style['transform'] += ` scaleY(-1)`;
+		} else {
+			style['transform'] = `scaleY(-1)`;
+		}
+	}
+	let alignX = 'Mid';
+	let alignY = 'Mid';
+	switch (maskAlignX) {
+		case 'min':
+			alignX = 'Min';
+			break;
+		case 'max':
+			alignX = 'Max';
+			break;
+	}
+	switch (maskAlignY) {
+		case 'min':
+			alignY = 'Min';
+			break;
+		case 'max':
+			alignY = 'Max';
+			break;
+	}
+	let ratio = `x${alignX}Y${alignY} slice`;
+	switch (maskSize) {
+		case 'contain':
+			ratio = `x${alignX}Y${alignY} meet`;
+			break;
+		case 'cover':
+			ratio = `x${alignX}Y${alignY} slice`;
+			break;
+		case 'stretch':
+			ratio = 'none';
+			break;
+	}
+	return (
+		<div className={clsx('kbs-popover-background-select-control-style', className)}>
+			<SVG
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 1920 1200"
+				preserveAspectRatio={ratio}
+				className={'kbs-mask-svg'}
+				style={style}
+			>
+				<Path d={mask?.path} />
+			</SVG>
+		</div>
+	);
+}
 function SidebarPatternRender({ pattern, patternType }) {
 	if (patternType === 'divider') {
 		return (
@@ -98,21 +160,26 @@ function SidebarPatternRender({ pattern, patternType }) {
 				dividerColor={pattern?.patternColor}
 			/>
 		);
+	} else if (patternType === 'pattern') {
+		return (
+			<PopoverPatternRender
+				pattern={pattern}
+				patternColor={pattern?.patternColor}
+				patternBackground={pattern?.backgroundColor}
+			/>
+		);
 	}
-	return (
-		<PopoverPatternRender
-			pattern={pattern}
-			patternColor={pattern?.patternColor}
-			patternBackground={pattern?.backgroundColor}
-		/>
-	);
+	return <PopoverMaskRender mask={pattern} maskColor={pattern?.patternColor} />;
 }
 function BackgroundIndicator({ value, type, colorValue, patternType }) {
 	const style = {
 		background: type !== 'color' ? colorValue : value,
 	};
 	return (
-		<div className="kbs-background-indicator component-color-indicator" style={style}>
+		<div
+			className={clsx('kbs-background-indicator component-color-indicator', value ? 'has-value' : '')}
+			style={style}
+		>
 			{type === 'video' && (
 				<video
 					src={value}
@@ -258,7 +325,6 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					returnObject.patternColor =
 						getColorOutput(getLayerDeviceValue('patternColor', layer, previewDevice)) ||
 						getColorOutput('palette3');
-					console.log('returnObject', returnObject);
 					return returnObject;
 				default:
 					return '';
@@ -281,7 +347,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					if (patternType === 'pattern') {
 						return patternIcon;
 					}
-					return patternIcon;
+					return maskIcon;
 				default:
 					return colorIcon;
 			}
@@ -352,7 +418,10 @@ function getFullLayerDeviceValue(layer, device) {
 			// Make sure it's an object
 			if (layer?.[parentDeviceName] && typeof layer?.[parentDeviceName] === 'object') {
 				Object.keys(layer?.[parentDeviceName]).forEach((key) => {
-					if (!layerReturn?.[key] && layer?.[parentDeviceName]?.[key]) {
+					if (
+						!layerReturn?.[key] &&
+						(layer?.[parentDeviceName]?.[key] || layer?.[parentDeviceName]?.[key] === 0)
+					) {
 						layerReturn[key] = layer?.[parentDeviceName][key];
 					}
 				});
@@ -376,9 +445,6 @@ function renderBackgroundDropdown(
 ) {
 	const [isHover, setIsHover] = useState(false);
 	return ({ onToggle, isOpen }) => {
-		const handleTypeChange = (type) => {
-			onChange(type, previewDevice, 'type');
-		};
 		const handleCustomOnChange = (value, device, type) => {
 			onChange(value, device, type);
 		};
@@ -418,9 +484,9 @@ function renderBackgroundDropdown(
 				title: __('Masks & Patterns', 'kadence-blocks'),
 			},
 			{
-				name: 'blur',
+				name: 'backdrop',
 				icon: blurIcon,
-				title: __('Blur', 'kadence-blocks'),
+				title: __('Backdrop Filter', 'kadence-blocks'),
 			},
 		];
 		return (
@@ -468,6 +534,17 @@ function renderBackgroundDropdown(
 										layer={flattenLayer}
 										hasYouTube={true}
 										hasVimeo={true}
+									/>
+								);
+							} else if ('backdrop' === tab.name) {
+								return (
+									<BackgroundBackdropLayer
+										onChange={handleCustomOnChange}
+										previewDevice={previewDevice}
+										layer={flattenLayer}
+										isHover={isHover}
+										onToggleHover={() => setIsHover(!isHover)}
+										hasHoverControls={true}
 									/>
 								);
 							} else if ('pattern' === tab.name) {
@@ -546,6 +623,7 @@ export default function BackgroundLayer({
 	customOnChange = undefined,
 	layer,
 	isInherited = false,
+	inherited = {},
 }) {
 	const popoverProps = {
 		//placement: 'left-start',
@@ -562,12 +640,24 @@ export default function BackgroundLayer({
 	const gradients = getGradientOptions();
 	const isDisableCustomColors = !customColors ? true : false;
 	const onChange = (value, device, type) => {
+		let useAttributes = attributes;
+		if (isInherited) {
+			if (inherited?.inheritedValue) {
+				if (!useAttributes?.[attributeName]) {
+					useAttributes[attributeName] = {};
+				}
+				if (!useAttributes?.[attributeName]?.layers) {
+					useAttributes[attributeName].layers = [];
+				}
+				useAttributes[attributeName].layers = JSON.parse(JSON.stringify(inherited.inheritedValue));
+			}
+		}
 		console.log('onChange', value, device, type, layerKey);
 		handleLayerAttributeChange(
 			value,
 			device,
 			attributeName,
-			attributes,
+			useAttributes,
 			setAttributes,
 			customOnChange,
 			type,

@@ -85,7 +85,7 @@ export function getNumberFromRawValue(rawValue) {
 	// Extract numeric part from the string
 	const numberMatch = trimmedValue.match(/^([-+]?\d*\.?\d+)/);
 	const numberStr = numberMatch?.[1];
-
+	console.log('numberStr', numberStr);
 	if (numberStr) {
 		const number = parseFloat(numberStr);
 		// Check if the parsed number is valid

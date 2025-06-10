@@ -10,6 +10,8 @@ import {
 	Dropdown,
 	ColorIndicator as CoreColorIndicator,
 	Button,
+	SVG,
+	Path,
 	HStack,
 	FlexItem,
 	TabPanel,
@@ -58,14 +60,71 @@ export function PopoverPatternRender({ pattern, className, patternSize, patternC
 	return <div className={clsx('kbs-popover-background-select-control-style', className)} style={style} />;
 }
 
-export function PopoverMaskRender({ mask, className, maskColor, maskBackground, dividerWidth, dividerHeight }) {
+export function PopoverMaskRender({
+	mask,
+	className,
+	maskColor,
+	maskAlignX,
+	maskAlignY,
+	maskSize,
+	maskFlipX,
+	maskFlipY,
+}) {
 	const style = {};
 	if (maskColor) {
 		style['color'] = getColorOutput(maskColor);
 	}
+	if (maskFlipX === 'enabled') {
+		style['transform'] = `scaleX(-1)`;
+	}
+	if (maskFlipY === 'enabled') {
+		if (style?.['transform']) {
+			style['transform'] += ` scaleY(-1)`;
+		} else {
+			style['transform'] = `scaleY(-1)`;
+		}
+	}
+	let alignX = 'Mid';
+	let alignY = 'Mid';
+	switch (maskAlignX) {
+		case 'min':
+			alignX = 'Min';
+			break;
+		case 'max':
+			alignX = 'Max';
+			break;
+	}
+	switch (maskAlignY) {
+		case 'min':
+			alignY = 'Min';
+			break;
+		case 'max':
+			alignY = 'Max';
+			break;
+	}
+	let ratio = `x${alignX}Y${alignY} slice`;
+	switch (maskSize) {
+		case 'contain':
+			ratio = `x${alignX}Y${alignY} meet`;
+			break;
+		case 'cover':
+			ratio = `x${alignX}Y${alignY} slice`;
+			break;
+		case 'stretch':
+			ratio = 'none';
+			break;
+	}
 	return (
-		<div className={clsx('kbs-popover-background-select-control-style', className)} style={style}>
-			{mask?.svg}
+		<div className={clsx('kbs-popover-background-select-control-style', className)}>
+			<SVG
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 1920 1200"
+				preserveAspectRatio={ratio}
+				className={'kbs-mask-svg'}
+				style={style}
+			>
+				<Path d={mask?.path} />
+			</SVG>
 		</div>
 	);
 }
@@ -142,15 +201,9 @@ export function PopoverDropdown({
 							className={`kbs-radio-popover-select-control-button`}
 							onClick={() => handlePatternChange(pattern.value)}
 						>
-							{type === 'pattern' && (
-								<PopoverPatternRender
-									pattern={pattern}
-									patternSize={patternSize}
-									patternColor={patternColor}
-									patternBackground={patternBackground}
-								/>
-							)}
+							{type === 'pattern' && <PopoverPatternRender pattern={pattern} patternSize={patternSize} />}
 							{type === 'divider' && <PopoverDividerRender divider={pattern} />}
+							{type === 'mask' && <PopoverMaskRender mask={pattern} />}
 						</Button>
 					))}
 				</div>
@@ -175,6 +228,7 @@ export function PopoverToggle({
 	patternBackground,
 	dividerWidth,
 	dividerHeight,
+	layer,
 }) {
 	return ({ onToggle, isOpen }) => {
 		const presetButtonRef = useRef(undefined);
@@ -274,7 +328,11 @@ export function PopoverToggle({
 							<PopoverMaskRender
 								maskColor={patternColor}
 								mask={currentItem}
-								maskBackground={patternBackground}
+								maskAlignX={layer?.alignX}
+								maskAlignY={layer?.alignY}
+								maskSize={layer?.maskSize}
+								maskFlipX={layer?.flipX}
+								maskFlipY={layer?.flipY}
 							/>
 						)}
 					</div>
@@ -302,6 +360,10 @@ export default function PopoverSelect({
 	patternPosition = undefined,
 	dividerWidth = undefined,
 	dividerHeight = undefined,
+	maskAlignX = undefined,
+	maskAlignY = undefined,
+	maskSize = undefined,
+	layer = undefined,
 }) {
 	const popoverProps = {
 		placement: 'left-start',
@@ -344,6 +406,7 @@ export default function PopoverSelect({
 						patternSize: patternSize,
 						dividerWidth: dividerWidth,
 						dividerHeight: dividerHeight,
+						layer: layer,
 					})}
 					renderContent={PopoverDropdown({
 						patterns: patterns,

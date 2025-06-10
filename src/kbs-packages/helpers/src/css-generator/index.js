@@ -302,6 +302,27 @@ class CSSGenerator {
 				} else {
 					this.add({ '--kbs-pattern-bg': 'transparent' });
 				}
+				const patternColor = getLayerDeviceValue('patternColor', layer, props.previewDevice);
+				if (patternColor) {
+					this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
+				} else {
+					this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
+				}
+				if (patternType !== 'pattern' && patternType !== 'divider') {
+					const flipX = getLayerDeviceValue('flipX', layer, props.previewDevice);
+					let hasXFlip = false;
+					if (flipX === 'enabled') {
+						hasXFlip = true;
+					}
+					const flipY = getLayerDeviceValue('flipY', layer, props.previewDevice);
+					let hasYFlip = false;
+					if (flipY === 'enabled') {
+						hasYFlip = true;
+					}
+					if (hasXFlip || hasYFlip) {
+						this.add({ transform: `scaleX(${hasXFlip ? '-1' : '1'}) scaleY(${hasYFlip ? '-1' : '1'})` });
+					}
+				}
 				if (patternType === 'pattern') {
 					const backgroundPattern = getLayerDeviceValue('pattern', layer, props.previewDevice);
 					if (backgroundPattern) {
@@ -310,12 +331,6 @@ class CSSGenerator {
 							this.add({ '--kbs-pattern-size': patternSize });
 						} else {
 							this.add({ '--kbs-pattern-size': '20' });
-						}
-						const patternColor = getLayerDeviceValue('patternColor', layer, props.previewDevice);
-						if (patternColor) {
-							this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
-						} else {
-							this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
 						}
 						const pattern = getPatternOptions().find((pattern) => pattern.value === backgroundPattern);
 						if (pattern) {
@@ -338,6 +353,17 @@ class CSSGenerator {
 							}
 						}
 					}
+				}
+				break;
+			case 'backdrop':
+				const backdropFilter = getLayerDeviceValue('backdropFilter', layer, props.previewDevice);
+				if (backdropFilter && backdropFilter !== 'none') {
+					const unit = backdropFilter === 'blur' ? 'px' : backdropFilter === 'hue-rotate' ? 'deg' : '%';
+					let backdropSize = getLayerDeviceValue('backdropSize', layer, props.previewDevice) || '1';
+					if (backdropFilter === 'hue-rotate') {
+						backdropSize = backdropSize * 3.6;
+					}
+					this.add({ 'backdrop-filter': backdropFilter + '(' + backdropSize + unit + ')' });
 				}
 				break;
 			case 'video':
@@ -374,6 +400,33 @@ class CSSGenerator {
 			case 'gradient':
 				if (backgroundHoverColor) {
 					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
+				}
+				break;
+			case 'backdrop':
+				const backdropFilter = getLayerDeviceValue('backdropFilter', layer, props.previewDevice);
+				const hoverBackdropFilter =
+					getLayerDeviceValue('hoverBackdropFilter', layer, props.previewDevice) || backdropFilter;
+				console.log('hoverBackdropFilter', hoverBackdropFilter);
+				if (hoverBackdropFilter) {
+					if (hoverBackdropFilter === 'none') {
+						this.add({ 'backdrop-filter': 'none' });
+					} else {
+						const hoverUnit =
+							hoverBackdropFilter === 'blur' ? 'px' : hoverBackdropFilter === 'hue-rotate' ? 'deg' : '%';
+						let backdropSize = getLayerDeviceValue('backdropSize', layer, props.previewDevice) || '1';
+						let hoverBackdropSize = getLayerDeviceValue('hoverBackdropSize', layer, props.previewDevice);
+						console.log('hoverBackdropSize', hoverBackdropSize);
+						console.log('hoverBackdropSize', layer);
+						if (!hoverBackdropSize && hoverBackdropSize !== 0) {
+							hoverBackdropSize = backdropSize;
+						}
+						if (hoverBackdropFilter === 'hue-rotate') {
+							hoverBackdropSize = hoverBackdropSize * 3.6;
+						}
+						this.add({
+							'backdrop-filter': hoverBackdropFilter + '(' + hoverBackdropSize + hoverUnit + ')',
+						});
+					}
 				}
 				break;
 			case 'pattern':

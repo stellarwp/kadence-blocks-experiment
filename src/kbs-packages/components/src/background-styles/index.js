@@ -95,12 +95,19 @@ export function PopoverDividerRender({
 	);
 }
 
-export function PopoverMaskRender({ maskSlug, className, maskColor, maskBackground, maskSize, maskAlignX, maskAlignY }) {
+export function PopoverMaskRender({
+	maskSlug,
+	className,
+	maskColor,
+	maskBackground,
+	maskSize,
+	maskAlignX,
+	maskAlignY,
+	maskFlipX,
+	maskFlipY,
+}) {
 	const maskObject = getMaskOptions().find(({ value }) => value === maskSlug) || {};
 	const style = {};
-	if (maskColor) {
-		style['color'] = getColorOutput(maskColor);
-	}
 	let alignX = 'Mid';
 	let alignY = 'Mid';
 	switch (maskAlignX) {
@@ -132,16 +139,14 @@ export function PopoverMaskRender({ maskSlug, className, maskColor, maskBackgrou
 			break;
 	}
 	return (
-		<div className="kbs-mask-svg-wrap">
 		<SVG
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 1920 1200"
 			preserveAspectRatio={ratio}
 			className={'kbs-mask-svg'}
 		>
-				<Path d={maskObject?.path} />
-			</SVG>
-		</div>
+			<Path d={maskObject?.path} />
+		</SVG>
 	);
 }
 function RenderPattern(props) {
@@ -168,7 +173,15 @@ function RenderPattern(props) {
 		);
 	}
 	if (patternType !== 'pattern' && patternType !== 'divider') {
-		return <PopoverMaskRender maskSlug={mask} maskSize={maskSize} maskAlignX={alignX} maskAlignY={alignY} maskColor={patternColor} />;
+		return (
+			<PopoverMaskRender
+				maskSlug={mask}
+				maskSize={maskSize}
+				maskAlignX={alignX}
+				maskAlignY={alignY}
+				maskColor={patternColor}
+			/>
+		);
 	}
 	return '';
 }

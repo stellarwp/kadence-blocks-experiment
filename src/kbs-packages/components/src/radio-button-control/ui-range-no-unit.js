@@ -31,6 +31,7 @@ function RangeUIControlNoUnit({
 		onChange(value);
 	};
 	const rangeControlOnChange = (newValue) => {
+		console.log('newValue', newValue);
 		onChange(newValue);
 	};
 	const placeholderValue = useMemo(() => {
@@ -54,9 +55,7 @@ function RangeUIControlNoUnit({
 					onChange={rangeControlOnChange}
 					min={null !== min ? min : minValue}
 					max={null !== max ? max : maxValue}
-					step={
-						step || 1
-					}
+					step={step || 1}
 					showTooltip={false}
 					withInputField={false}
 				/>

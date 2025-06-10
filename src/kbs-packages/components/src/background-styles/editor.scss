@@ -23,7 +23,7 @@
 		object-position: 50% 50%;
 	}
 	.kbs-mask-svg {
-		fill: currentColor;
+		fill: var(--kbs-pattern-color, currentColor);
 		position: absolute;
 		left: 0;
 		right: 0;
@@ -40,7 +40,7 @@
 		aspect-ratio: 1000 / 100;
 		top: auto;
 		.kbs-divider-svg {
-			fill: currentColor;
+			fill: var(--kbs-pattern-color, currentColor);
 			top: auto;
 			left: 50%;
 			transform: translateX(-50%);

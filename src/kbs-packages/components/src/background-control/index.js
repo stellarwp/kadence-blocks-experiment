@@ -310,6 +310,7 @@ export default function BackgroundControl({
 											previewDevice={previewDevice}
 											globalStylesIds={globalStylesIds}
 											isInherited={inherited.inheritedSource !== 'direct'}
+											inherited={inherited}
 										/>
 									))
 								) : (

@@ -204,6 +204,19 @@
 			box-shadow: inset 0 0 0 1px #0003;
 			transition: box-shadow 0.2s ease-in-out;
 			position: relative;
+			background: #fff linear-gradient(-45deg, #0000 48%, #ddd 0, #ddd 52%, #0000 0);
+			&.has-value {
+				box-shadow: inset 0 0 0 1px var(--kb-border-subtle-color, #d9e7ec);
+				background-image:
+					linear-gradient(45deg, #ddd 25%, transparent 0), linear-gradient(-45deg, #ddd 25%, transparent 0),
+					linear-gradient(45deg, transparent 75%, #ddd 0), linear-gradient(-45deg, transparent 75%, #ddd 0);
+				background-size: 10px 10px;
+				background-position:
+					0 0,
+					0 5px,
+					5px -5px,
+					-5px 0;
+			}
 			.kbs-background-indicator-layer {
 				position: absolute;
 				left: 0;
@@ -425,7 +438,7 @@
 	box-shadow: inset 0 0 0 1px var(--kb-border-subtle-color, #d9e7ec);
 	--kbs-pattern-color: var(--kbs-colors-palette3);
 	--kbs-pattern-size: 20;
-	--kbs-pattern-bg: var(--kbs-colors-palette9);
+	--kbs-pattern-bg: transparent;
 	&.has-pattern-value {
 		padding: 0;
 		box-shadow: none;
@@ -479,10 +492,19 @@
 		height: 120px;
 		margin-top: 12px;
 		border-radius: 4px;
-		border: 1px solid rgba(0, 0, 0, 0.2);
+		border: 1px solid var(--kb-border-subtle-color, #d9e7ec);
 		transition: box-shadow 0.2s ease-in-out;
 		position: relative;
 		overflow: hidden;
+		background-image:
+			linear-gradient(45deg, #ddd 25%, transparent 0), linear-gradient(-45deg, #ddd 25%, transparent 0),
+			linear-gradient(45deg, transparent 75%, #ddd 0), linear-gradient(-45deg, transparent 75%, #ddd 0);
+		background-size: 10px 10px;
+		background-position:
+			0 0,
+			0 5px,
+			5px -5px,
+			-5px 0;
 		.kbs-popover-background-select-control-style {
 			top: 0;
 			bottom: 0;
@@ -491,6 +513,11 @@
 			right: 0;
 		}
 	}
+}
+.kbs-background-layer-backdrop-control .kbs-background-layer-backdrop-control-inner {
+	display: flex;
+	gap: 12px;
+	flex-direction: column;
 }
 .kbs-popover-background-select-control__dropdown-content {
 	.components-popover__content {
@@ -502,7 +529,7 @@
 		position: relative;
 		--kbs-pattern-color: var(--kbs-colors-palette3);
 		--kbs-pattern-size: 20;
-		--kbs-pattern-bg: var(--kbs-colors-palette9);
+		--kbs-pattern-bg: transparent;
 		.kbs-popover-background-select-control__dropdown-content-items {
 			display: grid;
 			grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -560,6 +587,15 @@
 			.kbs-popover-background-select-control__dropdown-content-items {
 				.kbs-radio-popover-select-control-button {
 					height: 40px;
+				}
+			}
+		}
+	}
+	&.kbs-popover-select-type-mask {
+		.components-popover__content {
+			.kbs-popover-background-select-control__dropdown-content-items {
+				.kbs-radio-popover-select-control-button {
+					height: 110px;
 				}
 			}
 		}
@@ -680,13 +716,24 @@
 	background: var(--kbs-pattern-plus-1, var(--kbs-colors-palette7));
 }
 
-
 .kbs-mask-align-control {
-    display: grid;
-    gap: 12px;
+	display: grid;
+	gap: 12px;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-
+.kbs-mask-flip-control {
+	margin-top: 12px;
+}
+.kbs-popover-background-select-control-style .kbs-mask-svg {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	fill: currentColor;
+}
 // .kbs-mask-svg {
 // 	position: absolute;
 // 	left: 0;

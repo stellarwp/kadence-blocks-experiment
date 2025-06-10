@@ -79,6 +79,10 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			controls = getPatternSizeControls();
 			UIComponent = RadioToggleGroupInputRangeUINoUnit;
 			break;
+		case 'backdrop-size':
+		case 'backdropSize':
+			UIComponent = RadioToggleGroupInputRangeUINoUnit;
+			break;
 		case 'color-mix-amount':
 		case 'colorMixAmount':
 			UIComponent = RadioToggleGroupShadeRangeUI;
