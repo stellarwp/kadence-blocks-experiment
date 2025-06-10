@@ -55,7 +55,7 @@ module.exports = {
 		'extension-global-styles-store': './src/extension/stores/global-styles-store.js',
 		'extension-block-css': './src/extension/block-css/index.js',
 		'extension-image-picker': './src/extension/image-picker/index.js',
-		// 'admin-kadence-home': './src/home.js',
+		'admin-kadence-home': './src/home.js',
 		// 'header-visual-builder': './src/header-visual-builder.js',
 		kbsComponents: './src/kbs-packages/components/src/index.js',
 		kbsHelpers: './src/kbs-packages/helpers/src/index.js',

@@ -132,7 +132,7 @@ class Editor_Assets {
 				'dynamic_enabled'           => apply_filters( 'kadence_blocks_dynamic_enabled', true ),
 				'isAuthorized'              => $is_authorized,
 				'isAIDisabled'              => kbs_is_ai_disabled(),
-				'proData'                   => kbs_get_current_license_data(),
+				'proData'                   => $pro_data,
 				'homeLink'                  => admin_url( 'admin.php?page=kadence-blocks-home' ),
 				'site_name'                 => sanitize_title( get_bloginfo( 'name' ) ),
 				'pSlug'                     => apply_filters( 'kadence-blocks-auth-slug', 'kadence-blocks' ),
