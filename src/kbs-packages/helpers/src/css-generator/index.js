@@ -301,17 +301,19 @@ class CSSGenerator {
 				break;
 			case 'pattern':
 				const patternType = getLayerDeviceValue('patternType', layer, props.previewDevice);
-				if (backgroundColor) {
-					this.add({ 'background-color': getColorOutput(backgroundColor) });
-					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColor) });
-				} else {
-					this.add({ '--kbs-pattern-bg': 'transparent' });
-				}
 				const patternColor = getLayerDeviceValue('patternColor', layer, props.previewDevice);
-				if (patternColor) {
-					this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
-				} else {
-					this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
+				if (patternType !== 'pattern') {
+					if (backgroundColor) {
+						this.add({ 'background-color': getColorOutput(backgroundColor) });
+						this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColor) });
+					} else {
+						this.add({ '--kbs-pattern-bg': 'transparent' });
+					}
+					if (patternColor) {
+						this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
+					} else {
+						this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
+					}
 				}
 				if (patternType !== 'pattern' && patternType !== 'divider') {
 					const flipX = getLayerDeviceValue('flipX', layer, props.previewDevice);
@@ -339,22 +341,39 @@ class CSSGenerator {
 						}
 						const pattern = getPatternOptions().find((pattern) => pattern.value === backgroundPattern);
 						if (pattern) {
-							if (pattern?.['background']) {
-								this.add({ background: pattern['background'] });
-							}
-							if (pattern?.['background-image']) {
-								this.add({ 'background-image': pattern['background-image'] });
-							}
-							if (pattern?.['background-size']) {
-								this.add({ 'background-size': pattern['background-size'] });
-							}
-							if (pattern?.['background-position']) {
-								this.add({ 'background-position': pattern['background-position'] });
-							}
-							if (pattern?.['background-repeat']) {
-								this.add({ 'background-repeat': pattern['background-repeat'] });
+							if (pattern?.['svg']) {
+								if (patternColor) {
+									this.add({ 'background-color': getColorOutput(patternColor) });
+								} else {
+									this.add({ 'background-color': getColorOutput('palette3') });
+								}
+								this.add({
+									'mask-image': `url("data:image/svg+xml, ${encodeURIComponent(pattern['svg'])}")`,
+								});
+								this.add({ 'mask-repeat': 'repeat' });
+								const currentPatternSize = pattern?.['size'];
+								this.add({
+									'mask-size':
+										'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))',
+								});
 							} else {
-								this.add({ 'background-repeat': 'repeat' });
+								if (pattern?.['background']) {
+									this.add({ background: pattern['background'] });
+								}
+								if (pattern?.['background-image']) {
+									this.add({ 'background-image': pattern['background-image'] });
+								}
+								if (pattern?.['background-size']) {
+									this.add({ 'background-size': pattern['background-size'] });
+								}
+								if (pattern?.['background-position']) {
+									this.add({ 'background-position': pattern['background-position'] });
+								}
+								if (pattern?.['background-repeat']) {
+									this.add({ 'background-repeat': pattern['background-repeat'] });
+								} else {
+									this.add({ 'background-repeat': 'repeat' });
+								}
 							}
 						}
 					}

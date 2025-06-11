@@ -52,6 +52,9 @@ export function PopoverPatternRender({ pattern, className, patternSize, patternC
 	if (pattern?.['background-position']) {
 		style.backgroundPosition = pattern['background-position'];
 	}
+	if (pattern?.['svg']) {
+		style.backgroundImage = `url("data:image/svg+xml,${pattern['svg']}")`;
+	}
 	if (patternSize) {
 		style['--kbs-pattern-size'] = patternSize;
 	}
