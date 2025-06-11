@@ -30,3 +30,4 @@ export { default as getGradientOptions } from './get-gradient-options';
 export { default as getPatternOptions } from './get-pattern-options';
 export { default as getMaskOptions } from './get-mask-options';
 export { default as getDividerOptions } from './get-divider-options';
+export { default as getGlobalStylesCSSOutput } from './get-global-styles-css';

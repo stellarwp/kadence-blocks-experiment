@@ -34,6 +34,7 @@ import {
 	handleAttributeChange,
 	handleLayerAttributeChange,
 	getLayerDeviceValue,
+	getPresetOptions,
 } from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
@@ -168,6 +169,18 @@ function SortableBackgroundLayer({ layer, index, totalLayers, ...props }) {
 	);
 }
 
+function getPresetLabel(preset, meta, attributeName) {
+	const attributeMeta = meta?.attributes?.[attributeName];
+	const presetType = attributeMeta?.component ? attributeMeta?.component : '';
+	if (!presetType) {
+		return '';
+	}
+	// Fetch available presets
+	const presets = getPresetOptions(presetType);
+	const presetData = presets.find((p) => p.value === preset);
+	return presetData?.label;
+}
+
 export default function BackgroundControl({
 	title,
 	attributes,
@@ -180,6 +193,7 @@ export default function BackgroundControl({
 	customOnChange,
 	forStyleBook = false,
 	forPresetControl,
+	globalStylesCss,
 }) {
 	const [currentView, setCurrentView] = useState('normal');
 	const onSelectView = (view) => {
@@ -188,6 +202,7 @@ export default function BackgroundControl({
 	const selector = metaData?.attributes?.[attributeName]?.selector || 'background';
 	const inherited = getInheritedValue(attributeName, attributes, 'none', metaData, 'layers', globalStylesIds);
 	const hasLayers = metaData?.attributes?.[attributeName]?.hasLayers;
+	const presetLabel = getPresetLabel(attributes[attributeName]?.preset, metaData, attributeName);
 	const onLayerReset = () => {
 		handleAttributeChange(
 			undefined,
@@ -278,6 +293,7 @@ export default function BackgroundControl({
 				meta={metaData}
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
+				globalStylesCss={globalStylesCss}
 				forStyleBook={forStyleBook}
 			/>
 			{hasLayers && (
@@ -287,6 +303,8 @@ export default function BackgroundControl({
 						reset={true}
 						onReset={onLayerReset}
 						onTogglePlus={onTogglePlus}
+						hasPresetIcon={attributes[attributeName]?.preset && inherited.inheritedSource === 'preset'}
+						presetLabel={presetLabel}
 					/>
 					<DndContext
 						sensors={sensors}
@@ -309,6 +327,7 @@ export default function BackgroundControl({
 											meta={metaData}
 											previewDevice={previewDevice}
 											globalStylesIds={globalStylesIds}
+											globalStylesCss={globalStylesCss}
 											isInherited={inherited.inheritedSource !== 'direct'}
 											inherited={inherited}
 										/>
@@ -325,6 +344,7 @@ export default function BackgroundControl({
 										meta={metaData}
 										previewDevice={previewDevice}
 										globalStylesIds={globalStylesIds}
+										globalStylesCss={globalStylesCss}
 									/>
 								)}
 							</div>

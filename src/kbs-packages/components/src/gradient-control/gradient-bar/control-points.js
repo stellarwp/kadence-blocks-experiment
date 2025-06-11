@@ -65,6 +65,7 @@ function CustomDropdown(props) {
 		onClose,
 		onToggle,
 		style,
+		globalStylesCss,
 	} = props;
 	// Use internal state instead of a ref to make sure that the component
 	// re-renders when the popover's anchor updates.
@@ -159,6 +160,7 @@ function CustomColorPickerDropdown({
 	isRenderedInSidebar,
 	popoverProps: receivedPopoverProps,
 	globalClasses,
+	globalStylesCss,
 	...props
 }) {
 	const popoverProps = useMemo(
@@ -183,6 +185,7 @@ function CustomColorPickerDropdown({
 
 	return (
 		<CustomDropdown
+			globalStylesCss={globalStylesCss}
 			contentClassName={clsx(
 				'components-color-palette__custom-color-dropdown-content kbs-color-control',
 				globalClasses
@@ -336,6 +339,7 @@ function ControlPoints({
 	globalClasses,
 	containerRef,
 	globalColors,
+	globalStylesCss,
 }) {
 	const controlPointMoveState = useRef();
 
@@ -385,6 +389,7 @@ function ControlPoints({
 					key={index}
 					onClose={onStopControlPointChange}
 					globalClasses={globalClasses}
+					globalStylesCss={globalStylesCss}
 					renderToggle={({ isOpen, onToggle }) => (
 						<ControlPointButton
 							key={index}
@@ -450,7 +455,6 @@ function ControlPoints({
 							{!disableCustomColors && (
 								<ColorSelector
 									handleColorChange={(value) => {
-										console.log('value', value);
 										if (value.startsWith('palette')) {
 											onChange(
 												updateControlPointColor(
@@ -466,6 +470,7 @@ function ControlPoints({
 									colors={globalColors}
 									currentValue={pointColor ? pointColor : ''}
 									inherited={''}
+									globalStylesCss={globalStylesCss}
 								/>
 							)}
 							{point?.position !== undefined && (
@@ -527,6 +532,7 @@ function InsertPoint({
 	globalClasses,
 	containerRef,
 	globalColors,
+	globalStylesCss,
 }) {
 	const [alreadyInsertedPoint, setAlreadyInsertedPoint] = useState(false);
 	const disableCustomColors = !useSetting('color.custom');
@@ -537,6 +543,7 @@ function InsertPoint({
 			isRenderedInSidebar={isRenderedInSidebar}
 			className="kbs-gradient-control__inserter"
 			globalClasses={globalClasses}
+			globalStylesCss={globalStylesCss}
 			onClose={() => {
 				onCloseInserter();
 			}}
@@ -592,6 +599,7 @@ function InsertPoint({
 									}
 								}
 							}}
+							globalStylesCss={globalStylesCss}
 							colors={globalColors}
 							currentValue={pointColor ? pointColor : ''}
 							inherited={''}

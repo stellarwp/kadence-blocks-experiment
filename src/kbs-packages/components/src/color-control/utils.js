@@ -15,7 +15,7 @@ import { useSelect } from '@wordpress/data';
  */
 import { getColorOutput } from '@kadence/kbsHelpers';
 
-export const getColorLabel = (value, colors) => {
+export const getColorLabel = (value, colors, gradients = []) => {
 	if (value) {
 		if (colors) {
 			if (value.startsWith('palette')) {
@@ -31,6 +31,11 @@ export const getColorLabel = (value, colors) => {
 					const color = colors.find(({ slug }) => getColorOutput(slug) === value);
 					if (color?.name) {
 						return color.name;
+					} else if (gradients.length > 0) {
+						const gradient = gradients.find(({ slug }) => 'var(--kbs-gradients-' + slug + ')' === value);
+						if (gradient?.name) {
+							return gradient.name;
+						}
 					}
 				}
 			}

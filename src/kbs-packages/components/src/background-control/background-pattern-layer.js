@@ -55,6 +55,7 @@ export default function BackgroundPatternLayer({
 	onChange,
 	globalClasses,
 	isHover = false,
+	globalStylesCss,
 }) {
 	const hasPattern = layer?.pattern;
 	const hasMask = layer?.mask;
@@ -126,6 +127,7 @@ export default function BackgroundPatternLayer({
 							}
 							previewDevice={previewDevice}
 							globalClasses={globalClasses}
+							globalStylesCss={globalStylesCss}
 							hasMix={true}
 							isHover={isHover}
 						/>
@@ -201,6 +203,7 @@ export default function BackgroundPatternLayer({
 							}
 							previewDevice={previewDevice}
 							globalClasses={globalClasses}
+							globalStylesCss={globalStylesCss}
 							hasMix={true}
 							isHover={isHover}
 						/>

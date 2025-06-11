@@ -12,7 +12,13 @@ import classnames from 'classnames';
 /**
  * Kadence Helpers.
  */
-import { uniqueIdHelper, getPreviewValue, GlobalStylesContext, useGlobalStylesIds } from '@kadence/kbsHelpers';
+import {
+	uniqueIdHelper,
+	getPreviewValue,
+	GlobalStylesContext,
+	useGlobalStylesIds,
+	getGlobalStylesCSSOutput,
+} from '@kadence/kbsHelpers';
 import { BackgroundStyles } from '@kadence/kbsComponents';
 import metadata from './block.json';
 import Inspector from './editing/inspector';
@@ -80,6 +86,7 @@ export default function ContainerEdit(props) {
 	}, []);
 
 	const previewDirection = getPreviewValue('direction', attributes, metadata, previewDevice);
+	const globalStylesCss = getGlobalStylesCSSOutput(globalStylesIds);
 	const globalClasses = useMemo(() => {
 		return Object.keys(
 			(globalStylesIds || []).reduce((acc, styleId) => {
@@ -106,11 +113,21 @@ export default function ContainerEdit(props) {
 
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
-			<Inspector {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+			<Inspector
+				{...props}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+				globalStylesCss={globalStylesCss}
+			/>
 			{/* <Toolbar {...props} />
 				<Inspector {...props} />
 				*/}
-			<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+			<Styles
+				{...props}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+				globalStylesCss={globalStylesCss}
+			/>
 			<TagName {...innerBlocksProps}>
 				<BackgroundStyles
 					previewDevice={previewDevice}

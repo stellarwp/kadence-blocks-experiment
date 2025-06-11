@@ -1,4 +1,5 @@
 .kbs-focal-point-picker {
+	overflow: hidden;
 	.focal-point-picker__controls {
 		.components-input-control__container {
 			background: var(--kb-subtle-background, #edf2f7);

@@ -248,8 +248,13 @@ class CSSGenerator {
 		const backgroundHoverColor = getLayerDeviceValue('hoverColor', layer, props.previewDevice);
 		const backgroundOpacity = getLayerDeviceValue('opacity', layer, props.previewDevice);
 		const backgroundHoverOpacity = getLayerDeviceValue('hoverOpacity', layer, props.previewDevice);
+		const backgroundBlendMode = getLayerDeviceValue('blendMode', layer, props.previewDevice);
+		const backgroundHoverBlendMode = getLayerDeviceValue('hoverBlendMode', layer, props.previewDevice);
 		if (backgroundOpacity || backgroundOpacity === 0) {
 			this.add({ opacity: backgroundOpacity });
+		}
+		if (backgroundBlendMode && backgroundBlendMode !== 'normal') {
+			this.add({ 'mix-blend-mode': backgroundBlendMode });
 		}
 		switch (backgroundType) {
 			case 'color':
@@ -389,6 +394,9 @@ class CSSGenerator {
 		if (backgroundHoverOpacity || backgroundHoverOpacity === 0) {
 			this.add({ opacity: backgroundHoverOpacity });
 		}
+		if (backgroundHoverBlendMode && backgroundHoverBlendMode !== 'normal') {
+			this.add({ 'mix-blend-mode': backgroundHoverBlendMode });
+		}
 		switch (backgroundType) {
 			case 'color':
 				if (backgroundHoverColor) {
@@ -406,7 +414,6 @@ class CSSGenerator {
 				const backdropFilter = getLayerDeviceValue('backdropFilter', layer, props.previewDevice);
 				const hoverBackdropFilter =
 					getLayerDeviceValue('hoverBackdropFilter', layer, props.previewDevice) || backdropFilter;
-				console.log('hoverBackdropFilter', hoverBackdropFilter);
 				if (hoverBackdropFilter) {
 					if (hoverBackdropFilter === 'none') {
 						this.add({ 'backdrop-filter': 'none' });
@@ -415,8 +422,6 @@ class CSSGenerator {
 							hoverBackdropFilter === 'blur' ? 'px' : hoverBackdropFilter === 'hue-rotate' ? 'deg' : '%';
 						let backdropSize = getLayerDeviceValue('backdropSize', layer, props.previewDevice) || '1';
 						let hoverBackdropSize = getLayerDeviceValue('hoverBackdropSize', layer, props.previewDevice);
-						console.log('hoverBackdropSize', hoverBackdropSize);
-						console.log('hoverBackdropSize', layer);
 						if (!hoverBackdropSize && hoverBackdropSize !== 0) {
 							hoverBackdropSize = backdropSize;
 						}

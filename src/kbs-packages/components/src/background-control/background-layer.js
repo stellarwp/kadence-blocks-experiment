@@ -191,8 +191,11 @@ function BackgroundIndicator({ value, type, colorValue, patternType }) {
 				/>
 			)}
 			{type === 'pattern' && <SidebarPatternRender pattern={value} patternType={patternType} />}
-			{type !== 'color' && type !== 'video' && type !== 'pattern' && (
+			{type !== 'color' && type !== 'video' && type !== 'pattern' && type !== 'backdrop' && (
 				<div className="kbs-background-indicator-layer" style={{ backgroundImage: value }}></div>
+			)}
+			{type === 'backdrop' && (
+				<div className="kbs-background-indicator-layer" style={{ backdropFilter: value }}></div>
 			)}
 		</div>
 	);
@@ -228,6 +231,33 @@ function getVideoLabel(video, videoType) {
 	}
 	return '';
 }
+function getBackdropLabel(backdropFilter) {
+	if (!backdropFilter) {
+		return __('None', 'kadence-blocks');
+	}
+	switch (backdropFilter) {
+		case 'blur':
+			return __('Blur', 'kadence-blocks');
+		case 'brightness':
+			return __('Brightness', 'kadence-blocks');
+		case 'contrast':
+			return __('Contrast', 'kadence-blocks');
+		case 'grayscale':
+			return __('Grayscale', 'kadence-blocks');
+		case 'invert':
+			return __('Invert', 'kadence-blocks');
+		case 'saturate':
+			return __('Saturate', 'kadence-blocks');
+		case 'hue-rotate':
+			return __('Hue Rotate', 'kadence-blocks');
+		case 'sepia':
+			return __('Sepia', 'kadence-blocks');
+		case 'none':
+			return __('None', 'kadence-blocks');
+		default:
+			return backdropFilter;
+	}
+}
 function getVideoPreview(video, videoType, youtube, vimeo) {
 	if (videoType && videoType === 'youtube') {
 		return youtube ? `url(https://img.youtube.com/vi/${youtube}/maxresdefault.jpg)` : '';
@@ -253,6 +283,8 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 			divider,
 			mask,
 			dividerPosition,
+			backdropFilter,
+			backdropSize,
 		} = useMemo(() => {
 			return {
 				color: getLayerDeviceValue('color', layer, previewDevice),
@@ -269,6 +301,8 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				divider: getLayerDeviceValue('divider', layer, previewDevice),
 				mask: getLayerDeviceValue('mask', layer, previewDevice),
 				dividerPosition: getLayerDeviceValue('dividerPosition', layer, previewDevice),
+				backdropFilter: getLayerDeviceValue('backdropFilter', layer, previewDevice),
+				backdropSize: getLayerDeviceValue('backdropSize', layer, previewDevice),
 			};
 		}, [layer, previewDevice]);
 		const displayValue = useMemo(() => {
@@ -281,6 +315,8 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					return getVideoLabel(video, videoType) || __('Unset', 'kadence-blocks');
 				case 'gradient':
 					return getGradientLabel(gradient, gradients);
+				case 'backdrop':
+					return getBackdropLabel(backdropFilter);
 				case 'pattern':
 					if (patternType === 'divider') {
 						return (
@@ -294,7 +330,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				default:
 					return '';
 			}
-		}, [type, color, image, video, videoType, gradient, pattern, patternType]);
+		}, [type, color, image, video, videoType, gradient, pattern, patternType, divider, mask, backdropFilter]);
 		const previewString = useMemo(() => {
 			switch (type) {
 				case 'color':
@@ -308,6 +344,19 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					return getVideoPreview(video, videoType, youtube, vimeo);
 				case 'gradient':
 					return gradient;
+				case 'backdrop':
+					if (backdropFilter && backdropFilter !== 'none') {
+						const backdropUnit =
+							backdropFilter === 'blur' ? 'px' : backdropFilter === 'hue-rotate' ? 'deg' : '%';
+						return (
+							backdropFilter +
+							'(' +
+							(backdropSize || backdropSize === 0 ? backdropSize : '1') +
+							backdropUnit +
+							')'
+						);
+					}
+					return '';
 				case 'pattern':
 					let returnObject = {};
 					if (patternType === 'divider') {
@@ -329,7 +378,24 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				default:
 					return '';
 			}
-		}, [type, color, image, video, videoType, gradient, youtube, vimeo, pattern, patternType, dividerPosition]);
+		}, [
+			type,
+			color,
+			image,
+			video,
+			videoType,
+			gradient,
+			youtube,
+			vimeo,
+			pattern,
+			patternType,
+			dividerPosition,
+			backdropFilter,
+			backdropSize,
+			divider,
+			dividerPosition,
+			mask,
+		]);
 		const typeIcon = useMemo(() => {
 			switch (type) {
 				case 'color':
@@ -340,6 +406,8 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					return videoIcon;
 				case 'gradient':
 					return gradientIcon;
+				case 'backdrop':
+					return blurIcon;
 				case 'pattern':
 					if (patternType === 'divider') {
 						return dividerIcon;
@@ -351,7 +419,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				default:
 					return colorIcon;
 			}
-		}, [type]);
+		}, [type, patternType]);
 		const toggleProps = {
 			onClick: onToggle,
 			className: clsx('kbs-background-select-button', 'kbs-background-select-control__toggle-button', {
@@ -431,6 +499,188 @@ function getFullLayerDeviceValue(layer, device) {
 	}
 	return {};
 }
+function BackgroundDropdownContent({
+	colors,
+	layer,
+	isInherited,
+	onChange,
+	previewDevice,
+	globalClasses,
+	globalStylesCss,
+	layerKey,
+	containerRef,
+	isHover,
+	setIsHover,
+	onToggle,
+	isOpen,
+}) {
+	const handleCustomOnChange = (value, device, type) => {
+		onChange(value, device, type);
+	};
+	const color = getLayerDeviceValue('color', layer, previewDevice);
+	const hoverColor = getLayerDeviceValue('hoverColor', layer, previewDevice);
+	const image = getLayerDeviceValue('image', layer, previewDevice);
+	const imageID = getLayerDeviceValue('imageId', layer, previewDevice);
+	const video = getLayerDeviceValue('video', layer, previewDevice);
+	const gradient = getLayerDeviceValue('gradient', layer, previewDevice);
+	const pattern = getLayerDeviceValue('pattern', layer, previewDevice);
+	const type = getLayerDeviceValue('type', layer, previewDevice) || 'color';
+	const flattenLayer = getFullLayerDeviceValue(layer, previewDevice);
+	const defaultTabs = [
+		{
+			name: 'color',
+			icon: colorIcon,
+			title: __('Color', 'kadence-blocks'),
+		},
+		{
+			name: 'gradient',
+			icon: gradientIcon,
+			title: __('Gradient', 'kadence-blocks'),
+		},
+		{
+			name: 'image',
+			icon: imageIcon,
+			title: __('Image', 'kadence-blocks'),
+		},
+		{
+			name: 'video',
+			icon: videoIcon,
+			title: __('Video', 'kadence-blocks'),
+		},
+		{
+			name: 'pattern',
+			icon: maskIcon,
+			title: __('Masks & Patterns', 'kadence-blocks'),
+		},
+		{
+			name: 'backdrop',
+			icon: blurIcon,
+			title: __('Backdrop Filter', 'kadence-blocks'),
+		},
+	];
+	const divRef = useRef(null);
+	useEffect(() => {
+		if (divRef.current && globalStylesCss) {
+			divRef.current.setAttribute('style', globalStylesCss);
+		}
+	}, [globalStylesCss, divRef]);
+	return (
+		<div ref={divRef} className={'kbs-background-layer-control__dropdown-content-inner kbs-color-control'}>
+			<TabPanel
+				className="kbs-color-select-tabs kbs-responsive-locked"
+				activeClass="is-active"
+				onSelect={(tabName) => {
+					if (tabName !== type) {
+						handleCustomOnChange(tabName, 'Desktop', 'type');
+					}
+				}}
+				initialTabName={type ? type : 'color'}
+				tabs={defaultTabs}
+			>
+				{(tab) => {
+					if (tab.name) {
+						if ('image' === tab.name) {
+							return (
+								<>
+									<BackgroundImageLayer
+										onChange={handleCustomOnChange}
+										previewDevice={previewDevice}
+										layer={flattenLayer}
+										globalClasses={globalClasses}
+										globalStylesCss={globalStylesCss}
+									/>
+								</>
+							);
+						} else if ('gradient' === tab.name) {
+							return (
+								<>
+									<GradientPicker
+										value={gradient}
+										globalClasses={globalClasses}
+										onChange={(value) => handleCustomOnChange(value, previewDevice, 'gradient')}
+										containerRef={containerRef}
+										globalStylesCss={globalStylesCss}
+									/>
+								</>
+							);
+						} else if ('video' === tab.name) {
+							return (
+								<BackgroundVideoLayer
+									onChange={handleCustomOnChange}
+									previewDevice={previewDevice}
+									layer={flattenLayer}
+									hasYouTube={true}
+									hasVimeo={true}
+								/>
+							);
+						} else if ('backdrop' === tab.name) {
+							return (
+								<BackgroundBackdropLayer
+									onChange={handleCustomOnChange}
+									previewDevice={previewDevice}
+									layer={flattenLayer}
+									isHover={isHover}
+									onToggleHover={() => setIsHover(!isHover)}
+									hasHoverControls={true}
+								/>
+							);
+						} else if ('pattern' === tab.name) {
+							return (
+								<BackgroundPatternLayer
+									onChange={handleCustomOnChange}
+									previewDevice={previewDevice}
+									layer={flattenLayer}
+									isHover={isHover}
+									onToggleHover={() => setIsHover(!isHover)}
+									hasHoverControls={true}
+									globalStylesCss={globalStylesCss}
+								/>
+							);
+						} else {
+							return (
+								<>
+									<ColorSelector
+										handleColorChange={(value) => {
+											if (isHover) {
+												handleCustomOnChange(value, previewDevice, 'hoverColor');
+											} else {
+												handleCustomOnChange(value, previewDevice, 'color');
+											}
+										}}
+										colors={colors}
+										currentValue={isHover ? hoverColor : color}
+										inherited={isHover ? { inheritedValue: color } : ''}
+										hasMix={true}
+										globalClasses={globalClasses}
+										isHover={isHover}
+										onToggleHover={() => setIsHover(!isHover)}
+										hasHoverControls={true}
+										globalStylesCss={globalStylesCss}
+									/>
+								</>
+							);
+						}
+					}
+				}}
+			</TabPanel>
+			<LayerEffects
+				layer={flattenLayer}
+				onChange={handleCustomOnChange}
+				previewDevice={previewDevice}
+				globalClasses={globalClasses}
+				isHover={isHover}
+				onToggleHover={() => setIsHover(!isHover)}
+				layerKey={layerKey}
+				globalStylesCss={globalStylesCss}
+			/>
+			<div className="kbs-background-layer-control__dropdown-content-close">
+				<Button __next40pxDefaultSize onClick={onToggle}>
+					<Icon icon={closeIcon} size={24} />
+				</Button>
+			</div>
+		</div>
+	);
+}
 
 function renderBackgroundDropdown(
 	colors,
@@ -441,164 +691,27 @@ function renderBackgroundDropdown(
 	globalClasses,
 	layerKey,
 	containerRef,
+	globalStylesCss,
 	useHover = false
 ) {
 	const [isHover, setIsHover] = useState(false);
 	return ({ onToggle, isOpen }) => {
-		const handleCustomOnChange = (value, device, type) => {
-			onChange(value, device, type);
-		};
-		const color = getLayerDeviceValue('color', layer, previewDevice);
-		const hoverColor = getLayerDeviceValue('hoverColor', layer, previewDevice);
-		const image = getLayerDeviceValue('image', layer, previewDevice);
-		const imageID = getLayerDeviceValue('imageId', layer, previewDevice);
-		const video = getLayerDeviceValue('video', layer, previewDevice);
-		const gradient = getLayerDeviceValue('gradient', layer, previewDevice);
-		const pattern = getLayerDeviceValue('pattern', layer, previewDevice);
-		const type = getLayerDeviceValue('type', layer, previewDevice) || 'color';
-		const flattenLayer = getFullLayerDeviceValue(layer, previewDevice);
-		const defaultTabs = [
-			{
-				name: 'color',
-				icon: colorIcon,
-				title: __('Color', 'kadence-blocks'),
-			},
-			{
-				name: 'gradient',
-				icon: gradientIcon,
-				title: __('Gradient', 'kadence-blocks'),
-			},
-			{
-				name: 'image',
-				icon: imageIcon,
-				title: __('Image', 'kadence-blocks'),
-			},
-			{
-				name: 'video',
-				icon: videoIcon,
-				title: __('Video', 'kadence-blocks'),
-			},
-			{
-				name: 'pattern',
-				icon: maskIcon,
-				title: __('Masks & Patterns', 'kadence-blocks'),
-			},
-			{
-				name: 'backdrop',
-				icon: blurIcon,
-				title: __('Backdrop Filter', 'kadence-blocks'),
-			},
-		];
 		return (
-			<div className={'kbs-background-layer-control__dropdown-content-inner kbs-color-control'}>
-				<TabPanel
-					className="kbs-color-select-tabs kbs-responsive-locked"
-					activeClass="is-active"
-					onSelect={(tabName) => {
-						if (tabName !== type) {
-							handleCustomOnChange(tabName, 'Desktop', 'type');
-						}
-					}}
-					initialTabName={type ? type : 'color'}
-					tabs={defaultTabs}
-				>
-					{(tab) => {
-						if (tab.name) {
-							if ('image' === tab.name) {
-								return (
-									<>
-										<BackgroundImageLayer
-											onChange={handleCustomOnChange}
-											previewDevice={previewDevice}
-											layer={flattenLayer}
-											globalClasses={globalClasses}
-										/>
-									</>
-								);
-							} else if ('gradient' === tab.name) {
-								return (
-									<>
-										<GradientPicker
-											value={gradient}
-											globalClasses={globalClasses}
-											onChange={(value) => handleCustomOnChange(value, previewDevice, 'gradient')}
-											containerRef={containerRef}
-										/>
-									</>
-								);
-							} else if ('video' === tab.name) {
-								return (
-									<BackgroundVideoLayer
-										onChange={handleCustomOnChange}
-										previewDevice={previewDevice}
-										layer={flattenLayer}
-										hasYouTube={true}
-										hasVimeo={true}
-									/>
-								);
-							} else if ('backdrop' === tab.name) {
-								return (
-									<BackgroundBackdropLayer
-										onChange={handleCustomOnChange}
-										previewDevice={previewDevice}
-										layer={flattenLayer}
-										isHover={isHover}
-										onToggleHover={() => setIsHover(!isHover)}
-										hasHoverControls={true}
-									/>
-								);
-							} else if ('pattern' === tab.name) {
-								return (
-									<BackgroundPatternLayer
-										onChange={handleCustomOnChange}
-										previewDevice={previewDevice}
-										layer={flattenLayer}
-										isHover={isHover}
-										onToggleHover={() => setIsHover(!isHover)}
-										hasHoverControls={true}
-									/>
-								);
-							} else {
-								return (
-									<>
-										<ColorSelector
-											handleColorChange={(value) => {
-												if (isHover) {
-													handleCustomOnChange(value, previewDevice, 'hoverColor');
-												} else {
-													handleCustomOnChange(value, previewDevice, 'color');
-												}
-											}}
-											colors={colors}
-											currentValue={isHover ? hoverColor : color}
-											inherited={isHover ? { inheritedValue: color } : ''}
-											hasMix={true}
-											globalClasses={globalClasses}
-											isHover={isHover}
-											onToggleHover={() => setIsHover(!isHover)}
-											hasHoverControls={true}
-										/>
-									</>
-								);
-							}
-						}
-					}}
-				</TabPanel>
-				<LayerEffects
-					layer={flattenLayer}
-					onChange={handleCustomOnChange}
-					previewDevice={previewDevice}
-					globalClasses={globalClasses}
-					isHover={isHover}
-					onToggleHover={() => setIsHover(!isHover)}
-					layerKey={layerKey}
-				/>
-				<div className="kbs-background-layer-control__dropdown-content-close">
-					<Button __next40pxDefaultSize onClick={onToggle}>
-						<Icon icon={closeIcon} size={24} />
-					</Button>
-				</div>
-			</div>
+			<BackgroundDropdownContent
+				colors={colors}
+				layer={layer}
+				isInherited={isInherited}
+				onChange={onChange}
+				previewDevice={previewDevice}
+				globalClasses={globalClasses}
+				globalStylesCss={globalStylesCss}
+				layerKey={layerKey}
+				containerRef={containerRef}
+				isHover={isHover}
+				setIsHover={setIsHover}
+				onToggle={onToggle}
+				isOpen={isOpen}
+			/>
 		);
 	};
 }
@@ -620,6 +733,7 @@ export default function BackgroundLayer({
 	hasCustomControls = false,
 	previewDevice = 'desktop',
 	defaultValue = undefined,
+	globalStylesCss,
 	customOnChange = undefined,
 	layer,
 	isInherited = false,
@@ -697,7 +811,8 @@ export default function BackgroundLayer({
 					previewDevice,
 					globalClasses,
 					layerKey,
-					containerRef
+					containerRef,
+					globalStylesCss
 				)}
 			/>
 		</div>

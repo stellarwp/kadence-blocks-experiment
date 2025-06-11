@@ -10,11 +10,12 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { undo, plus } from '@wordpress/icons';
-import { Button } from '@wordpress/components';
+import { Button, Icon, Tooltip } from '@wordpress/components';
+import { globalIcon } from '../constants/icons';
 /**
  * Build the Radio Button control.
  */
-export default function LayerTitleBar({ label, reset, onReset, onTogglePlus }) {
+export default function LayerTitleBar({ label, reset, onReset, onTogglePlus, hasPresetIcon, presetLabel }) {
 	return (
 		<div className="kbs-control-title-bar">
 			<div className="kbs-control-title-bar-inner">
@@ -38,6 +39,13 @@ export default function LayerTitleBar({ label, reset, onReset, onTogglePlus }) {
 					</span>
 				)}
 			</div>
+			{hasPresetIcon && (
+				<Tooltip text={presetLabel ? __('Preset Selected', 'kadence-blocks') + ': ' + presetLabel : ''}>
+					<div className="kbs-preset-icon-wrapper">
+						<Icon className="kbs-preset-icon" icon={globalIcon} size={18} />
+					</div>
+				</Tooltip>
+			)}
 			{onTogglePlus && (
 				<Button
 					icon={plus}

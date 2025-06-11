@@ -98,7 +98,7 @@ export default function BackgroundBackdropLayer({
 					]}
 				/>
 				<RadioButtonSelect
-					label={__('Backdrop Percentage', 'kadence-blocks')}
+					label={__('Backdrop Amount', 'kadence-blocks')}
 					value={isHover ? layer?.hoverBackdropSize : layer?.backdropSize}
 					type={'backdropSize'}
 					inherited={

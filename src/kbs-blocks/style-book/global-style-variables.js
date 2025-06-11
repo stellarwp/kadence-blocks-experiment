@@ -63,6 +63,9 @@ export const GlobalStyleVariableOutput = () => {
 
 		// Loop through global styles
 		Object.entries(globalStyles).forEach(([styleId, styleData]) => {
+			if (styleId !== 'kbs-base') {
+				return;
+			}
 			let currentCssBlock = ''; // Accumulator for the current styleId
 
 			if (styleData?.mappings && typeof styleData.mappings === 'object') {

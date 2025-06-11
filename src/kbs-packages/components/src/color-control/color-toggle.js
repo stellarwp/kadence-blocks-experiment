@@ -32,7 +32,7 @@ import TitleBar from '../title-bar';
 import ColorSelector from './color-selector';
 import { getColorLabel } from './utils';
 
-export default function ColorToggle({ currentValue, inherited, colors }) {
+export default function ColorToggle({ currentValue, inherited, colors, gradients = [] }) {
 	return ({ onToggle, isOpen }) => {
 		const presetButtonRef = useRef(undefined);
 
@@ -70,7 +70,7 @@ export default function ColorToggle({ currentValue, inherited, colors }) {
 						<Icon className="kbs-color-select-control__toggle-icon" icon={colorIcon} size={24} />
 					)}
 					<span className="kbs-color-select-control__toggle-label">
-						{displayValue ? getColorLabel(displayValue, colors) : __('Unset', 'kadence-blocks')}
+						{displayValue ? getColorLabel(displayValue, colors, gradients) : __('Unset', 'kadence-blocks')}
 					</span>
 					<CoreColorIndicator
 						className="kbs-color-select-control__toggle-preview"

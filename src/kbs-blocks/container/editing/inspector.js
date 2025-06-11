@@ -5,7 +5,7 @@ import clsx from 'clsx';
 /**
  * Import WordPress
  */
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo, useRef, useEffect } from '@wordpress/element';
 import { InspectorControls } from '@wordpress/block-editor';
 /**
  * Kadence Components.
@@ -27,7 +27,7 @@ const PANEL_NAME = metadata.name;
  */
 export default function Inspector(props) {
 	const [activeTab, setActiveTab] = useState('general');
-	const { globalStylesIds } = props;
+	const { globalStylesIds, globalStylesCss } = props;
 	const globalClasses = useMemo(() => {
 		return Object.keys(
 			(globalStylesIds || []).reduce((acc, styleId) => {
@@ -37,13 +37,19 @@ export default function Inspector(props) {
 		);
 	}, [globalStylesIds]);
 	const classes = clsx('kbs-container-inspector', globalClasses);
+	const divRef = useRef(null);
+	useEffect(() => {
+		if (divRef.current && globalStylesCss) {
+			divRef.current.setAttribute('style', globalStylesCss);
+		}
+	}, [globalStylesCss, divRef?.current]);
 	return (
 		<InspectorControls>
-			<div className={classes}>
+			<div className={classes} ref={divRef}>
 				<InspectorControlTabs panelName={PANEL_NAME} setActiveTab={setActiveTab} activeTab={activeTab} />
-				{activeTab === 'general' && <InspectorGeneral {...props} />}
-				{activeTab === 'style' && <InspectorStyles {...props} />}
-				{activeTab === 'advanced' && <InspectorAdvanced {...props} />}
+				{activeTab === 'general' && <InspectorGeneral globalStylesCss={globalStylesCss} {...props} />}
+				{activeTab === 'style' && <InspectorStyles globalStylesCss={globalStylesCss} {...props} />}
+				{activeTab === 'advanced' && <InspectorAdvanced globalStylesCss={globalStylesCss} {...props} />}
 			</div>
 		</InspectorControls>
 	);

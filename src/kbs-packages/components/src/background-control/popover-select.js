@@ -73,6 +73,8 @@ export function PopoverMaskRender({
 	const style = {};
 	if (maskColor) {
 		style['color'] = getColorOutput(maskColor);
+	} else {
+		style['color'] = getColorOutput('palette3');
 	}
 	if (maskFlipX === 'enabled') {
 		style['transform'] = `scaleX(-1)`;
@@ -306,7 +308,7 @@ export function PopoverToggle({
 				{value && currentItem && (
 					<div
 						className="kbs-color-select-control__toggle-preview"
-						style={{ backgroundColor: getColorOutput(patternBackground) }}
+						style={{ background: getColorOutput(patternBackground) }}
 					>
 						{type === 'pattern' && (
 							<PopoverPatternRender
@@ -360,9 +362,6 @@ export default function PopoverSelect({
 	patternPosition = undefined,
 	dividerWidth = undefined,
 	dividerHeight = undefined,
-	maskAlignX = undefined,
-	maskAlignY = undefined,
-	maskSize = undefined,
 	layer = undefined,
 }) {
 	const popoverProps = {

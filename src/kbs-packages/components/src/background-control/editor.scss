@@ -1,6 +1,7 @@
 // Preset Radio Control Editor.
 .kbs-radio-preset-control .kbs-control-inner {
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 4px;
 	padding: 4px;
 	background: var(--kb-subtle-background, #edf2f7);
@@ -48,7 +49,29 @@
 		}
 	}
 }
-
+.kbs-popover-background-select-control__dropdown-content.kbs-radio-preset-control {
+	.components-popover__content {
+		min-height: 200px;
+	}
+	.kbs-control-title-bar {
+		height: 20px;
+	}
+	.kbs-control-inner {
+		background: transparent;
+		padding: 0;
+		.kbs-radio-preset-control-button {
+			height: 60px;
+		}
+	}
+}
+.kbs-preset-icon-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	.kbs-preset-icon {
+		color: var(--wp-components-color-foreground, #1e1e1e);
+	}
+}
 .kbs-background-layer-wrapper {
 	display: flex;
 	align-items: center;

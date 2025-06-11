@@ -43,6 +43,7 @@ const ColorSelector = ({
 	hasHoverControls = false,
 	isHover = false,
 	onToggleHover,
+	globalStylesCss,
 }) => {
 	const presetButtonRef = useRef(undefined);
 	const defaultTabs = useMemo(() => {
@@ -92,6 +93,7 @@ const ColorSelector = ({
 									onChange={handleColorChange}
 									globalClasses={globalClasses}
 									containerRef={presetButtonRef}
+									globalStylesCss={globalStylesCss}
 								/>
 							);
 						} else if ('mix' === tab.name) {
@@ -102,6 +104,7 @@ const ColorSelector = ({
 									globalClasses={globalClasses}
 									isHover={isHover}
 									inherited={inherited}
+									globalStylesCss={globalStylesCss}
 								/>
 							);
 						} else {

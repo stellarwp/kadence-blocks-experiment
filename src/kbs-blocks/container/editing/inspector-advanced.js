@@ -29,8 +29,17 @@ import { __ } from '@wordpress/i18n';
  * Build the section edit.
  */
 export default function InspectorAdvanced(props) {
-	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, globalStylesIds } =
-		props;
+	const {
+		attributes,
+		setAttributes,
+		previewDevice,
+		isSelected,
+		clientId,
+		context,
+		className,
+		globalStylesIds,
+		globalStylesCss,
+	} = props;
 	return (
 		<>
 			<ColorControl
@@ -41,7 +50,7 @@ export default function InspectorAdvanced(props) {
 				attributeName={'color'}
 				meta={metadata}
 				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
+				globalStylesCss={globalStylesCss}
 				hasGradient={true}
 				hasMix={true}
 			/>
@@ -56,15 +65,6 @@ export default function InspectorAdvanced(props) {
 				title={__('Max Height Settings', 'kadence-blocks')}
 				label={__('Max Height', 'kadence-blocks')}
 				type={'maxHeight'}
-			/>
-
-			<FlexBoxControl
-				attributeName={'flexBox'}
-				attributes={attributes}
-				setAttributes={setAttributes}
-				metaData={metadata}
-				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
 			/>
 			<FlexChildControl
 				attributeName={'flexChild'}

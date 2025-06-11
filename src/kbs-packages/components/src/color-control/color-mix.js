@@ -33,7 +33,7 @@ const getColorMixValues = (value) => {
 	}
 	return [getColorOutput(value), 'var(--kbs-mix-black, #000000)', '50%'];
 };
-const ColorMix = ({ onChange, value, globalClasses, isHover, inherited }) => {
+const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalStylesCss }) => {
 	const [color, type, mix] = getColorMixValues(value);
 	const [inheritedColor, inheritedType, inheritedMix] = getColorMixValues(inherited?.inheritedValue);
 	const isShade = type === 'var(--kbs-mix-black, #000000)' || type === 'var(--kbs-mix-white, #ffffff)';
@@ -90,6 +90,7 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited }) => {
 					)
 				}
 				globalClasses={globalClasses}
+				globalStylesCss={globalStylesCss}
 				hasGradient={false}
 				hasMix={false}
 			/>
@@ -215,6 +216,7 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited }) => {
 									)
 								}
 								globalClasses={globalClasses}
+								globalStylesCss={globalStylesCss}
 								hasGradient={false}
 								hasMix={false}
 							/>

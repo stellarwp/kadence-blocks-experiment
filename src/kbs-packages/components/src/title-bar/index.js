@@ -10,7 +10,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import DeviceSwitchControl from '../device-switch-control';
-import { undo, settings, cog } from '@wordpress/icons';
+import { undo, settings, cog, file } from '@wordpress/icons';
 import { Button, Icon } from '@wordpress/components';
 
 import './editor.scss';
@@ -32,9 +32,13 @@ export default function TitleBar({
 	hasHoverControls = false,
 	onToggleHover,
 	isHover = false,
+	hasPopoverControls = false,
+	onTogglePopover,
+	isPopover = false,
+	rel = null,
 }) {
 	return (
-		<div className="kbs-control-title-bar">
+		<div className="kbs-control-title-bar" ref={rel}>
 			<div className="kbs-control-title-bar-inner">
 				{label && <span className="kbs-control-title">{label}</span>}
 				{isHover && !hasHoverControls && (
@@ -72,6 +76,16 @@ export default function TitleBar({
 				/>
 			)}
 			{hasDeviceControls && <DeviceSwitchControl />}
+			{hasPopoverControls && onTogglePopover && (
+				<Button
+					icon={file}
+					className="kbs-advanced-controls-button"
+					isPressed={isPopover}
+					onClick={onTogglePopover}
+					iconSize={18}
+					label={isPopover ? __('Close Popover', 'kadence-blocks') : __('View More', 'kadence-blocks')}
+				/>
+			)}
 			{hasAdvancedControls && onToggleView && (
 				<Button
 					icon={cog}

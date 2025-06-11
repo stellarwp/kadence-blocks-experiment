@@ -15,7 +15,7 @@ import {
 	TabPanel,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useRef, useMemo } from '@wordpress/element';
+import { useRef, useMemo, useEffect } from '@wordpress/element';
 import { color as colorIcon, check as checkIcon, close as closeIcon } from '@wordpress/icons';
 import { useSettings } from '@wordpress/block-editor';
 /**
@@ -33,6 +33,47 @@ import ColorSelector from './color-selector';
 import ColorToggle from './color-toggle';
 import { getColorLabel } from './utils';
 
+function ColorDropdownContent({
+	colors,
+	currentValue,
+	inherited,
+	onChange,
+	previewDevice,
+	type,
+	hasGradient,
+	hasMix,
+	globalStylesCss,
+	onToggle,
+	isOpen,
+}) {
+	const handleColorChange = (color) => {
+		onChange(color, previewDevice, type);
+	};
+	const divRef = useRef(null);
+	useEffect(() => {
+		if (divRef.current && globalStylesCss) {
+			divRef.current.setAttribute('style', globalStylesCss);
+		}
+	}, [globalStylesCss, isOpen, divRef]);
+	return (
+		<div className="kbs-color-control kbs-color-select-control__dropdown-content-inner" ref={divRef}>
+			<ColorSelector
+				handleColorChange={handleColorChange}
+				colors={colors}
+				currentValue={currentValue}
+				inherited={inherited}
+				hasGradient={hasGradient}
+				hasMix={hasMix}
+				globalStylesCss={globalStylesCss}
+			/>
+			<div className="kbs-color-select-control__dropdown-content-close">
+				<Button __next40pxDefaultSize onClick={onToggle}>
+					<Icon icon={closeIcon} size={24} />
+				</Button>
+			</div>
+		</div>
+	);
+}
 export default function ColorDropdown({
 	colors,
 	currentValue,
@@ -42,27 +83,23 @@ export default function ColorDropdown({
 	type,
 	hasGradient,
 	hasMix,
+	globalStylesCss,
 }) {
 	return ({ onToggle, isOpen }) => {
-		const handleColorChange = (color) => {
-			onChange(color, previewDevice, type);
-		};
 		return (
-			<div className="kbs-color-control kbs-color-select-control__dropdown-content-inner">
-				<ColorSelector
-					handleColorChange={handleColorChange}
-					colors={colors}
-					currentValue={currentValue}
-					inherited={inherited}
-					hasGradient={hasGradient}
-					hasMix={hasMix}
-				/>
-				<div className="kbs-color-select-control__dropdown-content-close">
-					<Button __next40pxDefaultSize onClick={onToggle}>
-						<Icon icon={closeIcon} size={24} />
-					</Button>
-				</div>
-			</div>
+			<ColorDropdownContent
+				colors={colors}
+				currentValue={currentValue}
+				inherited={inherited}
+				onChange={onChange}
+				previewDevice={previewDevice}
+				type={type}
+				hasGradient={hasGradient}
+				hasMix={hasMix}
+				globalStylesCss={globalStylesCss}
+				onToggle={onToggle}
+				isOpen={isOpen}
+			/>
 		);
 	};
 }

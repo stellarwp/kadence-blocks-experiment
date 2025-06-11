@@ -12,7 +12,7 @@ import { __, isRTL } from '@wordpress/i18n';
  */
 import Select, { components, MultiValueProps, Props as RSProps, OnChangeValue } from 'react-select';
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
-import { SortableContext, horizontalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
+import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 // RTL configuration is determined once at module load
@@ -67,7 +67,7 @@ export const SortableMultiSelect = ({ value, onChange, ...rest }) => {
 
 	return (
 		<DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-			<SortableContext items={ids} strategy={horizontalListSortingStrategy}>
+			<SortableContext items={ids} strategy={verticalListSortingStrategy}>
 				<Select
 					isMulti /* keeps the chips */
 					closeMenuOnSelect={false}
@@ -91,7 +91,7 @@ export default function SelectGlobalStyles({
 	setAttributes,
 	isMulti = true,
 	forStyleBook = false,
-	isSortable = false,
+	isSortable = true,
 }) {
 	const { options, isLoadingOptions } = useSelectOptions({ forStyleBook });
 	const globalStylesIds = useGlobalStylesIds();

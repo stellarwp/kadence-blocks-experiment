@@ -55,6 +55,7 @@ export default function LayerEffects({
 	isHover = false,
 	onToggleHover,
 	layerKey,
+	globalStylesCss,
 }) {
 	const onReset = () => {
 		onChange(
@@ -97,6 +98,7 @@ export default function LayerEffects({
 								type={isHover ? 'hoverColor' : 'color'}
 								previewDevice={previewDevice}
 								globalClasses={globalClasses}
+								globalStylesCss={globalStylesCss}
 								hasMix={true}
 								isHover={isHover}
 							/>

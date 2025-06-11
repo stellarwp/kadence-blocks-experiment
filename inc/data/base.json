@@ -46,6 +46,51 @@
 							}
 						]
 					}
+				},
+				"kbs-bg-variant-3": {
+					"label": "Variant 3",
+					"description": "A variant 3 background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"type": "gradient",
+									"gradient": "var(--kbs-gradients-gradient4)"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-4": {
+					"label": "Variant 4",
+					"description": "A variant 4 background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"type": "gradient",
+									"gradient": "var(--kbs-gradients-gradient5)"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-5": {
+					"label": "Variant 5",
+					"description": "A variant 5 background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"type": "gradient",
+									"gradient": "var(--kbs-gradients-gradient6)"
+								}
+							}
+						]
+					}
 				}
 			}
 		},

@@ -78,6 +78,7 @@ export default function CustomGradientBar({
 	globalClasses,
 	containerRef,
 	globalColors,
+	globalStylesCss,
 }) {
 	const gradientMarkersContainerDomRef = useRef();
 
@@ -131,6 +132,7 @@ export default function CustomGradientBar({
 						globalColors={globalColors}
 						onChange={onChange}
 						globalClasses={globalClasses}
+						globalStylesCss={globalStylesCss}
 						onOpenInserter={() => {
 							gradientBarStateDispatch({
 								type: 'OPEN_INSERTER',
@@ -153,6 +155,7 @@ export default function CustomGradientBar({
 					globalClasses={globalClasses}
 					containerRef={containerRef}
 					globalColors={globalColors}
+					globalStylesCss={globalStylesCss}
 					onStartControlPointChange={() => {
 						gradientBarStateDispatch({
 							type: 'START_CONTROL_CHANGE',

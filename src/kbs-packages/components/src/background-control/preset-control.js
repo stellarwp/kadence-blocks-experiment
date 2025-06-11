@@ -2,8 +2,9 @@
  * WordPress libraries
  */
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
-import { Button, Popover } from '@wordpress/components';
+import { useState, useEffect, useRef } from '@wordpress/element';
+import { Button, Popover, Icon } from '@wordpress/components';
+import { close as closeIcon } from '@wordpress/icons';
 
 /**
  * Internal libraries
@@ -23,7 +24,35 @@ import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import TitleBar from '../title-bar';
 import BackgroundPresetRender from '../background-styles/preset-render';
-
+function PresetControlConfirm({ showConfirmPopover, confirmAnchor, handleCancel, handleConfirm }) {
+	return (
+		<>
+			{showConfirmPopover && confirmAnchor && (
+				<Popover
+					anchor={confirmAnchor}
+					noArrow={false}
+					placement="top"
+					onClose={handleCancel}
+					className="kbs-confirm-popover"
+				>
+					<div className="kbs-confirm-popover-inner">
+						<p>
+							{__('This will override your existing background styles. Are you sure?', 'kadence-blocks')}
+						</p>
+						<div className="kbs-confirm-buttons">
+							<Button variant="primary" onClick={handleConfirm}>
+								{__('Confirm', 'kadence-blocks')}
+							</Button>
+							<Button variant="secondary" onClick={handleCancel}>
+								{__('Cancel', 'kadence-blocks')}
+							</Button>
+						</div>
+					</div>
+				</Popover>
+			)}
+		</>
+	);
+}
 export default function PresetControl({
 	label,
 	reset = true,
@@ -34,6 +63,7 @@ export default function PresetControl({
 	previewDevice,
 	globalStylesIds,
 	customOnChange,
+	globalStylesCss,
 	view = 'default',
 }) {
 	const attributeMeta = meta?.attributes?.[attributeName];
@@ -48,11 +78,17 @@ export default function PresetControl({
 	const presetOptions = presets.slice(0, 3);
 	const currentValue = attributes?.[attributeName]?.preset;
 
-	const [isAdvanced, setIsAdvanced] = useState(view === 'advanced');
+	const [isPopover, setIsPopover] = useState(false);
 	const [showConfirmPopover, setShowConfirmPopover] = useState(false);
 	const [pendingPreset, setPendingPreset] = useState(null);
+	const [confirmAnchor, setConfirmAnchor] = useState(null);
 	const [popoverAnchor, setPopoverAnchor] = useState(null);
-
+	const divRef = useRef(null);
+	useEffect(() => {
+		if (divRef.current && globalStylesCss) {
+			divRef.current.setAttribute('style', globalStylesCss);
+		}
+	}, [globalStylesCss, isPopover, divRef]);
 	const onChange = (value) => {
 		if (attributes?.[attributeName]?.preset === value) {
 			return;
@@ -90,15 +126,6 @@ export default function PresetControl({
 	const onReset = () => {
 		onChange(undefined);
 	};
-	useEffect(() => {
-		if (view !== 'advanced' && currentValue && presets.length > 3) {
-			setIsAdvanced(isAdvancedOption(presetOptions, presets, currentValue));
-		} else if (view === 'advanced' && !isAdvanced) {
-			setIsAdvanced(true);
-		} else if (view !== 'advanced' && isAdvanced) {
-			setIsAdvanced(false);
-		}
-	}, [view]);
 
 	return (
 		<div
@@ -108,20 +135,68 @@ export default function PresetControl({
 				label={label}
 				reset={reset}
 				onReset={onReset}
+				rel={setPopoverAnchor}
 				hasDeviceControls={false}
-				isAdvanced={isAdvanced}
-				onToggleView={() => setIsAdvanced(!isAdvanced)}
-				hasAdvancedControls={presets.length > 3}
+				isPopover={isPopover}
+				onTogglePopover={() => setIsPopover(!isPopover)}
+				hasPopoverControls={presets.length > 3}
 			/>
+			{isPopover && popoverAnchor && (
+				<Popover
+					anchor={popoverAnchor}
+					noArrow={true}
+					placement="left-start"
+					shift={true}
+					offset={10}
+					onClose={() => {
+						if (showConfirmPopover) {
+							return;
+						}
+						setIsPopover(false);
+					}}
+					className="kbs-popover-background-select-control__dropdown-content kbs-radio-preset-control"
+				>
+					<TitleBar label={__('Background Presets', 'kadence-blocks')} reset={false} />
+					<div ref={divRef} className="kbs-control-inner kbs-radio-preset-control-inner">
+						{presets.map((option) => (
+							<Button
+								key={option.value}
+								label={option.label}
+								isPressed={option.value === currentValue}
+								className={`kbs-radio-preset-control-button`}
+								onClick={(event) => {
+									setConfirmAnchor(event.currentTarget);
+									onChange(option.value);
+								}}
+							>
+								<BackgroundPresetRender
+									preset={option}
+									attributeName={attributeName}
+									meta={meta}
+									previewDevice={previewDevice}
+									globalStylesIds={globalStylesIds}
+									uniqueID={attributes?.uniqueID}
+									className={`kbs-radio-preset-control-style`}
+								/>
+							</Button>
+						))}
+					</div>
+					<div className="kbs-popover-background-select-control__dropdown-content-close">
+						<Button __next40pxDefaultSize onClick={() => setIsPopover(false)}>
+							<Icon icon={closeIcon} size={24} />
+						</Button>
+					</div>
+				</Popover>
+			)}
 			<div className="kbs-control-inner kbs-radio-preset-control-inner">
-				{presets.map((option) => (
+				{presetOptions.map((option) => (
 					<Button
 						key={option.value}
 						label={option.label}
 						isPressed={option.value === currentValue}
 						className={`kbs-radio-preset-control-button`}
 						onClick={(event) => {
-							setPopoverAnchor(event.currentTarget);
+							setConfirmAnchor(event.currentTarget);
 							onChange(option.value);
 						}}
 					>
@@ -137,29 +212,12 @@ export default function PresetControl({
 					</Button>
 				))}
 			</div>
-			{showConfirmPopover && popoverAnchor && (
-				<Popover
-					anchor={popoverAnchor}
-					noArrow={false}
-					placement="top"
-					onClose={handleCancel}
-					className="kbs-confirm-popover"
-				>
-					<div className="kbs-confirm-popover-inner">
-						<p>
-							{__('This will override your existing background styles. Are you sure?', 'kadence-blocks')}
-						</p>
-						<div className="kbs-confirm-buttons">
-							<Button variant="primary" onClick={handleConfirm}>
-								{__('Confirm', 'kadence-blocks')}
-							</Button>
-							<Button variant="secondary" onClick={handleCancel}>
-								{__('Cancel', 'kadence-blocks')}
-							</Button>
-						</div>
-					</div>
-				</Popover>
-			)}
+			<PresetControlConfirm
+				showConfirmPopover={showConfirmPopover}
+				confirmAnchor={confirmAnchor}
+				handleCancel={handleCancel}
+				handleConfirm={handleConfirm}
+			/>
 		</div>
 	);
 }

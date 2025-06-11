@@ -301,7 +301,14 @@ export const getGradientComputedValue = (value, ref, globalColors) => {
 	return value;
 };
 
-export default function GradientPicker({ value, onChange, isRenderedInSidebar = true, globalClasses, containerRef }) {
+export default function GradientPicker({
+	value,
+	onChange,
+	isRenderedInSidebar = true,
+	globalClasses,
+	containerRef,
+	globalStylesCss,
+}) {
 	const globalGradients = getGradientOptions();
 	const globalColors = getColorOptions();
 	const currentGradient = useMemo(
@@ -355,6 +362,7 @@ export default function GradientPicker({ value, onChange, isRenderedInSidebar = 
 				globalClasses={globalClasses}
 				containerRef={containerRef}
 				globalColors={globalColors}
+				globalStylesCss={globalStylesCss}
 				onChange={(newControlPoints) => {
 					onChange(serializeGradient(getGradientAstWithControlPoints(gradientAST, newControlPoints)));
 				}}

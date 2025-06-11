@@ -27,11 +27,11 @@ import {
 	getDeviceValue,
 	getInheritedDeviceValue,
 	handleAttributeChange,
+	getGradientOptions,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import ColorToggle from './color-toggle';
 import ColorDropdown from './color-dropdown';
-import { getColorLabel } from './utils';
 import './editor.scss';
 
 export default function ColorControl({
@@ -54,6 +54,7 @@ export default function ColorControl({
 	customOnChange = undefined,
 	hasGradient = false,
 	hasMix = false,
+	globalStylesCss,
 }) {
 	const popoverProps = {
 		placement: 'left-start',
@@ -62,6 +63,7 @@ export default function ColorControl({
 	};
 	const [customColors] = useSettings('color.custom');
 	const globalColors = getColorOptions();
+	const globalGradients = hasGradient ? getGradientOptions() : [];
 	const isDisableCustomColors = !customColors ? true : false;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
 	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
@@ -75,15 +77,6 @@ export default function ColorControl({
 	const onChange = (value, device, type) => {
 		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
 	};
-	const globalClasses = useMemo(() => {
-		return Object.keys(
-			(globalStylesIds || []).reduce((acc, styleId) => {
-				acc[`kbs-global-style-${styleId}`] = true;
-				return acc;
-			}, {})
-		);
-	}, [globalStylesIds]);
-	const classes = clsx('kbs-color-select-control__dropdown-content', globalClasses);
 	return (
 		<div className={`components-base-control kbs-control kbs-color-control`}>
 			<TitleBar
@@ -102,11 +95,12 @@ export default function ColorControl({
 				<Dropdown
 					popoverProps={popoverProps}
 					className="kbs-color-select-control__dropdown"
-					contentClassName={classes}
+					contentClassName={'kbs-color-select-control__dropdown-content'}
 					renderToggle={ColorToggle({
 						currentValue: currentValue,
 						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
 						colors: globalColors,
+						gradients: globalGradients,
 					})}
 					renderContent={ColorDropdown({
 						colors: globalColors,
@@ -117,6 +111,7 @@ export default function ColorControl({
 						type: type,
 						hasGradient: hasGradient,
 						hasMix: hasMix,
+						globalStylesCss: globalStylesCss,
 					})}
 				/>
 			</div>

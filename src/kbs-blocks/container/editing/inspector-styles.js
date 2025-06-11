@@ -34,8 +34,17 @@ import { __ } from '@wordpress/i18n';
  * Build the section edit.
  */
 export default function InspectorStyles(props) {
-	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, globalStylesIds } =
-		props;
+	const {
+		attributes,
+		setAttributes,
+		previewDevice,
+		isSelected,
+		clientId,
+		context,
+		className,
+		globalStylesIds,
+		globalStylesCss,
+	} = props;
 	return (
 		<>
 			<BackgroundControl
@@ -45,6 +54,7 @@ export default function InspectorStyles(props) {
 				metaData={metadata}
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
+				globalStylesCss={globalStylesCss}
 			/>
 		</>
 	);

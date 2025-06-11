@@ -24,6 +24,7 @@ import { useSettings } from '@wordpress/block-editor';
 import {
 	getColorOutput,
 	getColorOptions,
+	getGradientOptions,
 	getDeviceValue,
 	getInheritedDeviceValue,
 	handleAttributeChange,
@@ -47,6 +48,7 @@ export default function ColorSelect({
 	isHover = false,
 	hasGradient = false,
 	hasMix = false,
+	globalStylesCss,
 }) {
 	const popoverProps = {
 		placement: 'left-end',
@@ -55,6 +57,7 @@ export default function ColorSelect({
 	};
 	const [customColors] = useSettings('color.custom');
 	const globalColors = getColorOptions();
+	const globalGradients = hasGradient ? getGradientOptions() : [];
 	const isDisableCustomColors = !customColors ? true : false;
 
 	const onReset = () => {
@@ -86,6 +89,7 @@ export default function ColorSelect({
 						currentValue: value,
 						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
 						colors: globalColors,
+						gradients: globalGradients,
 					})}
 					renderContent={ColorDropdown({
 						colors: globalColors,
@@ -96,6 +100,7 @@ export default function ColorSelect({
 						type: type,
 						hasGradient: hasGradient,
 						hasMix: hasMix,
+						globalStylesCss: globalStylesCss,
 					})}
 				/>
 			</div>
