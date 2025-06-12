@@ -64,6 +64,10 @@ export default function LayerEffects({
 			['image', 'imageId', 'position', 'size', 'repeat', 'attachment']
 		);
 	};
+	let showColor = layer?.type !== 'color' ? true : false;
+	if (layer?.type === 'pattern' && layer?.patternType === 'pattern') {
+		showColor = false;
+	}
 	return (
 		<div className={`kbs-background-layer-effects-control`}>
 			{/* <TitleBar
@@ -89,7 +93,7 @@ export default function LayerEffects({
 				hasMoreControls={false}
 			>
 				<div className={`kbs-background-layer-effects-control-inner`}>
-					{layer?.type && layer?.type !== 'color' ? (
+					{showColor ? (
 						<div className="kbs-background-image-layer-control-color-opacity">
 							<ColorSelect
 								label={__('Background Color', 'kadence-blocks')}

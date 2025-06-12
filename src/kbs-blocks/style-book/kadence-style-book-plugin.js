@@ -210,7 +210,7 @@ function KadenceConfig() {
 			);
 		}
 		return (
-			<>
+			<div className="block-editor-block-inspector">
 				{controlContentGlobal}
 				{controlContentUpper}
 				{controlContent}
@@ -223,7 +223,7 @@ function KadenceConfig() {
 						{__('Save Style Book', 'kadence-blocks')}
 					</Button>
 				</PanelBody>
-			</>
+			</div>
 		);
 	};
 

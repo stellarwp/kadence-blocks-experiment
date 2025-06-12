@@ -20,7 +20,6 @@ import {
  */
 import { getPreviewValue } from '@kadence/kbsHelpers';
 import { FlexBoxControl } from '@kadence/kbsComponents';
-import { KadencePanelBody } from '@kadence/components';
 
 import metadata from '../block.json';
 /**
@@ -36,9 +35,16 @@ export default function InspectorGeneral(props) {
 		props;
 	return (
 		<>
-			<KadencePanelBody title={__('Global Style Settings', 'kadence-blocks')} panelName={'kb-container-settings'}>
+			<ToolsPanelBody
+				title={__('Global Styles', 'kadence-blocks')}
+				panelName={'global-styles'}
+				componentName={'global-styles-control'}
+				hasMoreControls={false}
+				hasViewControls={false}
+				hasDeviceControls={false}
+			>
 				<SelectGlobalStyles attributes={attributes} setAttributes={setAttributes} />
-			</KadencePanelBody>
+			</ToolsPanelBody>
 			<FlexBoxControl
 				attributeName={'flexBox'}
 				attributes={attributes}

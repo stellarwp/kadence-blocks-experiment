@@ -334,6 +334,8 @@ class CSSGenerator {
 					const backgroundPattern = getLayerDeviceValue('pattern', layer, props.previewDevice);
 					if (backgroundPattern) {
 						const patternSize = getLayerDeviceValue('patternSize', layer, props.previewDevice);
+						const patternPosition =
+							getLayerDeviceValue('patternPosition', layer, props.previewDevice) || 'top left';
 						if (patternSize) {
 							this.add({ '--kbs-pattern-size': patternSize });
 						} else {
@@ -356,24 +358,7 @@ class CSSGenerator {
 									'mask-size':
 										'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))',
 								});
-							} else {
-								if (pattern?.['background']) {
-									this.add({ background: pattern['background'] });
-								}
-								if (pattern?.['background-image']) {
-									this.add({ 'background-image': pattern['background-image'] });
-								}
-								if (pattern?.['background-size']) {
-									this.add({ 'background-size': pattern['background-size'] });
-								}
-								if (pattern?.['background-position']) {
-									this.add({ 'background-position': pattern['background-position'] });
-								}
-								if (pattern?.['background-repeat']) {
-									this.add({ 'background-repeat': pattern['background-repeat'] });
-								} else {
-									this.add({ 'background-repeat': 'repeat' });
-								}
+								this.add({ 'mask-position': patternPosition });
 							}
 						}
 					}

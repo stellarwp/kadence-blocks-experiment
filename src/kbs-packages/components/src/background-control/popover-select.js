@@ -34,28 +34,18 @@ import TitleBar from '../title-bar';
 import './editor.scss';
 import { maskIcon, dividerIcon } from '../constants/icons';
 
-export function PopoverPatternRender({ pattern, className, patternSize, patternColor, patternBackground }) {
+export function PopoverPatternRender({ pattern, className, patternSize, patternColor }) {
 	const style = {};
-	if (pattern?.background) {
-		style.background = pattern.background;
-	}
-	if (pattern?.['background-image']) {
-		style.backgroundImage = pattern['background-image'];
-	}
-	if (pattern?.['background-size']) {
-		style.backgroundSize = pattern['background-size'];
-	}
-	if (pattern?.['background-position']) {
-		style.backgroundPosition = pattern['background-position'];
-	}
 	if (patternSize) {
 		style['--kbs-pattern-size'] = patternSize;
 	}
-	if (patternColor) {
-		style['--kbs-pattern-color'] = getColorOutput(patternColor);
-	}
-	if (patternBackground) {
-		style['--kbs-pattern-bg'] = getColorOutput(patternBackground);
+	if (pattern?.['svg']) {
+		style['backgroundColor'] = '#000';
+		style['maskImage'] = `url("data:image/svg+xml, ${encodeURIComponent(pattern['svg'])}")`;
+		style['maskRepeat'] = 'repeat';
+		const currentPatternSize = pattern?.['size'];
+		style['maskSize'] = 'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))';
+		style['maskPosition'] = '0 0';
 	}
 	return <div className={clsx('kbs-popover-background-select-control-style', className)} style={style} />;
 }

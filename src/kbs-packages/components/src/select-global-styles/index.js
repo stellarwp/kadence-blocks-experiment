@@ -24,6 +24,7 @@ const IS_RTL = isRTL();
 import { useSelectOptions } from './helpers';
 import { useGlobalStylesIds } from '@kadence/kbsHelpers';
 import { useMemo } from '@wordpress/element';
+import SelectStyled from '../select-styled';
 import './editor.scss';
 
 function DraggableMultiValue(props) {
@@ -34,7 +35,10 @@ function DraggableMultiValue(props) {
 		transform: CSS.Transform.toString(transform),
 		transition,
 		cursor: 'grab',
+		backgroundColor: 'var(--wp-components-color-background-inverted, #1e1e1e)',
+		margin: 0,
 	};
+	console.log(style);
 
 	/* prevent simple clicks on a chip from re-opening the menu while still
 	   allowing keyboard focus */
@@ -44,7 +48,14 @@ function DraggableMultiValue(props) {
 	};
 
 	return (
-		<div ref={setNodeRef} style={style} {...attributes} {...listeners} onMouseDown={onMouseDown}>
+		<div
+			className="kbs-global-style-select-control-draggable-multi-value"
+			ref={setNodeRef}
+			style={style}
+			{...attributes}
+			{...listeners}
+			onMouseDown={onMouseDown}
+		>
 			<components.MultiValue {...props} />
 		</div>
 	);
@@ -68,7 +79,7 @@ export const SortableMultiSelect = ({ value, onChange, ...rest }) => {
 	return (
 		<DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
 			<SortableContext items={ids} strategy={verticalListSortingStrategy}>
-				<Select
+				<SelectStyled
 					isMulti /* keeps the chips */
 					closeMenuOnSelect={false}
 					components={{ MultiValue: DraggableMultiValue }}
@@ -173,7 +184,7 @@ export default function SelectGlobalStyles({
 						isRtl={IS_RTL}
 					/>
 				) : (
-					<Select
+					<SelectStyled
 						value={selectedOptions}
 						options={options}
 						onChange={(selectedOption) => {

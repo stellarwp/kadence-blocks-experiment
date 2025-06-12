@@ -15,7 +15,7 @@ import {
 	ToolsPanelBody,
 	FlexBoxControl,
 	FlexChildControl,
-	MaxWidthControl,
+	SizingControl,
 	ColorControl,
 } from '@kadence/kbsComponents';
 
@@ -54,17 +54,16 @@ export default function InspectorAdvanced(props) {
 				hasGradient={true}
 				hasMix={true}
 			/>
-
-			<MaxWidthControl
+			<SizingControl
 				attributes={attributes}
 				setAttributes={setAttributes}
 				previewDevice={previewDevice}
-				attributeName={'maxHeight'}
+				attributeName={'minHeight'}
 				metaData={metadata}
 				globalStylesIds={globalStylesIds}
-				title={__('Max Height Settings', 'kadence-blocks')}
-				label={__('Max Height', 'kadence-blocks')}
-				type={'maxHeight'}
+				title={__('Min Height Settings', 'kadence-blocks')}
+				label={__('Min Height', 'kadence-blocks')}
+				type={'minHeight'}
 			/>
 			<FlexChildControl
 				attributeName={'flexChild'}

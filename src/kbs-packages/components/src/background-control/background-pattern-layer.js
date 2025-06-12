@@ -41,13 +41,11 @@ import {
 	getMaskOptions,
 	getDividerOptions,
 } from '@kadence/kbsHelpers';
-import ImageSelector from '../image-control/image-selector';
-import FocalPointPicker from '../focal-point-picker';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import ColorSelect from '../color-control/color-select';
-import UnitControl from '../unit-control/unit-control';
 import TitleBar from '../title-bar';
 import PopoverSelect from './popover-select';
+import SelectBasicControlSelect from '../select-basic-control/select';
 
 export default function BackgroundPatternLayer({
 	previewDevice = 'desktop',
@@ -154,6 +152,34 @@ export default function BackgroundPatternLayer({
 							max={1000}
 							step={1}
 							isHover={isHover}
+						/>
+						<SelectBasicControlSelect
+							label={__('Pattern Position', 'kadence-blocks')}
+							value={isHover ? layer?.hoverPatternPosition : layer?.patternPosition}
+							onChange={(value) => {
+								if (isHover) {
+									onChange(value, previewDevice, 'hoverPatternPosition');
+								} else {
+									onChange(value, previewDevice, 'patternPosition');
+								}
+							}}
+							isHover={isHover}
+							type={isHover ? 'hoverBackdropFilter' : 'backdropFilter'}
+							previewDevice={previewDevice}
+							inherited={
+								isHover ? { inheritedValue: layer?.patternPosition } : { inheritedValue: 'top left' }
+							}
+							options={[
+								{ label: 'Top Left', value: 'top left' },
+								{ label: 'Top Center', value: 'top center' },
+								{ label: 'Top Right', value: 'top right' },
+								{ label: 'Center Left', value: 'center left' },
+								{ label: 'Center Center', value: 'center center' },
+								{ label: 'Center Right', value: 'center right' },
+								{ label: 'Bottom Left', value: 'bottom left' },
+								{ label: 'Bottom Center', value: 'bottom center' },
+								{ label: 'Bottom Right', value: 'bottom right' },
+							]}
 						/>
 					</>
 				)}

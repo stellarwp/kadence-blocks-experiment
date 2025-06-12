@@ -560,10 +560,14 @@ function BackgroundDropdownContent({
 	];
 	const divRef = useRef(null);
 	useEffect(() => {
-		if (divRef.current && globalStylesCss) {
-			divRef.current.setAttribute('style', globalStylesCss);
+		if (divRef.current) {
+			if (globalStylesCss) {
+				divRef.current.setAttribute('style', globalStylesCss);
+			} else {
+				divRef.current.removeAttribute('style');
+			}
 		}
-	}, [globalStylesCss, divRef]);
+	}, [globalStylesCss, divRef?.current]);
 	return (
 		<div ref={divRef} className={'kbs-background-layer-control__dropdown-content-inner kbs-color-control'}>
 			<TabPanel

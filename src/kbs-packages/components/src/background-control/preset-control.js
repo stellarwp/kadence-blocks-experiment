@@ -85,10 +85,14 @@ export default function PresetControl({
 	const [popoverAnchor, setPopoverAnchor] = useState(null);
 	const divRef = useRef(null);
 	useEffect(() => {
-		if (divRef.current && globalStylesCss) {
-			divRef.current.setAttribute('style', globalStylesCss);
+		if (divRef.current) {
+			if (globalStylesCss) {
+				divRef.current.setAttribute('style', globalStylesCss);
+			} else {
+				divRef.current.removeAttribute('style');
+			}
 		}
-	}, [globalStylesCss, isPopover, divRef]);
+	}, [globalStylesCss, isPopover, divRef?.current]);
 	const onChange = (value) => {
 		if (attributes?.[attributeName]?.preset === value) {
 			return;

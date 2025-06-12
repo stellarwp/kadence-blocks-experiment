@@ -39,8 +39,12 @@ export default function Inspector(props) {
 	const classes = clsx('kbs-container-inspector', globalClasses);
 	const divRef = useRef(null);
 	useEffect(() => {
-		if (divRef.current && globalStylesCss) {
-			divRef.current.setAttribute('style', globalStylesCss);
+		if (divRef.current) {
+			if (globalStylesCss) {
+				divRef.current.setAttribute('style', globalStylesCss);
+			} else {
+				divRef.current.removeAttribute('style');
+			}
 		}
 	}, [globalStylesCss, divRef?.current]);
 	return (

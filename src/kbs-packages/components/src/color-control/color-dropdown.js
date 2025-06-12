@@ -51,10 +51,14 @@ function ColorDropdownContent({
 	};
 	const divRef = useRef(null);
 	useEffect(() => {
-		if (divRef.current && globalStylesCss) {
-			divRef.current.setAttribute('style', globalStylesCss);
+		if (divRef.current) {
+			if (globalStylesCss) {
+				divRef.current.setAttribute('style', globalStylesCss);
+			} else {
+				divRef.current.removeAttribute('style');
+			}
 		}
-	}, [globalStylesCss, isOpen, divRef]);
+	}, [globalStylesCss, isOpen, divRef?.current]);
 	return (
 		<div className="kbs-color-control kbs-color-select-control__dropdown-content-inner" ref={divRef}>
 			<ColorSelector

@@ -528,6 +528,9 @@
 			0 5px,
 			5px -5px,
 			-5px 0;
+		&.has-light-pattern {
+			background: #000;
+		}
 		.kbs-popover-background-select-control-style {
 			top: 0;
 			bottom: 0;
