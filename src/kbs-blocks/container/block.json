@@ -105,10 +105,9 @@
 		"linkExtras": {
 			"type": "object"
 		},
-		"maxHeight": {
+		"minHeight": {
 			"renderCSS": true,
-			"component": "maxHeight",
-			"selector": "--kbs-cont-",
+			"property": "min-height",
 			"initial": {},
 			"type": "object"
 		},

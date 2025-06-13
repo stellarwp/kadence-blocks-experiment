@@ -34,14 +34,15 @@ export default function SizingControl({
 		<ToolsPanelBody title={title} panelName={'container-sizing'} componentName={'sizing-control'}>
 			{types.map((type) => (
 				<RadioButtonControl
+					key={type}
 					label={getLabel(type)}
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={type}
-					type={type}
+					radioType={type}
 					meta={metadata?.attributes?.[type]}
 					previewDevice={previewDevice}
-					hasCustomControls={false}
+					hasCustomControls={type === 'maxWidth' ? true : false}
 				/>
 			))}
 		</ToolsPanelBody>

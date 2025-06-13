@@ -319,6 +319,11 @@ const actions = {
 				if (result?.data?.postID) {
 					styleBookLocalGlobalStyles[currentGlobalStyleId].postId = result.data.postID;
 				}
+				yield actions.setGlobalStyles(styleBookLocalGlobalStyles);
+				const globalPresets = yield actions.getGlobalPresets(styleBookLocalGlobalStyles);
+				yield actions.setGlobalPresets(globalPresets);
+				const globalMappings = yield actions.getGlobalMappings(styleBookLocalGlobalStyles);
+				yield actions.setGlobalMappings(globalMappings);
 				yield {
 					type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLE',
 					globalStyleId: currentGlobalStyleId,

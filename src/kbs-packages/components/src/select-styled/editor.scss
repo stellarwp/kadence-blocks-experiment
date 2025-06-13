@@ -41,5 +41,10 @@
 	}
 	.kbs-select__option--is-focused {
 		background: var(--kb-subtle-background, #edf2f7);
+		color: var(--wp-components-color-foreground, #1e1e1e);
+	}
+	.kbs-select__option--is-selected {
+		background: var(--wp-admin-theme-color, #00669b);
+		color: var(--wp-components-color-foreground-inverted, #fff);
 	}
 }

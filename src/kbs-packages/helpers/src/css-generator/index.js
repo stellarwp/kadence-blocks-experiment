@@ -50,9 +50,6 @@ class CSSGenerator {
 			if (!meta?.property) {
 				return this;
 			}
-			if (!meta?.selector) {
-				return this;
-			}
 			switch (meta.property) {
 				case 'flex-direction':
 				case 'flex-wrap':
@@ -61,7 +58,12 @@ class CSSGenerator {
 				case 'justify-content':
 				case 'row-gap':
 				case 'column-gap':
-					this.renderStringProperty(mergedAttribute, meta.selector, previewDevice);
+				case 'min-height':
+					this.renderStringProperty(
+						mergedAttribute,
+						meta?.selector ? meta?.selector : meta.property,
+						previewDevice
+					);
 					break;
 			}
 		}
@@ -143,6 +145,8 @@ class CSSGenerator {
 				break;
 			case 'maxWidth':
 			case 'maxHeight':
+			case 'minHeight':
+			case 'minWidth':
 				cssValue = appliedValue;
 				break;
 			case 'background':
@@ -527,6 +531,8 @@ class CSSGenerator {
 				break;
 			case 'maxWidth':
 			case 'maxHeight':
+			case 'minHeight':
+			case 'minWidth':
 				componentKeys = [component];
 				break;
 		}

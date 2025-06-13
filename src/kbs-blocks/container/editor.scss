@@ -4,8 +4,8 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
- @use './style.scss';
- // Remove WP margin added to all blocks.
+@use "./style.scss";
+// Remove WP margin added to all blocks.
 .wp-block-kbs-container {
 	margin-top: 0;
 	margin-bottom: 0;
@@ -15,6 +15,7 @@
 			align-self: stretch;
 			margin-left: 0;
 			margin-right: 0;
+			position: relative;
 			.block-editor-button-block-appender {
 				padding: 6px;
 				outline: 1px dashed #d5dadf;

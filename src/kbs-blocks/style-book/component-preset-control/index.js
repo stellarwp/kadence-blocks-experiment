@@ -1,11 +1,12 @@
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
-
+import { useEffect, useMemo } from '@wordpress/element';
 import { Typography } from '@kadence/kbsComponents';
+import { getGlobalStylesCSSOutput, getPresetOptions } from '@kadence/kbsHelpers';
 
 import './editor.scss';
 
-import { BLOCK_COMPONENTS } from '@kadence/kbsComponents';
+import { BLOCK_COMPONENTS, ToolsPanelBody } from '@kadence/kbsComponents';
 
 /**
  * Build the component preset
@@ -50,28 +51,30 @@ export default function ComponentPresetControl(props) {
 				selector: '--kbs-cont',
 				initial: {},
 				type: 'object',
-				tag: 'h1',
 			},
 		},
 	};
 
 	const Component = BLOCK_COMPONENTS?.[property].component;
-	const label = BLOCK_COMPONENTS?.label;
-
+	const globalStylesCss = getGlobalStylesCSSOutput([globalStyleId]);
+	const presets = getPresetOptions(property);
+	const presetLabel = useMemo(() => {
+		const presetData = presets.find((p) => p.value === preset);
+		return presetData?.label;
+	}, [presets, preset]);
 	return (
-		<>
-			<Component
-				label={label}
-				// customOnChange={onPresetChange}
-				attributes={{ [property]: styleBookLocalPreset }}
-				setAttributes={setStyleBookLocalPreset}
-				meta={fakeMeta}
-				previewDevice={previewDevice}
-				attributeName={property}
-				globalStyleId={globalStyleId}
-				forStyleBook={true}
-				forPresetControl={true}
-			/>
-		</>
+		<Component
+			title={presetLabel}
+			// customOnChange={onPresetChange}
+			attributes={{ [property]: styleBookLocalPreset }}
+			setAttributes={setStyleBookLocalPreset}
+			meta={fakeMeta}
+			previewDevice={previewDevice}
+			attributeName={property}
+			globalStylesCss={globalStylesCss}
+			globalStylesIds={[globalStyleId]}
+			forStyleBook={true}
+			forPresetControl={true}
+		/>
 	);
 }

@@ -8,17 +8,18 @@
 	}
 	// Inherited styles section
 	.kbs-global-style-inherited-section {
-		background-color: #f0f0f0;
-		border-radius: 4px;
+		background-color: var(--kb-subtle-background, #edf2f7);
+		border-radius: 3px;
 		padding: 12px 16px;
 		margin-top: 16px;
 	}
 
 	.kbs-global-style-inherited-heading {
 		margin: 0 0 8px;
-		font-size: 14px;
-		font-weight: 600;
-		color: #1e1e1e;
+		font-size: 13px;
+		font-weight: 400;
+		color: var(--wp-components-color-foreground, #1e1e1e);
+		text-transform: none;
 	}
 
 	.kbs-global-style-inherited-description {
@@ -45,7 +46,7 @@
 
 	.kbs-global-style-inherited-icon {
 		margin-right: 8px;
-		color: #007cba;
+		display: flex;
 		font-weight: bold;
 	}
 
@@ -76,6 +77,6 @@
 	}
 
 	.kbs-global-style-inherited-icon {
-		color: #3498db;
+		color: var(--wp-components-color-accent, #007cba);
 	}
 }

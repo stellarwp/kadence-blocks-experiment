@@ -570,19 +570,19 @@ export const getGapControls = () => [
 ];
 export const getMaxWidthControls = () => [
 	{
-		title: __('Normal', 'kadence-blocks'),
-		name: 'Normal',
-		key: 'normal',
+		title: __('Content', 'kadence-blocks'),
+		name: 'Content',
+		key: 'content',
+	},
+	{
+		title: __('Wide', 'kadence-blocks'),
+		name: 'Wide',
+		key: 'wide',
 	},
 	{
 		title: __('Narrow', 'kadence-blocks'),
 		name: 'Narrow',
 		key: 'narrow',
-	},
-	{
-		title: __('Full Width', 'kadence-blocks'),
-		name: 'Full Width',
-		key: 'full',
 	},
 ];
 export const getFlexWrapControls = () => [

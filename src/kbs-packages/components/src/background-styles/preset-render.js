@@ -25,16 +25,10 @@ function BackgroundPresetCSSStyles(props) {
 				css.processBackgroundLayer(layer, index, attributeMeta, props, meta)
 			);
 		}
-
 		let output = css.generate();
 		return output;
-	}, [attributes, previewDevice, preset, uniqueID]);
-
-	return (
-		<>
-			<style>{cssOutput}</style>
-		</>
-	);
+	}, [attributes?.layers, previewDevice, preset?.value, uniqueID]);
+	return <style>{cssOutput}</style>;
 }
 const getLayerInheritedDeviceValue = (layerAttribute, layer, device) => {
 	if (layer?.[device?.toLowerCase()]?.[layerAttribute]) {
@@ -60,31 +54,24 @@ const getLayerInheritedDeviceValue = (layerAttribute, layer, device) => {
 	return '';
 };
 
-function BackgroundPresetRender(props) {
-	const { previewDevice, meta, globalStylesIds, preset, attributeName, uniqueID } = props;
-	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
-		globalStylesIds,
-		'background',
-		'presets.' + preset.value
-	);
-	const metaClassPrefix = meta?.attributes?.[attributeName]?.classPrefix || 'kbs-bg-style-';
+function BackgroundPresetRenderContent(props) {
+	const { className, attributes, meta, attributeMeta, preset, uniqueID, previewDevice } = props;
+	const metaClassPrefix = attributeMeta?.classPrefix || 'kbs-bg-style-';
 	const layersCount = useMemo(
-		() => (Array.isArray(rawPresetData?.attributes?.layers) ? rawPresetData?.attributes?.layers.length : 0),
-		[rawPresetData?.attributes?.layers]
+		() => (Array.isArray(attributes?.layers) ? attributes?.layers.length : 0),
+		[attributes?.layers]
 	);
 	const reverseLayers = useMemo(
-		() =>
-			Array.isArray(rawPresetData?.attributes?.layers) ? [...rawPresetData?.attributes?.layers].reverse() : [],
-		[rawPresetData?.attributes?.layers]
+		() => (Array.isArray(attributes?.layers) ? [...attributes?.layers].reverse() : []),
+		[attributes?.layers]
 	);
-	// Return a div for each layer
 	return (
-		<div className={`kbs-bg-preset-render ${props.className} preset-${uniqueID}-${preset.value}`}>
+		<div className={`kbs-bg-preset-render ${className}`}>
 			<BackgroundPresetCSSStyles
 				preset={preset}
-				attributes={rawPresetData?.attributes}
+				attributes={attributes}
 				uniqueID={uniqueID}
-				attributeMeta={meta?.attributes?.[attributeName]}
+				attributeMeta={attributeMeta}
 				meta={meta}
 				previewDevice={previewDevice}
 			/>
@@ -131,6 +118,42 @@ function BackgroundPresetRender(props) {
 				);
 			})}
 		</div>
+	);
+}
+function BackgroundPresetRender(props) {
+	const { previewDevice, meta, preset, attributeName, uniqueID, globalStylesIds = [], globalStyleId = '' } = props;
+	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
+		globalStylesIds,
+		'background',
+		'presets.' + preset?.value
+	);
+	const { styleBookComponent } = useSelect(
+		(select) => {
+			return {
+				styleBookComponent: select('kadenceblocks/global-styles').getStyleBookComponentPresetByStyleId(
+					globalStyleId,
+					attributeName,
+					preset?.value
+				),
+			};
+		},
+		[globalStyleId, attributeName, preset?.value]
+	);
+	const attributes = globalStyleId ? styleBookComponent?.attributes : rawPresetData?.attributes;
+	// Return a div for each layer
+	const classes = clsx(props.className, `preset-${uniqueID}-${preset.value}`, {
+		'has-no-background': !attributes?.layers?.length,
+	});
+	return (
+		<BackgroundPresetRenderContent
+			className={classes}
+			attributes={attributes}
+			meta={meta}
+			attributeMeta={meta?.attributes?.[attributeName]}
+			preset={preset}
+			uniqueID={uniqueID}
+			previewDevice={previewDevice}
+		/>
 	);
 }
 

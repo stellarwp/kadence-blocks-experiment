@@ -1,9 +1,15 @@
 import { useMemo } from '@wordpress/element';
-import { cssGenerator, getGoogleFontUrl, getGlobalStylesCSSOutput } from '@kadence/kbsHelpers';
+import { select } from '@wordpress/data';
+import { cssGenerator, getGoogleFontUrl } from '@kadence/kbsHelpers';
 import metadata from '../block.json';
 
 export default function Styles(props) {
-	const { attributes, previewDevice, globalStylesCss } = props;
+	const { attributes, previewDevice, globalStylesCss, globalStylesIds } = props;
+	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
+		globalStylesIds,
+		'background',
+		'presets.background'
+	);
 	const cssOutput = useMemo(() => {
 		const selector = `.kbs-container-${attributes?.uniqueID || 'unknown'}`;
 		const css = new cssGenerator(selector);
@@ -25,7 +31,7 @@ export default function Styles(props) {
 			output = output + attributes.kbsCSS.replace(/selector/g, selector);
 		}
 		return output;
-	}, [attributes, previewDevice, JSON.stringify(attributes)]);
+	}, [attributes, previewDevice, JSON.stringify(attributes), rawPresetData?.attributes]);
 
 	const googleFontUrl = useMemo(() => {
 		if (!metadata.attributes) {

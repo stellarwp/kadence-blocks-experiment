@@ -14,6 +14,8 @@ import Select, { components, MultiValueProps, Props as RSProps, OnChangeValue } 
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { arrowRight } from '@wordpress/icons';
+import { Icon } from '@wordpress/components';
 
 // RTL configuration is determined once at module load
 const IS_RTL = isRTL();
@@ -38,7 +40,6 @@ function DraggableMultiValue(props) {
 		backgroundColor: 'var(--wp-components-color-background-inverted, #1e1e1e)',
 		margin: 0,
 	};
-	console.log(style);
 
 	/* prevent simple clicks on a chip from re-opening the menu while still
 	   allowing keyboard focus */
@@ -215,7 +216,9 @@ export default function SelectGlobalStyles({
 					<div className="kbs-global-style-inherited-list">
 						{inheritedStyleOptions.map((option) => (
 							<div key={option.value} className="kbs-global-style-inherited-item">
-								<span className="kbs-global-style-inherited-icon">➡️</span>
+								<span className="kbs-global-style-inherited-icon">
+									<Icon icon={arrowRight} size={16} />
+								</span>
 								<span className="kbs-global-style-inherited-label">{option.label}</span>
 							</div>
 						))}

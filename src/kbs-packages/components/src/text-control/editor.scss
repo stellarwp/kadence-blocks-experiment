@@ -1,0 +1,12 @@
+.kbs-text-control {
+	.components-base-control__field {
+		.components-text-control__input {
+			box-shadow: 0 0 0 #0000;
+			border-color: var(--kb-subtle-background, #edf2f7);
+			background: var(--kb-subtle-background, #edf2f7);
+			&:focus {
+				border-color: var(--wp-components-color-foreground, #1e1e1e);
+			}
+		}
+	}
+}

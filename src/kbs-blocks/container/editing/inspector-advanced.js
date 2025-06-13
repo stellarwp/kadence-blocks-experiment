@@ -42,28 +42,14 @@ export default function InspectorAdvanced(props) {
 	} = props;
 	return (
 		<>
-			<ColorControl
-				label={__('Background Color', 'kadence-blocks')}
-				attributes={attributes}
-				type={'color'}
-				setAttributes={setAttributes}
-				attributeName={'color'}
-				meta={metadata}
-				previewDevice={previewDevice}
-				globalStylesCss={globalStylesCss}
-				hasGradient={true}
-				hasMix={true}
-			/>
 			<SizingControl
 				attributes={attributes}
 				setAttributes={setAttributes}
 				previewDevice={previewDevice}
-				attributeName={'minHeight'}
 				metaData={metadata}
 				globalStylesIds={globalStylesIds}
-				title={__('Min Height Settings', 'kadence-blocks')}
-				label={__('Min Height', 'kadence-blocks')}
-				type={'minHeight'}
+				title={__('Sizing Settings', 'kadence-blocks')}
+				types={['maxWidth', 'minHeight']}
 			/>
 			<FlexChildControl
 				attributeName={'flexChild'}

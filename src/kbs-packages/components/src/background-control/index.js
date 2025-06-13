@@ -284,74 +284,74 @@ export default function BackgroundControl({
 			currentView={currentView}
 			hasViewControls={true}
 		>
-			<PresetControl
-				label={__('Background Presets', 'kadence-blocks')}
-				type={'background'}
-				attributes={attributes}
-				setAttributes={setAttributes}
-				attributeName={attributeName}
-				meta={metaData}
-				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
-				globalStylesCss={globalStylesCss}
-				forStyleBook={forStyleBook}
-			/>
-			{hasLayers && (
-				<>
-					<LayerTitleBar
-						label={__('Background', 'kadence-blocks')}
-						reset={true}
-						onReset={onLayerReset}
-						onTogglePlus={onTogglePlus}
-						hasPresetIcon={attributes[attributeName]?.preset && inherited.inheritedSource === 'preset'}
-						presetLabel={presetLabel}
-					/>
-					<DndContext
-						sensors={sensors}
-						modifiers={[restrictToVerticalAxis]}
-						collisionDetection={closestCenter}
-						onDragEnd={handleDragEnd}
-					>
-						<SortableContext items={itemOrder} strategy={verticalListSortingStrategy}>
-							<div className="kbs-background-layers-wrapper">
-								{inherited?.inheritedValue?.length > 0 ? (
-									inherited.inheritedValue.map((layer, index) => (
-										<SortableBackgroundLayer
-											key={index}
-											layer={layer}
-											index={index}
-											totalLayers={inherited.inheritedValue.length}
-											attributes={attributes}
-											setAttributes={onSetAttributes}
-											attributeName={attributeName}
-											meta={metaData}
-											previewDevice={previewDevice}
-											globalStylesIds={globalStylesIds}
-											globalStylesCss={globalStylesCss}
-											isInherited={inherited.inheritedSource !== 'direct'}
-											inherited={inherited}
-										/>
-									))
-								) : (
+			{!forPresetControl && (
+				<PresetControl
+					label={__('Background Presets', 'kadence-blocks')}
+					type={'background'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={attributeName}
+					meta={metaData}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
+					forStyleBook={forStyleBook}
+				/>
+			)}
+			<>
+				<LayerTitleBar
+					label={__('Background', 'kadence-blocks')}
+					reset={true}
+					onReset={onLayerReset}
+					onTogglePlus={onTogglePlus}
+					hasPresetIcon={attributes[attributeName]?.preset && inherited.inheritedSource === 'preset'}
+					presetLabel={presetLabel}
+				/>
+				<DndContext
+					sensors={sensors}
+					modifiers={[restrictToVerticalAxis]}
+					collisionDetection={closestCenter}
+					onDragEnd={handleDragEnd}
+				>
+					<SortableContext items={itemOrder} strategy={verticalListSortingStrategy}>
+						<div className="kbs-background-layers-wrapper">
+							{inherited?.inheritedValue?.length > 0 ? (
+								inherited.inheritedValue.map((layer, index) => (
 									<SortableBackgroundLayer
-										key={0}
-										layer={{}}
-										index={0}
+										key={index}
+										layer={layer}
+										index={index}
+										totalLayers={inherited.inheritedValue.length}
 										attributes={attributes}
-										totalLayers={1}
 										setAttributes={onSetAttributes}
 										attributeName={attributeName}
 										meta={metaData}
 										previewDevice={previewDevice}
 										globalStylesIds={globalStylesIds}
 										globalStylesCss={globalStylesCss}
+										isInherited={inherited.inheritedSource !== 'direct'}
+										inherited={inherited}
 									/>
-								)}
-							</div>
-						</SortableContext>
-					</DndContext>
-				</>
-			)}
+								))
+							) : (
+								<SortableBackgroundLayer
+									key={0}
+									layer={{}}
+									index={0}
+									attributes={attributes}
+									totalLayers={1}
+									setAttributes={onSetAttributes}
+									attributeName={attributeName}
+									meta={metaData}
+									previewDevice={previewDevice}
+									globalStylesIds={globalStylesIds}
+									globalStylesCss={globalStylesCss}
+								/>
+							)}
+						</div>
+					</SortableContext>
+				</DndContext>
+			</>
 		</ToolsPanelBody>
 	);
 }
