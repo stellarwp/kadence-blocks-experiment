@@ -29,7 +29,7 @@
 			"palette4": { "value": "var(--global-palette8)" },
 			"palette5": { "value": "var(--global-palette7)" },
 			"palette6": { "value": "color-mix(in srgb, var(--global-palette7) 90%, black)" },
-			"palette7": { "value": "var(--global-palette5)" },
+			"palette7": { "value": "color-mix(in srgb, var(--global-palette2) 90%, black)" },
 			"palette8": { "value": "var(--global-palette2)" },
 			"palette9": { "value": "var(--global-palette1)" }
 		}

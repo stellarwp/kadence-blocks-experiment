@@ -44,7 +44,7 @@ export default function Styles(props) {
 			return '';
 		}
 		return `.kbs-container-${attributes?.uniqueID || 'unknown'}` + '{ ' + globalStylesCss + ' }';
-	}, [globalStylesCss]);
+	}, [globalStylesCss, attributes?.uniqueID]);
 
 	return (
 		<>
