@@ -27,6 +27,12 @@
 			width: 100%;
 			height: 100%;
 			position: relative;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-attachment: scroll;
+			overflow: hidden;
+			transition: all 0.3s ease-in-out;
 			&.has-no-background {
 				background: #fff linear-gradient(-45deg, rgba(0, 0, 0, 0) 48%, #ddd 0, #ddd 52%, rgba(0, 0, 0, 0) 0);
 			}

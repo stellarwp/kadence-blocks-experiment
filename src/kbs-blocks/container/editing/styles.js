@@ -5,11 +5,10 @@ import metadata from '../block.json';
 
 export default function Styles(props) {
 	const { attributes, previewDevice, globalStylesCss, globalStylesIds } = props;
-	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
-		globalStylesIds,
-		'background',
-		'presets.background'
-	);
+
+	// Get all merged global styles for the block
+	const mergedGlobalStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(globalStylesIds);
+
 	const cssOutput = useMemo(() => {
 		const selector = `.kbs-container-${attributes?.uniqueID || 'unknown'}`;
 		const css = new cssGenerator(selector);
@@ -31,7 +30,7 @@ export default function Styles(props) {
 			output = output + attributes.kbsCSS.replace(/selector/g, selector);
 		}
 		return output;
-	}, [attributes, previewDevice, JSON.stringify(attributes), rawPresetData?.attributes]);
+	}, [attributes, previewDevice, JSON.stringify(attributes), mergedGlobalStyles]);
 
 	const googleFontUrl = useMemo(() => {
 		if (!metadata.attributes) {
@@ -46,6 +45,7 @@ export default function Styles(props) {
 		}
 		return `.kbs-container-${attributes?.uniqueID || 'unknown'}` + '{ ' + globalStylesCss + ' }';
 	}, [globalStylesCss]);
+
 	return (
 		<>
 			{googleFontUrl && <link href={googleFontUrl} rel="stylesheet" />}

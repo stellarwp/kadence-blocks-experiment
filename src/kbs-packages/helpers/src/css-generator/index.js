@@ -7,6 +7,7 @@ import { default as getInheritedValue } from '../get-inherited-value';
 import getColorOutput from '../get-color-output';
 import { default as getLayerDeviceValue } from '../get-layer-device-value';
 import { default as getPatternOptions } from '../get-pattern-options';
+import { default as getMaskOptions } from '../get-mask-options';
 import { useMemo } from 'react';
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 
@@ -243,9 +244,11 @@ class CSSGenerator {
 		const backgroundType = getLayerDeviceValue('type', layer, props.previewDevice) || 'color';
 		const metaClassPrefix = meta?.classPrefix || 'kbs-bg-style-';
 		const anyBackgroundOpacity = getLayerDeviceValue('opacity', layer, 'Mobile');
-		if (index === 0 && backgroundType !== 'video' && '' === anyBackgroundOpacity) {
+		let tempSelector = currentSelector;
+		if (index === 0 && backgroundType !== 'video' && backgroundType !== 'pattern' && '' === anyBackgroundOpacity) {
 			this.setSelector(currentSelector);
 		} else {
+			tempSelector = currentSelector + ' > .' + metaClassPrefix + index;
 			this.setSelector(currentSelector + ' > .' + metaClassPrefix + index);
 		}
 		const backgroundColor = getLayerDeviceValue('color', layer, props.previewDevice);
@@ -306,18 +309,16 @@ class CSSGenerator {
 			case 'pattern':
 				const patternType = getLayerDeviceValue('patternType', layer, props.previewDevice);
 				const patternColor = getLayerDeviceValue('patternColor', layer, props.previewDevice);
-				if (patternType !== 'pattern') {
-					if (backgroundColor) {
-						this.add({ 'background-color': getColorOutput(backgroundColor) });
-						this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColor) });
-					} else {
-						this.add({ '--kbs-pattern-bg': 'transparent' });
-					}
-					if (patternColor) {
-						this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
-					} else {
-						this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
-					}
+				if (backgroundColor) {
+					this.add({ 'background-color': getColorOutput(backgroundColor) });
+					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColor) });
+				} else {
+					this.add({ '--kbs-pattern-bg': 'transparent' });
+				}
+				if (patternColor) {
+					this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
+				} else {
+					this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
 				}
 				if (patternType !== 'pattern' && patternType !== 'divider') {
 					const flipX = getLayerDeviceValue('flipX', layer, props.previewDevice);
@@ -331,7 +332,9 @@ class CSSGenerator {
 						hasYFlip = true;
 					}
 					if (hasXFlip || hasYFlip) {
-						this.add({ transform: `scaleX(${hasXFlip ? '-1' : '1'}) scaleY(${hasYFlip ? '-1' : '1'})` });
+						this.add({
+							transform: `scaleX(${hasXFlip ? '-1' : '1'}) scaleY(${hasYFlip ? '-1' : '1'})`,
+						});
 					}
 				}
 				if (patternType === 'pattern') {
@@ -348,6 +351,7 @@ class CSSGenerator {
 						const pattern = getPatternOptions().find((pattern) => pattern.value === backgroundPattern);
 						if (pattern) {
 							if (pattern?.['svg']) {
+								this.setSelector(tempSelector + ' .kbs-pattern-svg');
 								if (patternColor) {
 									this.add({ 'background-color': getColorOutput(patternColor) });
 								} else {
@@ -363,6 +367,7 @@ class CSSGenerator {
 										'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))',
 								});
 								this.add({ 'mask-position': patternPosition });
+								this.setSelector(tempSelector);
 							}
 						}
 					}

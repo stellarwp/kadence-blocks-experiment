@@ -65,22 +65,8 @@ export default function LayerEffects({
 		);
 	};
 	let showColor = layer?.type !== 'color' ? true : false;
-	if (layer?.type === 'pattern' && layer?.patternType === 'pattern') {
-		showColor = false;
-	}
 	return (
 		<div className={`kbs-background-layer-effects-control`}>
-			{/* <TitleBar
-				label={__('Background Effects', 'kadence-blocks')}
-				reset={true}
-				onReset={onReset}
-				hasDeviceControls={false}
-				hasAdvancedControls={false}
-				hasCustomControls={false}
-				hasHoverControls={true}
-				onToggleHover={onToggleHover}
-				isHover={isHover}
-			/> */}
 			<ToolsPanelBody
 				title={__('Background Effects', 'kadence-blocks')}
 				panelName={layerKey + 'background-layer-effects'}

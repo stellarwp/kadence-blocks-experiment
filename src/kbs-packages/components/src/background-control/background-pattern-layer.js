@@ -127,6 +127,7 @@ export default function BackgroundPatternLayer({
 							globalClasses={globalClasses}
 							globalStylesCss={globalStylesCss}
 							hasMix={true}
+							hasGradient={false}
 							isHover={isHover}
 						/>
 						<RadioButtonSelect

@@ -40,7 +40,7 @@ export function PopoverPatternRender({ pattern, className, patternSize, patternC
 		style['--kbs-pattern-size'] = patternSize;
 	}
 	if (pattern?.['svg']) {
-		style['backgroundColor'] = '#000';
+		style['backgroundColor'] = patternColor ? getColorOutput(patternColor) : getColorOutput('palette3');
 		style['maskImage'] = `url("data:image/svg+xml, ${encodeURIComponent(pattern['svg'])}")`;
 		style['maskRepeat'] = 'repeat';
 		const currentPatternSize = pattern?.['size'];

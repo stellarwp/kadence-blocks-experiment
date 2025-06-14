@@ -61,6 +61,9 @@ export const getColorLabel = (value, colors, gradients = []) => {
 };
 
 export const getColorHex = (value, ref) => {
+	if (!value) {
+		return '';
+	}
 	if (value.startsWith('palette')) {
 		const color = getColorOutput(value);
 		return window

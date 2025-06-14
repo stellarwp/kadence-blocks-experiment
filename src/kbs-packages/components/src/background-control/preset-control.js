@@ -24,14 +24,20 @@ import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import TitleBar from '../title-bar';
 import BackgroundPresetRender from '../background-styles/preset-render';
-function PresetControlConfirm({ showConfirmPopover, confirmAnchor, handleCancel, handleConfirm }) {
+function PresetControlConfirm({
+	showConfirmPopover,
+	confirmAnchor,
+	handleCancel,
+	handleConfirm,
+	placement = 'top-start',
+}) {
 	return (
 		<>
 			{showConfirmPopover && confirmAnchor && (
 				<Popover
 					anchor={confirmAnchor}
 					noArrow={false}
-					placement="top"
+					placement={placement}
 					onClose={handleCancel}
 					className="kbs-confirm-popover"
 				>
@@ -83,6 +89,7 @@ export default function PresetControl({
 	const [pendingPreset, setPendingPreset] = useState(null);
 	const [confirmAnchor, setConfirmAnchor] = useState(null);
 	const [popoverAnchor, setPopoverAnchor] = useState(null);
+	const [popoverPlacement, setPopoverPlacement] = useState('top-start');
 	const divRef = useRef(null);
 	useEffect(() => {
 		if (divRef.current) {
@@ -170,6 +177,7 @@ export default function PresetControl({
 								className={`kbs-radio-preset-control-button`}
 								onClick={(event) => {
 									setConfirmAnchor(event.currentTarget);
+									setPopoverPlacement('top');
 									onChange(option.value);
 								}}
 							>
@@ -201,6 +209,7 @@ export default function PresetControl({
 						className={`kbs-radio-preset-control-button`}
 						onClick={(event) => {
 							setConfirmAnchor(event.currentTarget);
+							setPopoverPlacement('top-start');
 							onChange(option.value);
 						}}
 					>
@@ -221,6 +230,7 @@ export default function PresetControl({
 				confirmAnchor={confirmAnchor}
 				handleCancel={handleCancel}
 				handleConfirm={handleConfirm}
+				placement={popoverPlacement}
 			/>
 		</div>
 	);

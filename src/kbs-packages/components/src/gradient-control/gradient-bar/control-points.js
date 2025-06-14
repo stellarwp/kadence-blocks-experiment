@@ -72,7 +72,16 @@ function CustomDropdown(props) {
 	const [fallbackPopoverAnchor, setFallbackPopoverAnchor] = useState(null);
 	const containerRef = useRef();
 	const [isOpen, setIsOpen] = useObservableState(false, onToggle);
-
+	const divRef = useRef();
+	useEffect(() => {
+		if (divRef.current) {
+			if (globalStylesCss) {
+				divRef.current.setAttribute('style', globalStylesCss);
+			} else {
+				divRef.current.removeAttribute('style');
+			}
+		}
+	}, [globalStylesCss, divRef?.current, isOpen]);
 	useEffect(
 		() => () => {
 			if (onToggle && isOpen) {
@@ -149,7 +158,7 @@ function CustomDropdown(props) {
 						contentClassName
 					)}
 				>
-					{renderContent(args)}
+					<div ref={divRef}>{renderContent(args)}</div>
 				</Popover>
 			)}
 		</div>
@@ -379,6 +388,7 @@ function ControlPoints({
 		};
 	}, []);
 	const disableCustomColors = !useSetting('color.custom');
+
 	return controlPoints.map((point, index) => {
 		const initialPosition = point?.position;
 		const pointColor = getReadableColor(point.color, globalColors, containerRef);
