@@ -71,63 +71,63 @@ export function PopoverDividerRender({
 		</div>
 	);
 }
-// export function PopoverMaskRender({ className }) {
-// 	return <div className={clsx('kbs-pattern-mask-svg kbs-mask-svg', className)} />;
-// }
-export function PopoverMaskRender({
-	maskSlug,
-	className,
-	maskColor,
-	maskBackground,
-	maskSize,
-	maskAlignX,
-	maskAlignY,
-	maskFlipX,
-	maskFlipY,
-}) {
-	const maskObject = getMaskOptions().find(({ value }) => value === maskSlug) || {};
-	const style = {};
-	let alignX = 'Mid';
-	let alignY = 'Mid';
-	switch (maskAlignX) {
-		case 'min':
-			alignX = 'Min';
-			break;
-		case 'max':
-			alignX = 'Max';
-			break;
-	}
-	switch (maskAlignY) {
-		case 'min':
-			alignY = 'Min';
-			break;
-		case 'max':
-			alignY = 'Max';
-			break;
-	}
-	let ratio = `x${alignX}Y${alignY} slice`;
-	switch (maskSize) {
-		case 'contain':
-			ratio = `x${alignX}Y${alignY} meet`;
-			break;
-		case 'cover':
-			ratio = `x${alignX}Y${alignY} slice`;
-			break;
-		case 'stretch':
-			ratio = 'none';
-			break;
-	}
-	return (
-		<SVG
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 1920 1200"
-			preserveAspectRatio={ratio}
-			className={'kbs-mask-svg'}
-		>
-			<Path d={maskObject?.path} />
-		</SVG>
-	);
+export function PopoverMaskRender({ className }) {
+	return <div className={clsx('kbs-pattern-mask-svg kbs-mask-svg', className)} />;
 }
+// export function PopoverMaskRender({
+// 	maskSlug,
+// 	className,
+// 	maskColor,
+// 	maskBackground,
+// 	maskSize,
+// 	maskAlignX,
+// 	maskAlignY,
+// 	maskFlipX,
+// 	maskFlipY,
+// }) {
+// 	const maskObject = getMaskOptions().find(({ value }) => value === maskSlug) || {};
+// 	const style = {};
+// 	let alignX = 'Mid';
+// 	let alignY = 'Mid';
+// 	switch (maskAlignX) {
+// 		case 'min':
+// 			alignX = 'Min';
+// 			break;
+// 		case 'max':
+// 			alignX = 'Max';
+// 			break;
+// 	}
+// 	switch (maskAlignY) {
+// 		case 'min':
+// 			alignY = 'Min';
+// 			break;
+// 		case 'max':
+// 			alignY = 'Max';
+// 			break;
+// 	}
+// 	let ratio = `x${alignX}Y${alignY} slice`;
+// 	switch (maskSize) {
+// 		case 'contain':
+// 			ratio = `x${alignX}Y${alignY} meet`;
+// 			break;
+// 		case 'cover':
+// 			ratio = `x${alignX}Y${alignY} slice`;
+// 			break;
+// 		case 'stretch':
+// 			ratio = 'none';
+// 			break;
+// 	}
+// 	return (
+// 		<SVG
+// 			xmlns="http://www.w3.org/2000/svg"
+// 			viewBox="0 0 1920 1200"
+// 			preserveAspectRatio={ratio}
+// 			className={'kbs-mask-svg'}
+// 		>
+// 			<Path d={maskObject?.path} />
+// 		</SVG>
+// 	);
+// }
 function RenderPattern(props) {
 	const { layer, previewDevice } = props;
 	const patternType = getLayerInheritedDeviceValue('patternType', layer, previewDevice) || 'mask';

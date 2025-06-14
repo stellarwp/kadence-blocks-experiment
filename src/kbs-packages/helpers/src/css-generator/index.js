@@ -321,20 +321,57 @@ class CSSGenerator {
 					this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
 				}
 				if (patternType !== 'pattern' && patternType !== 'divider') {
-					const flipX = getLayerDeviceValue('flipX', layer, props.previewDevice);
-					let hasXFlip = false;
-					if (flipX === 'enabled') {
-						hasXFlip = true;
-					}
-					const flipY = getLayerDeviceValue('flipY', layer, props.previewDevice);
-					let hasYFlip = false;
-					if (flipY === 'enabled') {
-						hasYFlip = true;
-					}
-					if (hasXFlip || hasYFlip) {
+					const backgroundMask = getLayerDeviceValue('mask', layer, props.previewDevice);
+					const backgroundMaskSize = getLayerDeviceValue('maskSize', layer, props.previewDevice);
+					const maskAlignX = getLayerDeviceValue('alignX', layer, props.previewDevice);
+					const maskAlignY = getLayerDeviceValue('alignY', layer, props.previewDevice);
+					const mask = getMaskOptions().find((mask) => mask.value === backgroundMask);
+					if (mask?.path) {
+						this.setSelector(tempSelector + ' .kbs-pattern-mask-svg');
+						if (patternColor) {
+							this.add({ 'background-color': getColorOutput(patternColor) });
+						} else {
+							this.add({ 'background-color': getColorOutput('palette3') });
+						}
+						const ratio = backgroundMaskSize === 'stretch' ? 'none' : 'xMidYMid meet';
 						this.add({
-							transform: `scaleX(${hasXFlip ? '-1' : '1'}) scaleY(${hasYFlip ? '-1' : '1'})`,
+							'mask-image': `url("data:image/svg+xml, ${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="' + ratio + '" viewBox="0 0 1920 1200" fill="black"><path d="' + mask.path + '" /></svg>')}")`,
 						});
+						this.add({ 'mask-repeat': 'no-repeat' });
+						if (backgroundMaskSize == 'contain') {
+							this.add({ 'mask-size': 'contain' });
+						} else {
+							this.add({ 'mask-size': 'cover' });
+						}
+						let positionY = 'center';
+						let positionX = 'center';
+						if ('min' === maskAlignX) {
+							positionX = 'left';
+						} else if ('max' === maskAlignX) {
+							positionX = 'right';
+						}
+						if ('min' === maskAlignY) {
+							positionY = 'top';
+						} else if ('max' === maskAlignY) {
+							positionY = 'bottom';
+						}
+						this.add({ 'mask-position': positionX + ' ' + positionY });
+						const flipX = getLayerDeviceValue('flipX', layer, props.previewDevice);
+						let hasXFlip = false;
+						if (flipX === 'enabled') {
+							hasXFlip = true;
+						}
+						const flipY = getLayerDeviceValue('flipY', layer, props.previewDevice);
+						let hasYFlip = false;
+						if (flipY === 'enabled') {
+							hasYFlip = true;
+						}
+						if (hasXFlip || hasYFlip) {
+							this.add({
+								transform: `scaleX(${hasXFlip ? '-1' : '1'}) scaleY(${hasYFlip ? '-1' : '1'})`,
+							});
+						}
+						this.setSelector(tempSelector);
 					}
 				}
 				if (patternType === 'pattern') {
