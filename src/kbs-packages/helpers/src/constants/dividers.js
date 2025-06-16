@@ -193,89 +193,33 @@ export const dividers = [
 	{
 		label: __('Triangle', 'kadence-blocks'),
 		value: 'kbs-divider-ct',
-		svg: (
-			<SVG
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 1000 100"
-				preserveAspectRatio="none"
-				className={'kbs-divider-svg'}
-			>
-				<Path d="M1000,0l-500,98l-500,-98l0,100l1000,0l0,-100Z" />
-			</SVG>
-		),
+		svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" class="kbs-divider-svg"><path d="M1000,0l-500,98l-500,-98l0,100l1000,0l0,-100Z" /></svg>',
 	},
 	{
 		label: __('Triangle Inverted', 'kadence-blocks'),
 		value: 'kbs-divider-cti',
-		svg: (
-			<SVG
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 1000 100"
-				preserveAspectRatio="none"
-				className={'kbs-divider-svg'}
-			>
-				<Path d="M500,2l500,98l-1000,0l500,-98Z" />
-			</SVG>
-		),
+		svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" class="kbs-divider-svg"><path d="M500,2l500,98l-1000,0l500,-98Z" /></svg>',
 	},
 	{
 		label: __('Double Triangle', 'kadence-blocks'),
 		value: 'kbs-divider-ctd',
-		svg: (
-			<SVG
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 1000 100"
-				preserveAspectRatio="none"
-				className={'kbs-divider-svg'}
-			>
-				<Path d="M1000,0l-500,98l-500,-98l0,100l1000,0l0,-100Z" style={{ opacity: 0.4 }} />
-				<Path d="M1000,20l-500,78l-500,-78l0,80l1000,0l0,-80Z" />
-			</SVG>
-		),
+		svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" class="kbs-divider-svg"><path d="M1000,0l-500,98l-500,-98l0,100l1000,0l0,-100Z" style="opacity: 0.4" /><path d="M1000,20l-500,78l-500,-78l0,80l1000,0l0,-80Z" /></svg>',
 	},
 ];
 export const sideDividers = [
 	{
 		label: __('Triangle', 'kadence-blocks'),
 		value: 'kbs-divider-ct',
-		svg: (
-			<SVG
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 100 1000"
-				preserveAspectRatio="none"
-				className={'kbs-divider-svg kbs-divider-svg-side'}
-			>
-				<Path d="M100,1000l-98,-500l98,-500l-100,0l0,1000l100,0Z" />
-			</SVG>
-		),
+		svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 1000" preserveAspectRatio="none" class="kbs-divider-svg kbs-divider-svg-side"><path d="M100,1000l-98,-500l98,-500l-100,0l0,1000l100,0Z" /></svg>',
 	},
 	{
 		label: __('Triangle Inverted', 'kadence-blocks'),
 		value: 'kbs-divider-cti',
-		svg: (
-			<SVG
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 100 1000"
-				preserveAspectRatio="none"
-				className={'kbs-divider-svg kbs-divider-svg-side'}
-			>
-				<Path d="M98,500l-98,500l0,-1000l98,500Z" />
-			</SVG>
-		),
+		svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 1000" preserveAspectRatio="none" class="kbs-divider-svg kbs-divider-svg-side"><path d="M98,500l-98,500l0,-1000l98,500Z" /></svg>',
 	},
 	{
 		label: __('Double Triangle', 'kadence-blocks'),
 		value: 'kbs-divider-ctd',
-		svg: (
-			<SVG
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 100 1000"
-				preserveAspectRatio="none"
-				className={'kbs-divider-svg kbs-divider-svg-side'}
-			>
-				<Path d="M100,1000l-98,-500l98,-500l-100,-0l0,1000l100,0Z" style={{ opacity: 0.4 }} />
-				<Path d="M80,1000l-78,-500l78,-500l-80,-0l0,1000l80,0Z" />
-			</SVG>
-		),
+		svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 1000" preserveAspectRatio="none" class="kbs-divider-svg kbs-divider-svg-side"><path d="M100,1000l-98,-500l98,-500l-100,-0l0,1000l100,0Z" style="opacity: 0.4" /><path d="M80,1000l-78,-500l78,-500l-80,-0l0,1000l80,0Z" /></svg>',
 	},
 ];

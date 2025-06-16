@@ -37,133 +37,44 @@ const getLayerInheritedDeviceValue = (layerAttribute, layer, device) => {
 	return '';
 };
 
-export function PopoverPatternRender({ className }) {
+export function BackgroundPatternRender({ className }) {
 	return <div className={clsx('kbs-pattern-mask-svg kbs-pattern-svg', className)} />;
 }
 
-export function PopoverDividerRender({
-	dividerSlug,
-	className,
-	dividerColor,
-	dividerBackground,
-	dividerWidth,
-	dividerHeight,
-	dividerPosition,
-}) {
-	const dividerSide = dividerPosition === 'left' || dividerPosition === 'right' ? 'vertical' : 'horizontal';
-	const dividerObject = getDividerOptions()[dividerSide].find(({ value }) => value === dividerSlug) || {};
-	const style = {};
-	if (dividerColor) {
-		style['color'] = getColorOutput(dividerColor);
-	}
-	if (dividerWidth) {
-		style['--kbs-divider-width'] = dividerWidth;
-	}
-	if (dividerHeight) {
-		style['--kbs-divider-height'] = dividerHeight;
-	}
+export function BackgroundDividerRender({ className, dividerPosition }) {
 	return (
-		<div
-			className={clsx('kbs-divider-svg-wrapper', className, `kbs-divider-position-${dividerPosition}`)}
-			style={style}
-		>
-			{dividerObject?.svg}
+		<div className={clsx('kbs-divider-svg-wrapper', className, `kbs-divider-position-${dividerPosition}`)}>
+			<div className="kbs-divider-svg" />
 		</div>
 	);
 }
-export function PopoverMaskRender({ className }) {
+export function BackgroundMaskRender({ className }) {
 	return <div className={clsx('kbs-pattern-mask-svg kbs-mask-svg', className)} />;
 }
-// export function PopoverMaskRender({
-// 	maskSlug,
-// 	className,
-// 	maskColor,
-// 	maskBackground,
-// 	maskSize,
-// 	maskAlignX,
-// 	maskAlignY,
-// 	maskFlipX,
-// 	maskFlipY,
-// }) {
-// 	const maskObject = getMaskOptions().find(({ value }) => value === maskSlug) || {};
-// 	const style = {};
-// 	let alignX = 'Mid';
-// 	let alignY = 'Mid';
-// 	switch (maskAlignX) {
-// 		case 'min':
-// 			alignX = 'Min';
-// 			break;
-// 		case 'max':
-// 			alignX = 'Max';
-// 			break;
-// 	}
-// 	switch (maskAlignY) {
-// 		case 'min':
-// 			alignY = 'Min';
-// 			break;
-// 		case 'max':
-// 			alignY = 'Max';
-// 			break;
-// 	}
-// 	let ratio = `x${alignX}Y${alignY} slice`;
-// 	switch (maskSize) {
-// 		case 'contain':
-// 			ratio = `x${alignX}Y${alignY} meet`;
-// 			break;
-// 		case 'cover':
-// 			ratio = `x${alignX}Y${alignY} slice`;
-// 			break;
-// 		case 'stretch':
-// 			ratio = 'none';
-// 			break;
-// 	}
-// 	return (
-// 		<SVG
-// 			xmlns="http://www.w3.org/2000/svg"
-// 			viewBox="0 0 1920 1200"
-// 			preserveAspectRatio={ratio}
-// 			className={'kbs-mask-svg'}
-// 		>
-// 			<Path d={maskObject?.path} />
-// 		</SVG>
-// 	);
-// }
-function RenderPattern(props) {
+function RenderMask(props) {
 	const { layer, previewDevice } = props;
-	const patternType = getLayerInheritedDeviceValue('patternType', layer, previewDevice) || 'mask';
+	const maskType = getLayerInheritedDeviceValue('maskType', layer, previewDevice) || 'mask';
 	const divider = getLayerInheritedDeviceValue('divider', layer, previewDevice) || 'kbs-divider-ct';
 	const dividerWidth = getLayerInheritedDeviceValue('dividerWidth', layer, previewDevice) || '';
 	const dividerHeight = getLayerInheritedDeviceValue('dividerHeight', layer, previewDevice) || '';
 	const dividerPosition = getLayerInheritedDeviceValue('dividerPosition', layer, previewDevice) || 'bottom';
-	const maskSize = getLayerInheritedDeviceValue('maskSize', layer, previewDevice) || 'cover';
-	const mask = getLayerInheritedDeviceValue('mask', layer, previewDevice) || 'kbs-mask-panels-1';
-	const patternColor = getLayerInheritedDeviceValue('patternColor', layer, previewDevice) || 'palette3';
-	const alignX = getLayerInheritedDeviceValue('alignX', layer, previewDevice) || 'mid';
-	const alignY = getLayerInheritedDeviceValue('alignY', layer, previewDevice) || 'mid';
-	if (patternType === 'divider') {
+	const maskColor = getLayerInheritedDeviceValue('maskColor', layer, previewDevice) || 'palette3';
+	if (maskType === 'divider') {
 		return (
-			<PopoverDividerRender
+			<BackgroundDividerRender
 				dividerSlug={divider}
 				dividerPosition={dividerPosition}
 				dividerWidth={dividerWidth}
 				dividerHeight={dividerHeight}
-				dividerColor={patternColor}
+				dividerColor={maskColor}
 			/>
 		);
 	}
-	if (patternType === 'pattern') {
-		return <PopoverPatternRender />;
+	if (maskType === 'pattern') {
+		return <BackgroundPatternRender />;
 	}
-	if (patternType !== 'pattern' && patternType !== 'divider') {
-		return (
-			<PopoverMaskRender
-				maskSlug={mask}
-				maskSize={maskSize}
-				maskAlignX={alignX}
-				maskAlignY={alignY}
-				maskColor={patternColor}
-			/>
-		);
+	if (maskType !== 'pattern' && maskType !== 'divider') {
+		return <BackgroundMaskRender />;
 	}
 	return '';
 }
@@ -177,7 +88,7 @@ function BackgroundLayerRender({ index, layer, metaClassPrefix, previewDevice })
 	const type = getLayerInheritedDeviceValue('type', layer, previewDevice) || 'color';
 
 	const anyBackgroundOpacity = getLayerInheritedDeviceValue('opacity', layer, 'Mobile');
-	if (index === 0 && type !== 'video' && type !== 'pattern' && '' === anyBackgroundOpacity) {
+	if (index === 0 && type !== 'video' && type !== 'mask' && '' === anyBackgroundOpacity) {
 		return null;
 	}
 	return (
@@ -203,7 +114,7 @@ function BackgroundLayerRender({ index, layer, metaClassPrefix, previewDevice })
 					)}
 				</>
 			)}
-			{type === 'pattern' && <RenderPattern previewDevice={previewDevice} layer={layer} />}
+			{type === 'mask' && <RenderMask previewDevice={previewDevice} layer={layer} />}
 		</div>
 	);
 }

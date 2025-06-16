@@ -29,6 +29,9 @@ import { MINIMUM_DISTANCE_BETWEEN_POINTS } from './constants';
  * @return {number} Value clamped between 0 and 100.
  */
 export function clampPercent(value) {
+	if (isNaN(value)) {
+		return 0;
+	}
 	return Math.max(0, Math.min(100, value));
 }
 

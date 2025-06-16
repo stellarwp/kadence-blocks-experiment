@@ -265,7 +265,6 @@ const GradientShapePicker = ({ gradientAST, hasGradient, onChange }) => {
 };
 
 export const getGradientComputedValue = (value, ref, globalColors) => {
-	console.log(ref);
 	if (value.startsWith('var(') && ref?.current) {
 		// Get the raw CSS variable value without computing it
 		const cssVar = value.replace('var(', '').split(',')[0].replace(')', '');
@@ -325,7 +324,7 @@ export default function GradientPicker({
 	// The position should always be a percentage.
 	const controlPoints = gradientAST.colorStops.map((colorStop) => ({
 		color: getStopCssColor(colorStop),
-		position: parseInt(colorStop.length.value),
+		position: parseFloat(colorStop.length.value),
 	}));
 	return (
 		<div className={'components-base-control kbs-control kbs-gradient-control'}>

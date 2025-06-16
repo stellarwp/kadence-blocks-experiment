@@ -56,122 +56,31 @@ import GradientPicker from '../gradient-control';
 import BackgroundVideoLayer from './background-video-layer';
 import ColorSelect from '../color-control/color-select';
 import LayerEffects from './layer-effects';
-import BackgroundPatternLayer from './background-pattern-layer';
+import BackgroundMaskLayer from './background-mask-layer';
 import BackgroundBackdropLayer from './background-backdrop';
-import { PopoverPatternRender, PopoverDividerRender } from './popover-select';
+import { InlinePatternRender, InlineMaskRender, InlineDividerRender } from './popover-select';
 
-export function IndicatorDividerRender({
-	divider,
-	className,
-	dividerColor,
-	dividerBackground,
-	dividerWidth,
-	dividerHeight,
-	dividerPosition,
-}) {
-	const style = {};
-	if (dividerColor) {
-		style['color'] = getColorOutput(dividerColor);
-	}
-	if (dividerWidth) {
-		style['--kbs-divider-width'] = dividerWidth;
-	}
-	if (dividerHeight) {
-		style['--kbs-divider-height'] = dividerHeight;
-	}
-	return (
-		<div
-			className={clsx(
-				'kbs-popover-background-select-control-style',
-				className,
-				`divider-position-${dividerPosition}`
-			)}
-			style={style}
-		>
-			<div className="kbs-divider-svg-wrapper">{divider?.svg}</div>
-		</div>
-	);
-}
-function PopoverMaskRender({ mask, className, maskColor, maskAlignX, maskAlignY, maskSize, maskFlipX, maskFlipY }) {
-	const style = {};
-	if (maskColor) {
-		style['color'] = getColorOutput(maskColor);
-	}
-	if (maskFlipX === 'enabled') {
-		style['transform'] = `scaleX(-1)`;
-	}
-	if (maskFlipY === 'enabled') {
-		if (style?.['transform']) {
-			style['transform'] += ` scaleY(-1)`;
-		} else {
-			style['transform'] = `scaleY(-1)`;
-		}
-	}
-	let alignX = 'Mid';
-	let alignY = 'Mid';
-	switch (maskAlignX) {
-		case 'min':
-			alignX = 'Min';
-			break;
-		case 'max':
-			alignX = 'Max';
-			break;
-	}
-	switch (maskAlignY) {
-		case 'min':
-			alignY = 'Min';
-			break;
-		case 'max':
-			alignY = 'Max';
-			break;
-	}
-	let ratio = `x${alignX}Y${alignY} slice`;
-	switch (maskSize) {
-		case 'contain':
-			ratio = `x${alignX}Y${alignY} meet`;
-			break;
-		case 'cover':
-			ratio = `x${alignX}Y${alignY} slice`;
-			break;
-		case 'stretch':
-			ratio = 'none';
-			break;
-	}
-	return (
-		<div className={clsx('kbs-popover-background-select-control-style', className)}>
-			<SVG
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 1920 1200"
-				preserveAspectRatio={ratio}
-				className={'kbs-mask-svg'}
-				style={style}
-			>
-				<Path d={mask?.path} />
-			</SVG>
-		</div>
-	);
-}
-function SidebarPatternRender({ pattern, patternType }) {
-	if (patternType === 'divider') {
+function SidebarMaskRender({ mask, maskType }) {
+	if (maskType === 'divider') {
 		return (
-			<IndicatorDividerRender
-				divider={pattern}
-				dividerPosition={pattern?.dividerPosition}
-				dividerColor={pattern?.patternColor}
+			<InlineDividerRender
+				divider={mask}
+				dividerPosition={mask?.dividerPosition}
+				dividerColor={mask?.maskColor}
 			/>
 		);
-	} else if (patternType === 'pattern') {
+	} else if (maskType === 'pattern') {
 		return (
-			<PopoverPatternRender
-				pattern={pattern}
-				patternColor={pattern?.patternColor}
-				patternBackground={pattern?.backgroundColor}
+			<InlinePatternRender
+				pattern={mask}
+				patternColor={mask?.maskColor}
+				patternBackground={mask?.backgroundColor}
 			/>
 		);
 	}
-	return <PopoverMaskRender mask={pattern} maskColor={pattern?.patternColor} />;
+	return <InlineMaskRender mask={mask} maskColor={mask?.maskColor} />;
 }
-function BackgroundIndicator({ value, type, colorValue, patternType }) {
+function BackgroundIndicator({ value, type, colorValue, maskType }) {
 	const style = {
 		background: type !== 'color' ? colorValue : value,
 	};
@@ -190,8 +99,8 @@ function BackgroundIndicator({ value, type, colorValue, patternType }) {
 					playsInline
 				/>
 			)}
-			{type === 'pattern' && <SidebarPatternRender pattern={value} patternType={patternType} />}
-			{type !== 'color' && type !== 'video' && type !== 'pattern' && type !== 'backdrop' && (
+			{type === 'mask' && <SidebarMaskRender mask={value} maskType={maskType} />}
+			{type !== 'color' && type !== 'video' && type !== 'mask' && type !== 'backdrop' && (
 				<div className="kbs-background-indicator-layer" style={{ backgroundImage: value }}></div>
 			)}
 			{type === 'backdrop' && (
@@ -279,12 +188,13 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 			pattern,
 			type,
 			opacity,
-			patternType,
+			maskType,
 			divider,
 			mask,
 			dividerPosition,
 			backdropFilter,
 			backdropSize,
+			maskInverted,
 		} = useMemo(() => {
 			return {
 				color: getLayerDeviceValue('color', layer, previewDevice),
@@ -297,12 +207,13 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 				pattern: getLayerDeviceValue('pattern', layer, previewDevice),
 				type: getLayerDeviceValue('type', layer, previewDevice) || 'color',
 				opacity: getLayerDeviceValue('opacity', layer, previewDevice),
-				patternType: getLayerDeviceValue('patternType', layer, previewDevice),
+				maskType: getLayerDeviceValue('maskType', layer, previewDevice),
 				divider: getLayerDeviceValue('divider', layer, previewDevice),
 				mask: getLayerDeviceValue('mask', layer, previewDevice),
 				dividerPosition: getLayerDeviceValue('dividerPosition', layer, previewDevice),
 				backdropFilter: getLayerDeviceValue('backdropFilter', layer, previewDevice),
 				backdropSize: getLayerDeviceValue('backdropSize', layer, previewDevice),
+				maskInverted: getLayerDeviceValue('maskInverted', layer, previewDevice),
 			};
 		}, [layer, previewDevice]);
 		const displayValue = useMemo(() => {
@@ -317,20 +228,20 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					return getGradientLabel(gradient, gradients);
 				case 'backdrop':
 					return getBackdropLabel(backdropFilter);
-				case 'pattern':
-					if (patternType === 'divider') {
+				case 'mask':
+					if (maskType === 'divider') {
 						return (
 							getDividerOptions()['horizontal'].find(({ value }) => value === divider)?.label || divider
 						);
 					}
-					if (patternType === 'pattern') {
+					if (maskType === 'pattern') {
 						return getPatternOptions().find(({ value }) => value === pattern)?.label || pattern;
 					}
-					return getMaskOptions().find(({ value }) => value === mask)?.label || mask;
+					return getMaskOptions()['normal'].find(({ value }) => value === mask)?.label || mask;
 				default:
 					return '';
 			}
-		}, [type, color, image, video, videoType, gradient, pattern, patternType, divider, mask, backdropFilter]);
+		}, [type, color, image, video, videoType, gradient, pattern, maskType, divider, mask, backdropFilter]);
 		const previewString = useMemo(() => {
 			switch (type) {
 				case 'color':
@@ -357,22 +268,25 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 						);
 					}
 					return '';
-				case 'pattern':
+				case 'mask':
 					let returnObject = {};
-					if (patternType === 'divider') {
+					if (maskType === 'divider') {
 						returnObject =
 							getDividerOptions()[
 								dividerPosition === 'left' || dividerPosition === 'right' ? 'vertical' : 'horizontal'
 							].find(({ value }) => value === divider) || {};
 						returnObject.dividerPosition = dividerPosition;
-					} else if (patternType === 'pattern') {
+					} else if (maskType === 'pattern') {
 						returnObject = getPatternOptions().find(({ value }) => value === pattern) || {};
 					} else {
-						returnObject = getMaskOptions().find(({ value }) => value === mask) || {};
+						returnObject =
+							getMaskOptions()[maskInverted === 'enabled' ? 'inverted' : 'normal'].find(
+								({ value }) => value === mask
+							) || {};
 					}
 					returnObject.backgroundColor = getColorOutput(color) || 'transparent';
-					returnObject.patternColor =
-						getColorOutput(getLayerDeviceValue('patternColor', layer, previewDevice)) ||
+					returnObject.maskColor =
+						getColorOutput(getLayerDeviceValue('maskColor', layer, previewDevice)) ||
 						getColorOutput('palette3');
 					return returnObject;
 				default:
@@ -388,12 +302,13 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 			youtube,
 			vimeo,
 			pattern,
-			patternType,
+			maskType,
 			dividerPosition,
 			backdropFilter,
 			backdropSize,
 			divider,
 			dividerPosition,
+			maskInverted,
 			mask,
 		]);
 		const typeIcon = useMemo(() => {
@@ -408,18 +323,18 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					return gradientIcon;
 				case 'backdrop':
 					return blurIcon;
-				case 'pattern':
-					if (patternType === 'divider') {
+				case 'mask':
+					if (maskType === 'divider') {
 						return dividerIcon;
 					}
-					if (patternType === 'pattern') {
+					if (maskType === 'pattern') {
 						return patternIcon;
 					}
 					return maskIcon;
 				default:
 					return colorIcon;
 			}
-		}, [type, patternType]);
+		}, [type, maskType]);
 		const toggleProps = {
 			onClick: onToggle,
 			className: clsx('kbs-background-select-button', 'kbs-background-select-control__toggle-button', {
@@ -443,7 +358,7 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 						value={previewString}
 						type={type === 'video' && videoType && videoType !== 'local' ? 'image' : type}
 						colorValue={getColorOutput(color)}
-						patternType={patternType}
+						maskType={maskType}
 					/>
 				</Button>
 				<UnitControl
@@ -548,7 +463,7 @@ function BackgroundDropdownContent({
 			title: __('Video', 'kadence-blocks'),
 		},
 		{
-			name: 'pattern',
+			name: 'mask',
 			icon: maskIcon,
 			title: __('Masks & Patterns', 'kadence-blocks'),
 		},
@@ -628,9 +543,9 @@ function BackgroundDropdownContent({
 									hasHoverControls={true}
 								/>
 							);
-						} else if ('pattern' === tab.name) {
+						} else if ('mask' === tab.name) {
 							return (
-								<BackgroundPatternLayer
+								<BackgroundMaskLayer
 									onChange={handleCustomOnChange}
 									previewDevice={previewDevice}
 									layer={flattenLayer}

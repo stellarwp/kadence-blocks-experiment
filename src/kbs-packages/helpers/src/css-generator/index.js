@@ -8,6 +8,7 @@ import getColorOutput from '../get-color-output';
 import { default as getLayerDeviceValue } from '../get-layer-device-value';
 import { default as getPatternOptions } from '../get-pattern-options';
 import { default as getMaskOptions } from '../get-mask-options';
+import { default as getDividerOptions } from '../get-divider-options';
 import { useMemo } from 'react';
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 
@@ -306,32 +307,34 @@ class CSSGenerator {
 					this.add({ 'background-image': backgroundGradient });
 				}
 				break;
-			case 'pattern':
-				const patternType = getLayerDeviceValue('patternType', layer, props.previewDevice);
-				const patternColor = getLayerDeviceValue('patternColor', layer, props.previewDevice);
+			case 'mask':
+				const maskType = getLayerDeviceValue('maskType', layer, props.previewDevice);
+				const maskColor = getLayerDeviceValue('maskColor', layer, props.previewDevice);
 				if (backgroundColor) {
 					this.add({ 'background-color': getColorOutput(backgroundColor) });
-					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColor) });
+					this.add({ '--kbs-mask-bg': getColorOutput(backgroundColor) });
 				} else {
-					this.add({ '--kbs-pattern-bg': 'transparent' });
+					this.add({ '--kbs-mask-bg': 'transparent' });
 				}
-				if (patternColor) {
-					this.add({ '--kbs-pattern-color': getColorOutput(patternColor) });
+				if (maskColor) {
+					this.add({ '--kbs-mask-color': getColorOutput(maskColor) });
 				} else {
-					this.add({ '--kbs-pattern-color': getColorOutput('palette3') });
+					this.add({ '--kbs-mask-color': getColorOutput('palette3') });
 				}
-				if (patternType !== 'pattern' && patternType !== 'divider') {
+				if (maskType !== 'pattern' && maskType !== 'divider') {
 					const backgroundMask = getLayerDeviceValue('mask', layer, props.previewDevice);
 					const backgroundMaskSize = getLayerDeviceValue('maskSize', layer, props.previewDevice);
 					const maskAlignX = getLayerDeviceValue('alignX', layer, props.previewDevice);
 					const maskAlignY = getLayerDeviceValue('alignY', layer, props.previewDevice);
-					const mask = getMaskOptions().find((mask) => mask.value === backgroundMask);
+					const maskInverted = getLayerDeviceValue('maskInverted', layer, props.previewDevice);
+					const maskSubset = maskInverted === 'enabled' ? 'inverted' : 'normal';
+					const mask = getMaskOptions()[maskSubset].find((mask) => mask.value === backgroundMask);
 					if (mask?.path) {
 						this.setSelector(tempSelector + ' .kbs-pattern-mask-svg');
-						if (patternColor) {
-							this.add({ 'background-color': getColorOutput(patternColor) });
+						if (maskColor) {
+							this.add({ background: getColorOutput(maskColor) });
 						} else {
-							this.add({ 'background-color': getColorOutput('palette3') });
+							this.add({ background: getColorOutput('palette3') });
 						}
 						const ratio = backgroundMaskSize === 'stretch' ? 'none' : 'xMidYMid meet';
 						this.add({
@@ -374,7 +377,40 @@ class CSSGenerator {
 						this.setSelector(tempSelector);
 					}
 				}
-				if (patternType === 'pattern') {
+				if (maskType === 'divider') {
+					const backgroundDivider = getLayerDeviceValue('divider', layer, props.previewDevice);
+					const dividerWidth = getLayerDeviceValue('dividerWidth', layer, props.previewDevice);
+					const dividerHeight = getLayerDeviceValue('dividerHeight', layer, props.previewDevice);
+					const dividerPosition = getLayerDeviceValue('dividerPosition', layer, props.previewDevice);
+					const dividerSide =
+						dividerPosition === 'left' || dividerPosition === 'right' ? 'vertical' : 'horizontal';
+					if (dividerWidth) {
+						this.add({ '--kbs-divider-width': dividerWidth });
+					}
+					if (dividerHeight) {
+						this.add({ '--kbs-divider-height': dividerHeight });
+					}
+					if (backgroundDivider) {
+						const dividerObject =
+							getDividerOptions()[dividerSide].find(({ value }) => value === backgroundDivider) || {};
+						if (dividerObject) {
+							if (dividerObject?.['svg']) {
+								this.setSelector(tempSelector + ' .kbs-divider-svg-wrapper .kbs-divider-svg');
+								if (maskColor) {
+									this.add({ background: getColorOutput(maskColor) });
+								} else {
+									this.add({ background: getColorOutput('palette3') });
+								}
+								this.add({
+									'mask-image': `url("data:image/svg+xml, ${encodeURIComponent(dividerObject['svg'])}")`,
+								});
+								this.add({ 'mask-repeat': 'no-repeat' });
+								this.setSelector(tempSelector);
+							}
+						}
+					}
+				}
+				if (maskType === 'pattern') {
 					const backgroundPattern = getLayerDeviceValue('pattern', layer, props.previewDevice);
 					if (backgroundPattern) {
 						const patternSize = getLayerDeviceValue('patternSize', layer, props.previewDevice);
@@ -389,10 +425,10 @@ class CSSGenerator {
 						if (pattern) {
 							if (pattern?.['svg']) {
 								this.setSelector(tempSelector + ' .kbs-pattern-svg');
-								if (patternColor) {
-									this.add({ 'background-color': getColorOutput(patternColor) });
+								if (maskColor) {
+									this.add({ background: getColorOutput(maskColor) });
 								} else {
-									this.add({ 'background-color': getColorOutput('palette3') });
+									this.add({ background: getColorOutput('palette3') });
 								}
 								this.add({
 									'mask-image': `url("data:image/svg+xml, ${encodeURIComponent(pattern['svg'])}")`,

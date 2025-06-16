@@ -81,7 +81,6 @@ export default function CustomGradientBar({
 	globalStylesCss,
 }) {
 	const gradientMarkersContainerDomRef = useRef();
-
 	const [gradientBarState, gradientBarStateDispatch] = useReducer(
 		customGradientBarReducer,
 		customGradientBarReducerInitialState

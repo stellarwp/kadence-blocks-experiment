@@ -34,23 +34,25 @@ import TitleBar from '../title-bar';
 import './editor.scss';
 import { maskIcon, dividerIcon } from '../constants/icons';
 
-export function PopoverPatternRender({ pattern, className, patternSize, patternColor }) {
+export function InlinePatternRender({ pattern, className, patternSize, patternColor }) {
 	const style = {};
 	if (patternSize) {
 		style['--kbs-pattern-size'] = patternSize;
 	}
 	if (pattern?.['svg']) {
-		style['backgroundColor'] = patternColor ? getColorOutput(patternColor) : getColorOutput('palette3');
+		style['background'] = patternColor ? getColorOutput(patternColor) : getColorOutput('palette3');
 		style['maskImage'] = `url("data:image/svg+xml, ${encodeURIComponent(pattern['svg'])}")`;
 		style['maskRepeat'] = 'repeat';
 		const currentPatternSize = pattern?.['size'];
 		style['maskSize'] = 'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))';
 		style['maskPosition'] = '0 0';
 	}
-	return <div className={clsx('kbs-popover-background-select-control-style', className)} style={style} />;
+	return (
+		<div className={clsx('kbs-popover-background-select-control-style kbs-pattern-svg', className)} style={style} />
+	);
 }
 
-export function PopoverMaskRender({
+export function InlineMaskRender({
 	mask,
 	className,
 	maskColor,
@@ -62,9 +64,9 @@ export function PopoverMaskRender({
 }) {
 	const style = {};
 	if (maskColor) {
-		style['color'] = getColorOutput(maskColor);
+		style['background'] = getColorOutput(maskColor);
 	} else {
-		style['color'] = getColorOutput('palette3');
+		style['background'] = getColorOutput('palette3');
 	}
 	if (maskFlipX === 'enabled') {
 		style['transform'] = `scaleX(-1)`;
@@ -76,47 +78,76 @@ export function PopoverMaskRender({
 			style['transform'] = `scaleY(-1)`;
 		}
 	}
-	let alignX = 'Mid';
-	let alignY = 'Mid';
-	switch (maskAlignX) {
-		case 'min':
-			alignX = 'Min';
-			break;
-		case 'max':
-			alignX = 'Max';
-			break;
-	}
-	switch (maskAlignY) {
-		case 'min':
-			alignY = 'Min';
-			break;
-		case 'max':
-			alignY = 'Max';
-			break;
-	}
-	let ratio = `x${alignX}Y${alignY} slice`;
-	switch (maskSize) {
-		case 'contain':
-			ratio = `x${alignX}Y${alignY} meet`;
-			break;
-		case 'cover':
-			ratio = `x${alignX}Y${alignY} slice`;
-			break;
-		case 'stretch':
-			ratio = 'none';
-			break;
+
+	if (mask?.path) {
+		const ratio = maskSize === 'stretch' ? 'none' : 'xMidYMid meet';
+		style['maskImage'] =
+			`url("data:image/svg+xml, ${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="' + ratio + '" viewBox="0 0 1920 1200" fill="black"><path d="' + mask.path + '" /></svg>')}")`;
+		style['maskRepeat'] = 'no-repeat';
+		if (maskSize == 'contain') {
+			style['maskSize'] = 'contain';
+		} else {
+			style['maskSize'] = 'cover';
+		}
+		let positionY = 'center';
+		let positionX = 'center';
+		if ('min' === maskAlignX) {
+			positionX = 'left';
+		} else if ('max' === maskAlignX) {
+			positionX = 'right';
+		}
+		if ('min' === maskAlignY) {
+			positionY = 'top';
+		} else if ('max' === maskAlignY) {
+			positionY = 'bottom';
+		}
+		style['maskPosition'] = positionX + ' ' + positionY;
 	}
 	return (
-		<div className={clsx('kbs-popover-background-select-control-style', className)}>
-			<SVG
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 1920 1200"
-				preserveAspectRatio={ratio}
-				className={'kbs-mask-svg'}
-				style={style}
+		<div
+			className={clsx('kbs-popover-background-select-control-style kbs-mask-svg', className)}
+			style={style}
+		></div>
+	);
+}
+
+export function InlineDividerRender({
+	divider,
+	className,
+	dividerColor,
+	dividerBackground,
+	dividerWidth,
+	dividerHeight,
+	dividerPosition,
+}) {
+	const style = {};
+	if (dividerWidth) {
+		style['--kbs-divider-width'] = dividerWidth;
+	}
+	if (dividerHeight) {
+		style['--kbs-divider-height'] = dividerHeight;
+	}
+	if (divider?.['svg']) {
+		style['background'] = dividerColor ? getColorOutput(dividerColor) : getColorOutput('palette3');
+		style['maskImage'] = `url("data:image/svg+xml, ${encodeURIComponent(divider['svg'])}")`;
+		style['maskRepeat'] = 'no-repeat';
+	}
+	return (
+		<div
+			className={clsx(
+				'kbs-popover-background-select-control-style',
+				className,
+				dividerPosition ? `divider-position-${dividerPosition}` : ''
+			)}
+		>
+			<div
+				className={clsx(
+					'kbs-divider-svg-wrapper',
+					dividerPosition ? `kbs-divider-position-${dividerPosition}` : ''
+				)}
 			>
-				<Path d={mask?.path} />
-			</SVG>
+				<div className="kbs-divider-svg" style={style} />
+			</div>
 		</div>
 	);
 }
@@ -193,9 +224,9 @@ export function PopoverDropdown({
 							className={`kbs-radio-popover-select-control-button`}
 							onClick={() => handlePatternChange(pattern.value)}
 						>
-							{type === 'pattern' && <PopoverPatternRender pattern={pattern} patternSize={patternSize} />}
-							{type === 'divider' && <PopoverDividerRender divider={pattern} />}
-							{type === 'mask' && <PopoverMaskRender mask={pattern} />}
+							{type === 'pattern' && <InlinePatternRender pattern={pattern} patternSize={patternSize} />}
+							{type === 'divider' && <InlineDividerRender divider={pattern} />}
+							{type === 'mask' && <InlineMaskRender mask={pattern} />}
 						</Button>
 					))}
 				</div>
@@ -212,7 +243,8 @@ export function PopoverToggle({
 	value,
 	patterns,
 	sidePatterns,
-	patternPosition,
+	maskPosition,
+	maskInverted,
 	inherited,
 	type,
 	patternSize,
@@ -241,19 +273,23 @@ export function PopoverToggle({
 		};
 		const currentItem = useMemo(() => {
 			if (value) {
-				if (patternPosition === 'left' || patternPosition === 'right') {
+				if (maskPosition === 'left' || maskPosition === 'right') {
+					return sidePatterns.find((pattern) => pattern.value === value);
+				} else if (maskInverted === 'enabled') {
 					return sidePatterns.find((pattern) => pattern.value === value);
 				}
 				return patterns.find((pattern) => pattern.value === value);
 			}
 			if (inherited) {
-				if (patternPosition === 'left' || patternPosition === 'right') {
+				if (maskPosition === 'left' || maskPosition === 'right') {
+					return sidePatterns.find((pattern) => pattern.value === inherited);
+				} else if (maskInverted === 'enabled') {
 					return sidePatterns.find((pattern) => pattern.value === inherited);
 				}
 				return patterns.find((pattern) => pattern.value === inherited);
 			}
 			return {};
-		}, [inherited, value, patternPosition]);
+		}, [inherited, value, maskPosition, maskInverted]);
 		const icon = useMemo(() => {
 			if (type === 'color') {
 				return colorIcon;
@@ -301,7 +337,7 @@ export function PopoverToggle({
 						style={{ background: getColorOutput(patternBackground) }}
 					>
 						{type === 'pattern' && (
-							<PopoverPatternRender
+							<InlinePatternRender
 								patternSize={patternSize}
 								patternColor={patternColor}
 								patternBackground={patternBackground}
@@ -309,15 +345,16 @@ export function PopoverToggle({
 							/>
 						)}
 						{type === 'divider' && (
-							<PopoverDividerRender
+							<InlineDividerRender
 								dividerColor={patternColor}
 								divider={currentItem}
 								dividerWidth={dividerWidth}
 								dividerHeight={dividerHeight}
+								dividerPosition={maskPosition}
 							/>
 						)}
 						{type === 'mask' && (
-							<PopoverMaskRender
+							<InlineMaskRender
 								maskColor={patternColor}
 								mask={currentItem}
 								maskAlignX={layer?.alignX}
@@ -349,10 +386,11 @@ export default function PopoverSelect({
 	patternBackground = undefined,
 	inherited = undefined,
 	patternSize = undefined,
-	patternPosition = undefined,
+	maskPosition = undefined,
 	dividerWidth = undefined,
 	dividerHeight = undefined,
 	layer = undefined,
+	maskInverted = undefined,
 }) {
 	const popoverProps = {
 		placement: 'left-start',
@@ -369,7 +407,7 @@ export default function PopoverSelect({
 	};
 	const classes = clsx('kbs-popover-background-select-control__dropdown-content', globalClasses, {
 		[`kbs-popover-select-type-${type}`]: type,
-		[`kbs-popover-select-position-${patternPosition}`]: patternPosition,
+		[`kbs-popover-select-position-${maskPosition}`]: maskPosition,
 	});
 	return (
 		<div className={`components-base-control kbs-control kbs-popover-background-select-control`}>
@@ -380,14 +418,14 @@ export default function PopoverSelect({
 					className={clsx('kbs-popover-background-select-control__dropdown', {
 						'has-pattern-value': value || inherited,
 						[`kbs-popover-select-type-${type}`]: type,
-						[`kbs-popover-select-position-${patternPosition}`]: patternPosition,
+						[`kbs-popover-select-position-${maskPosition}`]: maskPosition,
 					})}
 					contentClassName={classes}
 					renderToggle={PopoverToggle({
 						value: value,
 						patterns: patterns,
 						sidePatterns: sidePatterns,
-						patternPosition: patternPosition,
+						maskPosition: maskPosition,
 						type: type,
 						inherited: inherited,
 						patternColor: patternColor,
@@ -396,11 +434,12 @@ export default function PopoverSelect({
 						dividerWidth: dividerWidth,
 						dividerHeight: dividerHeight,
 						layer: layer,
+						maskInverted: maskInverted,
 					})}
 					renderContent={PopoverDropdown({
 						patterns: patterns,
 						sidePatterns: sidePatterns,
-						patternPosition: patternPosition,
+						maskPosition: maskPosition,
 						value: value,
 						onChange: onChange,
 						previewDevice: previewDevice,

@@ -47,7 +47,7 @@ import TitleBar from '../title-bar';
 import PopoverSelect from './popover-select';
 import SelectBasicControlSelect from '../select-basic-control/select';
 
-export default function BackgroundPatternLayer({
+export default function BackgroundMaskLayer({
 	previewDevice = 'desktop',
 	layer,
 	onChange,
@@ -62,7 +62,7 @@ export default function BackgroundPatternLayer({
 		onChange(
 			[undefined, undefined, undefined, undefined, undefined, undefined, undefined],
 			'Desktop' === previewDevice ? 'all' : previewDevice,
-			['pattern', 'patternSize', 'patternColor', 'hoverPatternColor', 'hoverPatternSize', 'color', 'hoverColor']
+			['pattern', 'patternSize', 'maskColor', 'hoverMaskColor', 'hoverPatternSize', 'color', 'hoverColor']
 		);
 	};
 	const onResetMask = () => {
@@ -76,7 +76,7 @@ export default function BackgroundPatternLayer({
 		onChange(
 			[undefined, undefined, undefined, undefined, undefined, undefined, undefined],
 			'Desktop' === previewDevice ? 'all' : previewDevice,
-			['divider', 'dividerSize', 'dividerColor', 'hoverDividerColor', 'hoverDividerSize', 'color', 'hoverColor']
+			['divider', 'dividerSize', 'maskColor', 'hoverMaskColor', 'hoverDividerSize', 'color', 'hoverColor']
 		);
 	};
 	const patterns = getPatternOptions();
@@ -102,25 +102,25 @@ export default function BackgroundPatternLayer({
 					}}
 					patterns={patterns}
 					patternSize={layer?.patternSize}
-					patternColor={layer?.patternColor}
+					patternColor={layer?.maskColor}
 					patternBackground={layer?.color}
 				/>
 				{hasPattern && (
 					<>
 						<ColorSelect
 							label={__('Pattern Color', 'kadence-blocks')}
-							value={isHover ? layer?.hoverPatternColor : layer?.patternColor}
+							value={isHover ? layer?.hoverMaskColor : layer?.maskColor}
 							onChange={(value) => {
 								if (isHover) {
-									onChange(value, previewDevice, 'hoverPatternColor');
+									onChange(value, previewDevice, 'hoverMaskColor');
 								} else {
-									onChange(value, previewDevice, 'patternColor');
+									onChange(value, previewDevice, 'maskColor');
 								}
 							}}
-							type={isHover ? 'hoverPatternColor' : 'patternColor'}
+							type={isHover ? 'hoverMaskColor' : 'maskColor'}
 							inherited={
 								isHover
-									? { inheritedValue: layer?.patternColor ? layer?.patternColor : 'palette3' }
+									? { inheritedValue: layer?.maskColor ? layer?.maskColor : 'palette3' }
 									: { inheritedValue: 'palette3' }
 							}
 							previewDevice={previewDevice}
@@ -205,33 +205,36 @@ export default function BackgroundPatternLayer({
 					onChange={(value) => {
 						onChange(value, 'Desktop', 'mask');
 					}}
-					patterns={masks}
-					patternColor={layer?.patternColor}
+					patterns={masks.normal}
+					sidePatterns={masks.inverted}
+					patternColor={layer?.maskColor}
 					patternBackground={layer?.color}
 					layer={layer}
+					maskInverted={layer?.maskInverted}
 				/>
 				{hasMask && (
 					<>
 						<ColorSelect
 							label={__('Mask Color', 'kadence-blocks')}
-							value={isHover ? layer?.hoverPatternColor : layer?.patternColor}
+							value={isHover ? layer?.hoverMaskColor : layer?.maskColor}
 							onChange={(value) => {
 								if (isHover) {
-									onChange(value, previewDevice, 'hoverPatternColor');
+									onChange(value, previewDevice, 'hoverMaskColor');
 								} else {
-									onChange(value, previewDevice, 'patternColor');
+									onChange(value, previewDevice, 'maskColor');
 								}
 							}}
-							type={isHover ? 'hoverPatternColor' : 'patternColor'}
+							type={isHover ? 'hoverMaskColor' : 'maskColor'}
 							inherited={
 								isHover
-									? { inheritedValue: layer?.patternColor ? layer?.patternColor : 'palette3' }
+									? { inheritedValue: layer?.maskColor ? layer?.maskColor : 'palette3' }
 									: { inheritedValue: 'palette3' }
 							}
 							previewDevice={previewDevice}
 							globalClasses={globalClasses}
 							globalStylesCss={globalStylesCss}
 							hasMix={true}
+							hasGradient={true}
 							isHover={isHover}
 						/>
 						<RadioButtonSelect
@@ -294,6 +297,15 @@ export default function BackgroundPatternLayer({
 								}}
 							/>
 						</div>
+						<ToggleControl
+							className="kbs-toggle-control"
+							__next40pxDefaultSize
+							label={__('Invert Mask', 'kadence-blocks')}
+							checked={'enabled' === layer?.maskInverted ? true : false}
+							onChange={(value) => {
+								onChange(value ? 'enabled' : 'disabled', previewDevice, 'maskInverted');
+							}}
+						/>
 					</>
 				)}
 			</div>
@@ -319,9 +331,9 @@ export default function BackgroundPatternLayer({
 					}}
 					patterns={dividers.horizontal}
 					sidePatterns={dividers.vertical}
-					patternColor={layer?.patternColor}
+					patternColor={layer?.maskColor}
 					patternBackground={layer?.color}
-					patternPosition={layer?.dividerPosition || 'bottom'}
+					maskPosition={layer?.dividerPosition || 'bottom'}
 					dividerWidth={layer?.dividerWidth}
 					dividerHeight={layer?.dividerHeight}
 				/>
@@ -329,23 +341,24 @@ export default function BackgroundPatternLayer({
 					<>
 						<ColorSelect
 							label={__('Divider Color', 'kadence-blocks')}
-							value={isHover ? layer?.hoverPatternColor : layer?.patternColor}
+							value={isHover ? layer?.hoverMaskColor : layer?.maskColor}
 							onChange={(value) => {
 								if (isHover) {
-									onChange(value, previewDevice, 'hoverPatternColor');
+									onChange(value, previewDevice, 'hoverMaskColor');
 								} else {
-									onChange(value, previewDevice, 'patternColor');
+									onChange(value, previewDevice, 'maskColor');
 								}
 							}}
-							type={isHover ? 'hoverPatternColor' : 'patternColor'}
+							type={isHover ? 'hoverMaskColor' : 'maskColor'}
 							inherited={
 								isHover
-									? { inheritedValue: layer?.patternColor ? layer?.patternColor : 'palette3' }
+									? { inheritedValue: layer?.maskColor ? layer?.maskColor : 'palette3' }
 									: { inheritedValue: 'palette3' }
 							}
 							previewDevice={previewDevice}
 							globalClasses={globalClasses}
 							hasMix={true}
+							hasGradient={true}
 							isHover={isHover}
 						/>
 						<RadioButtonSelect
@@ -520,13 +533,13 @@ export default function BackgroundPatternLayer({
 	return (
 		<div className={`kbs-background-layer-pattern-control`}>
 			<TabPanel
-				initialTabName={layer?.patternType}
+				initialTabName={layer?.maskType}
 				className="kbs-video-select-tabs kbs-color-select-tabs kbs-responsive-locked"
 				activeClass="is-active"
 				tabs={defaultTabs}
 				onSelect={(tabName) => {
-					if (tabName !== layer?.patternType) {
-						onChange(tabName, 'Desktop', 'patternType');
+					if (tabName !== layer?.maskType) {
+						onChange(tabName, 'Desktop', 'maskType');
 					}
 				}}
 			>
