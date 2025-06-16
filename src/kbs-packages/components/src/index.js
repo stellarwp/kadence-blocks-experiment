@@ -19,6 +19,7 @@ export { default as InspectorControlTabs } from './inspector-control-tabs';
 export { default as BackgroundControl } from './background-control';
 export { default as ImageControl } from './image-control';
 export { default as ColorControl } from './color-control';
+export { default as ColorSelect } from './color-control/color-select';
 export { default as BackgroundStyles } from './background-styles';
 export { default as DynamicTextControl } from './dynamic-text-control';
 export { default as TextControl } from './text-control';

@@ -1,0 +1,328 @@
+import { colord, extend } from 'colord';
+import mixPlugin from 'colord/plugins/mix';
+import a11yPlugin from 'colord/plugins/a11y';
+import harmoniesPlugin from 'colord/plugins/harmonies';
+
+import { __ } from '@wordpress/i18n';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect, useState } from '@wordpress/element';
+import { Button, Dropdown, ColorIndicator, SVG, Path } from '@wordpress/components';
+import { plus } from '@wordpress/icons';
+
+import { BLOCK_COMPONENTS, BackgroundPresetRender, TextControl, ColorSelect } from '@kadence/kbsComponents';
+import { getColorOptions, getColorOutput } from '@kadence/kbsHelpers';
+
+export const colorIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+		<Path d="M7.5 15.6c-.494 0-.9.406-.9.9s.406.9.9.9.9-.406.9-.9-.406-.9-.9-.9M18.354 12l1.107-1.107a2.71 2.71 0 0 0 0-3.816l-2.547-2.538a2.71 2.71 0 0 0-3.816 0L12 5.646A2.71 2.71 0 0 0 9.3 3H5.7A2.713 2.713 0 0 0 3 5.7v12.599c0 1.481 1.219 2.7 2.7 2.7h12.599c1.481 0 2.7-1.219 2.7-2.7v-3.6a2.71 2.71 0 0 0-2.646-2.7zM10.2 18.3c0 .494-.406.9-.9.9H5.7a.904.904 0 0 1-.9-.9V5.701c0-.494.406-.9.9-.9h3.6c.494 0 .9.406.9.9zM12 8.184l2.376-2.376a.905.905 0 0 1 1.269 0L18.192 8.4a.905.905 0 0 1 0 1.269L15.6 12.261 12 15.816zM19.2 18.3c0 .494-.406.9-.9.9h-6.462a2.8 2.8 0 0 0 .153-.828l4.572-4.572H18.3c.494 0 .9.406.9.9z" />
+	</SVG>
+);
+extend([harmoniesPlugin]);
+extend([a11yPlugin]);
+extend([mixPlugin]);
+
+export default function GlobalPaletteCreator() {
+	const [customPalette, setCustomPalette] = useState(
+		defaultValue || {
+			mainColor: '',
+			isLight: true,
+			contrast: 'middle',
+			saturation: 1,
+			darkness: 0,
+			btnColor: '#ffffff',
+			colors: [],
+		}
+	);
+	const [readable, setReadable] = useState('');
+	useEffect(() => {
+		if (!customPalette.mainColor) {
+			const newPalette = {
+				...customPalette,
+				colors: [],
+			};
+			setCustomPalette(newPalette);
+			setPalette(newPalette);
+			return;
+		}
+		const mainColor = colord(customPalette.mainColor);
+		let darkenA = 0.2;
+		let darkenB = 0.1;
+		let lightenA = 0.3;
+		let lightenB = 0.4;
+		let isReadable = '';
+		if (customPalette.isLight && !colord(customPalette.mainColor).isReadable()) {
+			isReadable = __(
+				'This color may be hard for people to read on light backgrounds. Consider making it darker.',
+				'kadence-starter-templates'
+			);
+		}
+		if (!customPalette.isLight && !colord(customPalette.mainColor).isReadable('#000000')) {
+			isReadable = __(
+				'This color may be hard for people to read on dark backgrounds. Consider making it brighter.',
+				'kadence-starter-templates'
+			);
+		}
+		let accentColor2 = customPalette.mainColor;
+		let contrastColor1 = mainColor.darken(darkenA).mix('#222222', 0.8).toHex();
+		let contrastColor2 = mainColor.darken(darkenA).mix('#353535', 0.8).toHex();
+		let contrastColor3 = mainColor.darken(darkenB).mix('#454545', 0.8).toHex();
+		let contrastColor4 = mainColor.mix('#676767', 0.8).toHex();
+		let backgroundColor1 = mainColor.lighten(lightenA).mix('#eeeeee', 0.9).toHex();
+		let backgroundColor2 = mainColor.lighten(lightenB).mix('#f7f7f7', 0.9).toHex();
+		let backgroundColor3 = '#ffffff';
+		let btnColor = '#ffffff';
+		if (mainColor.isLight()) {
+			btnColor = '#000000';
+			accentColor2 = mainColor.lighten(0.1).toHex();
+			contrastColor1 = mainColor.darken(0.5).mix('#222222', 0.8).toHex();
+			contrastColor2 = mainColor.darken(0.5).mix('#353535', 0.8).toHex();
+			contrastColor3 = mainColor.darken(0.3).mix('#454545', 0.8).toHex();
+			contrastColor4 = mainColor.darken(0.3).mix('#676767', 0.8).toHex();
+			backgroundColor1 = mainColor.lighten(0.1).mix('#eeeeee', 0.9).toHex();
+			backgroundColor2 = mainColor.lighten(0.1).mix('#f7f7f7', 0.9).toHex();
+		} else {
+			accentColor2 = mainColor.darken(0.1).toHex();
+		}
+		if (!customPalette.isLight) {
+			contrastColor1 = '#ffffff';
+			contrastColor2 = mainColor.lighten(0.2).mix('#f7f7f7', 0.9).toHex();
+			contrastColor3 = mainColor.lighten(0.1).mix('#eeeeee', 0.9).toHex();
+			contrastColor4 = mainColor.lighten(0.1).mix('#cccccc', 0.9).toHex();
+			backgroundColor1 = mainColor.darken(0.3).mix('#111111', 0.8).toHex();
+			backgroundColor2 = mainColor.darken(0.3).mix('#222222', 0.8).toHex();
+			backgroundColor3 = mainColor.darken(0.3).mix('#353535', 0.8).toHex();
+		}
+		if (customPalette.saturation === 3) {
+			contrastColor1 = colord(contrastColor1)
+				.saturate(customPalette.isLight ? 0.2 : 0.2)
+				.toHex();
+			contrastColor2 = colord(contrastColor2)
+				.saturate(customPalette.isLight ? 0.25 : 0.2)
+				.toHex();
+			contrastColor3 = colord(contrastColor3)
+				.saturate(customPalette.isLight ? 0.25 : 0.2)
+				.toHex();
+			contrastColor4 = colord(contrastColor4)
+				.saturate(customPalette.isLight ? 0.3 : 0.2)
+				.toHex();
+			backgroundColor1 = colord(backgroundColor1)
+				.saturate(customPalette.isLight ? 0.25 : 0.2)
+				.toHex();
+			backgroundColor2 = colord(backgroundColor2)
+				.saturate(customPalette.isLight ? 0.35 : 0.2)
+				.toHex();
+			if (!customPalette.isLight) {
+				backgroundColor3 = colord(backgroundColor3).saturate(0.1).toHex();
+			} else {
+				backgroundColor3 = colord(mainColor).lighten(0.5).mix('#fcfcfc', 0.8).toHex();
+			}
+		}
+		if (customPalette.saturation === 2 && customPalette.isLight) {
+			contrastColor1 = colord(contrastColor1).saturate(0.1).toHex();
+			contrastColor2 = colord(contrastColor2).saturate(0.1).toHex();
+			contrastColor3 = colord(contrastColor3).saturate(0.1).toHex();
+			contrastColor4 = colord(contrastColor4).saturate(0.15).toHex();
+			backgroundColor1 = colord(backgroundColor1).saturate(0.15).toHex();
+			backgroundColor2 = colord(backgroundColor2).saturate(0.25).toHex();
+			backgroundColor3 = colord(mainColor).lighten(0.5).mix('#fcfcfc', 0.9).toHex();
+		}
+		if (customPalette.saturation === 1) {
+			contrastColor1 = colord(contrastColor1).desaturate(0.1).toHex();
+			contrastColor2 = colord(contrastColor2).desaturate(0.05).toHex();
+			contrastColor3 = colord(contrastColor3).desaturate(0.05).toHex();
+			contrastColor4 = colord(contrastColor4).desaturate(0.05).toHex();
+			backgroundColor1 = colord(backgroundColor1).desaturate(0.05).toHex();
+			backgroundColor2 = colord(backgroundColor2).desaturate(0.05).toHex();
+			if (!customPalette.isLight) {
+				backgroundColor3 = colord(backgroundColor3).desaturate(0.1).toHex();
+			}
+		}
+		if (customPalette.saturation === 0) {
+			contrastColor1 = colord(contrastColor1).desaturate(0.5).toHex();
+			contrastColor2 = colord(contrastColor2).desaturate(0.5).toHex();
+			contrastColor3 = colord(contrastColor3).desaturate(0.5).toHex();
+			contrastColor4 = colord(contrastColor4).desaturate(0.5).toHex();
+			backgroundColor1 = colord(backgroundColor1).desaturate(0.5).toHex();
+			backgroundColor2 = colord(backgroundColor2).desaturate(0.5).toHex();
+			if (!customPalette.isLight) {
+				backgroundColor3 = colord(backgroundColor3).desaturate(0.5).toHex();
+			}
+		}
+		if (!customPalette.isLight && customPalette.darkness === 1) {
+			backgroundColor1 = colord(backgroundColor1).darken(0.02).toHex();
+			backgroundColor2 = colord(backgroundColor2).darken(0.02).toHex();
+			backgroundColor3 = colord(backgroundColor3).darken(0.04).toHex();
+		}
+		if (!customPalette.isLight && customPalette.darkness === 2) {
+			backgroundColor1 = colord(backgroundColor1).darken(0.04).toHex();
+			backgroundColor2 = colord(backgroundColor2).darken(0.04).toHex();
+			backgroundColor3 = colord(backgroundColor3).darken(0.08).toHex();
+		}
+
+		const newPalette = {
+			...customPalette,
+			btnColor: btnColor,
+			colors: [
+				customPalette.mainColor,
+				accentColor2,
+				contrastColor1,
+				contrastColor2,
+				contrastColor3,
+				contrastColor4,
+				backgroundColor1,
+				backgroundColor2,
+				backgroundColor3,
+			],
+		};
+		setCustomPalette(newPalette);
+		setReadable(isReadable);
+		setPalette(newPalette);
+	}, [customPalette.mainColor, customPalette.isLight, customPalette.saturation, customPalette.darkness]);
+	return (
+		<div className="kbs-global-palette-creator">
+			<ColorSelect
+				label={__('Highlight Color', 'kadence-starter-templates')}
+				value={customPalette?.mainColor ? customPalette.mainColor : ''}
+				default={''}
+				alpha={false}
+				onChange={(value) => {
+					const newPalette = {
+						...customPalette,
+						mainColor: value,
+					};
+					setCustomPalette(newPalette);
+				}}
+				colorPalette={[
+					{ color: '#AA4F77' },
+					{ color: '#474e2b' },
+					{ color: '#0b63a9' },
+					{ color: '#C04A30' },
+					{ color: '#373475' },
+					{ color: '#256D59' },
+					{ color: '#A12C65' },
+					{ color: '#2351ff' },
+					{ color: '#c21c27' },
+				]}
+			/>
+			{readable && <div className="tcw-color-palette_warning components-notice is-warning">{readable}</div>}
+			<div className="tcw-custom-palette-wrap">
+				<div className="tcw-palette">
+					{customPalette?.colors && (
+						<>
+							{customPalette.colors.map((color, index) => {
+								return <ColorIndicator colorValue={color} />;
+							})}
+						</>
+					)}
+				</div>
+			</div>
+			{customPalette?.mainColor && (
+				<>
+					<div className="components-base-control kadence-radio-button-control">
+						<label className="components-base-control-label kadence-radio-button-control-label">
+							{__('Background Style', 'kadence-starter-templates')}
+						</label>
+						<ButtonGroup aria-label={__('Background Mode')}>
+							{['light', 'dark'].map((mode) => {
+								let variant = mode === 'light' && customPalette.isLight ? 'primary' : undefined;
+								variant = mode === 'dark' && !customPalette.isLight ? 'primary' : variant;
+								let label =
+									mode === 'light'
+										? __('Light', 'kadence-starter-templates')
+										: __('Dark', 'kadence-starter-templates');
+								return (
+									<Button
+										key={mode}
+										variant={variant}
+										size="small"
+										onClick={() => {
+											if (mode === 'light') {
+												const newPalette = {
+													...customPalette,
+													isLight: true,
+												};
+												setCustomPalette(newPalette);
+											} else {
+												const newPalette = {
+													...customPalette,
+													isLight: false,
+												};
+												setCustomPalette(newPalette);
+											}
+										}}
+									>
+										{label}
+									</Button>
+								);
+							})}
+						</ButtonGroup>
+					</div>
+					<div className="components-base-control kadence-radio-button-control">
+						<label className="components-base-control-label kadence-radio-button-control-label">
+							{__('Background Saturation', 'kadence-starter-templates')}
+						</label>
+						<ButtonGroup
+							className="components-base-control-flex-fit"
+							aria-label={__('Background Vibrancy')}
+						>
+							{[0, 1, 2, 3].map((mode) => {
+								return (
+									<Button
+										key={mode}
+										size="small"
+										variant={mode === customPalette.saturation ? 'primary' : undefined}
+										onClick={() => {
+											const newPalette = {
+												...customPalette,
+												saturation: mode,
+											};
+											setCustomPalette(newPalette);
+										}}
+									>
+										{mode}
+									</Button>
+								);
+							})}
+						</ButtonGroup>
+					</div>
+					{!customPalette.isLight && (
+						<div className="components-base-control kadence-radio-button-control">
+							<label className="components-base-control-label kadence-radio-button-control-label">
+								{__('Background Brightness', 'kadence-starter-templates')}
+							</label>
+							<ButtonGroup
+								className="components-base-control-flex-fit"
+								aria-label={__('Background Vibrancy')}
+							>
+								{[0, 1, 2].map((mode) => {
+									let label = __('Dark', 'kadence-starter-templates');
+									if (mode === 1) {
+										label = __('Darker', 'kadence-starter-templates');
+									} else if (mode === 2) {
+										label = __('Darkest', 'kadence-starter-templates');
+									}
+									return (
+										<Button
+											key={mode}
+											size="small"
+											variant={mode === customPalette.darkness ? 'primary' : undefined}
+											onClick={() => {
+												const newPalette = {
+													...customPalette,
+													darkness: mode,
+												};
+												setCustomPalette(newPalette);
+											}}
+										>
+											{label}
+										</Button>
+									);
+								})}
+							</ButtonGroup>
+						</div>
+					)}
+				</>
+			)}
+		</div>
+	);
+}

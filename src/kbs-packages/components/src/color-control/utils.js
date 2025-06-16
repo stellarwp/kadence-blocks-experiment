@@ -64,12 +64,12 @@ export const getColorHex = (value, ref) => {
 	if (!value) {
 		return '';
 	}
-	if (value.startsWith('palette')) {
+	if (value.startsWith('palette' && ref?.current)) {
 		const color = getColorOutput(value);
 		return window
 			.getComputedStyle(ref.current)
 			.getPropertyValue(color.replace('var(', '').split(',')[0].replace(')', ''));
-	} else if (value.startsWith('var(')) {
+	} else if (value.startsWith('var(') && ref?.current) {
 		return window
 			.getComputedStyle(ref.current)
 			.getPropertyValue(value.replace('var(', '').split(',')[0].replace(')', ''));

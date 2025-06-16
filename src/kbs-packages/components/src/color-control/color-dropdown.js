@@ -45,6 +45,7 @@ function ColorDropdownContent({
 	globalStylesCss,
 	onToggle,
 	isOpen,
+	hasPalette,
 }) {
 	const handleColorChange = (color) => {
 		onChange(color, previewDevice, type);
@@ -69,6 +70,7 @@ function ColorDropdownContent({
 				hasGradient={hasGradient}
 				hasMix={hasMix}
 				globalStylesCss={globalStylesCss}
+				hasPalette={hasPalette}
 			/>
 			<div className="kbs-color-select-control__dropdown-content-close">
 				<Button __next40pxDefaultSize onClick={onToggle}>
@@ -88,6 +90,7 @@ export default function ColorDropdown({
 	hasGradient,
 	hasMix,
 	globalStylesCss,
+	hasPalette,
 }) {
 	return ({ onToggle, isOpen }) => {
 		return (
@@ -103,6 +106,7 @@ export default function ColorDropdown({
 				globalStylesCss={globalStylesCss}
 				onToggle={onToggle}
 				isOpen={isOpen}
+				hasPalette={hasPalette}
 			/>
 		);
 	};

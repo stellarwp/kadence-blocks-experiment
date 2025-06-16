@@ -11,10 +11,10 @@ import ColorStorybook from './color-storybook';
 import GradientPicker from '../gradient-control';
 import ColorMix from './color-mix';
 import { hoverIcon } from '../constants/icons';
-const getInitialTabName = (currentValue, inherited, hasGradient, hasMix) => {
+const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasPalette = true) => {
 	const tempValue = currentValue ? currentValue : inherited?.inheritedValue ? inherited.inheritedValue : '';
 	if (!tempValue) {
-		return 'storybook';
+		return hasPalette ? 'storybook' : 'custom';
 	}
 	if (
 		hasGradient &&
@@ -30,7 +30,7 @@ const getInitialTabName = (currentValue, inherited, hasGradient, hasMix) => {
 	if (tempValue.startsWith('#')) {
 		return 'custom';
 	}
-	return 'storybook';
+	return hasPalette ? 'storybook' : 'custom';
 };
 const ColorSelector = ({
 	handleColorChange,
@@ -44,6 +44,7 @@ const ColorSelector = ({
 	isHover = false,
 	onToggleHover,
 	globalStylesCss,
+	hasPalette = true,
 }) => {
 	const presetButtonRef = useRef(undefined);
 	const defaultTabs = useMemo(() => {
@@ -57,6 +58,9 @@ const ColorSelector = ({
 				title: __('Custom', 'kadence-blocks'),
 			},
 		];
+		if (!hasPalette) {
+			tempTabs.splice(0, 1);
+		}
 		if (hasGradient) {
 			tempTabs.push({ name: 'gradient', title: __('Gradient', 'kadence-blocks') });
 		}
@@ -65,7 +69,7 @@ const ColorSelector = ({
 		}
 		return tempTabs;
 	}, [hasGradient, hasMix]);
-	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix);
+	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasPalette);
 	return (
 		<div className="kbs-color-selector-tab-wrapper">
 			<TabPanel

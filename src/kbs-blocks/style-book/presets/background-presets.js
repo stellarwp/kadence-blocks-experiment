@@ -39,8 +39,10 @@ export default function BackgroundPresets(props) {
 	};
 	return (
 		<div className="kbs-background-presets kbs-preset-control kbs-control">
-			<div className="kbs-background-presets-header">
-				<h3 className="kbs-background-presets-header-title">{__('Background Presets', 'kadence-blocks')}</h3>
+			<div className="kbs-storybook-section-header kbs-background-presets-header">
+				<h3 className="kbs-storybook-header-title kbs-background-presets-header-title">
+					{__('Background Presets', 'kadence-blocks')}
+				</h3>
 				{globalStyleId === 'kbs-base' && (
 					<Dropdown
 						popoverProps={{

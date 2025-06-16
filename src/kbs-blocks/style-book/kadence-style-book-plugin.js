@@ -25,7 +25,7 @@ import * as BlockIcons from '@kadence/icons';
 import ComponentPresetControl from './component-preset-control';
 import ComponentMappingControl from './component-mapping-control';
 import BackgroundPresets from './presets/background-presets';
-import PresetTitleBar from './presets/preset-title-bar';
+import GlobalColors from './colors/global-colors';
 import Styles from './editing/styles';
 
 import { uniqueId } from 'lodash';
@@ -486,7 +486,19 @@ function KadenceConfig() {
 			case 'all':
 				return (
 					<div className="kbs-style-book-all">
-						{colorComponentPreviewContent}
+						<GlobalColors
+							setNeedsSave={(value) => {
+								setNeedsSave(value);
+							}}
+							setSelectedComponent={setSelectedComponent}
+							globalStyleId={currentGlobalStyleId}
+							currentPreset={currentPreset}
+							previewDevice={previewDevice}
+							globalStylesCss={globalStylesCss}
+							startNewPreset={startNewPreset}
+							newPresetName={newPresetName}
+							setNewPresetName={setNewPresetName}
+						/>
 						{typographyComponentPreviewContent}
 					</div>
 				);
@@ -565,7 +577,7 @@ function KadenceConfig() {
 						<TabPanel
 							className="kbs-style-book-tabs"
 							activeClass="is-active"
-							initialTabName="presets"
+							initialTabName="all"
 							tabs={tabs}
 							onSelect={(tabName) => {
 								setSelectedTab(tabName);

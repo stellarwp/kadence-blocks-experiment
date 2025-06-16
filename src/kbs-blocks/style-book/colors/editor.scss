@@ -1,0 +1,60 @@
+.kbs-color-mapping-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+	padding: 0px;
+	background: transparent;
+	border-radius: 2px;
+	margin-bottom: 12px;
+	.kbs-color-select-control__dropdown-category-title {
+		margin: 0 0 6px;
+		font-size: 1em;
+	}
+	.kbs-color-select-control__dropdown-category-palette-inner {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		.components-button.kbs-radio-preset-control-button {
+			padding: 0px;
+			height: auto;
+			background: white;
+			padding: 4px;
+			border: 1px solid #eee;
+			.component-color-indicator {
+				border-radius: 0;
+				width: 120px;
+				height: 45px;
+			}
+			.kbs-style-book-color-indicator-wrapper {
+				display: flex;
+				flex-direction: column;
+				text-align: center;
+				gap: 3px;
+				.kbs-style-book-color-indicator-label {
+					font-size: 0.8em;
+				}
+			}
+			&:hover {
+				border: 1px solid #777;
+			}
+		}
+		.components-base-control.kbs-control.kbs-color-control {
+			display: flex;
+			flex-direction: column-reverse;
+			.kbs-color-select-control__dropdown .kbs-color-select-control__toggle-button {
+				height: auto;
+				padding: 6px;
+				.component-color-indicator {
+					width: 120px;
+					height: 45px;
+				}
+			}
+			.kbs-control-title-bar .kbs-control-title-bar-inner {
+				justify-content: center;
+				.kbs-control-title {
+					letter-spacing: -0.6px;
+				}
+			}
+		}
+	}
+}

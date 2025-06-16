@@ -48,7 +48,9 @@ export default function ColorSelect({
 	isHover = false,
 	hasGradient = false,
 	hasMix = false,
+	hasPalette = true,
 	globalStylesCss,
+	hasToggleLabel = true,
 }) {
 	const popoverProps = {
 		placement: 'left-end',
@@ -90,6 +92,7 @@ export default function ColorSelect({
 						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
 						colors: globalColors,
 						gradients: globalGradients,
+						hasToggleLabel: hasToggleLabel,
 					})}
 					renderContent={ColorDropdown({
 						colors: globalColors,
@@ -101,6 +104,7 @@ export default function ColorSelect({
 						hasGradient: hasGradient,
 						hasMix: hasMix,
 						globalStylesCss: globalStylesCss,
+						hasPalette: hasPalette,
 					})}
 				/>
 			</div>
