@@ -255,7 +255,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 			if ( $core_style == 'base' ) {
 				$sanitized_global_style = Global_Style::save_base_palette( $sanitized_global_style );
 			}
-			$result = Global_Style::save_options( $data, $core_style );
+			$result = Global_Style::save_options( $sanitized_global_style, $core_style );
 		} else {
 			$sanitized_global_style = $this->sanitize_global_style( $data );
 			$post_arr               = [

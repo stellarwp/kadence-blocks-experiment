@@ -58,3 +58,14 @@
 		}
 	}
 }
+.kbs-global-palette-creator {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	.kbs-color-palette_warning {
+		margin: 0;
+	}
+	.kbs-custom-palette-wrap {
+		display: flex;
+	}
+}

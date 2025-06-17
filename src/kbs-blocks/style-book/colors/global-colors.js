@@ -49,6 +49,18 @@ export default function GlobalColors(props) {
 		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', colorKey, colorValue);
 		setNeedsSave(true);
 	};
+	const setStyleBookColorPalette = (colorPalette) => {
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette1', colorPalette.colors?.[0]);
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette2', colorPalette.colors?.[1]);
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette3', colorPalette.colors?.[2]);
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette4', colorPalette.colors?.[3]);
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette5', colorPalette.colors?.[4]);
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette6', colorPalette.colors?.[5]);
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette7', colorPalette.colors?.[6]);
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette8', colorPalette.colors?.[7]);
+		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette9', colorPalette.colors?.[8]);
+		setNeedsSave(true);
+	};
 	const meta = {
 		attributes: {
 			background: {
@@ -93,10 +105,7 @@ export default function GlobalColors(props) {
 							<h2 className="kbs-popover-add-global-style-content-title">
 								{__('Edit Color Palette', 'kadence-blocks')}
 							</h2>
-							<GlobalPaletteCreator />
-							<Button __next40pxDefaultSize onClick={onToggle}>
-								{__('Cancel', 'kadence-blocks')}
-							</Button>
+							<GlobalPaletteCreator onToggle={onToggle} setStyleBookColorPalette={setStyleBookColorPalette} />
 						</div>
 					)}
 				/>

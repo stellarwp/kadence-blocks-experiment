@@ -198,8 +198,8 @@ class Global_Style {
 			$active = 'palette';
 		}
 		$update_palette = false;
-		if ( isset( $global_style['components']['colors'] ) && is_array( $global_style['components']['colors'] ) ) {
-			foreach ( $global_style['components']['colors'] as $key => $value ) {
+		if ( isset( $global_style['mappings']['colors'] ) && is_array( $global_style['mappings']['colors'] ) ) {
+			foreach ( $global_style['mappings']['colors'] as $key => $value ) {
 				if ( $key === 'palette1' && ! empty( $value['value'] ) ) {
 					$global_palette[$active][0]['color'] = $value['value'];
 					$update_palette = true;

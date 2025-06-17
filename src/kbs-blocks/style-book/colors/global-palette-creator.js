@@ -6,10 +6,10 @@ import harmoniesPlugin from 'colord/plugins/harmonies';
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
-import { Button, Dropdown, ColorIndicator, SVG, Path } from '@wordpress/components';
+import { Button, Dropdown, ColorIndicator, SVG, Path, ButtonGroup } from '@wordpress/components';
 import { plus } from '@wordpress/icons';
 
-import { BLOCK_COMPONENTS, BackgroundPresetRender, TextControl, ColorSelect } from '@kadence/kbsComponents';
+import { BLOCK_COMPONENTS, BackgroundPresetRender, TextControl, ColorSelect, RadioToggleGroupButtonUI } from '@kadence/kbsComponents';
 import { getColorOptions, getColorOutput } from '@kadence/kbsHelpers';
 
 export const colorIcon = (
@@ -21,7 +21,7 @@ extend([harmoniesPlugin]);
 extend([a11yPlugin]);
 extend([mixPlugin]);
 
-export default function GlobalPaletteCreator() {
+export default function GlobalPaletteCreator( { defaultValue, onToggle, setStyleBookColorPalette } ) {
 	const [customPalette, setCustomPalette] = useState(
 		defaultValue || {
 			mainColor: '',
@@ -41,7 +41,6 @@ export default function GlobalPaletteCreator() {
 				colors: [],
 			};
 			setCustomPalette(newPalette);
-			setPalette(newPalette);
 			return;
 		}
 		const mainColor = colord(customPalette.mainColor);
@@ -176,15 +175,12 @@ export default function GlobalPaletteCreator() {
 		};
 		setCustomPalette(newPalette);
 		setReadable(isReadable);
-		setPalette(newPalette);
 	}, [customPalette.mainColor, customPalette.isLight, customPalette.saturation, customPalette.darkness]);
 	return (
 		<div className="kbs-global-palette-creator">
 			<ColorSelect
 				label={__('Highlight Color', 'kadence-starter-templates')}
 				value={customPalette?.mainColor ? customPalette.mainColor : ''}
-				default={''}
-				alpha={false}
 				onChange={(value) => {
 					const newPalette = {
 						...customPalette,
@@ -192,6 +188,8 @@ export default function GlobalPaletteCreator() {
 					};
 					setCustomPalette(newPalette);
 				}}
+				hasMix={false}
+				hasPalette={false}
 				colorPalette={[
 					{ color: '#AA4F77' },
 					{ color: '#474e2b' },
@@ -204,9 +202,9 @@ export default function GlobalPaletteCreator() {
 					{ color: '#c21c27' },
 				]}
 			/>
-			{readable && <div className="tcw-color-palette_warning components-notice is-warning">{readable}</div>}
-			<div className="tcw-custom-palette-wrap">
-				<div className="tcw-palette">
+			{readable && <div className="kbs-color-palette_warning components-notice is-warning">{readable}</div>}
+			<div className="kbs-custom-palette-wrap">
+				<div className="kbs-palette">
 					{customPalette?.colors && (
 						<>
 							{customPalette.colors.map((color, index) => {
@@ -218,111 +216,111 @@ export default function GlobalPaletteCreator() {
 			</div>
 			{customPalette?.mainColor && (
 				<>
-					<div className="components-base-control kadence-radio-button-control">
-						<label className="components-base-control-label kadence-radio-button-control-label">
+					<div className="components-base-control kbs-control kbs-radio-control">
+						<div className="components-base-control-label kbs-control-label">
 							{__('Background Style', 'kadence-starter-templates')}
-						</label>
-						<ButtonGroup aria-label={__('Background Mode')}>
-							{['light', 'dark'].map((mode) => {
-								let variant = mode === 'light' && customPalette.isLight ? 'primary' : undefined;
-								variant = mode === 'dark' && !customPalette.isLight ? 'primary' : variant;
-								let label =
-									mode === 'light'
-										? __('Light', 'kadence-starter-templates')
-										: __('Dark', 'kadence-starter-templates');
-								return (
-									<Button
-										key={mode}
-										variant={variant}
-										size="small"
-										onClick={() => {
-											if (mode === 'light') {
-												const newPalette = {
-													...customPalette,
-													isLight: true,
-												};
-												setCustomPalette(newPalette);
-											} else {
-												const newPalette = {
-													...customPalette,
-													isLight: false,
-												};
-												setCustomPalette(newPalette);
-											}
-										}}
-									>
-										{label}
-									</Button>
-								);
-							})}
-						</ButtonGroup>
+						</div>
+						<div className="kbs-control-inner">
+						<RadioToggleGroupButtonUI
+							value={customPalette.isLight ? 'light' : 'dark'}
+							onChange={(value) => {
+								setCustomPalette({ ...customPalette, isLight: value === 'light' });
+							}}
+							controls={[
+								{
+									title: __('Light', 'kadence-blocks'),
+									name: __('Light', 'kadence-blocks'),
+									key: 'light',
+								},
+								{
+									title: __('Dark', 'kadence-blocks'),
+									name: __('Dark', 'kadence-blocks'),
+									key: 'dark',
+								},
+							]}
+						/>
+						</div>
 					</div>
-					<div className="components-base-control kadence-radio-button-control">
-						<label className="components-base-control-label kadence-radio-button-control-label">
+					<div className="components-base-control kbs-control kbs-radio-control">
+						<div className="components-base-control-label kbs-control-label">
 							{__('Background Saturation', 'kadence-starter-templates')}
-						</label>
-						<ButtonGroup
-							className="components-base-control-flex-fit"
-							aria-label={__('Background Vibrancy')}
-						>
-							{[0, 1, 2, 3].map((mode) => {
-								return (
-									<Button
-										key={mode}
-										size="small"
-										variant={mode === customPalette.saturation ? 'primary' : undefined}
-										onClick={() => {
-											const newPalette = {
-												...customPalette,
-												saturation: mode,
-											};
-											setCustomPalette(newPalette);
-										}}
-									>
-										{mode}
-									</Button>
-								);
-							})}
-						</ButtonGroup>
+						</div>
+						<div className="kbs-control-inner">
+						<RadioToggleGroupButtonUI
+							value={customPalette.saturation}
+							onChange={(value) => {
+								setCustomPalette({ ...customPalette, saturation: value });
+							}}
+							controls={[
+								{
+									title: __('Low', 'kadence-blocks'),
+									name: '0',
+									key: 0,
+								},
+								{
+									title: __('Light', 'kadence-blocks'),
+									name: '1',
+									key: 1,
+								},
+								{
+									title: __('Medium', 'kadence-blocks'),
+									name: '2',
+									key: 2,
+								},
+								{
+									title: __('High', 'kadence-blocks'),
+									name: '3',
+									key: 3,
+								},
+							]}
+						/>
+						</div>
 					</div>
 					{!customPalette.isLight && (
-						<div className="components-base-control kadence-radio-button-control">
-							<label className="components-base-control-label kadence-radio-button-control-label">
-								{__('Background Brightness', 'kadence-starter-templates')}
-							</label>
-							<ButtonGroup
-								className="components-base-control-flex-fit"
-								aria-label={__('Background Vibrancy')}
-							>
-								{[0, 1, 2].map((mode) => {
-									let label = __('Dark', 'kadence-starter-templates');
-									if (mode === 1) {
-										label = __('Darker', 'kadence-starter-templates');
-									} else if (mode === 2) {
-										label = __('Darkest', 'kadence-starter-templates');
-									}
-									return (
-										<Button
-											key={mode}
-											size="small"
-											variant={mode === customPalette.darkness ? 'primary' : undefined}
-											onClick={() => {
-												const newPalette = {
-													...customPalette,
-													darkness: mode,
-												};
-												setCustomPalette(newPalette);
-											}}
-										>
-											{label}
-										</Button>
-									);
-								})}
-							</ButtonGroup>
+						<div className="components-base-control kbs-control kbs-radio-control">
+						<div className="components-base-control-label kbs-control-label">
+							{__('Background Brightness', 'kadence-starter-templates')}
+						</div>
+						<div className="kbs-control-inner">
+							<RadioToggleGroupButtonUI
+							value={customPalette.darkness}
+							onChange={(value) => {
+								setCustomPalette({ ...customPalette, darkness: value });
+							}}
+							controls={[
+								{
+									title: __('Dark', 'kadence-blocks'),
+									name: __('Dark', 'kadence-blocks'),
+									key: 0,
+								},
+								{
+									title: __('Darker', 'kadence-blocks'),
+									name: __('Darker', 'kadence-blocks'),
+									key: 1,
+								},
+								{
+									title: __('Darkest', 'kadence-blocks'),
+									name: __('Darkest', 'kadence-blocks'),
+									key: 2,
+								},
+							]}
+						/>
+						</div>
 						</div>
 					)}
 				</>
 			)}
+			<div className="kbs-palette-controls-btns-wrap">
+				<Button __next40pxDefaultSize variant="primary" disabled={!customPalette?.mainColor} onClick={() => {
+					setStyleBookColorPalette(customPalette);
+					onToggle();
+				}}>
+					{__('Apply Palette', 'kadence-blocks')}
+				</Button>
+				<Button __next40pxDefaultSize onClick={onToggle}>
+					{__('Cancel', 'kadence-blocks')}
+				</Button>
+			</div>
 		</div>
 	);
 }
