@@ -25,6 +25,22 @@ $editor-control-sidebar-width: 300px;
 	width: 100%;
 	max-height: 90%;
 	height: 100%;
+	.components-modal__content {
+		margin-top: 0;
+		//padding: 32px;
+	}
+	.components-modal__header {
+		display: none;
+	}
+	.kbs-style-book-header {
+		padding: 24px 32px 8px;
+		display: flex;
+	}
+}
+.kbs-style-book-style-guide {
+	display: grid;
+	grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+	gap: 54px;
 }
 
 .kbs-style-book-preview-heading {

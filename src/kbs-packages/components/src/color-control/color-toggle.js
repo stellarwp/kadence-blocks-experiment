@@ -27,6 +27,7 @@ import {
 	getDeviceValue,
 	getInheritedDeviceValue,
 	handleAttributeChange,
+	getGlobalColorOutput,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import ColorSelector from './color-selector';
@@ -66,6 +67,9 @@ export default function ColorToggle({
 		}, [inherited, currentValue]);
 		const previewColorString = useMemo(() => {
 			if (displayValue) {
+				if (useGlobalPalette) {
+					return getGlobalColorOutput(displayValue);
+				}
 				return getColorOutput(displayValue);
 			}
 			return '';

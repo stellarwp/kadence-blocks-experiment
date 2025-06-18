@@ -56,7 +56,7 @@
 							{
 								"desktop": {
 									"type": "gradient",
-									"gradient": "var(--kbs-gradients-gradient4)"
+									"gradient": "var(--kbs-gradients-gradient5)"
 								}
 							}
 						]
@@ -247,85 +247,85 @@
 				"label": "Accent",
 				"value": "var(--global-palette1)",
 				"locked": true,
-				"category": "Accent"
+				"category": "accent"
 			},
 			"palette2": {
 				"label": "Accent - alt",
 				"value": "var(--global-palette2)",
 				"locked": true,
-				"category": "Accent"
+				"category": "accent"
 			},
 			"palette3": {
 				"label": "Strongest Contrast",
 				"value": "var(--global-palette3)",
 				"locked": true,
-				"category": "Contrast"
+				"category": "contrast"
 			},
 			"palette4": {
 				"label": "Strong Contrast",
 				"value": "var(--global-palette4)",
 				"locked": true,
-				"category": "Contrast"
+				"category": "contrast"
 			},
 			"palette5": {
 				"label": "Medium Contrast",
 				"value": "var(--global-palette5)",
 				"locked": true,
-				"category": "Contrast"
+				"category": "contrast"
 			},
 			"palette6": {
 				"label": "Subtle Contrast",
 				"value": "var(--global-palette6)",
 				"locked": true,
-				"category": "Contrast"
+				"category": "contrast"
 			},
 			"palette7": {
 				"label": "Variant Background",
 				"value": "var(--global-palette7)",
 				"locked": true,
-				"category": "Background"
+				"category": "background"
 			},
 			"palette8": {
 				"label": "Subtle Background",
 				"value": "var(--global-palette8)",
 				"locked": true,
-				"category": "Background"
+				"category": "background"
 			},
 			"palette9": {
 				"label": "Base Background",
 				"value": "var(--global-palette9)",
 				"locked": true,
-				"category": "Background"
+				"category": "background"
 			},
 			"palette-success": {
 				"label": "Success",
 				"value": "#13612e",
 				"locked": true,
-				"category": "Notices & Feedback"
+				"category": "notices"
 			},
 			"palette-info": {
 				"label": "Info",
 				"value": "#1159af",
 				"locked": true,
-				"category": "Notices & Feedback"
+				"category": "notices"
 			},
 			"palette-alert": {
 				"label": "Alert",
 				"value": "#b82105",
 				"locked": true,
-				"category": "Notices & Feedback"
+				"category": "notices"
 			},
 			"palette-warning": {
 				"label": "Warning",
 				"value": "#f7630c",
 				"locked": true,
-				"category": "Notices & Feedback"
+				"category": "notices"
 			},
 			"palette-rating": {
 				"label": "Rating",
 				"value": "#f5a524",
 				"locked": true,
-				"category": "Notices & Feedback"
+				"category": "notices"
 			}
 		}
 	}

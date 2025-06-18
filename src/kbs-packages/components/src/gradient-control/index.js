@@ -312,7 +312,7 @@ export default function GradientPicker({
 	const globalGradients = getGradientOptions();
 	const globalColors = getColorOptions();
 	const currentGradient = useMemo(
-		() => (value.startsWith('var(') ? getGradientComputedValue(value, containerRef, globalColors) : value),
+		() => (value && value.startsWith('var(') ? getGradientComputedValue(value, containerRef, globalColors) : value),
 		[value, containerRef, globalColors]
 	);
 	const gradientAST = getGradientAstWithDefault(currentGradient);

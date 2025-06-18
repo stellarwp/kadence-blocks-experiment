@@ -15,9 +15,22 @@ const ColorStorybook = ({ onChange, colors, currentValue }) => {
 		return acc;
 	}, {});
 	const paletteDropdown = Object.entries(colorsByCategory).map(([category, colors]) => {
+		let categoryLabel = category;
+		if (category === 'background') {
+			categoryLabel = __('Background', 'kadence-blocks');
+		}
+		if (category === 'notices') {
+			categoryLabel = __('Notices & Feedback', 'kadence-blocks');
+		}
+		if (category === 'accent') {
+			categoryLabel = __('Accent', 'kadence-blocks');
+		}
+		if (category === 'contrast') {
+			categoryLabel = __('Contrast', 'kadence-blocks');
+		}
 		return (
 			<div key={category} className="kbs-color-select-control__dropdown-category-inner">
-				<h2 className="kbs-color-select-control__dropdown-category-title">{category}</h2>
+				<h2 className="kbs-color-select-control__dropdown-category-title">{categoryLabel}</h2>
 				<div className="kbs-color-select-control__dropdown-category-palette-inner">
 					{colors.map(({ color, slug, name }) => {
 						const palette = slug.replace('theme-', '');

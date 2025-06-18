@@ -13,7 +13,7 @@ import {
 	MenuItem,
 	Dropdown,
 } from '@wordpress/components';
-import { plus, moreVertical } from '@wordpress/icons';
+import { plus, moreVertical, close } from '@wordpress/icons';
 import { applyFilters } from '@wordpress/hooks';
 import { useSelect, useDispatch } from '@wordpress/data';
 
@@ -26,6 +26,7 @@ import ComponentPresetControl from './component-preset-control';
 import ComponentMappingControl from './component-mapping-control';
 import BackgroundPresets from './presets/background-presets';
 import GlobalColors from './colors/global-colors';
+import Preview from './preview';
 import Styles from './editing/styles';
 
 import { uniqueId } from 'lodash';
@@ -41,7 +42,7 @@ function KadenceConfig() {
 		applyFilters('kadence.block_sidebar_control_icon', BlockIcons.kadenceNewIcon)
 	);
 	const [isKadenceStyleBookOpened, setIsKadenceStyleBookOpened] = useState(false);
-	const [selectedTab, setSelectedTab] = useState('all');
+	const [selectedTab, setSelectedTab] = useState('style-guide');
 	const [selectedComponent, setSelectedComponent] = useState('');
 	const [newGlobalStyleName, setNewGlobalStyleName] = useState('');
 	const [newPresetName, setNewPresetName] = useState('');
@@ -77,12 +78,12 @@ function KadenceConfig() {
 		},
 		{
 			name: 'presets',
-			title: __('Presets', 'kadence-blocks'),
+			title: __('Components', 'kadence-blocks'),
 			className: 'kadence-style-book-tab-presets',
 		},
 		{
 			name: 'component-settings',
-			title: __('Mappings', 'kadence-blocks'),
+			title: __('Settings', 'kadence-blocks'),
 			className: 'kadence-style-book-tab-component-settings',
 		},
 	];
@@ -131,7 +132,7 @@ function KadenceConfig() {
 			components: { [selectedComponent]: { selectedPreset: '' } },
 		});
 		setStyleBookAttributes({ globalStyleIds: ['kbs-base'] });
-		setSelectedTab('all');
+		setSelectedTab('style-guide');
 		setSelectedComponent('');
 		setNeedsSave(true);
 	};
@@ -340,23 +341,6 @@ function KadenceConfig() {
 		);
 	};
 
-	const colorComponentPreviewContent = (
-		<div className="kbs-style-book-component-preview-container">
-			<h2 className={'kbs-style-book-preview-heading'}>{__('Color Palette', 'kadence-blocks')}</h2>
-			<div className="kbs-style-book-component-preview">
-				<div
-					className="kbs-style-book-preview-element kbs-color-preview"
-					onClick={() => {
-						setSelectedComponent('color');
-					}}
-					role="button"
-				>
-					this would be a color pallete
-				</div>
-			</div>
-		</div>
-	);
-
 	const typographyComponentPreviewContent = (
 		<div className="kbs-style-book-component-preview-container">
 			<h2 className={'kbs-style-book-preview-heading'}>{__('Typography', 'kadence-blocks')}</h2>
@@ -499,11 +483,9 @@ function KadenceConfig() {
 							newPresetName={newPresetName}
 							setNewPresetName={setNewPresetName}
 						/>
-						{typographyComponentPreviewContent}
 					</div>
 				);
 			case 'presets':
-				const component = 'typography';
 				return (
 					<>
 						<BackgroundPresets
@@ -566,7 +548,7 @@ function KadenceConfig() {
 		<>
 			{isKadenceStyleBookOpened && (
 				<Modal
-					title={__('Style Book', 'kadence-blocks')}
+					title=""
 					onRequestClose={() => {
 						setIsKadenceStyleBookOpened(false);
 					}}
@@ -574,7 +556,35 @@ function KadenceConfig() {
 					overlayClassName="kbs-style-book-modal-overlay"
 				>
 					<div className="kbs-style-book-content" ref={modalRef}>
-						<TabPanel
+						<div className="kbs-style-book-header">
+							<h1 className="kbs-style-book-title">{__('Style Book', 'kadence-blocks')}</h1>
+							<div className="kbs-style-book-header-actions">
+								<Button
+									className="kbs-storybook-subtab-btn"
+									isPressed={selectedTab === 'style-guide'}
+									onClick={() => setSelectedTab('style-guide')}
+								>
+									{__('Style Guide', 'kadence-blocks')}
+								</Button>
+								<Button
+									className="kbs-storybook-subtab-btn"
+									isPressed={selectedTab === 'design-system'}
+									onClick={() => setSelectedTab('design-system')}
+								>
+									{__('Design System', 'kadence-blocks')}
+								</Button>
+							</div>
+							<div className="kbs-style-book-header-close">
+								<Button
+									onClick={() => {
+										setIsKadenceStyleBookOpened(false);
+									}}
+									icon={close}
+									label={__('Close', 'kadence-blocks')}
+								/>
+							</div>
+						</div>
+						{/* <TabPanel
 							className="kbs-style-book-tabs"
 							activeClass="is-active"
 							initialTabName="all"
@@ -585,9 +595,36 @@ function KadenceConfig() {
 							}}
 						>
 							{(tab) => renderTabContent(tab)}
-						</TabPanel>
+						</TabPanel> */}
+						{selectedTab == 'style-guide' && (
+							<div className="kbs-style-book-style-guide">
+								<div className="kbs-style-book-style-guide-left">
+									<GlobalColors
+										setNeedsSave={(value) => {
+											setNeedsSave(value);
+										}}
+										setSelectedComponent={setSelectedComponent}
+										globalStyleId={currentGlobalStyleId}
+										currentPreset={currentPreset}
+										previewDevice={previewDevice}
+										globalStylesCss={globalStylesCss}
+										startNewPreset={startNewPreset}
+										newPresetName={newPresetName}
+										setNewPresetName={setNewPresetName}
+									/>
+								</div>
+								<div className="kbs-style-book-style-guide-right">
+									<Preview
+										globalStyleId={currentGlobalStyleId}
+										isOpen={isKadenceStyleBookOpened}
+										subTab="colors"
+										styleBookLocalGlobalStyles={styleBookLocalGlobalStyles}
+									/>
+								</div>
+							</div>
+						)}
 					</div>
-					<div className="kbs-style-book-footer">
+					{/* <div className="kbs-style-book-footer">
 						<Button
 							variant="secondary"
 							onClick={() => {
@@ -598,7 +635,7 @@ function KadenceConfig() {
 						>
 							{__('Close', 'kadence-blocks')}
 						</Button>
-					</div>
+					</div> */}
 					<Styles
 						previewDevice={previewDevice}
 						styleBookAttributes={styleBookAttributes}

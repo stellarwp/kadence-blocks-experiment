@@ -1,95 +1,61 @@
-.kbs-color-mapping-wrap {
-	display: grid;
-	grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-	gap: 54px;
-	.kbs-color-example-inner {
-		background: var(--kbs-colors-palette9);
-		padding: 24px;
-		border-radius: 8px;
-		border: 8px solid #ededed;
-		display: flex;
-		flex-direction: column;
-		gap: 44px;
-		height: 100%;
-	}
-	.kbs-color-example-hero {
-		display: grid;
-		grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-		gap: 24px;
-		align-items: center;
-		h2.kbs-color-example-hero-title {
-			color: var(--kbs-colors-palette3);
-			font-size: 36px;
-			font-weight: bold;
-			line-height: 1.2;
-			margin: 0 0 12px;
-		}
-		p.kbs-color-example-hero-description {
-			font-size: 16px;
-			line-height: 1.6;
-			margin: 0;
-			color: var(--kbs-colors-palette4);
-		}
-	}
-	.kbs-color-example-content-inner {
-		display: flex;
-		gap: 24px;
-		.kbs-color-example-content-item {
-			padding: 24px;
-			background: var(--kbs-colors-palette7);
-			border-radius: 8px;
-			color: var(--kbs-colors-palette5);
-			.kbs-color-example-content-item-color-title {
-				font-size: 18px;
-				font-weight: bold;
-				margin: 0 0 12px;
-				color: var(--kbs-colors-palette4);
-			}
-			.kbs-color-example-content-item-color-description {
-				margin: 0;
-				color: var(--kbs-colors-palette5);
-			}
-		}
-
-		.kbs-color-example-content-item-2 {
-			background: var(--kbs-colors-palette8);
-		}
-	}
-}
 .kbs-color-mapping-grid {
 	display: grid;
-	grid-template-columns: repeat(1, minmax(0, 1fr));
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) 100px;
 	gap: 12px;
+	border-radius: 4px;
+	margin-bottom: 12px;
 	padding: 0px;
 	background: transparent;
-	border-radius: 2px;
-	margin-bottom: 12px;
+	min-height: 400px;
 	.kbs-color-select-control__dropdown-category-title {
 		margin: 0 0 6px;
 		font-size: 1em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.kbs-color-select-control__dropdown-category-inner {
+		display: flex;
+		flex-direction: column;
 	}
 	.kbs-color-select-global-palette-inner {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 12px;
+		height: 100%;
 		.components-base-control.kbs-control.kbs-color-control {
 			display: flex;
 			flex-direction: column-reverse;
 			flex-grow: 1;
+			background: #fff;
+			border-radius: 4px;
+			width: 100%;
+			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+			.kbs-control-inner {
+				flex-grow: 1;
+			}
+			.kbs-control-title {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 			.kbs-color-select-control__dropdown {
 				padding: 0px;
 				background: transparent;
+				height: 100%;
 				.kbs-color-select-control__toggle-button {
-					height: auto;
+					height: 100%;
 					padding: 0px;
 					.component-color-indicator {
 						width: 100%;
-						height: 40px;
+						height: 100%;
+						border-bottom-left-radius: 0px;
+						border-bottom-right-radius: 0px;
 					}
 				}
 			}
 			.kbs-control-title-bar {
-				margin: 6px 0 0;
+				margin: 6px 0;
 				.kbs-control-title-bar-inner {
 					justify-content: center;
 				}
@@ -97,8 +63,19 @@
 		}
 	}
 }
+.kbs-color-mapping-grid
+	.kbs-color-category-contrast
+	.components-base-control.kbs-control.kbs-color-control:nth-child(3) {
+	flex: 0 1 calc(50% - 6px);
+}
+.kbs-color-mapping-grid
+	.kbs-color-category-contrast
+	.components-base-control.kbs-control.kbs-color-control:nth-child(4) {
+	flex: 0 1 calc(50% - 6px);
+}
 .kbs-gradient-mapping-grid.kbs-color-mapping-grid {
 	padding-top: 12px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	.kbs-color-select-global-palette-inner .components-base-control.kbs-control.kbs-color-control {
 		min-width: 34%;
 		.kbs-color-select-control__dropdown {
@@ -197,8 +174,8 @@
 	}
 	.components-button.kbs-prebuilt-palettes-close {
 		position: absolute;
-		top: 0;
-		right: 0;
+		top: 5px;
+		right: 5px;
 		z-index: 1;
 	}
 }

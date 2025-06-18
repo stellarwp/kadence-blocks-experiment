@@ -1,0 +1,180 @@
+.kbs-stylebook-preview-wrap {
+	.kbs-color-example-shrink {
+		transform: scale(0.5);
+		transform-origin: top left;
+	}
+	.kbs-color-example-inner {
+		background: var(--kbs-colors-palette9);
+		padding: 24px 54px;
+		border-radius: 8px;
+		border: 1px solid #ededed;
+		display: flex;
+		flex-direction: column;
+		gap: 44px;
+		height: auto;
+		width: 200%;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+	}
+	.kbs-example-logo {
+		max-width: 40px;
+		color: var(--kbs-colors-palette3);
+	}
+	.kbs-color-example-header-inner {
+		display: flex;
+		align-items: center;
+		.kbs-color-example-header-logo {
+			flex-grow: 1;
+		}
+		.kbs-color-example-header-nav {
+			display: flex;
+			gap: 12px;
+			color: var(--kbs-colors-palette4);
+		}
+	}
+	.kbs-color-example-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+		gap: 24px;
+		align-items: center;
+		h2.kbs-color-example-hero-title {
+			color: var(--kbs-colors-palette3);
+			font-size: 36px;
+			font-weight: bold;
+			line-height: 1.2;
+			margin: 0 0 24px;
+		}
+		.kbs-color-example-hero-description {
+			font-size: 16px;
+			line-height: 1.6;
+			margin: 0 0 24px;
+			color: var(--kbs-colors-palette4);
+		}
+	}
+	.kbs-color-example-content-inner {
+		display: flex;
+		gap: 24px;
+		.kbs-color-example-content-item {
+			padding: 24px;
+			background: var(--kbs-colors-palette8);
+			border-radius: 8px;
+			color: var(--kbs-colors-palette5);
+			.kbs-color-example-content-item-color-title {
+				font-size: 20px;
+				font-weight: bold;
+				margin: 0 0 12px;
+				color: var(--kbs-colors-palette4);
+			}
+			.kbs-color-example-content-item-color-description {
+				margin: 0;
+				color: var(--kbs-colors-palette5);
+				font-size: 16px;
+				line-height: 1.6;
+			}
+		}
+	}
+	.kbs-color-example-cta {
+		margin-left: -54px;
+		margin-right: -54px;
+		background: var(--kbs-colors-palette7);
+		padding: 84px 54px;
+		.kbs-color-example-cta-inner {
+			max-width: 600px;
+			margin: 0 auto;
+			text-align: center;
+			.kbs-color-example-cta-title {
+				font-size: 36px;
+				margin: 0 0 24px;
+				font-weight: bold;
+				line-height: 1.2;
+				color: var(--kbs-colors-palette3);
+			}
+			.kbs-color-example-cta-description {
+				margin: 0 0 24px;
+				font-size: 16px;
+				line-height: 1.6;
+				color: var(--kbs-colors-palette4);
+			}
+			.kbs-color-example-buttons {
+				justify-content: center;
+			}
+		}
+	}
+	.kbs-color-example-buttons {
+		display: flex;
+		gap: 12px;
+	}
+	.kbs-example-hero1 {
+		font-size: 36px;
+		margin: 0 0 24px;
+		font-weight: bold;
+		line-height: 1.2;
+		color: var(--kbs-colors-palette3);
+	}
+	.kbs-example-hero2 {
+		color: var(--kbs-colors-palette3);
+		font-size: 36px;
+		font-weight: bold;
+		line-height: 1.2;
+		margin: 0 0 24px;
+	}
+	.kbs-example-hero4 {
+		font-size: 20px;
+		font-weight: bold;
+		margin: 0 0 12px;
+		color: var(--kbs-colors-palette4);
+	}
+	.kbs-color-example-btn {
+		font-style: normal;
+		font-size: 16px;
+		line-height: 1.4;
+		border-radius: 4px;
+		padding: 0.8em 1.5em 0.8em 1.5em;
+		display: inline-flex;
+		cursor: pointer;
+		background: var(--kbs-colors-btn-bg, var(--kbs-colors-palette1));
+		color: var(--kbs-colors-btn, var(--kbs-colors-palette9));
+		border: var(--kbs-colors-btn-border, 1px solid var(--kbs-colors-palette1));
+	}
+	.kbs-color-btns-hero-secondary {
+		background: var(--kbs-colors-btn-secondary-bg, transparent);
+		color: var(--kbs-colors-btn-secondary, var(--kbs-colors-palette3));
+		border: var(--kbs-colors-btn-secondary-border, 1px solid var(--kbs-colors-palette3));
+	}
+	.kbs-color-example-posts-inner {
+		.kbs-color-example-cta-description {
+			margin: 0 0 24px;
+			font-size: 16px;
+			line-height: 1.6;
+			color: var(--kbs-colors-palette4);
+		}
+		margin-bottom: 24px;
+		.kbs-color-example-post-excerpt {
+			margin: 0;
+			color: var(--kbs-colors-palette5);
+			font-size: 16px;
+			line-height: 1.6;
+		}
+	}
+	.kbs-color-example-posts-column-wrap {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 24px;
+	}
+	.kbs-color-example-cta.kbs-color-example-cta-footer {
+		margin-bottom: -24px;
+		background: var(--kbs-colors-palette7);
+		.kbs-color-example-cta-inner {
+			display: flex;
+			gap: 24px;
+			max-width: none;
+			align-items: center;
+			text-align: left;
+			.kbs-color-example-cta-inner-inner {
+				flex: 1;
+				.kbs-color-example-cta-description {
+					margin: 0;
+				}
+			}
+		}
+	}
+}
