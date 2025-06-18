@@ -47,12 +47,16 @@ export default function ColorSelect({
 	globalClasses = [],
 	isHover = false,
 	hasGradient = false,
+	hasGradientPalette = true,
 	hasMix = false,
 	hasPalette = true,
 	globalStylesCss,
 	hasToggleLabel = true,
+	popoverProps = {},
+	useGlobalPalette = false,
+	hasCustomColors = true,
 }) {
-	const popoverProps = {
+	const defaultPopoverProps = {
 		placement: 'left-end',
 		//offset: 36,
 		shift: true,
@@ -84,7 +88,7 @@ export default function ColorSelect({
 			/>
 			<div className="kbs-control-inner">
 				<Dropdown
-					popoverProps={popoverProps}
+					popoverProps={{ ...defaultPopoverProps, ...popoverProps }}
 					className="kbs-color-select-control__dropdown"
 					contentClassName={classes}
 					renderToggle={ColorToggle({
@@ -93,6 +97,7 @@ export default function ColorSelect({
 						colors: globalColors,
 						gradients: globalGradients,
 						hasToggleLabel: hasToggleLabel,
+						useGlobalPalette: useGlobalPalette,
 					})}
 					renderContent={ColorDropdown({
 						colors: globalColors,
@@ -105,6 +110,8 @@ export default function ColorSelect({
 						hasMix: hasMix,
 						globalStylesCss: globalStylesCss,
 						hasPalette: hasPalette,
+						hasGradientPalette: hasGradientPalette,
+						hasCustomColors: hasCustomColors,
 					})}
 				/>
 			</div>

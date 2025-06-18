@@ -45,6 +45,8 @@ const ColorSelector = ({
 	onToggleHover,
 	globalStylesCss,
 	hasPalette = true,
+	hasCustomColors = true,
+	hasGradientPalette = true,
 }) => {
 	const presetButtonRef = useRef(undefined);
 	const defaultTabs = useMemo(() => {
@@ -60,6 +62,11 @@ const ColorSelector = ({
 		];
 		if (!hasPalette) {
 			tempTabs.splice(0, 1);
+			if (!hasCustomColors) {
+				tempTabs.splice(0, 1);
+			}
+		} else if (!hasCustomColors) {
+			tempTabs.splice(1, 1);
 		}
 		if (hasGradient) {
 			tempTabs.push({ name: 'gradient', title: __('Gradient', 'kadence-blocks') });
@@ -69,12 +76,12 @@ const ColorSelector = ({
 		}
 		return tempTabs;
 	}, [hasGradient, hasMix]);
-	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasPalette);
+	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasPalette, hasCustomColors);
 	return (
 		<div className="kbs-color-selector-tab-wrapper">
 			<TabPanel
 				ref={presetButtonRef}
-				initialTabName={initialTabName}
+				initialTabName={defaultTabs.length === 1 ? defaultTabs[0].name : initialTabName}
 				className="kbs-color-select-tabs"
 				activeClass="is-active"
 				tabs={defaultTabs}
@@ -98,6 +105,7 @@ const ColorSelector = ({
 									globalClasses={globalClasses}
 									containerRef={presetButtonRef}
 									globalStylesCss={globalStylesCss}
+									hasGradientPalette={hasGradientPalette}
 								/>
 							);
 						} else if ('mix' === tab.name) {

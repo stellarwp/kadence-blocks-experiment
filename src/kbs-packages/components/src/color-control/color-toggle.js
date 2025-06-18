@@ -32,7 +32,14 @@ import TitleBar from '../title-bar';
 import ColorSelector from './color-selector';
 import { getColorLabel } from './utils';
 
-export default function ColorToggle({ currentValue, inherited, colors, gradients = [], hasToggleLabel = true }) {
+export default function ColorToggle({
+	currentValue,
+	inherited,
+	colors,
+	gradients = [],
+	hasToggleLabel = true,
+	useGlobalPalette = false,
+}) {
 	return ({ onToggle, isOpen }) => {
 		const presetButtonRef = useRef(undefined);
 

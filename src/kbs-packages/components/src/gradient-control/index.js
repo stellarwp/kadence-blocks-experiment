@@ -307,6 +307,7 @@ export default function GradientPicker({
 	globalClasses,
 	containerRef,
 	globalStylesCss,
+	hasGradientPalette = true,
 }) {
 	const globalGradients = getGradientOptions();
 	const globalColors = getColorOptions();
@@ -328,31 +329,37 @@ export default function GradientPicker({
 	}));
 	return (
 		<div className={'components-base-control kbs-control kbs-gradient-control'}>
-			<div className="kbs-gradient-swatches">
-				{globalGradients.map((gradient) => {
-					const isActive = 'var(--kbs-gradients-' + gradient.slug + ')' === value;
-					return (
-						<div key={gradient.slug} className="kbs-gradient-swatch">
-							<Button
-								key={gradient.slug}
-								__next40pxDefaultSize
-								className={clsx('kbs-color-select-button', 'kbs-color-select-control__select-button', {
-									'is-selected': isActive,
-								})}
-								label={gradient.name}
-								onClick={() => {
-									onChange('var(--kbs-gradients-' + gradient.slug + ')');
-								}}
-							>
-								<ColorIndicator
-									colorValue={'var(--kbs-gradients-' + gradient.slug + ')'}
-									isChecked={isActive}
-								/>
-							</Button>
-						</div>
-					);
-				})}
-			</div>
+			{hasGradientPalette && (
+				<div className="kbs-gradient-swatches">
+					{globalGradients.map((gradient) => {
+						const isActive = 'var(--kbs-gradients-' + gradient.slug + ')' === value;
+						return (
+							<div key={gradient.slug} className="kbs-gradient-swatch">
+								<Button
+									key={gradient.slug}
+									__next40pxDefaultSize
+									className={clsx(
+										'kbs-color-select-button',
+										'kbs-color-select-control__select-button',
+										{
+											'is-selected': isActive,
+										}
+									)}
+									label={gradient.name}
+									onClick={() => {
+										onChange('var(--kbs-gradients-' + gradient.slug + ')');
+									}}
+								>
+									<ColorIndicator
+										colorValue={'var(--kbs-gradients-' + gradient.slug + ')'}
+										isChecked={isActive}
+									/>
+								</Button>
+							</div>
+						);
+					})}
+				</div>
+			)}
 			<CustomGradientBar
 				isRenderedInSidebar={isRenderedInSidebar}
 				background={background}
