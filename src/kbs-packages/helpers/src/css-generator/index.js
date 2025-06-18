@@ -2,7 +2,6 @@ import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { SPACING_SIZES_MAP } from '../constants';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
-import { getBasePresetKey } from '../get-inherited-device-value';
 import { default as getInheritedValue } from '../get-inherited-value';
 import getColorOutput from '../get-color-output';
 import { default as getLayerDeviceValue } from '../get-layer-device-value';
@@ -130,11 +129,11 @@ class CSSGenerator {
 				if (isDirectOrParent || (isNonInheritable && isPresetOrPresetParent)) {
 					cssValue = this.getSizingOutput(appliedValue);
 				} else if (inheritedSource) {
-					// const basePresetKey = getBasePresetKey(attributeName, meta, attributes);
 					const variableName = this.getGlobalStyleVariableName(
-						'heading-1', // inheritedSource
+						inheritedSource, // inheritedSource
 						key // attributeKey
 					);
+					console.log(variableName, inheritedSource, key, appliedValue);
 					cssValue = `var(${variableName})`;
 				}
 				break;

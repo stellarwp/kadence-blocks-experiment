@@ -29,10 +29,10 @@
 		},
 		"typography": {
 			"presets": {
-				"heading-1": {
-					"label": "Heading 1",
-					"name": "Heading 1",
-					"description": "Heading 1",
+				"hero": {
+					"label": "Hero",
+					"name": "Hero",
+					"description": "Hero",
 					"attributes": {
 						"desktop": {
 							"fontFamily": "Comic Sans MS, cursive, sans-serif",

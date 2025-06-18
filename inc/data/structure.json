@@ -43,6 +43,7 @@
 					"label": "Body text",
 					"name": "Body text",
 					"description": "Body text",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontFamily": "Arial, sans-serif",
@@ -51,86 +52,59 @@
 						}
 					}
 				},
-				"heading": {
-					"label": "Heading text",
-					"name": "Heading text",
-					"description": "Heading text",
-					"attributes": {
-						"desktop": {
-							"fontFamily": "Times New Roman, serif",
-							"fontSize": "lg"
-						}
-					}
-				},
-				"heading-1": {
-					"label": "Heading 1",
-					"name": "Heading 1",
-					"description": "Heading 1",
-					"attributes": {
-						"desktop": {
-							"fontFamily": "Impact, Charcoal, sans-serif",
-							"fontSize": "3xl",
-							"lineHeight": "sm",
-							"letterSpacing": "none",
-							"textTransform": ""
-						},
-						"tablet": {
-							"fontFamily": "Comic Sans MS, cursive, sans-serif",
-							"fontSize": "sm"
-						},
-						"mobile": {
-							"fontSize": "xl"
-						}
-					}
-				},
-				"heading-2": {
-					"label": "Heading 2",
-					"name": "Heading 2",
-					"description": "Heading 2",
+				"overline": {
+					"label": "Overline",
+					"name": "Overline",
+					"description": "Overline",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontFamily": "Comic Sans MS, cursive, sans-serif",
-							"fontSize": "xxl"
+							"fontSize": "lg"
 						}
 					}
 				},
-				"heading-3": {
-					"label": "Heading 3",
-					"name": "Heading 3",
-					"description": "Heading 3",
-					"attributes": {
-						"desktop": {
-							"fontSize": "xl"
-						}
-					}
-				},
-				"heading-4": {
-					"label": "Heading 4",
-					"name": "Heading 4",
-					"description": "Heading 4",
-					"attributes": {
-						"desktop": {
-							"fontSize": "xl"
-						}
-					}
-				},
-				"heading-5": {
-					"label": "Heading 5",
-					"name": "Heading 5",
-					"description": "Heading 5",
+				"subtitle": {
+					"label": "Subtitle",
+					"name": "Subtitle",
+					"description": "Subtitle",
+					"locked": true,
 					"attributes": {
 						"desktop": {
 							"fontSize": "lg"
 						}
 					}
 				},
-				"heading-6": {
-					"label": "Heading 6",
-					"name": "Heading 6",
-					"description": "Heading 6",
+				"title": {
+					"label": "Title",
+					"name": "Title",
+					"description": "Title",
+					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontSize": "lg"
+							"fontSize": "xl"
+						}
+					}
+				},
+				"heroxl": {
+					"label": "Hero XL",
+					"name": "Hero XL",
+					"description": "Hero XL",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontSize": "2xl"
+						}
+					}
+				},
+				"heroxxl": {
+					"label": "Hero XXL",
+					"name": "Hero XXL",
+					"description": "Hero XXL",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontSize": "3xl"
 						}
 					}
 				}

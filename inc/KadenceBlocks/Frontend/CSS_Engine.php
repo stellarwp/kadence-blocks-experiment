@@ -982,16 +982,8 @@ class CSS_Engine {
 		// if( isset( $$attributes['preset'] ) ) {
 
 		// }
-		switch ( $attributes_meta['component'] ) {
-			case 'typography':
-				// I think we want to get rid of this, we will use presets for this kind of thing.
-				$variable_name = $this->get_typography_variable_name( $attributes, $key, $attributes_meta );
-				$this->add_component_array( $attributes[$key], $attributes_meta, $variable_name );			
-				break;
-			default:
-				$this->add_component_array( $attributes[$key], $attributes_meta );			
-				break;
-		}
+		
+		$this->add_component_array( $attributes[$key], $attributes_meta );			
 
 		return $this;
 	}
@@ -1313,30 +1305,4 @@ class CSS_Engine {
 		$this->spacing_sizes = $sizes;
 	}
 
-	public function get_typography_variable_name(  $attributes, $key, $attributes_meta ) {
-		$tag = 'p';
-
-		if( !empty( $attributes_meta['tag'] ) ) {
-			$tag = $attributes_meta['tag'];
-		} else if( !empty( $attributes_meta['tagAttribute'] ) && !empty( $attributes[$attributes_meta['tagAttribute']] ) ) {
-			$tag = $attributes[$attributes_meta['tagAttribute']];
-		}
-
-		switch( $tag ) {
-			case 'h1':
-				return 'heading-1';
-			case 'h2':
-				return 'heading-2';
-			case 'h3':
-				return 'heading-3';
-			case 'h4':
-				return 'heading-4';
-			case 'h5':
-				return 'heading-5';
-			case 'h6':
-				return 'heading-6';
-			default:
-				return 'body';
-		}
-	}
 }
