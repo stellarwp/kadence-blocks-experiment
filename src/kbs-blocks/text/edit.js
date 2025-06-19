@@ -11,7 +11,9 @@ import classnames from 'classnames';
 
 import Styles from './editing/styles';
 import Inspector from './editing/inspector';
-import AIText from './ai-text/ai-text.js';
+import './formats/markformat';
+import './formats/typed-text';
+import './formats/tooltips';
 
 /**
  * Import WordPress
@@ -74,6 +76,7 @@ export default function TextEdit(props) {
 			'core/italic',
 			'kadence/mark',
 			'kadence/typed',
+			'kadence/tooltips',
 			'core/strikethrough',
 			'core/superscript',
 			'core/superscript',

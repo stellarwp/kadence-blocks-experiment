@@ -85,7 +85,7 @@ class CSSGenerator {
 	processComponentKey(attributeName, meta, props, metadata, key) {
 		//get the components for the line to add
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
-		const cssSelector = this.getCssSelector(meta, key);
+		const cssSelector = this.getCssSelector();
 		const attributeSelector = this.getAttributeSelector(key, meta);
 
 		if (cssValue && cssSelector && attributeSelector) {
@@ -133,7 +133,6 @@ class CSSGenerator {
 						inheritedSource, // inheritedSource
 						key // attributeKey
 					);
-					console.log(variableName, inheritedSource, key, appliedValue);
 					cssValue = `var(${variableName})`;
 				}
 				break;
@@ -158,6 +157,9 @@ class CSSGenerator {
 				} else {
 					cssValue = appliedValue;
 				}
+				break;
+			case 'color':
+				cssValue = getColorOutput(appliedValue);
 				break;
 			default:
 				cssValue = appliedValue;
@@ -579,6 +581,9 @@ class CSSGenerator {
 	getComponentKeys(component) {
 		let componentKeys = [];
 		switch (component) {
+			case 'color':
+				componentKeys = ['color'];
+				break;
 			case 'background':
 				componentKeys = ['color', 'gradient', 'image', 'size', 'position', 'repeat', 'attachment'];
 				break;

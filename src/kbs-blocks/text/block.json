@@ -7,6 +7,7 @@
 		"postId",
 		"queryId",
 		"kbs/globalStyles",
+		"kbs/parentUniqueId",
 		"kadence/dynamicSource",
 		"kadence/repeaterRowData",
 		"kadence/repeaterRow"
@@ -46,7 +47,11 @@
 			"type": "object"
 		},
 		"color": {
-			"type": "object"
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"selector": "--kbs-text-",
+			"classPrefix": "kbs-text-color-"
 		},
 		"background": {
 			"type": "object"
@@ -73,6 +78,28 @@
 			"tag": "h1",
 			"initial": {},
 			"type": "object"
+		},
+		"typographyHighlight": {
+			"renderCSS": true,
+			"component": "typography",
+			"selector": "--kbs-text-highlight-",
+			"tag": "h1",
+			"initial": {},
+			"type": "object"
+		},
+		"colorHighlight": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"selector": "--kbs-text-highlight-",
+			"classPrefix": "kbs-text-color-highlight-"
+		},
+		"backgroundColorHighlight": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"selector": "--kbs-text-highlight-background-",
+			"classPrefix": "kbs-text-background-highlight-"
 		},
 		"globalStyleIds": {
 			"type": "string"
