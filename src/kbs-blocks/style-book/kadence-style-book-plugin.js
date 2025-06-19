@@ -548,17 +548,9 @@ function KadenceConfig() {
 		<>
 			{isKadenceStyleBookOpened && (
 				<Modal
-					title=""
-					onRequestClose={() => {
-						setIsKadenceStyleBookOpened(false);
-					}}
-					className="kbs-style-book-modal"
-					overlayClassName="kbs-style-book-modal-overlay"
-				>
-					<div className="kbs-style-book-content" ref={modalRef}>
-						<div className="kbs-style-book-header">
-							<h1 className="kbs-style-book-title">{__('Style Book', 'kadence-blocks')}</h1>
-							<div className="kbs-style-book-header-actions">
+					title={__('Style Book', 'kadence-blocks')}
+					headerActions={
+						<div className="kbs-style-book-header-actions">
 								<Button
 									className="kbs-storybook-subtab-btn"
 									isPressed={selectedTab === 'style-guide'}
@@ -574,16 +566,14 @@ function KadenceConfig() {
 									{__('Design System', 'kadence-blocks')}
 								</Button>
 							</div>
-							<div className="kbs-style-book-header-close">
-								<Button
-									onClick={() => {
-										setIsKadenceStyleBookOpened(false);
-									}}
-									icon={close}
-									label={__('Close', 'kadence-blocks')}
-								/>
-							</div>
-						</div>
+					}
+					onRequestClose={() => {
+						setIsKadenceStyleBookOpened(false);
+					}}
+					className="kbs-style-book-modal"
+					overlayClassName="kbs-style-book-modal-overlay"
+				>
+					<div className="kbs-style-book-content" ref={modalRef}>
 						{/* <TabPanel
 							className="kbs-style-book-tabs"
 							activeClass="is-active"
