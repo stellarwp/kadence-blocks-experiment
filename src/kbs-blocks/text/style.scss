@@ -46,7 +46,21 @@
 		text-transform: var(--kbs-text-highlight-text-transform);
 		font-style: var(--kbs-text-highlight-font-style);
 		color: var(--kbs-text-highlight-color, var(--kbs-colors-palette-warning));
-		background-color: var(--kbs-text-highlight-background-color);
+		background: var(--kbs-text-highlight-background-color);
+	}
+
+	&.has-gradient {
+		.kbs-text-content {
+			background-image: var(--kbs-text-color);
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			box-decoration-break: clone;
+		}
+		.kbs-highlight {
+			background-clip: initial;
+			-webkit-text-fill-color: initial;
+			box-decoration-break: clone;
+		}
 	}
 }
 

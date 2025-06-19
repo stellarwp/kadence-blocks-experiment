@@ -37,6 +37,8 @@ export default function InspectorStyles(props) {
 					previewDevice={previewDevice}
 					attributeName={'color'}
 					globalStylesIds={globalStylesIds}
+					hasGradient={true}
+					hasMix={true}
 				/>
 				<Typography
 					label={__('Typography', 'kadence-blocks')}
@@ -71,6 +73,7 @@ export default function InspectorStyles(props) {
 					previewDevice={previewDevice}
 					attributeName={'colorHighlight'}
 					globalStylesIds={globalStylesIds}
+					hasMix={true}
 				/>
 				<ColorControl
 					label={__('Highlight Background Color', 'kadence-blocks')}
@@ -80,27 +83,9 @@ export default function InspectorStyles(props) {
 					previewDevice={previewDevice}
 					attributeName={'backgroundColorHighlight'}
 					globalStylesIds={globalStylesIds}
+					hasGradient={true}
+					hasMix={true}
 				/>
-				{/* // attributes,
-	// setAttributes,
-	// attributeName,
-	// meta,
-	// type,
-	// globalStylesIds,
-	// reset = true,
-	// label,
-	// hasDeviceControls = false,
-	// isAdvanced = false,
-	// advancedControls = [],
-	// isCustom = false,
-	// hasCustomControls = false,
-	// previewDevice = 'desktop',
-	// forStyleBook = false,
-	// defaultValue = undefined,
-	// customOnChange = undefined,
-	// hasGradient = false,
-	// hasMix = false,
-	// globalStylesCss, */}
 			</ToolsPanelBody>
 		</>
 	);

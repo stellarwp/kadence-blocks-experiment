@@ -15,6 +15,8 @@ import './formats/markformat';
 import './formats/typed-text';
 import './formats/tooltips';
 
+import metadata from './block.json';
+
 /**
  * Import WordPress
  */
@@ -23,7 +25,14 @@ import { useSelect } from '@wordpress/data';
 import { RichText, useBlockProps, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 
-import { uniqueIdHelper, GlobalStylesContext, useGlobalStylesIds, getLinkHTML } from '@kadence/kbsHelpers';
+import {
+	uniqueIdHelper,
+	GlobalStylesContext,
+	useGlobalStylesIds,
+	getLinkHTML,
+	getResolvedValue,
+	getColorOutput,
+} from '@kadence/kbsHelpers';
 import { DynamicTextControl } from '@kadence/kbsComponents';
 
 /**
@@ -45,10 +54,16 @@ export default function TextEdit(props) {
 
 	uniqueIdHelper(props);
 
+	const colorValue = getResolvedValue('color', attributes, previewDevice, metadata, 'color', globalStylesIds);
+	const previewColorValue = getColorOutput(colorValue?.appliedValue);
+
+	const hasGradient = previewColorValue?.includes('linear-gradient');
+
 	const classes = classnames('kbs-text', {
 		[className]: className,
 		[`kbs-text-${uniqueID}`]: uniqueID,
 		[`has-text-align-${align}`]: align,
+		[`has-gradient`]: hasGradient,
 	});
 
 	const blockProps = useBlockProps({
