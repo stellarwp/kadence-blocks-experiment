@@ -39,7 +39,7 @@ export default function ColorControl({
 	setAttributes,
 	attributeName,
 	meta,
-	type,
+	type = 'color',
 	globalStylesIds,
 	reset = true,
 	label,
@@ -74,8 +74,9 @@ export default function ColorControl({
 		}
 		onChange(resetValue, 'all', type);
 	};
-	const onChange = (value, device, type) => {
-		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
+	const onChange = (value, device, customType) => {
+		const typeToUse = customType ?? type;
+		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, typeToUse, meta);
 	};
 	return (
 		<div className={`components-base-control kbs-control kbs-color-control`}>

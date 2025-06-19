@@ -12,6 +12,7 @@
 	letter-spacing: var(--kbs-text-letter-spacing);
 	text-transform: var(--kbs-text-text-transform);
 	font-style: var(--kbs-text-font-style);
+	color: var(--kbs-text-color);
 
 	min-width: 0;
 
@@ -34,6 +35,18 @@
 		&:hover {
 			text-decoration: var(--kbs-text-link-text-decoration-hover, var(--kbs-text-link-text-decoration));
 		}
+	}
+
+	.kbs-highlight {
+		font-family: var(--kbs-text-highlight-font-family);
+		font-weight: var(--kbs-text-highlight-font-weight);
+		font-size: var(--kbs-text-highlight-font-size);
+		line-height: var(--kbs-text-highlight-line-height);
+		letter-spacing: var(--kbs-text-highlight-letter-spacing);
+		text-transform: var(--kbs-text-highlight-text-transform);
+		font-style: var(--kbs-text-highlight-font-style);
+		color: var(--kbs-text-highlight-color, var(--kbs-colors-palette-warning));
+		background-color: var(--kbs-text-highlight-background-color);
 	}
 }
 
