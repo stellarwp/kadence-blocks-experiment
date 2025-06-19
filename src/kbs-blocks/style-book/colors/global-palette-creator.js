@@ -49,13 +49,13 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 		let isReadable = '';
 		if (customPalette.isLight && !colord(customPalette.mainColor).isReadable()) {
 			isReadable = __(
-				'This color may be hard for people to read on light backgrounds. Consider making it darker.',
+				'This color may be hard for people to read on light backgrounds. Consider a darker primary accent or do not use the accent color with small text like links on a light background.',
 				'kadence-starter-templates'
 			);
 		}
 		if (!customPalette.isLight && !colord(customPalette.mainColor).isReadable('#000000')) {
 			isReadable = __(
-				'This color may be hard for people to read on dark backgrounds. Consider making it brighter.',
+				'This color may be hard for people to read on dark backgrounds. Consider a brighter primary accent or do not use the accent color with small text like links on a dark background.',
 				'kadence-starter-templates'
 			);
 		}
@@ -68,6 +68,7 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 		let backgroundColor2 = mainColor.lighten(lightenB).mix('#f7f7f7', 0.9).toHex();
 		let backgroundColor3 = '#ffffff';
 		let btnColor = '#ffffff';
+		// Too light for white text on top.
 		if (mainColor.isLight()) {
 			btnColor = '#000000';
 			accentColor2 = mainColor.lighten(0.1).toHex();
@@ -122,27 +123,44 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 			contrastColor4 = colord(contrastColor4).desaturate(0.5).toHex();
 		}
 		if (customPalette.saturation === 3) {
-			backgroundColor1 = colord(backgroundColor1)
-				.saturate(customPalette.isLight ? 0.25 : 0.2)
-				.toHex();
-			backgroundColor2 = colord(backgroundColor2)
-				.saturate(customPalette.isLight ? 0.35 : 0.2)
-				.toHex();
 			if (!customPalette.isLight) {
+				backgroundColor1 = colord(backgroundColor1).saturate(0.2).toHex();
+				backgroundColor2 = colord(backgroundColor2).saturate(0.2).toHex();
 				backgroundColor3 = colord(backgroundColor3).saturate(0.1).toHex();
 			} else {
-				backgroundColor3 = colord(mainColor).lighten(0.5).mix('#fcfcfc', 0.8).toHex();
+				backgroundColor1 = colord(backgroundColor1).saturate(0.45).toHex();
+				backgroundColor2 = colord(backgroundColor2).saturate(0.55).toHex();
+				if (backgroundColor3 !== '#ffffff') {
+					backgroundColor3 = colord(backgroundColor3).saturate(0.55).toHex();
+					// if (mainColor.isLight()) {
+					// 	backgroundColor3 = colord(mainColor).lighten(0.3).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
+					// } else {
+					// 	backgroundColor3 = colord(mainColor).lighten(0.6).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
+					// }
+				} else {
+					if (mainColor.isLight()) {
+						backgroundColor3 = colord(mainColor).lighten(0.3).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
+					} else {
+						backgroundColor3 = colord(mainColor).lighten(0.6).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
+					}
+				}
 			}
 		}
-		if (customPalette.saturation === 2 && customPalette.isLight) {
-			backgroundColor1 = colord(backgroundColor1).saturate(0.15).toHex();
-			backgroundColor2 = colord(backgroundColor2).saturate(0.25).toHex();
-			backgroundColor3 = colord(mainColor).lighten(0.5).mix('#fcfcfc', 0.9).toHex();
+		if (customPalette.saturation === 2) {
+			if (!customPalette.isLight) {
+				backgroundColor1 = colord(backgroundColor1).saturate(0.1).toHex();
+				backgroundColor2 = colord(backgroundColor2).saturate(0.1).toHex();
+				backgroundColor3 = colord(backgroundColor3).saturate(0.05).toHex();
+			} else {
+				backgroundColor1 = colord(backgroundColor1).saturate(0.25).toHex();
+				backgroundColor2 = colord(backgroundColor2).saturate(0.35).toHex();
+				backgroundColor3 = colord(backgroundColor3).saturate(0.35).toHex();
+			}
 		}
 		if (customPalette.saturation === 1) {
-			backgroundColor1 = colord(backgroundColor1).desaturate(0.05).toHex();
-			backgroundColor2 = colord(backgroundColor2).desaturate(0.05).toHex();
+			backgroundColor1 = colord(backgroundColor1).saturate(0.05).toHex();
 			if (!customPalette.isLight) {
+				backgroundColor2 = colord(backgroundColor2).desaturate(0.05).toHex();
 				backgroundColor3 = colord(backgroundColor3).desaturate(0.1).toHex();
 			}
 		}
@@ -172,19 +190,37 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 			contrastColor4 = colord(contrastColor4).lighten(0.04).toHex();
 		}
 		if (customPalette.brightness === 0) {
-			backgroundColor1 = colord(backgroundColor1).darken(0.04).toHex();
-			backgroundColor2 = colord(backgroundColor2).darken(0.04).toHex();
-			backgroundColor3 = colord(backgroundColor3).darken(0.08).toHex();
+			if (!customPalette.isLight) {
+				backgroundColor1 = colord(backgroundColor1).darken(0.04).toHex();
+				backgroundColor2 = colord(backgroundColor2).darken(0.04).toHex();
+				backgroundColor3 = colord(backgroundColor3).darken(0.08).toHex();
+			} else {
+				backgroundColor1 = colord(backgroundColor1).darken(0.08).toHex();
+				backgroundColor2 = colord(backgroundColor2).darken(0.04).toHex();
+				backgroundColor3 = colord(backgroundColor3).darken(0.02).toHex();
+			}
 		}
 		if (customPalette.brightness === 1) {
-			backgroundColor1 = colord(backgroundColor1).darken(0.02).toHex();
-			backgroundColor2 = colord(backgroundColor2).darken(0.02).toHex();
-			backgroundColor3 = colord(backgroundColor3).darken(0.04).toHex();
+			if (!customPalette.isLight) {
+				backgroundColor1 = colord(backgroundColor1).darken(0.02).toHex();
+				backgroundColor2 = colord(backgroundColor2).darken(0.02).toHex();
+				backgroundColor3 = colord(backgroundColor3).darken(0.04).toHex();
+			} else {
+				backgroundColor1 = colord(backgroundColor1).darken(0.04).toHex();
+				backgroundColor2 = colord(backgroundColor2).darken(0.02).toHex();
+				backgroundColor3 = colord(backgroundColor3).darken(0.01).toHex();
+			}
 		}
 		if (customPalette.brightness === 3) {
-			backgroundColor1 = colord(backgroundColor1).lighten(0.02).toHex();
-			backgroundColor2 = colord(backgroundColor2).lighten(0.02).toHex();
-			backgroundColor3 = colord(backgroundColor3).lighten(0.04).toHex();
+			if (!customPalette.isLight) {
+				backgroundColor1 = colord(backgroundColor1).lighten(0.02).toHex();
+				backgroundColor2 = colord(backgroundColor2).lighten(0.02).toHex();
+				backgroundColor3 = colord(backgroundColor3).lighten(0.04).toHex();
+			} else {
+				backgroundColor1 = colord(backgroundColor1).lighten(0.04).toHex();
+				backgroundColor2 = colord(backgroundColor2).lighten(0.04).toHex();
+				backgroundColor3 = colord(backgroundColor3).lighten(0.1).toHex();
+			}
 		}
 		const newPalette = {
 			...customPalette,

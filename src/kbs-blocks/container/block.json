@@ -50,6 +50,22 @@
 				}
 			}
 		},
+		"padding": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"selector": "--kbs-cont-",
+			"initial": {
+				"preset": "none",
+				"desktop": {
+					"padding-left": "sm",
+					"padding-right": "sm",
+					"padding-top": "sm",
+					"padding-bottom": "sm"
+				}
+			}
+		},
 		"background": {
 			"renderCSS": true,
 			"component": "background",
@@ -63,9 +79,6 @@
 			"type": "object"
 		},
 		"border": {
-			"type": "object"
-		},
-		"padding": {
 			"type": "object"
 		},
 		"margin": {

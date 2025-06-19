@@ -41,7 +41,7 @@ import {
  */
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
-import PresetControl from './preset-control';
+import BackgroundPresetControl from './background-preset-control';
 import ColorControl from '../color-control';
 import BackgroundImageControl from '../background-image-control';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
@@ -285,7 +285,7 @@ export default function BackgroundControl({
 			hasViewControls={true}
 		>
 			{!forPresetControl && (
-				<PresetControl
+				<BackgroundPresetControl
 					label={__('Background Presets', 'kadence-blocks')}
 					type={'background'}
 					attributes={attributes}

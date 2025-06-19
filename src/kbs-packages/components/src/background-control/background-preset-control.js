@@ -59,7 +59,7 @@ function PresetControlConfirm({
 		</>
 	);
 }
-export default function PresetControl({
+export default function BackgroundPresetControl({
 	label,
 	reset = true,
 	attributes,

@@ -9,9 +9,10 @@ export default function SpacingControl({
 	previewDevice,
 	title = __('Spacing Settings', 'kadence-blocks'),
 	types = ['padding', 'margin'],
-	metadata,
+	metaData,
 	hasPresetControl = true,
 	globalStylesIds,
+	customOnChange,
 }) {
 	const onAllReset = () => {
 		const resetObject = {};
@@ -37,7 +38,7 @@ export default function SpacingControl({
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={'padding'}
-					meta={metadata?.attributes?.padding}
+					meta={metaData}
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 				/>
@@ -50,8 +51,9 @@ export default function SpacingControl({
 					setAttributes={setAttributes}
 					attributeName={type}
 					type={type}
-					meta={metadata?.attributes?.[type]}
+					meta={metaData?.attributes?.[type]}
 					previewDevice={previewDevice}
+					customOnChange={customOnChange}
 				/>
 			))}
 		</ToolsPanelBody>

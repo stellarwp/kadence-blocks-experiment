@@ -23,7 +23,6 @@ import {
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import TitleBar from '../title-bar';
-import BackgroundPresetRender from '../background-styles/preset-render';
 function PresetControlConfirm({
 	showConfirmPopover,
 	confirmAnchor,
@@ -67,19 +66,19 @@ export default function PresetControl({
 	attributeName,
 	meta,
 	previewDevice,
-	globalStylesIds,
 	customOnChange,
 	globalStylesCss,
 	view = 'default',
 }) {
 	const attributeMeta = meta?.attributes?.[attributeName];
+	console.log('attributeMeta', attributeMeta);
 	const presetType = attributeMeta?.component ? attributeMeta?.component : '';
 	if (!presetType) {
 		return null;
 	}
 	// Fetch available presets
 	const presets = getPresetOptions(presetType);
-	// console.log(presets);
+	console.log('presets', presets);
 	// Get the first three presets in a custom array
 	const presetOptions = presets.slice(0, 3);
 	const currentValue = attributes?.[attributeName]?.preset;
@@ -115,13 +114,13 @@ export default function PresetControl({
 	const handleConfirm = () => {
 		if (pendingPreset) {
 			handleMultipleAttributeChange(
-				[undefined, pendingPreset],
+				[undefined, undefined, undefined, pendingPreset],
 				'none',
 				attributeName,
 				attributes,
 				setAttributes,
 				customOnChange,
-				['layers', 'preset'],
+				['desktop', 'tablet', 'mobile', 'preset'],
 				meta
 			);
 			setShowConfirmPopover(false);
@@ -181,15 +180,7 @@ export default function PresetControl({
 									onChange(option.value);
 								}}
 							>
-								<BackgroundPresetRender
-									preset={option}
-									attributeName={attributeName}
-									meta={meta}
-									previewDevice={previewDevice}
-									globalStylesIds={globalStylesIds}
-									uniqueID={attributes?.uniqueID}
-									className={`kbs-radio-preset-control-style`}
-								/>
+								{option.label}
 							</Button>
 						))}
 					</div>
@@ -213,15 +204,7 @@ export default function PresetControl({
 							onChange(option.value);
 						}}
 					>
-						<BackgroundPresetRender
-							preset={option}
-							attributeName={attributeName}
-							meta={meta}
-							previewDevice={previewDevice}
-							globalStylesIds={globalStylesIds}
-							uniqueID={attributes?.uniqueID}
-							className={`kbs-radio-preset-control-style`}
-						/>
+						{option.label}
 					</Button>
 				))}
 			</div>

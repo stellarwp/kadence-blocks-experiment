@@ -3,6 +3,62 @@
 	"label": "Base Style",
 	"version": "1.0.0",
 	"components": {
+		"padding": {
+			"presets": {
+				"section-lg": {
+					"label": "Section Large",
+					"description": "A section padding preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"padding-left": "",
+							"padding-right": "",
+							"padding-top": "lg",
+							"padding-bottom": "lg"
+						}
+					}
+				},
+				"section-md": {
+					"label": "Section Medium",
+					"description": "A section padding preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"padding-left": "",
+							"padding-right": "",
+							"padding-top": "md",
+							"padding-bottom": "md"
+						}
+					}
+				},
+				"card-lg": {
+					"label": "Card Large",
+					"description": "A card padding preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"padding-left": "lg",
+							"padding-right": "lg",
+							"padding-top": "lg",
+							"padding-bottom": "lg"
+						}
+					}
+				},
+				"card-md": {
+					"label": "Card Medium",
+					"description": "A card padding preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"padding-left": "md",
+							"padding-right": "md",
+							"padding-top": "md",
+							"padding-bottom": "md"
+						}
+					}
+				}
+			}
+		},
 		"background": {
 			"presets": {
 				"kbs-bg-base": {

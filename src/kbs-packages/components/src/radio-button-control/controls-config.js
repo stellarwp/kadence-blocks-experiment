@@ -122,6 +122,17 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'alignSelf':
 			controls = getAlignItemsControls(previewDirection);
 			break;
+		case 'padding-top':
+		case 'paddingTop':
+		case 'padding-right':
+		case 'paddingRight':
+		case 'padding-bottom':
+		case 'paddingBottom':
+		case 'padding-left':
+		case 'paddingLeft':
+			UIComponent = RadioToggleGroupInputUI;
+			controls = getPaddingControls();
+			break;
 		case 'row-gap':
 		case 'rowGap':
 			UIComponent = RadioToggleGroupInputUI;
@@ -566,6 +577,58 @@ export const getGapControls = () => [
 		title: __('X Large', 'kadence-blocks'),
 		name: 'XL',
 		key: 'xl',
+	},
+];
+export const getPaddingControls = () => [
+	{
+		title: __('None', 'kadence-blocks'),
+		name: '0',
+		key: '0',
+	},
+	{
+		title: __('X Small', 'kadence-blocks'),
+		name: 'XS',
+		key: 'xs',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: 'sm',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: 'md',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: 'lg',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: 'xl',
+	},
+	{
+		title: __('2X Large', 'kadence-blocks'),
+		name: '2XL',
+		key: '2xl',
+	},
+	{
+		title: __('3X Large', 'kadence-blocks'),
+		name: '3XL',
+		key: '3xl',
+	},
+	{
+		title: __('4X Large', 'kadence-blocks'),
+		name: '4XL',
+		key: '4xl',
+	},
+	{
+		title: __('5X Large', 'kadence-blocks'),
+		name: '5XL',
+		key: '5xl',
 	},
 ];
 export const getMaxWidthControls = () => [

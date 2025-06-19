@@ -9,7 +9,13 @@ import './editor.scss';
  * Build the component preset
  */
 export default function Preview(props) {
-	const { globalStyleId, isPaletteCreatorOpen = false, colorsSubTab = 'colors', customPalette, styleBookLocalGlobalStyles } = props;
+	const {
+		globalStyleId,
+		isPaletteCreatorOpen = false,
+		colorsSubTab = 'colors',
+		customPalette,
+		styleBookLocalGlobalStyles,
+	} = props;
 
 	const tempColors = styleBookLocalGlobalStyles[globalStyleId]?.mappings?.colors || [];
 	const tempGradients = styleBookLocalGlobalStyles[globalStyleId]?.mappings?.gradients || [];
@@ -36,7 +42,7 @@ export default function Preview(props) {
 
 	const baseVariables = useMemo(() => {
 		let outputCssString = '';
-		if ( tempColors ) {
+		if (tempColors) {
 			// Loop through global style ids
 			Object.entries(tempColors).forEach(([key, value]) => {
 				if (value?.value) {
@@ -44,7 +50,7 @@ export default function Preview(props) {
 				}
 			});
 		}
-		if ( tempGradients ) {
+		if (tempGradients) {
 			Object.entries(tempGradients).forEach(([key, value]) => {
 				if (value?.value) {
 					outputCssString += `--kbs-gradients-${key}: ${value.value};\n`;
@@ -77,7 +83,7 @@ export default function Preview(props) {
 							<div className="kbs-color-example-header-inner">
 								<div className="kbs-color-example-header-logo">
 									<svg
-										class="kbs-example-logo"
+										className="kbs-example-logo"
 										fill="currentColor"
 										version="1.1"
 										xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +133,8 @@ export default function Preview(props) {
 							<div
 								className="kbs-color-example-hero-image"
 								style={{
-									background: colorsSubTab === 'gradients' ? 'var(--kbs-gradients-gradient3)' : undefined,
+									background:
+										colorsSubTab === 'gradients' ? 'var(--kbs-gradients-gradient3)' : undefined,
 								}}
 							>
 								<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
@@ -136,7 +143,9 @@ export default function Preview(props) {
 										y="0"
 										width="800"
 										height="800"
-										fill={colorsSubTab === 'gradients' ? 'transparent' : 'var(--kbs-colors-palette7)'}
+										fill={
+											colorsSubTab === 'gradients' ? 'transparent' : 'var(--kbs-colors-palette7)'
+										}
 									/>
 									<path
 										d="M748.958,536.375l-142.794,-142.795l-204.188,204.188l151.19,151.19l195.792,0l0,-212.583Z"
