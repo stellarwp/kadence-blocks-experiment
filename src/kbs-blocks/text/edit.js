@@ -57,7 +57,8 @@ export default function TextEdit(props) {
 	const colorValue = getResolvedValue('color', attributes, previewDevice, metadata, 'color', globalStylesIds);
 	const previewColorValue = getColorOutput(colorValue?.appliedValue);
 
-	const hasGradient = previewColorValue?.includes('linear-gradient');
+	//look for gradient text marker in the color value
+	const hasGradient = previewColorValue?.includes('gradient(');
 
 	const classes = classnames('kbs-text', {
 		[className]: className,
