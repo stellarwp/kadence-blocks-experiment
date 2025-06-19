@@ -16,6 +16,7 @@ import {
 	FlexBoxControl,
 	FlexChildControl,
 	SizingControl,
+	SpacingControl,
 	ColorControl,
 } from '@kadence/kbsComponents';
 
@@ -42,6 +43,15 @@ export default function InspectorAdvanced(props) {
 	} = props;
 	return (
 		<>
+			<SpacingControl
+				attributes={attributes}
+				setAttributes={setAttributes}
+				previewDevice={previewDevice}
+				metaData={metadata}
+				globalStylesIds={globalStylesIds}
+				title={__('Spacing Settings', 'kadence-blocks')}
+				types={['padding', 'margin']}
+			/>
 			<SizingControl
 				attributes={attributes}
 				setAttributes={setAttributes}
