@@ -7,7 +7,7 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, Typography, ColorControl } from '@kadence/kbsComponents';
+import { ToolsPanelBody, Typography, ColorControl, Notice } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -52,6 +52,11 @@ export default function InspectorStyles(props) {
 						hasGradient={true}
 						hasMix={true}
 					/>
+				)}
+				{hasGradient && (
+					<Notice>
+						{__('Background color will be ignored while a gradient color is applied.', 'kadence-blocks')}
+					</Notice>
 				)}
 				<Typography
 					label={__('Typography', 'kadence-blocks')}
@@ -101,6 +106,11 @@ export default function InspectorStyles(props) {
 						hasGradient={true}
 						hasMix={true}
 					/>
+				)}
+				{hasGradientHighlight && (
+					<Notice>
+						{__('Background color will be ignored while a gradient color is applied.', 'kadence-blocks')}
+					</Notice>
 				)}
 			</ToolsPanelBody>
 		</>

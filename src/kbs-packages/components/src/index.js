@@ -27,6 +27,7 @@ export { default as TextControl } from './text-control';
 export { default as TitleBar } from './title-bar';
 export { default as BackgroundPresetRender } from './background-styles/preset-render';
 export { default as SpacingControl } from './spacing-control';
+export { default as Notice } from './notice';
 // export { default as PopColorControl } from './pop-color-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';
 // export { default as SinglePopColorControl } from './single-pop-color-control';
