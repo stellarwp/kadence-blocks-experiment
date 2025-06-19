@@ -19,7 +19,7 @@ import { __ } from '@wordpress/i18n';
  * Build the section edit.
  */
 export default function InspectorStyles(props) {
-	const { attributes, setAttributes, previewDevice, globalStylesIds } = props;
+	const { attributes, setAttributes, previewDevice, globalStylesIds, hasGradient, hasGradientHighlight } = props;
 
 	const { link } = attributes;
 	return (
@@ -40,6 +40,19 @@ export default function InspectorStyles(props) {
 					hasGradient={true}
 					hasMix={true}
 				/>
+				{!hasGradient && (
+					<ColorControl
+						label={__('Background Color', 'kadence-blocks')}
+						attributes={attributes}
+						setAttributes={setAttributes}
+						meta={metadata}
+						previewDevice={previewDevice}
+						attributeName={'backgroundColor'}
+						globalStylesIds={globalStylesIds}
+						hasGradient={true}
+						hasMix={true}
+					/>
+				)}
 				<Typography
 					label={__('Typography', 'kadence-blocks')}
 					attributes={attributes}
@@ -73,19 +86,22 @@ export default function InspectorStyles(props) {
 					previewDevice={previewDevice}
 					attributeName={'colorHighlight'}
 					globalStylesIds={globalStylesIds}
-					hasMix={true}
-				/>
-				<ColorControl
-					label={__('Highlight Background Color', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					meta={metadata}
-					previewDevice={previewDevice}
-					attributeName={'backgroundColorHighlight'}
-					globalStylesIds={globalStylesIds}
 					hasGradient={true}
 					hasMix={true}
 				/>
+				{!hasGradientHighlight && (
+					<ColorControl
+						label={__('Highlight Background Color', 'kadence-blocks')}
+						attributes={attributes}
+						setAttributes={setAttributes}
+						meta={metadata}
+						previewDevice={previewDevice}
+						attributeName={'backgroundColorHighlight'}
+						globalStylesIds={globalStylesIds}
+						hasGradient={true}
+						hasMix={true}
+					/>
+				)}
 			</ToolsPanelBody>
 		</>
 	);

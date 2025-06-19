@@ -13,6 +13,7 @@
 	text-transform: var(--kbs-text-text-transform);
 	font-style: var(--kbs-text-font-style);
 	color: var(--kbs-text-color);
+	background: var(--kbs-text-background-color);
 
 	min-width: 0;
 
@@ -56,9 +57,19 @@
 			-webkit-text-fill-color: transparent;
 			box-decoration-break: clone;
 		}
+		&:not(.has-gradient-highlight) {
+			.kbs-highlight {
+				background-clip: initial;
+				-webkit-text-fill-color: initial;
+				box-decoration-break: clone;
+			}
+		}
+	}
+	&.has-gradient-highlight {
 		.kbs-highlight {
-			background-clip: initial;
-			-webkit-text-fill-color: initial;
+			background-image: var(--kbs-text-highlight-color);
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
 			box-decoration-break: clone;
 		}
 	}

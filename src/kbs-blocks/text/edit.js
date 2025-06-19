@@ -56,15 +56,26 @@ export default function TextEdit(props) {
 
 	const colorValue = getResolvedValue('color', attributes, previewDevice, metadata, 'color', globalStylesIds);
 	const previewColorValue = getColorOutput(colorValue?.appliedValue);
+	const colorHighlightValue = getResolvedValue(
+		'colorHighlight',
+		attributes,
+		previewDevice,
+		metadata,
+		'color',
+		globalStylesIds
+	);
+	const previewColorHighlightValue = getColorOutput(colorHighlightValue?.appliedValue);
 
 	//look for gradient text marker in the color value
 	const hasGradient = previewColorValue?.includes('gradient(');
+	const hasGradientHighlight = previewColorHighlightValue?.includes('gradient(');
 
 	const classes = classnames('kbs-text', {
 		[className]: className,
 		[`kbs-text-${uniqueID}`]: uniqueID,
 		[`has-text-align-${align}`]: align,
 		[`has-gradient`]: hasGradient,
+		[`has-gradient-highlight`]: hasGradientHighlight,
 	});
 
 	const blockProps = useBlockProps({
@@ -79,6 +90,7 @@ export default function TextEdit(props) {
 		setAttributes({ align: nextAlign });
 	};
 
+	//TODO
 	const isDynamicReplaced =
 		undefined !== kadenceDynamic &&
 		undefined !== kadenceDynamic.content &&
@@ -126,7 +138,13 @@ export default function TextEdit(props) {
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<div {...blockProps}>
-				<Inspector {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+				<Inspector
+					{...props}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					hasGradient={hasGradient}
+					hasGradientHighlight={hasGradientHighlight}
+				/>
 				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
 					<AlignmentToolbar value={align} onChange={onAlignChange} />

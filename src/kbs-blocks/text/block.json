@@ -46,13 +46,6 @@
 			"initial": {},
 			"type": "object"
 		},
-		"color": {
-			"renderCSS": true,
-			"component": "color",
-			"type": "object",
-			"selector": "--kbs-text-",
-			"classPrefix": "kbs-text-color-"
-		},
 		"background": {
 			"type": "object"
 		},
@@ -86,6 +79,20 @@
 			"tag": "h1",
 			"initial": {},
 			"type": "object"
+		},
+		"color": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"selector": "--kbs-text-",
+			"classPrefix": "kbs-text-color-"
+		},
+		"backgroundColor": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"selector": "--kbs-text-background-",
+			"classPrefix": "kbs-text-background-color"
 		},
 		"colorHighlight": {
 			"renderCSS": true,
