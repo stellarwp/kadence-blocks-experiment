@@ -11,7 +11,7 @@ export default function Styles(props) {
 		selectedComponent,
 		selectedTab,
 	} = props;
-
+	const selector = '.kbs-style-book-controls-preview';
 	const fakeMetaData = {
 		attributes: {
 			typography: {
@@ -97,7 +97,6 @@ export default function Styles(props) {
 	};
 
 	const cssOutput = useMemo(() => {
-		const selector = '.kbs-style-book-component-preview';
 		const css = new cssGenerator(selector);
 
 		if (selectedTab == 'presets') {
@@ -154,6 +153,28 @@ export default function Styles(props) {
 		return output;
 	}, [attributes, previewDevice, selectedTab]);
 
+	const tempColors = styleBookLocalGlobalStyles[currentGlobalStyleId]?.mappings?.colors || [];
+	const tempGradients = styleBookLocalGlobalStyles[currentGlobalStyleId]?.mappings?.gradients || [];
+	const baseVariables = useMemo(() => {
+		let outputCssString = '';
+		if ( tempColors ) {
+			// Loop through global style ids
+			Object.entries(tempColors).forEach(([key, value]) => {
+				if (value?.value) {
+					outputCssString += `--kbs-colors-${key}: ${value.value};\n`;
+				}
+			});
+		}
+		if ( tempGradients ) {
+			Object.entries(tempGradients).forEach(([key, value]) => {
+				if (value?.value) {
+					outputCssString += `--kbs-gradients-${key}: ${value.value};\n`;
+				}
+			});
+		}
+		const globalStylesCssOutput = outputCssString ? selector + '{ ' + outputCssString + ' }' : '';
+		return globalStylesCssOutput;
+	}, [tempColors, tempGradients]);
 	// console.log('style', cssOutput, selectedComponent, attributes, styleBookLocalGlobalStyles);
 
 	const googleFontUrl = useMemo(() => {
@@ -166,7 +187,7 @@ export default function Styles(props) {
 	return (
 		<>
 			{googleFontUrl && <link href={googleFontUrl} rel="stylesheet" />}
-			<style>{cssOutput}</style>
+			<style>{cssOutput + baseVariables}</style>
 		</>
 	);
 }

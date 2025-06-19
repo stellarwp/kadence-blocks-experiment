@@ -29,6 +29,12 @@ export default function GlobalColors(props) {
 		startNewPreset,
 		newPresetName,
 		setNewPresetName,
+		colorsSubTab,
+		setColorsSubTab,
+		isPaletteCreatorOpen,
+		setIsPaletteCreatorOpen,
+		customPalette,
+		setCustomPalette,
 	} = props;
 
 	const { styleBookLocalGlobalStyles } = useSelect((select) => {
@@ -67,70 +73,8 @@ export default function GlobalColors(props) {
 		setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette9', colorPalette.colors?.[8]);
 		setNeedsSave(true);
 	};
-
-	const [customPalette, setCustomPalette] = useState({
-		mainColor: '',
-		isLight: true,
-		contrast: 'middle',
-		saturation: 1,
-		sat: 1,
-		bright: 2,
-		brightness: 2,
-		btnColor: '#ffffff',
-		colors: [],
-	});
-	const [subTab, setSubTab] = useState('colors');
-	const [isOpen, setIsOpen] = useState(false);
 	const [popoverAnchor, setPopoverAnchor] = useState(null);
-	const cssVariables = useMemo(() => {
-		let outputCssString = '';
-		if (!customPalette?.colors || customPalette?.colors?.length === 0) {
-			return '';
-		}
 
-		// Loop through global style ids
-		customPalette?.colors?.forEach((color, index) => {
-			if (color) {
-				outputCssString += `  --kbs-colors-palette${index + 1}: ${color};\n`;
-			}
-		});
-		Object.entries(tempGradients).forEach(([key, value]) => {
-			if (value?.value) {
-				outputCssString += `--kbs-gradients-${key}: ${value.value};\n`;
-			}
-		});
-		return outputCssString;
-	}, [customPalette?.colors]);
-
-	const baseVariables = useMemo(() => {
-		let outputCssString = '';
-		if (!tempColors) {
-			return '';
-		}
-
-		// Loop through global style ids
-		Object.entries(tempColors).forEach(([key, value]) => {
-			if (value?.value) {
-				outputCssString += `--kbs-colors-${key}: ${value.value};\n`;
-			}
-		});
-		Object.entries(tempGradients).forEach(([key, value]) => {
-			if (value?.value) {
-				outputCssString += `--kbs-gradients-${key}: ${value.value};\n`;
-			}
-		});
-		return outputCssString;
-	}, [tempColors]);
-	const divRef = useRef(null);
-	useEffect(() => {
-		if (divRef.current) {
-			if (cssVariables && isOpen) {
-				divRef.current.setAttribute('style', cssVariables);
-			} else {
-				divRef.current.setAttribute('style', baseVariables);
-			}
-		}
-	}, [cssVariables, divRef?.current, isOpen, baseVariables]);
 	return (
 		<div className="kbs-color-mapping-wrap">
 			<div className="kbs-color-mapping kbs-preset-control kbs-control">
@@ -140,15 +84,15 @@ export default function GlobalColors(props) {
 							<div className="kbs-storybook-header-title-title">{__('Colors', 'kadence-blocks')}</div>
 							<Button
 								className="kbs-storybook-subtab-btn"
-								isPressed={subTab === 'colors'}
-								onClick={() => setSubTab('colors')}
+								isPressed={colorsSubTab === 'colors'}
+								onClick={() => setColorsSubTab('colors')}
 							>
 								{__('Palette', 'kadence-blocks')}
 							</Button>
 							<Button
 								className="kbs-storybook-subtab-btn"
-								isPressed={subTab === 'gradients'}
-								onClick={() => setSubTab('gradients')}
+								isPressed={colorsSubTab === 'gradients'}
+								onClick={() => setColorsSubTab('gradients')}
 							>
 								{__('Gradients', 'kadence-blocks')}
 							</Button>
@@ -160,16 +104,16 @@ export default function GlobalColors(props) {
 							ref={setPopoverAnchor}
 							className="kbs-advanced-controls-button kbs-custom-popover-toggle"
 							onClick={() => {
-								setIsOpen(true);
+								setIsPaletteCreatorOpen(true);
 							}}
-							isPressed={isOpen}
+							isPressed={isPaletteCreatorOpen}
 							variant="secondary"
-							aria-expanded={isOpen}
+							aria-expanded={isPaletteCreatorOpen}
 							iconSize={18}
 							text={__('Edit Color Palette', 'kadence-blocks')}
 						/>
 					</div>
-					{isOpen && popoverAnchor && (
+					{isPaletteCreatorOpen && popoverAnchor && (
 						<Popover
 							anchor={popoverAnchor}
 							noArrow={true}
@@ -177,7 +121,7 @@ export default function GlobalColors(props) {
 							shift={true}
 							offset={10}
 							onClose={() => {
-								setIsOpen(false);
+								setIsPaletteCreatorOpen(false);
 							}}
 							className="kbs-popover-edit-colors-global-style"
 						>
@@ -187,7 +131,7 @@ export default function GlobalColors(props) {
 								</h2>
 								<GlobalPaletteCreator
 									onToggle={() => {
-										setIsOpen(false);
+										setIsPaletteCreatorOpen(false);
 									}}
 									customPalette={customPalette}
 									setCustomPalette={setCustomPalette}
@@ -197,7 +141,7 @@ export default function GlobalColors(props) {
 						</Popover>
 					)}
 				</div>
-				{subTab === 'colors' && (
+				{colorsSubTab === 'colors' && (
 					<div className="kbs-control-inner kbs-color-mapping-grid">
 						{Object.entries(colorsByCategory).map(([category, colors]) => {
 							let categoryLabel = category;
@@ -259,31 +203,62 @@ export default function GlobalColors(props) {
 						})}
 					</div>
 				)}
-				{subTab === 'gradients' && (
+				{colorsSubTab === 'gradients' && (
 					<div className="kbs-control-inner kbs-color-mapping-grid kbs-gradient-mapping-grid">
-						<div className="kbs-color-select-global-palette-inner">
-							{gradients.map((gradient, index) => {
-								return (
-									<ColorSelect
-										key={gradient.slug}
-										label={gradient.name}
-										value={tempGradients?.[gradient.slug]?.value || ''}
-										onChange={(value) => {
-											setStyleBookGradient(gradient.slug, value);
-										}}
-										inherited={{ inheritedValue: '' }}
-										hasMix={false}
-										hasToggleLabel={false}
-										hasGradient={true}
-										hasGradientPalette={false}
-										hasCustomColors={false}
-										reset={false}
-										useGlobalPalette={true}
-										hasPalette={false}
-									/>
-								);
-							})}
-						</div>
+						{['accent', 'contrast', 'background'].map((category, index) => {
+							let categoryLabel = '';
+							if (category === 'background') {
+								categoryLabel = __('Background', 'kadence-blocks');
+							}
+							if (category === 'accent') {
+								categoryLabel = __('Accent', 'kadence-blocks');
+							}
+							if (category === 'contrast') {
+								categoryLabel = __('Contrast', 'kadence-blocks');
+							}
+							let categoryClass = '';
+							if (category === 'background') {
+								categoryClass = 'kbs-color-category-background';
+							}
+							if (category === 'accent') {
+								categoryClass = 'kbs-color-category-accent';
+							}
+							if (category === 'contrast') {
+								categoryClass = 'kbs-color-category-contrast';
+							}
+							return (
+								<div key={category} className="kbs-color-select-control__dropdown-category-inner">
+									<h2 className="kbs-color-select-control__dropdown-category-title">
+										{categoryLabel}
+									</h2>
+									<div
+										className={`kbs-color-select-control__dropdown-category-palette-inner kbs-color-select-global-palette-inner ${categoryClass}`}
+									>
+									{gradients.filter((gradient) => gradient.category === category).map((gradient, index) => {
+										return (
+											<ColorSelect
+												key={gradient.slug}
+												label={gradient.name}
+												value={tempGradients?.[gradient.slug]?.value || ''}
+												onChange={(value) => {
+													setStyleBookGradient(gradient.slug, value);
+												}}
+												inherited={{ inheritedValue: '' }}
+												hasMix={false}
+												hasToggleLabel={false}
+												hasGradient={true}
+												hasGradientPalette={false}
+												hasCustomColors={false}
+												reset={false}
+												useGlobalPalette={true}
+												hasPalette={false}
+											/>
+										);
+									})}
+									</div>
+								</div>
+							);
+						})}
 					</div>
 				)}
 			</div>

@@ -57,7 +57,7 @@
 			}
 			.kbs-control-title-bar {
 				margin: 6px 0;
-				padding: 2px 0px;
+				padding: 0px 2px;
 				.kbs-control-title-bar-inner {
 					justify-content: center;
 					max-width: 100%;
@@ -77,18 +77,7 @@
 	flex: 0 1 calc(50% - 6px);
 }
 .kbs-gradient-mapping-grid.kbs-color-mapping-grid {
-	padding-top: 12px;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
-	.kbs-color-select-global-palette-inner .components-base-control.kbs-control.kbs-color-control {
-		min-width: 34%;
-		.kbs-color-select-control__dropdown {
-			.kbs-color-select-control__toggle-button {
-				.component-color-indicator {
-					height: 70px;
-				}
-			}
-		}
-	}
 }
 .kbs-global-palette-creator {
 	display: flex;
@@ -203,10 +192,10 @@
 			gap: 4px;
 			align-items: center;
 			.kbs-storybook-header-title-title {
-				font-size: 22px;
-				text-transform: uppercase;
+				font-size: 42px;
+				text-transform: none;
 				line-height: 1.4;
-				font-weight: 500;
+				font-weight: 300;
 				margin-bottom: 0px;
 				margin-right: 12px;
 			}

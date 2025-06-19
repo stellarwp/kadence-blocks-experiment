@@ -28,6 +28,7 @@ export default function getGradientOptions() {
 				slug: allGradients?.[key]?.slug || key,
 				name: allGradients?.[key]?.label || allGradients?.[key]?.name || '',
 				gradient: allGradients?.[key]?.value || allGradients?.[key]?.gradient || undefined,
+				category: allGradients?.[key]?.category,
 			};
 		});
 	}, [globalMappings]);

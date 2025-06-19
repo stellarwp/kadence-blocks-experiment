@@ -47,6 +47,19 @@ function KadenceConfig() {
 	const [newGlobalStyleName, setNewGlobalStyleName] = useState('');
 	const [newPresetName, setNewPresetName] = useState('');
 	const [needsSave, setNeedsSave] = useState(false);
+	const [customPalette, setCustomPalette] = useState({
+		mainColor: '',
+		isLight: true,
+		contrast: 'middle',
+		saturation: 1,
+		sat: 1,
+		bright: 2,
+		brightness: 2,
+		btnColor: '#ffffff',
+		colors: [],
+	});
+	const [colorsSubTab, setColorsSubTab] = useState('colors');
+	const [isPaletteCreatorOpen, setIsPaletteCreatorOpen] = useState(false);
 	const divRef = useRef(null);
 	const modalRef = useRef(null);
 
@@ -69,24 +82,6 @@ function KadenceConfig() {
 		updateStyleBookLocalGlobalStyle,
 		setStyleBookComponentPresetByStyleId,
 	} = useDispatch('kadenceblocks/global-styles');
-
-	const tabs = [
-		{
-			name: 'all',
-			title: __('General', 'kadence-blocks'),
-			className: 'kadence-style-book-tab-global',
-		},
-		{
-			name: 'presets',
-			title: __('Components', 'kadence-blocks'),
-			className: 'kadence-style-book-tab-presets',
-		},
-		{
-			name: 'component-settings',
-			title: __('Settings', 'kadence-blocks'),
-			className: 'kadence-style-book-tab-component-settings',
-		},
-	];
 
 	const startNewGlobalStyle = () => {
 		const newGlobalStyleId = newGlobalStyleName
@@ -465,64 +460,7 @@ function KadenceConfig() {
 		</div>
 	);
 
-	const renderTabContent = (tab) => {
-		switch (tab.name) {
-			case 'all':
-				return (
-					<div className="kbs-style-book-all">
-						<GlobalColors
-							setNeedsSave={(value) => {
-								setNeedsSave(value);
-							}}
-							setSelectedComponent={setSelectedComponent}
-							globalStyleId={currentGlobalStyleId}
-							currentPreset={currentPreset}
-							previewDevice={previewDevice}
-							globalStylesCss={globalStylesCss}
-							startNewPreset={startNewPreset}
-							newPresetName={newPresetName}
-							setNewPresetName={setNewPresetName}
-						/>
-					</div>
-				);
-			case 'presets':
-				return (
-					<>
-						<BackgroundPresets
-							setStyleBookAttributes={(props) => {
-								setStyleBookAttributes(props);
-								setNeedsSave(true);
-							}}
-							setSelectedComponent={setSelectedComponent}
-							globalStyleId={currentGlobalStyleId}
-							currentPreset={currentPreset}
-							previewDevice={previewDevice}
-							globalStylesCss={globalStylesCss}
-							startNewPreset={startNewPreset}
-							newPresetName={newPresetName}
-							setNewPresetName={setNewPresetName}
-						/>
-						{/* <Button
-							onClick={() => setSelectedComponent(component)}
-							variant="secondary"
-							style={{ marginBottom: '10px' }}
-						>
-							{__('Make a Typography Preset', 'kadence-blocks')}
-						</Button>
-						{selectedComponent == 'typography' && typographyComponentPreviewContent} */}
-					</>
-				);
-			case 'component-settings':
-				return (
-					<>
-						<ComponentMappingControl globalStyleId={currentGlobalStyleId} />
-					</>
-				);
-
-			default:
-				return null;
-		}
-	};
+	
 
 	useEffect(() => {
 		if (divRef.current) {
@@ -563,7 +501,14 @@ function KadenceConfig() {
 									isPressed={selectedTab === 'design-system'}
 									onClick={() => setSelectedTab('design-system')}
 								>
-									{__('Design System', 'kadence-blocks')}
+									{__('Presets', 'kadence-blocks')}
+								</Button>
+								<Button
+									className="kbs-storybook-subtab-btn"
+									isPressed={selectedTab === 'mappings'}
+									onClick={() => setSelectedTab('mappings')}
+								>
+									{__('Control Settings', 'kadence-blocks')}
 								</Button>
 							</div>
 					}
@@ -573,19 +518,7 @@ function KadenceConfig() {
 					className="kbs-style-book-modal"
 					overlayClassName="kbs-style-book-modal-overlay"
 				>
-					<div className="kbs-style-book-content" ref={modalRef}>
-						{/* <TabPanel
-							className="kbs-style-book-tabs"
-							activeClass="is-active"
-							initialTabName="all"
-							tabs={tabs}
-							onSelect={(tabName) => {
-								setSelectedTab(tabName);
-								setSelectedComponent('');
-							}}
-						>
-							{(tab) => renderTabContent(tab)}
-						</TabPanel> */}
+					<div className="kbs-style-book-content kbs-style-book-controls-preview" ref={modalRef}>
 						{selectedTab == 'style-guide' && (
 							<div className="kbs-style-book-style-guide">
 								<div className="kbs-style-book-style-guide-left">
@@ -601,31 +534,52 @@ function KadenceConfig() {
 										startNewPreset={startNewPreset}
 										newPresetName={newPresetName}
 										setNewPresetName={setNewPresetName}
+										colorsSubTab={colorsSubTab}
+										setColorsSubTab={setColorsSubTab}
+										isPaletteCreatorOpen={isPaletteCreatorOpen}
+										setIsPaletteCreatorOpen={setIsPaletteCreatorOpen}
+										customPalette={customPalette}
+										setCustomPalette={setCustomPalette}
 									/>
 								</div>
 								<div className="kbs-style-book-style-guide-right">
 									<Preview
 										globalStyleId={currentGlobalStyleId}
-										isOpen={isKadenceStyleBookOpened}
-										subTab="colors"
+										colorsSubTab={colorsSubTab}
+										setColorsSubTab={setColorsSubTab}
+										isPaletteCreatorOpen={isPaletteCreatorOpen}
+										setIsPaletteCreatorOpen={setIsPaletteCreatorOpen}
+										customPalette={customPalette}
+										setCustomPalette={setCustomPalette}
 										styleBookLocalGlobalStyles={styleBookLocalGlobalStyles}
 									/>
 								</div>
 							</div>
 						)}
+						{selectedTab == 'design-system' && (
+							<div className="kbs-style-book-design-system">
+								<BackgroundPresets
+									setStyleBookAttributes={(props) => {
+										setStyleBookAttributes(props);
+										setNeedsSave(true);
+									}}
+									setSelectedComponent={setSelectedComponent}
+									globalStyleId={currentGlobalStyleId}
+									currentPreset={currentPreset}
+									previewDevice={previewDevice}
+									globalStylesCss={globalStylesCss}
+									startNewPreset={startNewPreset}
+									newPresetName={newPresetName}
+									setNewPresetName={setNewPresetName}
+								/>
+							</div>
+						)}
+						{selectedTab == 'mappings' && (
+							<div className="kbs-style-book-mappings">
+								<ComponentMappingControl globalStyleId={currentGlobalStyleId} />
+							</div>
+						)}
 					</div>
-					{/* <div className="kbs-style-book-footer">
-						<Button
-							variant="secondary"
-							onClick={() => {
-								resetStyleBookUI();
-								setIsKadenceStyleBookOpened(false);
-							}}
-							style={{ marginTop: '20px' }}
-						>
-							{__('Close', 'kadence-blocks')}
-						</Button>
-					</div> */}
 					<Styles
 						previewDevice={previewDevice}
 						styleBookAttributes={styleBookAttributes}

@@ -5,7 +5,7 @@ export const PREBUILT_PALETTES = [
 		sat: 2,
 		bright: 1,
 		saturation: 3,
-		brightness: 2,
+		brightness: 3,
 		btnColor: '#ffffff',
 		colors: ['#04816D', '#151515', '#e9f3f0', '#ffffff'],
 	},

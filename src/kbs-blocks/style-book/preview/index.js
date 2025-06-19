@@ -9,7 +9,7 @@ import './editor.scss';
  * Build the component preset
  */
 export default function Preview(props) {
-	const { globalStyleId, isOpen = false, subTab = 'colors', customPalette, styleBookLocalGlobalStyles } = props;
+	const { globalStyleId, isPaletteCreatorOpen = false, colorsSubTab = 'colors', customPalette, styleBookLocalGlobalStyles } = props;
 
 	const tempColors = styleBookLocalGlobalStyles[globalStyleId]?.mappings?.colors || [];
 	const tempGradients = styleBookLocalGlobalStyles[globalStyleId]?.mappings?.gradients || [];
@@ -36,33 +36,33 @@ export default function Preview(props) {
 
 	const baseVariables = useMemo(() => {
 		let outputCssString = '';
-		if (!tempColors) {
-			return '';
+		if ( tempColors ) {
+			// Loop through global style ids
+			Object.entries(tempColors).forEach(([key, value]) => {
+				if (value?.value) {
+					outputCssString += `--kbs-colors-${key}: ${value.value};\n`;
+				}
+			});
 		}
-
-		// Loop through global style ids
-		Object.entries(tempColors).forEach(([key, value]) => {
-			if (value?.value) {
-				outputCssString += `--kbs-colors-${key}: ${value.value};\n`;
-			}
-		});
-		Object.entries(tempGradients).forEach(([key, value]) => {
-			if (value?.value) {
-				outputCssString += `--kbs-gradients-${key}: ${value.value};\n`;
-			}
-		});
+		if ( tempGradients ) {
+			Object.entries(tempGradients).forEach(([key, value]) => {
+				if (value?.value) {
+					outputCssString += `--kbs-gradients-${key}: ${value.value};\n`;
+				}
+			});
+		}
 		return outputCssString;
-	}, [tempColors]);
+	}, [tempColors, tempGradients]);
 	const divRef = useRef(null);
 	useEffect(() => {
 		if (divRef.current) {
-			if (cssVariables && isOpen) {
+			if (cssVariables && isPaletteCreatorOpen) {
 				divRef.current.setAttribute('style', cssVariables);
 			} else {
 				divRef.current.setAttribute('style', baseVariables);
 			}
 		}
-	}, [cssVariables, divRef?.current, isOpen, baseVariables]);
+	}, [cssVariables, divRef?.current, isPaletteCreatorOpen, baseVariables]);
 	return (
 		<div className="kbs-stylebook-preview-wrap">
 			<div ref={divRef} className="kbs-color-example-wrap">
@@ -70,7 +70,7 @@ export default function Preview(props) {
 					<div
 						className="kbs-color-example-inner"
 						style={{
-							background: subTab === 'gradients' ? 'var(--kbs-gradients-gradient5)' : undefined,
+							background: colorsSubTab === 'gradients' ? 'var(--kbs-gradients-gradient5)' : undefined,
 						}}
 					>
 						<div className="kbs-color-example-header">
@@ -127,7 +127,7 @@ export default function Preview(props) {
 							<div
 								className="kbs-color-example-hero-image"
 								style={{
-									background: subTab === 'gradients' ? 'var(--kbs-gradients-gradient3)' : undefined,
+									background: colorsSubTab === 'gradients' ? 'var(--kbs-gradients-gradient3)' : undefined,
 								}}
 							>
 								<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
@@ -136,12 +136,12 @@ export default function Preview(props) {
 										y="0"
 										width="800"
 										height="800"
-										fill={subTab === 'gradients' ? 'transparent' : 'var(--kbs-colors-palette7)'}
+										fill={colorsSubTab === 'gradients' ? 'transparent' : 'var(--kbs-colors-palette7)'}
 									/>
 									<path
 										d="M748.958,536.375l-142.794,-142.795l-204.188,204.188l151.19,151.19l195.792,0l0,-212.583Z"
 										fill={
-											subTab === 'gradients'
+											colorsSubTab === 'gradients'
 												? 'var(--kbs-colors-palette7)'
 												: 'var(--kbs-colors-palette5)'
 										}
@@ -149,7 +149,7 @@ export default function Preview(props) {
 									<path
 										d="M51.042,722.75l-0,26.549l441.187,0l-212.704,-211.112l-228.483,184.563Z"
 										fill={
-											subTab === 'gradients'
+											colorsSubTab === 'gradients'
 												? 'var(--kbs-colors-palette8)'
 												: 'var(--kbs-colors-palette6)'
 										}
@@ -171,7 +171,7 @@ export default function Preview(props) {
 									className="kbs-color-example-content-item kbs-color-example-content-item-1"
 									style={{
 										background:
-											subTab === 'gradients' ? 'var(--kbs-gradients-gradient6)' : undefined,
+											colorsSubTab === 'gradients' ? 'var(--kbs-gradients-gradient6)' : undefined,
 									}}
 								>
 									<div className="kbs-color-example-content-item-color">
@@ -190,7 +190,7 @@ export default function Preview(props) {
 									className="kbs-color-example-content-item kbs-color-example-content-item-2"
 									style={{
 										background:
-											subTab === 'gradients' ? 'var(--kbs-gradients-gradient6)' : undefined,
+											colorsSubTab === 'gradients' ? 'var(--kbs-gradients-gradient6)' : undefined,
 									}}
 								>
 									<div className="kbs-color-example-content-item-color">
@@ -209,7 +209,7 @@ export default function Preview(props) {
 									className="kbs-color-example-content-item kbs-color-example-content-item-2"
 									style={{
 										background:
-											subTab === 'gradients' ? 'var(--kbs-gradients-gradient6)' : undefined,
+											colorsSubTab === 'gradients' ? 'var(--kbs-gradients-gradient6)' : undefined,
 									}}
 								>
 									<div className="kbs-color-example-content-item-color">
