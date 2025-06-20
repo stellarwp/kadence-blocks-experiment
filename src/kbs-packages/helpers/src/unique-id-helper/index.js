@@ -10,8 +10,13 @@ export default function uniqueIdHelper(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
 	const { uniqueID } = attributes;
 	const { addUniqueID } = useDispatch('kadenceblocks/data');
-	const selectors = useSelect(
-		(select) => ({
+
+	// Get the select function once
+	const select = useSelect((select) => select, []);
+
+	// Memoize the functions to prevent unnecessary re-renders
+	const { isUniqueID, isUniqueBlock, parentData } = useMemo(
+		() => ({
 			isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
 			isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 			parentData: {
@@ -25,10 +30,8 @@ export default function uniqueIdHelper(props) {
 				editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
 			},
 		}),
-		[clientId]
+		[select]
 	);
-
-	const { isUniqueID, isUniqueBlock, parentData } = useMemo(() => selectors, [selectors]);
 
 	const updateUniqueID = (newUniqueID) => {
 		if (!isUniqueID(newUniqueID)) {
