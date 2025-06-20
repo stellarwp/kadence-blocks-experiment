@@ -48,6 +48,7 @@
 		font-style: var(--kbs-text-highlight-font-style);
 		color: var(--kbs-text-highlight-color, var(--kbs-colors-palette-warning));
 		background: var(--kbs-text-highlight-background-color);
+		border-radius: var(--kbs-text-highlight-border-radius);
 	}
 
 	&.has-gradient {

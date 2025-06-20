@@ -189,10 +189,33 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'backgroundAttachment':
 			controls = getBackgroundAttachmentControls();
 			break;
+		case 'border-radius':
+		case 'borderRadius':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			controls = getBorderRadiusControls();
+			break;
 	}
 
 	return { UIComponent, controls, advancedControls };
 };
+
+export const getBorderRadiusControls = () => [
+	{
+		title: __('Slight', 'kadence-blocks'),
+		name: __('Slight', 'kadence-blocks'),
+		key: 'sm',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: __('Medium', 'kadence-blocks'),
+		key: 'md',
+	},
+	{
+		title: __('Heavy', 'kadence-blocks'),
+		name: __('Heavy', 'kadence-blocks'),
+		key: 'lg',
+	},
+];
 
 export const getMaskSizeControls = () => [
 	{

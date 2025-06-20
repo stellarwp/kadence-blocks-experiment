@@ -13,8 +13,6 @@ import getInheritedDeviceValue from '../get-inherited-device-value';
  * @returns {Object} An object containing { directValue, inheritedValue, inheritedSource, isInherited }.
  */
 export default function getResolvedValue(attributeName, attributes, device, meta, type, globalStylesIds) {
-	const attributeMeta = meta?.attributes?.[attributeName];
-
 	// Get the direct value set for the specific device.
 	const directValue = getDeviceValue(attributeName, attributes, device, type);
 

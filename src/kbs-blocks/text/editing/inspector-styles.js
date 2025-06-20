@@ -7,7 +7,7 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, Typography, ColorControl, Notice } from '@kadence/kbsComponents';
+import { ToolsPanelBody, Typography, ColorControl, Notice, BorderControl } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -112,6 +112,15 @@ export default function InspectorStyles(props) {
 						{__('Background color will be ignored while a gradient color is applied.', 'kadence-blocks')}
 					</Notice>
 				)}
+				<BorderControl
+					attributes={attributes}
+					attributeName={'borderHighlight'}
+					setAttributes={setAttributes}
+					previewDevice={previewDevice}
+					metaData={metadata}
+					globalStylesIds={globalStylesIds}
+					label={__('Border Radius', 'kadence-blocks')}
+				/>
 			</ToolsPanelBody>
 		</>
 	);

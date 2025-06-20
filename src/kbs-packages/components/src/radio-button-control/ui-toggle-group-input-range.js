@@ -24,6 +24,7 @@ function RadioToggleGroupInputRangeUI({
 	max = null,
 	step = null,
 	defaultUnit = 'px',
+	type,
 }) {
 	const defaultUnits = [
 		{
@@ -96,6 +97,7 @@ function RadioToggleGroupInputRangeUI({
 					min={min}
 					max={max}
 					step={step}
+					type={type}
 				/>
 			)}
 		</div>

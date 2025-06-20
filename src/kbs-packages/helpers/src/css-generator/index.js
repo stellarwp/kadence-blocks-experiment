@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { SPACING_SIZES_MAP } from '../constants';
+import { SPACING_SIZES_MAP, BORDER_RADIUS_SIZES_MAP } from '../constants';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { default as getInheritedValue } from '../get-inherited-value';
@@ -71,22 +71,15 @@ class CSSGenerator {
 		return this;
 	}
 
-	/**
-	 * Loops through components and add its CSS attributes to their selector
-	 * @param {string} key - The key of the attribute
-	 * @param {Object} meta - The metadata of the attribute
-	 * @param {Object} props - The props of the block
-	 * @returns {CSSGenerator} - Returns this instance for chaining
-	 */
-	// addComponent(attributeName, meta, props, metadata) {
-	// 	const { attributes, previewDevice, globalStylesIds } = props;
-	// 	// const mergedAttribute = this.mergeInitialAttribute(meta, attributes?.[attributeName] || {});
-
 	processComponentKey(attributeName, meta, props, metadata, key) {
 		//get the components for the line to add
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
 		const cssSelector = this.getCssSelector();
 		const attributeSelector = this.getAttributeSelector(key, meta);
+
+		if (key === 'borderRadius') {
+			console.log(2, cssValue, cssSelector, attributeSelector);
+		}
 
 		if (cssValue && cssSelector && attributeSelector) {
 			const currentSelectorBackup = this.currentSelector;
@@ -160,6 +153,12 @@ class CSSGenerator {
 				break;
 			case 'color':
 				cssValue = getColorOutput(appliedValue);
+				break;
+			case 'border':
+				if (key === 'borderRadius') {
+					console.log(3, directValue, inheritedValue, inheritedSource, isInherited, appliedValue);
+					cssValue = this.getBorderRadiusOutput(appliedValue);
+				}
 				break;
 			default:
 				cssValue = appliedValue;
@@ -584,6 +583,9 @@ class CSSGenerator {
 			case 'color':
 				componentKeys = ['color'];
 				break;
+			case 'border':
+				componentKeys = ['borderRadius'];
+				break;
 			case 'background':
 				componentKeys = ['color', 'gradient', 'image', 'size', 'position', 'repeat', 'attachment'];
 				break;
@@ -792,6 +794,31 @@ class CSSGenerator {
 			return '0';
 		}
 		const found = SPACING_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
+
+	/**
+	 * Get the font sizing option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The font sizing option output
+	 */
+	getBorderRadiusOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!BORDER_RADIUS_SIZES_MAP) {
+			return value;
+		}
+		if (value === '0') {
+			return '0';
+		}
+		if (value === 0) {
+			return '0';
+		}
+		const found = BORDER_RADIUS_SIZES_MAP.find((option) => option.value === value);
 		if (!found) {
 			return value;
 		}

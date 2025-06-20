@@ -40,3 +40,4 @@ export { default as LinkControl } from './links/link-control';
 export { default as LinkStyle } from './links/link-style';
 
 export { default as SizingControl } from './sizing-control';
+export { default as BorderControl } from './border-control';

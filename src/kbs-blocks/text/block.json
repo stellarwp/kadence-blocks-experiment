@@ -108,6 +108,13 @@
 			"selector": "--kbs-text-highlight-background-",
 			"classPrefix": "kbs-text-background-highlight-"
 		},
+		"borderHighlight": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"selector": "--kbs-text-highlight-",
+			"classPrefix": "kbs-text-border-highlight-"
+		},
 		"globalStyleIds": {
 			"type": "string"
 		}

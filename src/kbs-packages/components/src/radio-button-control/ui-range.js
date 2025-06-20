@@ -29,23 +29,37 @@ function RangeUIControl({
 	step = null,
 	inherited,
 	defaultUnit = 'px',
+	type,
 }) {
 	const [isCustomUnit, setIsCustomUnit] = useState(false);
+
+	const getMinMaxForTypeAndUnit = (type, unit) => {
+		if (type === 'borderRadius' && unit === 'px') {
+			return [0, 100];
+		}
+		return false;
+	};
+
 	const [minValue, maxValue] = useMemo(() => {
 		const existingUnit = getUnitFromRawValue(value, units) ?? defaultUnit;
 
-		switch (existingUnit) {
-			case 'px':
-				return [0, 1200];
-			case '%':
-			case 'vh':
-			case 'vw':
-				return [0, 100];
-			case 'em':
-			case 'rem':
-				return [0, 10];
-			default:
-				return [0, 100];
+		const specialMinMax = getMinMaxForTypeAndUnit(type, existingUnit);
+		if (specialMinMax) {
+			return specialMinMax;
+		} else {
+			switch (existingUnit) {
+				case 'px':
+					return [0, 1200];
+				case '%':
+				case 'vh':
+				case 'vw':
+					return [0, 100];
+				case 'em':
+				case 'rem':
+					return [0, 10];
+				default:
+					return [0, 100];
+			}
 		}
 	}, [value]);
 
