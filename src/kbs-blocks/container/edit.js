@@ -110,6 +110,7 @@ export default function ContainerEdit(props) {
 		renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
 		allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
 	});
+	//console.log('render Block', new Date().getTime());
 
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>

@@ -11,6 +11,7 @@ import './editor.scss';
  * Internal block libraries
  */
 import { __ } from '@wordpress/i18n';
+import { useEffect } from '@wordpress/element';
 import { __experimentalUnitControl as CoreUnitControl } from '@wordpress/components';
 import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
@@ -39,16 +40,16 @@ export default function SpaceControl({
 	hasDeviceControls = false,
 	customOnChange = undefined,
 }) {
-	const topValue = getDeviceValue(attributeName, attributes, previewDevice, type + '-top');
-	const rightValue = getDeviceValue(attributeName, attributes, previewDevice, type + '-right');
-	const bottomValue = getDeviceValue(attributeName, attributes, previewDevice, type + '-bottom');
-	const leftValue = getDeviceValue(attributeName, attributes, previewDevice, type + '-left');
+	const topValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Top');
+	const rightValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Right');
+	const bottomValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Bottom');
+	const leftValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Left');
 	const inheritedTop = getInheritedDeviceValue(
 		attributeName,
 		attributes,
 		previewDevice,
 		meta,
-		type + '-top',
+		type + 'Top',
 		globalStylesIds
 	);
 	const inheritedRight = getInheritedDeviceValue(
@@ -56,7 +57,7 @@ export default function SpaceControl({
 		attributes,
 		previewDevice,
 		meta,
-		type + '-right',
+		type + 'Right',
 		globalStylesIds
 	);
 	const inheritedBottom = getInheritedDeviceValue(
@@ -64,7 +65,7 @@ export default function SpaceControl({
 		attributes,
 		previewDevice,
 		meta,
-		type + '-bottom',
+		type + 'Bottom',
 		globalStylesIds
 	);
 	const inheritedLeft = getInheritedDeviceValue(
@@ -72,7 +73,7 @@ export default function SpaceControl({
 		attributes,
 		previewDevice,
 		meta,
-		type + '-left',
+		type + 'Left',
 		globalStylesIds
 	);
 	const onReset = () => {
@@ -82,6 +83,9 @@ export default function SpaceControl({
 		}
 		onChange(resetValue, 'all', type);
 	};
+	useEffect(() => {
+		//console.log('iglobalStylesIds', globalStylesIds);
+	}, [inheritedTop]);
 	const onChange = (value, device, type) => {
 		console.log('onChange', value, device, type);
 		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
@@ -102,34 +106,34 @@ export default function SpaceControl({
 				<div className={'kadence-space-control-visualizer'}></div>
 				<RadioButtonSelect
 					label={__('Top', 'kadence-blocks')}
-					type={type + '-top'}
+					type={type + 'Top'}
 					hasCustomControls={true}
 					value={topValue}
-					placeholder={inheritedTop?.inheritedValue || placeholder}
+					inherited={inheritedTop}
 					onChange={onChange}
 				/>
 				<RadioButtonSelect
 					label={__('Left', 'kadence-blocks')}
-					type={type + '-left'}
+					type={type + 'Left'}
 					hasCustomControls={true}
 					value={leftValue}
-					placeholder={inheritedLeft?.inheritedValue || placeholder}
+					inherited={inheritedLeft}
 					onChange={onChange}
 				/>
 				<RadioButtonSelect
 					label={__('Right', 'kadence-blocks')}
-					type={type + '-right'}
+					type={type + 'Right'}
 					hasCustomControls={true}
 					value={rightValue}
-					placeholder={inheritedRight?.inheritedValue || placeholder}
+					inherited={inheritedRight}
 					onChange={onChange}
 				/>
 				<RadioButtonSelect
 					label={__('Bottom', 'kadence-blocks')}
-					type={type + '-bottom'}
+					type={type + 'Bottom'}
 					hasCustomControls={true}
 					value={bottomValue}
-					placeholder={inheritedBottom?.inheritedValue || placeholder}
+					inherited={inheritedBottom}
 					onChange={onChange}
 				/>
 			</div>

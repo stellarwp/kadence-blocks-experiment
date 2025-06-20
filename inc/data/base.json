@@ -5,29 +5,29 @@
 	"components": {
 		"padding": {
 			"presets": {
-				"section-lg": {
-					"label": "Section Large",
+				"section-xxl": {
+					"label": "Section XXL",
 					"description": "A section padding preset",
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"padding-left": "",
-							"padding-right": "",
-							"padding-top": "lg",
-							"padding-bottom": "lg"
+							"paddingLeft": "",
+							"paddingRight": "",
+							"paddingTop": "xxl",
+							"paddingBottom": "xxl"
 						}
 					}
 				},
-				"section-md": {
-					"label": "Section Medium",
+				"section-xl": {
+					"label": "Section XL",
 					"description": "A section padding preset",
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"padding-left": "",
-							"padding-right": "",
-							"padding-top": "md",
-							"padding-bottom": "md"
+							"paddingLeft": "",
+							"paddingRight": "",
+							"paddingTop": "xl",
+							"paddingBottom": "xl"
 						}
 					}
 				},
@@ -37,10 +37,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"padding-left": "lg",
-							"padding-right": "lg",
-							"padding-top": "lg",
-							"padding-bottom": "lg"
+							"paddingLeft": "lg",
+							"paddingRight": "lg",
+							"paddingTop": "lg",
+							"paddingBottom": "lg"
 						}
 					}
 				},
@@ -50,10 +50,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"padding-left": "md",
-							"padding-right": "md",
-							"padding-top": "md",
-							"padding-bottom": "md"
+							"paddingLeft": "md",
+							"paddingRight": "md",
+							"paddingTop": "md",
+							"paddingBottom": "md"
 						}
 					}
 				}

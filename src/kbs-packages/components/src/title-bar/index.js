@@ -79,7 +79,7 @@ export default function TitleBar({
 			{hasPopoverControls && onTogglePopover && (
 				<Button
 					icon={file}
-					className="kbs-advanced-controls-button"
+					className="kbs-advanced-controls-button kbs-custom-popover-toggle"
 					isPressed={isPopover}
 					onClick={onTogglePopover}
 					iconSize={18}

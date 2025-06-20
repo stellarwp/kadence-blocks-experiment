@@ -12,18 +12,18 @@ import { GlobalStylesContext } from '../global-styles-context';
  * @return {Array} - Array of merged global style IDs
  */
 const useGlobalStylesIds = (globalStyleIds) => {
-  const parentGlobalStyles = useContext(GlobalStylesContext);
-  
-  return useMemo(() => {
-    let globalStyleIdsArray = [];
-    
-    // Handle different formats of globalStyleIds
-    if (Array.isArray(globalStyleIds) && globalStyleIds.length > 0) {
-      globalStyleIdsArray = globalStyleIds;
-    }
-    
-    return [...(parentGlobalStyles || []), ...globalStyleIdsArray];
-  }, [parentGlobalStyles, globalStyleIds]);
+	const parentGlobalStyles = useContext(GlobalStylesContext);
+
+	return useMemo(() => {
+		let globalStyleIdsArray = [];
+
+		// Handle different formats of globalStyleIds
+		if (Array.isArray(globalStyleIds) && globalStyleIds.length > 0) {
+			globalStyleIdsArray = globalStyleIds;
+		}
+
+		return [...(parentGlobalStyles || []), ...globalStyleIdsArray];
+	}, [parentGlobalStyles, globalStyleIds]);
 };
 
-export default useGlobalStylesIds; 
+export default useGlobalStylesIds;

@@ -8,6 +8,7 @@ import { default as getLayerDeviceValue } from '../get-layer-device-value';
 import { default as getPatternOptions } from '../get-pattern-options';
 import { default as getMaskOptions } from '../get-mask-options';
 import { default as getDividerOptions } from '../get-divider-options';
+import { default as getInheritedDeviceValue } from '../get-inherited-device-value';
 import { useMemo } from 'react';
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 
@@ -141,6 +142,9 @@ class CSSGenerator {
 			case 'minHeight':
 			case 'minWidth':
 				cssValue = appliedValue;
+				break;
+			case 'padding':
+				cssValue = this.getSpacingOutput(appliedValue);
 				break;
 			case 'background':
 				if (key === 'color') {
@@ -576,7 +580,6 @@ class CSSGenerator {
 
 		return this;
 	}
-
 	getComponentKeys(component) {
 		let componentKeys = [];
 		switch (component) {
@@ -599,6 +602,9 @@ class CSSGenerator {
 					'rowGap',
 					'columnGap',
 				];
+				break;
+			case 'padding':
+				componentKeys = ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'];
 				break;
 			case 'typography':
 				componentKeys = [

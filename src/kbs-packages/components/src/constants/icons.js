@@ -68,3 +68,24 @@ export const globalIcon = (
 		<Path d="M480.07-100q-78.84 0-148.21-29.92t-120.68-81.21-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68-120.63 81.25Q558.9-100 480.07-100M440-162v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162m276-102q41-45 62.5-100.5T800-480.14q0-98.24-54.31-179.43-54.31-81.2-145.69-117.2V-760q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5" />
 	</SVG>
 );
+
+export const sectionLargeIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+		<Path d="M20.5 16.55h-17v3.95h17zm0-9.05v-4h-17v4z" />
+	</SVG>
+);
+export const sectionMediumIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+		<Path d="M20.5 18.5h-17v2h17zm0-13v-2h-17v2z" />
+	</SVG>
+);
+export const cardLargeIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+		<Path d="M20.5 3.5h-17v17h17zm-4 4v9h-9v-9z" />
+	</SVG>
+);
+export const cardMediumIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+		<Path d="M20.5 3.5h-17v17h17zm-2 2v13h-13v-13z" />
+	</SVG>
+);

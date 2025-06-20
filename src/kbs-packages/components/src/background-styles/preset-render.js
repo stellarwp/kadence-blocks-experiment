@@ -11,7 +11,7 @@ import { Icon } from '@wordpress/components';
 import { useSelect, useDispatch, select } from '@wordpress/data';
 import { createRef, useEffect, useMemo } from '@wordpress/element';
 import { blockDefault, brush, settings } from '@wordpress/icons';
-import { getInheritedValue, getPresetValue, getInheritedDeviceValue, cssGenerator } from '@kadence/kbsHelpers';
+import { cssGenerator } from '@kadence/kbsHelpers';
 import BackgroundLayerRender from './layer-render';
 
 function BackgroundPresetCSSStyles(props) {

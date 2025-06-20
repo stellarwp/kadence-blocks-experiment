@@ -22,7 +22,7 @@ function RadioToggleGroupButtonUI({
 			hideLabelFromVision={true}
 			label={label}
 			onChange={(value) => onChange(value)}
-			value={value}
+			value={value ? value : undefined}
 			isDeselectable={true}
 			isBlock={true}
 			__nextHasNoMarginBottom

@@ -130,8 +130,16 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'paddingBottom':
 		case 'padding-left':
 		case 'paddingLeft':
+		case 'margin-top':
+		case 'marginTop':
+		case 'margin-right':
+		case 'marginRight':
+		case 'margin-bottom':
+		case 'marginBottom':
+		case 'margin-left':
+		case 'marginLeft':
 			UIComponent = RadioToggleGroupInputUI;
-			controls = getPaddingControls();
+			controls = getSpacingControls();
 			break;
 		case 'row-gap':
 		case 'rowGap':
@@ -602,7 +610,7 @@ export const getGapControls = () => [
 		key: 'xl',
 	},
 ];
-export const getPaddingControls = () => [
+export const getSpacingControls = () => [
 	{
 		title: __('None', 'kadence-blocks'),
 		name: '0',
@@ -635,8 +643,8 @@ export const getPaddingControls = () => [
 	},
 	{
 		title: __('2X Large', 'kadence-blocks'),
-		name: '2XL',
-		key: '2xl',
+		name: 'XXL',
+		key: 'xxl',
 	},
 	{
 		title: __('3X Large', 'kadence-blocks'),

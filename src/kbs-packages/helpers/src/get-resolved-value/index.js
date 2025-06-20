@@ -25,7 +25,6 @@ export default function getResolvedValue(attributeName, attributes, device, meta
 		type,
 		globalStylesIds
 	);
-
 	const isInherited = directValue === '';
 
 	return {

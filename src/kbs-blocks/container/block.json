@@ -55,16 +55,7 @@
 			"renderCSS": true,
 			"component": "padding",
 			"nonInheritable": true,
-			"selector": "--kbs-cont-",
-			"initial": {
-				"preset": "none",
-				"desktop": {
-					"padding-left": "sm",
-					"padding-right": "sm",
-					"padding-top": "sm",
-					"padding-bottom": "sm"
-				}
-			}
+			"selector": "--kbs-cont-"
 		},
 		"background": {
 			"renderCSS": true,
