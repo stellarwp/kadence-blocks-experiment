@@ -63,7 +63,7 @@ function InputUIControl({ value, onChange, controls = [], units, placeholder, he
 		if (inherited?.inheritedValue) {
 			return parseInt(inherited?.inheritedValue);
 		}
-		return parseInt(placeholder);
+		return placeholder ? parseInt(placeholder) : '';
 	}, [inherited, placeholder]);
 	return (
 		<>
