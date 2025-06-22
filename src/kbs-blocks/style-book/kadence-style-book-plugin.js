@@ -60,6 +60,7 @@ function KadenceConfig() {
 	});
 	const [colorsSubTab, setColorsSubTab] = useState('colors');
 	const [isPaletteCreatorOpen, setIsPaletteCreatorOpen] = useState(false);
+	const [isConfirmCloseModal, setIsConfirmCloseModal] = useState(false);
 	const divRef = useRef(null);
 	const modalRef = useRef(null);
 
@@ -513,7 +514,11 @@ function KadenceConfig() {
 							</div>
 					}
 					onRequestClose={() => {
-						setIsKadenceStyleBookOpened(false);
+						if ( needsSave ) {
+							setIsConfirmCloseModal(true);
+						} else {
+							setIsKadenceStyleBookOpened(false);
+						}
 					}}
 					className="kbs-style-book-modal"
 					overlayClassName="kbs-style-book-modal-overlay"
@@ -592,6 +597,33 @@ function KadenceConfig() {
 					<style>
 						{'.kbs-style-book-modal-overlay{width:' + editorWidth + 'px; left: ' + editorLeft + 'px;}'}
 					</style>
+				</Modal>
+			)}
+			{isConfirmCloseModal && (
+				<Modal
+					title={__('Save Changes?', 'kadence-blocks')}
+					onRequestClose={() => {
+						setIsConfirmCloseModal(false);
+						setIsKadenceStyleBookOpened(false);
+					}}
+					className="kbs-style-book-close-modal"
+					overlayClassName="kbs-style-book-close-modal-overlay"
+				>
+					<div className="kbs-style-book-close-modal-content">
+						<p>{__('You have unsaved changes. Would you like to save them before closing?', 'kadence-blocks')}</p>
+						<div className="kbs-style-book-close-modal-actions">
+							<Button variant="primary" onClick={() => {
+								saveStyleBookGlobalStyle(currentGlobalStyleId);
+								setNeedsSave(false);
+								setIsConfirmCloseModal(false);
+								setIsKadenceStyleBookOpened(false);
+							}}>{__('Save', 'kadence-blocks')}</Button>
+							<Button variant="secondary" onClick={() => {
+								setIsConfirmCloseModal(false);
+								setIsKadenceStyleBookOpened(false);
+							}}>{__('Close without saving', 'kadence-blocks')}</Button>
+						</div>
+					</div>
 				</Modal>
 			)}
 			<PluginSidebarMoreMenuItem target="kbs-style-book-controls" icon={controlIcon}>
