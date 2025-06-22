@@ -60,6 +60,7 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 			);
 		}
 		let accentColor2 = customPalette.mainColor;
+		let complementColor = mainColor.harmonies('complementary')[1].toHex();
 		let contrastColor1 = mainColor.darken(darkenA).mix('#222222', 0.8).toHex();
 		let contrastColor2 = mainColor.darken(darkenA).mix('#353535', 0.8).toHex();
 		let contrastColor3 = mainColor.darken(darkenB).mix('#454545', 0.8).toHex();
@@ -228,6 +229,7 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 			colors: [
 				customPalette.mainColor,
 				accentColor2,
+				complementColor,
 				contrastColor1,
 				contrastColor2,
 				contrastColor3,

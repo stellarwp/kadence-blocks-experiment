@@ -29,7 +29,13 @@ export default function Preview(props) {
 		// Loop through global style ids
 		customPalette?.colors?.forEach((color, index) => {
 			if (color) {
-				outputCssString += `  --kbs-colors-palette${index + 1}: ${color};\n`;
+				if (index === 2) {
+					outputCssString += `  --kbs-colors-palette-complement: ${color};\n`;
+				} else if ( index > 2 ) {
+					outputCssString += `  --kbs-colors-palette${index}: ${color};\n`;
+				} else {
+					outputCssString += `  --kbs-colors-palette${index + 1}: ${color};\n`;
+				}
 			}
 		});
 		Object.entries(tempGradients).forEach(([key, value]) => {
