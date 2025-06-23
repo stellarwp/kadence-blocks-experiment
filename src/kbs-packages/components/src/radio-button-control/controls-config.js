@@ -44,10 +44,12 @@ import RadioToggleGroupInputRangeUI from './ui-toggle-group-input-range';
 import RadioToggleGroupBackgroundSizeUI from './ui-toggle-group-background-size';
 import RadioToggleGroupShadeRangeUI from './ui-toggle-group-shade-range';
 import RadioToggleGroupInputRangeUINoUnit from './ui-toggle-group-input-range-no-unit';
+import BorderRadiusRangeUIControls from './ui-range-border-radius';
 export const getRadioConfig = (radioType, previewDirection) => {
 	let UIComponent = RadioToggleGroupButtonUI;
 	let controls;
 	let advancedControls;
+	let UIComponentAdvanced = null;
 
 	switch (radioType) {
 		case 'width':
@@ -200,11 +202,12 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'border-radius':
 		case 'borderRadius':
 			UIComponent = RadioToggleGroupInputRangeUI;
+			UIComponentAdvanced = BorderRadiusRangeUIControls;
 			controls = getBorderRadiusControls();
 			break;
 	}
 
-	return { UIComponent, controls, advancedControls };
+	return { UIComponent, UIComponentAdvanced, controls, advancedControls };
 };
 
 export const getBorderRadiusControls = () => [

@@ -9,18 +9,39 @@ export default function BorderControl({
 	previewDevice,
 	label = __('Sizing', 'kadence-blocks'),
 	metadata,
+	hasCustomControls = true,
+	hasAdvancedControls = true,
+	hasBorderRadius = true,
+	hasBorder = false,
 }) {
 	return (
-		<RadioButtonControl
-			label={label}
-			attributes={attributes}
-			setAttributes={setAttributes}
-			attributeName={attributeName}
-			radioType={'borderRadius'}
-			meta={metadata?.attributes?.[attributeName]}
-			previewDevice={previewDevice}
-			hasCustomControls={true}
-			type={'borderRadius'}
-		/>
+		<>
+			{hasBorderRadius && (
+				<RadioButtonControl
+					label={label}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={attributeName}
+					radioType={'borderRadius'}
+					meta={metadata?.attributes?.[attributeName]}
+					previewDevice={previewDevice}
+					hasCustomControls={hasCustomControls}
+					hasAdvancedControls={hasAdvancedControls}
+					type={'borderRadius'}
+				/>
+			)}
+			{hasBorder && (
+				<BorderStyleControl
+					label={label}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={attributeName}
+					meta={metadata?.attributes?.[attributeName]}
+					previewDevice={previewDevice}
+					hasCustomControls={hasCustomControls}
+					hasAdvancedControls={hasAdvancedControls}
+				/>
+			)}
+		</>
 	);
 }

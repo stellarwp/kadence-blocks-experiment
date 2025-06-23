@@ -2,8 +2,6 @@
  * WordPress dependencies
  */
 import { __, _x } from '@wordpress/i18n';
-import { __experimentalUnitControl as UnitControl } from '@wordpress/components';
-import { useEffect, useState, useMemo } from '@wordpress/element';
 /**
  * Internal dependencies.
  */

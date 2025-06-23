@@ -48,7 +48,10 @@
 		font-style: var(--kbs-text-highlight-font-style);
 		color: var(--kbs-text-highlight-color, var(--kbs-colors-palette-warning));
 		background: var(--kbs-text-highlight-background-color);
-		border-radius: var(--kbs-text-highlight-border-radius);
+		border-top-left-radius: var(--kbs-text-highlight-border-top-left-radius);
+		border-top-right-radius: var(--kbs-text-highlight-border-top-right-radius);
+		border-bottom-right-radius: var(--kbs-text-highlight-border-bottom-right-radius);
+		border-bottom-left-radius: var(--kbs-text-highlight-border-bottom-left-radius);
 	}
 
 	&.has-gradient {

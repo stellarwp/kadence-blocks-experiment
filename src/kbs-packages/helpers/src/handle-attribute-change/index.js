@@ -109,7 +109,7 @@ const handleSpecificDevice = (value, newAttributes, attributeName, deviceSlug, t
 		...newAttributes[attributeName],
 		[deviceSlug]: {
 			...newAttributes[attributeName]?.[deviceSlug],
-			...(typeof value === 'object' && value !== null ? value : { [type]: value }),
+			...(typeof value === 'object' && !Array.isArray(value) && value !== null ? value : { [type]: value }),
 		},
 	};
 	return newAttributes;

@@ -78,10 +78,6 @@ class CSSGenerator {
 		const cssSelector = this.getCssSelector();
 		const attributeSelector = this.getAttributeSelector(key, meta);
 
-		if (key === 'borderRadius') {
-			console.log(2, cssValue, cssSelector, attributeSelector);
-		}
-
 		if (cssValue && cssSelector && attributeSelector) {
 			const currentSelectorBackup = this.currentSelector;
 			this.setSelector(cssSelector);
@@ -95,12 +91,21 @@ class CSSGenerator {
 	 */
 	getCssValue(attributeName, meta, props, metadata, key) {
 		const { attributes, previewDevice, globalStylesIds } = props;
+
+		let keyForValue = key;
+
+		const isBorderRadius = key.includes('border') && key.includes('Radius');
+
+		if (isBorderRadius) {
+			keyForValue = 'borderRadius';
+		}
+
 		const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
 			attributeName,
 			attributes,
 			previewDevice,
 			metadata,
-			key,
+			keyForValue,
 			globalStylesIds
 		);
 
@@ -159,9 +164,26 @@ class CSSGenerator {
 				cssValue = getColorOutput(appliedValue);
 				break;
 			case 'border':
-				if (key === 'borderRadius') {
-					console.log(3, directValue, inheritedValue, inheritedSource, isInherited, appliedValue);
-					cssValue = this.getBorderRadiusOutput(appliedValue);
+				//Border values are an array of 4 values for the top left, top right, bottom left, and bottom right corners.
+				if (isBorderRadius) {
+					if (Array.isArray(appliedValue)) {
+						switch (key) {
+							case 'borderTopLeftRadius':
+								cssValue = this.getBorderRadiusOutput(appliedValue[0]);
+								break;
+							case 'borderTopRightRadius':
+								cssValue = this.getBorderRadiusOutput(appliedValue[1]);
+								break;
+							case 'borderBottomLeftRadius':
+								cssValue = this.getBorderRadiusOutput(appliedValue[2]);
+								break;
+							case 'borderBottomRightRadius':
+								cssValue = this.getBorderRadiusOutput(appliedValue[3]);
+								break;
+						}
+					} else {
+						cssValue = this.getBorderRadiusOutput(appliedValue);
+					}
 				}
 				break;
 			default:
@@ -587,7 +609,12 @@ class CSSGenerator {
 				componentKeys = ['color'];
 				break;
 			case 'border':
-				componentKeys = ['borderRadius'];
+				componentKeys = [
+					'borderTopLeftRadius',
+					'borderTopRightRadius',
+					'borderBottomRightRadius',
+					'borderBottomLeftRadius',
+				];
 				break;
 			case 'background':
 				componentKeys = ['color', 'gradient', 'image', 'size', 'position', 'repeat', 'attachment'];
