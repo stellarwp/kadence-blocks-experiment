@@ -40,6 +40,7 @@ export default function InspectorAdvanced(props) {
 		className,
 		globalStylesIds,
 		globalStylesCss,
+		blockElementRef,
 	} = props;
 	return (
 		<>
@@ -51,6 +52,9 @@ export default function InspectorAdvanced(props) {
 				globalStylesIds={globalStylesIds}
 				title={__('Spacing Settings', 'kadence-blocks')}
 				types={['padding', 'margin']}
+				clientId={clientId}
+				showVisualizer={true}
+				blockElementRef={blockElementRef}
 			/>
 			<SizingControl
 				attributes={attributes}

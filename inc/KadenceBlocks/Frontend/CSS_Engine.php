@@ -928,18 +928,20 @@ class CSS_Engine {
 
 		foreach ( $attributes as $device_name => $device_attributes ) {
 			if( isset( $this->_device_media_queries[ $device_name ] ) && is_array( $this->_device_media_queries[ $device_name ] ) ) {
-				foreach ( $device_attributes as $attribute_name => $device_attribute ) {
-					if ( 'preset' === $attribute_name || ! in_array( $attribute_name, $expected_keys ) ) {
-						continue;
-					}
-					$processed_keys[$attribute_name] = true;
+				if ( !empty( $device_attributes ) && is_array( $device_attributes ) ) {
+					foreach ( $device_attributes as $attribute_name => $device_attribute ) {
+						if ( 'preset' === $attribute_name || ! in_array( $attribute_name, $expected_keys ) ) {
+							continue;
+						}
+						$processed_keys[$attribute_name] = true;
 
-					$this->set_media_state( $device_name );
+						$this->set_media_state( $device_name );
 
-					$attribute_selector = $this->get_attribute_selector( $attribute_name, $attributes_meta );
-					$device_attribute   = $this->get_output_value( $device_attribute, $attribute_name );
-					if ( !empty( $device_attribute ) ) {
-						$this->add_property( $attribute_selector, $device_attribute );
+						$attribute_selector = $this->get_attribute_selector( $attribute_name, $attributes_meta );
+						$device_attribute   = $this->get_output_value( $device_attribute, $attribute_name );
+						if ( !empty( $device_attribute ) ) {
+							$this->add_property( $attribute_selector, $device_attribute );
+						}
 					}
 				}
 

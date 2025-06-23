@@ -12,10 +12,15 @@ import './editor.scss';
  */
 import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
-import { __experimentalUnitControl as CoreUnitControl } from '@wordpress/components';
-import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
+import {
+	getDeviceValue,
+	getInheritedDeviceValue,
+	handleAttributeChange,
+	mouseOverVisualizer,
+} from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
+import { PaddingVisualizer } from './spacing-visualizer';
 /**
  * Build the Measure controls
  * @returns {object} Measure settings.
@@ -39,7 +44,11 @@ export default function SpaceControl({
 	reset = true,
 	hasDeviceControls = false,
 	customOnChange = undefined,
+	showVisualizer = false,
+	clientId = '',
+	blockElementRef = null,
 }) {
+	const typeMouseOver = mouseOverVisualizer();
 	const topValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Top');
 	const rightValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Right');
 	const bottomValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Bottom');
@@ -81,7 +90,7 @@ export default function SpaceControl({
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange(resetValue, 'all', type);
+		onChange(resetValue, previewDevice === 'Desktop' ? 'all' : previewDevice, type);
 	};
 	useEffect(() => {
 		//console.log('iglobalStylesIds', globalStylesIds);
@@ -92,51 +101,65 @@ export default function SpaceControl({
 	};
 	// Return the JSX directly, not inside an array
 	return (
-		<div className={`components-base-control kbs-control kbs-space-control${className ? ' ' + className : ''}`}>
-			{label && (
-				<TitleBar
-					label={label}
-					reset={reset}
-					onReset={onReset}
-					hasDeviceControls={hasDeviceControls}
-					hasAdvancedControls={false}
+		<>
+			<div
+				onMouseOver={typeMouseOver.onMouseOver}
+				onMouseOut={typeMouseOver.onMouseOut}
+				className={`components-base-control kbs-control kbs-space-control${className ? ' ' + className : ''}`}
+			>
+				{label && (
+					<TitleBar
+						label={label}
+						reset={reset}
+						onReset={onReset}
+						hasDeviceControls={hasDeviceControls}
+						hasAdvancedControls={false}
+					/>
+				)}
+				<div className={'kadence-controls-content kadence-space-control-inner'}>
+					<div className={'kadence-space-control-visualizer'}></div>
+					<RadioButtonSelect
+						label={__('Top', 'kadence-blocks')}
+						type={type + 'Top'}
+						hasCustomControls={true}
+						value={topValue}
+						inherited={inheritedTop}
+						onChange={onChange}
+					/>
+					<RadioButtonSelect
+						label={__('Left', 'kadence-blocks')}
+						type={type + 'Left'}
+						hasCustomControls={true}
+						value={leftValue}
+						inherited={inheritedLeft}
+						onChange={onChange}
+					/>
+					<RadioButtonSelect
+						label={__('Right', 'kadence-blocks')}
+						type={type + 'Right'}
+						hasCustomControls={true}
+						value={rightValue}
+						inherited={inheritedRight}
+						onChange={onChange}
+					/>
+					<RadioButtonSelect
+						label={__('Bottom', 'kadence-blocks')}
+						type={type + 'Bottom'}
+						hasCustomControls={true}
+						value={bottomValue}
+						inherited={inheritedBottom}
+						onChange={onChange}
+					/>
+				</div>
+			</div>
+			{type === 'padding' && (
+				<PaddingVisualizer
+					forceShow={typeMouseOver.isMouseOver}
+					clientId={clientId}
+					blockElementRef={blockElementRef}
+					value={[inheritedTop, inheritedRight, inheritedBottom, inheritedLeft]}
 				/>
 			)}
-			<div className={'kadence-controls-content kadence-space-control-inner'}>
-				<div className={'kadence-space-control-visualizer'}></div>
-				<RadioButtonSelect
-					label={__('Top', 'kadence-blocks')}
-					type={type + 'Top'}
-					hasCustomControls={true}
-					value={topValue}
-					inherited={inheritedTop}
-					onChange={onChange}
-				/>
-				<RadioButtonSelect
-					label={__('Left', 'kadence-blocks')}
-					type={type + 'Left'}
-					hasCustomControls={true}
-					value={leftValue}
-					inherited={inheritedLeft}
-					onChange={onChange}
-				/>
-				<RadioButtonSelect
-					label={__('Right', 'kadence-blocks')}
-					type={type + 'Right'}
-					hasCustomControls={true}
-					value={rightValue}
-					inherited={inheritedRight}
-					onChange={onChange}
-				/>
-				<RadioButtonSelect
-					label={__('Bottom', 'kadence-blocks')}
-					type={type + 'Bottom'}
-					hasCustomControls={true}
-					value={bottomValue}
-					inherited={inheritedBottom}
-					onChange={onChange}
-				/>
-			</div>
-		</div>
+		</>
 	);
 }

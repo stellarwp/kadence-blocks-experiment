@@ -29,20 +29,19 @@ import Styles from './editing/styles';
 import { __ } from '@wordpress/i18n';
 
 import { useSelect, select } from '@wordpress/data';
-import { useEffect, useMemo } from '@wordpress/element';
+import { useEffect, useMemo, useRef } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, useInnerBlocksProps, store as blockEditorStore } from '@wordpress/block-editor';
 import { FORM_ALLOWED_BLOCKS } from './constants';
-
+import { useMergeRefs } from '@wordpress/compose';
 /**
  * Build the section edit.
  */
 export default function ContainerEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
 	const { uniqueID, templateLock, align, globalStyleIds, tagName: TagName = 'div' } = attributes;
-
+	const myElementRef = useRef(null);
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
-
 	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice } = useSelect(
 		(select) => {
 			const { getBlock, getBlockRootClientId, getBlockParentsByBlockName, getBlocksByClientId } =
@@ -110,8 +109,13 @@ export default function ContainerEdit(props) {
 		renderAppender: hasInnerBlocks ? undefined : InnerBlocks.ButtonBlockAppender,
 		allowedBlocks: inFormBlock ? FORM_ALLOWED_BLOCKS : undefined,
 	});
-	//console.log('render Block', new Date().getTime());
-
+	// This is needed because spacing visualizer needs to be able to access the block element and so does core.
+	const mergedRefs = useMergeRefs([myElementRef, innerBlocksProps.ref]);
+	const finalInnerBlocksProps = {
+		...innerBlocksProps,
+		ref: mergedRefs,
+		draggable: false,
+	};
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<Inspector
@@ -119,6 +123,7 @@ export default function ContainerEdit(props) {
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
 				globalStylesCss={globalStylesCss}
+				blockElementRef={myElementRef}
 			/>
 			{/* <Toolbar {...props} />
 				<Inspector {...props} />
@@ -129,7 +134,7 @@ export default function ContainerEdit(props) {
 				globalStylesIds={globalStylesIds}
 				globalStylesCss={globalStylesCss}
 			/>
-			<TagName {...innerBlocksProps}>
+			<TagName {...finalInnerBlocksProps}>
 				<BackgroundStyles
 					previewDevice={previewDevice}
 					meta={metadata}

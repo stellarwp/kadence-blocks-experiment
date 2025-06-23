@@ -17,6 +17,9 @@ export default function SpacingControl({
 	hasPresetControl = true,
 	globalStylesIds,
 	customOnChange,
+	showVisualizer = false,
+	clientId,
+	blockElementRef = null,
 }) {
 	const onAllReset = () => {
 		const resetObject = {};
@@ -97,6 +100,9 @@ export default function SpacingControl({
 					meta={metaData}
 					previewDevice={previewDevice}
 					customOnChange={customOnChange}
+					clientId={clientId}
+					showVisualizer={showVisualizer}
+					blockElementRef={blockElementRef}
 				/>
 			))}
 		</ToolsPanelBody>

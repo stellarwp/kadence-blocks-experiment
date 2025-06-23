@@ -1,3 +1,6 @@
 .kadence-space-control-inner {
 	flex-direction: column;
 }
+.block-editor__spacing-visualizer.kbs-spacing-visualizer {
+	transition: border 0.2s ease;
+}
