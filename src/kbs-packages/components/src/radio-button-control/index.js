@@ -67,7 +67,7 @@ export default function RadioButtonControl({
 	const [isAdvanced, setIsAdvanced] = useState(view === 'advanced');
 	const [isCustom, setIsCustom] = useState(false);
 	useEffect(() => {
-		if (view !== 'advanced' && currentValue && advancedControls) {
+		if (view !== 'advanced' && currentValue && (advancedControls || UIComponentAdvanced)) {
 			setIsAdvanced(isAdvancedOption(controls, advancedControls, currentValue));
 		} else if (view === 'advanced' && !isAdvanced) {
 			setIsAdvanced(true);
@@ -76,6 +76,9 @@ export default function RadioButtonControl({
 		}
 	}, [view]);
 	useEffect(() => {
+		if (!isAdvanced && currentValue && (advancedControls || UIComponentAdvanced)) {
+			setIsAdvanced(isAdvancedOption(controls, advancedControls, currentValue));
+		}
 		if (!isCustom && currentValue && hasCustomControls) {
 			setIsCustom(isCustomOption(controls, currentValue));
 		}

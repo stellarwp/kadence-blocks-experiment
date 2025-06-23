@@ -42,21 +42,25 @@ function BorderRadiusRangeUIControls({
 			index: 0,
 			label: __('Top Left', 'kadence-blocks'),
 			value: value[0],
+			inherited: inherited[0],
 		},
 		{
 			index: 1,
 			label: __('Top Right', 'kadence-blocks'),
 			value: value[1],
+			inherited: inherited[1],
 		},
 		{
 			index: 2,
 			label: __('Bottom Right', 'kadence-blocks'),
 			value: value[2],
+			inherited: inherited[2],
 		},
 		{
 			index: 3,
 			label: __('Bottom Left', 'kadence-blocks'),
 			value: value[3],
+			inherited: inherited[3],
 		},
 	];
 
@@ -70,7 +74,7 @@ function BorderRadiusRangeUIControls({
 					controls={controls}
 					units={units}
 					placeholder={placeholder}
-					inherited={inherited}
+					inherited={corner.inherited}
 				/>
 			))}
 		</div>
