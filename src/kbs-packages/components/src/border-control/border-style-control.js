@@ -31,6 +31,9 @@ export default function BorderStyleControl({
 	reset = true,
 	hasDeviceControls = false,
 	globalStylesIds,
+	defaultColorValue = ['', '', '', ''],
+	defaultStyleValue = ['', '', '', ''],
+	defaultWidthValue = ['', '', '', ''],
 }) {
 	const [isAdvanced, setIsAdvanced] = useState(view === 'advanced');
 
@@ -174,11 +177,16 @@ export default function BorderStyleControl({
 	};
 
 	const onReset = () => {
-		let resetValue = undefined;
-		if (defaultValue) {
-			resetValue = defaultValue;
-		}
-		onChange(resetValue, previewDevice === 'desktop' ? 'all' : previewDevice, 'border');
+		handleMultipleAttributeChange(
+			[defaultColorValue, defaultStyleValue, defaultWidthValue],
+			previewDevice,
+			attributeName,
+			attributes,
+			setAttributes,
+			undefined,
+			['color', 'style', 'width'],
+			meta
+		);
 	};
 
 	const sides = [
