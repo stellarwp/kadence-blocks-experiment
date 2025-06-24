@@ -95,9 +95,21 @@ class CSSGenerator {
 		let keyForValue = key;
 
 		const isBorderRadius = key.includes('border') && key.includes('Radius');
+		const isBorderWidth = key.includes('border') && key.includes('Width');
+		const isBorderStyle = key.includes('border') && key.includes('Style');
+		const isBorderColor = key.includes('border') && key.includes('Color');
 
 		if (isBorderRadius) {
 			keyForValue = 'borderRadius';
+		}
+		if (isBorderWidth) {
+			keyForValue = 'width';
+		}
+		if (isBorderStyle) {
+			keyForValue = 'style';
+		}
+		if (isBorderColor) {
+			keyForValue = 'color';
 		}
 
 		const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
@@ -164,7 +176,7 @@ class CSSGenerator {
 				cssValue = getColorOutput(appliedValue);
 				break;
 			case 'border':
-				//Border values are an array of 4 values for the top left, top right, bottom left, and bottom right corners.
+				//Border values are an array of 4 values for the top, left, right, and bottom sides. (corners for radius)
 				if (isBorderRadius) {
 					if (Array.isArray(appliedValue)) {
 						switch (key) {
@@ -183,6 +195,66 @@ class CSSGenerator {
 						}
 					} else {
 						cssValue = this.getBorderRadiusOutput(appliedValue);
+					}
+				}
+				if (isBorderWidth) {
+					if (Array.isArray(appliedValue)) {
+						switch (key) {
+							case 'borderTopWidth':
+								cssValue = appliedValue[0];
+								break;
+							case 'borderLeftWidth':
+								cssValue = appliedValue[1];
+								break;
+							case 'borderRightWidth':
+								cssValue = appliedValue[2];
+								break;
+							case 'borderBottomWidth':
+								cssValue = appliedValue[3];
+								break;
+						}
+					} else {
+						cssValue = appliedValue;
+					}
+				}
+				if (isBorderStyle) {
+					if (Array.isArray(appliedValue)) {
+						switch (key) {
+							case 'borderTopStyle':
+								cssValue = appliedValue[0];
+								break;
+							case 'borderLeftStyle':
+								cssValue = appliedValue[1];
+								break;
+							case 'borderRightStyle':
+								cssValue = appliedValue[2];
+								break;
+							case 'borderBottomStyle':
+								cssValue = appliedValue[3];
+								break;
+						}
+					} else {
+						cssValue = appliedValue;
+					}
+				}
+				if (isBorderColor) {
+					if (Array.isArray(appliedValue)) {
+						switch (key) {
+							case 'borderTopColor':
+								cssValue = getColorOutput(appliedValue[0]);
+								break;
+							case 'borderLeftColor':
+								cssValue = getColorOutput(appliedValue[1]);
+								break;
+							case 'borderRightColor':
+								cssValue = getColorOutput(appliedValue[2]);
+								break;
+							case 'borderBottomColor':
+								cssValue = getColorOutput(appliedValue[3]);
+								break;
+						}
+					} else {
+						cssValue = getColorOutput(appliedValue);
 					}
 				}
 				break;
@@ -614,6 +686,18 @@ class CSSGenerator {
 					'borderTopRightRadius',
 					'borderBottomRightRadius',
 					'borderBottomLeftRadius',
+					'borderTopWidth',
+					'borderLeftWidth',
+					'borderRightWidth',
+					'borderBottomWidth',
+					'borderTopStyle',
+					'borderLeftStyle',
+					'borderRightStyle',
+					'borderBottomStyle',
+					'borderTopColor',
+					'borderLeftColor',
+					'borderRightColor',
+					'borderBottomColor',
 				];
 				break;
 			case 'background':

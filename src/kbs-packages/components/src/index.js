@@ -13,6 +13,7 @@ export { default as ResponsiveUnitControl } from './responsive-unit-control';
 export { default as UnitControl } from './unit-control/unit-control';
 export { default as UnitInputControl } from './unit-control';
 export { default as RadioToggleGroupButtonUI } from './radio-button-control/ui-toggle-group';
+export { default as InputUIControl } from './radio-button-control/ui-input';
 
 export { default as FlexBoxControl } from './flexbox-control';
 export { default as FlexChildControl } from './flexchild-control';
@@ -41,3 +42,4 @@ export { default as LinkStyle } from './links/link-style';
 
 export { default as SizingControl } from './sizing-control';
 export { default as BorderControl } from './border-control';
+export { default as BorderStyleControl } from './border-control/border-style-control';

@@ -1,24 +1,26 @@
 import { __ } from '@wordpress/i18n';
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
+import BorderStyleControl from './border-style-control';
 
 export default function BorderControl({
 	attributeName,
 	attributes,
 	setAttributes,
 	previewDevice,
-	label = __('Sizing', 'kadence-blocks'),
+	label = __('Border', 'kadence-blocks'),
+	labelBorderRadius = __('Border Radius', 'kadence-blocks'),
 	metadata,
 	hasCustomControls = true,
 	hasAdvancedControls = true,
 	hasBorderRadius = true,
-	hasBorder = false,
+	hasBorder = true,
 }) {
 	return (
 		<>
 			{hasBorderRadius && (
 				<RadioButtonControl
-					label={label}
+					label={labelBorderRadius}
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={attributeName}

@@ -55,6 +55,10 @@ export default function ColorControl({
 	hasGradient = false,
 	hasMix = false,
 	globalStylesCss,
+	hasToggleLabel = true,
+	hasTitleBar = true,
+	currentValue,
+	inherited,
 }) {
 	const popoverProps = {
 		placement: 'left-start',
@@ -65,8 +69,11 @@ export default function ColorControl({
 	const globalColors = getColorOptions();
 	const globalGradients = hasGradient ? getGradientOptions() : [];
 	const isDisableCustomColors = !customColors ? true : false;
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+
+	const currentValueToUse = currentValue ?? getDeviceValue(attributeName, attributes, previewDevice, type);
+	const inheritedToUse =
+		inherited ?? getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+
 	const onReset = () => {
 		let resetValue = undefined;
 		if (defaultValue) {
@@ -80,33 +87,36 @@ export default function ColorControl({
 	};
 	return (
 		<div className={`components-base-control kbs-control kbs-color-control`}>
-			<TitleBar
-				label={label}
-				reset={reset}
-				onReset={onReset}
-				hasDeviceControls={hasDeviceControls}
-				isAdvanced={isAdvanced}
-				onToggleView={() => setIsAdvanced(!isAdvanced)}
-				hasAdvancedControls={advancedControls && advancedControls.length > 0}
-				isCustom={isCustom}
-				onToggleCustom={() => setIsCustom(!isCustom)}
-				hasCustomControls={hasCustomControls}
-			/>
+			{hasTitleBar && (
+				<TitleBar
+					label={label}
+					reset={reset}
+					onReset={onReset}
+					hasDeviceControls={hasDeviceControls}
+					isAdvanced={isAdvanced}
+					onToggleView={() => setIsAdvanced(!isAdvanced)}
+					hasAdvancedControls={advancedControls && advancedControls.length > 0}
+					isCustom={isCustom}
+					onToggleCustom={() => setIsCustom(!isCustom)}
+					hasCustomControls={hasCustomControls}
+				/>
+			)}
 			<div className="kbs-control-inner">
 				<Dropdown
 					popoverProps={popoverProps}
 					className="kbs-color-select-control__dropdown"
 					contentClassName={'kbs-color-select-control__dropdown-content'}
 					renderToggle={ColorToggle({
-						currentValue: currentValue,
-						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
+						currentValue: currentValueToUse,
+						inherited: inheritedToUse?.inheritedValue ? inheritedToUse.inheritedValue : '',
 						colors: globalColors,
 						gradients: globalGradients,
+						hasToggleLabel: hasToggleLabel,
 					})}
 					renderContent={ColorDropdown({
 						colors: globalColors,
-						currentValue: currentValue,
-						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
+						currentValue: currentValueToUse,
+						inherited: inheritedToUse?.inheritedValue ? inheritedToUse.inheritedValue : '',
 						onChange: onChange,
 						previewDevice: previewDevice,
 						type: type,
