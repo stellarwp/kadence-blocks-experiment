@@ -43,3 +43,4 @@ export { default as LinkStyle } from './links/link-style';
 export { default as SizingControl } from './sizing-control';
 export { default as BorderControl } from './border-control';
 export { default as BorderStyleControl } from './border-control/border-style-control';
+export { default as SingleBorderStyleControl } from './border-control/single-border-style-control';
