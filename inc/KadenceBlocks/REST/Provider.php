@@ -23,6 +23,9 @@ class Provider {
 			$fonts_controller = new Fonts_Controller();
 			$fonts_controller->register_routes();
 
+			$icons_controller = new Icons_Controller();
+			$icons_controller->register_routes();
+
 			$global_styles_controller = new Global_Styles_Controller();
 			$global_styles_controller->register_routes();
 

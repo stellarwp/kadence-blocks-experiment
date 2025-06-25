@@ -166,10 +166,15 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputRangeUI;
 			controls = getMaxWidthControls();
 			break;
+		case 'iconSize':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			controls = getPatternSizeControls();
+			break;
 		case 'max-height':
 		case 'maxHeight':
 		case 'minHeight':
 		case 'min-height':
+		case 'lineWidth':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
 		case 'opacity':

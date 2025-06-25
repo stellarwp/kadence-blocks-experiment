@@ -33,7 +33,7 @@ import {
 	getResolvedValue,
 	getColorOutput,
 } from '@kadence/kbsHelpers';
-import { DynamicTextControl } from '@kadence/kbsComponents';
+import { DynamicTextControl, IconRender } from '@kadence/kbsComponents';
 
 /**
  * Build the text editor.
@@ -154,6 +154,14 @@ export default function TextEdit(props) {
 				</BlockControls>
 				{link?.url && linkContentHTML}
 				{!link?.url && contentHTML}
+
+				<IconRender
+					className={`kt-svg-icon kt-svg-icon-fe_userPlus`}
+					name={'fe_userPlus'}
+					size={'50'}
+					strokeWidth={'fe' === 'fe_userPlus'.substring(0, 2) ? '1' : undefined}
+					title={'Check'}
+				/>
 			</div>
 		</GlobalStylesContext.Provider>
 	);

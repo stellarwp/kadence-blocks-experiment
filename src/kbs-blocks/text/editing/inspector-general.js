@@ -7,7 +7,7 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, LinkControl, LinkStyle } from '@kadence/kbsComponents';
+import { ToolsPanelBody, LinkControl, LinkStyle, IconControl } from '@kadence/kbsComponents';
 import { SelectControl } from '@wordpress/components';
 import metadata from '../block.json';
 /**
@@ -67,6 +67,20 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					attributeName={'linkStyle'}
 					globalStylesIds={globalStylesIds}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
+				title={__('Icon Settings', 'kadence-blocks')}
+				panelName={'icon-settings'}
+				componentName={'icon-control'}
+				initialOpen={true}
+			>
+				<IconControl
+					label={__('Icon', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					previewDevice={previewDevice}
 				/>
 			</ToolsPanelBody>
 		</>

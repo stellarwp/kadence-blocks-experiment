@@ -2,9 +2,9 @@
 /**
  * Render an SVG given a key.
  *
- * @since   2.4.0
- * @package Kadence Blocks
  */
+
+namespace KadenceWP\KadenceBlocks\Frontend;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class to Enqueue CSS/JS of all the blocks.
+ * Class to handle SVG rendering.
  *
  * @category class
  */
-class Kadence_Blocks_Svg_Render {
+class Svg_Render {
 
 	/**
 	 * Instance of this class
@@ -65,54 +65,54 @@ class Kadence_Blocks_Svg_Render {
 	 * @return string|void
 	 */
 	public function render_icons_dynamically( $block_content, $block ) {
-		if ( is_admin() ) {
+		if ( is_admin() || empty( $block_content ) || strpos( $block_content, 'kadence-dynamic-icon' ) === false || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
 			return $block_content;
 		}
-		if ( ! empty( $block_content ) ) {
-			$replaced_block_content = preg_replace_callback(
-				'/<span\s+((?:data-[\w\-]+=["\']+.*["\']+[\s]+)+)class=["\'].*kadence-dynamic-icon.*["\']\s*>(.*)<\/span>/U',
-				function ( $matches ) {
-					$options = explode( ' ', str_replace( 'data-', '', $matches[1] ) );
-					$args = array( 'title' => '' );
-					foreach ( $options as $key => $value ) {
-						$value = trim( $value );
-						if ( empty( $value ) ) {
-							continue;
-						}
-						$data_split = explode( '=', $value, 2 );
-						if ( ! empty( $data_split[0] ) && ( $data_split[0] === 'title' || $data_split[0] === 'class' ) ) {
-							if ( ! empty( $data_split[1] ) ) {
-								$data_split[1] = str_replace( '_', ' ', $data_split[1] );
-							}
-						}
-						if ( ! empty( $data_split[1] ) ) {
-							$args[ $data_split[0] ] = str_replace( '"', '', $data_split[1] );
-						}
-					}
-					$type = substr( $args['name'] , 0, 2 );
-					$line_icon = ( ! empty( $type ) && 'fe' == $type ? true : false );
-					$fill = ( $line_icon ? 'none' : 'currentColor' );
-					$stroke_width = false;
-					if ( $line_icon ) {
-						$stroke_width = ( ! empty( $args['stroke'] ) ? $args['stroke'] : 2 );
-					}
-					$hidden = empty( $args['title'] );
-					$extras = '';
-					if ( ! empty( $args['tooltip-id'] ) ) {
-						$extras = 'data-tooltip-id="' . esc_attr( $args['tooltip-id'] ) . '"';
-						if ( ! empty( $args['tooltip-placement'] ) ) {
-							$extras .= ' data-tooltip-placement="' . esc_attr( $args['tooltip-placement'] ) . '"';
-						}
-					}
-					$svg    = self::render( $args['name'], $fill, $stroke_width, $args['title'], $hidden );
-					return '<span class="kb-svg-icon-wrap kb-svg-icon-' . esc_attr( $args['name'] ) . ( ! empty( $args['class'] ) ? ' ' . esc_attr( $args['class'] ) : '' ) . '"' . $extras . '>' . $svg . '</span>';
-				},
-				$block_content
-			);
-			// if the regex errored out, don't replace the $block_content.
-			$block_content = is_null( $replaced_block_content ) ? $block_content : $replaced_block_content;
-		}
-		return $block_content;
+
+        $p = new \WP_HTML_Tag_Processor( $block_content );
+
+        while ( $p->next_tag( array( 'class_name' => 'kadence-dynamic-icon' ) ) ) {
+            if ( 'SPAN' !== $p->get_tag() ) {
+                continue;
+            }
+
+            $attributes = $p->get_attributes();
+            $args = array(
+                'title' => '',
+            );
+            foreach ($attributes as $key => $value) {
+                if (strpos($key, 'data-') === 0) {
+                    $args[substr($key, 5)] = $value;
+                }
+            }
+            $args['class'] = $attributes['class'] ?? '';
+            if ( isset( $args['title'] ) ) {
+                $args['title'] = str_replace('_', ' ', $args['title']);
+            }
+
+            if ( empty( $args['name'] ) ) {
+                continue;
+            }
+            $type         = substr( $args['name'], 0, 2 );
+            $line_icon    = ( ! empty( $type ) && 'fe' == $type );
+            $fill         = ( $line_icon ? 'none' : 'currentColor' );
+            $stroke_width = false;
+            if ( $line_icon ) {
+                $stroke_width = ( ! empty( $args['stroke'] ) ? $args['stroke'] : 2 );
+            }
+            $hidden = empty( $args['title'] );
+            $extras = '';
+            if ( ! empty( $args['tooltip-id'] ) ) {
+                $extras = 'data-tooltip-id="' . esc_attr( $args['tooltip-id'] ) . '"';
+                if ( ! empty( $args['tooltip-placement'] ) ) {
+                    $extras .= ' data-tooltip-placement="' . esc_attr( $args['tooltip-placement'] ) . '"';
+                }
+            }
+            $svg    = self::render( $args['name'], $fill, $stroke_width, $args['title'], $hidden );
+            $p->set_outer_html( '<span class="kb-svg-icon-wrap kb-svg-icon-' . esc_attr( $args['name'] ) . ( ! empty( $args['class'] ) ? ' ' . esc_attr( str_replace('kadence-dynamic-icon', '', $args['class']) ) : '' ) . '"' . $extras . '>' . $svg . '</span>' );
+        }
+        
+        return $p->get_updated_html();
 	}
 
 	/**
@@ -135,12 +135,15 @@ class Kadence_Blocks_Svg_Render {
 		}
 
 		$svg = '';
-		if ( 'fa_facebook' === $name ) {
-			$name = 'fa_facebook-n';
-		}
-
+        $name = self::name_replacements($name);
 		$key = md5( $name . $fill . $stroke_width . $title . $hidden . $extras );
+
 		if( !empty( self::$cached_render[$key] ) ) {
+            if ( $echo ) {
+                echo self::$cached_render[$key];
+                return;
+            }
+
 			return self::$cached_render[$key];
 		}
 
@@ -181,13 +184,19 @@ class Kadence_Blocks_Svg_Render {
 
 		if ( $echo ) {
 			echo $svg;
-
 			return;
 		}
 
 		return $svg;
 
 	}
+
+    private static function name_replacements( $name ) {
+        if ( 'fa_facebook' === $name ) {
+            $name = 'fa_facebook-n';
+        }
+        return $name;
+    }
 
 	/**
 	 * Recursively generate SVG elements
@@ -267,6 +276,4 @@ class Kadence_Blocks_Svg_Render {
 		return $image;
 	}
 
-}
-
-Kadence_Blocks_Svg_Render::get_instance();
+} 
