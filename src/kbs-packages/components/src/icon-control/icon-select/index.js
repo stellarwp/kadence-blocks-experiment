@@ -16,21 +16,129 @@ import {
 	chevronDown,
 	closeSmall,
 } from '@wordpress/icons';
+import { useInView } from 'react-intersection-observer';
+
+import { getDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 
 import { compareVersions } from '@kadence/helpers';
 import {default as GenIcon} from '../gen-icon';
 import SvgAddModal from './svg-add-modal';
 import SvgDeleteModal from './svg-delete-modal';
 
+const IconGroup = ({
+	group,
+	iconRenderFunction,
+	defaultOnChange,
+	debounceToggle,
+	translatedCustomSvgString,
+	search,
+	isSupportedProVersion,
+	hasPro,
+	setIsOpen,
+	setDeleteId,
+	setIsDeleteOpen,
+}) => {
+	const { ref, inView } = useInView({ threshold: 0 });
+    const [limit, setLimit] = useState(150);
+	const icons = Object.keys(group.icons);
+
+    useEffect(() => {
+        if (inView) {
+            setLimit(l => Math.min(l + 150, icons.length));
+        }
+    }, [inView]);
+
+	// Reset limit when search changes.
+	useEffect(() => {
+		setLimit(150);
+	}, [search, group.label]);
+
+	const visibleIcons = icons.slice(0, limit);
+
+	return (
+		<PanelBody
+			title={group.label}
+		>
+			<div className='kadence-icon-grid-wrap'>
+				{group.label === translatedCustomSvgString && search === '' && isSupportedProVersion && hasPro && (
+					<button
+						className={'kadence-icon-picker-link add-custom-svg'}
+						onClick={() => {
+							setIsOpen( true );
+							debounceToggle();
+						}}
+					>
+						<Icon icon={plus}/>
+					</button>
+				)}
+				{visibleIcons.map( ( iconKey ) => {
+					if ( group.label === translatedCustomSvgString ) {
+						if( iconKey === 'placeholder'){
+							return null;
+						}
+
+						return (
+							<div className={'kb-custom-svg'} key={iconKey}>
+								{ hasPro && isSupportedProVersion && ( <div className={'custom-svg-delete'}
+									 onClick={() => {
+										setDeleteId( iconKey );
+										setIsDeleteOpen( true );
+									 }}>
+									<Icon icon={closeSmall} size={20}/>
+								</div> ) }
+								<button
+									className={'kadence-icon-picker-link'}
+									key={group.label + iconKey}
+									onClick={() => {
+										defaultOnChange( 'kb-custom-' + iconKey );
+										debounceToggle();
+									}}
+								>
+									{iconRenderFunction( 'kb-custom-' + iconKey )}
+								</button>
+							</div>
+						);
+					} else {
+						return (
+							<button
+								className={'kadence-icon-picker-link'}
+								key={group.label + iconKey}
+								onClick={() => {
+									defaultOnChange( iconKey );
+									debounceToggle();
+								}}
+							>
+								{iconRenderFunction( iconKey )}
+							</button>
+						);
+					}
+				} )
+				}
+			</div>
+			{limit < icons.length && <div style={{ height: '100px' }} ref={ref} />}
+		</PanelBody>
+	)
+}
+
 export default function KadenceIconPicker({
-		value,
-		onChange,
+        customOnChange,
 		label,
+        defaultValue,
+        attributes,
+        setAttributes,
+        meta,
+        attributeName,
 		placeholder = __( 'Select Icon', 'kadence-blocks' ),
 		showSearch = true,
 		className,
-		allowClear = false
+		allowClear = false,
 	}) {
+
+    const value = getDeviceValue(attributeName, attributes, 'desktop', 'icon');
+
+    const defaultOnChange = (value) => {
+		handleAttributeChange(value, 'Desktop', attributeName, attributes, setAttributes, customOnChange, 'icon', meta);
+	};
 
 	const [ popoverAnchor, setPopoverAnchor ] = useState();
 	const [ isVisible, setIsVisible ] = useState( false );
@@ -71,7 +179,7 @@ export default function KadenceIconPicker({
 	};
 
 	const addCallback = ( postId ) => {
-		onChange('kb-custom-' + postId.toString() );
+		defaultOnChange('kb-custom-' + postId.toString() );
 
         // Refetch icons
         fetchIcons();
@@ -184,7 +292,7 @@ export default function KadenceIconPicker({
 					</button>
 					{value && allowClear && (
 						<button className='kadence-icon-picker-clear' onClick={() => {
-							onChange( '' );
+							defaultOnChange( '' );
 							setIsVisible( false );
 						}}><Icon icon={closeSmall}></Icon></button>
 					)}
@@ -233,68 +341,20 @@ export default function KadenceIconPicker({
 									}
 									{Object.keys( results ).map( ( groupKey ) => {
 										return (
-											<PanelBody
-												title={results[ groupKey ].label}
+											<IconGroup
 												key={groupKey}
-											>
-												<div className='kadence-icon-grid-wrap'>
-													{results[ groupKey ].label === translatedCustomSvgString && search === '' && isSupportedProVersion && hasPro && (
-														<button
-															className={'kadence-icon-picker-link add-custom-svg'}
-															onClick={() => {
-																setIsOpen( true );
-																debounceToggle();
-															}}
-														>
-															<Icon icon={plus}/>
-														</button>
-													)}
-													{Object.keys( results[ groupKey ].icons ).map( ( iconKey ) => {
-														if ( results[ groupKey ].label === translatedCustomSvgString ) {
-															if( iconKey === 'placeholder'){
-																return;
-															}
-
-															return (
-																<div className={'kb-custom-svg'}>
-																	{ hasPro && isSupportedProVersion && ( <div className={'custom-svg-delete'}
-																		 onClick={() => {
-																			setDeleteId( iconKey );
-																			setIsDeleteOpen( true );
-																		 }}>
-																		<Icon icon={closeSmall} size={20}/>
-																	</div> ) }
-																	<button
-																		className={'kadence-icon-picker-link'}
-																		key={results[ groupKey ].label + iconKey}
-																		onClick={() => {
-																			onChange( 'kb-custom-' + iconKey );
-																			debounceToggle();
-																		}}
-																	>
-																		{iconRenderFunction( 'kb-custom-' + iconKey )}
-																	</button>
-																</div>
-															);
-														} else {
-															return (
-																<button
-																	className={'kadence-icon-picker-link'}
-																	key={results[ groupKey ].label + iconKey}
-																	onClick={() => {
-																		onChange( iconKey );
-																		debounceToggle();
-																	}}
-																>
-																	{iconRenderFunction( iconKey )}
-																</button>
-															);
-														}
-													} )
-													}
-												</div>
-
-											</PanelBody>
+												group={results[groupKey]}
+												iconRenderFunction={iconRenderFunction}
+												defaultOnChange={defaultOnChange}
+												debounceToggle={debounceToggle}
+												translatedCustomSvgString={translatedCustomSvgString}
+												search={search}
+												isSupportedProVersion={isSupportedProVersion}
+												hasPro={hasPro}
+												setIsOpen={setIsOpen}
+												setDeleteId={setDeleteId}
+												setIsDeleteOpen={setIsDeleteOpen}
+											/>
 										)
 									} )}
 								</>

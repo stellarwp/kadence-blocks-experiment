@@ -8,25 +8,16 @@ import ColorControl from '../color-control';
 export default function IconControl( props ) {
     const { attributes, setAttributes, meta, previewDevice, previewDirection } = props;
 
-    const [ tmpIcon, setTmpIcon ] = useState('');
-    const [ title, setTitle ] = useState('');
-
     const attributeName = 'icon';
 
     return (
         <>
             <KadenceIconPicker
-                value={tmpIcon}
-                onChange={(value) => setAttributes({ icon: value })}
                 allowClear={true}
-                placeholder={__('Select an Icon', 'kadence-blocks')}
-
                 attributes={attributes}
 				setAttributes={setAttributes}
 				attributeName={attributeName}
-				type={'icon'}
 				meta={meta}
-				previewDevice={previewDevice}
             />
 
             <RadioButtonControl
@@ -43,8 +34,8 @@ export default function IconControl( props ) {
 
             <TextControl 
                 label={__('Title for screen readers', 'kadence-blocks')}
-                value={title}
-                onChange={(value) => setTitle(value)}
+                value={attributes[attributeName]?.title}
+                onChange={(value) => setAttributes({ [attributeName]: { ...attributes[attributeName], title: value } })}
             />
 
             Tabs
