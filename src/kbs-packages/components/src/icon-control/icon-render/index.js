@@ -41,4 +41,3 @@ function IconRender( props ) {
 }
 
 export default IconRender;
-
