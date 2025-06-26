@@ -117,7 +117,7 @@ export default function UnitInputControl({
 					hasAdvancedControls={false}
 				/>
 			)}
-			<div className={'kadence-controls-content kadence-single-unit-control'}>
+			<div className={'kbs-controls-content kbs-single-unit-control'}>
 				<CoreUnitControl
 					className={'kbs-input-control'}
 					__next40pxDefaultSize={true}

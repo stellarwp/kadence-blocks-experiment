@@ -99,7 +99,7 @@ export default function SingleBorderStyleControl({
 		<div className="kbs-border-style-control__content">
 			<div className="kbs-border-style-control__row">
 				{/* Color Indicator */}
-				<div className="kbs-border-style-control__item">
+				<div className="kbs-border-style-control__item color">
 					<ColorControl
 						attributes={attributes}
 						setAttributes={setAttributes}
@@ -117,7 +117,7 @@ export default function SingleBorderStyleControl({
 				</div>
 
 				{/* Border Style Selector */}
-				<div className="kbs-border-style-control__item">
+				<div className="kbs-border-style-control__item style">
 					<DropdownMenu
 						className="kbs-border-style-select"
 						icon={styleIcons[currentStyle] ?? styleIcons.solid}
@@ -146,7 +146,7 @@ export default function SingleBorderStyleControl({
 				</div>
 
 				{/* Width Input Control */}
-				<div className="kbs-border-style-control__item">
+				<div className="kbs-border-style-control__item width">
 					<div className="kbs-border-width-control">
 						<UnitControl
 							value={currentWidth}
