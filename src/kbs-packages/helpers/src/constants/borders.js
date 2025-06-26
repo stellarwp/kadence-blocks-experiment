@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 export const BORDER_STYLES_DEFAULTS = {
-	color: 'var(--kbs-border-default-color,black)',
+	color: 'var(--kbs-border-default-color,transparent)',
 	style: 'var(--kbs-border-default-style,solid)',
 	width: 'var(--kbs-border-default-width,0)',
 };
