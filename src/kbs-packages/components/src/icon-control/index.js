@@ -83,7 +83,7 @@ export default function IconControl( props ) {
 							attributes={attributes}
 							setAttributes={setAttributes}
 							attributeName={attributeName}
-							type={'hoverColor'}
+							type={'colorHover'}
 							meta={meta}
 							previewDevice={previewDevice}
 							previewDirection={previewDirection?.inheritedValue}
@@ -95,7 +95,7 @@ export default function IconControl( props ) {
 							attributes={attributes}
 							setAttributes={setAttributes}
 							attributeName={attributeName}
-							type={'iconHoverSize'}
+							type={'iconSizeHover'}
 							meta={meta}
 							previewDevice={previewDevice}
 							previewDirection={previewDirection?.inheritedValue}
@@ -108,7 +108,7 @@ export default function IconControl( props ) {
 								attributes={attributes}
 								setAttributes={setAttributes}
 								attributeName={attributeName}
-								type={'iconHoverLineWidth'}
+								type={'iconLineWidthHover'}
 								meta={meta}
 								previewDevice={previewDevice}
 								previewDirection={previewDirection?.inheritedValue}

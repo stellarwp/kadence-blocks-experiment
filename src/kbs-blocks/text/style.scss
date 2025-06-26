@@ -97,10 +97,10 @@
 		height: var(--kbs-text-icon-icon-size, 24px);
 
 		&:hover {
-			color: var(--kbs-text-icon-hover-color, var(--kbs-text-icon-color));
-			stroke-width: var(--kbs-text-icon-icon-hover-line-width, var(--kbs-text-icon-icon-line-width));
-			width: var(--kbs-text-icon-icon-hover-size, var(--kbs-text-icon-icon-size, 24px));
-			height: var(--kbs-text-icon-icon-hover-size, var(--kbs-text-icon-icon-size, 24px));
+			color: var(--kbs-text-icon-color-hover, var(--kbs-text-icon-color));
+			stroke-width: var(--kbs-text-icon-icon-line-width-hover, var(--kbs-text-icon-icon-line-width));
+			width: var(--kbs-text-icon-icon-size-hover, var(--kbs-text-icon-icon-size, 24px));
+			height: var(--kbs-text-icon-icon-size-hover, var(--kbs-text-icon-icon-size, 24px));
 		}
 	}
 }

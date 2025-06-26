@@ -48,7 +48,21 @@ export default function RadioButtonControl({
 	const globalStylesIds = useContext(GlobalStylesContext);
 	const radioConfig = type ? type : radioType;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+	let inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+	
+	// If type ends with "Hover" and no inherited value found, check the non-hover type
+	if (type && type.endsWith('Hover') && (!inherited || !inherited.inheritedValue)) {
+		const normalType = type.replace(/Hover$/, '');
+		const normalValue = getDeviceValue(attributeName, attributes, previewDevice, normalType);
+		if (normalValue) {
+			inherited = {
+				inheritedValue: normalValue,
+				inheritedSource: 'parent',
+				inheritedType: 'parent'
+			};
+		}
+	}
+	
 	const { UIComponent, UIComponentAdvanced, controls, advancedControls } = getRadioConfig(
 		radioConfig,
 		previewDirection

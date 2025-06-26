@@ -155,9 +155,9 @@ class CSSGenerator {
 				}
 				break;
 			case 'icon':
-				if( key === 'color' || key === 'hoverColor' ) {
+				if( key === 'color' || key === 'colorHover' ) {
 					cssValue = getColorOutput(appliedValue);
-				} else if( key === 'iconSize' || key === 'iconHoverSize' ) {
+				} else if( key === 'iconSize' || key === 'iconSizeHover' ) {
 					cssValue = this.getSpacingOutput(appliedValue);
 				} else {
 					cssValue = appliedValue;
@@ -737,7 +737,7 @@ class CSSGenerator {
 				];
 				break;
 			case 'icon':
-				componentKeys = ['iconSize', 'iconLineWidth', 'color', 'iconHoverSize', 'iconHoverLineWidth', 'hoverColor'];
+				componentKeys = ['iconSize', 'iconLineWidth', 'color', 'iconSizeHover', 'iconLineWidthHover', 'colorHover'];
 				break;
 			case 'linkStyle':
 				componentKeys = ['textDecoration'];
