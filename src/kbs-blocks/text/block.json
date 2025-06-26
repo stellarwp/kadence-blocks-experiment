@@ -116,7 +116,7 @@
 		"icon": {
 			"renderCSS": true,
 			"component": "icon",
-			"selector": "--kbs-icon-",
+			"selector": "--kbs-text-icon-",
 			"initial": {},
 			"type": "object"
 		},

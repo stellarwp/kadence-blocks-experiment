@@ -40,6 +40,9 @@ export default function RadioButtonControl({
 	units = [],
 	defaultUnit = 'px',
 	onChange = null,
+	min = null,
+	max = null,
+	step = null,
 }) {
 	// Get the globalStylesIds from context
 	const globalStylesIds = useContext(GlobalStylesContext);
@@ -162,6 +165,9 @@ export default function RadioButtonControl({
 					type={type}
 					units={units.length > 0 ? units : defaultUnits}
 					defaultUnit={defaultUnit}
+					min={min}
+					max={max}
+					step={step}
 				/>
 			</div>
 		</div>

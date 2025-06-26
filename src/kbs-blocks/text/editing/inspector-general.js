@@ -81,6 +81,7 @@ export default function InspectorGeneral(props) {
 					setAttributes={setAttributes}
 					meta={metadata}
 					previewDevice={previewDevice}
+					attributeName={'icon'}
 				/>
 			</ToolsPanelBody>
 		</>

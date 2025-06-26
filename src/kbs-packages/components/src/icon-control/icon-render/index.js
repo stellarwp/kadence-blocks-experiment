@@ -10,10 +10,23 @@ import { Spinner } from '@wordpress/components';
 
 /**
  * Icon Render Component using Redux store
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.attributeName - The name of the attribute to render.
+ * @param {Object} props.attributes - The attributes of the component.
+ * @param {string} props.name - The name of the icon to render.
+ * 
+ * @returns {JSX.Element} The rendered icon component.
  */
 function IconRender( props ) {
-	const { name } = props;
+	const { attributeName, attributes, className, ariaHidden } = props;
 
+	const iconName = attributes[attributeName]?.desktop?.icon;
+	const iconSize = attributes[attributeName]?.desktop?.iconSize || 24;
+	const baseClassName = className ? `${className} kt-svg-icon kt-svg-icon-${iconName}` : `kt-svg-icon kt-svg-icon-${iconName}`;
+	const iconClassName = iconSize === 0 ? `${baseClassName} kb-icon-transparent` : baseClassName;
+	const iconTitle = attributes[attributeName]?.desktop?.title;
+	
 	const { icons, areIconsLoaded } = useSelect((select) => {
 		const rawIcons = select('kadenceblocks/data').getIcons();
 
@@ -32,12 +45,15 @@ function IconRender( props ) {
 		}
 	}, [areIconsLoaded]);
 
+	if( !iconName ) {
+		return null;
+	}
 
-	if ( !areIconsLoaded || !icons || !icons[ name ] ) {
+	if ( !areIconsLoaded || !icons || !icons[ iconName ] ) {
 		return <Spinner />;
 	}
 
-	return <GenIcon name={ name } icon={ icons[ name ] } { ...props } />;
+	return <GenIcon name={ iconName } icon={ icons[ iconName ] } title={iconTitle} className={iconClassName} ariaHidden={ariaHidden} />;
 }
 
 export default IconRender;

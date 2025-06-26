@@ -45,3 +45,6 @@ export { default as BorderControl } from './border-control';
 export { default as BorderStyleControl } from './border-control/border-style-control';
 export { default as IconControl } from './icon-control';
 export { default as IconRender } from './icon-control/icon-render';
+
+export { default as TabsControl } from './tabs-control';
+export { default as SelectBasicControl } from './select-basic-control';

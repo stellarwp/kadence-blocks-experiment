@@ -89,6 +89,20 @@
 			box-decoration-break: clone;
 		}
 	}
+
+	.kt-svg-icon {
+		color: var(--kbs-text-icon-color);
+		stroke-width: var(--kbs-text-icon-icon-line-width);
+		width: var(--kbs-text-icon-icon-size, 24px);
+		height: var(--kbs-text-icon-icon-size, 24px);
+
+		&:hover {
+			color: var(--kbs-text-icon-hover-color, var(--kbs-text-icon-color));
+			stroke-width: var(--kbs-text-icon-icon-hover-line-width, var(--kbs-text-icon-icon-line-width));
+			width: var(--kbs-text-icon-icon-hover-size, var(--kbs-text-icon-icon-size, 24px));
+			height: var(--kbs-text-icon-icon-hover-size, var(--kbs-text-icon-icon-size, 24px));
+		}
+	}
 }
 
 .kbs-text-content {

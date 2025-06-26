@@ -167,14 +167,19 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			controls = getMaxWidthControls();
 			break;
 		case 'iconSize':
+		case 'iconHoverSize':
 			UIComponent = RadioToggleGroupInputRangeUI;
-			controls = getPatternSizeControls();
+			controls = getIconSizeControls();
+			break;
+		case 'iconLineWidth':
+		case 'iconHoverLineWidth':
+			UIComponent = RadioToggleGroupInputRangeUINoUnit;
+			controls = getIconStrokeControls();
 			break;
 		case 'max-height':
 		case 'maxHeight':
 		case 'minHeight':
 		case 'min-height':
-		case 'lineWidth':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
 		case 'opacity':
@@ -339,6 +344,64 @@ export const getPatternSizeControls = () => [
 		key: '50',
 	},
 ];
+
+export const getIconSizeControls = () => [
+	{
+		title: __('X Small', 'kadence-blocks'),
+		name: 'XS',
+		key: 'xs',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: 'sm',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: 'md',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: 'lg',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: 'xl',
+	},
+];
+
+export const getIconStrokeControls = () => [
+	{
+		title: __('X Small', 'kadence-blocks'),
+		name: 'XS',
+		key: '0.5',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: '1',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: '1.5',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: '2',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: '3',
+	},
+];
+
+
 export const getColorShadeControls = () => [
 	{
 		title: __('70% Lighter', 'kadence-blocks'),

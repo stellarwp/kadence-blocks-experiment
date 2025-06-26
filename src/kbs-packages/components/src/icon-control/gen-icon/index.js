@@ -4,23 +4,17 @@ import { createElement } from '@wordpress/element';
 
 export default function GenIcon( props ) {
 	const {
-		style,
 		className,
 		icon,
 		name,
-		htmltag: HtmlTagOut = 'div',
-		size: size = 24,
-		strokeWidth: strokeWidth = 2,
 		ariaHidden,
-		title,
-		xmlns = 'http://www.w3.org/2000/svg',
+		title
 	} = props;
 
 	const isLineIcon = name.startsWith( 'fe' );
 
 	const svgProps = {
 		'aria-hidden': ariaHidden ? 'true' : undefined,
-		'stroke-width': isLineIcon ? strokeWidth : undefined,
 		'stroke-linecap': isLineIcon ? 'round' : undefined,
 		'stroke-linejoin': isLineIcon ? 'round' : undefined,
 		display: 'inline-block',
@@ -36,23 +30,21 @@ export default function GenIcon( props ) {
 	}
 
 	return (
-		<HtmlTagOut
-			style={ { display: 'inline-flex', justifyContent: 'center', alignItems: 'center', ...style } }
-			className={ `${className || ''} ${size === 0 ? 'kb-icon-transparent' : ''}`.trim() }
+		<div
+			style={ { display: 'inline-flex', justifyContent: 'center', alignItems: 'center' } }
+			className={ `${className || ''}` }
 		>
 			<svg
 				style={ svgProps }
 				viewBox={ icon?.vB || '0 0 24 24' }
-				height={ size === 0 ? '24' : size }
-				width={ size === 0 ? '24' : size }
 				fill={ isLineIcon ? 'none' : 'currentColor' }
 				stroke={ isLineIcon ? 'currentColor' : undefined }
-				xmlns={ xmlns }
+				xmlns={ 'http://www.w3.org/2000/svg' }
 			>
 				{ title && <title>{ title }</title> }
 				{ icon && walkChildren( icon.cD ) }
 			</svg>
-		</HtmlTagOut>
+		</div>
 	);
 };
 

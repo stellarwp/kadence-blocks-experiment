@@ -154,6 +154,15 @@ class CSSGenerator {
 					cssValue = appliedValue;
 				}
 				break;
+			case 'icon':
+				if( key === 'color' || key === 'hoverColor' ) {
+					cssValue = getColorOutput(appliedValue);
+				} else if( key === 'iconSize' || key === 'iconHoverSize' ) {
+					cssValue = this.getSpacingOutput(appliedValue);
+				} else {
+					cssValue = appliedValue;
+				}
+				break;
 			case 'maxWidth':
 			case 'maxHeight':
 			case 'minHeight':
@@ -726,6 +735,9 @@ class CSSGenerator {
 					'letterSpacing',
 					'textTransform',
 				];
+				break;
+			case 'icon':
+				componentKeys = ['iconSize', 'iconLineWidth', 'color', 'iconHoverSize', 'iconHoverLineWidth', 'hoverColor'];
 				break;
 			case 'linkStyle':
 				componentKeys = ['textDecoration'];

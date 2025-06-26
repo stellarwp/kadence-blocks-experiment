@@ -31,7 +31,6 @@ function RangeUIControlNoUnit({
 		onChange(value);
 	};
 	const rangeControlOnChange = (newValue) => {
-		console.log('newValue', newValue);
 		onChange(newValue);
 	};
 	const placeholderValue = useMemo(() => {
