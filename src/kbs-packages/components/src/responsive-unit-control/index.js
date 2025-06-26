@@ -76,11 +76,10 @@ export default function ResponsiveUnitControl({
 					inheritedValue={inheritedValue}
 					onChange={(size) => onChange(size)}
 					placeholder={''}
-					units={units}
+					units={controlUnits}
 					previewDevice={previewDevice}
 					max={max}
 					min={min}
-					unit={controlUnits}
 				/>
 				<InheritanceIndicator inheritedSource={inheritedSource} inheritedType={inheritedType} />
 			</div>

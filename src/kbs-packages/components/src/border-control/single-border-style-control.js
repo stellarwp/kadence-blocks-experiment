@@ -2,6 +2,7 @@ import ColorControl from '../color-control';
 import { __ } from '@wordpress/i18n';
 import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import InputUIControl from '../radio-button-control/ui-input';
+import UnitControl from '../unit-control';
 import './editor.scss';
 
 export default function SingleBorderStyleControl({
@@ -23,6 +24,7 @@ export default function SingleBorderStyleControl({
 	max = 200,
 	min = 0,
 	step = 1,
+	units,
 }) {
 	const styleIcons = {
 		solid: (
@@ -146,14 +148,16 @@ export default function SingleBorderStyleControl({
 				{/* Width Input Control */}
 				<div className="kbs-border-style-control__item">
 					<div className="kbs-border-width-control">
-						<InputUIControl
-							className="kbs-border-width-input"
+						<UnitControl
 							value={currentWidth}
-							placeholder="0"
-							onChange={(value) => onChangeWidth(value)}
-							min={min}
+							inheritedValue={inheritedWidth}
+							meta={meta}
+							onChange={(size) => onChangeWidth(size)}
+							placeholder={'0'}
+							units={units}
+							previewDevice={previewDevice}
 							max={max}
-							step={step}
+							min={min}
 						/>
 					</div>
 				</div>

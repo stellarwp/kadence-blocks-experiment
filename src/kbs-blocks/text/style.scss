@@ -52,18 +52,10 @@
 		border-top-right-radius: var(--kbs-text-highlight-border-top-right-radius);
 		border-bottom-right-radius: var(--kbs-text-highlight-border-bottom-right-radius);
 		border-bottom-left-radius: var(--kbs-text-highlight-border-bottom-left-radius);
-		border-top-width: var(--kbs-text-highlight-border-top-width, 0);
-		border-left-width: var(--kbs-text-highlight-border-left-width, 0);
-		border-right-width: var(--kbs-text-highlight-border-right-width, 0);
-		border-bottom-width: var(--kbs-text-highlight-border-bottom-width, 0);
-		border-top-style: var(--kbs-text-highlight-border-top-style, solid);
-		border-left-style: var(--kbs-text-highlight-border-left-style, solid);
-		border-right-style: var(--kbs-text-highlight-border-right-style, solid);
-		border-bottom-style: var(--kbs-text-highlight-border-bottom-style, solid);
-		border-top-color: var(--kbs-text-highlight-border-top-color);
-		border-left-color: var(--kbs-text-highlight-border-left-color);
-		border-right-color: var(--kbs-text-highlight-border-right-color);
-		border-bottom-color: var(--kbs-text-highlight-border-bottom-color);
+		border-top: var(--kbs-text-highlight-border-top);
+		border-left: var(--kbs-text-highlight-border-left);
+		border-right: var(--kbs-text-highlight-border-right);
+		border-bottom: var(--kbs-text-highlight-border-bottom);
 	}
 
 	&.has-gradient {

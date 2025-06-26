@@ -9,6 +9,9 @@ import {
 	getInheritedDeviceValue,
 	handleAttributeChange,
 	handleMultipleAttributeChange,
+	parseBorderStyle,
+	getColorOutput,
+	BORDER_STYLES_DEFAULTS,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import SingleBorderStyleControl from './single-border-style-control';
@@ -31,67 +34,31 @@ export default function BorderStyleControl({
 	reset = true,
 	hasDeviceControls = false,
 	globalStylesIds,
-	defaultColorValue = ['', '', '', ''],
-	defaultStyleValue = ['', '', '', ''],
-	defaultWidthValue = ['', '', '', ''],
+	defaultValue = '',
 }) {
 	const [isAdvanced, setIsAdvanced] = useState(view === 'advanced');
 
 	//Border Style is advanced if any of style, width or color is not the same for all corners.
-	const isAdvancedOption = (color, style, width) => {
-		if (Array.isArray(color) && color.length > 0) {
-			const firstItem = color[0];
-			if (!color.every((item) => item === firstItem)) {
-				return true;
-			}
-		}
-		if (Array.isArray(style) && style.length > 0) {
-			const firstItem = style[0];
-			if (!style.every((item) => item === firstItem)) {
-				return true;
-			}
-		}
-		if (Array.isArray(width) && width.length > 0) {
-			const firstItem = width[0];
-			if (!width.every((item) => item === firstItem)) {
+	const isAdvancedOption = () => {
+		const firstColor = getCurrentValueForSideAndType(0, 'color');
+		const firstStyle = getCurrentValueForSideAndType(0, 'style');
+		const firstWidth = getCurrentValueForSideAndType(0, 'width');
+
+		for (let i = 1; i < sides.length; i++) {
+			const currentColor = getCurrentValueForSideAndType(i, 'color');
+			const currentStyle = getCurrentValueForSideAndType(i, 'style');
+			const currentWidth = getCurrentValueForSideAndType(i, 'width');
+
+			if (currentColor !== firstColor || currentStyle !== firstStyle || currentWidth !== firstWidth) {
 				return true;
 			}
 		}
 		return false;
 	};
 
-	// Extract individual border properties
-	const currentWidth = getDeviceValue(attributeName, attributes, previewDevice, 'width') || ['', '', '', ''];
-	const currentStyle = getDeviceValue(attributeName, attributes, previewDevice, 'style') || ['', '', '', ''];
-	const currentColor = getDeviceValue(attributeName, attributes, previewDevice, 'color') || ['', '', '', ''];
-	const inheritedWidth = getInheritedDeviceValue(
-		attributeName,
-		attributes,
-		previewDevice,
-		meta,
-		'width',
-		globalStylesIds
-	);
-	const inheritedStyle = getInheritedDeviceValue(
-		attributeName,
-		attributes,
-		previewDevice,
-		meta,
-		'style',
-		globalStylesIds
-	);
-	const inheritedColor = getInheritedDeviceValue(
-		attributeName,
-		attributes,
-		previewDevice,
-		meta,
-		'color',
-		globalStylesIds
-	);
-
 	useEffect(() => {
-		if (view !== 'advanced' && currentWidth) {
-			setIsAdvanced(isAdvancedOption(currentColor, currentStyle, currentWidth));
+		if (view !== 'advanced' && getCurrentValueForSideAndType(0, 'width')) {
+			setIsAdvanced(isAdvancedOption());
 		} else if (view === 'advanced' && !isAdvanced) {
 			setIsAdvanced(true);
 		} else if (view !== 'advanced' && isAdvanced) {
@@ -99,66 +66,60 @@ export default function BorderStyleControl({
 		}
 	}, [view]);
 
-	const onChange = (value, device, type, sideIndex = 0) => {
-		let updatedValue = [value, value, value, value];
+	const createNewBorderStyleValueForSideAndType = (value, type, sideIndex) => {
+		const currentSideValue = getCurrentValueForSide(sideIndex, type);
+		const { color, style, width } = parseBorderStyle(currentSideValue);
+		if (type === 'color') {
+			return createBorderStyleValue(value, style, width);
+		} else if (type === 'style') {
+			return createBorderStyleValue(color, value, width);
+		} else {
+			return createBorderStyleValue(color, style, value);
+		}
+	};
 
-		if (isAdvanced && sideIndex) {
-			let currentValue = currentColor;
-			if (type === 'style') {
-				currentValue = currentStyle;
-			} else if (type === 'width') {
-				currentValue = currentWidth;
+	const createBorderStyleValue = (color, style, width) => {
+		if (color || style || width) {
+			let colorToUse = getColorOutput(color);
+			if (color === '') {
+				colorToUse = BORDER_STYLES_DEFAULTS.color;
 			}
-			switch (sideIndex) {
-				case 0:
-					updatedValue = [value, currentValue[1], currentValue[2], currentValue[3]];
-					break;
-				case 1:
-					updatedValue = [currentValue[0], value, currentValue[2], currentValue[3]];
-					break;
-				case 2:
-					updatedValue = [currentValue[0], currentValue[1], value, currentValue[3]];
-					break;
-				case 3:
-					updatedValue = [currentValue[0], currentValue[1], currentValue[2], value];
-					break;
+			if (style === '') {
+				style = BORDER_STYLES_DEFAULTS.style;
 			}
+			if (width === '') {
+				width = BORDER_STYLES_DEFAULTS.width;
+			}
+			return width + ' ' + style + ' ' + colorToUse;
+		}
+		return '';
+	};
+
+	const onChange = (value, device, type, sideIndex = 0) => {
+		if (isAdvanced) {
+			const borderKey = getKeyForSide(sideIndex);
+			const styleValue = createNewBorderStyleValueForSideAndType(value, type, sideIndex);
 			handleAttributeChange(
-				updatedValue,
+				styleValue,
 				device,
 				attributeName,
 				attributes,
 				setAttributes,
 				undefined,
-				type,
+				borderKey,
 				meta
 			);
 		} else {
-			//If not advanced, set all the values (except the updated value) to the current value for the first side
-			//this ensures any advanced values are reset after a non-advanced change.
-			let newColorValue = [currentColor[0], currentColor[0], currentColor[0], currentColor[0]];
-			let newStyleValue = [currentStyle[0], currentStyle[0], currentStyle[0], currentStyle[0]];
-			let newWidthValue = [currentWidth[0], currentWidth[0], currentWidth[0], currentWidth[0]];
+			const styleValue = createNewBorderStyleValueForSideAndType(value, type, 0);
 
-			switch (type) {
-				case 'color':
-					newColorValue = updatedValue;
-					break;
-				case 'style':
-					newStyleValue = updatedValue;
-					break;
-				case 'width':
-					newWidthValue = updatedValue;
-					break;
-			}
 			handleMultipleAttributeChange(
-				[newColorValue, newStyleValue, newWidthValue],
+				[styleValue, styleValue, styleValue, styleValue],
 				device,
 				attributeName,
 				attributes,
 				setAttributes,
 				undefined,
-				['color', 'style', 'width'],
+				getKeysForAllSides(),
 				meta
 			);
 		}
@@ -178,13 +139,13 @@ export default function BorderStyleControl({
 
 	const onReset = () => {
 		handleMultipleAttributeChange(
-			[defaultColorValue, defaultStyleValue, defaultWidthValue],
+			[defaultValue, defaultValue, defaultValue, defaultValue],
 			previewDevice,
 			attributeName,
 			attributes,
 			setAttributes,
 			undefined,
-			['color', 'style', 'width'],
+			getKeysForAllSides(),
 			meta
 		);
 	};
@@ -193,44 +154,66 @@ export default function BorderStyleControl({
 		{
 			index: 0,
 			label: __('Top', 'kadence-blocks'),
-			valueColor: currentColor[0],
-			valueStyle: currentStyle[0],
-			valueWidth: currentWidth[0],
-			inheritedColor: inheritedColor[0],
-			inheritedStyle: inheritedStyle[0],
-			inheritedWidth: inheritedWidth[0],
+			key: 'Top',
 		},
 		{
 			index: 1,
 			label: __('Left', 'kadence-blocks'),
-			valueColor: currentColor[1],
-			valueStyle: currentStyle[1],
-			valueWidth: currentWidth[1],
-			inheritedColor: inheritedColor[1],
-			inheritedStyle: inheritedStyle[1],
-			inheritedWidth: inheritedWidth[1],
+			key: 'Left',
 		},
 		{
 			index: 2,
 			label: __('Right', 'kadence-blocks'),
-			valueColor: currentColor[2],
-			valueStyle: currentStyle[2],
-			valueWidth: currentWidth[2],
-			inheritedColor: inheritedColor[2],
-			inheritedStyle: inheritedStyle[2],
-			inheritedWidth: inheritedWidth[2],
+			key: 'Right',
 		},
 		{
 			index: 3,
 			label: __('Bottom', 'kadence-blocks'),
-			valueColor: currentColor[3],
-			valueStyle: currentStyle[3],
-			valueWidth: currentWidth[3],
-			inheritedColor: inheritedColor[3],
-			inheritedStyle: inheritedStyle[3],
-			inheritedWidth: inheritedWidth[3],
+			key: 'Bottom',
 		},
 	];
+
+	const getKeyForSide = (sideIndex) => {
+		return 'border' + sides[sideIndex].key;
+	};
+
+	const getCurrentValueForSide = (sideIndex) => {
+		const borderKey = getKeyForSide(sideIndex);
+		return getDeviceValue(attributeName, attributes, previewDevice, borderKey) || '';
+	};
+
+	const getInheritedValueForSide = (sideIndex) => {
+		const borderKey = getKeyForSide(sideIndex);
+		return getInheritedDeviceValue(attributeName, attributes, previewDevice, borderKey) || '';
+	};
+
+	const getCurrentValueForSideAndType = (sideIndex, type) => {
+		const currentSideValue = getCurrentValueForSide(sideIndex);
+		const { color, style, width } = parseBorderStyle(currentSideValue);
+		if (type === 'color') {
+			return color;
+		} else if (type === 'style') {
+			return style;
+		} else {
+			return width;
+		}
+	};
+
+	const getInheritedValueForSideAndType = (sideIndex, type) => {
+		const currentSideValue = getInheritedValueForSide(sideIndex);
+		const { color, style, width } = parseBorderStyle(currentSideValue);
+		if (type === 'color') {
+			return color;
+		} else if (type === 'style') {
+			return style;
+		} else {
+			return width;
+		}
+	};
+
+	const getKeysForAllSides = () => {
+		return sides.map((side) => getKeyForSide(side.index));
+	};
 
 	return (
 		<div className="components-base-control kbs-border-style-control">
@@ -244,55 +227,57 @@ export default function BorderStyleControl({
 				hasAdvancedControls={hasAdvancedControls}
 				hasCustomControls={hasCustomControls}
 			/>
-			{isAdvanced && (
-				<>
-					{sides.map((side) => (
-						<SingleBorderStyleControl
-							key={side.label + '-' + side.index}
-							attributes={attributes}
-							setAttributes={setAttributes}
-							attributeName={attributeName}
-							meta={meta}
-							previewDevice={previewDevice}
-							currentColor={side.valueColor}
-							currentStyle={side.valueStyle}
-							currentWidth={side.valueWidth}
-							inheritedColor={side.inheritedColor}
-							inheritedStyle={side.inheritedStyle}
-							inheritedWidth={side.inheritedWidth}
-							onChangeColor={(color) => onChangeColor(color, side.index)}
-							onChangeStyle={(style) => onChangeStyle(style, side.index)}
-							onChangeWidth={(width) => onChangeWidth(width, side.index)}
-							styles={styles}
-							min={min}
-							max={max}
-							step={step}
-						/>
-					))}
-				</>
-			)}
-			{!isAdvanced && (
-				<SingleBorderStyleControl
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={attributeName}
-					meta={meta}
-					previewDevice={previewDevice}
-					currentColor={currentColor[0]}
-					currentStyle={currentStyle[0]}
-					currentWidth={currentWidth[0]}
-					inheritedColor={inheritedColor[0]}
-					inheritedStyle={inheritedStyle[0]}
-					inheritedWidth={inheritedWidth[0]}
-					onChangeColor={onChangeColor}
-					onChangeStyle={onChangeStyle}
-					onChangeWidth={onChangeWidth}
-					styles={styles}
-					min={min}
-					max={max}
-					step={step}
-				/>
-			)}
+			<div className={'kbs-border-style-control-container ' + (isAdvanced ? 'is-advanced' : '')}>
+				{isAdvanced && (
+					<>
+						{sides.map((side) => (
+							<SingleBorderStyleControl
+								key={side.key + '-' + side.index}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								attributeName={attributeName}
+								meta={meta}
+								previewDevice={previewDevice}
+								currentColor={getCurrentValueForSideAndType(side.index, 'color')}
+								currentStyle={getCurrentValueForSideAndType(side.index, 'style')}
+								currentWidth={getCurrentValueForSideAndType(side.index, 'width')}
+								inheritedColor={getInheritedValueForSideAndType(side.index, 'color')}
+								inheritedStyle={getInheritedValueForSideAndType(side.index, 'style')}
+								inheritedWidth={getInheritedValueForSideAndType(side.index, 'width')}
+								onChangeColor={(color) => onChangeColor(color, side.index)}
+								onChangeStyle={(style) => onChangeStyle(style, side.index)}
+								onChangeWidth={(width) => onChangeWidth(width, side.index)}
+								styles={styles}
+								min={min}
+								max={max}
+								step={step}
+							/>
+						))}
+					</>
+				)}
+				{!isAdvanced && (
+					<SingleBorderStyleControl
+						attributes={attributes}
+						setAttributes={setAttributes}
+						attributeName={attributeName}
+						meta={meta}
+						previewDevice={previewDevice}
+						currentColor={getCurrentValueForSideAndType(0, 'color')}
+						currentStyle={getCurrentValueForSideAndType(0, 'style')}
+						currentWidth={getCurrentValueForSideAndType(0, 'width')}
+						inheritedColor={getInheritedValueForSideAndType(0, 'color')}
+						inheritedStyle={getInheritedValueForSideAndType(0, 'style')}
+						inheritedWidth={getInheritedValueForSideAndType(0, 'width')}
+						onChangeColor={onChangeColor}
+						onChangeStyle={onChangeStyle}
+						onChangeWidth={onChangeWidth}
+						styles={styles}
+						min={min}
+						max={max}
+						step={step}
+					/>
+				)}
+			</div>
 		</div>
 	);
 }
