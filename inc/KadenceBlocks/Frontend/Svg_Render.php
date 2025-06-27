@@ -1,7 +1,8 @@
 <?php
 /**
- * Render an SVG given a key.
+ * Icon Render Class for Kadence Blocks
  *
+ * @package Kadence Blocks
  */
 
 namespace KadenceWP\KadenceBlocks\Frontend;
@@ -12,9 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class to handle SVG rendering.
- *
- * @category class
+ * Class to handle icon rendering on the frontend.
  */
 class Svg_Render {
 
@@ -32,8 +31,10 @@ class Svg_Render {
 	 */
 	private static $all_icons = null;
 
-	/*
+	/**
 	 * Cache rendered SVG elements
+	 * 
+	 * @var array
 	 */
 	private static $cached_render = [];
 
@@ -47,186 +48,218 @@ class Svg_Render {
 
 		return self::$instance;
 	}
+
 	/**
-	 * Class Constructor.
-	 */
-	public function __construct() {
-		add_filter( 'render_block', array( $this, 'render_icons_dynamically' ), 10, 2 );
-		if ( apply_filters( 'kadence_blocks_fix_svg_dimensions', false ) ) {
-			add_filter( 'wp_get_attachment_image_src', array( $this, 'fix_wp_get_attachment_image_svg' ), 10, 4 );
-		}
-	}
-	/**
-	 * On build convert icons into svgs.
+	 * Render an icon from attributes
 	 *
-	 * @param string $block_content the name of the svg.
-	 * @param object $block the block data.
-	 *
-	 * @return string|void
+	 * @param array  $attributes The icon attributes containing icon name, size, etc.
+	 * @param string $attribute_name The attribute name of the icon.
+	 * @param string $class_prefix Optional class prefix for the wrapper.
+	 * @param array  $wrapper_args Optional additional wrapper arguments.
+	 * 
+	 * @return string The rendered icon HTML.
 	 */
-	public function render_icons_dynamically( $block_content, $block ) {
-		if ( is_admin() || empty( $block_content ) || strpos( $block_content, 'kadence-dynamic-icon' ) === false || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
-			return $block_content;
+	public static function render_icon( $attributes, $attribute_name, $class_prefix = '', $wrapper_args = [] ) {
+		if ( empty( $attributes ) || ! is_array( $attributes ) || empty( $attributes[$attribute_name] ) || empty( $attributes[$attribute_name]['desktop']['icon'] ) ) {
+			return '';
 		}
 
-        $p = new \WP_HTML_Tag_Processor( $block_content );
+		// Get icon properties from desktop (fallback for all devices)
+		$icon_name = $attributes[$attribute_name]['desktop']['icon'];
+		$title = $attributes[$attribute_name]['desktop']['title'] ?? '';
 
-        while ( $p->next_tag( array( 'class_name' => 'kadence-dynamic-icon' ) ) ) {
-            if ( 'SPAN' !== $p->get_tag() ) {
-                continue;
-            }
+		// Check if it's a line icon
+		$is_line_icon = strpos( $icon_name, 'fe_' ) === 0;
+		$fill = $is_line_icon ? 'none' : 'currentColor';
+		
+		// Don't set stroke-width in SVG - CSS handles all sizing
+		$stroke_width = false;
 
-            $attributes = $p->get_attributes();
-            $args = array(
-                'title' => '',
-            );
-            foreach ($attributes as $key => $value) {
-                if (strpos($key, 'data-') === 0) {
-                    $args[substr($key, 5)] = $value;
-                }
-            }
-            $args['class'] = $attributes['class'] ?? '';
-            if ( isset( $args['title'] ) ) {
-                $args['title'] = str_replace('_', ' ', $args['title']);
-            }
+		// Build wrapper classes
+		$wrapper_classes = [
+			'kt-svg-icon-wrap',
+			'kt-svg-icon-' . esc_attr( $icon_name ),
+		];
 
-            if ( empty( $args['name'] ) ) {
-                continue;
-            }
-            $type         = substr( $args['name'], 0, 2 );
-            $line_icon    = ( ! empty( $type ) && 'fe' == $type );
-            $fill         = ( $line_icon ? 'none' : 'currentColor' );
-            $stroke_width = false;
-            if ( $line_icon ) {
-                $stroke_width = ( ! empty( $args['stroke'] ) ? $args['stroke'] : 2 );
-            }
-            $hidden = empty( $args['title'] );
-            $extras = '';
-            if ( ! empty( $args['tooltip-id'] ) ) {
-                $extras = 'data-tooltip-id="' . esc_attr( $args['tooltip-id'] ) . '"';
-                if ( ! empty( $args['tooltip-placement'] ) ) {
-                    $extras .= ' data-tooltip-placement="' . esc_attr( $args['tooltip-placement'] ) . '"';
-                }
-            }
-            $svg    = self::render( $args['name'], $fill, $stroke_width, $args['title'], $hidden );
-            $p->set_outer_html( '<span class="kb-svg-icon-wrap kb-svg-icon-' . esc_attr( $args['name'] ) . ( ! empty( $args['class'] ) ? ' ' . esc_attr( str_replace('kadence-dynamic-icon', '', $args['class']) ) : '' ) . '"' . $extras . '>' . $svg . '</span>' );
-        }
-        
-        return $p->get_updated_html();
+		if ( ! empty( $class_prefix ) ) {
+			$wrapper_classes[] = esc_attr( $class_prefix ) . 'icon-wrap';
+		}
+
+		if ( ! empty( $wrapper_args['class'] ) ) {
+			$wrapper_classes[] = esc_attr( $wrapper_args['class'] );
+		}
+
+		// Render the SVG
+		$svg = self::render_svg( $icon_name, $fill, $stroke_width, $title );
+
+		if ( empty( $svg ) ) {
+			return '';
+		}
+
+		// Build wrapper attributes
+		$wrapper_atts = [
+			'class' => implode( ' ', $wrapper_classes ),
+		];
+
+		// Add any additional wrapper attributes
+		foreach ( $wrapper_args as $key => $value ) {
+			if ( $key !== 'class' ) {
+				$wrapper_atts[ $key ] = esc_attr( $value );
+			}
+		}
+
+		// Build wrapper HTML
+		$wrapper_attributes = '';
+		foreach ( $wrapper_atts as $key => $value ) {
+			$wrapper_attributes .= ' ' . $key . '="' . $value . '"';
+		}
+		
+		return sprintf( '<div%s>%s</div>', $wrapper_attributes, $svg );
 	}
 
 	/**
-	 *  Return or echo an SVG icon matching the provided key
+	 * Render an SVG icon
 	 *
-	 * @param $name
-	 * @param $fill
-	 * @param $stroke_width
-	 * @param $title
-	 * @param $hidden
-	 * @param $extras string Escape any attributes passed to this
-	 * @param $echo
-	 *
-	 * @return string|void
+	 * @param string  $name The icon name.
+	 * @param string  $fill The fill color.
+	 * @param mixed   $stroke_width The stroke width for line icons.
+	 * @param string  $title The icon title for accessibility.
+	 * @param boolean $hidden Whether the icon should be hidden from screen readers.
+	 * 
+	 * @return string The rendered SVG.
 	 */
-	public static function render( $name, $fill = 'currentColor', $stroke_width = false, $title = '', $hidden = true, $extras = '', $echo = false ) {
-
+	public static function render_svg( $name, $fill = 'currentColor', $stroke_width = false, $title = '' ) {
 		if ( null === self::$all_icons ) {
 			self::$all_icons = self::get_icons();
 		}
 
-		$svg = '';
-        $name = self::name_replacements($name);
-		$key = md5( $name . $fill . $stroke_width . $title . $hidden . $extras );
+		$hidden = empty( $title );
 
-		if( !empty( self::$cached_render[$key] ) ) {
-            if ( $echo ) {
-                echo self::$cached_render[$key];
-                return;
-            }
+		// Create cache key
+		$key = md5( $name . $fill . $stroke_width . $title . $hidden );
 
-			return self::$cached_render[$key];
+		// Return cached version if available
+		if ( ! empty( self::$cached_render[ $key ] ) ) {
+			return self::$cached_render[ $key ];
 		}
 
-		// Custom SVGs
-		$is_custom_svg = strpos($name, 'kb-custom-') === 0;
-		if ( $is_custom_svg && !isset(  self::$all_icons[ $name ] ) ) {
-			$custom_post = get_post( str_replace('kb-custom-', '', $name) );
+		$svg = '';
+
+		// Handle name replacements
+		$name = self::name_replacements( $name );
+
+		// Check for custom SVG
+		$is_custom_svg = strpos( $name, 'kb-custom-' ) === 0;
+		if ( $is_custom_svg && ! isset( self::$all_icons[ $name ] ) ) {
+			$custom_post = get_post( str_replace( 'kb-custom-', '', $name ) );
 
 			if ( ! empty( $custom_post ) && ! is_wp_error( $custom_post ) && 'kadence_custom_svg' === $custom_post->post_type && 'publish' === $custom_post->post_status ) {
 				self::$all_icons[ $name ] = json_decode( $custom_post->post_content, true );
 			}
 		}
 
+		// Build SVG if icon exists
 		if ( ! empty( self::$all_icons[ $name ] ) ) {
 			$icon = self::$all_icons[ $name ];
-			$vb = ( ! empty( $icon['vB'] ) ? $icon['vB'] : '0 0 24 24' );
+			$viewbox = ! empty( $icon['vB'] ) ? $icon['vB'] : '0 0 24 24';
 			$preserve = '';
-			$vb_array = explode( ' ', $vb );
-			$typeL = substr( $name, 0, 3 );
+			
+			// Check if we need preserveAspectRatio
+			$viewbox_array = explode( ' ', $viewbox );
+			$type_prefix = substr( $name, 0, 3 );
 
-			// This is added because some people upload icons that have negative values in the viewbox which cause part of the icons to get cut off unless this is added.
-			if ( $typeL && 'fas' !== $typeL && 'fe_' !== $typeL && 'ic_' !== $typeL && ( ( isset( $vb_array[0] ) && absint( $vb_array[0] ) > 0 ) || ( isset( $vb_array[1] ) && absint( $vb_array[1] ) > 0 ) ) ) {
-				$preserve = 'preserveAspectRatio="xMinYMin meet"';
-			}
-			$svg .= '<svg viewBox="' . $vb . '" ' . $preserve . ' fill="' . esc_attr( $fill ) . '"' . ( ! empty( $stroke_width ) ? ' stroke="currentColor" stroke-width="' . esc_attr( $stroke_width ) . '" stroke-linecap="round" stroke-linejoin="round"' : '' ) . ' xmlns="http://www.w3.org/2000/svg" ' . ( ! empty( $extras ) ? ' ' . $extras : '' ) . ( $hidden ? ' aria-hidden="true"' : ' role="img"' ) . '>';
-			if ( ! empty( $title ) ) {
-				$svg .= '<title>' . $title . '</title>';
-			}
-			if ( ! empty( $icon['cD'] ) ) {
-				$svg .= self::generate_svg_elements($icon['cD']);
-			}
-
-			$svg .= '</svg>';
-
-		}
-
-		self::$cached_render[$key] = $svg;
-
-		if ( $echo ) {
-			echo $svg;
-			return;
-		}
-
-		return $svg;
-
-	}
-
-    private static function name_replacements( $name ) {
-        if ( 'fa_facebook' === $name ) {
-            $name = 'fa_facebook-n';
-        }
-        return $name;
-    }
-
-	/**
-	 * Recursively generate SVG elements
-	 * Out native SVGs do not have children, but user uploaded SVGs in pro can contain children elements.
-	 *
-	 * @param $elements
-	 *
-	 * @return string
-	 */
-	private static function generate_svg_elements( $elements ) {
-		$output = '';
-		foreach ( $elements as $element ) {
-			$nE       = $element['nE'];
-			$aBs      = $element['aBs'];
-			$children = ! empty( $element['children'] ) ? $element['children'] : [];
-			$tmpAttr  = array();
-
-			foreach ( $aBs as $key => $attribute ) {
-				if ( ! in_array( $key, array( 'fill', 'stroke', 'none' ) ) ) {
-					$tmpAttr[ $key ] = $key . '="' . esc_attr( $attribute ) . '"';
+			if ( $type_prefix && 'fas' !== $type_prefix && 'fe_' !== $type_prefix && 'ic_' !== $type_prefix ) {
+				if ( ( isset( $viewbox_array[0] ) && absint( $viewbox_array[0] ) > 0 ) || ( isset( $viewbox_array[1] ) && absint( $viewbox_array[1] ) > 0 ) ) {
+					$preserve = ' preserveAspectRatio="xMinYMin meet"';
 				}
 			}
 
-			if ( isset( $aBs['fill'], $aBs['stroke'] ) && $aBs['fill'] === 'none' ) {
-				$tmpAttr['stroke'] = 'stroke="currentColor"';
+			// Build SVG element
+			$svg .= '<svg class="kt-svg-icon" viewBox="' . esc_attr( $viewbox ) . '"' . $preserve;
+			$svg .= ' fill="' . esc_attr( $fill ) . '"';
+			
+			// For line icons, set stroke but not stroke-width (CSS handles sizing)
+			if ( $fill === 'none' ) {
+				$svg .= ' stroke="currentColor"';
+			}
+			
+			// Only add stroke-width if explicitly passed (for backwards compatibility)
+			if ( ! empty( $stroke_width ) ) {
+				$svg .= ' stroke-width="' . esc_attr( $stroke_width ) . '" stroke-linecap="round" stroke-linejoin="round"';
+			}
+			
+			$svg .= ' xmlns="http://www.w3.org/2000/svg"';
+			$svg .= $hidden ? ' aria-hidden="true"' : ' role="img"';
+			$svg .= '>';
+
+			if ( ! empty( $title ) ) {
+				$svg .= '<title>' . esc_html( $title ) . '</title>';
 			}
 
-			$output .= '<' . $nE . ' ' . implode( ' ', $tmpAttr );
+			if ( ! empty( $icon['cD'] ) ) {
+				$svg .= self::generate_svg_elements( $icon['cD'] );
+			}
+
+			$svg .= '</svg>';
+		}
+
+		// Cache the result
+		self::$cached_render[ $key ] = $svg;
+
+		return $svg;
+	}
+
+	/**
+	 * Name replacements for legacy icon names
+	 *
+	 * @param string $name The icon name.
+	 * 
+	 * @return string The corrected icon name.
+	 */
+	private static function name_replacements( $name ) {
+		$replacements = [
+			'fa_facebook' => 'fa_facebook-n',
+		];
+
+		return $replacements[ $name ] ?? $name;
+	}
+
+	/**
+	 * Recursively generate SVG elements
+	 *
+	 * @param array $elements The SVG elements array.
+	 * 
+	 * @return string The generated SVG elements.
+	 */
+	private static function generate_svg_elements( $elements ) {
+		$output = '';
+		
+		foreach ( $elements as $element ) {
+			$tag_name = $element['nE'] ?? '';
+			$attributes = $element['aBs'] ?? [];
+			$children = $element['children'] ?? [];
+			
+			if ( empty( $tag_name ) ) {
+				continue;
+			}
+
+			$attr_strings = [];
+
+			foreach ( $attributes as $key => $value ) {
+				if ( ! in_array( $key, [ 'fill', 'stroke', 'none' ], true ) ) {
+					$attr_strings[] = $key . '="' . esc_attr( $value ) . '"';
+				}
+			}
+
+			// Handle stroke for line icons
+			if ( isset( $attributes['fill'], $attributes['stroke'] ) && $attributes['fill'] === 'none' ) {
+				$attr_strings[] = 'stroke="currentColor"';
+			}
+
+			$output .= '<' . $tag_name . ' ' . implode( ' ', $attr_strings );
+			
 			if ( ! empty( $children ) ) {
-				$output .= '>' . self::generate_svg_elements( $children ) . '</' . $nE . '>';
+				$output .= '>' . self::generate_svg_elements( $children ) . '</' . $tag_name . '>';
 			} else {
 				$output .= '/>';
 			}
@@ -234,46 +267,16 @@ class Svg_Render {
 
 		return $output;
 	}
+
 	/**
-	 * Return an array of icons.
+	 * Get all available icons
 	 *
-	 * @return array();
+	 * @return array The icons array.
 	 */
 	private static function get_icons() {
-		$ico   = include KADENCE_BLOCKS_PATH . 'inc/data/icons/Icons_Ico_Array.php';
+		$ico = include KADENCE_BLOCKS_PATH . 'inc/data/icons/Icons_Ico_Array.php';
 		$faico = include KADENCE_BLOCKS_PATH . 'inc/data/icons/Icons_Array.php';
 
 		return apply_filters( 'kadence_svg_icons', array_merge( $ico, $faico ) );
 	}
-
-	/**
-	 * Fix an issue where wp_get_attachment_source returns non-values for width and height on svg's
-	 *
-	 * @param string  $image the image retrieved.
-	 * @param boolean $attachment_id The attachment id.
-	 * @param boolean $size The size request.
-	 * @param boolean $icon If it was requested as an icon.
-	 *
-	 * @return array|boolean
-	 */
-	public function fix_wp_get_attachment_image_svg( $image, $attachment_id, $size, $icon ) {
-		// If the image requested is an svg and the width is unset (1 or less in this case).
-		if ( is_array( $image ) && preg_match( '/\.svg$/i', $image[0] ) && $image[1] <= 1 ) {
-			// Use the requested size's dimensions first if available.
-			if ( is_array( $size ) ) {
-				$image[1] = $size[0];
-				$image[2] = $size[1];
-			} elseif ( ini_get( 'allow_url_fopen' ) && ( $xml = simplexml_load_file( $image[0], SimpleXMLElement::class, LIBXML_NOWARNING ) ) !== false ) {
-				$attr = $xml->attributes();
-				$viewbox = explode( ' ', $attr->viewBox );
-				$image[1] = isset( $attr->width ) && preg_match( '/\d+/', $attr->width, $value ) ? (int) $value[0] : ( count( $viewbox ) == 4 ? (int) $viewbox[2] : null );
-				$image[2] = isset( $attr->height ) && preg_match( '/\d+/', $attr->height, $value ) ? (int) $value[0] : ( count( $viewbox ) == 4 ? (int) $viewbox[3] : null );
-			} else {
-				$image[1] = null;
-				$image[2] = null;
-			}
-		}
-		return $image;
-	}
-
-} 
+}

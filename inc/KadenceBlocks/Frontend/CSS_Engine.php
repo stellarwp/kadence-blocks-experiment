@@ -792,7 +792,6 @@ class CSS_Engine {
 		}
 		return $this;
 	}
-
 	/**
 	 * Add properties to the css output based on the attributes.
 	 *
@@ -849,6 +848,9 @@ class CSS_Engine {
 			case 'background':
 				$expected_keys = ['color'];		
 				break;
+			case 'icon':
+				$expected_keys = ['iconSize', 'iconLineWidth', 'color', 'iconSizeHover', 'iconLineWidthHover', 'colorHover'];
+				break;
 			default:
 				$expected_keys = [ $attributes_meta['component'] ];		
 				break;
@@ -873,6 +875,7 @@ class CSS_Engine {
 			case 'row-gap':
 				return $this->get_gap_size( $value );
 			case 'color':
+			case 'colorHover':
 				return $this->sanitize_color( $value );
 			default:
 				return $value;
