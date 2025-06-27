@@ -19,7 +19,7 @@ import {
 	useGlobalStylesIds,
 	getGlobalStylesCSSOutput,
 } from '@kadence/kbsHelpers';
-import { BackgroundStyles } from '@kadence/kbsComponents';
+import { BackgroundStyles, InlinePaddingResizer } from '@kadence/kbsComponents';
 import metadata from './block.json';
 import Inspector from './editing/inspector';
 import Styles from './editing/styles';
@@ -37,7 +37,7 @@ import { useMergeRefs } from '@wordpress/compose';
  * Build the section edit.
  */
 export default function ContainerEdit(props) {
-	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
+	const { attributes, setAttributes, isSelected, clientId, context, className, toggleSelection } = props;
 	const { uniqueID, templateLock, align, globalStyleIds, tagName: TagName = 'div' } = attributes;
 	const myElementRef = useRef(null);
 	// Get merged global styles IDs using the helper hook
@@ -143,6 +143,21 @@ export default function ContainerEdit(props) {
 					{...props}
 				/>
 				{children}
+				{isSelected && (
+					<InlinePaddingResizer
+						previewDevice={previewDevice}
+						type={'padding'}
+						attributes={attributes}
+						setAttributes={setAttributes}
+						attributeName={'padding'}
+						meta={metadata}
+						globalStylesIds={globalStylesIds}
+						blockElementRef={myElementRef}
+						clientId={clientId}
+						uniqueID={uniqueID}
+						toggleSelection={toggleSelection}
+					/>
+				)}
 			</TagName>
 		</GlobalStylesContext.Provider>
 	);

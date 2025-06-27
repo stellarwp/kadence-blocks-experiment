@@ -19,10 +19,7 @@ const IS_RTL = isRTL();
 /**
  * Internal dependencies
  */
-import {
-	getResolvedValue,
-	handleAttributeChange,
-} from '@kadence/kbsHelpers';
+import { getResolvedValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
 import { getPlaceholderLabel, useSelectOptions } from './helpers';
@@ -40,8 +37,8 @@ const getCustomStyles = (isInherited) => ({
 	}),
 	menu: (base) => ({
 		...base,
-		zIndex: 10 // Add a higher z-index to ensure the menu appears above other content
-	})
+		zIndex: 10, // Add a higher z-index to ensure the menu appears above other content
+	}),
 });
 
 /**
@@ -63,7 +60,7 @@ export default function SelectControl({
 	meta,
 	globalStylesIds,
 	forStyleBook,
-	hasDeviceControls = true
+	hasDeviceControls = true,
 }) {
 	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue, inheritedType } = getResolvedValue(
 		attributeName,
@@ -85,13 +82,13 @@ export default function SelectControl({
 		attributeMeta,
 		appliedValue,
 		globalStylesIds,
-		forStyleBook
+		forStyleBook,
 	});
 
 	const inheritedPlaceholderLabel = getPlaceholderLabel(directValue, inheritedValue, type, options);
 
 	const onReset = () => {
-		onChange(defaultValue ?? undefined, ( type === 'preset' ? 'none' : 'all'), type);
+		onChange(defaultValue ?? undefined, type === 'preset' ? 'none' : 'all', type);
 	};
 
 	const onChange = (value, device, type) => {
@@ -109,7 +106,9 @@ export default function SelectControl({
 				}
 
 				// Set the font source too
-				const selectedOption = options.flatMap((group) => group.options).find((option) => option.value === value);
+				const selectedOption = options
+					.flatMap((group) => group.options)
+					.find((option) => option.value === value);
 				updatedAttributes = {
 					[type]: value,
 					['fontSource']: selectedOption.source,

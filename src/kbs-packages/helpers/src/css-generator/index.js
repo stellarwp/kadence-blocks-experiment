@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { SPACING_SIZES_MAP, BORDER_RADIUS_SIZES_MAP, ICON_SIZES_MAP } from '../constants';
+import { SPACING_SIZES_MAP, BORDER_RADIUS_SIZES_MAP, ICON_SIZES_MAP, BORDER_STYLES_DEFAULTS } from '../constants';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { default as getInheritedValue } from '../get-inherited-value';
@@ -10,6 +10,7 @@ import { default as getMaskOptions } from '../get-mask-options';
 import { default as getDividerOptions } from '../get-divider-options';
 import { default as getInheritedDeviceValue } from '../get-inherited-device-value';
 import { useMemo } from 'react';
+import parseBorderStyle from '../parse-border-style';
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 
 /**
@@ -95,21 +96,10 @@ class CSSGenerator {
 		let keyForValue = key;
 
 		const isBorderRadius = key.includes('border') && key.includes('Radius');
-		const isBorderWidth = key.includes('border') && key.includes('Width');
-		const isBorderStyle = key.includes('border') && key.includes('Style');
-		const isBorderColor = key.includes('border') && key.includes('Color');
+		const isBorderStyle = key.includes('border') && !key.includes('Radius');
 
 		if (isBorderRadius) {
 			keyForValue = 'borderRadius';
-		}
-		if (isBorderWidth) {
-			keyForValue = 'width';
-		}
-		if (isBorderStyle) {
-			keyForValue = 'style';
-		}
-		if (isBorderColor) {
-			keyForValue = 'color';
 		}
 
 		const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
@@ -206,64 +196,12 @@ class CSSGenerator {
 						cssValue = this.getBorderRadiusOutput(appliedValue);
 					}
 				}
-				if (isBorderWidth) {
-					if (Array.isArray(appliedValue)) {
-						switch (key) {
-							case 'borderTopWidth':
-								cssValue = appliedValue[0];
-								break;
-							case 'borderLeftWidth':
-								cssValue = appliedValue[1];
-								break;
-							case 'borderRightWidth':
-								cssValue = appliedValue[2];
-								break;
-							case 'borderBottomWidth':
-								cssValue = appliedValue[3];
-								break;
-						}
-					} else {
-						cssValue = appliedValue;
-					}
-				}
 				if (isBorderStyle) {
-					if (Array.isArray(appliedValue)) {
-						switch (key) {
-							case 'borderTopStyle':
-								cssValue = appliedValue[0];
-								break;
-							case 'borderLeftStyle':
-								cssValue = appliedValue[1];
-								break;
-							case 'borderRightStyle':
-								cssValue = appliedValue[2];
-								break;
-							case 'borderBottomStyle':
-								cssValue = appliedValue[3];
-								break;
-						}
+					const { color, style, width } = parseBorderStyle(appliedValue);
+					if (width === '' || width === BORDER_STYLES_DEFAULTS.width) {
+						cssValue = '';
 					} else {
 						cssValue = appliedValue;
-					}
-				}
-				if (isBorderColor) {
-					if (Array.isArray(appliedValue)) {
-						switch (key) {
-							case 'borderTopColor':
-								cssValue = getColorOutput(appliedValue[0]);
-								break;
-							case 'borderLeftColor':
-								cssValue = getColorOutput(appliedValue[1]);
-								break;
-							case 'borderRightColor':
-								cssValue = getColorOutput(appliedValue[2]);
-								break;
-							case 'borderBottomColor':
-								cssValue = getColorOutput(appliedValue[3]);
-								break;
-						}
-					} else {
-						cssValue = getColorOutput(appliedValue);
 					}
 				}
 				break;
@@ -695,18 +633,14 @@ class CSSGenerator {
 					'borderTopRightRadius',
 					'borderBottomRightRadius',
 					'borderBottomLeftRadius',
-					'borderTopWidth',
-					'borderLeftWidth',
-					'borderRightWidth',
-					'borderBottomWidth',
-					'borderTopStyle',
-					'borderLeftStyle',
-					'borderRightStyle',
-					'borderBottomStyle',
-					'borderTopColor',
-					'borderLeftColor',
-					'borderRightColor',
-					'borderBottomColor',
+					'borderTop',
+					'borderLeft',
+					'borderRight',
+					'borderBottom',
+					'borderTopHover',
+					'borderLeftHover',
+					'borderRightHover',
+					'borderBottomHover',
 				];
 				break;
 			case 'background':

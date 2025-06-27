@@ -17,10 +17,13 @@ import {
 	getInheritedDeviceValue,
 	handleAttributeChange,
 	mouseOverVisualizer,
+	getInheritedValue,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import { PaddingVisualizer } from './spacing-visualizer';
+import PresetControl from '../preset-control';
+import { sectionLargeIcon, sectionMediumIcon, cardLargeIcon, cardMediumIcon } from '../constants/icons';
 /**
  * Build the Measure controls
  * @returns {object} Measure settings.
@@ -29,7 +32,7 @@ export default function SpaceControl({
 	attributes,
 	setAttributes,
 	attributeName,
-	meta,
+	metaData,
 	type,
 	globalStylesIds,
 	placeholder = '',
@@ -47,7 +50,9 @@ export default function SpaceControl({
 	showVisualizer = false,
 	clientId = '',
 	blockElementRef = null,
+	hasPresetControl = true,
 }) {
+	const parentType = type;
 	const typeMouseOver = mouseOverVisualizer();
 	const topValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Top');
 	const rightValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Right');
@@ -57,7 +62,7 @@ export default function SpaceControl({
 		attributeName,
 		attributes,
 		previewDevice,
-		meta,
+		metaData,
 		type + 'Top',
 		globalStylesIds
 	);
@@ -65,7 +70,7 @@ export default function SpaceControl({
 		attributeName,
 		attributes,
 		previewDevice,
-		meta,
+		metaData,
 		type + 'Right',
 		globalStylesIds
 	);
@@ -73,7 +78,7 @@ export default function SpaceControl({
 		attributeName,
 		attributes,
 		previewDevice,
-		meta,
+		metaData,
 		type + 'Bottom',
 		globalStylesIds
 	);
@@ -81,7 +86,7 @@ export default function SpaceControl({
 		attributeName,
 		attributes,
 		previewDevice,
-		meta,
+		metaData,
 		type + 'Left',
 		globalStylesIds
 	);
@@ -95,10 +100,65 @@ export default function SpaceControl({
 	useEffect(() => {
 		//console.log('iglobalStylesIds', globalStylesIds);
 	}, [inheritedTop]);
+	const inherited =
+		type === 'padding'
+			? getInheritedValue('padding', attributes, 'none', metaData, 'desktop', globalStylesIds)
+			: {};
+	const inheritedTablet =
+		type === 'padding' ? getInheritedValue('padding', attributes, 'none', metaData, 'tablet', globalStylesIds) : {};
+	const inheritedMobile =
+		type === 'padding' ? getInheritedValue('padding', attributes, 'none', metaData, 'mobile', globalStylesIds) : {};
+
+	const onSetAttributes = (newAttributes) => {
+		console.log('onSetAttributes', newAttributes);
+		if (newAttributes['padding']?.preset && inherited?.inheritedValue && inherited.inheritedType === 'preset') {
+			newAttributes['padding']['desktop'] = inherited?.inheritedValue
+				? { ...inherited?.inheritedValue, ...newAttributes['padding']['desktop'] }
+				: newAttributes['padding']['desktop'];
+			newAttributes['padding']['tablet'] = inheritedTablet?.inheritedValue
+				? { ...inheritedTablet?.inheritedValue, ...newAttributes['padding']['tablet'] }
+				: newAttributes['padding']['tablet'];
+			newAttributes['padding']['mobile'] = inheritedMobile?.inheritedValue;
+			delete newAttributes['padding']?.preset;
+		}
+		setAttributes(newAttributes);
+	};
 	const onChange = (value, device, type) => {
 		console.log('onChange', value, device, type);
-		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
+
+		handleAttributeChange(
+			value,
+			device,
+			attributeName,
+			attributes,
+			parentType === 'padding' ? onSetAttributes : setAttributes,
+			customOnChange,
+			type,
+			metaData
+		);
 	};
+	const paddingPresets = [
+		{
+			icon: sectionLargeIcon,
+			title: __('Section XXL', 'kadence-blocks'),
+			key: 'section-xxl',
+		},
+		{
+			icon: sectionMediumIcon,
+			title: __('Section XL', 'kadence-blocks'),
+			key: 'section-xl',
+		},
+		{
+			icon: cardLargeIcon,
+			title: __('Card Large', 'kadence-blocks'),
+			key: 'card-lg',
+		},
+		{
+			icon: cardMediumIcon,
+			title: __('Card Medium', 'kadence-blocks'),
+			key: 'card-md',
+		},
+	];
 	// Return the JSX directly, not inside an array
 	return (
 		<>
@@ -107,6 +167,19 @@ export default function SpaceControl({
 				onMouseOut={typeMouseOver.onMouseOut}
 				className={`components-base-control kbs-control kbs-space-control${className ? ' ' + className : ''}`}
 			>
+				{hasPresetControl && type === 'padding' && (
+					<PresetControl
+						label={__('Padding Presets', 'kadence-blocks')}
+						type={'spacing'}
+						attributes={attributes}
+						setAttributes={setAttributes}
+						attributeName={'padding'}
+						metaData={metaData}
+						previewDevice={previewDevice}
+						globalStylesIds={globalStylesIds}
+						definedPresets={paddingPresets}
+					/>
+				)}
 				{label && (
 					<TitleBar
 						label={label}
@@ -153,12 +226,14 @@ export default function SpaceControl({
 				</div>
 			</div>
 			{type === 'padding' && (
-				<PaddingVisualizer
-					forceShow={typeMouseOver.isMouseOver}
-					clientId={clientId}
-					blockElementRef={blockElementRef}
-					value={[inheritedTop, inheritedRight, inheritedBottom, inheritedLeft]}
-				/>
+				<>
+					<PaddingVisualizer
+						forceShow={typeMouseOver.isMouseOver}
+						clientId={clientId}
+						blockElementRef={blockElementRef}
+						value={[inheritedTop, inheritedRight, inheritedBottom, inheritedLeft]}
+					/>
+				</>
 			)}
 		</>
 	);

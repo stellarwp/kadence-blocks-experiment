@@ -1,0 +1,100 @@
+.components-popover.block-editor-block-popover.kbs-inline-padding-resizer-popover .components-resizable-box__container,
+.components-popover.block-editor-block-popover.kbs-inline-padding-resizer-popover .components-popover__content > div {
+	overflow: visible;
+	pointer-events: none;
+}
+.kbs-inline-padding-resizer-popover {
+	z-index: 1;
+}
+.kbs-inline-padding-resizer-handler {
+	border-radius: 0;
+	border: 0;
+	min-height: 20px;
+	min-width: 20px;
+	width: 100%;
+	height: 100% !important;
+	position: absolute;
+	background: rgba(0, 0, 0, 0);
+	padding: 0;
+	z-index: 1000;
+	cursor: se-resize;
+	left: 0px;
+	top: 0;
+	margin-left: 0px;
+	pointer-events: all;
+}
+.kbs-inline-padding-resizer {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	color: #000;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	background: rgba(190, 228, 174, 0.7);
+	.kbs-inline-padding-label {
+		padding: 0 6px;
+		font-size: 11px;
+		white-space: nowrap;
+		display: inline-flex;
+		align-items: center;
+	}
+}
+// .kbs-padding-resize-box {
+// 	transition:
+// 		height 0.1s ease,
+// 		width 0.1s ease;
+// }
+.kbs-padding-resize-box:hover,
+.kbs-padding-resize-box.is-resizing {
+	.kbs-inline-padding-resizer {
+		opacity: 1;
+	}
+}
+.is-resizing-all .kbs-padding-resize-box .kbs-inline-padding-resizer {
+	opacity: 1;
+}
+
+.kbs-padding-resize-box.is-resizing::after {
+	// This covers the whole content which ensures mouse up triggers
+	// even if the content is "inert".
+	position: absolute;
+	top: -800px;
+	left: -800px;
+	right: -800px;
+	bottom: -800px;
+	content: "";
+	width: auto;
+	height: auto;
+	z-index: 999;
+}
+.components-resizable-box__container.kbs-top-padding-resize {
+	position: absolute !important;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.components-resizable-box__container.kbs-bottom-padding-resize {
+	position: absolute !important;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.components-resizable-box__container.kbs-left-padding-resize {
+	position: absolute !important;
+	height: auto !important;
+	left: 0;
+	top: 0;
+	bottom: 0;
+}
+.components-resizable-box__container.kbs-right-padding-resize {
+	position: absolute !important;
+	height: auto !important;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+.kbs-main-doc-padding-is-resizing {
+	overflow-x: clip;
+}

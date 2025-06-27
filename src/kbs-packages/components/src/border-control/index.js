@@ -15,6 +15,9 @@ export default function BorderControl({
 	hasAdvancedControls = true,
 	hasBorderRadius = true,
 	hasBorder = true,
+	hasHoverControls = false,
+	isHover,
+	setIsHover,
 }) {
 	return (
 		<>
@@ -42,6 +45,9 @@ export default function BorderControl({
 					previewDevice={previewDevice}
 					hasCustomControls={hasCustomControls}
 					hasAdvancedControls={hasAdvancedControls}
+					hasHoverControls={hasHoverControls}
+					isHover={isHover}
+					setIsHover={setIsHover}
 				/>
 			)}
 		</>

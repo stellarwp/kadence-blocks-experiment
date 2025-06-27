@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { Button, Popover, Icon } from '@wordpress/components';
 import { close as closeIcon } from '@wordpress/icons';
-
+import { globalIcon, sectionLargeIcon, sectionMediumIcon, cardLargeIcon, cardMediumIcon } from '../constants/icons';
 /**
  * Internal libraries
  */
@@ -42,7 +42,7 @@ function PresetControlConfirm({
 					className="kbs-confirm-popover"
 				>
 					<div className="kbs-confirm-popover-inner">
-						<p>{__('This will override your existing styles. Are you sure?', 'kadence-blocks')}</p>
+						<p>{__('This will override your existing padding styles. Are you sure?', 'kadence-blocks')}</p>
 						<div className="kbs-confirm-buttons">
 							<Button variant="primary" onClick={handleConfirm}>
 								{__('Confirm', 'kadence-blocks')}
@@ -57,30 +57,42 @@ function PresetControlConfirm({
 		</>
 	);
 }
-export default function PresetControl({
+export default function InlinePaddingResizerPresetPopover({
 	label,
-	reset = true,
 	attributes,
 	setAttributes,
 	attributeName,
 	metaData,
-	previewDevice,
 	customOnChange,
-	globalStylesCss,
-	previewAmount = 3,
-	definedPresets = [],
-	view = 'default',
 }) {
 	const attributeMeta = metaData?.attributes?.[attributeName];
 	const presetType = attributeMeta?.component ? attributeMeta?.component : '';
 	if (!presetType) {
 		return null;
 	}
-	// Fetch available presets
-	const presets = getPresetOptions(presetType);
 	// Get the first three presets in a custom array
-	const presetOptions = definedPresets.length > 0 ? definedPresets : presets.slice(0, previewAmount);
-	const hasRadioToggle = definedPresets.length > 0 ? true : false;
+	const presetOptions = [
+		{
+			icon: sectionLargeIcon,
+			title: __('Section XXL', 'kadence-blocks'),
+			key: 'section-xxl',
+		},
+		{
+			icon: sectionMediumIcon,
+			title: __('Section XL', 'kadence-blocks'),
+			key: 'section-xl',
+		},
+		{
+			icon: cardLargeIcon,
+			title: __('Card Large', 'kadence-blocks'),
+			key: 'card-lg',
+		},
+		{
+			icon: cardMediumIcon,
+			title: __('Card Medium', 'kadence-blocks'),
+			key: 'card-md',
+		},
+	];
 	const currentValue = attributes?.[attributeName]?.preset;
 
 	const [isPopover, setIsPopover] = useState(false);
@@ -90,16 +102,7 @@ export default function PresetControl({
 	const [popoverAnchor, setPopoverAnchor] = useState(null);
 	const [radioToggleAnchor, setRadioToggleAnchor] = useState(null);
 	const [popoverPlacement, setPopoverPlacement] = useState('top-start');
-	const divRef = useRef(null);
-	useEffect(() => {
-		if (divRef.current) {
-			if (globalStylesCss) {
-				divRef.current.setAttribute('style', globalStylesCss);
-			} else {
-				divRef.current.removeAttribute('style');
-			}
-		}
-	}, [globalStylesCss, isPopover, divRef?.current]);
+
 	const onChange = (value) => {
 		if (attributes?.[attributeName]?.preset === value) {
 			return;
@@ -147,24 +150,13 @@ export default function PresetControl({
 		setPendingPreset(null);
 	};
 
-	const onReset = () => {
-		onChange(undefined);
-	};
-
 	return (
 		<div
 			className={`components-base-control kbs-control kbs-radio-preset-control kbs-radio-preset-control-${presetType}`}
 		>
-			<TitleBar
-				label={label}
-				reset={reset}
-				onReset={onReset}
-				rel={setPopoverAnchor}
-				hasDeviceControls={false}
-				isPopover={isPopover}
-				onTogglePopover={() => setIsPopover(!isPopover)}
-				hasPopoverControls={presets.length > 3}
-			/>
+			<Button onClick={() => setIsPopover(!isPopover)}>
+				<Icon icon={globalIcon} size={16} />
+			</Button>
 			{isPopover && popoverAnchor && (
 				<Popover
 					anchor={popoverAnchor}
@@ -181,22 +173,25 @@ export default function PresetControl({
 					className="kbs-popover-background-select-control__dropdown-content kbs-radio-preset-control"
 				>
 					<TitleBar label={label} reset={false} />
-					<div ref={divRef} className="kbs-control-inner kbs-radio-preset-control-inner">
-						{presets.map((option) => (
-							<Button
-								key={option.value}
-								label={option.label}
-								isPressed={option.value === currentValue}
-								className={`kbs-radio-preset-control-button`}
-								onClick={(event) => {
-									setConfirmAnchor(event.currentTarget);
-									setPopoverPlacement('top');
-									onChange(option.value);
-								}}
+					<div className="kbs-control-inner kbs-radio-preset-control-inner">
+						<div className="kbs-radio-control">
+							<div
+								ref={setRadioToggleAnchor}
+								className="kbs-control-inner kbs-radio-toggle-control-inner"
 							>
-								{option.label}
-							</Button>
-						))}
+								<RadioToggleGroupButtonUI
+									label={label}
+									value={currentValue}
+									onChange={(value) => {
+										const target = radioToggleAnchor.querySelector(`[data-value="${value}"]`);
+										setConfirmAnchor(target ? target : radioToggleAnchor);
+										setPopoverPlacement('top-start');
+										onChange(value);
+									}}
+									controls={presetOptions}
+								/>
+							</div>
+						</div>
 					</div>
 					<div className="kbs-popover-background-select-control__dropdown-content-close">
 						<Button __next40pxDefaultSize onClick={() => setIsPopover(false)}>
@@ -204,42 +199,6 @@ export default function PresetControl({
 						</Button>
 					</div>
 				</Popover>
-			)}
-			{hasRadioToggle && (
-				<div className="kbs-radio-control">
-					<div ref={setRadioToggleAnchor} className="kbs-control-inner kbs-radio-toggle-control-inner">
-						<RadioToggleGroupButtonUI
-							label={label}
-							value={currentValue}
-							onChange={(value) => {
-								const target = radioToggleAnchor.querySelector(`[data-value="${value}"]`);
-								setConfirmAnchor(target ? target : radioToggleAnchor);
-								setPopoverPlacement('top-start');
-								onChange(value);
-							}}
-							controls={presetOptions}
-						/>
-					</div>
-				</div>
-			)}
-			{!hasRadioToggle && (
-				<div className="kbs-control-inner kbs-radio-preset-control-inner">
-					{presetOptions.map((option) => (
-						<Button
-							key={option.value}
-							label={option.label}
-							isPressed={option.value === currentValue}
-							className={`kbs-radio-preset-control-button`}
-							onClick={(event) => {
-								setConfirmAnchor(event.currentTarget);
-								setPopoverPlacement('top-start');
-								onChange(option.value);
-							}}
-						>
-							{option.label}
-						</Button>
-					))}
-				</div>
 			)}
 			<PresetControlConfirm
 				showConfirmPopover={showConfirmPopover}

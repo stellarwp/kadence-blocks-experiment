@@ -29,6 +29,7 @@ export { default as TitleBar } from './title-bar';
 export { default as BackgroundPresetRender } from './background-styles/preset-render';
 export { default as SpacingControl } from './spacing-control';
 export { default as Notice } from './notice';
+export { default as InlinePaddingResizer } from './inline-padding-resizer';
 // export { default as PopColorControl } from './pop-color-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';
 // export { default as SinglePopColorControl } from './single-pop-color-control';
@@ -48,3 +49,5 @@ export { default as IconRender } from './icon-control/icon-render';
 
 export { default as TabsControl } from './tabs-control';
 export { default as SelectBasicControl } from './select-basic-control';
+
+export { default as SingleBorderStyleControl } from './border-control/single-border-style-control';
