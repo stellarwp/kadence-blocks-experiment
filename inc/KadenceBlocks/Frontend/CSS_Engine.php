@@ -212,6 +212,16 @@ class CSS_Engine {
 		'3xl' => 'var(--global-kb-font-size-xxxl, 5rem)',
 	);
 	/**
+	 * Icon size variables used in string based icon sizes.
+	 */
+	protected $icon_sizes = array(
+		'xs' => 'var(--kbs-iconsize-xs, 1rem)',
+		'sm' => 'var(--kbs-iconsize-sm, 2rem)',
+		'md' => 'var(--kbs-iconsize-md, 3rem)',
+		'lg' => 'var(--kbs-iconsize-lg, 4rem)',
+		'xl' => 'var(--kbs-iconsize-xl, 5rem)',
+	);
+	/**
 	 * Gaps variables used in string based gutters.
 	 */
 	protected $gap_sizes = array(
@@ -877,6 +887,14 @@ class CSS_Engine {
 			case 'color':
 			case 'colorHover':
 				return $this->sanitize_color( $value );
+			case 'iconSize':
+			case 'iconSizeHover':
+				// Check if it's a variable icon size value
+				$icon_size_value = $this->get_variable_icon_size_value( $value );
+				if ( $icon_size_value ) {
+					return $icon_size_value;
+				}
+				return $value;
 			default:
 				return $value;
 		}
@@ -1275,6 +1293,26 @@ class CSS_Engine {
 	public function get_variable_font_size_value( $value ) {
 		if ( $this->is_variable_font_size_value( $value ) ) {
 			return $this->font_sizes[ $value ];
+		}
+
+		return false;
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	public function is_variable_icon_size_value( $value ) {
+		return is_string( $value ) && isset( $this->icon_sizes[ $value ] );
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	public function get_variable_icon_size_value( $value ) {
+		if ( $this->is_variable_icon_size_value( $value ) ) {
+			return $this->icon_sizes[ $value ];
 		}
 
 		return false;
