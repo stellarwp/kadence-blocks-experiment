@@ -142,5 +142,3 @@ export const ICON_SIZES_MAP = [
 ];
 
 export const COMPONENTS = ['typography', 'flexBox'];
-
-export { BORDER_STYLES_DEFAULTS, BORDER_RADIUS_SIZES_MAP } from './borders';

@@ -34,5 +34,3 @@ export { default as getDividerOptions } from './get-divider-options';
 export { default as getGlobalStylesCSSOutput } from './get-global-styles-css';
 export { default as mouseOverVisualizer } from './mouse-over-visualizer';
 export { default as parseBorderStyle } from './parse-border-style';
-
-export { BORDER_STYLES_DEFAULTS, BORDER_RADIUS_SIZES_MAP } from './constants';
