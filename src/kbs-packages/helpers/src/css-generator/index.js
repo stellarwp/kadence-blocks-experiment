@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { SPACING_SIZES_MAP, BORDER_RADIUS_SIZES_MAP } from '../constants';
+import { SPACING_SIZES_MAP, BORDER_RADIUS_SIZES_MAP, ICON_SIZES_MAP } from '../constants';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { default as getInheritedValue } from '../get-inherited-value';
@@ -158,7 +158,7 @@ class CSSGenerator {
 				if( key === 'color' || key === 'colorHover' ) {
 					cssValue = getColorOutput(appliedValue);
 				} else if( key === 'iconSize' || key === 'iconSizeHover' ) {
-					cssValue = this.getSpacingOutput(appliedValue);
+					cssValue = this.getIconSizeOutput(appliedValue);
 				} else {
 					cssValue = appliedValue;
 				}
@@ -948,6 +948,25 @@ class CSSGenerator {
 			return '0';
 		}
 		const found = BORDER_RADIUS_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
+
+	/**
+	 * Get the icon size option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The icon size option output
+	 */
+	getIconSizeOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!ICON_SIZES_MAP) {
+			return value;
+		}
+		const found = ICON_SIZES_MAP.find((option) => option.value === value);
 		if (!found) {
 			return value;
 		}

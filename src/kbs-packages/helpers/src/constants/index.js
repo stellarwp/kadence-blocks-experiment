@@ -103,4 +103,42 @@ export const BORDER_RADIUS_SIZES_MAP = [
 	},
 ];
 
+export const ICON_SIZES_MAP = [
+	{
+		value: 'xs',
+		output: 'var(--kbs-iconsize-xs, 16px)',
+		size: 16,
+		label: __('XS', 'kadence-blocks'),
+		name: __('X Small', 'kadence-blocks'),
+	},
+	{
+		value: 'sm',
+		output: 'var(--kbs-iconsize-sm, 20px)',
+		size: 20,
+		label: __('SM', 'kadence-blocks'),
+		name: __('Small', 'kadence-blocks'),
+	},
+	{
+		value: 'md',
+		output: 'var(--kbs-iconsize-md, 24px)',
+		size: 24,
+		label: __('MD', 'kadence-blocks'),
+		name: __('Medium', 'kadence-blocks'),
+	},
+	{
+		value: 'lg',
+		output: 'var(--kbs-iconsize-lg, 32px)',
+		size: 32,
+		label: __('LG', 'kadence-blocks'),
+		name: __('Large', 'kadence-blocks'),
+	},
+	{
+		value: 'xl',
+		output: 'var(--kbs-iconsize-xl, 40px)',
+		size: 40,
+		label: __('XL', 'kadence-blocks'),
+		name: __('X Large', 'kadence-blocks'),
+	},
+];
+
 export const COMPONENTS = ['typography', 'flexBox'];
