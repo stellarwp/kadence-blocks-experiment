@@ -81,6 +81,15 @@
 			box-decoration-break: clone;
 		}
 	}
+
+	&:hover {
+		.kbs-highlight {
+			border-top: var(--kbs-text-highlight-border-top-hover, var(--kbs-text-highlight-border-top));
+			border-left: var(--kbs-text-highlight-border-left-hover, var(--kbs-text-highlight-border-left));
+			border-right: var(--kbs-text-highlight-border-right-hover, var(--kbs-text-highlight-border-right));
+			border-bottom: var(--kbs-text-highlight-border-bottom-hover, var(--kbs-text-highlight-border-bottom));
+		}
+	}
 }
 
 .kbs-text-content {

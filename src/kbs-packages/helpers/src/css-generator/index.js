@@ -628,6 +628,10 @@ class CSSGenerator {
 					'borderLeft',
 					'borderRight',
 					'borderBottom',
+					'borderTopHover',
+					'borderLeftHover',
+					'borderRightHover',
+					'borderBottomHover',
 				];
 				break;
 			case 'background':

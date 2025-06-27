@@ -35,8 +35,14 @@ export default function BorderStyleControl({
 	hasDeviceControls = false,
 	globalStylesIds,
 	defaultValue = '',
+	hasHoverControls = false,
+	isHover,
+	setIsHover,
 }) {
 	const [isAdvanced, setIsAdvanced] = useState(view === 'advanced');
+	const [isHoverState, setIsHoverState] = useState(false);
+	const [isHoverToUse, setIsHoverToUse] =
+		isHover !== undefined ? [isHover, setIsHover] : [isHoverState, setIsHoverState];
 
 	//Border Style is advanced if any of style, width or color is not the same for all corners.
 	const isAdvancedOption = () => {
@@ -174,7 +180,8 @@ export default function BorderStyleControl({
 	];
 
 	const getKeyForSide = (sideIndex) => {
-		return 'border' + sides[sideIndex].key;
+		const stateSuffix = isHoverToUse ? 'Hover' : '';
+		return 'border' + sides[sideIndex].key + stateSuffix;
 	};
 
 	const getCurrentValueForSide = (sideIndex) => {
@@ -226,6 +233,9 @@ export default function BorderStyleControl({
 				onToggleView={() => setIsAdvanced(!isAdvanced)}
 				hasAdvancedControls={hasAdvancedControls}
 				hasCustomControls={hasCustomControls}
+				hasHoverControls={hasHoverControls}
+				onToggleHover={() => setIsHoverToUse(!isHoverToUse)}
+				isHover={isHoverToUse}
 			/>
 			<div className={'kbs-border-style-control-container ' + (isAdvanced ? 'is-advanced' : '')}>
 				{isAdvanced && (
