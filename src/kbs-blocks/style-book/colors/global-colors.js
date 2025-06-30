@@ -47,9 +47,10 @@ export default function GlobalColors(props) {
 
 	const tempColors = styleBookLocalGlobalStyles[globalStyleId]?.mappings?.colors || [];
 	const tempGradients = styleBookLocalGlobalStyles[globalStyleId]?.mappings?.gradients || [];
-	const colors = getColorOptions();
+	const globalColors = getColorOptions();
 	const gradients = getGradientOptions();
-	const colorsByCategory = colors.reduce((acc, color) => {
+	const themeLabel = __('Theme', 'kadence-blocks');
+	const colorsByCategory = globalColors.reduce((acc, color) => {
 		acc[color?.category || themeLabel] = [...(acc[color?.category || themeLabel] || []), color];
 		return acc;
 	}, {});
@@ -145,6 +146,9 @@ export default function GlobalColors(props) {
 				{colorsSubTab === 'colors' && (
 					<div className="kbs-control-inner kbs-color-mapping-grid">
 						{Object.entries(colorsByCategory).map(([category, colors]) => {
+							if (category === themeLabel) {
+								return null;
+							}
 							let categoryLabel = category;
 							if (category === 'background') {
 								categoryLabel = __('Background', 'kadence-blocks');
@@ -235,27 +239,29 @@ export default function GlobalColors(props) {
 									<div
 										className={`kbs-color-select-control__dropdown-category-palette-inner kbs-color-select-global-palette-inner ${categoryClass}`}
 									>
-									{gradients.filter((gradient) => gradient.category === category).map((gradient, index) => {
-										return (
-											<ColorSelect
-												key={gradient.slug}
-												label={gradient.name}
-												value={tempGradients?.[gradient.slug]?.value || ''}
-												onChange={(value) => {
-													setStyleBookGradient(gradient.slug, value);
-												}}
-												inherited={{ inheritedValue: '' }}
-												hasMix={false}
-												hasToggleLabel={false}
-												hasGradient={true}
-												hasGradientPalette={false}
-												hasCustomColors={false}
-												reset={false}
-												useGlobalPalette={true}
-												hasPalette={false}
-											/>
-										);
-									})}
+										{gradients
+											.filter((gradient) => gradient.category === category)
+											.map((gradient, index) => {
+												return (
+													<ColorSelect
+														key={gradient.slug}
+														label={gradient.name}
+														value={tempGradients?.[gradient.slug]?.value || ''}
+														onChange={(value) => {
+															setStyleBookGradient(gradient.slug, value);
+														}}
+														inherited={{ inheritedValue: '' }}
+														hasMix={false}
+														hasToggleLabel={false}
+														hasGradient={true}
+														hasGradientPalette={false}
+														hasCustomColors={false}
+														reset={false}
+														useGlobalPalette={true}
+														hasPalette={false}
+													/>
+												);
+											})}
 									</div>
 								</div>
 							);

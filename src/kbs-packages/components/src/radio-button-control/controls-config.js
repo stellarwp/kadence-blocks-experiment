@@ -39,6 +39,7 @@ import {
 import NoToggleInputUI from './ui-no-toggle-input';
 import RadioToggleGroupButtonUI from './ui-toggle-group';
 import RadioToggleGroupInputUI from './ui-toggle-group-input';
+import RadioToggleGroupPopoverInputUI from './ui-toggle-group-popover-input';
 import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
 import RadioToggleGroupInputRangeUI from './ui-toggle-group-input-range';
 import RadioToggleGroupBackgroundSizeUI from './ui-toggle-group-background-size';
@@ -140,7 +141,7 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'marginBottom':
 		case 'margin-left':
 		case 'marginLeft':
-			UIComponent = RadioToggleGroupInputUI;
+			UIComponent = RadioToggleGroupPopoverInputUI;
 			controls = getSpacingControls();
 			break;
 		case 'row-gap':

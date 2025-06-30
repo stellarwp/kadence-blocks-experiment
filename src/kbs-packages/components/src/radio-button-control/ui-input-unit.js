@@ -26,7 +26,17 @@ function UnitSelectControl({ unit, onChange, units, className }) {
 	);
 }
 
-function InputUnitControl({ value, onChange, onUnitChange, units, className, placeholder, help, unit = 'custom' }) {
+function InputUnitControl({
+	value,
+	onChange,
+	onUnitChange,
+	units,
+	className,
+	placeholder,
+	help,
+	unit = 'custom',
+	...rest
+}) {
 	const classes = clsx('components-unit-control', 'kbs-input-unit-control__input', className);
 	const handleUnitChange = (event) => {
 		const { value: unitValue } = event.target;
@@ -51,6 +61,7 @@ function InputUnitControl({ value, onChange, onUnitChange, units, className, pla
 			className={classes}
 			suffix={inputSuffix}
 			help={help}
+			{...rest}
 		/>
 	);
 }

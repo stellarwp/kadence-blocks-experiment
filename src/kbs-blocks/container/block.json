@@ -57,6 +57,13 @@
 			"nonInheritable": true,
 			"selector": "--kbs-cont-"
 		},
+		"margin": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": true,
+			"selector": "--kbs-cont-"
+		},
 		"background": {
 			"renderCSS": true,
 			"component": "background",
@@ -70,9 +77,6 @@
 			"type": "object"
 		},
 		"border": {
-			"type": "object"
-		},
-		"margin": {
 			"type": "object"
 		},
 		"shadow": {

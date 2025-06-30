@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-
+import { useState } from '@wordpress/element';
 import { getInheritedValue } from '@kadence/kbsHelpers';
 
 import ToolsPanelBody from '../tools-panel-body';
@@ -36,7 +36,12 @@ export default function SpacingControl({
 	};
 
 	return (
-		<ToolsPanelBody title={title} panelName={'container-spacing'} componentName={'spacing-control'}>
+		<ToolsPanelBody
+			title={title}
+			reset={onAllReset}
+			panelName={'container-spacing'}
+			componentName={'spacing-control'}
+		>
 			{types.map((type) => (
 				<SpaceControl
 					key={type}

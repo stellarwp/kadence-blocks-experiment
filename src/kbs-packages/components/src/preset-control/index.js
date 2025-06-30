@@ -24,6 +24,7 @@ import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import RadioToggleGroupButtonUI from '../radio-button-control/ui-toggle-group';
 import TitleBar from '../title-bar';
+import './editor.scss';
 function PresetControlConfirm({
 	showConfirmPopover,
 	confirmAnchor,
@@ -178,7 +179,7 @@ export default function PresetControl({
 						}
 						setIsPopover(false);
 					}}
-					className="kbs-popover-background-select-control__dropdown-content kbs-radio-preset-control"
+					className="kbs-preset-popover__dropdown-content kbs-radio-preset-control"
 				>
 					<TitleBar label={label} reset={false} />
 					<div ref={divRef} className="kbs-control-inner kbs-radio-preset-control-inner">
@@ -198,7 +199,7 @@ export default function PresetControl({
 							</Button>
 						))}
 					</div>
-					<div className="kbs-popover-background-select-control__dropdown-content-close">
+					<div className="kbs-preset-popover__dropdown-content-close">
 						<Button __next40pxDefaultSize onClick={() => setIsPopover(false)}>
 							<Icon icon={closeIcon} size={24} />
 						</Button>

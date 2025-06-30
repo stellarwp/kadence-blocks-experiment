@@ -1,0 +1,30 @@
+.kbs-preset-popover__dropdown-content.kbs-radio-preset-control {
+	.components-popover__content {
+		min-height: 200px;
+		padding: 12px;
+		min-width: 300px;
+		width: 380px;
+		height: auto;
+		position: relative;
+	}
+	.kbs-control-title-bar {
+		height: 20px;
+	}
+	.kbs-control-inner {
+		background: transparent;
+		padding: 0;
+		.kbs-radio-preset-control-button {
+			justify-content: center;
+			&.is-pressed {
+				background: var(--wp-components-color-foreground, #1e1e1e);
+				color: var(--wp-components-color-foreground-inverted, #fff);
+			}
+		}
+	}
+}
+.kbs-preset-popover__dropdown-content .components-popover__content .kbs-preset-popover__dropdown-content-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+}

@@ -158,6 +158,9 @@
 		height: 8px;
 		border-radius: 6px;
 	}
+	.components-range-control__mark {
+		height: 8px;
+	}
 
 	.components-range-control__thumb-wrapper {
 		width: 16px;
@@ -311,5 +314,254 @@
 
 			margin-bottom: 16px;
 		}
+	}
+}
+.kbs-control .kbs-space-control-inner .kbs-input-unit-control__input .kbs-input-unit-control__select {
+	max-width: 24px;
+}
+.kbs-radio-button-control__toggle-group-input {
+	width: 100%;
+	&:hover {
+		.components-spacing-drag-control {
+			opacity: 1;
+		}
+	}
+	.kbs-radio-button-control__toggle-group-input-title-wrapper {
+		width: 100%;
+		overflow: hidden;
+		position: relative;
+	}
+	.components-spacing-drag-control {
+		position: absolute;
+		width: 100%;
+		top: -1px;
+		left: 0;
+		opacity: 0;
+		transition: opacity 0.2s ease-in-out;
+		.components-range-control__root {
+			min-height: 0;
+			padding-bottom: 0;
+		}
+		.components-range-control__slider {
+			cursor: col-resize;
+		}
+		.components-range-control__wrapper {
+			height: auto;
+			min-height: 20px;
+			> span:first-of-type {
+				margin-top: 4px;
+				height: 16px;
+				border-radius: 0;
+				background: white;
+			}
+			.components-range-control__track {
+				background: transparent;
+			}
+			.components-range-control__marks {
+				margin-top: 8px;
+				.components-range-control__mark {
+					height: 12px;
+					background: var(--kb-border-subtle-color, #d9e7ec);
+				}
+			}
+			.components-range-control__thumb-wrapper {
+				width: 40px;
+				height: 16px;
+				border-radius: 0;
+				margin-top: 2px;
+				margin-left: -20px;
+				background: transparent;
+				> span {
+					background: transparent;
+					height: 16px;
+					width: 40px;
+					border-radius: 0;
+					box-shadow: none;
+					&:before {
+						top: -4px;
+						left: 10px;
+						width: 12px;
+						height: 24px;
+						border-radius: 0;
+					}
+					&:after {
+						content: " ";
+						position: absolute;
+						top: 0;
+						left: 50%;
+						transform: translateX(-50%);
+						width: 4px;
+						margin-left: -4px;
+						height: 15px;
+						background: var(--wp-components-color-foreground, #1e1e1e);
+						border-radius: 0;
+					}
+				}
+			}
+		}
+	}
+	// .kbs-radio-button-control__drag-handle {
+	// 	min-width: 25px;
+	// 	min-height: 25px;
+	// 	width: 100px;
+	// 	height: 100%;
+	// 	top: 0;
+	// 	left: 0;
+	// }
+	// .kbs-radio-button-control__toggle-group-input-title-wrapper-inner {
+	// 	position: absolute !important;
+	// 	top: 0;
+	// 	left: 0;
+	// 	right: 0;
+	// 	min-height: 100%;
+	// }
+	// .kbs-radio-button-control__toggle-group-input-title {
+	// 	position: relative;
+	// 	font-size: 11px;
+	// 	font-weight: 500;
+	// 	line-height: 1.4;
+	// 	text-transform: uppercase;
+	// 	box-sizing: border-box;
+	// 	display: block;
+	// 	padding-top: 0;
+	// 	padding-bottom: 0;
+	// 	max-width: 100%;
+	// 	z-index: 1;
+	// 	overflow: hidden;
+	// 	text-overflow: ellipsis;
+	// 	white-space: nowrap;
+	// 	margin-bottom: 8px;
+	// }
+	// .kbs-visual-spinner-drag-wrapper {
+	// 	width: 100px;
+	// 	z-index: 1;
+	// 	position: absolute;
+	// 	bottom: 0;
+	// 	left: 0;
+	// 	opacity: 1;
+	// 	pointer-events: none;
+	// 	&:before {
+	// 		content: " ";
+	// 		bottom: 0;
+	// 		position: absolute;
+	// 		z-index: 1;
+	// 		width: 100%;
+	// 		height: 8px;
+	// 		background: linear-gradient(to right, white 0%, rgba(255, 255, 255, 0) 50%, white 100%);
+	// 	}
+	// 	.kbs-visual-spinner-drag-handle {
+	// 		width: 1000px;
+	// 		height: 8px;
+	// 		background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2IDgiIGZpbGxSdWxlPSJldmVub2RkIj4KCTxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+ICAKCS5zdDB7ZmlsbDojQzZEMERCO30KPC9zdHlsZT4KPHJlY3QgY2xhc3M9InN0MCIgd2lkdGg9IjIiIGhlaWdodD0iOCIvPgo8L3N2Zz4=);
+	// 	}
+	// }
+}
+.kbs-radio-button-control__toggle-group-input-content {
+	.components-popover__content {
+		padding: 12px;
+		min-width: 300px;
+		min-height: 0px;
+		width: 340px;
+		height: auto;
+	}
+	.components-range-control.kbs-range-control {
+		padding-bottom: 20px;
+	}
+}
+.kbs-radio-button-popup-toggle {
+	background: var(--kb-subtle-background, #edf2f7);
+	padding: 2px;
+	min-height: 40px;
+	border: 0;
+	border-radius: 3px;
+	.kbs-radio-button-popup-toggle-button {
+		height: 36px;
+		width: 100%;
+		justify-content: center;
+		border-radius: 4px;
+		color: var(--kb-subtle-focus-color, #718096);
+		&.value-is-inherited {
+			background: var(--wp-components-color-background, #fff);
+			color: var(--kb-subtle-focus-color, #718096);
+			box-shadow: inset 0px 0px 0px 1px var(--kb-border-subtle-color, #d9e7ec);
+		}
+		&.value-is-set {
+			background: var(--wp-components-color-background, #fff);
+			color: var(--wp-components-color-foreground, #1e1e1e);
+			box-shadow: inset 0px 0px 0px 1px var(--kb-border-color, #859cb6);
+		}
+	}
+}
+.kbs-radio-button-popup-grid-container {
+	display: grid;
+	grid-template-columns: 1fr 30px 1fr;
+	grid-template-rows: auto 1fr auto;
+	grid-template-areas:
+		"header header header"
+		"main-left main-center main-right"
+		"footer footer footer";
+	gap: 12px;
+	.kbs-radio-button-control__toggle-group-input {
+		max-width: 100px;
+		margin: 0 auto;
+		background: var(--wp-components-color-background, #fff);
+		.components-input-base {
+			gap: 2px;
+			.components-flex-item {
+				max-width: 100%;
+			}
+		}
+	}
+	.kbs-space-control-linking {
+		align-self: end;
+		justify-self: center;
+		grid-area: main-center;
+		height: 40px;
+		display: flex;
+		align-items: center;
+	}
+	.kbs-space-control-linking-button {
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 30px;
+		height: 30px;
+	}
+}
+.kbs-radio-button-control-popover-top {
+	grid-area: header;
+	.kbs-radio-button-control__toggle-group-input-title {
+		text-align: center;
+	}
+	.components-input-control__label {
+		text-align: center;
+	}
+}
+.kbs-radio-button-control-popover-left {
+	grid-area: main-left;
+	.kbs-radio-button-control__toggle-group-input-title {
+		text-align: left;
+	}
+	.components-input-control__label {
+		text-align: left;
+	}
+}
+.kbs-radio-button-control-popover-right {
+	grid-area: main-right;
+	.kbs-radio-button-control__toggle-group-input-title {
+		text-align: right;
+	}
+	.components-input-control__label {
+		text-align: right;
+	}
+}
+.kbs-radio-button-control-popover-bottom {
+	grid-area: footer;
+	.kbs-radio-button-control__toggle-group-input-title {
+		text-align: center;
+	}
+	.components-input-control__label {
+		text-align: center;
 	}
 }

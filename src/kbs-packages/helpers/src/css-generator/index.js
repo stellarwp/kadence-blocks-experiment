@@ -151,6 +151,7 @@ class CSSGenerator {
 				cssValue = appliedValue;
 				break;
 			case 'padding':
+			case 'margin':
 				cssValue = this.getSpacingOutput(appliedValue);
 				break;
 			case 'background':
@@ -612,6 +613,7 @@ class CSSGenerator {
 
 		return this;
 	}
+
 	getComponentKeys(component) {
 		let componentKeys = [];
 		switch (component) {
@@ -650,6 +652,9 @@ class CSSGenerator {
 				break;
 			case 'padding':
 				componentKeys = ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'];
+				break;
+			case 'margin':
+				componentKeys = ['marginTop', 'marginRight', 'marginBottom', 'marginLeft'];
 				break;
 			case 'typography':
 				componentKeys = [

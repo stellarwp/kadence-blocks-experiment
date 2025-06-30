@@ -74,7 +74,12 @@ function SpacingVisualizer({
 		return null;
 	}
 	return (
-		<BlockPopoverCover clientId={clientId} selectedElement={blockElement} __unstablePopoverSlot="block-toolbar">
+		<BlockPopoverCover
+			className={'kbs-spacing-visualizer-popover'}
+			clientId={clientId}
+			selectedElement={blockElement}
+			__unstablePopoverSlot="block-toolbar"
+		>
 			<div
 				className={`block-editor__spacing-visualizer kbs-spacing-visualizer block-editor__spacing-visualizer-type-${type}`}
 				style={style}
@@ -88,6 +93,10 @@ function getComputedCSS(element, property) {
 }
 
 export function MarginVisualizer({ clientId, blockElementRef, value, forceShow }) {
+	const top = getComputedCSS(blockElementRef.current, 'margin-top');
+	const right = getComputedCSS(blockElementRef.current, 'margin-right');
+	const bottom = getComputedCSS(blockElementRef.current, 'margin-bottom');
+	const left = getComputedCSS(blockElementRef.current, 'margin-left');
 	return (
 		<SpacingVisualizer
 			clientId={clientId}
@@ -108,6 +117,16 @@ export function MarginVisualizer({ clientId, blockElementRef, value, forceShow }
 					bottom: bottom ? `-${bottom}` : 0,
 					left: left ? `-${left}` : 0,
 				};
+			}}
+			initialStyle={{
+				borderTopWidth: top,
+				borderRightWidth: right,
+				borderBottomWidth: bottom,
+				borderLeftWidth: left,
+				top: top ? `-${top}` : 0,
+				right: right ? `-${right}` : 0,
+				bottom: bottom ? `-${bottom}` : 0,
+				left: left ? `-${left}` : 0,
 			}}
 			forceShow={forceShow}
 			type="margin"

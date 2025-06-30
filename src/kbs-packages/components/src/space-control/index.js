@@ -11,18 +11,24 @@ import './editor.scss';
  * Internal block libraries
  */
 import { __ } from '@wordpress/i18n';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState, useCallback } from '@wordpress/element';
+import { Button } from '@wordpress/components';
+import { link, linkOff } from '@wordpress/icons';
 import {
 	getDeviceValue,
 	getInheritedDeviceValue,
 	handleAttributeChange,
 	mouseOverVisualizer,
 	getInheritedValue,
+	handleMultipleAttributeChange,
+	getSpacingOutput,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
-import { PaddingVisualizer } from './spacing-visualizer';
+import { getSpacingControls } from '../radio-button-control/controls-config';
+import { PaddingVisualizer, MarginVisualizer } from './spacing-visualizer';
 import PresetControl from '../preset-control';
+import RadioToggleGroupPopoverInputUI from '../radio-button-control/ui-toggle-group-popover-input';
 import { sectionLargeIcon, sectionMediumIcon, cardLargeIcon, cardMediumIcon } from '../constants/icons';
 /**
  * Build the Measure controls
@@ -54,10 +60,13 @@ export default function SpaceControl({
 }) {
 	const parentType = type;
 	const typeMouseOver = mouseOverVisualizer();
+	const [isCustom, setIsCustom] = useState(false);
+	const [isLinking, setIsLinking] = useState(false);
 	const topValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Top');
 	const rightValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Right');
 	const bottomValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Bottom');
 	const leftValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Left');
+	const controls = getSpacingControls();
 	const inheritedTop = getInheritedDeviceValue(
 		attributeName,
 		attributes,
@@ -97,45 +106,70 @@ export default function SpaceControl({
 		}
 		onChange(resetValue, previewDevice === 'Desktop' ? 'all' : previewDevice, type);
 	};
-	useEffect(() => {
-		//console.log('iglobalStylesIds', globalStylesIds);
-	}, [inheritedTop]);
-	const inherited =
-		type === 'padding'
-			? getInheritedValue('padding', attributes, 'none', metaData, 'desktop', globalStylesIds)
-			: {};
-	const inheritedTablet =
-		type === 'padding' ? getInheritedValue('padding', attributes, 'none', metaData, 'tablet', globalStylesIds) : {};
-	const inheritedMobile =
-		type === 'padding' ? getInheritedValue('padding', attributes, 'none', metaData, 'mobile', globalStylesIds) : {};
+	// Memoize event handlers
+	const onSetAttributes = useCallback(
+		(newAttributes) => {
+			console.log('onSetAttributes', newAttributes, inheritedTop, inheritedBottom);
+			if (
+				newAttributes['padding']?.preset &&
+				(inheritedTop?.inheritedType === 'preset' || inheritedBottom?.inheritedType === 'preset')
+			) {
+				const inherited = getInheritedValue('padding', attributes, 'none', meta, 'desktop', globalStylesIds);
+				const inheritedTablet = getInheritedValue(
+					'padding',
+					attributes,
+					'none',
+					meta,
+					'tablet',
+					globalStylesIds
+				);
+				const inheritedMobile = getInheritedValue(
+					'padding',
+					attributes,
+					'none',
+					meta,
+					'mobile',
+					globalStylesIds
+				);
 
-	const onSetAttributes = (newAttributes) => {
-		console.log('onSetAttributes', newAttributes);
-		if (newAttributes['padding']?.preset && inherited?.inheritedValue && inherited.inheritedType === 'preset') {
-			newAttributes['padding']['desktop'] = inherited?.inheritedValue
-				? { ...inherited?.inheritedValue, ...newAttributes['padding']['desktop'] }
-				: newAttributes['padding']['desktop'];
-			newAttributes['padding']['tablet'] = inheritedTablet?.inheritedValue
-				? { ...inheritedTablet?.inheritedValue, ...newAttributes['padding']['tablet'] }
-				: newAttributes['padding']['tablet'];
-			newAttributes['padding']['mobile'] = inheritedMobile?.inheritedValue;
-			delete newAttributes['padding']?.preset;
+				newAttributes['padding']['desktop'] = inherited?.inheritedValue
+					? { ...inherited?.inheritedValue, ...newAttributes['padding']['desktop'] }
+					: newAttributes['padding']['desktop'];
+				newAttributes['padding']['tablet'] = inheritedTablet?.inheritedValue
+					? { ...inheritedTablet?.inheritedValue, ...newAttributes['padding']['tablet'] }
+					: newAttributes['padding']['tablet'];
+				newAttributes['padding']['mobile'] = inheritedMobile?.inheritedValue;
+				delete newAttributes['padding']?.preset;
+			}
+			setAttributes(newAttributes);
+		},
+		[getInheritedValue, setAttributes, inheritedTop, inheritedBottom]
+	);
+	const onChange = (value, device, tempType) => {
+		console.log('onChange', value, device, tempType);
+		if (isLinking) {
+			handleMultipleAttributeChange(
+				[value, value, value, value],
+				device,
+				attributeName,
+				attributes,
+				parentType === 'padding' ? onSetAttributes : setAttributes,
+				customOnChange,
+				[type + 'Top', type + 'Left', type + 'Right', type + 'Bottom'],
+				metaData
+			);
+		} else {
+			handleMultipleAttributeChange(
+				value,
+				device,
+				attributeName,
+				attributes,
+				parentType === 'padding' ? onSetAttributes : setAttributes,
+				customOnChange,
+				tempType,
+				metaData
+			);
 		}
-		setAttributes(newAttributes);
-	};
-	const onChange = (value, device, type) => {
-		console.log('onChange', value, device, type);
-
-		handleAttributeChange(
-			value,
-			device,
-			attributeName,
-			attributes,
-			parentType === 'padding' ? onSetAttributes : setAttributes,
-			customOnChange,
-			type,
-			metaData
-		);
 	};
 	const paddingPresets = [
 		{
@@ -180,60 +214,118 @@ export default function SpaceControl({
 						definedPresets={paddingPresets}
 					/>
 				)}
-				{label && (
-					<TitleBar
-						label={label}
-						reset={reset}
-						onReset={onReset}
-						hasDeviceControls={hasDeviceControls}
-						hasAdvancedControls={false}
-					/>
-				)}
-				<div className={'kadence-controls-content kadence-space-control-inner'}>
-					<div className={'kadence-space-control-visualizer'}></div>
-					<RadioButtonSelect
-						label={__('Top', 'kadence-blocks')}
-						type={type + 'Top'}
-						hasCustomControls={true}
-						value={topValue}
-						inherited={inheritedTop}
-						onChange={onChange}
-					/>
-					<RadioButtonSelect
-						label={__('Left', 'kadence-blocks')}
-						type={type + 'Left'}
-						hasCustomControls={true}
-						value={leftValue}
-						inherited={inheritedLeft}
-						onChange={onChange}
-					/>
-					<RadioButtonSelect
-						label={__('Right', 'kadence-blocks')}
-						type={type + 'Right'}
-						hasCustomControls={true}
-						value={rightValue}
-						inherited={inheritedRight}
-						onChange={onChange}
-					/>
-					<RadioButtonSelect
-						label={__('Bottom', 'kadence-blocks')}
-						type={type + 'Bottom'}
-						hasCustomControls={true}
-						value={bottomValue}
-						inherited={inheritedBottom}
-						onChange={onChange}
-					/>
+				<div className={'kbs-space-control-container'}>
+					{label && (
+						<TitleBar
+							label={label}
+							reset={reset}
+							onReset={onReset}
+							hasDeviceControls={hasDeviceControls}
+							isCustom={isCustom}
+							onToggleCustom={() => setIsCustom(!isCustom)}
+							hasCustomControls={true}
+						/>
+					)}
+					<div className={'kadence-controls-content kbs-space-control-inner'}>
+						<div className={'kbs-space-control-visualizer'}>
+							{/* <div className={'kbs-space-control-visualizer-wrapper'}>
+							<div
+								className={'kbs-space-control-visualizer-inner'}
+								style={{
+									borderTopWidth:
+										'calc(' +
+										getSpacingOutput(topValue || inheritedTop?.inheritedValue) +
+										' * 0.25)',
+									borderRightWidth:
+										'calc(' +
+										getSpacingOutput(rightValue || inheritedRight?.inheritedValue) +
+										' * 0.25)',
+									borderBottomWidth:
+										'calc(' +
+										getSpacingOutput(bottomValue || inheritedBottom?.inheritedValue) +
+										' * 0.25)',
+									borderLeftWidth:
+										'calc(' +
+										getSpacingOutput(leftValue || inheritedLeft?.inheritedValue) +
+										' * 0.25)',
+								}}
+							></div>
+						</div> */}
+						</div>
+						<div className="kbs-radio-button-popup-grid-container">
+							<RadioToggleGroupPopoverInputUI
+								label={__('Top', 'kadence-blocks')}
+								parentLabel={label}
+								type={type + 'Top'}
+								hasCustomControls={true}
+								controls={controls}
+								isCustom={isCustom}
+								value={topValue}
+								inherited={inheritedTop}
+								onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Top')}
+							/>
+							<RadioToggleGroupPopoverInputUI
+								label={__('Left', 'kadence-blocks')}
+								type={type + 'Left'}
+								parentLabel={label}
+								hasCustomControls={true}
+								value={leftValue}
+								controls={controls}
+								isCustom={isCustom}
+								inherited={inheritedLeft}
+								onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Left')}
+							/>
+							<div className={'kbs-space-control-linking'}>
+								<Button
+									iconSize={16}
+									className={'kbs-space-control-linking-button'}
+									onClick={() => setIsLinking(!isLinking)}
+									isPressed={isLinking}
+									icon={isLinking ? link : linkOff}
+									label={isLinking ? __('Unlink', 'kadence-blocks') : __('Link', 'kadence-blocks')}
+								/>
+							</div>
+							<RadioToggleGroupPopoverInputUI
+								label={__('Right', 'kadence-blocks')}
+								type={type + 'Right'}
+								parentLabel={label}
+								hasCustomControls={true}
+								value={rightValue}
+								controls={controls}
+								isCustom={isCustom}
+								inherited={inheritedRight}
+								onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Right')}
+							/>
+							<RadioToggleGroupPopoverInputUI
+								label={__('Bottom', 'kadence-blocks')}
+								type={type + 'Bottom'}
+								hasCustomControls={true}
+								parentLabel={label}
+								isCustom={isCustom}
+								controls={controls}
+								value={bottomValue}
+								inherited={inheritedBottom}
+								onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Bottom')}
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 			{type === 'padding' && (
-				<>
-					<PaddingVisualizer
-						forceShow={typeMouseOver.isMouseOver}
-						clientId={clientId}
-						blockElementRef={blockElementRef}
-						value={[inheritedTop, inheritedRight, inheritedBottom, inheritedLeft]}
-					/>
-				</>
+				<PaddingVisualizer
+					forceShow={typeMouseOver.isMouseOver}
+					clientId={clientId}
+					blockElementRef={blockElementRef}
+					value={[inheritedTop, inheritedRight, inheritedBottom, inheritedLeft]}
+				/>
+			)}
+			{type === 'margin' && (
+				<MarginVisualizer
+					forceShow={typeMouseOver.isMouseOver}
+					clientId={clientId}
+					blockElementRef={blockElementRef}
+					value={[inheritedTop, inheritedRight, inheritedBottom, inheritedLeft]}
+				/>
 			)}
 		</>
 	);
