@@ -68,7 +68,6 @@
 			"renderCSS": true,
 			"component": "typography",
 			"selector": "--kbs-text-",
-			"tag": "h1",
 			"initial": {},
 			"type": "object"
 		},
@@ -76,7 +75,6 @@
 			"renderCSS": true,
 			"component": "typography",
 			"selector": "--kbs-text-highlight-",
-			"tag": "h1",
 			"initial": {},
 			"type": "object"
 		},
@@ -114,6 +112,13 @@
 			"type": "object",
 			"selector": "--kbs-text-highlight-",
 			"classPrefix": "kbs-text-border-highlight-"
+		},
+		"icon": {
+			"renderCSS": true,
+			"component": "icon",
+			"selector": "--kbs-text-icon-",
+			"initial": {},
+			"type": "object"
 		},
 		"globalStyleIds": {
 			"type": "string"

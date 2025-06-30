@@ -304,6 +304,13 @@
 				"category": "background"
 			}
 		},
+		"iconSize": {
+			"xs": { "value": "1rem" },
+			"sm": { "value": "2rem" },
+			"md": { "value": "3rem" },
+			"lg": { "value": "4rem" },
+			"xl": { "value": "5rem" }
+		},
 		"colors": {
 			"palette1": {
 				"label": "Accent",

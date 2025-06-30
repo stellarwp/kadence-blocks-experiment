@@ -11,7 +11,7 @@ import { useMemo } from '@wordpress/element';
 /**
  * External dependencies
  */
-import Select from 'react-select';
+import SelectStyled from '../select-styled';
 
 // RTL configuration is determined once at module load
 const IS_RTL = isRTL();
@@ -23,7 +23,6 @@ import { getResolvedValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import { DOT_STYLES } from './constants';
 import { getPlaceholderLabel, useSelectOptions } from './helpers';
-import InheritanceIndicator from '../inheritance-indicator';
 import './editor.scss';
 
 /**
@@ -60,7 +59,6 @@ export default function SelectControl({
 	meta,
 	globalStylesIds,
 	forStyleBook,
-	hasDeviceControls = true,
 }) {
 	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue, inheritedType } = getResolvedValue(
 		attributeName,
@@ -134,9 +132,9 @@ export default function SelectControl({
 
 	return (
 		<div className={`components-base-control kbs-${type}-select-control`}>
-			{label && <TitleBar label={label} hasDeviceControls={hasDeviceControls} reset={reset} onReset={onReset} />}
+			{label && <TitleBar label={label} reset={reset} onReset={onReset} />}
 			<div className="kbs-select-control-inner">
-				<Select
+				<SelectStyled
 					key={previewDevice + appliedValue}
 					isClearable={!isInherited}
 					value={
@@ -155,7 +153,6 @@ export default function SelectControl({
 					noOptionsMessage={() => __('No results', 'kadence-blocks')}
 					isRtl={IS_RTL}
 				/>
-				<InheritanceIndicator inheritedSource={inheritedSource} inheritedType={inheritedType} />
 			</div>
 		</div>
 	);

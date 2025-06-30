@@ -2,6 +2,7 @@ import SelectControl from '../select-control';
 import { __ } from '@wordpress/i18n';
 import FontWeight from './font-weight';
 import ResponsiveRadioRangeControls from '../range/responsive-radio-range-control';
+import RadioButtonControl from '../radio-button-control';
 import ResponsiveUnitControl from '../responsive-unit-control';
 
 export default function Typography({
@@ -58,7 +59,7 @@ export default function Typography({
 				forStyleBook={forStyleBook}
 			/>
 
-			<ResponsiveRadioRangeControls
+			<RadioButtonControl
 				label={__('Font Size', 'kadence-blocks')}
 				attributes={attributes}
 				setAttributes={setAttributes}
@@ -66,18 +67,12 @@ export default function Typography({
 				type="fontSize"
 				meta={meta}
 				previewDevice={previewDevice}
-				min={0}
-				max={200}
-				step={1}
-				unit="px"
-				showUnit={true}
-				units={['px', 'em', 'rem']}
-				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
+				hasCustomControls={true}
 			/>
 
-			<ResponsiveRadioRangeControls
+			<RadioButtonControl
 				label={__('Letter Case', 'kadence-blocks')}
 				attributes={attributes}
 				setAttributes={setAttributes}
@@ -85,14 +80,11 @@ export default function Typography({
 				type="textTransform"
 				meta={meta}
 				previewDevice={previewDevice}
-				disableCustomSizes={true}
-				showUnit={false}
-				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 			/>
 
-			<ResponsiveUnitControl
+			<RadioButtonControl
 				label={__('Line Height', 'kadence-blocks')}
 				attributes={attributes}
 				setAttributes={setAttributes}
@@ -100,14 +92,12 @@ export default function Typography({
 				type="lineHeight"
 				meta={meta}
 				previewDevice={previewDevice}
-				disableCustomSizes={true}
-				showUnit={false}
-				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
+				hasCustomControls={true}
 			/>
 
-			<ResponsiveUnitControl
+			<RadioButtonControl
 				label={__('Letter Spacing', 'kadence-blocks')}
 				attributes={attributes}
 				setAttributes={setAttributes}
@@ -115,11 +105,10 @@ export default function Typography({
 				type="letterSpacing"
 				meta={meta}
 				previewDevice={previewDevice}
-				disableCustomSizes={true}
-				showUnit={false}
 				globalStylesIds={globalStylesIds}
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
+				hasCustomControls={true}
 			/>
 		</div>
 	);

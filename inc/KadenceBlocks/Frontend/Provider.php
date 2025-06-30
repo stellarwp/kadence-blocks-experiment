@@ -31,6 +31,7 @@ class Provider extends Service_Provider {
 		$this->container->bind( Assets::class, new Assets( $this->container ) );
 		$this->container->singleton( CSS_Engine::class, CSS_Engine::class );
 		$this->container->singleton( Font_Engine::class, Font_Engine::class );
+		$this->container->singleton( Svg_Render::class, Svg_Render::class );
 		add_action( 'wp_enqueue_scripts', $this->container->callback( Assets::class, 'post_blocks_css' ), 19 );
 	}
 }

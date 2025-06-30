@@ -79,6 +79,66 @@ export const SPACING_SIZES_MAP = [
 	},
 ];
 
-export const COMPONENTS = ['typography', 'flexBox'];
+export const BORDER_RADIUS_SIZES_MAP = [
+	{
+		value: 'sm',
+		output: 'var(--global-kb-border-radius-sm, 5px)',
+		label: __('Slight', 'kadence-blocks'),
+		size: 5,
+		name: __('Slight', 'kadence-blocks'),
+	},
+	{
+		value: 'md',
+		output: 'var(--global-kb-border-radius-md, 15px)',
+		label: __('Medium', 'kadence-blocks'),
+		size: 15,
+		name: __('Medium', 'kadence-blocks'),
+	},
+	{
+		value: 'lg',
+		output: 'var(--global-kb-border-radius-lg, 30px)',
+		label: __('Heavy', 'kadence-blocks'),
+		size: 30,
+		name: __('Heavy', 'kadence-blocks'),
+	},
+];
 
-export { BORDER_STYLES_DEFAULTS, BORDER_RADIUS_SIZES_MAP } from './borders';
+export const ICON_SIZES_MAP = [
+	{
+		value: 'xs',
+		output: 'var(--kbs-iconsize-xs, 1rem)',
+		size: 16,
+		label: __('XS', 'kadence-blocks'),
+		name: __('X Small', 'kadence-blocks'),
+	},
+	{
+		value: 'sm',
+		output: 'var(--kbs-iconsize-sm, 2rem)',
+		size: 32,
+		label: __('SM', 'kadence-blocks'),
+		name: __('Small', 'kadence-blocks'),
+	},
+	{
+		value: 'md',
+		output: 'var(--kbs-iconsize-md, 3rem)',
+		size: 48,
+		label: __('MD', 'kadence-blocks'),
+		name: __('Medium', 'kadence-blocks'),
+	},
+	{
+		value: 'lg',
+		output: 'var(--kbs-iconsize-lg, 4rem)',
+		size: 64,
+		label: __('LG', 'kadence-blocks'),
+		name: __('Large', 'kadence-blocks'),
+	},
+	{
+		value: 'xl',
+		output: 'var(--kbs-iconsize-xl, 5rem)',
+		size: 80,
+		label: __('XL', 'kadence-blocks'),
+		name: __('X Large', 'kadence-blocks'),
+	},
+];
+
+export const COMPONENTS = ['typography', 'flexBox'];

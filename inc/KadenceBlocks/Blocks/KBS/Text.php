@@ -8,6 +8,7 @@
 namespace KadenceWP\KadenceBlocks\Blocks\KBS;
 
 use KadenceWP\KadenceBlocks\Blocks\Abstract_Block;
+use KadenceWP\KadenceBlocks\Frontend\Svg_Render;
 use function get_block_wrapper_attributes;
 
 // Exit if accessed directly.
@@ -101,6 +102,9 @@ class Text extends Abstract_Block {
 		
 		$wrapper_args       = apply_filters( 'kbs_wrapper_args', $wrapper_args, $attributes, $this->block_name, $unique_id, $block_instance );
 		$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
+
+		$icon_html = Svg_Render::render_icon( $attributes, 'icon', 'kbs-text-' );
+		$content = $icon_html . $content;
 
 		return sprintf( '<%1$s %2$s>%3$s</%1$s>', $html_tag, $wrapper_attributes, $content );
 	}

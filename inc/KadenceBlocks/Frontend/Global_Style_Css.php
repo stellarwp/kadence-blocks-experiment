@@ -36,22 +36,6 @@ class Global_Style_Css {
 	private $device_options;
 
 	/**
-	 * Special typography presets handled differently.
-	 *
-	 * @var array
-	 */
-	private static $special_typography_presets = [
-		'body',
-		'heading',
-		'heading-1',
-		'heading-2',
-		'heading-3',
-		'heading-4',
-		'heading-5',
-		'heading-6',
-	];
-
-	/**
 	 * Constructor
 	 *
 	 * @param CSS_Engine $css_engine The CSS Engine instance.
@@ -168,58 +152,7 @@ class Global_Style_Css {
 							$this->css->set_selector( '.' . $preset );
 							$this->css->add_component( $component, [$component => $component_attributes], $component_meta );
 						}
-					}
-					// TODO: I'm not sure if this is needed, need to follow up with josh & mark.
-					if ( 'typography' === $component && ! empty( $component_data['presets'] ) && is_array( $component_data['presets'] ) ) {
-						foreach ( $component_data['presets'] as $preset => $preset_data ) {
-							if ( in_array( $preset, self::$special_typography_presets ) && ! empty( $preset_data['attributes'] ) && is_array( $preset_data['attributes'] ) ) {
-								
-								$all_device_attributes = [];
-								foreach ( $this->device_options as $device_info ) {
-									$device_key = strtolower( $device_info['key'] ?? $device_info['name'] );
-									if ( ! empty( $preset_data['attributes'][ $device_key ] ) && is_array( $preset_data['attributes'][ $device_key ] ) ) {
-										$all_device_attributes[ $device_key ] = $preset_data['attributes'][ $device_key ];
-									}
-								}
-								
-								// Generate CSS per device
-								foreach ( $this->device_options as $device_info ) {
-									$device_key = strtolower( $device_info['key'] ?? $device_info['name'] );
-									$attributes = $all_device_attributes[ $device_key ] ?? null;
-
-									if ( ! empty( $attributes ) && is_array( $attributes ) ) {
-										$this->css->set_media_state( $device_key );
-
-										foreach ( $attributes as $key => $value ) {
-											$kebab_case_key = strtolower(preg_replace( '/(?<!^)[A-Z]/', '-$0', $key ));
-											$variable_name = self::get_mapping_variable_name( $kebab_case_key, $preset );
-											$return_value = $value;
-
-											if (
-												'fontSize' === $key &&
-												is_string( $value ) && // Mappings for sm, md, lg, xl
-												! empty( $style_data['mappings']['fontSize'][ $value ] ) &&
-												isset( $style_data['mappings']['fontSize'][ $value ]['value'] )
-											) {
-												$return_value = $style_data['mappings']['fontSize'][ $value ]['value'];
-											}
-
-											// Add rule using CSS Engine
-											if ( 'kbs-base' === $style_id ) {
-												$this->css->set_selector( ':root' );
-												$this->css->add_property( $variable_name, $return_value );
-											} else {
-												$selector = $this->get_style_selector( $style_id );
-												$this->css->set_selector( $selector );
-												$this->css->add_property( $variable_name, $return_value );
-											}
-										}
-										$this->css->set_media_state( 'desktop' );
-									}
-								}
-							}
-						}
-					}
+					}					
 				}
 			}
 		}
@@ -245,10 +178,13 @@ class Global_Style_Css {
 	 * @return string The CSS variable name.
 	 */
 	public static function get_mapping_variable_name( $category, $type ) {
-		$category_slug = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', (string) $category ) );
+		// First convert camelCase to kebab-case, then clean up
+		$category_slug = preg_replace( '/([a-z])([A-Z])/', '$1-$2', (string) $category );
+		$category_slug = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', $category_slug ) );
 		$category_slug = trim( $category_slug, '-' );
 
-		$type_slug = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', (string) $type ) );
+		$type_slug = preg_replace( '/([a-z])([A-Z])/', '$1-$2', (string) $type );
+		$type_slug = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', $type_slug ) );
 		$type_slug = trim( $type_slug, '-' );
 
 		return sprintf( '--kbs-%s-%s', $category_slug, $type_slug );

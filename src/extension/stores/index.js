@@ -20,6 +20,13 @@ const DEFAULT_STATE = {
 		custom: [],
 		loaded: false,
 	},
+	icons: {
+		solidIcons: {},
+		lineIcons: {},
+		custom: {},
+		combinedIcons: {},
+		loaded: false,
+	},
 };
 
 const actions = {
@@ -169,6 +176,96 @@ const actions = {
 			};
 		}
 	},
+	*setIcons(icons) {
+		return {
+			type: 'SET_ICONS',
+			icons,
+		};
+	},
+	*fetchIcons() {
+		const path = '/kb-icons/v1/icons';
+		const cacheKey = 'kadence-icons-cache-v1';
+
+		if (!('caches' in window)) {
+			// No cache support, just fetch from network.
+			try {
+				const response = yield { type: 'API_FETCH', request: { path } };
+				return {
+					type: 'SET_ICONS',
+					icons: {
+						solidIcons: response?.solidIcons || {},
+						lineIcons: response?.lineIcons || {},
+						custom: response?.custom || {},
+						combinedIcons: {
+							...response?.solidIcons || {},
+							...response?.lineIcons || {},
+							...response?.custom || {},
+						},
+						loaded: true,
+					},
+				};
+			} catch (error) {
+				console.error('Error fetching icons:', error);
+				return {
+					type: 'SET_ICONS',
+					icons: { solidIcons: {}, lineIcons: {}, custom: {}, combinedIcons: {}, loaded: true },
+				};
+			}
+		}
+
+		let cachedData = null;
+		try {
+			const cache = yield { type: 'CACHE_OPEN', cacheKey };
+			const cachedResponse = yield { type: 'CACHE_MATCH', cache, request: path };
+
+			if (cachedResponse) {
+				cachedData = yield { type: 'RESPONSE_JSON', response: cachedResponse.clone() };
+				if (cachedData && cachedData.cache_key) {
+					yield {
+						type: 'SET_ICONS',
+						icons: {
+							solidIcons: cachedData?.solidIcons || {},
+							lineIcons: cachedData?.lineIcons || {},
+							custom: cachedData?.custom || {},
+							combinedIcons: {
+								...cachedData?.solidIcons || {},
+								...cachedData?.lineIcons || {},
+								...cachedData?.custom || {},
+							},
+							loaded: true,
+						},
+					};
+				}
+			}
+
+			// Fetch from network to update.
+			const networkResponse = yield { type: 'API_FETCH', request: { path } };
+
+			if (networkResponse?.cache_key && networkResponse.cache_key !== cachedData?.cache_key) {
+				yield {
+					type: 'SET_ICONS',
+					icons: {
+						solidIcons: networkResponse?.solidIcons || {},
+						lineIcons: networkResponse?.lineIcons || {},
+						custom: networkResponse?.custom || {},
+						combinedIcons: {
+							...networkResponse?.solidIcons || {},
+							...networkResponse?.lineIcons || {},
+							...networkResponse?.custom || {},
+						},
+						loaded: true,
+					},
+				};
+				const responseToCache = new Response(JSON.stringify(networkResponse), {
+					headers: { 'Content-Type': 'application/json' },
+				});
+				const cacheForPut = yield { type: 'CACHE_OPEN', cacheKey };
+				yield { type: 'CACHE_PUT', cache: cacheForPut, request: path, response: responseToCache };
+			}
+		} catch (error) {
+			console.error('Error fetching or caching icons:', error);
+		}
+	},
 };
 
 const controls = {
@@ -195,6 +292,18 @@ const controls = {
 	),
 	API_FETCH({ request }) {
 		return apiFetch(request);
+	},
+	CACHE_OPEN: ({ cacheKey }) => {
+		return window.caches.open(cacheKey);
+	},
+	CACHE_MATCH: ({ cache, request }) => {
+		return cache.match(request);
+	},
+	CACHE_PUT: ({ cache, request, response }) => {
+		return cache.put(request, response);
+	},
+	RESPONSE_JSON: ({ response }) => {
+		return response.json();
 	},
 };
 
@@ -356,6 +465,15 @@ const store = createReduxStore('kadenceblocks/data', {
 						loaded: true,
 					},
 				};
+			case 'SET_ICONS':
+				return {
+					...state,
+					icons: {
+						...state.icons,
+						...action.icons,
+						loaded: true,
+					},
+				};
 			default:
 				return state;
 		}
@@ -477,6 +595,12 @@ const store = createReduxStore('kadenceblocks/data', {
 		},
 		areFontsLoaded(state) {
 			return state.fonts.loaded;
+		},
+		getIcons(state) {
+			return state.icons;
+		},
+		areIconsLoaded(state) {
+			return state.icons.loaded;
 		},
 	},
 });

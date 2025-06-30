@@ -167,6 +167,16 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputRangeUI;
 			controls = getMaxWidthControls();
 			break;
+		case 'iconSize':
+		case 'iconSizeHover':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			controls = getIconSizeControls();
+			break;
+		case 'iconLineWidth':
+		case 'iconLineWidthHover':
+			UIComponent = RadioToggleGroupInputRangeUINoUnit;
+			controls = getIconStrokeControls();
+			break;
 		case 'max-height':
 		case 'maxHeight':
 		case 'minHeight':
@@ -205,6 +215,21 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputRangeUI;
 			UIComponentAdvanced = BorderRadiusRangeUIControls;
 			controls = getBorderRadiusControls();
+			break;
+		case 'fontSize':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			controls = getFontSizeControls();
+			break;
+		case 'textTransform':
+			controls = getTextTransformControls();
+			break;
+		case 'lineHeight':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			controls = getLineHeightControls();
+			break;
+		case 'letterSpacing':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			controls = getLetterSpacingControls();
 			break;
 	}
 
@@ -335,6 +360,64 @@ export const getPatternSizeControls = () => [
 		key: '50',
 	},
 ];
+
+export const getIconSizeControls = () => [
+	{
+		title: __('X Small', 'kadence-blocks'),
+		name: 'XS',
+		key: 'xs',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: 'sm',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: 'md',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: 'lg',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: 'xl',
+	},
+];
+
+export const getIconStrokeControls = () => [
+	{
+		title: __('X Small', 'kadence-blocks'),
+		name: 'XS',
+		key: '0.5',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: '1',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: '1.5',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: '2',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: '3',
+	},
+];
+
+
 export const getColorShadeControls = () => [
 	{
 		title: __('70% Lighter', 'kadence-blocks'),
@@ -1268,3 +1351,95 @@ export const getAlignContentControls = (direction) => {
 
 	return controlsByDirection[direction] || [];
 };
+
+export const getFontSizeControls = () => [	
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: 'SM',
+		key: 'sm',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'MD',
+		key: 'md',
+	},
+	{
+		title: __('Large', 'kadence-blocks'),
+		name: 'LG',
+		key: 'lg',
+	},
+	{
+		title: __('X Large', 'kadence-blocks'),
+		name: 'XL',
+		key: 'xl',
+	},
+	{
+		title: __('2X Large', 'kadence-blocks'),
+		name: 'XXL',
+		key: 'xxl',
+	},
+	{
+		title: __('3X Large', 'kadence-blocks'),
+		name: '3XL',
+		key: '3xl',
+	},	
+];
+
+export const getTextTransformControls = () => [
+	{
+		title: __('None', 'kadence-blocks'),
+		name: __('None', 'kadence-blocks'),
+		key: 'none',
+	},
+	{
+		title: __('Uppercase', 'kadence-blocks'),
+		name: __('AB', 'kadence-blocks'),
+		key: 'uppercase',
+	},
+	{
+		title: __('Lowercase', 'kadence-blocks'),
+		name: __('ab', 'kadence-blocks'),
+		key: 'lowercase',
+	},
+	{
+		title: __('Capitalize', 'kadence-blocks'),
+		name: __('Ab', 'kadence-blocks'),
+		key: 'capitalize',
+	},
+];
+
+export const getLineHeightControls = () => [
+	{
+		title: __('Narrow', 'kadence-blocks'),
+		name: __('Narrow', 'kadence-blocks'),
+		key: 'sm',
+	},
+	{
+		title: __('Normal', 'kadence-blocks'),
+		name: __('Normal', 'kadence-blocks'),
+		key: 'md',
+	},
+	{
+		title: __('Tall', 'kadence-blocks'),
+		name: __('Tall', 'kadence-blocks'),
+		key: 'lg',
+	},
+];
+
+export const getLetterSpacingControls = () => [
+	{
+		title: __('Narrow', 'kadence-blocks'),
+		name: __('Narrow', 'kadence-blocks'),
+		key: 'sm',
+	},
+	{
+		title: __('Normal', 'kadence-blocks'),
+		name: __('Normal', 'kadence-blocks'),
+		key: 'md',
+	},
+	{
+		title: __('Wide', 'kadence-blocks'),
+		name: __('Wide', 'kadence-blocks'),
+		key: 'lg',
+	},
+];

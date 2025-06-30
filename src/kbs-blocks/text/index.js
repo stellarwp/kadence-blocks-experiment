@@ -23,18 +23,10 @@ registerBlockType('kbs/text', {
 	},
 	edit,
 	save: ({ attributes }) => {
-		const { content, uniqueID, htmlTag, align } = attributes;
-		const TagName = htmlTag || 'div';
-		const classes = ['kbs-text', `kbs-text-${uniqueID}`];
-		
-		if (align) {
-			classes.push(`has-text-align-${align}`);
-		}
+		const { content } = attributes;
 		
 		return (
-			<TagName className={classes.join(' ')}>
 				<div className="kbs-text-content" dangerouslySetInnerHTML={{ __html: content }} />
-			</TagName>
 		);
 	},
 	example: {

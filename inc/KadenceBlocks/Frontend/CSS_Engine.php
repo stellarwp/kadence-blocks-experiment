@@ -204,12 +204,38 @@ class CSS_Engine {
 	 * Font size variables used in string based font sizes.
 	 */
 	protected $font_sizes = array(
-		'sm' => 'var(--global-kb-font-size-sm, 0.9rem)',
-		'md' => 'var(--global-kb-font-size-md, 1.25rem)',
-		'lg' => 'var(--global-kb-font-size-lg, 2rem)',
-		'xl' => 'var(--global-kb-font-size-xl, 3rem)',
-		'xxl' => 'var(--global-kb-font-size-xxl, 4rem)',
-		'3xl' => 'var(--global-kb-font-size-xxxl, 5rem)',
+		'sm' => 'var(--kbs-font-size-sm, 0.9rem)',
+		'md' => 'var(--kbs-font-size-md, 1.25rem)',
+		'lg' => 'var(--kbs-font-size-lg, 2rem)',
+		'xl' => 'var(--kbs-font-size-xl, 3rem)',
+		'xxl' => 'var(--kbs-font-size-xxl, 4rem)',
+		'3xl' => 'var(--kbs-font-size-3xl, 5rem)',
+	);
+	/**
+	 * Line height variables used in string based line heights.
+	 */
+	protected $line_heights = array(
+		'sm' => 'var(--kbs-line-height-sm, 1.2)',
+		'md' => 'var(--kbs-line-height-md, 1.5)',
+		'lg' => 'var(--kbs-line-height-lg, 1.8)',
+	);
+	/**
+	 * Letter spacing variables used in string based letter spacing.
+	 */
+	protected $letter_spacings = array(
+		'sm' => 'var(--kbs-letter-spacing-sm, -0.05em)',
+		'md' => 'var(--kbs-letter-spacing-md, 0)',
+		'lg' => 'var(--kbs-letter-spacing-lg, 0.05em)',
+	);
+	/**
+	 * Icon size variables used in string based icon sizes.
+	 */
+	protected $icon_sizes = array(
+		'xs' => 'var(--kbs-icon-size-xs, 1rem)',
+		'sm' => 'var(--kbs-icon-size-sm, 2rem)',
+		'md' => 'var(--kbs-icon-size-md, 3rem)',
+		'lg' => 'var(--kbs-icon-size-lg, 4rem)',
+		'xl' => 'var(--kbs-icon-size-xl, 5rem)',
 	);
 	/**
 	 * Gaps variables used in string based gutters.
@@ -792,7 +818,6 @@ class CSS_Engine {
 		}
 		return $this;
 	}
-
 	/**
 	 * Add properties to the css output based on the attributes.
 	 *
@@ -849,6 +874,9 @@ class CSS_Engine {
 			case 'background':
 				$expected_keys = ['color'];		
 				break;
+			case 'icon':
+				$expected_keys = ['iconSize', 'iconLineWidth', 'color', 'iconSizeHover', 'iconLineWidthHover', 'colorHover'];
+				break;
 			default:
 				$expected_keys = [ $attributes_meta['component'] ];		
 				break;
@@ -873,7 +901,40 @@ class CSS_Engine {
 			case 'row-gap':
 				return $this->get_gap_size( $value );
 			case 'color':
+			case 'colorHover':
 				return $this->sanitize_color( $value );
+			case 'iconSize':
+			case 'iconSizeHover':
+				// Check if it's a variable icon size value
+				$icon_size_value = $this->get_variable_icon_size_value( $value );
+				if ( $icon_size_value ) {
+					return $icon_size_value;
+				}
+				return $value;
+			case 'fontSize':
+			case 'font-size':
+				// Check if it's a variable font size value
+				$font_size_value = $this->get_variable_font_size_value( $value );
+				if ( $font_size_value ) {
+					return $font_size_value;
+				}
+				return $value;
+			case 'lineHeight':
+			case 'line-height':
+				// Check if it's a variable line height value
+				$line_height_value = $this->get_variable_line_height_value( $value );
+				if ( $line_height_value ) {
+					return $line_height_value;
+				}
+				return $value;
+			case 'letterSpacing':
+			case 'letter-spacing':
+				// Check if it's a variable letter spacing value
+				$letter_spacing_value = $this->get_variable_letter_spacing_value( $value );
+				if ( $letter_spacing_value ) {
+					return $letter_spacing_value;
+				}
+				return $value;
 			default:
 				return $value;
 		}
@@ -1272,6 +1333,66 @@ class CSS_Engine {
 	public function get_variable_font_size_value( $value ) {
 		if ( $this->is_variable_font_size_value( $value ) ) {
 			return $this->font_sizes[ $value ];
+		}
+
+		return false;
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	public function is_variable_line_height_value( $value ) {
+		return is_string( $value ) && isset( $this->line_heights[ $value ] );
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	public function get_variable_line_height_value( $value ) {
+		if ( $this->is_variable_line_height_value( $value ) ) {
+			return $this->line_heights[ $value ];
+		}
+
+		return false;
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	public function is_variable_letter_spacing_value( $value ) {
+		return is_string( $value ) && isset( $this->letter_spacings[ $value ] );
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	public function get_variable_letter_spacing_value( $value ) {
+		if ( $this->is_variable_letter_spacing_value( $value ) ) {
+			return $this->letter_spacings[ $value ];
+		}
+
+		return false;
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	public function is_variable_icon_size_value( $value ) {
+		return is_string( $value ) && isset( $this->icon_sizes[ $value ] );
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	public function get_variable_icon_size_value( $value ) {
+		if ( $this->is_variable_icon_size_value( $value ) ) {
+			return $this->icon_sizes[ $value ];
 		}
 
 		return false;

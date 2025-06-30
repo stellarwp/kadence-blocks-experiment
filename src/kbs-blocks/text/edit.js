@@ -33,7 +33,7 @@ import {
 	getResolvedValue,
 	getColorOutput,
 } from '@kadence/kbsHelpers';
-import { DynamicTextControl } from '@kadence/kbsComponents';
+import { DynamicTextControl, IconRender } from '@kadence/kbsComponents';
 
 /**
  * Build the text editor.
@@ -154,6 +154,11 @@ export default function TextEdit(props) {
 				</BlockControls>
 				{link?.url && linkContentHTML}
 				{!link?.url && contentHTML}
+
+				<IconRender
+					attributeName={'icon'}
+					attributes={attributes}
+				/>
 			</div>
 		</GlobalStylesContext.Provider>
 	);
