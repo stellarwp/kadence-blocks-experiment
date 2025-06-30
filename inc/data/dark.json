@@ -1,6 +1,6 @@
 {
 	"styleId": "kbs-dark",
-	"label": "Dark Style",
+	"label": "Contrast Style",
 	"components": {
 		"background": {
 			"presets": {

@@ -28,8 +28,8 @@ registerBlockType('kbs/container', {
 	},
 	example: {
 		attributes: {
-			background: '#DADADA',
-			padding: [30, 20, 30, 20],
+			background: { preset: 'kbs-bg-variant-1' },
+			padding: { preset: 'card-lg' },
 		},
 		innerBlocks: [
 			{

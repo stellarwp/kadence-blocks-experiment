@@ -1,0 +1,77 @@
+{
+	"apiVersion": 3,
+	"title": "Row/Grid",
+	"name": "kbs/row",
+	"category": "kadence-blocks",
+	"usesContext": ["postId", "queryId", "kbs/parentGlobalStyles", "kbs/parentUniqueId"],
+	"textdomain": "kadence-blocks",
+	"providesContext": {
+		"kbs/parentUniqueId": "uniqueID",
+		"kbs/parentGlobalStyles": "globalStyleIds"
+	},
+	"attributes": {
+		"uniqueID": {
+			"type": "string"
+		},
+		"prebuilt": {
+			"type": "boolean",
+			"default": false
+		},
+		"anchor": {
+			"type": "string"
+		},
+		"tagName": {
+			"type": "string",
+			"initial": "div"
+		},
+		"padding": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"selector": "--kbs-cont-"
+		},
+		"margin": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": true,
+			"selector": "--kbs-cont-"
+		},
+		"background": {
+			"renderCSS": true,
+			"component": "background",
+			"nonInheritable": true,
+			"type": "object",
+			"selector": "--kbs-cont-",
+			"classPrefix": "kbs-cont-bg-",
+			"hasLayers": true
+		},
+		"templateLock": {
+			"type": ["string", "boolean"],
+			"enum": ["all", "insert", "contentOnly", false]
+		},
+		"minHeight": {
+			"renderCSS": true,
+			"property": "min-height",
+			"initial": {},
+			"type": "object"
+		},
+		"globalStyleIds": {
+			"type": "array"
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"ktanimate": true,
+		"ktanimateadd": true,
+		"ktanimatepreview": true,
+		"ktanimateswipe": true,
+		"ktdynamic": true,
+		"kbcss": true,
+		"kbMetadata": true,
+		"align": ["wide", "full"]
+	},
+	"editorStyle": "kbs-row-editor",
+	"style": "kbs-row"
+}

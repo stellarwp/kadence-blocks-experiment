@@ -3,6 +3,19 @@
  * Following WordPress core styling patterns
  */
 
+// Toolbar button styles
+.kadence-toolbar-design-library {
+	display: flex;
+
+	.kb-toolbar-prebuilt-button {
+		height: 36px;
+		margin: 0 4px;
+		border: 1px solid #1e1e1e;
+		color: #1e1e1e;
+		background: rgba(0, 0, 0, 0);
+	}
+}
+
 // Modal styles
 .kadence-prebuilt-library-modal {
 	.components-modal__content {

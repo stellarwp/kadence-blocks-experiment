@@ -12,6 +12,7 @@ namespace KadenceWP\KadenceBlocks\Blocks;
 use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
 use KadenceWP\KadenceBlocks\Blocks\KBS\Container;
 use KadenceWP\KadenceBlocks\Blocks\KBS\Text;
+use KadenceWP\KadenceBlocks\Blocks\KBS\Row;
 use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
 use KadenceWP\KadenceBlocks\Frontend\Font_Engine;
 if ( ! defined( 'ABSPATH' ) ) {
@@ -43,6 +44,12 @@ class Provider extends Service_Provider {
 		add_action( 'init', $this->container->callback( Text::class, 'on_init' ), 20 );
 		add_filter( 'kbs_blocks_to_generate_post_css', $this->container->callback( Text::class, 'register_blocks_to_generate_post_css' ) );
 		add_action( 'kbs_blocks_generate_post_css_kbs/text', $this->container->callback( Text::class, 'output_head_data' ), 10, 2 );
+
+		// Register Row block
+		$this->container->singleton( Row::class, Row::class );
+		add_action( 'init', $this->container->callback( Row::class, 'on_init' ), 20 );
+		add_filter( 'kbs_blocks_to_generate_post_css', $this->container->callback( Row::class, 'register_blocks_to_generate_post_css' ) );
+		add_action( 'kbs_blocks_generate_post_css_kbs/row', $this->container->callback( Row::class, 'output_head_data' ), 10, 2 );
 		
 		// Register the editor scripts.
 		add_action( 'init', $this->container->callback( Editor_Assets::class, 'on_init_editor_assets' ), 10 );

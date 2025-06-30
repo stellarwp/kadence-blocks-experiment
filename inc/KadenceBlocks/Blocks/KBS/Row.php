@@ -16,25 +16,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class to Build the Container Block.
+ * Class to Build the Row Block.
  *
  * @category class
  */
-class Container extends Abstract_Block {
+class Row extends Abstract_Block {
 
 	/**
 	 * Block name within this namespace.
 	 *
 	 * @var string
 	 */
-	protected $block_name = 'container';
+	protected $block_name = 'row';
 
 	/**
 	 * Block name within this namespace.
 	 *
 	 * @var string
 	 */
-	protected $root_selector_class = 'kbs-container';
+	protected $root_selector_class = 'kbs-row';
 
 	/**
 	 * Allowed HTML tags for front end output
