@@ -29,7 +29,7 @@ function RadioToggleGroupInputRangeUI({
 			value: 'px',
 			label: 'px',
 			a11yLabel: __('Pixels (px)', 'kadence-blocks'),
-			step: 1,
+			step: 0.1,
 		},
 		{
 			value: '%',
