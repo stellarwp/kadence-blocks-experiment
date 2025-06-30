@@ -11,6 +11,8 @@
 	}
 
 	.kbs-border-style-control-container {
+		position: relative;
+
 		.kbs-border-style-control__content {
 			background: var(--kb-subtle-background, #edf2f7);
 		}
@@ -53,6 +55,12 @@
 			.kbs-border-style-control__content:nth-child(4) {
 				grid-column: span 2 / auto;
 			}
+		}
+
+		.kbs-border-style-control-preview {
+			position: absolute;
+			inset: 15px 15px;
+			z-index: -1;
 		}
 	}
 }

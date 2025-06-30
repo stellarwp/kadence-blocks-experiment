@@ -6,25 +6,25 @@ import RadioButtonControl from '../radio-button-control';
 import ColorControl from '../color-control';
 import TabsControl from '../tabs-control';
 
-export default function IconControl( props ) {
-    const { attributes, attributeName, setAttributes, meta, previewDevice, previewDirection } = props;
-	const [ activeTab, setActiveTab ] = useState( 'default' );
+export default function IconControl(props) {
+	const { attributes, attributeName, setAttributes, meta, previewDevice, previewDirection } = props;
+	const [activeTab, setActiveTab] = useState('default');
 
 	const iconName = attributes[attributeName]?.desktop?.icon;
 
-	const isLineIcon = iconName.includes('fe_');
+	const isLineIcon = iconName?.includes('fe_');
 
-    return (
-        <>
-            <KadenceIconPicker
-                allowClear={true}
-                attributes={attributes}
+	return (
+		<>
+			<KadenceIconPicker
+				allowClear={true}
+				attributes={attributes}
 				setAttributes={setAttributes}
 				attributeName={attributeName}
 				meta={meta}
-            />
+			/>
 
-            <TabsControl
+			<TabsControl
 				tabs={[
 					{ name: 'default', title: __('Normal', 'kadence-blocks') },
 					{ name: 'hover', title: __('Hover', 'kadence-blocks') },
@@ -32,9 +32,9 @@ export default function IconControl( props ) {
 				selected={activeTab}
 				onSelect={(name) => setActiveTab(name)}
 			>
-				{ activeTab === 'default' && (
+				{activeTab === 'default' && (
 					<>
-                        <ColorControl
+						<ColorControl
 							label={__('Color', 'kadence-blocks')}
 							attributes={attributes}
 							setAttributes={setAttributes}
@@ -58,7 +58,7 @@ export default function IconControl( props ) {
 							hasCustomControls={true}
 						/>
 
-						{ isLineIcon && (
+						{isLineIcon && (
 							<RadioButtonControl
 								label={__('Line width', 'kadence-blocks')}
 								attributes={attributes}
@@ -76,9 +76,9 @@ export default function IconControl( props ) {
 						)}
 					</>
 				)}
-				{ activeTab === 'hover' && (
+				{activeTab === 'hover' && (
 					<>
-                        <ColorControl
+						<ColorControl
 							label={__('Color', 'kadence-blocks')}
 							attributes={attributes}
 							setAttributes={setAttributes}
@@ -90,7 +90,7 @@ export default function IconControl( props ) {
 							hasCustomControls={true}
 						/>
 
-                        <RadioButtonControl
+						<RadioButtonControl
 							label={__('Icon Size', 'kadence-blocks')}
 							attributes={attributes}
 							setAttributes={setAttributes}
@@ -102,7 +102,7 @@ export default function IconControl( props ) {
 							hasCustomControls={true}
 						/>
 
-						{ isLineIcon && (
+						{isLineIcon && (
 							<RadioButtonControl
 								label={__('Line width', 'kadence-blocks')}
 								attributes={attributes}
@@ -122,12 +122,18 @@ export default function IconControl( props ) {
 				)}
 			</TabsControl>
 
-            <TextControl 
-                label={__('Title for screen readers', 'kadence-blocks')}
-                value={attributes[attributeName]?.title}
-                onChange={(value) => setAttributes({ [attributeName]: { ...attributes[attributeName], desktop: { ...attributes[attributeName]?.desktop, title: value } } })}
-            />
-
-        </>
-    );
+			<TextControl
+				label={__('Title for screen readers', 'kadence-blocks')}
+				value={attributes[attributeName]?.title}
+				onChange={(value) =>
+					setAttributes({
+						[attributeName]: {
+							...attributes[attributeName],
+							desktop: { ...attributes[attributeName]?.desktop, title: value },
+						},
+					})
+				}
+			/>
+		</>
+	);
 }

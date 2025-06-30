@@ -263,6 +263,15 @@ export default function BorderStyleControl({
 								step={step}
 							/>
 						))}
+						<div
+							className="kbs-border-style-control-preview"
+							style={{
+								borderTop: getCurrentValueForSide(0),
+								borderLeft: getCurrentValueForSide(1),
+								borderRight: getCurrentValueForSide(2),
+								borderBottom: getCurrentValueForSide(3),
+							}}
+						></div>
 					</>
 				)}
 				{!isAdvanced && (
