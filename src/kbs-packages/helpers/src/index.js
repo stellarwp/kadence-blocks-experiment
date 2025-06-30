@@ -35,4 +35,5 @@ export { default as getGlobalStylesCSSOutput } from './get-global-styles-css';
 export { default as mouseOverVisualizer } from './mouse-over-visualizer';
 export { default as parseBorderStyle } from './parse-border-style';
 export { default as getSpacingOutput } from './get-spacing-output';
-export { BORDER_STYLES_DEFAULTS, BORDER_RADIUS_SIZES_MAP } from './constants';
+export { BORDER_STYLES_DEFAULTS, BORDER_RADIUS_SIZES_MAP } from './constants/borders';
+export { kadenceIcon } from './constants/icons';

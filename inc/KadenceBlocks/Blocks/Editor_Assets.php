@@ -93,6 +93,11 @@ class Editor_Assets {
 		wp_register_style( 'plugin-kbs-control-css', KADENCE_BLOCKS_URL . 'dist/plugin-kbs-control.css', [ 'wp-edit-blocks', 'kadence-components' ], $kadence_control_meta['version'] );
 		wp_set_script_translations( 'kbs-plugin-js', 'kadence-blocks' );
 
+		$kadence_prebuilt_library_meta = kbs_get_asset_file( 'dist/kbs-prebuilt-library' );
+		wp_register_script( 'kadence-kbs-prebuilt-library', KADENCE_BLOCKS_URL . 'dist/kbs-prebuilt-library.js', array_merge( $kadence_prebuilt_library_meta['dependencies'], [ 'wp-api', 'kadence-blocks-js' ] ), $kadence_prebuilt_library_meta['version'], true );
+		wp_register_style( 'kadence-kbs-prebuilt-library', KADENCE_BLOCKS_URL . 'dist/kbs-prebuilt-library.css', [ 'wp-edit-blocks', 'kadence-components' ], $kadence_prebuilt_library_meta['version'] );
+		wp_set_script_translations( 'kadence-kbs-prebuilt-library', 'kadence-blocks' );
+
 		$blocks = [
 			'container',
 		];
@@ -106,7 +111,7 @@ class Editor_Assets {
 
 		$gfont_names_path = KADENCE_BLOCKS_PATH . 'includes/gfonts-names-array.php';
 
-		$pro_data      = kbs_get_current_license_data();
+		$pro_data = kbs_get_current_license_data();
 		if ( ! empty( $pro_data['key'] ) ) {
 			$pro_data['api_key'] = $pro_data['key'];
 		}
@@ -150,6 +155,8 @@ class Editor_Assets {
 		if ( $pagenow !== 'widgets.php' ) {
 			wp_enqueue_script( 'plugin-kbs-control-js' );
 			wp_enqueue_style( 'plugin-kbs-control-css' );
+			wp_enqueue_script( 'kadence-kbs-prebuilt-library' );
+			wp_enqueue_style( 'kadence-kbs-prebuilt-library' );
 		}
 	}
 

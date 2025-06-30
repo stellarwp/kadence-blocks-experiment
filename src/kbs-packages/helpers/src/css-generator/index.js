@@ -1,5 +1,6 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { SPACING_SIZES_MAP, BORDER_RADIUS_SIZES_MAP, ICON_SIZES_MAP, BORDER_STYLES_DEFAULTS } from '../constants';
+import { SPACING_SIZES_MAP, ICON_SIZES_MAP } from '../constants';
+import { BORDER_RADIUS_SIZES_MAP, BORDER_STYLES_DEFAULTS } from '../constants/borders';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { default as getInheritedValue } from '../get-inherited-value';
@@ -145,9 +146,9 @@ class CSSGenerator {
 				}
 				break;
 			case 'icon':
-				if( key === 'color' || key === 'colorHover' ) {
+				if (key === 'color' || key === 'colorHover') {
 					cssValue = getColorOutput(appliedValue);
-				} else if( key === 'iconSize' || key === 'iconSizeHover' ) {
+				} else if (key === 'iconSize' || key === 'iconSizeHover') {
 					cssValue = this.getIconSizeOutput(appliedValue);
 				} else {
 					cssValue = appliedValue;
@@ -676,7 +677,14 @@ class CSSGenerator {
 				];
 				break;
 			case 'icon':
-				componentKeys = ['iconSize', 'iconLineWidth', 'color', 'iconSizeHover', 'iconLineWidthHover', 'colorHover'];
+				componentKeys = [
+					'iconSize',
+					'iconLineWidth',
+					'color',
+					'iconSizeHover',
+					'iconLineWidthHover',
+					'colorHover',
+				];
 				break;
 			case 'linkStyle':
 				componentKeys = ['textDecoration'];

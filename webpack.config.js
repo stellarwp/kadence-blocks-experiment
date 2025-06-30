@@ -62,6 +62,7 @@ module.exports = {
 		'kbs-container': './src/kbs-blocks/container/index.js',
 		'kbs-text': './src/kbs-blocks/text/index.js',
 		'plugin-kbs-control': './src/kbs-blocks/plugin.js',
+		'kbs-prebuilt-library': './src/kbs-plugins/prebuilt-library/index.js',
 	},
 	output: {
 		...defaultConfig.output,

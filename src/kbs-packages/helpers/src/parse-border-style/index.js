@@ -3,7 +3,7 @@
  * This helper contains functions for parsing and manipulating border style values.
  */
 
-import { BORDER_STYLES_DEFAULTS } from '../constants';
+import { BORDER_STYLES_DEFAULTS } from '../constants/borders';
 
 /**
  * Parses a border style string into its component parts (width, style, color)
