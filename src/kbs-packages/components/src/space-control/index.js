@@ -114,12 +114,19 @@ export default function SpaceControl({
 				newAttributes['padding']?.preset &&
 				(inheritedTop?.inheritedType === 'preset' || inheritedBottom?.inheritedType === 'preset')
 			) {
-				const inherited = getInheritedValue('padding', attributes, 'none', meta, 'desktop', globalStylesIds);
+				const inherited = getInheritedValue(
+					'padding',
+					attributes,
+					'none',
+					metaData,
+					'desktop',
+					globalStylesIds
+				);
 				const inheritedTablet = getInheritedValue(
 					'padding',
 					attributes,
 					'none',
-					meta,
+					metaData,
 					'tablet',
 					globalStylesIds
 				);
@@ -127,7 +134,7 @@ export default function SpaceControl({
 					'padding',
 					attributes,
 					'none',
-					meta,
+					metaData,
 					'mobile',
 					globalStylesIds
 				);
@@ -143,7 +150,7 @@ export default function SpaceControl({
 			}
 			setAttributes(newAttributes);
 		},
-		[getInheritedValue, setAttributes, inheritedTop, inheritedBottom]
+		[getInheritedValue, setAttributes, attributes, metaData, globalStylesIds, inheritedTop, inheritedBottom]
 	);
 	const onChange = (value, device, tempType) => {
 		console.log('onChange', value, device, tempType);

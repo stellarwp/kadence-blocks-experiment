@@ -86,7 +86,7 @@ function BackgroundPresetRender(props) {
 		},
 		[globalStyleId, attributeName, preset?.value]
 	);
-	const attributes = globalStyleId ? styleBookComponent?.attributes : rawPresetData?.attributes;
+	const attributes = globalStyleId ? styleBookComponent?.attributes || {} : rawPresetData?.attributes || {};
 	// Return a div for each layer
 	const classes = clsx(props.className, `preset-${uniqueID}-${preset.value}`, {
 		'has-no-background': !attributes?.layers?.length,

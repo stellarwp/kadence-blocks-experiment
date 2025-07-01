@@ -298,7 +298,7 @@ function OutputResizer(props) {
 			}
 			setAttributes(newAttributes);
 		},
-		[getInheritedValue, setAttributes, inheritedTop, inheritedBottom]
+		[getInheritedValue, setAttributes, attributes, meta, globalStylesIds, inheritedTop, inheritedBottom]
 	);
 
 	const onChange = useCallback(
