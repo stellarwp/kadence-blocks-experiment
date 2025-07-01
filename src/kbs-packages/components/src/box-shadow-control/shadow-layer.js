@@ -7,8 +7,8 @@ import clsx from 'clsx';
  */
 import { Icon, Dropdown, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useRef, useMemo, useEffect, useState } from '@wordpress/element';
-import { close as closeIcon, shadow as shadowIcon } from '@wordpress/icons';
+import { useRef, useMemo, useState } from '@wordpress/element';
+import { shadow as shadowIcon } from '@wordpress/icons';
 import { useSettings } from '@wordpress/block-editor';
 /**
  * Internal dependencies
@@ -21,11 +21,8 @@ import {
 	getGradientOptions,
 	SHADOW_STYLES_DEFAULTS,
 } from '@kadence/kbsHelpers';
-import ColorSelector from '../color-control/color-selector';
-import ColorControl from '../color-control';
 import { getColorLabel } from '../color-control/utils';
-import UnitControl from '../unit-control';
-import RadioButtonControl from '../radio-button-control';
+import ShadowDropdownContent from './shadow-dropdown-content';
 
 function ShadowIndicator({ value, type, colorValue, maskType }) {
 	const style = {
@@ -109,134 +106,6 @@ function renderShadowToggle(layer, isInherited, previewDevice) {
  * @returns {object} - An object containing the value and its source
  */
 
-function BoxShadowDropdownContent({
-	colors,
-	layer,
-	isInherited,
-	onChange,
-	previewDevice,
-	globalClasses,
-	globalStylesCss,
-	layerKey,
-	containerRef,
-	isHover,
-	setIsHover,
-	onToggle,
-	isOpen,
-}) {
-	const handleCustomOnChange = (value, device, type) => {
-		onChange(value, device, type);
-	};
-	let color = getLayerDeviceValue('color', layer, previewDevice);
-	let x = getLayerDeviceValue('x', layer, previewDevice);
-	let y = getLayerDeviceValue('y', layer, previewDevice);
-	let blur = getLayerDeviceValue('blur', layer, previewDevice);
-	let spread = getLayerDeviceValue('spread', layer, previewDevice);
-	let inset = getLayerDeviceValue('inset', layer, previewDevice);
-
-	color = color ? color : SHADOW_STYLES_DEFAULTS.color.value;
-	x = x ? x : SHADOW_STYLES_DEFAULTS.x.value;
-	y = y ? y : SHADOW_STYLES_DEFAULTS.y.value;
-	blur = blur ? blur : SHADOW_STYLES_DEFAULTS.blur.value;
-	spread = spread ? spread : SHADOW_STYLES_DEFAULTS.spread.value;
-
-	// const hoverColor = getLayerDeviceValue('hoverColor', layer, previewDevice);
-	const divRef = useRef(null);
-	useEffect(() => {
-		if (divRef.current) {
-			if (globalStylesCss) {
-				divRef.current.setAttribute('style', globalStylesCss);
-			} else {
-				divRef.current.removeAttribute('style');
-			}
-		}
-	}, [globalStylesCss, divRef?.current]);
-	return (
-		<div ref={divRef} className={'kbs-background-layer-control__dropdown-content-inner kbs-color-control'}>
-			{/* <ColorSelector
-				handleColorChange={(value) => {
-					if (isHover) {
-						handleCustomOnChange(value, previewDevice, 'hoverColor');
-					} else {
-						handleCustomOnChange(value, previewDevice, 'color');
-					}
-				}}
-				colors={colors}
-				currentValue={isHover ? hoverColor : color}
-				inherited={isHover ? { inheritedValue: color } : ''}
-				hasMix={true}
-				globalClasses={globalClasses}
-				isHover={isHover}
-				onToggleHover={() => setIsHover(!isHover)}
-				hasHoverControls={true}
-				globalStylesCss={globalStylesCss}
-			/> */}
-			{/* <ColorControl
-				label={__('Color', 'kadence-blocks')}
-				attributeName="color"
-				layer={layer}
-				previewDevice={previewDevice}
-				onChange={handleCustomOnChange}
-				hasMix={true}
-			/> */}
-			<ColorControl
-				// attributes={attributes}
-				// setAttributes={setAttributes}
-				// attributeName={attributeName}
-				// meta={meta}
-				previewDevice={previewDevice}
-				label=""
-				reset={false}
-				customOnChange={(value) => handleCustomOnChange(value, previewDevice, 'color')}
-				hasTitleBar={false}
-				currentValue={color}
-			/>
-			<RadioButtonControl
-				// attributes={attributes}
-				// setAttributes={setAttributes}
-				// attributeName={attributeName}
-				// meta={meta}
-				type="inset"
-				previewDevice={previewDevice}
-				onChange={(value) => handleCustomOnChange(value, previewDevice, 'inset')}
-				value={inset}
-				// inherited={isInherited ? { inheritedValue: inset } : ''}
-			/>
-			<UnitControl
-				value={x}
-				// inheritedValue={inheritedWidth}
-				// meta={meta}
-				onChange={(size) => handleCustomOnChange(size, previewDevice, 'x')}
-				placeholder={'0'}
-				previewDevice={previewDevice}
-			/>
-			<UnitControl
-				value={y}
-				onChange={(size) => handleCustomOnChange(size, previewDevice, 'y')}
-				placeholder={'0'}
-				previewDevice={previewDevice}
-			/>
-			<UnitControl
-				value={blur}
-				onChange={(size) => handleCustomOnChange(size, previewDevice, 'blur')}
-				placeholder={'0'}
-				previewDevice={previewDevice}
-			/>
-			<UnitControl
-				value={spread}
-				onChange={(size) => handleCustomOnChange(size, previewDevice, 'spread')}
-				placeholder={'0'}
-				previewDevice={previewDevice}
-			/>
-			<div className="kbs-background-layer-control__dropdown-content-close">
-				<Button __next40pxDefaultSize onClick={onToggle}>
-					<Icon icon={closeIcon} size={24} />
-				</Button>
-			</div>
-		</div>
-	);
-}
-
 function renderShadowDropdown(
 	colors,
 	layer,
@@ -251,7 +120,7 @@ function renderShadowDropdown(
 	const [isHover, setIsHover] = useState(false);
 	return ({ onToggle, isOpen }) => {
 		return (
-			<BoxShadowDropdownContent
+			<ShadowDropdownContent
 				colors={colors}
 				layer={layer}
 				isInherited={isInherited}
