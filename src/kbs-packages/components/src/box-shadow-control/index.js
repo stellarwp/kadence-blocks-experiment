@@ -99,19 +99,19 @@ function SortableShadowLayer({ layer, index, totalLayers, ...props }) {
 	return (
 		<div
 			key={index}
-			className={clsx('kbs-background-layer-wrapper', {
+			className={clsx('kbs-shadow-layer-wrapper', {
 				'is-dragging': isDragging,
 			})}
 			ref={setNodeRef}
 			style={style}
 		>
-			<div className="kbs-background-layer-inner">
+			<div className="kbs-shadow-layer-inner">
 				<ShadowLayer layer={layer} layerKey={index} {...props} />
-				<div className="kbs-background-layer-handle-wrap" {...listeners} {...sortableAttributes}>
+				<div className="kbs-shadow-layer-handle-wrap" {...listeners} {...sortableAttributes}>
 					<DropdownMenu
 						icon={moreVertical}
 						label={__('Item Controls', 'kadence-blocks')}
-						className="kbs-background-layer-controls"
+						className="kbs-shadow-layer-controls"
 					>
 						{({ onClose }) => (
 							<>
@@ -305,7 +305,7 @@ export default function BoxShadowControl({
 					onDragEnd={handleDragEnd}
 				>
 					<SortableContext items={itemOrder} strategy={verticalListSortingStrategy}>
-						<div className="kbs-background-layers-wrapper">
+						<div className="kbs-shadow-layers-wrapper">
 							{inherited?.inheritedValue?.length > 0 ? (
 								inherited.inheritedValue.map((layer, index) => (
 									<SortableShadowLayer

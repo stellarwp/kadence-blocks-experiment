@@ -157,20 +157,24 @@ export default function RadioButtonControl({
 		},
 	];
 
+	const hasAdvancedControls = (advancedControls && advancedControls.length > 0) || UIComponentAdvanced;
+
 	return (
 		<div className={`components-base-control kbs-control kbs-radio-control kbs-radio-control-${radioConfig}`}>
-			<TitleBar
-				label={label}
-				reset={reset}
-				onReset={onReset}
-				hasDeviceControls={hasDeviceControls}
-				isAdvanced={isAdvanced}
-				onToggleView={() => setIsAdvanced(!isAdvanced)}
-				hasAdvancedControls={(advancedControls && advancedControls.length > 0) || UIComponentAdvanced}
-				isCustom={isCustom}
-				onToggleCustom={() => setIsCustom(!isCustom)}
-				hasCustomControls={hasCustomControls}
-			/>
+			{(label || reset || hasAdvancedControls || hasCustomControls) && (
+				<TitleBar
+					label={label}
+					reset={reset}
+					onReset={onReset}
+					hasDeviceControls={hasDeviceControls}
+					isAdvanced={isAdvanced}
+					onToggleView={() => setIsAdvanced(!isAdvanced)}
+					hasAdvancedControls={hasAdvancedControls}
+					isCustom={isCustom}
+					onToggleCustom={() => setIsCustom(!isCustom)}
+					hasCustomControls={hasCustomControls}
+				/>
+			)}
 			<div className="kbs-control-inner">
 				<UIComponentToUse
 					value={normalizedValue}

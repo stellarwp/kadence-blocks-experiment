@@ -30,7 +30,7 @@ function ShadowIndicator({ value, type, colorValue, maskType }) {
 	};
 	return (
 		<div
-			className={clsx('kbs-background-indicator component-color-indicator', value ? 'has-value' : '')}
+			className={clsx('kbs-shadow-indicator component-color-indicator', value ? 'has-value' : '')}
 			style={style}
 		></div>
 	);
@@ -70,7 +70,7 @@ function renderShadowToggle(layer, isInherited, previewDevice) {
 		}, [type]);
 		const toggleProps = {
 			onClick: onToggle,
-			className: clsx('kbs-background-select-button', 'kbs-background-select-control__toggle-button', {
+			className: clsx('kbs-shadow-select-button', 'kbs-shadow-select-control__toggle-button', {
 				'is-open': isOpen,
 				'is-inherited': isInherited,
 				'is-selected': !isInherited && displayValue,
@@ -81,13 +81,13 @@ function renderShadowToggle(layer, isInherited, previewDevice) {
 			<>
 				<Button __next40pxDefaultSize {...toggleProps}>
 					{displayValue && (
-						<Icon className="kbs-background-select-control__toggle-icon" icon={typeIcon} size={24} />
+						<Icon className="kbs-shadow-select-control__toggle-icon" icon={typeIcon} size={24} />
 					)}
-					<span className="kbs-background-select-control__toggle-label">
+					<span className="kbs-shadow-select-control__toggle-label">
 						{displayValue ? displayValue : __('Unset', 'kadence-blocks')}
 					</span>
 					<ShadowIndicator
-						className="kbs-background-select-control__toggle-preview"
+						className="kbs-shadow-select-control__toggle-preview"
 						value={previewString}
 						type={type}
 						colorValue={getColorOutput(color)}
@@ -209,13 +209,13 @@ export default function ShadowLayer({
 			}, {})
 		);
 	}, [globalStylesIds]);
-	const classes = clsx('kbs-background-layer-control__dropdown-content', globalClasses);
+	const classes = clsx('kbs-shadow-layer-control__dropdown-content', globalClasses);
 
 	return (
-		<div ref={containerRef} className={`kbs-background-layer-control`}>
+		<div ref={containerRef} className={`kbs-shadow-layer-control`}>
 			<Dropdown
 				popoverProps={popoverProps}
-				className="kbs-background-layer-control__dropdown"
+				className="kbs-shadow-layer-control__dropdown"
 				contentClassName={classes}
 				renderToggle={renderShadowToggle(layer, isInherited, previewDevice)}
 				renderContent={renderShadowDropdown(
