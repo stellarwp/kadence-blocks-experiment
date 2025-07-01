@@ -88,13 +88,13 @@ export default function BorderStyleControl({
 		if (color || style || width) {
 			let colorToUse = getColorOutput(color);
 			if (color === '') {
-				colorToUse = BORDER_STYLES_DEFAULTS.color;
+				colorToUse = BORDER_STYLES_DEFAULTS.color.var;
 			}
 			if (style === '') {
-				style = BORDER_STYLES_DEFAULTS.style;
+				style = BORDER_STYLES_DEFAULTS.style.var;
 			}
 			if (width === '') {
-				width = BORDER_STYLES_DEFAULTS.width;
+				width = BORDER_STYLES_DEFAULTS.width.var;
 			}
 			return width + ' ' + style + ' ' + colorToUse;
 		}

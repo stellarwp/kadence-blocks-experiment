@@ -51,3 +51,4 @@ export { default as TabsControl } from './tabs-control';
 export { default as SelectBasicControl } from './select-basic-control';
 
 export { default as SingleBorderStyleControl } from './border-control/single-border-style-control';
+export { default as BoxShadowControl } from './box-shadow-control';

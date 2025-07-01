@@ -1,6 +1,7 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { SPACING_SIZES_MAP, ICON_SIZES_MAP } from '../constants';
 import { BORDER_RADIUS_SIZES_MAP, BORDER_STYLES_DEFAULTS } from '../constants/borders';
+import { SHADOW_STYLES_DEFAULTS } from '../constants/shadows';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { default as getInheritedValue } from '../get-inherited-value';
@@ -200,7 +201,7 @@ class CSSGenerator {
 				}
 				if (isBorderStyle) {
 					const { color, style, width } = parseBorderStyle(appliedValue);
-					if (width === '' || width === BORDER_STYLES_DEFAULTS.width) {
+					if (width === '' || width === BORDER_STYLES_DEFAULTS.width.var) {
 						cssValue = '';
 					} else {
 						cssValue = appliedValue;
@@ -277,6 +278,53 @@ class CSSGenerator {
 	 */
 	getCssSelector() {
 		return this.currentSelector;
+	}
+
+	/**
+	 * Process box shadow layers data and outputs them all as a single property
+	 * @param {string} attributeName - The name of the attribute
+	 * @param {Object} layer - The layer object
+	 * @param {number} index - The index of the layer
+	 * @param {Object} meta - The metadata of the attribute
+	 * @param {Object} props - The props of the block
+	 * @param {Object} metadata - The metadata of the block
+	 */
+	processBoxShadowLayers(layers, meta, props, metadata, key) {
+		let cssValue = '';
+
+		const reverseLayers = Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : [];
+		if (reverseLayers.length > 0) {
+			reverseLayers.forEach((layer, index) => {
+				let shadowColor = getLayerDeviceValue('color', layer, props.previewDevice);
+				let shadowX = getLayerDeviceValue('x', layer, props.previewDevice);
+				let shadowY = getLayerDeviceValue('y', layer, props.previewDevice);
+				let shadowBlur = getLayerDeviceValue('blur', layer, props.previewDevice);
+				let shadowSpread = getLayerDeviceValue('spread', layer, props.previewDevice);
+				const shadowInset = getLayerDeviceValue('inset', layer, props.previewDevice);
+
+				shadowColor = shadowColor ? getColorOutput(shadowColor) : SHADOW_STYLES_DEFAULTS.color.var;
+				shadowX = shadowX || shadowX === 0 ? shadowX : SHADOW_STYLES_DEFAULTS.x.var;
+				shadowY = shadowY || shadowY === 0 ? shadowY : SHADOW_STYLES_DEFAULTS.y.var;
+				shadowBlur = shadowBlur || shadowBlur === 0 ? shadowBlur : SHADOW_STYLES_DEFAULTS.blur.var;
+				shadowSpread = shadowSpread || shadowSpread === 0 ? shadowSpread : SHADOW_STYLES_DEFAULTS.spread.var;
+
+				if (shadowColor) {
+					const commaBefore = index > 0 ? ', ' : '';
+					cssValue += `${commaBefore}${shadowInset ? 'inset ' : ''}${shadowColor} ${shadowX} ${shadowY} ${shadowBlur} ${shadowSpread}`;
+				}
+			});
+		}
+
+		const cssSelector = this.getCssSelector();
+		const attributeSelector = this.getAttributeSelector(key, meta);
+
+		if (cssValue && cssSelector && attributeSelector) {
+			const currentSelectorBackup = this.currentSelector;
+			this.setSelector(cssSelector);
+			this.add({ [attributeSelector]: cssValue });
+			this.setSelector(currentSelectorBackup);
+		}
+		this.currentAppliedValue = '';
 	}
 	/**
 	 * Process the layer
@@ -615,6 +663,9 @@ class CSSGenerator {
 					);
 				}
 			}
+			if (meta?.component === 'boxShadow') {
+				this.processBoxShadowLayers(layers, meta, props, metadata, 'boxShadow');
+			}
 			return this;
 		}
 
@@ -648,6 +699,9 @@ class CSSGenerator {
 				break;
 			case 'background':
 				componentKeys = ['color', 'gradient', 'image', 'size', 'position', 'repeat', 'attachment'];
+				break;
+			case 'boxShadow':
+				componentKeys = ['boxShadow'];
 				break;
 			case 'flexBox':
 				componentKeys = [

@@ -43,19 +43,23 @@ export default function RadioButtonControl({
 	min = null,
 	max = null,
 	step = null,
+	value = null,
+	inherited = null,
 }) {
 	// Get the globalStylesIds from context
 	const globalStylesIds = useContext(GlobalStylesContext);
 	const radioConfig = type ? type : radioType;
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	let inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+	const currentValue = value ? value : getDeviceValue(attributeName, attributes, previewDevice, type);
+	let inheritedValue = inherited
+		? inherited
+		: getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
 
 	// If type ends with "Hover" and no inherited value found, check the non-hover type
-	if (type && type.endsWith('Hover') && (!inherited || !inherited.inheritedValue)) {
+	if (type && type.endsWith('Hover') && (!inheritedValue || !inheritedValue.inheritedValue)) {
 		const normalType = type.replace(/Hover$/, '');
 		const normalValue = getDeviceValue(attributeName, attributes, previewDevice, normalType);
 		if (normalValue) {
-			inherited = {
+			inheritedValue = {
 				inheritedValue: normalValue,
 				inheritedSource: 'parent',
 				inheritedType: 'parent',
@@ -171,7 +175,7 @@ export default function RadioButtonControl({
 				<UIComponentToUse
 					value={normalizedValue}
 					label={label}
-					inherited={inherited}
+					inherited={inheritedValue}
 					isCollapsed={isCollapsed}
 					onChange={(itemValue) => onChangeToUse(itemValue, previewDevice, type)}
 					controls={isAdvanced && advancedControls?.length > 0 ? advancedControls : controls}

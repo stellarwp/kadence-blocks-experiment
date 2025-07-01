@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 
 export const BORDER_STYLES_DEFAULTS = {
-	color: 'var(--kbs-border-default-color,transparent)',
-	style: 'var(--kbs-border-default-style,solid)',
-	width: 'var(--kbs-border-default-width,0)',
+	color: { var: 'var(--kbs-border-default-color,transparent)', value: 'transparent' },
+	style: { var: 'var(--kbs-border-default-style,solid)', value: 'solid' },
+	width: { var: 'var(--kbs-border-default-width,0)', value: '0' },
 };
 
 export const BORDER_RADIUS_SIZES_MAP = [

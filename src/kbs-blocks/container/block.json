@@ -73,10 +73,23 @@
 			"classPrefix": "kbs-cont-bg-",
 			"hasLayers": true
 		},
-		"color": {
-			"type": "object"
+		"boxShadow": {
+			"renderCSS": true,
+			"component": "boxShadow",
+			"nonInheritable": true,
+			"type": "object",
+			"selector": "--kbs-cont-",
+			"classPrefix": "kbs-cont-shadow-",
+			"hasLayers": true
 		},
 		"border": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"selector": "--kbs-cont-",
+			"classPrefix": "kbs-cont-border-"
+		},
+		"color": {
 			"type": "object"
 		},
 		"shadow": {

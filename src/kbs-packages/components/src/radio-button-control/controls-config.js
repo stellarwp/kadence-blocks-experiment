@@ -223,6 +223,9 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'textTransform':
 			controls = getTextTransformControls();
 			break;
+		case 'inset':
+			controls = getInsetControls();
+			break;
 		case 'lineHeight':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			controls = getLineHeightControls();
@@ -416,7 +419,6 @@ export const getIconStrokeControls = () => [
 		key: '3',
 	},
 ];
-
 
 export const getColorShadeControls = () => [
 	{
@@ -1352,7 +1354,7 @@ export const getAlignContentControls = (direction) => {
 	return controlsByDirection[direction] || [];
 };
 
-export const getFontSizeControls = () => [	
+export const getFontSizeControls = () => [
 	{
 		title: __('Small', 'kadence-blocks'),
 		name: 'SM',
@@ -1382,7 +1384,7 @@ export const getFontSizeControls = () => [
 		title: __('3X Large', 'kadence-blocks'),
 		name: '3XL',
 		key: '3xl',
-	},	
+	},
 ];
 
 export const getTextTransformControls = () => [
@@ -1405,6 +1407,19 @@ export const getTextTransformControls = () => [
 		title: __('Capitalize', 'kadence-blocks'),
 		name: __('Ab', 'kadence-blocks'),
 		key: 'capitalize',
+	},
+];
+
+export const getInsetControls = () => [
+	{
+		title: __('Outset', 'kadence-blocks'),
+		name: __('Outset', 'kadence-blocks'),
+		key: '',
+	},
+	{
+		title: __('Inset', 'kadence-blocks'),
+		name: __('Inset', 'kadence-blocks'),
+		key: 'inset',
 	},
 ];
 

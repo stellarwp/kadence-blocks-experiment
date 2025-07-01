@@ -17,6 +17,8 @@ import {
 	FlexBoxControl,
 	FlexChildControl,
 	BackgroundControl,
+	BoxShadowControl,
+	BorderControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -56,6 +58,32 @@ export default function InspectorStyles(props) {
 				globalStylesIds={globalStylesIds}
 				globalStylesCss={globalStylesCss}
 			/>
+			<ToolsPanelBody
+				title={__('Border Controls', 'kadence-blocks')}
+				panelName={'border-controls'}
+				initialOpen={false}
+			>
+				<BoxShadowControl
+					attributeName={'boxShadow'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					metaData={metadata}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
+				/>
+				<BorderControl
+					attributes={attributes}
+					attributeName={'border'}
+					setAttributes={setAttributes}
+					previewDevice={previewDevice}
+					meta={metadata}
+					globalStylesIds={globalStylesIds}
+					labelBorderRadius={__('Border Radius', 'kadence-blocks')}
+					label={__('Border', 'kadence-blocks')}
+					hasPresetControl={true}
+				/>
+			</ToolsPanelBody>
 		</>
 	);
 }
