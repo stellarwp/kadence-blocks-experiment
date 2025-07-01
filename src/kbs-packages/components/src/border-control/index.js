@@ -2,6 +2,8 @@ import { __ } from '@wordpress/i18n';
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import BorderStyleControl from './border-style-control';
+import PresetControl from '../preset-control';
+import { sectionLargeIcon, sectionMediumIcon, cardLargeIcon, cardMediumIcon } from '../constants/icons';
 
 export default function BorderControl({
 	attributeName,
@@ -10,17 +12,55 @@ export default function BorderControl({
 	previewDevice,
 	label = __('Border', 'kadence-blocks'),
 	labelBorderRadius = __('Border Radius', 'kadence-blocks'),
-	metadata,
+	meta,
 	hasCustomControls = true,
 	hasAdvancedControls = true,
 	hasBorderRadius = true,
 	hasBorder = true,
 	hasHoverControls = false,
+	hasPresetControl,
 	isHover,
 	setIsHover,
+	globalStylesIds,
 }) {
+	const borderPresets = [
+		{
+			icon: sectionLargeIcon,
+			title: __('Simple', 'kadence-blocks'),
+			key: 'simple',
+		},
+		{
+			icon: sectionMediumIcon,
+			title: __('Simple Rounded', 'kadence-blocks'),
+			key: 'simple-rounded',
+		},
+		{
+			icon: cardLargeIcon,
+			title: __('Rounded', 'kadence-blocks'),
+			key: 'none-rounded-sm',
+		},
+		{
+			icon: cardMediumIcon,
+			title: __('Rounded Full', 'kadence-blocks'),
+			key: 'none-rounded-full',
+		},
+	];
+
 	return (
 		<>
+			{hasPresetControl && (
+				<PresetControl
+					label={__('Border Presets', 'kadence-blocks')}
+					type={'border'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={attributeName}
+					metaData={meta}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					definedPresets={borderPresets}
+				/>
+			)}
 			{hasBorderRadius && (
 				<RadioButtonControl
 					label={labelBorderRadius}
@@ -28,7 +68,7 @@ export default function BorderControl({
 					setAttributes={setAttributes}
 					attributeName={attributeName}
 					radioType={'borderRadius'}
-					meta={metadata?.attributes?.[attributeName]}
+					meta={meta?.attributes?.[attributeName]}
 					previewDevice={previewDevice}
 					hasCustomControls={hasCustomControls}
 					hasAdvancedControls={hasAdvancedControls}
@@ -41,7 +81,7 @@ export default function BorderControl({
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={attributeName}
-					meta={metadata?.attributes?.[attributeName]}
+					meta={meta?.attributes?.[attributeName]}
 					previewDevice={previewDevice}
 					hasCustomControls={hasCustomControls}
 					hasAdvancedControls={hasAdvancedControls}

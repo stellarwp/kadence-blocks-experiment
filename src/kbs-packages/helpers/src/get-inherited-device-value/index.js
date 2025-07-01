@@ -47,7 +47,8 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		type,
 		null,
 		globalStylesIds,
-		null
+		null,
+		meta
 	);
 
 	if (presetValue) {
@@ -71,7 +72,8 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 			type,
 			null,
 			globalStylesIds,
-			null
+			null,
+			meta
 		);
 
 		if (parentPresetValue) {

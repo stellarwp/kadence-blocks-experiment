@@ -23,10 +23,13 @@ export default function getPresetValue(
 	type,
 	layerKey = null,
 	globalStylesIds,
-	basePresetKey = null
+	basePresetKey = null,
+	meta = null
 ) {
 	// Determine the preset key to use: either the base key or the one from attributes
 	const presetKeyToUse = basePresetKey ? basePresetKey : attributes?.[attributeName]?.preset;
+	const attributeMeta = meta?.attributes?.[attributeName];
+	const componentType = attributeMeta?.component ?? attributeName;
 
 	// If no preset key could be determined, exit early.
 	if (!presetKeyToUse) {
@@ -34,8 +37,6 @@ export default function getPresetValue(
 	}
 
 	// Fetch the raw preset data object from the store using the new selector
-	// attributeName here represents the component type (e.g., 'typography', 'button')
-	const componentType = attributeName;
 	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
 		globalStylesIds,
 		componentType,

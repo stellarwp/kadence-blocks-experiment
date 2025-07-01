@@ -117,10 +117,11 @@ export default function InspectorStyles(props) {
 					attributeName={'borderHighlight'}
 					setAttributes={setAttributes}
 					previewDevice={previewDevice}
-					metaData={metadata}
+					meta={metadata}
 					globalStylesIds={globalStylesIds}
 					labelBorderRadius={__('Highlight Border Radius', 'kadence-blocks')}
 					label={__('Highlight Border', 'kadence-blocks')}
+					hasPresetControl={true}
 				/>
 			</ToolsPanelBody>
 		</>

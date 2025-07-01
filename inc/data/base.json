@@ -222,6 +222,57 @@
 					}
 				}
 			}
+		},
+		"border": {
+			"presets": {
+				"simple": {
+					"label": "Simple",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
+							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
+							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
+							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)"
+						}
+					}
+				},
+				"simple-rounded": {
+					"label": "Simple Rounded",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
+							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
+							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
+							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
+							"borderRadius": ["sm", "sm", "sm", "sm"]
+						}
+					}
+				},
+				"none-rounded-sm": {
+					"label": "Rounded Only",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderRadius": ["sm", "sm", "sm", "sm"]
+						}
+					}
+				},
+				"none-rounded-full": {
+					"label": "Rounded Only Full",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderRadius": ["full", "full", "full", "full"]
+						}
+					}
+				}
+			}
 		}
 	},
 	"mappings": {

@@ -28,4 +28,11 @@ export const BORDER_RADIUS_SIZES_MAP = [
 		size: 30,
 		name: __('Heavy', 'kadence-blocks'),
 	},
+	{
+		value: 'full',
+		output: 'var(--global-kb-border-radius-full, 100%)',
+		label: __('Full', 'kadence-blocks'),
+		size: 100,
+		name: __('Full', 'kadence-blocks'),
+	},
 ];
