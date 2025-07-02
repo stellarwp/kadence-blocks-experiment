@@ -35,7 +35,9 @@ import {
 	getResolvedValue,
 	getColorOutput,
 } from '@kadence/kbsHelpers';
-import { DynamicTextControl, IconRender, InlinePaddingResizer } from '@kadence/kbsComponents';
+import { DynamicTextControl, IconRender, InlinePaddingResizer, CopyPasteAttributes } from '@kadence/kbsComponents';
+
+const nonTransAttrs = ['content', 'htmlTag', 'link'];
 
 /**
  * Build the text editor.
@@ -159,6 +161,13 @@ export default function TextEdit(props) {
 				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
 					<AlignmentToolbar value={align} onChange={onAlignChange} />
+					<CopyPasteAttributes
+						attributes={attributes}
+						excludedAttrs={nonTransAttrs}
+						defaultAttributes={metadata.attributes}
+						blockSlug={metadata.name}
+						onPaste={(attributesToPaste) => setAttributes(attributesToPaste)}
+					/>
 					{Boolean(kadenceDynamic?.content?.shouldReplace) && (
 						<DynamicTextControl dynamicAttribute={'content'} {...props} />
 					)}
