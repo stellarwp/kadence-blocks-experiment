@@ -283,10 +283,14 @@ export default function LayeredShadowControl({
 	});
 	return (
 		<div className={classes}>
-			{/* {!forPresetControl && (
+			{!forPresetControl && (
 				<BackgroundPresetControl
-					label={__('Box Shadow Presets', 'kadence-blocks')}
-					type={'boxShadow'}
+					label={
+						type == 'boxShadow'
+							? __('Box Shadow Presets', 'kadence-blocks')
+							: __('Text Shadow Presets', 'kadence-blocks')
+					}
+					type={type}
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={attributeName}
@@ -296,10 +300,12 @@ export default function LayeredShadowControl({
 					globalStylesCss={globalStylesCss}
 					forStyleBook={forStyleBook}
 				/>
-			)} */}
+			)}
 			<>
 				<LayerTitleBar
-					label={__('Box Shadow', 'kadence-blocks')}
+					label={
+						type == 'boxShadow' ? __('Box Shadow', 'kadence-blocks') : __('Text Shadow', 'kadence-blocks')
+					}
 					reset={true}
 					onReset={onLayerReset}
 					onTogglePlus={onTogglePlus}

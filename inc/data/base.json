@@ -273,6 +273,185 @@
 					}
 				}
 			}
+		},
+		"boxShadow": {
+			"presets": {
+				"kbs-box-shadow-base": {
+					"label": "Base",
+					"description": "A base box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette1"
+								}
+							}
+						]
+					}
+				},
+				"kbs-box-shadow-variant-1": {
+					"label": "Variant 1",
+					"description": "A variant 1 box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette2",
+									"x": "6px",
+									"y": "6px",
+									"blur": "10px",
+									"spread": "10px"
+								}
+							}
+						]
+					}
+				},
+				"kbs-box-shadow-variant-2": {
+					"label": "Variant 2",
+					"description": "A variant 2 box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "6px",
+									"y": "6px",
+									"blur": "0px",
+									"spread": "0px"
+								}
+							}
+						]
+					}
+				},
+				"kbs-box-shadow-variant-3": {
+					"label": "Variant 3",
+					"description": "A variant 3 box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "6px",
+									"y": "6px",
+									"blur": "10px",
+									"spread": "10px",
+									"inset": "inset"
+								}
+							}
+						]
+					}
+				},
+				"kbs-box-shadow-variant-4": {
+					"label": "Variant 4",
+					"description": "A variant 4 box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "6px",
+									"y": "6px",
+									"blur": "0px",
+									"spread": "0px",
+									"inset": "inset"
+								}
+							}
+						]
+					}
+				},
+				"kbs-box-shadow-variant-5": {
+					"label": "Variant 5",
+					"description": "A variant 5 box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "0px",
+									"y": "0px",
+									"blur": "10px",
+									"spread": "10px"
+								}
+							}
+						]
+					}
+				}
+			}
+		},
+		"textShadow": {
+			"presets": {
+				"kbs-text-shadow-base": {
+					"label": "Base",
+					"description": "A base text shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette1"
+								}
+							}
+						]
+					}
+				},
+				"kbs-text-shadow-variant-1": {
+					"label": "Variant 1",
+					"description": "A variant 1 text shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette2",
+									"x": "2px",
+									"y": "2px",
+									"blur": "5px"
+								}
+							}
+						]
+					}
+				},
+				"kbs-text-shadow-variant-2": {
+					"label": "Variant 2",
+					"description": "A variant 2 text shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "2px",
+									"y": "2px",
+									"blur": "0px"
+								}
+							}
+						]
+					}
+				},
+				"kbs-text-shadow-variant-3": {
+					"label": "Variant 3",
+					"description": "A variant 3 text shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "-2px",
+									"y": "-2px",
+									"blur": "5px"
+								}
+							}
+						]
+					}
+				}
+			}
 		}
 	},
 	"mappings": {

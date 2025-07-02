@@ -17,7 +17,7 @@ export default function Typography({
 	forPresetControl,
 }) {
 	return (
-		<div>
+		<div className="components-base-control">
 			{!forPresetControl && (
 				<SelectControl
 					label={__('Preset', 'kadence-blocks')}
