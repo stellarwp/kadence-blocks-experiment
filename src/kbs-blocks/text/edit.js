@@ -176,7 +176,7 @@ export default function TextEdit(props) {
 				{!link?.url && contentHTML}
 
 				<IconRender attributeName={'icon'} attributes={attributes} />
-				{isSelected && (
+				{/* {isSelected && (
 					<InlinePaddingResizer
 						previewDevice={previewDevice}
 						type={'padding'}
@@ -190,7 +190,7 @@ export default function TextEdit(props) {
 						uniqueID={uniqueID}
 						toggleSelection={toggleSelection}
 					/>
-				)}
+				)} */}
 			</div>
 		</GlobalStylesContext.Provider>
 	);

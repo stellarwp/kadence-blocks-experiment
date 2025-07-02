@@ -41,9 +41,11 @@
 
 	a {
 		text-decoration: var(--kbs-text-link-text-decoration);
+		color: var(--kbs-text-link-color);
 
 		&:hover {
 			text-decoration: var(--kbs-text-link-text-decoration-hover, var(--kbs-text-link-text-decoration));
+			color: var(--kbs-text-link-color-hover, var(--kbs-text-link-color));
 		}
 	}
 
@@ -65,6 +67,13 @@
 		border-left: var(--kbs-text-highlight-border-left);
 		border-right: var(--kbs-text-highlight-border-right);
 		border-bottom: var(--kbs-text-highlight-border-bottom);
+
+		&:hover {
+			border-top: var(--kbs-text-highlight-border-top-hover, var(--kbs-text-highlight-border-top));
+			border-left: var(--kbs-text-highlight-border-left-hover, var(--kbs-text-highlight-border-left));
+			border-right: var(--kbs-text-highlight-border-right-hover, var(--kbs-text-highlight-border-right));
+			border-bottom: var(--kbs-text-highlight-border-bottom-hover, var(--kbs-text-highlight-border-bottom));
+		}
 	}
 
 	&.has-gradient {
@@ -110,13 +119,6 @@
 		border-left: var(--kbs-text-border-left-hover, var(--kbs-text-border-left));
 		border-right: var(--kbs-text-border-right-hover, var(--kbs-text-border-right));
 		border-bottom: var(--kbs-text-border-bottom-hover, var(--kbs-text-border-bottom));
-
-		.kbs-highlight {
-			border-top: var(--kbs-text-highlight-border-top-hover, var(--kbs-text-highlight-border-top));
-			border-left: var(--kbs-text-highlight-border-left-hover, var(--kbs-text-highlight-border-left));
-			border-right: var(--kbs-text-highlight-border-right-hover, var(--kbs-text-highlight-border-right));
-			border-bottom: var(--kbs-text-highlight-border-bottom-hover, var(--kbs-text-highlight-border-bottom));
-		}
 	}
 }
 

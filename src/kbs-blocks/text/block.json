@@ -125,6 +125,13 @@
 			"selector": "--kbs-text-highlight-",
 			"classPrefix": "kbs-text-border-highlight-"
 		},
+		"colorLink": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"selector": "--kbs-text-link-",
+			"classPrefix": "kbs-text-color-link-"
+		},
 		"textShadow": {
 			"renderCSS": true,
 			"component": "textShadow",

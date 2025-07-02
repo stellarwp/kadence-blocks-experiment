@@ -687,7 +687,7 @@ class CSSGenerator {
 		let componentKeys = [];
 		switch (component) {
 			case 'color':
-				componentKeys = ['color'];
+				componentKeys = ['color', 'colorHover'];
 				break;
 			case 'border':
 				componentKeys = [
