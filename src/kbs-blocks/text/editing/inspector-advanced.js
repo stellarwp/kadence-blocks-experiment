@@ -7,17 +7,7 @@
 /**
  * Kadence Components.
  */
-import {
-	PresetSelectControl,
-	Typography,
-	SelectGlobalStyles,
-	BlockComponentControls,
-	ToolsPanelBody,
-	FlexBoxControl,
-	FlexChildControl,
-	SizingControl,
-	ColorControl,
-} from '@kadence/kbsComponents';
+import { SpacingControl } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -39,6 +29,22 @@ export default function InspectorAdvanced(props) {
 		className,
 		globalStylesIds,
 		globalStylesCss,
+		blockElementRef,
 	} = props;
-	return <></>;
+	return (
+		<>
+			<SpacingControl
+				attributes={attributes}
+				setAttributes={setAttributes}
+				previewDevice={previewDevice}
+				metaData={metadata}
+				globalStylesIds={globalStylesIds}
+				title={__('Spacing Settings', 'kadence-blocks')}
+				types={['padding', 'margin']}
+				clientId={clientId}
+				showVisualizer={true}
+				blockElementRef={blockElementRef}
+			/>
+		</>
+	);
 }

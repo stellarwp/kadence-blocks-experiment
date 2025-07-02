@@ -95,6 +95,24 @@ export default function InspectorStyles(props) {
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
+				title={__('Border Settings', 'kadence-blocks')}
+				panelName={'text-border'}
+				componentName={'border-control'}
+				initialOpen={false}
+			>
+				<BorderControl
+					attributes={attributes}
+					attributeName={'border'}
+					setAttributes={setAttributes}
+					previewDevice={previewDevice}
+					meta={metadata}
+					globalStylesIds={globalStylesIds}
+					labelBorderRadius={__('Border Radius', 'kadence-blocks')}
+					label={__('Border', 'kadence-blocks')}
+					hasPresetControl={true}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
 				title={__('Advanced Highlight Settings', 'kadence-blocks')}
 				panelName={'text-advanced-highlight'}
 				componentName={'advanced-highlight-control'}

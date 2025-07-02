@@ -49,14 +49,19 @@
 		"background": {
 			"type": "object"
 		},
-		"border": {
-			"type": "object"
-		},
 		"padding": {
-			"type": "object"
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"selector": "--kbs-text-"
 		},
 		"margin": {
-			"type": "object"
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": true,
+			"selector": "--kbs-text-"
 		},
 		"shadow": {
 			"type": "object"
@@ -91,6 +96,13 @@
 			"type": "object",
 			"selector": "--kbs-text-background-",
 			"classPrefix": "kbs-text-background-color"
+		},
+		"border": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"selector": "--kbs-text-",
+			"classPrefix": "kbs-text-border-"
 		},
 		"colorHighlight": {
 			"renderCSS": true,

@@ -22,6 +22,8 @@ import metadata from './block.json';
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
+import { useRef } from '@wordpress/element';
+import { useMergeRefs } from '@wordpress/compose';
 import { RichText, useBlockProps, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -33,14 +35,15 @@ import {
 	getResolvedValue,
 	getColorOutput,
 } from '@kadence/kbsHelpers';
-import { DynamicTextControl, IconRender } from '@kadence/kbsComponents';
+import { DynamicTextControl, IconRender, InlinePaddingResizer } from '@kadence/kbsComponents';
 
 /**
  * Build the text editor.
  */
 export default function TextEdit(props) {
-	const { attributes, setAttributes, className } = props;
+	const { attributes, setAttributes, className, isSelected, clientId, toggleSelection } = props;
 	const { uniqueID, content, align, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
+	const myElementRef = useRef(null);
 
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
@@ -135,15 +138,23 @@ export default function TextEdit(props) {
 
 	const linkContentHTML = getLinkHTML(link, contentHTML);
 
+	// This is needed because spacing visualizer needs to be able to access the block element and so does core.
+	const mergedRefs = useMergeRefs([myElementRef, blockProps.ref]);
+	const finalBlocksProps = {
+		...blockProps,
+		ref: mergedRefs,
+		draggable: false,
+	};
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
-			<div {...blockProps}>
+			<div {...finalBlocksProps}>
 				<Inspector
 					{...props}
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 					hasGradient={hasGradient}
 					hasGradientHighlight={hasGradientHighlight}
+					blockElementRef={myElementRef}
 				/>
 				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
@@ -155,10 +166,22 @@ export default function TextEdit(props) {
 				{link?.url && linkContentHTML}
 				{!link?.url && contentHTML}
 
-				<IconRender
-					attributeName={'icon'}
-					attributes={attributes}
-				/>
+				<IconRender attributeName={'icon'} attributes={attributes} />
+				{isSelected && (
+					<InlinePaddingResizer
+						previewDevice={previewDevice}
+						type={'padding'}
+						attributes={attributes}
+						setAttributes={setAttributes}
+						attributeName={'padding'}
+						meta={metadata}
+						globalStylesIds={globalStylesIds}
+						blockElementRef={myElementRef}
+						clientId={clientId}
+						uniqueID={uniqueID}
+						toggleSelection={toggleSelection}
+					/>
+				)}
 			</div>
 		</GlobalStylesContext.Provider>
 	);
