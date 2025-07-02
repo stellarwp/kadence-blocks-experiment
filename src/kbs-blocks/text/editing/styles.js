@@ -14,19 +14,7 @@ export default function Styles(props) {
 	const cssOutput = useMemo(() => {
 		const selector = `.kbs-text-${attributes?.uniqueID || 'unknown'}`;
 		const css = new cssGenerator(selector);
-
-		if (metadata.attributes) {
-			Object.entries(metadata.attributes).forEach(([attributeName, value]) => {
-				if (value.renderCSS) {
-					if (value?.component) {
-						css.addComponent(attributeName, value, props, metadata);
-					} else {
-						css.addAttribute(attributeName, value, props);
-					}
-				}
-			});
-		}
-
+		
 		let output = css.generate();
 		if (attributes?.kbsCSS) {
 			output = output + attributes.kbsCSS.replace(/selector/g, selector);

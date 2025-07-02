@@ -482,6 +482,23 @@ class CSS_Engine {
 		}
 		return $this;
 	}
+
+	/**
+	 * Get the current selector with any states applied
+	 *
+	 * @access public
+	 * @since  1.0
+	 *
+	 * @return string
+	 */
+	public function get_current_selector_with_states() {
+		if ( ! empty( $this->_selector_states ) ) {
+			// For now, we'll just concatenate all states to the selector
+			// This handles cases like :hover, :focus, etc.
+			return $this->_selector . implode( '', $this->_selector_states );
+		}
+		return $this->_selector;
+	}
 	/**
 	 * Check to see if variable contains a number including 0.
 	 *
@@ -509,10 +526,12 @@ class CSS_Engine {
 		if ( $value && ! empty( $value ) ) {
 			if ( $this->_media_state !== 'desktop' ) {
 				if ( isset( $this->_device_media_queries[ $this->_media_state ] ) ) {
-					if ( ! isset( $this->_device_media_queries[ $this->_media_state ][ $this->_selector ] ) ) {
-						$this->_device_media_queries[ $this->_media_state ][ $this->_selector ] = '';
+					// Use the selector with states (e.g., including :hover) for media queries
+					$selector_key = $this->get_current_selector_with_states();
+					if ( ! isset( $this->_device_media_queries[ $this->_media_state ][ $selector_key ] ) ) {
+						$this->_device_media_queries[ $this->_media_state ][ $selector_key ] = '';
 					}
-					$this->_device_media_queries[ $this->_media_state ][ $this->_selector ] .= sprintf( $format, $property, $value, $prefix );
+					$this->_device_media_queries[ $this->_media_state ][ $selector_key ] .= sprintf( $format, $property, $value, $prefix );
 				}
 			} else {
 				$this->_css .= sprintf( $format, $property, $value, $prefix );
@@ -877,6 +896,9 @@ class CSS_Engine {
 			case 'icon':
 				$expected_keys = ['iconSize', 'iconLineWidth', 'color', 'iconSizeHover', 'iconLineWidthHover', 'colorHover'];
 				break;
+			case 'transform':
+				$expected_keys = [];		
+				break;
 			default:
 				$expected_keys = [ $attributes_meta['component'] ];		
 				break;
@@ -1046,8 +1068,210 @@ class CSS_Engine {
 
 		// }
 		
+		// Handle globally filtered attributes
+		if ( 'transform' === $attributes_meta['component'] ) {
+			// Check if this is a hover transform
+			$is_hover = substr( $key, -5 ) === 'Hover';
+			if ( $is_hover ) {
+				$this->add_selector_state( ':hover' );
+			}
+			
+			$this->add_transform_styles( $attributes[$key], $attributes_meta, $attributes, $is_hover );
+			
+			// Reset selector state if it was hover
+			if ( $is_hover ) {
+				$this->reset_selector_states();
+			}
+			
+			return $this;
+		}
+		
 		$this->add_component_array( $attributes[$key], $attributes_meta );			
 
+		return $this;
+	}
+
+
+	/**
+	 * Get inherited transform property value from parent devices.
+	 *
+	 * @param array  $transform_data The complete transform data.
+	 * @param string $property The transform property to get (translate, scale, rotate, skew, origin).
+	 * @param int    $device_index The current device index.
+	 * @return mixed The inherited value or null.
+	 */
+	private function get_inherited_transform_property( $transform_data, $property, $device_index ) {
+		// Check current and parent devices for the property
+		for ( $i = $device_index; $i >= 0; $i-- ) {
+			$device_key = $this->device_options[ $i ]['key'];
+			
+			if ( isset( $transform_data[ $device_key ][ $property ] ) && $transform_data[ $device_key ][ $property ] !== '' ) {
+				return $transform_data[ $device_key ][ $property ];
+			}
+		}
+		
+		return null;
+	}
+
+	/**
+	 * Get transform property value with hover/base fallback logic.
+	 *
+	 * @param array  $transform_data The transform data (hover or base).
+	 * @param array  $base_transform_data The base transform data (for hover fallback).
+	 * @param string $property The transform property to get.
+	 * @param int    $device_index The current device index.
+	 * @param bool   $is_hover Whether this is for hover state.
+	 * @return mixed The property value or null.
+	 */
+	private function get_transform_property_value( $transform_data, $base_transform_data, $property, $device_index, $is_hover ) {
+		if ( $is_hover ) {
+			// For hover, first check hover value, then fall back to base
+			$hover_value = $this->get_inherited_transform_property( $transform_data, $property, $device_index );
+			if ( $hover_value !== null ) {
+				return $hover_value;
+			}
+			// Fall back to base value
+			return $this->get_inherited_transform_property( $base_transform_data, $property, $device_index );
+		} else {
+			// For non-hover, just get the inherited value
+			return $this->get_inherited_transform_property( $transform_data, $property, $device_index );
+		}
+	}
+
+	/**
+	 * Add transform styles to the css output.
+	 *
+	 * @param array $transform_data The transform attribute data.
+	 * @param array $attributes_meta The meta of the attribute.
+	 * @param array $all_attributes All attributes (used for hover to get base values).
+	 * @param bool $is_hover Whether this is a hover transform.
+	 * @return $this
+	 */
+	public function add_transform_styles( $transform_data, $attributes_meta, $all_attributes = null, $is_hover = false ) {
+		if ( empty( $transform_data ) || ! is_array( $transform_data ) ) {
+			return $this;
+		}
+
+		// Get base transform data if this is hover
+		$base_transform_data = array();
+		if ( $is_hover && $all_attributes ) {
+			// Find the hover key to determine the base key
+			$hover_keys = array_filter( array_keys( $all_attributes ), function( $k ) {
+				return substr( $k, -5 ) === 'Hover' && strpos( $k, 'transform' ) === 0;
+			} );
+			
+			if ( ! empty( $hover_keys ) ) {
+				$hover_key = reset( $hover_keys );
+				$base_key = str_replace( 'Hover', '', $hover_key );
+				$base_transform_data = isset( $all_attributes[ $base_key ] ) ? $all_attributes[ $base_key ] : array();
+			}
+		}
+
+		// Process each device
+		foreach ( $this->device_options as $device_index => $device_option ) {
+			$device_key = $device_option['key'];
+			
+			// For hover, check if this device or any parent device has hover transforms
+			if ( $is_hover ) {
+				$has_hover_for_device = false;
+				
+				// Check from current device up to desktop for hover transforms
+				for ( $i = $device_index; $i >= 0; $i-- ) {
+					$check_device_key = $this->device_options[ $i ]['key'];
+					if ( isset( $transform_data[ $check_device_key ] ) && is_array( $transform_data[ $check_device_key ] ) ) {
+						foreach ( array( 'translate', 'scale', 'rotate', 'skew', 'origin' ) as $prop ) {
+							if ( isset( $transform_data[ $check_device_key ][ $prop ] ) && ! empty( $transform_data[ $check_device_key ][ $prop ] ) ) {
+								$has_hover_for_device = true;
+								break 2;
+							}
+						}
+					}
+				}
+				
+				// Skip this device if no hover transforms are defined for it or its parents
+				if ( ! $has_hover_for_device ) {
+					continue;
+				}
+			}
+			
+			if ( 'desktop' !== $device_key ) {
+				$this->set_media_state( $device_key );
+			}
+			
+			// Build transform string
+			$transform_parts = array();
+			
+			// Get values for each property
+			$translate = $this->get_transform_property_value( $transform_data, $base_transform_data, 'translate', $device_index, $is_hover );
+			$scale = $this->get_transform_property_value( $transform_data, $base_transform_data, 'scale', $device_index, $is_hover );
+			$rotate = $this->get_transform_property_value( $transform_data, $base_transform_data, 'rotate', $device_index, $is_hover );
+			$skew = $this->get_transform_property_value( $transform_data, $base_transform_data, 'skew', $device_index, $is_hover );
+			$origin = $this->get_transform_property_value( $transform_data, $base_transform_data, 'origin', $device_index, $is_hover );
+			
+			// Add translate
+			if ( $translate && is_array( $translate ) && ( !empty( $translate['x'] ) || !empty( $translate['y'] ) ) ) {
+				$x = !empty( $translate['x'] ) ? $translate['x'] : '0px';
+				$y = !empty( $translate['y'] ) ? $translate['y'] : '0px';
+				
+				if ( ( $x !== '0px' && $x !== '0' && $x !== '' ) || ( $y !== '0px' && $y !== '0' && $y !== '' ) ) {
+					$transform_parts[] = sprintf( 'translate(%s, %s)', $x, $y );
+				}
+			}
+			
+			// Add scale
+			if ( $scale && is_array( $scale ) ) {
+				$x = isset( $scale['x'] ) ? $scale['x'] : '100%';
+				$y = isset( $scale['y'] ) ? $scale['y'] : '100%';
+				
+				// Convert percentage to decimal
+				$scale_x = is_string( $x ) && strpos( $x, '%' ) !== false ? floatval( $x ) / 100 : floatval( $x );
+				$scale_y = is_string( $y ) && strpos( $y, '%' ) !== false ? floatval( $y ) / 100 : floatval( $y );
+				
+				if ( $scale_x != 1 || $scale_y != 1 ) {
+					$transform_parts[] = sprintf( 'scale(%s, %s)', $scale_x, $scale_y );
+				}
+			}
+			
+			// Add rotate
+			if ( $rotate && is_array( $rotate ) ) {
+				if ( isset( $rotate['x'] ) && $rotate['x'] !== '0deg' && $rotate['x'] !== '0' && $rotate['x'] !== '' ) {
+					$transform_parts[] = sprintf( 'rotateX(%s)', $rotate['x'] );
+				}
+				if ( isset( $rotate['y'] ) && $rotate['y'] !== '0deg' && $rotate['y'] !== '0' && $rotate['y'] !== '' ) {
+					$transform_parts[] = sprintf( 'rotateY(%s)', $rotate['y'] );
+				}
+				if ( isset( $rotate['z'] ) && $rotate['z'] !== '0deg' && $rotate['z'] !== '0' && $rotate['z'] !== '' ) {
+					$transform_parts[] = sprintf( 'rotateZ(%s)', $rotate['z'] );
+				}
+			}
+			
+			// Add skew
+			if ( $skew && is_array( $skew ) ) {
+				$x = isset( $skew['x'] ) ? $skew['x'] : '0deg';
+				$y = isset( $skew['y'] ) ? $skew['y'] : '0deg';
+				
+				if ( ( $x !== '0deg' && $x !== '0' && $x !== '' ) || ( $y !== '0deg' && $y !== '0' && $y !== '' ) ) {
+					$transform_parts[] = sprintf( 'skew(%s, %s)', $x, $y );
+				}
+			}
+			
+			// Apply transform if we have any transforms
+			if ( ! empty( $transform_parts ) ) {
+				$this->add_property( 'transform', implode( ' ', $transform_parts ) );
+			}
+			
+			// Apply transform-origin
+			if ( $origin && is_array( $origin ) ) {
+				$x = isset( $origin['x'] ) ? $origin['x'] : '50%';
+				$y = isset( $origin['y'] ) ? $origin['y'] : '50%';
+				
+				if ( $x !== '50%' || $y !== '50%' ) {
+					$this->add_property( 'transform-origin', sprintf( '%s %s', $x, $y ) );
+				}
+			}
+		}
+		
+		$this->set_media_state( 'desktop' );
 		return $this;
 	}
 

@@ -8,16 +8,9 @@
  * Kadence Components.
  */
 import {
-	PresetSelectControl,
-	Typography,
-	SelectGlobalStyles,
-	BlockComponentControls,
-	ToolsPanelBody,
-	FlexBoxControl,
-	FlexChildControl,
 	SizingControl,
 	SpacingControl,
-	ColorControl,
+	SharedInspectorAdvanced,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -64,6 +57,14 @@ export default function InspectorAdvanced(props) {
 				globalStylesIds={globalStylesIds}
 				title={__('Sizing Settings', 'kadence-blocks')}
 				types={['maxWidth', 'minHeight']}
+			/>
+			<SharedInspectorAdvanced
+				attributes={attributes}
+				setAttributes={setAttributes}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+				metadata={metadata}
+				hasTransformControl={false}
 			/>
 		</>
 	);

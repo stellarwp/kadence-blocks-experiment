@@ -7,7 +7,7 @@
 /**
  * Kadence Components.
  */
-import { SpacingControl } from '@kadence/kbsComponents';
+import { SpacingControl, SharedInspectorAdvanced } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -44,6 +44,14 @@ export default function InspectorAdvanced(props) {
 				clientId={clientId}
 				showVisualizer={true}
 				blockElementRef={blockElementRef}
+			/>
+			<SharedInspectorAdvanced
+				attributes={attributes}
+				setAttributes={setAttributes}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+				metadata={metadata}
+				hasTransformControl={false}
 			/>
 		</>
 	);

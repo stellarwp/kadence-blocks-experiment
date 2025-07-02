@@ -191,6 +191,9 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'mix':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
+		case 'transitionDuration':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			break;
 		case 'objectFit':
 			controls = getObjectFitControls();
 			break;

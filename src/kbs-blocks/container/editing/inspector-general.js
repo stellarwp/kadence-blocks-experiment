@@ -14,6 +14,7 @@ import {
 	Typography,
 	SelectGlobalStyles,
 	BlockComponentControls,
+	TransformControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -45,6 +46,15 @@ export default function InspectorGeneral(props) {
 			>
 				<SelectGlobalStyles attributes={attributes} setAttributes={setAttributes} />
 			</ToolsPanelBody>
+			<TransformControl
+				attributes={attributes}
+				setAttributes={setAttributes}
+				meta={metadata}
+				previewDevice={previewDevice}
+				attributeName={'transform'}
+				globalStylesIds={globalStylesIds}
+				hasHoverControls={true}
+			/>
 			<FlexBoxControl
 				attributeName={'flexBox'}
 				attributes={attributes}

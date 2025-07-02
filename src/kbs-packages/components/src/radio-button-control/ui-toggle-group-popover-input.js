@@ -138,23 +138,7 @@ function RadioToggleGroupPopoverInputUI({
 	isCustom = false,
 	labelPosition = 'top',
 	parentLabel = '',
-}) {
-	const defaultPopoverProps = {
-		placement: 'left-start',
-		//offset: 36,
-		shift: true,
-	};
-	const isValueControlled = useMemo(() => parseValueTypeFromRawValue(value, controls), [value]);
-	const isValueSet = useMemo(() => value || value === 0, [value]);
-	const previewValue = useMemo(() => {
-		if (value || value === 0) {
-			return value;
-		}
-		return inherited?.inheritedValue;
-	}, [value, inherited]);
-	const activeControl =
-		previewValue || previewValue === 0 ? controls.findIndex((control) => control.key === previewValue) : undefined;
-	const units = [
+	units = [
 		{
 			value: 'px',
 			label: 'px',
@@ -197,7 +181,23 @@ function RadioToggleGroupPopoverInputUI({
 			a11yLabel: __('Custom', 'kadence-blocks'),
 			step: 0.1,
 		},
-	];
+	],
+}) {
+	const defaultPopoverProps = {
+		placement: 'left-start',
+		//offset: 36,
+		shift: true,
+	};
+	const isValueControlled = useMemo(() => parseValueTypeFromRawValue(value, controls), [value]);
+	const isValueSet = useMemo(() => value || value === 0, [value]);
+	const previewValue = useMemo(() => {
+		if (value || value === 0) {
+			return value;
+		}
+		return inherited?.inheritedValue;
+	}, [value, inherited]);
+	const activeControl =
+		previewValue || previewValue === 0 ? controls.findIndex((control) => control.key === previewValue) : undefined;
 
 	const customTooltipContent = (newValue) => {
 		return controls[newValue]?.name;

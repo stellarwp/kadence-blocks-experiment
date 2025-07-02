@@ -124,6 +124,17 @@ export const useSelectOptions = ({
 			options = presetOptions;
 			break;
 		}
+		case 'transitionEase': {
+			options = [
+				{ value: 'ease', label: __('Ease', 'kadence-blocks') },
+				{ value: 'ease-in', label: __('Ease In', 'kadence-blocks') },
+				{ value: 'ease-out', label: __('Ease Out', 'kadence-blocks') },
+				{ value: 'ease-in-out', label: __('Ease In Out', 'kadence-blocks') },
+				{ value: 'linear', label: __('Linear', 'kadence-blocks') },
+				{ value: 'cubic-bezier(0.25, 0.1, 0.25, 1)', label: __('Custom Ease', 'kadence-blocks') },
+			];
+			break;
+		}
 	}
 
 	return {

@@ -73,7 +73,7 @@ export default function InspectorGeneral(props) {
 				title={__('Icon Settings', 'kadence-blocks')}
 				panelName={'icon-settings'}
 				componentName={'icon-control'}
-				initialOpen={true}
+				initialOpen={false}
 			>
 				<IconControl
 					label={__('Icon', 'kadence-blocks')}

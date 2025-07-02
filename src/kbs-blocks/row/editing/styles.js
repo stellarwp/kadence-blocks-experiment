@@ -12,22 +12,6 @@ export default function Styles(props) {
 	const cssOutput = useMemo(() => {
 		const selector = `.kbs-container-${attributes?.uniqueID || 'unknown'}`;
 		const css = new cssGenerator(selector);
-		// if (JSON.stringify(attributes) !== JSON.stringify(prevAttributes)) {
-		// 	console.log('prev attributes', JSON.stringify(prevAttributes));
-		// 	console.log('new attributes', JSON.stringify(attributes));
-		// 	prevAttributes = attributes;
-		// }
-		if (metadata.attributes) {
-			Object.entries(metadata.attributes).forEach(([attributeName, value]) => {
-				if (value.renderCSS) {
-					if (value?.component) {
-						css.addComponent(attributeName, value, props, metadata);
-					} else {
-						css.addAttribute(attributeName, value, props);
-					}
-				}
-			});
-		}
 
 		let output = css.generate();
 		if (attributes?.kbsCSS) {

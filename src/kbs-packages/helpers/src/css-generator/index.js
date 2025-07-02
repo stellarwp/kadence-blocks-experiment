@@ -25,10 +25,68 @@ class CSSGenerator {
 	 */
 	currentAppliedValue = '';
 
-	constructor(selector = '') {
+	constructor(selector = '', props = {}, metadata = {}) {
 		this.rules = new Map();
 		this.currentSelector = selector;
+		this.props = props;
+		this.metadata = metadata;
 	}
+	
+	build() {
+		if( this.metadata?.name ) {
+			const blockName = this.metadata.name.replace('kbs/', '');
+
+			this.autoAddTransformComponents( blockName );
+			this.autoAddTransitionComponents( blockName );
+		}
+
+		if (this.metadata?.attributes) {
+			Object.entries(this.metadata.attributes).forEach(([attributeName, value]) => {
+				if (value.renderCSS) {
+					if (value?.component) {
+						this.addComponent(attributeName, value, this.props, this.metadata);
+					} else {
+						this.addAttribute(attributeName, value, this.props);
+					}
+				}
+			});
+		}
+	}
+
+	/**
+	 * Automatically add transform components based on block name
+	 * This mirrors the transform attributes added by early-filters.js
+	 */
+	autoAddTransformComponents( blockName ) {
+		
+		const transformMeta = {
+			renderCSS: true,
+			component: 'transform',
+			nonInheritable: true,
+			selector: `--kbs-${blockName}-transform-`,
+			classPrefix: `kbs-${blockName}-transform-`
+		};
+		
+		this.addComponent('transform', transformMeta, this.props, this.metadata);
+		this.addComponent('transformHover', transformMeta, this.props, this.metadata);
+	}
+
+	/**
+	 * Automatically add transform components based on block name
+	 * This mirrors the transform attributes added by early-filters.js
+	 */
+		autoAddTransitionComponents( blockName ) {
+			
+			const transitionMeta = {
+				renderCSS: true,
+				component: 'transition',
+				nonInheritable: true,
+				selector: `--kbs-${blockName}-transition-`,
+				classPrefix: `kbs-${blockName}-transition-`
+			};
+			
+			this.addComponent('transition', transitionMeta, this.props, this.metadata);
+		}
 
 	/**
 	 * Set the current selector for subsequent property additions
@@ -208,6 +266,14 @@ class CSSGenerator {
 					}
 				}
 				break;
+			case 'transition':
+				// Special handling for transitionProperty
+				if (key === 'transitionProperty') {
+					cssValue = 'all';
+				} else {
+					cssValue = appliedValue;
+				}
+				break;
 			default:
 				cssValue = appliedValue;
 				break;
@@ -264,6 +330,16 @@ class CSSGenerator {
 						return 'background-repeat';
 					case 'attachment':
 						return 'background-attachment';
+				}
+				return attributeName;
+			case 'transition':
+				switch (attributeName) {
+					case 'transition-property':
+						return 'transition-property';
+					case 'transition-duration':
+						return 'transition-duration';
+					case 'transition-ease':
+						return 'transition-timing-function';
 				}
 				return attributeName;
 			default:
@@ -677,6 +753,227 @@ class CSSGenerator {
 			return this;
 		}
 
+		if (meta.component === 'transform') {
+			const { attributes, previewDevice, globalStylesIds } = props;
+			
+			// Check if this is a hover transform
+			const isHover = attributeName.endsWith('Hover');
+			
+			// Store the current selector
+			const originalSelector = this.currentSelector;
+			
+			// If hover, modify the selector
+			if (isHover) {
+				this.setSelector(originalSelector + ':hover');
+			}
+
+			let scale, translate, rotate, skew, origin;
+
+			if (isHover) {
+				// For hover, we need to merge with base values
+				const baseAttributeName = attributeName.replace('Hover', '');
+				
+				// Get base transform values
+				const baseScale = getResolvedValue(
+					baseAttributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'scale',
+					globalStylesIds
+				)?.appliedValue;
+
+				const baseTranslate = getResolvedValue(
+					baseAttributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'translate',
+					globalStylesIds
+				)?.appliedValue;
+
+				const baseRotate = getResolvedValue(
+					baseAttributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'rotate',
+					globalStylesIds
+				)?.appliedValue;
+
+				const baseSkew = getResolvedValue(
+					baseAttributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'skew',
+					globalStylesIds
+				)?.appliedValue;
+
+				const baseOrigin = getResolvedValue(
+					baseAttributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'origin',
+					globalStylesIds
+				)?.appliedValue;
+
+				// Get hover transform values
+				const hoverScale = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'scale',
+					globalStylesIds
+				)?.appliedValue;
+
+				const hoverTranslate = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'translate',
+					globalStylesIds
+				)?.appliedValue;
+
+				const hoverRotate = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'rotate',
+					globalStylesIds
+				)?.appliedValue;
+
+				const hoverSkew = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'skew',
+					globalStylesIds
+				)?.appliedValue;
+
+				const hoverOrigin = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'origin',
+					globalStylesIds
+				)?.appliedValue;
+
+				// Merge values - hover takes precedence if defined
+				scale = hoverScale || baseScale;
+				translate = hoverTranslate || baseTranslate;
+				rotate = hoverRotate || baseRotate;
+				skew = hoverSkew || baseSkew;
+				origin = hoverOrigin || baseOrigin;
+			} else {
+				// For non-hover, just get the values directly
+				scale = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'scale',
+					globalStylesIds
+				)?.appliedValue;
+
+				translate = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'translate',
+					globalStylesIds
+				)?.appliedValue;
+
+				rotate = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'rotate',
+					globalStylesIds
+				)?.appliedValue;
+
+				skew = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'skew',
+					globalStylesIds
+				)?.appliedValue;
+
+				origin = getResolvedValue(
+					attributeName,
+					attributes,
+					previewDevice,
+					metadata,
+					'origin',
+					globalStylesIds
+				)?.appliedValue;
+			}
+
+			let transformStrings = [];
+			if (translate) {
+				const x = translate.x || '0px';
+				const y = translate.y || '0px';
+				if (x !== '0px' || y !== '0px') {
+					transformStrings.push(`translate(${x}, ${y})`);
+				}
+			}
+			if (rotate) {
+				if (rotate.x && rotate.x !== '0deg') {
+					transformStrings.push(`rotateX(${rotate.x})`);
+				}
+				if (rotate.y && rotate.y !== '0deg') {
+					transformStrings.push(`rotateY(${rotate.y})`);
+				}
+				if (rotate.z && rotate.z !== '0deg') {
+					transformStrings.push(`rotateZ(${rotate.z})`);
+				}
+			}
+			if (scale) {
+				const x = parseFloat(scale.x || '100%') / 100;
+				const y = parseFloat(scale.y || '100%') / 100;
+
+				if (x !== 1 || y !== 1) {
+					transformStrings.push(`scale(${x}, ${y})`);
+				}
+			}
+			if (skew) {
+				const x = skew.x || '0deg';
+				const y = skew.y || '0deg';
+				if (x !== '0deg' || y !== '0deg') {
+					transformStrings.push(`skew(${x}, ${y})`);
+				}
+			}
+
+			if (transformStrings.length > 0) {
+				this.add({ transform: transformStrings.join(' ') });
+			}
+
+			if (origin) {
+				const x = origin.x || '50%';
+				const y = origin.y || '50%';
+				if (x !== '50%' || y !== '50%') {
+					this.add({ 'transform-origin': `${x} ${y}` });
+				}
+			}
+			
+			// Restore the original selector
+			if (isHover) {
+				this.setSelector(originalSelector);
+			}
+
+			return this;
+		}
+
 		const componentKeys = this.getComponentKeys(meta.component);
 		componentKeys.forEach((key) => this.processComponentKey(attributeName, meta, props, metadata, key));
 
@@ -759,6 +1056,9 @@ class CSSGenerator {
 			case 'minHeight':
 			case 'minWidth':
 				componentKeys = [component];
+				break;
+			case 'transition':
+				componentKeys = ['transitionProperty', 'transitionDuration', 'transitionEase'];
 				break;
 		}
 		return componentKeys;
@@ -886,6 +1186,10 @@ class CSSGenerator {
 	 * @returns {string} - The generated CSS string
 	 */
 	generate() {
+		if( this.metadata?.name ) { // Are we building a block
+			this.build();
+		}
+
 		let css = '';
 		this.rules.forEach((properties, selector) => {
 			css += this._generateRuleString(selector, properties);
