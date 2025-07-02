@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { getLayerDeviceValue, SHADOW_STYLES_DEFAULTS } from '@kadence/kbsHelpers';
+import { getLayerDeviceValue, SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from '@kadence/kbsHelpers';
 import ColorControl from '../color-control';
 import UnitControl from '../unit-control';
 import RadioButtonControl from '../radio-button-control';
@@ -26,11 +26,13 @@ function ShadowDropdownContent({ layer, onChange, previewDevice, globalStylesCss
 	let spread = getLayerDeviceValue('spread', layer, previewDevice);
 	let inset = getLayerDeviceValue('inset', layer, previewDevice);
 
-	color = color ? color : SHADOW_STYLES_DEFAULTS.color.value;
-	x = x ? x : SHADOW_STYLES_DEFAULTS.x.value;
-	y = y ? y : SHADOW_STYLES_DEFAULTS.y.value;
-	blur = blur ? blur : SHADOW_STYLES_DEFAULTS.blur.value;
-	spread = spread ? spread : SHADOW_STYLES_DEFAULTS.spread.value;
+	const shadowDefaults = type == 'boxShadow' ? SHADOW_STYLES_DEFAULTS : TEXT_SHADOW_STYLES_DEFAULTS;
+
+	color = color ? color : shadowDefaults.color.value;
+	x = x ? x : shadowDefaults.x.value;
+	y = y ? y : shadowDefaults.y.value;
+	blur = blur ? blur : shadowDefaults.blur.value;
+	spread = spread ? spread : shadowDefaults.spread.value;
 
 	// const hoverColor = getLayerDeviceValue('hoverColor', layer, previewDevice);
 	const divRef = useRef(null);
@@ -58,18 +60,20 @@ function ShadowDropdownContent({ layer, onChange, previewDevice, globalStylesCss
 				hasTitleBar={false}
 				currentValue={color}
 			/>
-			<RadioButtonControl
-				// attributes={attributes}
-				// setAttributes={setAttributes}
-				// attributeName={attributeName}
-				// meta={meta}
-				type="inset"
-				previewDevice={previewDevice}
-				onChange={(value) => handleCustomOnChange(value, previewDevice, 'inset')}
-				value={inset}
-				reset={false}
-				// inherited={isInherited ? { inheritedValue: inset } : ''}
-			/>
+			{type == 'boxShadow' && (
+				<RadioButtonControl
+					// attributes={attributes}
+					// setAttributes={setAttributes}
+					// attributeName={attributeName}
+					// meta={meta}
+					type="inset"
+					previewDevice={previewDevice}
+					onChange={(value) => handleCustomOnChange(value, previewDevice, 'inset')}
+					value={inset}
+					reset={false}
+					// inherited={isInherited ? { inheritedValue: inset } : ''}
+				/>
+			)}
 			<div className="kbs-shadow-layer-control__dropdown-content-units-container">
 				<UnitControl
 					label={__('X Position', 'kadence-blocks')}
@@ -79,6 +83,8 @@ function ShadowDropdownContent({ layer, onChange, previewDevice, globalStylesCss
 					onChange={(size) => handleCustomOnChange(size, previewDevice, 'x')}
 					placeholder={'0'}
 					previewDevice={previewDevice}
+					min={-100}
+					max={100}
 				/>
 				<UnitControl
 					label={__('Y Position', 'kadence-blocks')}
@@ -86,6 +92,8 @@ function ShadowDropdownContent({ layer, onChange, previewDevice, globalStylesCss
 					onChange={(size) => handleCustomOnChange(size, previewDevice, 'y')}
 					placeholder={'0'}
 					previewDevice={previewDevice}
+					min={-100}
+					max={100}
 				/>
 				<UnitControl
 					label={__('Blur', 'kadence-blocks')}
@@ -94,13 +102,15 @@ function ShadowDropdownContent({ layer, onChange, previewDevice, globalStylesCss
 					placeholder={'0'}
 					previewDevice={previewDevice}
 				/>
-				<UnitControl
-					label={__('Spread', 'kadence-blocks')}
-					value={spread}
-					onChange={(size) => handleCustomOnChange(size, previewDevice, 'spread')}
-					placeholder={'0'}
-					previewDevice={previewDevice}
-				/>
+				{type == 'boxShadow' && (
+					<UnitControl
+						label={__('Spread', 'kadence-blocks')}
+						value={spread}
+						onChange={(size) => handleCustomOnChange(size, previewDevice, 'spread')}
+						placeholder={'0'}
+						previewDevice={previewDevice}
+					/>
+				)}
 			</div>
 			<div className="kbs-shadow-layer-control__dropdown-content-close">
 				<Button __next40pxDefaultSize onClick={onToggle}>

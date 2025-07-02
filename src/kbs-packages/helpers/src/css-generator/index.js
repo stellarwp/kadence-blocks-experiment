@@ -1,7 +1,7 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
 import { SPACING_SIZES_MAP, ICON_SIZES_MAP } from '../constants';
 import { BORDER_RADIUS_SIZES_MAP, BORDER_STYLES_DEFAULTS } from '../constants/borders';
-import { SHADOW_STYLES_DEFAULTS } from '../constants/shadows';
+import { SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from '../constants/shadows';
 import { merge, kebabCase } from 'lodash';
 import { default as getResolvedValue } from '../get-resolved-value';
 import { default as getInheritedValue } from '../get-inherited-value';
@@ -289,7 +289,7 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @param {Object} metadata - The metadata of the block
 	 */
-	processBoxShadowLayers(layers, meta, props, metadata, key) {
+	processLayeredShadowLayers(layers, meta, props, metadata, key) {
 		let cssValue = '';
 
 		const reverseLayers = Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : [];
@@ -302,11 +302,19 @@ class CSSGenerator {
 				let shadowSpread = getLayerDeviceValue('spread', layer, props.previewDevice);
 				const shadowInset = getLayerDeviceValue('inset', layer, props.previewDevice);
 
-				shadowColor = shadowColor ? getColorOutput(shadowColor) : SHADOW_STYLES_DEFAULTS.color.var;
-				shadowX = shadowX || shadowX === 0 ? shadowX : SHADOW_STYLES_DEFAULTS.x.var;
-				shadowY = shadowY || shadowY === 0 ? shadowY : SHADOW_STYLES_DEFAULTS.y.var;
-				shadowBlur = shadowBlur || shadowBlur === 0 ? shadowBlur : SHADOW_STYLES_DEFAULTS.blur.var;
-				shadowSpread = shadowSpread || shadowSpread === 0 ? shadowSpread : SHADOW_STYLES_DEFAULTS.spread.var;
+				const shadowDefaults =
+					meta.component === 'boxShadow' ? SHADOW_STYLES_DEFAULTS : TEXT_SHADOW_STYLES_DEFAULTS;
+
+				shadowColor = shadowColor ? getColorOutput(shadowColor) : shadowDefaults.color.var;
+				shadowX = shadowX || shadowX === 0 ? shadowX : shadowDefaults.x.var;
+				shadowY = shadowY || shadowY === 0 ? shadowY : shadowDefaults.y.var;
+				shadowBlur = shadowBlur || shadowBlur === 0 ? shadowBlur : shadowDefaults.blur.var;
+				shadowSpread =
+					meta.component === 'boxShadow'
+						? shadowSpread || shadowSpread === 0
+							? shadowSpread
+							: shadowDefaults.spread.var
+						: '';
 
 				if (shadowColor) {
 					const commaBefore = index > 0 ? ', ' : '';
@@ -663,8 +671,8 @@ class CSSGenerator {
 					);
 				}
 			}
-			if (meta?.component === 'boxShadow') {
-				this.processBoxShadowLayers(layers, meta, props, metadata, 'boxShadow');
+			if (meta?.component === 'boxShadow' || meta?.component === 'textShadow') {
+				this.processLayeredShadowLayers(layers, meta, props, metadata, meta.component);
 			}
 			return this;
 		}
@@ -702,6 +710,9 @@ class CSSGenerator {
 				break;
 			case 'boxShadow':
 				componentKeys = ['boxShadow'];
+				break;
+			case 'textShadow':
+				componentKeys = ['textShadow'];
 				break;
 			case 'flexBox':
 				componentKeys = [

@@ -20,54 +20,39 @@ import {
 	getLayerDeviceValue,
 	getGradientOptions,
 	SHADOW_STYLES_DEFAULTS,
+	TEXT_SHADOW_STYLES_DEFAULTS,
 } from '@kadence/kbsHelpers';
 import { getColorLabel } from '../color-control/utils';
 import ShadowDropdownContent from './shadow-dropdown-content';
 
-function ShadowIndicator({ value, type, colorValue, maskType }) {
+function ShadowIndicator({ value, className, colorValue }) {
 	const style = {
-		background: type !== 'color' ? colorValue : value,
+		background: colorValue,
 	};
 	return (
 		<div
-			className={clsx('kbs-shadow-indicator component-color-indicator', value ? 'has-value' : '')}
+			className={clsx('kbs-shadow-indicator component-color-indicator', value ? 'has-value' : '', className)}
 			style={style}
 		></div>
 	);
 }
-function renderShadowToggle(layer, isInherited, previewDevice) {
+function renderShadowToggle(layer, isInherited, previewDevice, type) {
 	return ({ onToggle, isOpen }) => {
-		const { color, type } = useMemo(() => {
+		const { color } = useMemo(() => {
 			let color = getLayerDeviceValue('color', layer, previewDevice);
-			color = color ? color : SHADOW_STYLES_DEFAULTS.color.value;
+			color = color
+				? color
+				: type == 'boxShadow'
+					? SHADOW_STYLES_DEFAULTS.color.value
+					: TEXT_SHADOW_STYLES_DEFAULTS.color.value;
 			return {
 				color: color,
-				type: getLayerDeviceValue('type', layer, previewDevice) || 'color',
 			};
 		}, [layer, previewDevice]);
-		const displayValue = useMemo(() => {
-			// switch (type) {
-			// 	case 'color':
-			// 		return getColorLabel(color, colors);
-			// 	default:
-			// 		return '';
-			// }
-			return 'Box Shadow';
-		}, [type, color]);
+		const displayValue = type == 'boxShadow' ? 'Box Shadow' : 'Text Shadow';
 		const previewString = useMemo(() => {
-			switch (type) {
-				case 'color':
-					return getColorOutput(color);
-				default:
-					return '';
-			}
-		}, [type, color]);
-		const typeIcon = useMemo(() => {
-			switch (type) {
-				default:
-					return shadowIcon;
-			}
-		}, [type]);
+			return getColorOutput(color);
+		}, [color]);
 		const toggleProps = {
 			onClick: onToggle,
 			className: clsx('kbs-shadow-select-button', 'kbs-shadow-select-control__toggle-button', {
@@ -81,7 +66,7 @@ function renderShadowToggle(layer, isInherited, previewDevice) {
 			<>
 				<Button __next40pxDefaultSize {...toggleProps}>
 					{displayValue && (
-						<Icon className="kbs-shadow-select-control__toggle-icon" icon={typeIcon} size={24} />
+						<Icon className="kbs-shadow-select-control__toggle-icon" icon={shadowIcon} size={24} />
 					)}
 					<span className="kbs-shadow-select-control__toggle-label">
 						{displayValue ? displayValue : __('Unset', 'kadence-blocks')}
@@ -89,7 +74,6 @@ function renderShadowToggle(layer, isInherited, previewDevice) {
 					<ShadowIndicator
 						className="kbs-shadow-select-control__toggle-preview"
 						value={previewString}
-						type={type}
 						colorValue={getColorOutput(color)}
 					/>
 				</Button>
@@ -115,7 +99,8 @@ function renderShadowDropdown(
 	globalClasses,
 	layerKey,
 	containerRef,
-	globalStylesCss
+	globalStylesCss,
+	type = 'boxShadow'
 ) {
 	const [isHover, setIsHover] = useState(false);
 	return ({ onToggle, isOpen }) => {
@@ -134,6 +119,7 @@ function renderShadowDropdown(
 				setIsHover={setIsHover}
 				onToggle={onToggle}
 				isOpen={isOpen}
+				type={type}
 			/>
 		);
 	};
@@ -145,7 +131,6 @@ export default function ShadowLayer({
 	setAttributes,
 	attributeName,
 	meta,
-	type,
 	globalStylesIds,
 	reset = true,
 	label,
@@ -161,6 +146,7 @@ export default function ShadowLayer({
 	layer,
 	isInherited = false,
 	inherited = {},
+	type = 'boxShadow',
 }) {
 	const popoverProps = {
 		//placement: 'left-start',
@@ -217,7 +203,7 @@ export default function ShadowLayer({
 				popoverProps={popoverProps}
 				className="kbs-shadow-layer-control__dropdown"
 				contentClassName={classes}
-				renderToggle={renderShadowToggle(layer, isInherited, previewDevice)}
+				renderToggle={renderShadowToggle(layer, isInherited, previewDevice, type)}
 				renderContent={renderShadowDropdown(
 					globalColors,
 					layer,
@@ -227,7 +213,8 @@ export default function ShadowLayer({
 					globalClasses,
 					layerKey,
 					containerRef,
-					globalStylesCss
+					globalStylesCss,
+					type
 				)}
 			/>
 		</div>

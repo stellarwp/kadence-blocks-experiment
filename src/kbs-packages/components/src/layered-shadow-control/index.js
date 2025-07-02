@@ -11,7 +11,7 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
  */
 import { useState, useEffect, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Icon, DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
+import { Icon, DropdownMenu, MenuGroup, MenuItem, Button } from '@wordpress/components';
 import {
 	dragHandle,
 	more,
@@ -151,7 +151,7 @@ function SortableShadowLayer({ layer, index, totalLayers, ...props }) {
 								<MenuGroup>
 									<MenuItem
 										icon={trash}
-										disabled={totalLayers === 1}
+										disabled={totalLayers === 0}
 										onClick={() => {
 											handleLayerRemove(index);
 											onClose();
@@ -181,7 +181,7 @@ function getPresetLabel(preset, meta, attributeName) {
 	return presetData?.label;
 }
 
-export default function BoxShadowControl({
+export default function LayeredShadowControl({
 	title,
 	attributes,
 	setAttributes,
@@ -194,6 +194,7 @@ export default function BoxShadowControl({
 	forStyleBook = false,
 	forPresetControl,
 	globalStylesCss,
+	type = 'boxShadow',
 }) {
 	const [currentView, setCurrentView] = useState('normal');
 	const onSelectView = (view) => {
@@ -216,6 +217,9 @@ export default function BoxShadowControl({
 		);
 	};
 	const onTogglePlus = () => {
+		AddNewEmptyLayer();
+	};
+	const AddNewEmptyLayer = () => {
 		const newLayers = [{}, ...(inherited.inheritedValue || [])];
 		const newAttributes = JSON.parse(JSON.stringify({ ...attributes[attributeName], layers: newLayers }));
 		setAttributes({
@@ -273,9 +277,13 @@ export default function BoxShadowControl({
 	const itemOrder = useMemo(() => {
 		return inherited?.inheritedValue ? inherited.inheritedValue.map((_, index) => index) : [0];
 	}, [inherited?.inheritedValue]);
+
+	const classes = clsx('components-base-control kbs-control kbs-box-shadow-control', {
+		'kbs-box-shadow-control-enabled': attributes[attributeName]?.layers?.length > 0,
+	});
 	return (
-		<>
-			{!forPresetControl && (
+		<div className={classes}>
+			{/* {!forPresetControl && (
 				<BackgroundPresetControl
 					label={__('Box Shadow Presets', 'kadence-blocks')}
 					type={'boxShadow'}
@@ -288,7 +296,7 @@ export default function BoxShadowControl({
 					globalStylesCss={globalStylesCss}
 					forStyleBook={forStyleBook}
 				/>
-			)}
+			)} */}
 			<>
 				<LayerTitleBar
 					label={__('Box Shadow', 'kadence-blocks')}
@@ -322,27 +330,22 @@ export default function BoxShadowControl({
 										globalStylesCss={globalStylesCss}
 										isInherited={inherited.inheritedSource !== 'direct'}
 										inherited={inherited}
+										type={type}
 									/>
 								))
 							) : (
-								<SortableShadowLayer
-									key={0}
-									layer={{}}
-									index={0}
-									attributes={attributes}
-									totalLayers={1}
-									setAttributes={onSetAttributes}
-									attributeName={attributeName}
-									meta={metaData}
-									previewDevice={previewDevice}
-									globalStylesIds={globalStylesIds}
-									globalStylesCss={globalStylesCss}
-								/>
+								<Button
+									variant="secondary"
+									className="kbs-shadow-layer-add-button"
+									onClick={AddNewEmptyLayer}
+								>
+									{__('Enable Shadow', 'kadence-blocks')}
+								</Button>
 							)}
 						</div>
 					</SortableContext>
 				</DndContext>
 			</>
-		</>
+		</div>
 	);
 }

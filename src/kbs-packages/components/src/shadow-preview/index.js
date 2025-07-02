@@ -17,7 +17,7 @@ function ShadowPreview({ color, x, y, blur, spread, inset, type = 'boxShadow' })
 		const xValue = x || '0px';
 		const yValue = y || '0px';
 		const blurValue = blur || '0px';
-		const spreadValue = spread || '0px';
+		const spreadValue = type == 'boxShadow' ? spread || '0px' : '';
 		const colorValue = getColorOutput(color) || 'rgba(0, 0, 0, 0.2)';
 
 		return `${insetValue}${xValue} ${yValue} ${blurValue} ${spreadValue} ${colorValue}`;
@@ -37,10 +37,12 @@ function ShadowPreview({ color, x, y, blur, spread, inset, type = 'boxShadow' })
 		return styles;
 	}, [shadowValue, type, color]);
 
+	const typeClassString = type === 'boxShadow' ? 'kbs-shadow-preview-box' : 'kbs-shadow-preview-text';
+
 	return (
-		<div className={`kbs-shadow-preview-container kbs-shadow-preview-${type}`}>
+		<div className={`kbs-shadow-preview-container ${typeClassString}`}>
 			<div className="kbs-shadow-preview" style={previewStyles}>
-				{type === 'textShadow' && <span>Text</span>}
+				{type === 'textShadow' && <span>{__('Text Sample', 'kadence-blocks')}</span>}
 			</div>
 		</div>
 	);

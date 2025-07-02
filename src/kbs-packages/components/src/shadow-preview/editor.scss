@@ -13,11 +13,13 @@
 	align-items: center;
 	justify-content: center;
 
-	.kbs-shadow-preview {
-		width: 120px;
-		height: 60px;
-		background-color: #ffffff;
-		border: 1px solid #ddd;
+	&.kbs-shadow-preview-box {
+		.kbs-shadow-preview {
+			width: 120px;
+			height: 60px;
+			background-color: #ffffff;
+			border: 1px solid #ddd;
+		}
 	}
 
 	&.kbs-shadow-preview-text {

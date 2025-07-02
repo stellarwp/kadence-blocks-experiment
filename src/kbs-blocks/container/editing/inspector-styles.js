@@ -17,7 +17,7 @@ import {
 	FlexBoxControl,
 	FlexChildControl,
 	BackgroundControl,
-	BoxShadowControl,
+	LayeredShadowControl,
 	BorderControl,
 } from '@kadence/kbsComponents';
 /**
@@ -63,7 +63,7 @@ export default function InspectorStyles(props) {
 				panelName={'border-controls'}
 				initialOpen={false}
 			>
-				<BoxShadowControl
+				<LayeredShadowControl
 					attributeName={'boxShadow'}
 					attributes={attributes}
 					setAttributes={setAttributes}
@@ -71,6 +71,7 @@ export default function InspectorStyles(props) {
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 					globalStylesCss={globalStylesCss}
+					type={'boxShadow'}
 				/>
 				<BorderControl
 					attributes={attributes}

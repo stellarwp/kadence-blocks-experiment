@@ -7,7 +7,14 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, Typography, ColorControl, Notice, BorderControl } from '@kadence/kbsComponents';
+import {
+	ToolsPanelBody,
+	Typography,
+	ColorControl,
+	Notice,
+	BorderControl,
+	LayeredShadowControl,
+} from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -19,7 +26,15 @@ import { __ } from '@wordpress/i18n';
  * Build the section edit.
  */
 export default function InspectorStyles(props) {
-	const { attributes, setAttributes, previewDevice, globalStylesIds, hasGradient, hasGradientHighlight } = props;
+	const {
+		attributes,
+		setAttributes,
+		previewDevice,
+		globalStylesIds,
+		globalStylesCss,
+		hasGradient,
+		hasGradientHighlight,
+	} = props;
 
 	const { link } = attributes;
 	return (
@@ -66,6 +81,17 @@ export default function InspectorStyles(props) {
 					previewDevice={previewDevice}
 					attributeName={'typography'}
 					globalStylesIds={globalStylesIds}
+				/>
+
+				<LayeredShadowControl
+					attributeName={'textShadow'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					metaData={metadata}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
+					type={'textShadow'}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody

@@ -113,6 +113,15 @@
 			"selector": "--kbs-text-highlight-",
 			"classPrefix": "kbs-text-border-highlight-"
 		},
+		"textShadow": {
+			"renderCSS": true,
+			"component": "textShadow",
+			"nonInheritable": true,
+			"type": "object",
+			"selector": "--kbs-text-",
+			"classPrefix": "kbs-text-shadow-",
+			"hasLayers": true
+		},
 		"icon": {
 			"renderCSS": true,
 			"component": "icon",
