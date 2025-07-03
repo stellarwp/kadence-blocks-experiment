@@ -199,7 +199,7 @@ export default function BackgroundControl({
 	const onSelectView = (view) => {
 		setCurrentView(view);
 	};
-	const selector = metaData?.attributes?.[attributeName]?.selector || 'background';
+	const selector = metaData?.attributes?.[attributeName]?.varPrefix || 'background';
 	const inherited = getInheritedValue(attributeName, attributes, 'none', metaData, 'layers', globalStylesIds);
 	const hasLayers = metaData?.attributes?.[attributeName]?.hasLayers;
 	const presetLabel = getPresetLabel(attributes[attributeName]?.preset, metaData, attributeName);

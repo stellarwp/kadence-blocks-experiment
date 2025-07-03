@@ -318,7 +318,7 @@ export default function SpaceControl({
 					</div>
 				</div>
 			</div>
-			{type === 'padding' && (
+			{type === 'padding' && showVisualizer && (
 				<PaddingVisualizer
 					forceShow={typeMouseOver.isMouseOver}
 					clientId={clientId}
@@ -326,7 +326,7 @@ export default function SpaceControl({
 					value={[inheritedTop, inheritedRight, inheritedBottom, inheritedLeft]}
 				/>
 			)}
-			{type === 'margin' && (
+			{type === 'margin' && showVisualizer && (
 				<MarginVisualizer
 					forceShow={typeMouseOver.isMouseOver}
 					clientId={clientId}

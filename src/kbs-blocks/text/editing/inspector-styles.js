@@ -14,6 +14,7 @@ import {
 	Notice,
 	BorderControl,
 	LayeredShadowControl,
+	SpaceControl,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -34,6 +35,8 @@ export default function InspectorStyles(props) {
 		globalStylesCss,
 		hasGradient,
 		hasGradientHighlight,
+		blockElementRef,
+		clientId,
 	} = props;
 
 	const { link } = attributes;
@@ -166,6 +169,18 @@ export default function InspectorStyles(props) {
 					labelBorderRadius={__('Highlight Border Radius', 'kadence-blocks')}
 					label={__('Highlight Border', 'kadence-blocks')}
 					hasPresetControl={true}
+				/>
+
+				<SpaceControl
+					label={__('Highlight Padding', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'paddingHighlight'}
+					type={'padding'}
+					previewDevice={previewDevice}
+					hasPresetControl={false}
+					metaData={metadata}
+					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>
 		</>

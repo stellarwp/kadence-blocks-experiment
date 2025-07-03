@@ -66,7 +66,7 @@ class CSSGenerator {
 				case 'min-height':
 					this.renderStringProperty(
 						mergedAttribute,
-						meta?.selector ? meta?.selector : meta.property,
+						meta?.varPrefix ? meta?.varPrefix : meta.property,
 						previewDevice
 					);
 					break;
@@ -78,7 +78,7 @@ class CSSGenerator {
 	processComponentKey(attributeName, meta, props, metadata, key) {
 		//get the components for the line to add
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
-		const cssSelector = this.getCssSelector();
+		const cssSelector = this.getCssSelector(attributeName, meta, key);
 		const attributeSelector = this.getAttributeSelector(key, meta);
 
 		if (cssValue && cssSelector && attributeSelector) {
@@ -226,7 +226,7 @@ class CSSGenerator {
 			return '';
 		}
 		const useVariableName = attributesMeta?.nonInheritable ? false : true;
-		const selectorPrefix = attributesMeta?.selector || '';
+		const selectorPrefix = attributesMeta?.varPrefix || '';
 		const componentName = attributesMeta?.component || '';
 		const attributeNameSlug =
 			attributeName === 'textDecoration' && this.currentAppliedValue === 'hover-underline'
@@ -276,8 +276,19 @@ class CSSGenerator {
 	 * @private
 	 * @returns {void}
 	 */
-	getCssSelector() {
-		return this.currentSelector;
+	getCssSelector(attributeName = '', meta = {}, key = '') {
+		let selector = this.currentSelector;
+		if (meta && meta?.nonInheritable) {
+			if (meta?.selectorSuffix) {
+				selector = this.currentSelector + meta.selectorSuffix;
+			}
+			if (key && key.endsWith('Hover')) {
+				selector = selector + ':hover';
+			} else if (key && key.endsWith('Active')) {
+				selector = selector + ':active, ' + selector + ':focus';
+			}
+		}
+		return selector;
 	}
 
 	/**
@@ -289,7 +300,7 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @param {Object} metadata - The metadata of the block
 	 */
-	processLayeredShadowLayers(layers, meta, props, metadata, key) {
+	processLayeredShadowLayers(layers, meta, props, metadata, key, attributeName) {
 		let cssValue = '';
 
 		const reverseLayers = Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : [];
@@ -323,7 +334,7 @@ class CSSGenerator {
 			});
 		}
 
-		const cssSelector = this.getCssSelector();
+		const cssSelector = this.getCssSelector(attributeName, meta, key);
 		const attributeSelector = this.getAttributeSelector(key, meta);
 
 		if (cssValue && cssSelector && attributeSelector) {
@@ -343,7 +354,7 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @param {Object} metadata - The metadata of the block
 	 */
-	processBackgroundLayer(layer, index, meta, props, metadata) {
+	processBackgroundLayer(layer, index, meta, props, metadata, attributeName) {
 		const currentSelector = this.getCssSelector();
 		const backgroundType = getLayerDeviceValue('type', layer, props.previewDevice) || 'color';
 		const metaClassPrefix = meta?.classPrefix || 'kbs-bg-style-';
@@ -672,7 +683,7 @@ class CSSGenerator {
 				}
 			}
 			if (meta?.component === 'boxShadow' || meta?.component === 'textShadow') {
-				this.processLayeredShadowLayers(layers, meta, props, metadata, meta.component);
+				this.processLayeredShadowLayers(layers, meta, props, metadata, meta.component, attributeName);
 			}
 			return this;
 		}

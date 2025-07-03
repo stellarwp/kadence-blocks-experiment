@@ -20,7 +20,7 @@ export default function FlexChildControl({
 	const onSelectView = (view) => {
 		setCurrentView(view);
 	};
-	const selector = metaData?.attributes?.[attributeName]?.selector || 'flex';
+	const selector = metaData?.attributes?.[attributeName]?.varPrefix || 'flex';
 	return (
 		<ToolsPanelBody
 			title={__('Flex Child Settings', 'kadence-blocks')}

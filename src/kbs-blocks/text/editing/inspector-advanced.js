@@ -42,7 +42,7 @@ export default function InspectorAdvanced(props) {
 				title={__('Spacing Settings', 'kadence-blocks')}
 				types={['padding', 'margin']}
 				clientId={clientId}
-				showVisualizer={true}
+				showVisualizer={false}
 				blockElementRef={blockElementRef}
 			/>
 		</>
