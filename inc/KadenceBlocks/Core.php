@@ -11,8 +11,8 @@ namespace KadenceWP\KadenceBlocks;
 
 use InvalidArgumentException;
 use RuntimeException;
-use KadenceWP\KadenceBlocks\Adbar\Dot;
 use KadenceWP\KadenceBlocks\StellarWP\ContainerContract\ContainerInterface as StellarContainerInterface;
+use KadenceWP\KadenceBlocks\Adbar\Dot;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -60,8 +60,8 @@ class Core {
 	 * @var array<int,string>
 	 */
 	private $providers = [
-		// Log\Provider::class,
-		// Storage\Provider::class,
+		Log\Provider::class,
+		Storage\Provider::class,
 		Uplink\Provider::class,
 		Health\Provider::class,
 		Cache\Provider::class,
@@ -70,8 +70,8 @@ class Core {
 		Blocks\Provider::class,
 		Settings\Provider::class,
 		REST\Provider::class,
-		// Shutdown\Provider::class,
-		// Image_Downloader\Provider::class,
+		Image_Downloader\Provider::class,
+		Shutdown\Provider::class,
 	];
 	/**
 	 * @param string    $plugin_file The full server path to the main plugin file.
@@ -83,8 +83,6 @@ class Core {
 	) {
 		$this->plugin_file = $plugin_file;
 		$this->container   = $container;
-		$this->container->singleton( StellarContainerInterface::class, $this->container );
-		$this->container->singleton( Dot::class, new Dot() );
 		// Set container variables available to pre bootstrap providers.
 		$this->container->setVar( self::PLUGIN_FILE, $this->plugin_file );
 	}
@@ -122,7 +120,9 @@ class Core {
 	 * @return void
 	 */
 	public function init(): void {
-
+		$this->container->bind( Container::class, $this->container );
+		$this->container->bind( StellarContainerInterface::class, $this->container );
+		$this->container->singleton( Dot::class, new Dot() );
 		// Register all providers.
 		foreach ( $this->providers as $class ) {
 			$this->container->get( $class )->register( $this->container );

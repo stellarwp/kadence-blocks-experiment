@@ -27,11 +27,6 @@ require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . '/inc/functions/helper-functions.php';
 require_once plugin_dir_path( __FILE__ ) . '/inc/functions/app.php';
 
-use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Config;
-use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Core as Telemetry;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Config as UplinkConfig;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Register;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Uplink;
 
 // Get the plugin's singleton instance.
 
@@ -145,48 +140,13 @@ function kadence_blocks_init(): void {
 	// require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-site-health.php';
 
 	/**
-	 * Telemetry.
-	 */
-	Config::set_container( $container );
-	Config::set_server_url( 'https://telemetry.stellarwp.com/api/v1' );
-	Config::set_hook_prefix( 'kadence-blocks' );
-	Config::set_stellar_slug( 'kadence-blocks' );
-	Telemetry::instance()->init( __FILE__ );
-	/**
 	 * AI-specific usage tracking. Only track if AI is opted in by user.
 	 */
 	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-ai-events.php';
 	// $ai_events = new Kadence_Blocks_AI_Events();
 	// $ai_events->register();
 
-	/**
-	 * Uplink.
-	 */
-	UplinkConfig::set_container( $container );
-	UplinkConfig::set_hook_prefix( 'kadence-blocks' );
-	UplinkConfig::set_token_auth_prefix( 'kadence' );
-	UplinkConfig::set_auth_cache_expiration( WEEK_IN_SECONDS );
-	Uplink::init();
-
-	Register::plugin(
-		'kadence-blocks',
-		'Kadence Blocks',
-		KADENCE_BLOCKS_VERSION,
-		'kadence-blocks/kadence-blocks.php',
-		Kadence_Blocks::class
-	);
-
 	do_action( 'kadence_blocks_uplink_loaded' );
-
-	add_filter( 'stellarwp/uplink/kadence-blocks/prevent_update_check', '__return_true' );
-	add_filter(
-		'stellarwp/uplink/kadence-blocks/api_get_base_url',
-		static function () {
-			return 'https://licensing.kadencewp.com';
-		},
-		10,
-		0
-	);
 }
 // add_action( 'plugins_loaded', 'kadence_blocks_init', 2 );
 

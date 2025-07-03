@@ -27,7 +27,12 @@ class Provider extends Service_Provider {
 	 */
 	public function register(): void {
 		// Create the HTTP Client used to concurrently download images.
-		$this->container->bind( HttpClientInterface::class, HttpClient::create() );
+		$this->container->singleton( 
+			HttpClientInterface::class, 
+			static function () {
+				return HttpClient::create();
+			}
+		);
 
 		$this->register_hasher();
 		$this->register_logging();

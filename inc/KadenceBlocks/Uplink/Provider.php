@@ -15,17 +15,22 @@ class Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function register(): void {
-		$this->register_multisite_configuration();
-		add_filter( 'stellarwp/uplink/kadence-blocks/prevent_update_check', '__return_true' );
-		add_filter(
-			'stellarwp/uplink/kadence-blocks/api_get_base_url',
-			static function () {
-				return 'https://licensing.kadencewp.com';
-			},
-			10,
-			0
+		// Initialize Uplink with the container
+		UplinkConfig::set_container( $this->container );
+		UplinkConfig::set_hook_prefix( 'kadence-blocks' );
+		UplinkConfig::set_token_auth_prefix( 'kadence' );
+		UplinkConfig::set_auth_cache_expiration( WEEK_IN_SECONDS );
+		Uplink::init();
+		UplinkRegister::plugin(
+			'kadence-blocks',
+			'Kadence Blocks',
+			KADENCE_BLOCKS_VERSION,
+			'kadence-blocks/kadence-blocks.php',
+			Kadence_Blocks::class // Empty class because a class is required.
 		);
-		add_action( 'plugins_loaded', $this->container->callback( $this, 'register_configuration' ), 10 );
+		
+		$this->register_multisite_configuration();
+		add_action( 'plugins_loaded', $this->container->callback( $this, 'register_configuration' ), 20 );
 	}
 	/**
 	 * Register the Uplink configuration.
@@ -33,21 +38,22 @@ class Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function register_configuration(): void {
-		/**
-		 * Uplink.  
-		 */
-		UplinkConfig::set_container( $this->container );
-		UplinkConfig::set_hook_prefix( 'kadence-blocks' );
-		UplinkConfig::set_token_auth_prefix( 'kadence' );
-		UplinkConfig::set_auth_cache_expiration( WEEK_IN_SECONDS );
-		Uplink::init();
-
-		UplinkRegister::plugin(
-			'kadence-blocks',
-			'Kadence Blocks',
-			KADENCE_BLOCKS_VERSION,
-			'kadence-blocks/kadence-blocks.php',
-			Kadence_Blocks::class
+		add_filter(
+			'stellarwp/uplink/kadence-blocks/prevent_update_check',
+			static function () {
+				error_log( 'prevent_update_check' );
+				return true;
+			},
+			10,
+			0 
+		);
+		add_filter(
+			'stellarwp/uplink/kadence-blocks/api_get_base_url',
+			static function () {
+				return 'https://licensing.kadencewp.com';
+			},
+			10,
+			0
 		);
 	}
 

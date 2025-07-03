@@ -2,12 +2,9 @@
 
 namespace KadenceWP\KadenceBlocks\Uplink;
 
-use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
-use KadenceWP\KadenceBlocks\Uplink\UplinkConfig;
-use KadenceWP\KadenceBlocks\Uplink\Uplink;
-use KadenceWP\KadenceBlocks\Uplink\Register as UplinkRegister;
+use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Container\Contracts\Provider;
 
-class Provider extends Service_Provider {
+final class Uplink_Provider extends Provider {
 
 	/**
 	 * Uplink library related functionality.
@@ -16,34 +13,6 @@ class Provider extends Service_Provider {
 	 */
 	public function register(): void {
 		$this->register_multisite_configuration();
-		add_filter( 'stellarwp/uplink/kadence-blocks/prevent_update_check', '__return_true' );
-		add_filter(
-			'stellarwp/uplink/kadence-blocks/api_get_base_url',
-			static function () {
-				return 'https://licensing.kadencewp.com';
-			},
-			10,
-			0
-		);
-		$this->register_configuration();
-	}
-	private function register_configuration(): void {
-		/**
-		 * Uplink.  
-		 */
-		UplinkConfig::set_container( $container );
-		UplinkConfig::set_hook_prefix( 'kadence-blocks' );
-		UplinkConfig::set_token_auth_prefix( 'kadence' );
-		UplinkConfig::set_auth_cache_expiration( WEEK_IN_SECONDS );
-		Uplink::init();
-
-		UplinkRegister::plugin(
-			'kadence-blocks',
-			'Kadence Blocks',
-			KADENCE_BLOCKS_VERSION,
-			'kadence-blocks/kadence-blocks.php',
-			Kadence_Blocks::class
-		);
 	}
 
 	/**

@@ -52,5 +52,15 @@ function kbs_log( $data ): void {
  * @throws InvalidArgumentException
  */
 function kbs_container() {
-	return Core::instance()->container();
+	$core = Core::instance();
+	if ( ! $core ) {
+		throw new InvalidArgumentException( 'Core instance not initialized. Make sure kbs_plugin() is called first.' );
+	}
+	
+	$container = $core->container();
+	if ( ! $container ) {
+		throw new InvalidArgumentException( 'Container not initialized.' );
+	}
+	
+	return $container;
 }

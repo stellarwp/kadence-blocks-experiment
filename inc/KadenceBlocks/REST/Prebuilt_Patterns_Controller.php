@@ -51,7 +51,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 	 *
 	 * @var object
 	 */
-	protected $block_library_cache;
+	protected $block_library_cache; 
 
 	/**
 	 * Constructor
@@ -186,7 +186,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function get_patterns( $request ) {
-		// Initialize cache if not already done
+		// Initialize cache if not already done.
 		if ( ! $this->block_library_cache ) {
 			$this->block_library_cache = kbs_container()->get( Block_Library_Cache::class );
 		}
@@ -198,7 +198,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 		$key         = $request->get_param( 'key' ) ?? '';
 		$library_url = $this->remote_url;
 
-		$identifier = 'library' . $library;
+		$identifier = 'patterns_' . $library;
 		if ( 'section' === $library ) {
 			$identifier .= '_' . KADENCE_BLOCKS_VERSION;
 		}
@@ -209,7 +209,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 			$identifier .= '_' . $key;
 		}
 
-		// Check if we have cached data
+		// Check if we have cached data.
 		if ( ! $reload ) {
 			try {
 				$cached_data = $this->block_library_cache->get( $identifier );
@@ -219,7 +219,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 			}
 		}
 
-		// Fetch from remote
+		// Fetch from remote.
 		$response = $this->get_remote_library_contents( $library, $library_url, $key );
 
 		if ( is_wp_error( $response ) ) {

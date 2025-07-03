@@ -3,7 +3,6 @@
 namespace KadenceWP\KadenceBlocks\Health;
 
 use KadenceWP\KadenceBlocks\StellarWP\Uplink\Notice\Notice;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Uplink;
 use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
 /**
  * Check the Health aka the status of requirements, dependencies or anything that
@@ -15,11 +14,6 @@ class Provider extends Service_Provider {
 	 * @inheritDoc
 	 */
 	public function register(): void {
-		// Only register health checks if Uplink is enabled
-		// This ensures the View interface is available for Notice_Controller
-		if ( ! Uplink::is_enabled() ) {
-			return;
-		}
 
 		/*
 		 * An array indexed by PHP function names to check are enabled and the Notice
