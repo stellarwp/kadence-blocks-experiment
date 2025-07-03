@@ -128,7 +128,18 @@
 		},
 		"minHeight": {
 			"renderCSS": true,
-			"property": "min-height",
+			"component": "minHeight",
+			"varPrefix": "--kbs-cont-",
+			"nonInheritable": true,
+			"initial": {},
+			"type": "object"
+		},
+		"maxWidth": {
+			"renderCSS": true,
+			"component": "maxWidth",
+			"varPrefix": "--kbs-cont-",
+			"selectorSuffix": "%selector%",
+			"nonInheritable": true,
 			"initial": {},
 			"type": "object"
 		},

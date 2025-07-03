@@ -40,6 +40,7 @@ export default function SizingControl({
 					setAttributes={setAttributes}
 					attributeName={type}
 					radioType={type}
+					type={type}
 					meta={metadata?.attributes?.[type]}
 					previewDevice={previewDevice}
 					hasCustomControls={type === 'maxWidth' ? true : false}

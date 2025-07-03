@@ -52,25 +52,15 @@ class CSSGenerator {
 
 		// Check if the attribute exists in the attributes object
 		if (mergedAttribute) {
-			if (!meta?.property) {
+			if (!meta?.property && !meta?.varPrefix) {
 				return this;
 			}
-			switch (meta.property) {
-				case 'flex-direction':
-				case 'flex-wrap':
-				case 'align-content':
-				case 'align-items':
-				case 'justify-content':
-				case 'row-gap':
-				case 'column-gap':
-				case 'min-height':
-					this.renderStringProperty(
-						mergedAttribute,
-						meta?.varPrefix ? meta?.varPrefix : meta.property,
-						previewDevice
-					);
-					break;
-			}
+
+			this.renderStringProperty(
+				mergedAttribute,
+				meta?.varPrefix ? meta?.varPrefix : meta?.property,
+				previewDevice
+			);
 		}
 		return this;
 	}
@@ -299,7 +289,8 @@ class CSSGenerator {
 		let selector = this.currentSelector;
 		if (meta && meta?.nonInheritable) {
 			if (meta?.selectorSuffix) {
-				selector = this.currentSelector + meta.selectorSuffix;
+				const processedSelectorSuffix = meta.selectorSuffix.replaceAll('%selector%', this.currentSelector);
+				selector = this.currentSelector + processedSelectorSuffix;
 			}
 			if (key && key.endsWith('Hover')) {
 				selector = selector + ':hover';

@@ -158,6 +158,13 @@
 			"type": "object",
 			"varPrefix": "--kbs-text-"
 		},
+		"maxHeight": {
+			"renderCSS": true,
+			"component": "maxHeight",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-"
+		},
 		"icon": {
 			"renderCSS": true,
 			"component": "icon",

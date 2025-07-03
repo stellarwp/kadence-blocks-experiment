@@ -131,6 +131,17 @@ export default function InspectorStyles(props) {
 					meta={metadata}
 					previewDevice={previewDevice}
 				/>
+				<RadioButtonControl
+					label={__('Max Height', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'maxHeight'}
+					radioType={'maxHeight'}
+					type={'maxHeight'}
+					// meta={metadata?.attributes?.[maxHeight]}
+					meta={metadata}
+					previewDevice={previewDevice}
+				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
 				title={__('Advanced Highlight Settings', 'kadence-blocks')}
