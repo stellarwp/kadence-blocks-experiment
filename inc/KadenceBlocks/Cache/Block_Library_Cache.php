@@ -6,8 +6,8 @@ use InvalidArgumentException;
 use KadenceWP\KadenceBlocks\Hasher;
 use KadenceWP\KadenceBlocks\Psr\Log\LoggerInterface;
 use KadenceWP\KadenceBlocks\Shutdown\Contracts\Terminable;
-use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Storage\Contracts\Storage;
-use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Storage\Exceptions\StorageException;
+use KadenceWP\KadenceBlocks\Storage\Contracts\Storage;
+use KadenceWP\KadenceBlocks\Storage\Exceptions\StorageException;
 
 /**
  * Caches Block Library files.
@@ -73,7 +73,6 @@ class Block_Library_Cache implements Terminable {
 		if ( ! str_starts_with( $ext, '.' ) || str_starts_with( $ext, '..' ) ) {
 			throw new InvalidArgumentException( 'The $ext must start with a single period' );
 		}
-
 	}
 
 	/**
@@ -116,17 +115,23 @@ class Block_Library_Cache implements Terminable {
 		}
 		foreach ( $this->items as $filename => $data ) {
 			if ( $this->storage->has( $filename ) ) {
-				$this->logger->debug( 'Filename already exists, deleting file...', [
-					'filename' => $filename,
-				] );
+				$this->logger->debug(
+					'Filename already exists, deleting file...',
+					[
+						'filename' => $filename,
+					] 
+				);
 
 				try {
 					$this->storage->delete( $filename );
 				} catch ( StorageException $e ) {
-					$this->logger->error( 'Error deleting existing cache file', [
-						'filename'  => $filename,
-						'exception' => $e->getMessage(),
-					] );
+					$this->logger->error(
+						'Error deleting existing cache file',
+						[
+							'filename'  => $filename,
+							'exception' => $e->getMessage(),
+						] 
+					);
 				}
 			}
 
@@ -135,10 +140,13 @@ class Block_Library_Cache implements Terminable {
 
 				$this->storage->put( $filename, $data );
 			} catch ( StorageException $e ) {
-				$this->logger->error( 'Error saving cache file', [
-					'filename'  => $filename,
-					'exception' => $e->getMessage(),
-				] );
+				$this->logger->error(
+					'Error saving cache file',
+					[
+						'filename'  => $filename,
+						'exception' => $e->getMessage(),
+					] 
+				);
 			}
 		}
 
@@ -152,7 +160,7 @@ class Block_Library_Cache implements Terminable {
 	 *
 	 * @return string The file contents.
 	 * @throws InvalidArgumentException
-	 * @throws \KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Storage\Exceptions\NotFoundException
+	 * @throws \KadenceWP\KadenceBlocks\Storage\Exceptions\NotFoundException
 	 * @throws \RuntimeException
 	 */
 	public function get( $identifier ): string {
@@ -174,11 +182,12 @@ class Block_Library_Cache implements Terminable {
 	 * @throws \RuntimeException
 	 */
 	protected function filename( $identifier ): string {
-		return $this->hasher->hash( [
-			$this->config->base_url(),
-			$this->config->base_path(),
-			$identifier,
-		] ) . $this->ext;
+		return $this->hasher->hash(
+			[
+				$this->config->base_url(),
+				$this->config->base_path(),
+				$identifier,
+			] 
+		) . $this->ext;
 	}
-
 }

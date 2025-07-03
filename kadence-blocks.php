@@ -27,8 +27,6 @@ require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . '/inc/functions/helper-functions.php';
 require_once plugin_dir_path( __FILE__ ) . '/inc/functions/app.php';
 
-use KadenceWP\KadenceBlocks\App;
-use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Container\ContainerAdapter;
 use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Config;
 use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Core as Telemetry;
 use KadenceWP\KadenceBlocks\StellarWP\Uplink\Config as UplinkConfig;
@@ -43,7 +41,8 @@ add_action(
 	static function (): void {
 		$core = kbs_plugin();
 		$core->init();
-	}
+	},
+	1
 );
 
 /**
@@ -58,10 +57,7 @@ register_activation_hook( __FILE__, 'kadence_blocks_activate' );
  * Load Plugin.
  */
 function kadence_blocks_init(): void {
-	$container = new ContainerAdapter( new \KadenceWP\KadenceBlocks\lucatume\DI52\Container() );
-
-	// The Kadence Blocks Application.
-	App::instance( $container );
+	$container = kbs_container();
 
 	// require_once KADENCE_BLOCKS_PATH . 'includes/init.php';
 	// require_once KADENCE_BLOCKS_PATH . 'includes/form-ajax.php';
@@ -144,8 +140,8 @@ function kadence_blocks_init(): void {
 	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-image-picker.php';
 
 	// /**
-	//  * Site Health.
-	//  */
+	// * Site Health.
+	// */
 	// require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-site-health.php';
 
 	/**
@@ -192,12 +188,12 @@ function kadence_blocks_init(): void {
 		0
 	);
 }
-add_action( 'plugins_loaded', 'kadence_blocks_init', 1 );
+// add_action( 'plugins_loaded', 'kadence_blocks_init', 2 );
 
 /**
  * Load the plugin textdomain
  */
 function kadence_blocks_lang(): void {
-	load_plugin_textdomain( 'kadence-blocks', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'kadence-blocks', false, basename( __DIR__ ) . '/languages' );
 }
 // add_action( 'init', 'kadence_blocks_lang' );

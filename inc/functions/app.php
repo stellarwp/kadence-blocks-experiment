@@ -7,7 +7,6 @@ declare( strict_types=1 );
 
 use KadenceWP\KadenceBlocks\Container;
 use KadenceWP\KadenceBlocks\Core;
-use KadenceWP\KadenceBlocks\lucatume\DI52\Container as DI52Container;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,11 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return Core
  */
 function kbs_plugin(): Core {
-	// In the event we don't have a container in our core class yet.
-	$container = new Container( new DI52Container() );
-
 	// This singleton will not use a new container if one is already set.
-	return Core::instance( realpath( __DIR__ . '/../../kadence-blocks.php' ), $container );
+	return Core::instance();
 }
 
 /**
@@ -44,4 +40,17 @@ function kbs_log( $data ): void {
 	}
 
 	error_log( $data );
+}
+/**
+ * The Kadence Blocks Application Container.
+ *
+ * @see kbs_plugin()
+ *
+ * @note kbs_plugin() must be called before this one.
+ *
+ * @return Container
+ * @throws InvalidArgumentException
+ */
+function kbs_container() {
+	return Core::instance()->container();
 }

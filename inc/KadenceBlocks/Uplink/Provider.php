@@ -3,9 +3,9 @@
 namespace KadenceWP\KadenceBlocks\Uplink;
 
 use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
-use KadenceWP\KadenceBlocks\Uplink\UplinkConfig;
-use KadenceWP\KadenceBlocks\Uplink\Uplink;
-use KadenceWP\KadenceBlocks\Uplink\Register as UplinkRegister;
+use KadenceWP\KadenceBlocks\StellarWP\Uplink\Config as UplinkConfig;
+use KadenceWP\KadenceBlocks\StellarWP\Uplink\Register as UplinkRegister;
+use KadenceWP\KadenceBlocks\StellarWP\Uplink\Uplink;
 
 class Provider extends Service_Provider {
 
@@ -25,13 +25,18 @@ class Provider extends Service_Provider {
 			10,
 			0
 		);
-		$this->register_configuration();
+		add_action( 'plugins_loaded', $this->container->callback( $this, 'register_configuration' ), 10 );
 	}
-	private function register_configuration(): void {
+	/**
+	 * Register the Uplink configuration.
+	 *
+	 * @return void
+	 */
+	public function register_configuration(): void {
 		/**
 		 * Uplink.  
 		 */
-		UplinkConfig::set_container( $container );
+		UplinkConfig::set_container( $this->container );
 		UplinkConfig::set_hook_prefix( 'kadence-blocks' );
 		UplinkConfig::set_token_auth_prefix( 'kadence' );
 		UplinkConfig::set_auth_cache_expiration( WEEK_IN_SECONDS );
@@ -55,7 +60,7 @@ class Provider extends Service_Provider {
 		add_action(
 			'init',
 			static function (): void {
-				$network_enabled = kadence_blocks_is_network_authorize_enabled();
+				$network_enabled = kbs_is_network_authorize_enabled();
 				add_filter(
 					'stellarwp/uplink/kadence-blocks/allows_network_subfolder_license',
 					static function () use ( $network_enabled ): bool {

@@ -170,15 +170,19 @@ final class Cache_Primer implements Terminable {
 
 				foreach ( $image['sizes'] as $size ) {
 					try {
-						$batch++;
+						++$batch;
 
 						$url = $size['src'];
 
 						// These are async requests; We won't wait for the responses.
-						$promises[ $url ] = $this->client->request( 'HEAD', $url, [
-							'timeout'      => 0.1,
-							'max_duration' => 0.1,
-						] );
+						$promises[ $url ] = $this->client->request(
+							'HEAD',
+							$url,
+							[
+								'timeout'      => 0.1,
+								'max_duration' => 0.1,
+							] 
+						);
 					} catch ( Throwable $e ) {
 					}
 
@@ -208,5 +212,4 @@ final class Cache_Primer implements Terminable {
 
 		set_transient( $cache_key, true, $this->cache_duration );
 	}
-
 }
