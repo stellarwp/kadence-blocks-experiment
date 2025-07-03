@@ -99,9 +99,12 @@ class CSSGenerator {
 
 		const isBorderRadius = key.includes('border') && key.includes('Radius');
 		const isBorderStyle = key.includes('border') && !key.includes('Radius');
+		const isTextOrientation = key === 'textOrientation' || key === 'writingMode';
 
 		if (isBorderRadius) {
 			keyForValue = 'borderRadius';
+		} else if (isTextOrientation) {
+			keyForValue = 'textOrientation';
 		}
 
 		const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
@@ -144,6 +147,22 @@ class CSSGenerator {
 					cssValue = 'underline';
 				} else {
 					cssValue = appliedValue;
+				}
+				break;
+			case 'textOrientation':
+				if (key === 'textOrientation') {
+					if (appliedValue === 'stacked') {
+						cssValue = 'upright';
+					} else {
+						cssValue = '';
+					}
+				} else if (key === 'writingMode') {
+					cssValue =
+						appliedValue === 'stacked' || appliedValue === 'sideways-down'
+							? 'vertical-lr'
+							: appliedValue === 'sideways-up'
+								? 'sideways-lr'
+								: '';
 				}
 				break;
 			case 'icon':
@@ -764,6 +783,9 @@ class CSSGenerator {
 				break;
 			case 'linkStyle':
 				componentKeys = ['textDecoration'];
+				break;
+			case 'textOrientation':
+				componentKeys = ['textOrientation', 'writingMode'];
 				break;
 			case 'maxWidth':
 			case 'maxHeight':

@@ -151,6 +151,13 @@
 			"classPrefix": "kbs-text-shadow-",
 			"hasLayers": true
 		},
+		"textOrientation": {
+			"renderCSS": true,
+			"component": "textOrientation",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-"
+		},
 		"icon": {
 			"renderCSS": true,
 			"component": "icon",

@@ -15,6 +15,7 @@ import {
 	BorderControl,
 	LayeredShadowControl,
 	SpaceControl,
+	RadioButtonControl,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -113,6 +114,22 @@ export default function InspectorStyles(props) {
 					labelBorderRadius={__('Border Radius', 'kadence-blocks')}
 					label={__('Border', 'kadence-blocks')}
 					hasPresetControl={true}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
+				title={__('Text Orientation', 'kadence-blocks')}
+				panelName={'text-orientation'}
+				componentName={'text-orientation-control'}
+				initialOpen={false}
+			>
+				<RadioButtonControl
+					label={__('Text Orientation', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'textOrientation'}
+					type={'textOrientation'}
+					meta={metadata}
+					previewDevice={previewDevice}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
