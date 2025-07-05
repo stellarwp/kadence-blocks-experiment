@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 /**
  * Pattern category groups
  *
@@ -8,3 +9,8 @@ export const PATTERN_CATEGORY_GROUPS = {
 	MEDIA: ['gallery', 'image-text', 'logo-farm', 'video-text'],
 	OTHER: ['header', 'footer', 'navigation'],
 };
+export const PATTERN_STYLES = [
+	{ label: __('Base', 'kadence-blocks'), value: 'base' },
+	{ label: __('Contrast', 'kadence-blocks'), value: 'contrast' },
+	{ label: __('Accent', 'kadence-blocks'), value: 'accent' },
+];

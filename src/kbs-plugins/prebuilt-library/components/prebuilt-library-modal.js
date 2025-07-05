@@ -14,6 +14,7 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
 import { apiFetch } from '@wordpress/data';
 import { plusCircle } from '@wordpress/icons';
+import { rawHandler } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -23,7 +24,6 @@ import { isSettingEnabled, SafeParseJSON } from '@kadence/kbsHelpers';
 import PatternLibrary from './pattern-library';
 import TemplateLibrary from './template-library';
 import CloudLibrary from './cloud-library';
-import { usePatternData } from '../hooks/use-pattern-data';
 
 const defaultTabs = [
 	{
@@ -59,7 +59,15 @@ export default function PrebuiltLibraryModal({ clientId, onlyModal, isOpen, setI
 	const [libraryTabs, setLibraryTabs] = useState(kbs_params?.cloud_enabled ? defaultTabs : noConnectActions);
 
 	const { replaceBlock, removeBlock } = useDispatch(blockEditorStore);
-
+	const { canUserUseUnfilteredHTML } = useSelect(
+		(select) => {
+			const { getSettings } = select(blockEditorStore);
+			return {
+				canUserUseUnfilteredHTML: getSettings().__experimentalCanUserUseUnfilteredHTML,
+			};
+		},
+		[clientId]
+	);
 	const reloadAllTabs = () => {
 		setIsFetching(true);
 		apiFetch({ path: '/wp/v2/settings' }).then((res) => {
@@ -170,7 +178,14 @@ export default function PrebuiltLibraryModal({ clientId, onlyModal, isOpen, setI
 						onClose={onClose}
 						onSelect={(pattern) => {
 							// Handle pattern selection
-							replaceBlock(clientId, pattern.blocks);
+							replaceBlock(
+								clientId,
+								rawHandler({
+									HTML: pattern,
+									mode: 'BLOCKS',
+									canUserUseUnfilteredHTML,
+								})
+							);
 							setIsOpen(false);
 						}}
 					/>

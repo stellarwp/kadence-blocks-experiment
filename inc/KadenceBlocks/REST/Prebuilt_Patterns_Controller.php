@@ -78,7 +78,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 						'library'      => [
 							'required'          => false,
 							'type'              => 'string',
-							'default'           => 'section',
+							'default'           => 'patterns',
 							'sanitize_callback' => 'sanitize_text_field',
 						],
 						'key'          => [
@@ -108,7 +108,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 						'library'      => [
 							'required'          => false,
 							'type'              => 'string',
-							'default'           => 'section',
+							'default'           => 'patterns',
 							'sanitize_callback' => 'sanitize_text_field',
 						],
 						'key'          => [
@@ -202,11 +202,11 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 		
 		$reload      = $request->get_param( 'force_reload' );
 		$library     = $request->get_param( 'library' );
-		$key         = $request->get_param( 'key' ) ?? 'section';
+		$key         = $request->get_param( 'key' ) ?? 'info';
 		$library_url = $this->remote_url . 'get/';
 
 		$identifier = 'patterns_' . $library;
-		if ( 'section' === $library ) {
+		if ( 'patterns' === $library ) {
 			$identifier .= '_' . KADENCE_BLOCKS_VERSION;
 		}
 		if ( ! empty( $this->api_key ) ) {
@@ -252,11 +252,17 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 	protected function get_remote_library_contents( $library, $library_url, $key ) {
 		$site_url = get_original_domain();
 		$args     = [
-			'key'  => $key,
+			'key'  => ( 'html' === $key || 'info' === $key ) ? 'section' : $key,
 			'site' => $site_url,
 		];
+		if ( 'html' === $key ) {
+			$args['meta'] = 'html';
+		}
+		if ( 'info' === $key ) {
+			$args['meta'] = 'info';
+		}
 
-		if ( 'templates' === $library || 'section' === $library || 'pages' === $library || 'template' === $library ) {
+		if ( 'templates' === $library || 'patterns' === $library || 'pages' === $library || 'template' === $library ) {
 			// Legacy support for the API Manager requiring email.
 			if ( ! empty( $this->api_email ) ) {
 				$args['api_email'] = $this->api_email;
@@ -390,7 +396,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 			'site' => $site_url,
 		];
 
-		if ( 'templates' === $library || 'section' === $library || 'pages' === $library || 'template' === $library ) {
+		if ( 'templates' === $library || 'patterns' === $library || 'pages' === $library || 'template' === $library ) {
 			$args['api_email']  = $this->api_email;
 			$args['api_key']    = $this->api_key;
 			$args['product_id'] = $this->product_id;

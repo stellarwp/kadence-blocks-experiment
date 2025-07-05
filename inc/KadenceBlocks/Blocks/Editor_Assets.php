@@ -141,6 +141,7 @@ class Editor_Assets {
 				'showDesignLibrary'         => apply_filters( 'kadence_blocks_design_library_enabled', true ),
 				'isKadenceTheme'            => class_exists( 'Kadence\Theme' ),
 				'userrole'                  => wp_get_current_user()->roles[0],
+				'svgMaskPath'               => KADENCE_BLOCKS_URL . 'includes/assets/images/masks/',
 				'settings'                  => get_option( 'kadence_blocks_settings' ),
 				'dynamic_enabled'           => apply_filters( 'kadence_blocks_dynamic_enabled', true ),
 				'isAuthorized'              => $is_authorized,

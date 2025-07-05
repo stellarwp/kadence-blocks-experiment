@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
@@ -20,7 +21,7 @@ import { rawHandler } from '@wordpress/blocks';
 import PatternPreview from './pattern-preview';
 import { filterPatterns } from '../utils/filter-patterns';
 import { usePatternData } from '../hooks/use-pattern-data';
-import { PATTERN_CATEGORY_GROUPS } from '../utils/constants';
+import { PATTERN_CATEGORY_GROUPS, PATTERN_STYLES } from '../utils/constants';
 import { aiSettingsIcon } from '../utils/icons';
 import { kadenceIcon } from '@kadence/kbsHelpers';
 
@@ -34,6 +35,8 @@ const PatternLibrarySidebar = ({
 	categories,
 	setCategory,
 	search,
+	style,
+	setStyle,
 }) => {
 	const [popoverAnchor, setPopoverAnchor] = useState();
 	const [isVisible, setIsVisible] = useState(false);
@@ -46,7 +49,7 @@ const PatternLibrarySidebar = ({
 					<div className="kbs-pattern-library-settings">
 						<Button
 							className={'kbs-trigger-extra-settings'}
-							icon={aiSettings}
+							icon={aiSettingsIcon}
 							ref={setPopoverAnchor}
 							isPressed={isVisible}
 							disabled={isVisible}
@@ -54,35 +57,56 @@ const PatternLibrarySidebar = ({
 						/>
 					</div>
 				</div>
+				<div className="kbs-pattern-library-sidebar-subtabs">
+					<Button
+						className={
+							'kbs-pattern-library-subtab-button kbs-trigger-patterns' +
+							(subTab === 'patterns' ? ' is-pressed' : '')
+						}
+						aria-pressed={subTab === 'patterns'}
+						onClick={() => {
+							setSubTab('patterns');
+						}}
+					>
+						{__('Patterns', 'kadence-blocks')}
+					</Button>
+					<Button
+						className={
+							'kbs-pattern-library-subtab-button kbs-trigger-pages' +
+							(subTab === 'pages' ? ' is-pressed' : '')
+						}
+						aria-pressed={subTab === 'pages'}
+						onClick={() => {
+							setSubTab('pages');
+						}}
+					>
+						{__('Pages', 'kadence-blocks')}
+					</Button>
+				</div>
 			</div>
-			<div className="kbs-pattern-library-sidebar-subtabs">
-				<Button
-					className={
-						'kbs-pattern-library-subtab-button kbs-trigger-patterns' +
-						(subTab === 'patterns' ? ' is-pressed' : '')
-					}
-					aria-pressed={subTab === 'patterns'}
-					onClick={() => {
-						setSubTab('patterns');
-					}}
-				>
-					{__('Patterns', 'kadence-blocks')}
-				</Button>
-				<Button
-					className={
-						'kbs-pattern-library-subtab-button kbs-trigger-pages' +
-						(subTab === 'pages' ? ' is-pressed' : '')
-					}
-					aria-pressed={subTab === 'pages'}
-					onClick={() => {
-						setSubTab('pages');
-					}}
-				>
-					{__('Pages', 'kadence-blocks')}
-				</Button>
+			<div className="kbs-pattern-library-sidebar-content"></div>
+			<div className="kbs-pattern-library-sidebar-footer">
+				<h2>{__('Style', 'kadence-blocks')}</h2>
+				<div className="kbs-pattern-library-style-options">
+					{PATTERN_STYLES.map((item, index) => (
+						<Button
+							key={`${item.value}-${index}`}
+							label={item.label}
+							className={clsx(
+								'kbs-pattern-library-style-button kbs-pattern-library-style-' +
+									item.value +
+									(style === item.value ? ' is-pressed' : '')
+							)}
+							aria-pressed={style === item.value}
+							onClick={() => {
+								setStyle(item.value);
+							}}
+						></Button>
+					))}
+				</div>
 			</div>
 		</div>
 	);
 };
 
-export default PatternLibrary;
+export default PatternLibrarySidebar;

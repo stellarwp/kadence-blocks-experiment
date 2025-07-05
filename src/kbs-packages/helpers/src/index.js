@@ -36,6 +36,7 @@ export { default as mouseOverVisualizer } from './mouse-over-visualizer';
 export { default as parseBorderStyle } from './parse-border-style';
 export { default as getSpacingOutput } from './get-spacing-output';
 export { default as isSettingEnabled } from './is-setting-enabled';
+export { default as SafeParseJSON } from './safe-parse-json';
 export { BORDER_STYLES_DEFAULTS, BORDER_RADIUS_SIZES_MAP } from './constants/borders';
 export { SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from './constants/shadows';
 export { kadenceIcon } from './constants/icons';
