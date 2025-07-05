@@ -3,6 +3,7 @@
  */
 import { useMemo } from '@wordpress/element';
 import { getColorOutput } from '@kadence/kbsHelpers';
+import { __ } from '@wordpress/i18n';
 
 import './editor.scss';
 

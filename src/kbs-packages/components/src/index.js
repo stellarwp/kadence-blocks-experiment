@@ -28,6 +28,7 @@ export { default as TextControl } from './text-control';
 export { default as TitleBar } from './title-bar';
 export { default as BackgroundPresetRender } from './background-styles/preset-render';
 export { default as SpacingControl } from './spacing-control';
+export { default as SpaceControl } from './space-control';
 export { default as Notice } from './notice';
 export { default as InlinePaddingResizer } from './inline-padding-resizer';
 // export { default as PopColorControl } from './pop-color-control';
@@ -52,3 +53,4 @@ export { default as SelectBasicControl } from './select-basic-control';
 
 export { default as SingleBorderStyleControl } from './border-control/single-border-style-control';
 export { default as LayeredShadowControl } from './layered-shadow-control';
+export { default as CopyPasteAttributes } from './copy-paste-attributes';

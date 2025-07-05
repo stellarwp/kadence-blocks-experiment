@@ -11,6 +11,7 @@ export default function SpacingControl({
 	previewDevice,
 	title = __('Spacing Settings', 'kadence-blocks'),
 	types = ['padding', 'margin'],
+	attributeNames = ['padding', 'margin'],
 	metaData,
 	hasPresetControl = true,
 	globalStylesIds,
@@ -42,13 +43,13 @@ export default function SpacingControl({
 			panelName={'container-spacing'}
 			componentName={'spacing-control'}
 		>
-			{types.map((type) => (
+			{types.map((type, i) => (
 				<SpaceControl
 					key={type}
 					label={getLabel(type)}
 					attributes={attributes}
 					setAttributes={setAttributes}
-					attributeName={type}
+					attributeName={attributeNames[i]}
 					type={type}
 					previewDevice={previewDevice}
 					customOnChange={customOnChange}

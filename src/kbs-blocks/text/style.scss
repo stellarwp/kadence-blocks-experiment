@@ -15,6 +15,14 @@
 	color: var(--kbs-text-color);
 	background: var(--kbs-text-background-color);
 	text-shadow: var(--kbs-text-text-shadow);
+	border-top-left-radius: var(--kbs-text-border-top-left-radius);
+	border-top-right-radius: var(--kbs-text-border-top-right-radius);
+	border-bottom-right-radius: var(--kbs-text-border-bottom-right-radius);
+	border-bottom-left-radius: var(--kbs-text-border-bottom-left-radius);
+	border-top: var(--kbs-text-border-top);
+	border-left: var(--kbs-text-border-left);
+	border-right: var(--kbs-text-border-right);
+	border-bottom: var(--kbs-text-border-bottom);
 
 	min-width: 0;
 
@@ -33,9 +41,11 @@
 
 	a {
 		text-decoration: var(--kbs-text-link-text-decoration);
+		color: var(--kbs-text-link-color);
 
 		&:hover {
 			text-decoration: var(--kbs-text-link-text-decoration-hover, var(--kbs-text-link-text-decoration));
+			color: var(--kbs-text-link-color-hover, var(--kbs-text-link-color));
 		}
 	}
 
@@ -57,6 +67,13 @@
 		border-left: var(--kbs-text-highlight-border-left);
 		border-right: var(--kbs-text-highlight-border-right);
 		border-bottom: var(--kbs-text-highlight-border-bottom);
+
+		&:hover {
+			border-top: var(--kbs-text-highlight-border-top-hover, var(--kbs-text-highlight-border-top));
+			border-left: var(--kbs-text-highlight-border-left-hover, var(--kbs-text-highlight-border-left));
+			border-right: var(--kbs-text-highlight-border-right-hover, var(--kbs-text-highlight-border-right));
+			border-bottom: var(--kbs-text-highlight-border-bottom-hover, var(--kbs-text-highlight-border-bottom));
+		}
 	}
 
 	&.has-gradient {
@@ -98,12 +115,10 @@
 	}
 
 	&:hover {
-		.kbs-highlight {
-			border-top: var(--kbs-text-highlight-border-top-hover, var(--kbs-text-highlight-border-top));
-			border-left: var(--kbs-text-highlight-border-left-hover, var(--kbs-text-highlight-border-left));
-			border-right: var(--kbs-text-highlight-border-right-hover, var(--kbs-text-highlight-border-right));
-			border-bottom: var(--kbs-text-highlight-border-bottom-hover, var(--kbs-text-highlight-border-bottom));
-		}
+		border-top: var(--kbs-text-border-top-hover, var(--kbs-text-border-top));
+		border-left: var(--kbs-text-border-left-hover, var(--kbs-text-border-left));
+		border-right: var(--kbs-text-border-right-hover, var(--kbs-text-border-right));
+		border-bottom: var(--kbs-text-border-bottom-hover, var(--kbs-text-border-bottom));
 	}
 }
 

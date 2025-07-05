@@ -14,6 +14,8 @@ import {
 	Notice,
 	BorderControl,
 	LayeredShadowControl,
+	SpaceControl,
+	RadioButtonControl,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -34,6 +36,8 @@ export default function InspectorStyles(props) {
 		globalStylesCss,
 		hasGradient,
 		hasGradientHighlight,
+		blockElementRef,
+		clientId,
 	} = props;
 
 	const { link } = attributes;
@@ -95,6 +99,51 @@ export default function InspectorStyles(props) {
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
+				title={__('Border Settings', 'kadence-blocks')}
+				panelName={'text-border'}
+				componentName={'border-control'}
+				initialOpen={false}
+			>
+				<BorderControl
+					attributes={attributes}
+					attributeName={'border'}
+					setAttributes={setAttributes}
+					previewDevice={previewDevice}
+					meta={metadata}
+					globalStylesIds={globalStylesIds}
+					labelBorderRadius={__('Border Radius', 'kadence-blocks')}
+					label={__('Border', 'kadence-blocks')}
+					hasPresetControl={true}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
+				title={__('Text Orientation', 'kadence-blocks')}
+				panelName={'text-orientation'}
+				componentName={'text-orientation-control'}
+				initialOpen={false}
+			>
+				<RadioButtonControl
+					label={__('Text Orientation', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'textOrientation'}
+					type={'textOrientation'}
+					meta={metadata}
+					previewDevice={previewDevice}
+				/>
+				<RadioButtonControl
+					label={__('Max Height', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'maxHeight'}
+					radioType={'maxHeight'}
+					type={'maxHeight'}
+					// meta={metadata?.attributes?.[maxHeight]}
+					meta={metadata}
+					previewDevice={previewDevice}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
 				title={__('Advanced Highlight Settings', 'kadence-blocks')}
 				panelName={'text-advanced-highlight'}
 				componentName={'advanced-highlight-control'}
@@ -148,6 +197,18 @@ export default function InspectorStyles(props) {
 					labelBorderRadius={__('Highlight Border Radius', 'kadence-blocks')}
 					label={__('Highlight Border', 'kadence-blocks')}
 					hasPresetControl={true}
+				/>
+
+				<SpaceControl
+					label={__('Highlight Padding', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'paddingHighlight'}
+					type={'padding'}
+					previewDevice={previewDevice}
+					hasPresetControl={false}
+					metaData={metadata}
+					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>
 		</>

@@ -20,7 +20,7 @@ export default function LinkStyle({
 	};
 
 	return (
-		<div>
+		<>
 			{/* {!forPresetControl && (
 				<SelectControl
 					label={__('Preset', 'kadence-blocks')}
@@ -47,6 +47,6 @@ export default function LinkStyle({
 				meta={meta}
 				view={currentView}
 			/>
-		</div>
+		</>
 	);
 }

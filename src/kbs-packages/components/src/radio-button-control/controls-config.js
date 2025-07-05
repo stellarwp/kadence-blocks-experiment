@@ -35,6 +35,10 @@ import {
 	repeat,
 	repeatX,
 	repeatY,
+	horizontalTextOrientationIcon,
+	stackedTextOrientationIcon,
+	sidewaysDownTextOrientationIcon,
+	sidewaysUpTextOrientationIcon,
 } from './constants';
 import NoToggleInputUI from './ui-no-toggle-input';
 import RadioToggleGroupButtonUI from './ui-toggle-group';
@@ -233,6 +237,9 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'letterSpacing':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			controls = getLetterSpacingControls();
+			break;
+		case 'textOrientation':
+			controls = getTextOrientationControls();
 			break;
 	}
 
@@ -1456,5 +1463,28 @@ export const getLetterSpacingControls = () => [
 		title: __('Wide', 'kadence-blocks'),
 		name: __('Wide', 'kadence-blocks'),
 		key: 'lg',
+	},
+];
+
+export const getTextOrientationControls = () => [
+	{
+		icon: horizontalTextOrientationIcon,
+		title: __('Horizontal', 'kadence-blocks'),
+		key: 'horizontal',
+	},
+	{
+		icon: stackedTextOrientationIcon,
+		title: __('Stacked Vertically', 'kadence-blocks'),
+		key: 'stacked',
+	},
+	{
+		icon: sidewaysDownTextOrientationIcon,
+		title: __('Sideways Down', 'kadence-blocks'),
+		key: 'sideways-down',
+	},
+	{
+		icon: sidewaysUpTextOrientationIcon,
+		title: __('Sideways Up', 'kadence-blocks'),
+		key: 'sideways-up',
 	},
 ];

@@ -42,21 +42,26 @@
 		"linkStyle": {
 			"renderCSS": true,
 			"component": "linkStyle",
-			"selector": "--kbs-text-link-",
+			"varPrefix": "--kbs-text-link-",
 			"initial": {},
 			"type": "object"
 		},
 		"background": {
 			"type": "object"
 		},
-		"border": {
-			"type": "object"
-		},
 		"padding": {
-			"type": "object"
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-text-"
 		},
 		"margin": {
-			"type": "object"
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-text-"
 		},
 		"shadow": {
 			"type": "object"
@@ -67,14 +72,7 @@
 		"typography": {
 			"renderCSS": true,
 			"component": "typography",
-			"selector": "--kbs-text-",
-			"initial": {},
-			"type": "object"
-		},
-		"typographyHighlight": {
-			"renderCSS": true,
-			"component": "typography",
-			"selector": "--kbs-text-highlight-",
+			"varPrefix": "--kbs-text-",
 			"initial": {},
 			"type": "object"
 		},
@@ -82,50 +80,95 @@
 			"renderCSS": true,
 			"component": "color",
 			"type": "object",
-			"selector": "--kbs-text-",
+			"varPrefix": "--kbs-text-",
 			"classPrefix": "kbs-text-color-"
 		},
 		"backgroundColor": {
 			"renderCSS": true,
 			"component": "color",
 			"type": "object",
-			"selector": "--kbs-text-background-",
+			"varPrefix": "--kbs-text-background-",
 			"classPrefix": "kbs-text-background-color"
+		},
+		"border": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"varPrefix": "--kbs-text-",
+			"classPrefix": "kbs-text-border-"
 		},
 		"colorHighlight": {
 			"renderCSS": true,
 			"component": "color",
 			"type": "object",
-			"selector": "--kbs-text-highlight-",
+			"varPrefix": "--kbs-text-highlight-",
 			"classPrefix": "kbs-text-color-highlight-"
 		},
 		"backgroundColorHighlight": {
 			"renderCSS": true,
 			"component": "color",
 			"type": "object",
-			"selector": "--kbs-text-highlight-background-",
+			"varPrefix": "--kbs-text-highlight-background-",
 			"classPrefix": "kbs-text-background-highlight-"
 		},
 		"borderHighlight": {
 			"renderCSS": true,
 			"component": "border",
 			"type": "object",
-			"selector": "--kbs-text-highlight-",
+			"varPrefix": "--kbs-text-highlight-",
 			"classPrefix": "kbs-text-border-highlight-"
+		},
+		"typographyHighlight": {
+			"renderCSS": true,
+			"component": "typography",
+			"initial": {},
+			"type": "object",
+			"varPrefix": "--kbs-text-highlight-",
+			"selectorSuffix": " mark"
+		},
+		"paddingHighlight": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-text-highlight-",
+			"selectorSuffix": " mark"
+		},
+		"colorLink": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-text-link-",
+			"classPrefix": "kbs-text-color-link-",
+			"selectorSuffix": " a"
 		},
 		"textShadow": {
 			"renderCSS": true,
 			"component": "textShadow",
 			"nonInheritable": true,
 			"type": "object",
-			"selector": "--kbs-text-",
+			"varPrefix": "--kbs-text-",
 			"classPrefix": "kbs-text-shadow-",
 			"hasLayers": true
+		},
+		"textOrientation": {
+			"renderCSS": true,
+			"component": "textOrientation",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-"
+		},
+		"maxHeight": {
+			"renderCSS": true,
+			"component": "maxHeight",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-"
 		},
 		"icon": {
 			"renderCSS": true,
 			"component": "icon",
-			"selector": "--kbs-text-icon-",
+			"varPrefix": "--kbs-text-icon-",
 			"initial": {},
 			"type": "object"
 		},

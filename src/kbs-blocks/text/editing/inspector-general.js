@@ -7,7 +7,7 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, LinkControl, LinkStyle, IconControl } from '@kadence/kbsComponents';
+import { ToolsPanelBody, LinkControl, LinkStyle, IconControl, ColorControl } from '@kadence/kbsComponents';
 import { SelectControl } from '@wordpress/components';
 import metadata from '../block.json';
 /**
@@ -67,6 +67,18 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					attributeName={'linkStyle'}
 					globalStylesIds={globalStylesIds}
+				/>
+				<ColorControl
+					label={__('Link Color', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					previewDevice={previewDevice}
+					attributeName={'colorLink'}
+					globalStylesIds={globalStylesIds}
+					hasGradient={true}
+					hasMix={true}
+					hasHoverControls={true}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody

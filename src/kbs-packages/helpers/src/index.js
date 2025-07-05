@@ -39,3 +39,4 @@ export { default as isSettingEnabled } from './is-setting-enabled';
 export { BORDER_STYLES_DEFAULTS, BORDER_RADIUS_SIZES_MAP } from './constants/borders';
 export { SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from './constants/shadows';
 export { kadenceIcon } from './constants/icons';
+export { default as getTransferableAttributes } from './get-transferable-attributes';

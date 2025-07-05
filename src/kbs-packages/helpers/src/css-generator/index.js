@@ -52,25 +52,15 @@ class CSSGenerator {
 
 		// Check if the attribute exists in the attributes object
 		if (mergedAttribute) {
-			if (!meta?.property) {
+			if (!meta?.property && !meta?.varPrefix) {
 				return this;
 			}
-			switch (meta.property) {
-				case 'flex-direction':
-				case 'flex-wrap':
-				case 'align-content':
-				case 'align-items':
-				case 'justify-content':
-				case 'row-gap':
-				case 'column-gap':
-				case 'min-height':
-					this.renderStringProperty(
-						mergedAttribute,
-						meta?.selector ? meta?.selector : meta.property,
-						previewDevice
-					);
-					break;
-			}
+
+			this.renderStringProperty(
+				mergedAttribute,
+				meta?.varPrefix ? meta?.varPrefix : meta?.property,
+				previewDevice
+			);
 		}
 		return this;
 	}
@@ -78,7 +68,7 @@ class CSSGenerator {
 	processComponentKey(attributeName, meta, props, metadata, key) {
 		//get the components for the line to add
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
-		const cssSelector = this.getCssSelector();
+		const cssSelector = this.getCssSelector(attributeName, meta, key);
 		const attributeSelector = this.getAttributeSelector(key, meta);
 
 		if (cssValue && cssSelector && attributeSelector) {
@@ -99,9 +89,12 @@ class CSSGenerator {
 
 		const isBorderRadius = key.includes('border') && key.includes('Radius');
 		const isBorderStyle = key.includes('border') && !key.includes('Radius');
+		const isTextOrientation = key === 'textOrientation' || key === 'writingMode';
 
 		if (isBorderRadius) {
 			keyForValue = 'borderRadius';
+		} else if (isTextOrientation) {
+			keyForValue = 'textOrientation';
 		}
 
 		const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
@@ -144,6 +137,22 @@ class CSSGenerator {
 					cssValue = 'underline';
 				} else {
 					cssValue = appliedValue;
+				}
+				break;
+			case 'textOrientation':
+				if (key === 'textOrientation') {
+					if (appliedValue === 'stacked') {
+						cssValue = 'upright';
+					} else {
+						cssValue = '';
+					}
+				} else if (key === 'writingMode') {
+					cssValue =
+						appliedValue === 'stacked' || appliedValue === 'sideways-down'
+							? 'vertical-lr'
+							: appliedValue === 'sideways-up'
+								? 'sideways-lr'
+								: '';
 				}
 				break;
 			case 'icon':
@@ -226,7 +235,7 @@ class CSSGenerator {
 			return '';
 		}
 		const useVariableName = attributesMeta?.nonInheritable ? false : true;
-		const selectorPrefix = attributesMeta?.selector || '';
+		const selectorPrefix = attributesMeta?.varPrefix || '';
 		const componentName = attributesMeta?.component || '';
 		const attributeNameSlug =
 			attributeName === 'textDecoration' && this.currentAppliedValue === 'hover-underline'
@@ -276,8 +285,20 @@ class CSSGenerator {
 	 * @private
 	 * @returns {void}
 	 */
-	getCssSelector() {
-		return this.currentSelector;
+	getCssSelector(attributeName = '', meta = {}, key = '') {
+		let selector = this.currentSelector;
+		if (meta && meta?.nonInheritable) {
+			if (meta?.selectorSuffix) {
+				const processedSelectorSuffix = meta.selectorSuffix.replaceAll('%selector%', this.currentSelector);
+				selector = this.currentSelector + processedSelectorSuffix;
+			}
+			if (key && key.endsWith('Hover')) {
+				selector = selector + ':hover';
+			} else if (key && key.endsWith('Active')) {
+				selector = selector + ':active, ' + selector + ':focus';
+			}
+		}
+		return selector;
 	}
 
 	/**
@@ -289,7 +310,7 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @param {Object} metadata - The metadata of the block
 	 */
-	processLayeredShadowLayers(layers, meta, props, metadata, key) {
+	processLayeredShadowLayers(layers, meta, props, metadata, key, attributeName) {
 		let cssValue = '';
 
 		const reverseLayers = Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : [];
@@ -323,7 +344,7 @@ class CSSGenerator {
 			});
 		}
 
-		const cssSelector = this.getCssSelector();
+		const cssSelector = this.getCssSelector(attributeName, meta, key);
 		const attributeSelector = this.getAttributeSelector(key, meta);
 
 		if (cssValue && cssSelector && attributeSelector) {
@@ -343,7 +364,7 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @param {Object} metadata - The metadata of the block
 	 */
-	processBackgroundLayer(layer, index, meta, props, metadata) {
+	processBackgroundLayer(layer, index, meta, props, metadata, attributeName) {
 		const currentSelector = this.getCssSelector();
 		const backgroundType = getLayerDeviceValue('type', layer, props.previewDevice) || 'color';
 		const metaClassPrefix = meta?.classPrefix || 'kbs-bg-style-';
@@ -672,7 +693,7 @@ class CSSGenerator {
 				}
 			}
 			if (meta?.component === 'boxShadow' || meta?.component === 'textShadow') {
-				this.processLayeredShadowLayers(layers, meta, props, metadata, meta.component);
+				this.processLayeredShadowLayers(layers, meta, props, metadata, meta.component, attributeName);
 			}
 			return this;
 		}
@@ -687,7 +708,7 @@ class CSSGenerator {
 		let componentKeys = [];
 		switch (component) {
 			case 'color':
-				componentKeys = ['color'];
+				componentKeys = ['color', 'colorHover'];
 				break;
 			case 'border':
 				componentKeys = [
@@ -753,6 +774,9 @@ class CSSGenerator {
 				break;
 			case 'linkStyle':
 				componentKeys = ['textDecoration'];
+				break;
+			case 'textOrientation':
+				componentKeys = ['textOrientation', 'writingMode'];
 				break;
 			case 'maxWidth':
 			case 'maxHeight':
