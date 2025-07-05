@@ -35,9 +35,12 @@ trait Image_Size_Trait {
 
 		foreach ( $registered as $id => $data ) {
 			// Add an id index.
-			$formatted[] = array_merge( [
-				'id' => $id,
-			], $data );
+			$formatted[] = array_merge(
+				[
+					'id' => $id,
+				],
+				$data 
+			);
 		}
 
 		/**
@@ -61,14 +64,16 @@ trait Image_Size_Trait {
 
 		// Sort by smallest to largest sizes.
 		// Do not change this: It's important for Pexels image downloading, so we know the largest size.
-		usort( $formatted, static function( array $a, array $b ) {
-			$max_a = max( $a['width'], $a['height'] );
-			$max_b = max( $b['width'], $b['height'] );
+		usort(
+			$formatted,
+			static function ( array $a, array $b ) {
+				$max_a = max( $a['width'], $a['height'] );
+				$max_b = max( $b['width'], $b['height'] );
 
-			return $max_a <=> $max_b;
-		} );
+				return $max_a <=> $max_b;
+			} 
+		);
 
 		return $this->image_sizes_cache = $formatted;
 	}
-
 }

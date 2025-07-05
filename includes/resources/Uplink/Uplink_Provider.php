@@ -21,23 +21,34 @@ final class Uplink_Provider extends Provider {
 	 * @return void
 	 */
 	private function register_multisite_configuration(): void {
-		add_action( 'init', static function(): void {
-			$network_enabled = kadence_blocks_is_network_authorize_enabled();
-			add_filter( 'stellarwp/uplink/kadence-blocks/allows_network_subfolder_license',
-				static function () use ( $network_enabled ): bool {
-					return $network_enabled;
-				}, 10 );
+		add_action(
+			'init',
+			static function (): void {
+				$network_enabled = kadence_blocks_is_network_authorize_enabled();
+				add_filter(
+					'stellarwp/uplink/kadence-blocks/allows_network_subfolder_license',
+					static function () use ( $network_enabled ): bool {
+						return $network_enabled;
+					},
+					10 
+				);
 
-			add_filter( 'stellarwp/uplink/kadence-blocks/allows_network_subdomain_license',
-				static function () use ( $network_enabled ): bool {
-					return $network_enabled;
-				}, 10 );
+				add_filter(
+					'stellarwp/uplink/kadence-blocks/allows_network_subdomain_license',
+					static function () use ( $network_enabled ): bool {
+						return $network_enabled;
+					},
+					10 
+				);
 
-			add_filter( 'stellarwp/uplink/kadence-blocks/allows_network_domain_mapping_license',
-				static function () use ( $network_enabled ): bool {
-					return $network_enabled;
-				}, 10 );
-		} );
+				add_filter(
+					'stellarwp/uplink/kadence-blocks/allows_network_domain_mapping_license',
+					static function () use ( $network_enabled ): bool {
+						return $network_enabled;
+					},
+					10 
+				);
+			} 
+		);
 	}
-
 }

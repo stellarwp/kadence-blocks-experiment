@@ -12,7 +12,7 @@ use KadenceWP\KadenceBlocks\Cache\Block_Library_Cache;
 use KadenceWP\KadenceBlocks\Image_Downloader\Image_Downloader;
 use KadenceWP\KadenceBlocks\Image_Downloader\Cache_Primer;
 use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\ImageDownloader\Exceptions\ImageDownloadException;
-use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Storage\Exceptions\NotFoundException;
+use KadenceWP\KadenceBlocks\Storage\Exceptions\NotFoundException;
 use KadenceWP\KadenceBlocks\Traits\Rest\Image_Trait;
 
 use function KadenceWP\KadenceBlocks\StellarWP\Uplink\get_license_domain;

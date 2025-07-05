@@ -4,10 +4,10 @@
  */
 
 // Toolbar button styles
-.kadence-toolbar-design-library {
+.kbs-toolbar-design-library {
 	display: flex;
 
-	.kb-toolbar-prebuilt-button {
+	.kbs-toolbar-prebuilt-button {
 		height: 36px;
 		margin: 0 4px;
 		border: 1px solid #1e1e1e;
@@ -17,26 +17,76 @@
 }
 
 // Modal styles
-.kadence-prebuilt-library-modal {
+.kbs-prebuilt-library-modal {
 	.components-modal__content {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
 		padding: 0;
 	}
-
-	.components-modal__header {
-		border-bottom: 1px solid #e0e0e0;
-	}
 }
 
 // Header styles
-.kadence-prebuilt-library-header {
-	padding: 16px;
-	border-bottom: 1px solid #e0e0e0;
-
-	.components-search-control {
-		margin: 0;
+.kbs-prebuilt-library-header {
+	position: relative;
+	background: #fff;
+	padding: 0;
+	border-bottom: 1px solid var(--kb-subtle-background, #edf2f7);
+	height: 80px;
+	right: 0;
+	top: 0;
+	z-index: 100;
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: minmax(0, 320px) minmax(0, 1fr) minmax(0, 80px);
+	gap: 0;
+	// Tab styles
+	.kbs-prebuilt-library-tabs {
+		flex-grow: 1;
+		justify-content: center;
+		display: flex;
+		height: 100%;
+		.components-button.kbs-action-button {
+			height: 100%;
+			padding: 0 4px;
+			color: var(--kb-text-color, #4a5568);
+			border-radius: 0;
+			span {
+				max-width: 120px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				transition: all 0.3s ease;
+				padding: 8px 16px;
+				border-radius: 20px;
+			}
+			&.is-pressed {
+				background: #fff;
+				border: 0;
+				color: var(--kb-text-color, #4a5568);
+				outline: 0;
+				box-shadow: none;
+				span {
+					color: white;
+					background: var(--wp-components-color-foreground, #1e1e1e);
+				}
+			}
+			&.has-icon {
+				svg {
+					transition: all 0.3s ease;
+					padding: 6px;
+					border-radius: 100%;
+					width: 34px;
+					height: 34px;
+				}
+				&.is-pressed {
+					svg {
+						color: white;
+						background: var(--wp-components-color-foreground, #1e1e1e);
+					}
+				}
+			}
+		}
 	}
 }
 

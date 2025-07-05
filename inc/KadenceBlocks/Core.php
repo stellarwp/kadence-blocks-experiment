@@ -12,6 +12,7 @@ namespace KadenceWP\KadenceBlocks;
 use InvalidArgumentException;
 use RuntimeException;
 use KadenceWP\KadenceBlocks\StellarWP\ContainerContract\ContainerInterface as StellarContainerInterface;
+use KadenceWP\KadenceBlocks\Adbar\Dot;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Core {
 
-	public const PLUGIN_FILE         = 'kadence_blocks.plugin_file';
+	public const PLUGIN_FILE = 'kadence_blocks.plugin_file';
 
 	/**
 	 * The server path to the plugin's main file.
@@ -59,15 +60,22 @@ class Core {
 	 * @var array<int,string>
 	 */
 	private $providers = [
+		Log\Provider::class,
+		Storage\Provider::class,
+		Uplink\Provider::class,
+		Health\Provider::class,
+		Cache\Provider::class,
 		Backend\Provider::class,
 		Frontend\Provider::class,
 		Blocks\Provider::class,
 		Settings\Provider::class,
 		REST\Provider::class,
+		Image_Downloader\Provider::class,
+		Shutdown\Provider::class,
 	];
 	/**
-	 * @param  string    $plugin_file The full server path to the main plugin file.
-	 * @param  Container $container The container instance.
+	 * @param string    $plugin_file The full server path to the main plugin file.
+	 * @param Container $container The container instance.
 	 */
 	private function __construct(
 		string $plugin_file,
@@ -75,15 +83,14 @@ class Core {
 	) {
 		$this->plugin_file = $plugin_file;
 		$this->container   = $container;
-		$this->container->singleton( StellarContainerInterface::class, $this->container );
 		// Set container variables available to pre bootstrap providers.
 		$this->container->setVar( self::PLUGIN_FILE, $this->plugin_file );
 	}
 	/**
 	 * Get the singleton instance of our plugin.
 	 *
-	 * @param  string|null    $plugin_file  The full server path to the main plugin file.
-	 * @param  Container|null $container    The container instance.
+	 * @param string|null    $plugin_file  The full server path to the main plugin file.
+	 * @param Container|null $container    The container instance.
 	 *
 	 * @throws InvalidArgumentException If no existing instance and no plugin file or container is provided.
 	 *
@@ -92,11 +99,11 @@ class Core {
 	public static function instance( ?string $plugin_file = null, ?Container $container = null ): Core {
 		if ( ! isset( self::$instance ) ) {
 			if ( ! $plugin_file ) {
-				throw new InvalidArgumentException( 'You must provide a $plugin_file path' );
+				$plugin_file = realpath( KADENCE_BLOCKS_PATH . '/kadence-blocks.php' );
 			}
 
 			if ( ! $container ) {
-				throw new InvalidArgumentException( sprintf( 'You must provide a %s instance!', Container::class ) );
+				$container = new Container();
 			}
 
 			self::$instance = new self( $plugin_file, $container );
@@ -113,7 +120,9 @@ class Core {
 	 * @return void
 	 */
 	public function init(): void {
-
+		$this->container->bind( Container::class, $this->container );
+		$this->container->bind( StellarContainerInterface::class, $this->container );
+		$this->container->singleton( Dot::class, new Dot() );
 		// Register all providers.
 		foreach ( $this->providers as $class ) {
 			$this->container->get( $class )->register( $this->container );
