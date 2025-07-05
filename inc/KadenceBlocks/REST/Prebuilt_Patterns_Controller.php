@@ -12,6 +12,7 @@ use WP_REST_Controller;
 use WP_REST_Server;
 use WP_REST_Response;
 use WP_Error;
+use function KadenceWP\KadenceBlocks\StellarWP\Uplink\get_original_domain;
 
 /**
  * Controller for prebuilt patterns REST endpoints
@@ -19,7 +20,7 @@ use WP_Error;
 class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 
 	/**
-	 * The API Manager instance for the API Key
+	 * The API Key
 	 *
 	 * @var string
 	 */
@@ -33,18 +34,18 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 	protected $api_email = '';
 
 	/**
-	 * The API Manager product ID
+	 * API product for kadence
 	 *
 	 * @var string
 	 */
-	protected $product_id = '';
+	private $product_slug = '';
 
 		/**
 		 * The remote pattern library URL.
 		 *
 		 * @var string
 		 */
-	protected $remote_url = 'https://kbs.startertemplatecloud.com/wp-json/kadence-cloud/v1/get/';
+	protected $remote_url = 'https://kbs.startertemplatecloud.com/wp-json/kadence-cloud/v1/';
 
 	/**
 	 * Cache handler for pattern library.
@@ -170,13 +171,19 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * Get license keys.
+	 * Get the license data.
 	 */
-	protected function get_license_keys() {
-		$this->api_key    = get_option( 'kt_api_manager_kadence_gutenberg_pro_data' );
-		$this->api_key    = ( ! empty( $this->api_key ) && ! empty( $this->api_key['api_key'] ) && '' !== $this->api_key['api_key'] ? $this->api_key['api_key'] : '' );
-		$this->api_email  = ( ! empty( $this->api_key ) && ! empty( $this->api_key['activation_email'] ) && '' !== $this->api_key['activation_email'] ? $this->api_key['activation_email'] : '' );
-		$this->product_id = ( ! empty( $this->api_key ) && ! empty( $this->api_key['product_id'] ) && '' !== $this->api_key['product_id'] ? $this->api_key['product_id'] : '' );
+	public function get_license_keys() {
+		$data = kbs_get_current_license_data();
+		if ( ! empty( $data['key'] ) ) {
+			$this->api_key = $data['key'];
+		}
+		if ( ! empty( $data['email'] ) ) {
+			$this->api_email = $data['email'];
+		}
+		if ( ! empty( $data['product'] ) ) {
+			$this->product_slug = $data['product'];
+		}
 	}
 
 	/**
@@ -195,8 +202,8 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 		
 		$reload      = $request->get_param( 'force_reload' );
 		$library     = $request->get_param( 'library' );
-		$key         = $request->get_param( 'key' ) ?? '';
-		$library_url = $this->remote_url;
+		$key         = $request->get_param( 'key' ) ?? 'section';
+		$library_url = $this->remote_url . 'get/';
 
 		$identifier = 'patterns_' . $library;
 		if ( 'section' === $library ) {
@@ -204,6 +211,9 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 		}
 		if ( ! empty( $this->api_key ) ) {
 			$identifier .= '_' . $this->api_key;
+		}
+		if ( ! empty( $this->product_slug ) ) {
+			$identifier .= '_' . $this->product_slug;
 		}
 		if ( ! empty( $key ) ) {
 			$identifier .= '_' . $key;
@@ -221,12 +231,11 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 
 		// Fetch from remote.
 		$response = $this->get_remote_library_contents( $library, $library_url, $key );
-
 		if ( is_wp_error( $response ) ) {
 			return rest_ensure_response( $response );
 		}
 
-		// Cache the response
+		// Cache the response.
 		$this->block_library_cache->cache( $identifier, $response );
 
 		return rest_ensure_response( $response );
@@ -241,23 +250,33 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 	 * @return string|WP_Error The response body or error.
 	 */
 	protected function get_remote_library_contents( $library, $library_url, $key ) {
-		$site_url = function_exists( 'get_original_domain' ) ? get_original_domain() : get_site_url();
+		$site_url = get_original_domain();
 		$args     = [
 			'key'  => $key,
 			'site' => $site_url,
 		];
 
 		if ( 'templates' === $library || 'section' === $library || 'pages' === $library || 'template' === $library ) {
-			$args['api_email']  = $this->api_email;
-			$args['api_key']    = $this->api_key;
-			$args['product_id'] = $this->product_id;
+			// Legacy support for the API Manager requiring email.
+			if ( ! empty( $this->api_email ) ) {
+				$args['api_email'] = $this->api_email;
+				if ( 'iThemes' === $this->api_email ) {
+					$args['site_url'] = $site_url;
+				}
+			}
+			if ( ! empty( $this->api_key ) ) {
+				$args['api_key'] = $this->api_key;
+			}
+			if ( ! empty( $this->product_slug ) ) {
+				$args['product_id'] = $this->product_slug;
+			}
 		}
 
 		if ( 'templates' === $library ) {
 			$args['request'] = 'blocks';
 		}
 
-		// Get the response
+		// Get the response.
 		$api_url  = add_query_arg( $args, $library_url );
 		$response = wp_safe_remote_get(
 			$api_url,
@@ -265,8 +284,7 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 				'timeout' => 30,
 			]
 		);
-
-		// Early exit if there was an error
+		// Early exit if there was an error.
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
@@ -296,20 +314,17 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 	public function get_pattern_categories( $request ) {
 		// Initialize cache if not already done
 		if ( ! $this->block_library_cache ) {
-			$this->block_library_cache = new \KadenceWP\KadenceBlocks\Cache(
-				'kadence_blocks_library_categories',
-				DAY_IN_SECONDS
-			);
+			$this->block_library_cache = kbs_container()->get( Block_Library_Cache::class );
 		}
 
 		$this->get_license_keys();
 		
 		$reload      = $request->get_param( 'force_reload' );
 		$library     = $request->get_param( 'library' );
-		$key         = $request->get_param( 'key' ) ?? '';
-		$library_url = rtrim( $this->remote_url, '/' ) . '-categories/';
+		$key         = $request->get_param( 'key' ) ?? 'section';
+		$library_url = $this->remote_url . 'categories/';
 
-		$identifier = 'library_categories_' . $library;
+		$identifier = 'pattern_categories_' . $library;
 		if ( ! empty( $this->api_key ) ) {
 			$identifier .= '_' . $this->api_key;
 		}

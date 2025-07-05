@@ -1,14 +1,14 @@
 /**
  * WordPress dependencies
  */
-import { 
-	Button, 
-	SelectControl, 
+import {
+	Button,
+	SelectControl,
 	ToggleControl,
 	__experimentalGrid as Grid,
 	Card,
 	CardBody,
-	CardMedia
+	CardMedia,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState, useMemo } from '@wordpress/element';
@@ -19,116 +19,96 @@ import { rawHandler } from '@wordpress/blocks';
  */
 import PatternPreview from './pattern-preview';
 import { filterPatterns } from '../utils/filter-patterns';
+import { usePatternData } from '../hooks/use-pattern-data';
+import { PATTERN_CATEGORY_GROUPS } from '../utils/constants';
 
-const PatternLibrary = ( {
-	patterns,
-	categories,
-	searchTerm,
-	selectedCategory,
-	onCategoryChange,
-	onSelect,
-} ) => {
-	const [ viewMode, setViewMode ] = useState( 'grid' ); // grid or list
-	const [ previewPattern, setPreviewPattern ] = useState( null );
-	const [ useAI, setUseAI ] = useState( false );
+const PatternLibrary = ({ onSelect, activeStorage, updateStorage }) => {
+	const isAIDisabled = window?.kbs_params?.isAIDisabled ? true : false;
+	const isAuthorized = window?.kbs_params?.isAuthorized ? true : false;
+	const activateLink = window?.kbs_params?.homeLink ? window.kbs_params.homeLink : '';
+	const { patterns, patternsHTML, categories, pageCategories, isLoading } = usePatternData();
+	const [searchTerm, setSearchTerm] = useState('');
+	const [selectedSubTab, setSelectedSubTab] = useState(
+		activeStorage?.selectedSubTab ? activeStorage.selectedSubTab : 'patterns'
+	);
+	const updateSelectedSubTab = (newSubTab) => {
+		setSelectedSubTab(newSubTab);
+		activeStorage.selectedSubTab = newSubTab;
+		updateStorage(activeStorage);
+	};
+	const [selectedCategory, setSelectedCategory] = useState(
+		activeStorage?.selectedCategory ? activeStorage.selectedCategory : ''
+	);
+	const updateSelectedCategory = (newCat) => {
+		setSelectedCategory(newCat);
+		activeStorage.selectedCategory = newCat;
+		updateStorage(activeStorage);
+	};
+	const [selectedPageCategory, setSelectedPageCategory] = useState(
+		activeStorage?.selectedPageCategory ? activeStorage.selectedPageCategory : ''
+	);
+	const updateSelectedPageCategory = (newCat) => {
+		setSelectedPageCategory(newCat);
+		activeStorage.selectedPageCategory = newCat;
+		updateStorage(activeStorage);
+	};
 
 	// Filter patterns based on search and category
-	const filteredPatterns = useMemo( () => {
-		return filterPatterns( patterns, {
+	const filteredPatterns = useMemo(() => {
+		return filterPatterns(patterns, {
 			searchTerm,
 			category: selectedCategory,
-		} );
-	}, [ patterns, searchTerm, selectedCategory ] );
+		});
+	}, [patterns, searchTerm, selectedCategory]);
 
 	// Category options for select control
-	const categoryOptions = useMemo( () => {
+	const categoryOptions = useMemo(() => {
 		return [
-			{ label: __( 'All Categories', 'kadence-blocks' ), value: 'all' },
-			...categories.map( ( cat ) => ( {
+			{ label: __('All Categories', 'kadence-blocks'), value: 'all' },
+			...categories.map((cat) => ({
 				label: cat.label,
 				value: cat.slug,
-			} ) ),
+			})),
 		];
-	}, [ categories ] );
+	}, [categories]);
 
-	const handlePatternSelect = ( pattern ) => {
+	const handlePatternSelect = (pattern) => {
 		// Parse the pattern content to blocks
-		const blocks = rawHandler( {
+		const blocks = rawHandler({
 			HTML: pattern.content,
-		} );
+		});
 
-		onSelect( {
+		onSelect({
 			...pattern,
 			blocks,
-		} );
+		});
 	};
 
 	return (
-		<div className="kadence-pattern-library">
-			<div className="kadence-pattern-library-controls">
-				<SelectControl
-					label={ __( 'Category', 'kadence-blocks' ) }
-					value={ selectedCategory }
-					options={ categoryOptions }
-					onChange={ onCategoryChange }
-				/>
-				
-				<ToggleControl
-					label={ __( 'Use AI Content', 'kadence-blocks' ) }
-					checked={ useAI }
-					onChange={ setUseAI }
-				/>
-			</div>
-
-			<Grid
-				columns={ viewMode === 'grid' ? 3 : 1 }
-				gap={ 4 }
-				className="kadence-pattern-library-grid"
-			>
-				{ filteredPatterns.map( ( pattern ) => (
-					<Card
-						key={ pattern.id }
-						className="kadence-pattern-library-item"
-						isElevated
-					>
-						<CardMedia
-							onClick={ () => setPreviewPattern( pattern ) }
-						>
-							<img
-								src={ pattern.thumbnail }
-								alt={ pattern.title }
-								loading="lazy"
-							/>
-						</CardMedia>
-						<CardBody>
-							<h3>{ pattern.title }</h3>
-							<div className="kadence-pattern-library-item-actions">
-								<Button
-									variant="secondary"
-									onClick={ () => setPreviewPattern( pattern ) }
-								>
-									{ __( 'Preview', 'kadence-blocks' ) }
-								</Button>
-								<Button
-									variant="primary"
-									onClick={ () => handlePatternSelect( pattern ) }
-								>
-									{ __( 'Insert', 'kadence-blocks' ) }
-								</Button>
-							</div>
-						</CardBody>
-					</Card>
-				) ) }
-			</Grid>
-
-			{ previewPattern && (
-				<PatternPreview
-					pattern={ previewPattern }
-					onClose={ () => setPreviewPattern( null ) }
-					onSelect={ handlePatternSelect }
-					useAI={ useAI }
-				/>
-			) }
+		<div className="kbs-pattern-library-body">
+			<PatternLibrarySidebar
+				pageCategory={selectedPageCategory}
+				category={selectedCategory}
+				subTab={selectedSubTab}
+				setSubTab={updateSelectedSubTab}
+				setPageCategory={updateSelectedPageCategory}
+				pageCategories={pageCategories}
+				categories={categories}
+				setCategory={updateSelectedCategory}
+				search={searchTerm}
+			/>
+			{/* <PatternLibraryContent
+				patterns={filteredPatterns}
+				selectedCategory={selectedCategory}
+				selectedPageCategory={selectedPageCategory}
+				onSelect={handlePatternSelect}
+			/>
+			<PatternLibrarySync
+				patterns={filteredPatterns}
+				selectedCategory={selectedCategory}
+				selectedPageCategory={selectedPageCategory}
+				onSelect={handlePatternSelect}
+			/> */}
 		</div>
 	);
 };

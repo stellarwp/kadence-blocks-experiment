@@ -41,7 +41,6 @@ class Provider extends Service_Provider {
 		add_filter(
 			'stellarwp/uplink/kadence-blocks/prevent_update_check',
 			static function () {
-				error_log( 'prevent_update_check' );
 				return true;
 			},
 			10,

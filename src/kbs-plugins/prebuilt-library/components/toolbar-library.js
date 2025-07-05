@@ -11,8 +11,7 @@ import { createRoot, useState, useEffect } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { kadenceIcon } from '@kadence/kbsHelpers';
-import PrebuiltLibraryModal from './prebuilt-library-modal';
+import { kadenceIcon, isSettingEnabled } from '@kadence/kbsHelpers';
 import '../store';
 
 /**
@@ -20,24 +19,8 @@ import '../store';
  * Adds the Design Library button to the WordPress editor top toolbar
  */
 const ToolbarLibrary = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [modalClientId, setModalClientId] = useState(null);
-
 	const { getSelectedBlock, getBlockIndex, getBlockHierarchyRootClientId } = useSelect(blockEditorStore);
-	const { replaceBlocks, insertBlocks, removeBlock } = useDispatch(blockEditorStore);
-
-	// Check for temporary block that triggers the modal
-	const temporaryBlock = useSelect((select) => {
-		const blocks = select(blockEditorStore).getBlocks();
-		return blocks.find((block) => block.name === 'kadence/rowlayout' && block.attributes?.isPrebuiltModal === true);
-	}, []);
-
-	useEffect(() => {
-		if (temporaryBlock) {
-			setModalClientId(temporaryBlock.clientId);
-			setIsModalOpen(true);
-		}
-	}, [temporaryBlock]);
+	const { replaceBlocks, insertBlocks } = useDispatch(blockEditorStore);
 
 	const openDesignLibrary = () => {
 		const selectedBlock = getSelectedBlock();
@@ -73,23 +56,15 @@ const ToolbarLibrary = () => {
 		}
 	};
 
-	const closeModal = () => {
-		setIsModalOpen(false);
-		if (modalClientId) {
-			removeBlock(modalClientId);
-			setModalClientId(null);
-		}
-	};
-
 	const LibraryButton = () => (
-		<ToolbarButton className="kb-toolbar-prebuilt-button" icon={kadenceIcon} onClick={openDesignLibrary}>
+		<ToolbarButton className="kbs-toolbar-prebuilt-button" icon={kadenceIcon} onClick={openDesignLibrary}>
 			{__('Design Library', 'kadence-blocks')}
 		</ToolbarButton>
 	);
 
 	const renderButton = (selector) => {
 		const patternButton = document.createElement('div');
-		patternButton.classList.add('kadence-toolbar-design-library');
+		patternButton.classList.add('kbs-toolbar-design-library');
 		selector.appendChild(patternButton);
 		const root = createRoot(patternButton);
 		root.render(<LibraryButton />);
@@ -102,8 +77,10 @@ const ToolbarLibrary = () => {
 			if (!editToolbar) {
 				return;
 			}
-			if (!editToolbar.querySelector('.kadence-toolbar-design-library')) {
-				renderButton(editToolbar);
+			if (isSettingEnabled('show', 'kadence/designlibrary') && kbs_params.showDesignLibrary) {
+				if (!editToolbar.querySelector('.kbs-toolbar-design-library')) {
+					renderButton(editToolbar);
+				}
 			}
 		});
 
@@ -116,7 +93,7 @@ const ToolbarLibrary = () => {
 		};
 	}, []);
 
-	return isModalOpen && modalClientId ? <PrebuiltLibraryModal clientId={modalClientId} onClose={closeModal} /> : null;
+	return null;
 };
 
 export default ToolbarLibrary;

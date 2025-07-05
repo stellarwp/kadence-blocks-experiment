@@ -135,7 +135,13 @@ class Editor_Assets {
 			[
 				'responsive_device_options' => $this->get_responsive_device_options(),
 				'global_styles'             => Global_Style::get_global_styles(),
+				'cloud_enabled'             => apply_filters( 'kadence_blocks_cloud_enabled', true ),
+				'cloud_settings'            => get_option( 'kadence_blocks_cloud' ),
+				'prebuilt_libraries'        => apply_filters( 'kadence_blocks_custom_prebuilt_libraries', [] ),
+				'showDesignLibrary'         => apply_filters( 'kadence_blocks_design_library_enabled', true ),
 				'isKadenceTheme'            => class_exists( 'Kadence\Theme' ),
+				'userrole'                  => wp_get_current_user()->roles[0],
+				'settings'                  => get_option( 'kadence_blocks_settings' ),
 				'dynamic_enabled'           => apply_filters( 'kadence_blocks_dynamic_enabled', true ),
 				'isAuthorized'              => $is_authorized,
 				'isAIDisabled'              => kbs_is_ai_disabled(),
