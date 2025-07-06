@@ -14,10 +14,8 @@ import {
 	ExternalLink,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useState, useMemo } from '@wordpress/element';
-import { rawHandler } from '@wordpress/blocks';
-//import Masonry from 'react-masonry-css';
-import { Masonry } from 'masonic';
+import { useState, useMemo, useEffect, useRef } from '@wordpress/element';
+import Masonry from 'react-masonry-css';
 /**
  * Internal dependencies
  */
@@ -41,15 +39,58 @@ const PatternLibraryContentPatternsList = ({
 	shadowCompatStyles,
 	patternType = 'pattern',
 }) => {
+	const [visibleItems, setVisibleItems] = useState(32); // Start with 12 items
+	const [isLoading, setIsLoading] = useState(false);
+	const loadMoreRef = useRef(null);
+	const itemsPerLoad = 32; // Load 12 more items each time
+
+	// Intersection Observer for lazy loading
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const [entry] = entries;
+				if (entry.isIntersecting && !isLoading && visibleItems < patterns.length) {
+					setIsLoading(true);
+					// Add a small delay to prevent too rapid loading
+					setTimeout(() => {
+						setVisibleItems((prev) => Math.min(prev + itemsPerLoad, patterns.length));
+						setIsLoading(false);
+					}, 100);
+				}
+			},
+			{
+				rootMargin: '100px', // Start loading when within 100px of the load more element
+				threshold: 0.1,
+			}
+		);
+
+		if (loadMoreRef.current) {
+			observer.observe(loadMoreRef.current);
+		}
+
+		return () => {
+			if (loadMoreRef.current) {
+				observer.unobserve(loadMoreRef.current);
+			}
+		};
+	}, [visibleItems, patterns.length, isLoading]);
+
+	// Reset visible items when patterns change
+	useEffect(() => {
+		setVisibleItems(32);
+	}, [patterns]);
+
 	const showAllItems = (patterns) => {
 		const items = [];
-		for (let i = 0; i < patterns.length; i++) {
-			if (undefined !== patterns[i]?.name) {
+		const itemsToShow = patterns.slice(0, visibleItems);
+
+		for (let i = 0; i < itemsToShow.length; i++) {
+			if (undefined !== itemsToShow[i]?.name) {
 				items.push(
 					<PatternPreviewWrapper
-						key={patterns[i]?.slug || i}
-						pattern={patterns[i]}
-						patternHTML={patternsHTML ? patternsHTML?.[patterns[i]?.slug]?.html : null}
+						key={itemsToShow[i]?.slug || i}
+						pattern={itemsToShow[i]}
+						patternHTML={patternsHTML ? patternsHTML?.[itemsToShow[i]?.slug]?.html : null}
 						onClick={onClick}
 						customStyles={customStyles}
 						shadowStyles={shadowStyles}
@@ -63,31 +104,43 @@ const PatternLibraryContentPatternsList = ({
 		}
 		return items;
 	};
-	const MasonryCard = ({ index, data, width }) => (
-		<PatternPreviewWrapper
-			itemKey={patterns[index]?.slug || index}
-			pattern={patterns[index]}
-			patternHTML={patternsHTML ? patternsHTML?.[patterns[index]?.slug]?.html : null}
-			onClick={onClick}
-			customStyles={customStyles}
-			shadowStyles={shadowStyles}
-			previewMode={previewMode}
-			selectedStyle={selectedStyle}
-			shadowCompatStyles={shadowCompatStyles}
-			patternType={patternType}
-		/>
-	);
-	console.log(patterns);
+
 	return (
 		<div className="kbs-pattern-library-content-patterns">
 			<div className="kbs-pattern-library-content-patterns-list">
 				<Masonry
-					columnCount={3}
-					columnGutter={48}
-					items={patterns}
+					breakpointCols={{
+						default: 3,
+						1600: 2,
+						1200: 2,
+						500: 1,
+					}}
 					className={`kbs-pattern-library-masonry-grid`}
-					render={MasonryCard}
-				/>
+					columnClassName="kbs-pattern-library-masonry-grid-column"
+				>
+					{showAllItems(patterns)}
+				</Masonry>
+
+				{/* Load more trigger element */}
+				{visibleItems < patterns.length && (
+					<div
+						ref={loadMoreRef}
+						className="kbs-pattern-library-load-more-trigger"
+						style={{
+							height: '20px',
+							marginTop: '20px',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}
+					>
+						{isLoading && (
+							<div className="kbs-pattern-library-loading">
+								{__('Loading more patterns...', 'kadence-blocks')}
+							</div>
+						)}
+					</div>
+				)}
 			</div>
 		</div>
 	);

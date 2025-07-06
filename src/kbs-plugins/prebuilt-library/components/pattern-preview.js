@@ -12,7 +12,7 @@ import { Disabled, Spinner } from '@wordpress/components';
 import root from 'react-shadow';
 
 import { useInView } from 'react-intersection-observer';
-const MAX_HEIGHT = 1600;
+const MAX_HEIGHT = 1200;
 
 const LazyLoad = ({ rootScroll, className, onContentVisible, children }) => {
 	const options = {
@@ -166,34 +166,53 @@ function ScaledPatternShadowPreview({
 		}),
 		[loadingOpacity, viewportWidth, scale, minHeight]
 	);
+	const resizeClear = useCallback(() => {
+		const timer1 = setTimeout(() => setRefreshHeight(true), 100);
+		const timer2 = setTimeout(() => setRefreshHeight(false), 400);
+		const timer3 = setTimeout(() => setLoadingOpacity(1), 800);
 
+		// Cleanup timers if component unmounts
+		return () => {
+			clearTimeout(timer1);
+			clearTimeout(timer2);
+			clearTimeout(timer3);
+		};
+	}, []);
 	return (
 		<>
-			<Disabled className="kbs-pattern-preview-content" style={containerStyles}>
-				<root.div
-					ref={shadowRef}
-					className={`kb-pattern-shadow-container${
-						contentHeight >= MAX_HEIGHT ? ' kb-pattern-overflow' : ''
-					}`}
-					aria-hidden
-					tabIndex={-1}
-					style={shadowContainerStyles}
-				>
-					{styleAssets}
-					{shadowAssets}
-					<style>{`.pattern-shadow-wrap { transition: ${transitionSpeed} }`}</style>
-					<div part={'container'} className={'editor-styles-wrapper pattern-shadow-wrap'}>
-						{contentResizeListener}
-						<div
-							className={`single-iframe-content${
-								window?.kbs_params?.isKadenceT ? ' single-content' : ''
-							}`}
-							dangerouslySetInnerHTML={{ __html: html }}
-						/>
-					</div>
-				</root.div>
-			</Disabled>
-			{!contentHeight && (
+			<LazyLoad
+				offset={200}
+				rootScroll={rootScroll}
+				onContentVisible={() => {
+					resizeClear();
+				}}
+			>
+				<Disabled className="kbs-pattern-preview-content" style={containerStyles}>
+					<root.div
+						ref={shadowRef}
+						className={`kb-pattern-shadow-container${
+							contentHeight >= MAX_HEIGHT ? ' kb-pattern-overflow' : ''
+						}`}
+						aria-hidden
+						tabIndex={-1}
+						style={shadowContainerStyles}
+					>
+						{styleAssets}
+						{shadowAssets}
+						<style>{`.pattern-shadow-wrap { transition: ${transitionSpeed} }`}</style>
+						<div part={'container'} className={'editor-styles-wrapper pattern-shadow-wrap'}>
+							{contentResizeListener}
+							<div
+								className={`single-iframe-content${
+									window?.kbs_params?.isKadenceT ? ' single-content' : ''
+								}`}
+								dangerouslySetInnerHTML={{ __html: html }}
+							/>
+						</div>
+					</root.div>
+				</Disabled>
+			</LazyLoad>
+			{!loadingOpacity && (
 				<div
 					className="kb-preview-iframe-loader-ratio"
 					style={{ paddingBottom: ratio ? ratio : undefined, minHeight: ratio ? undefined : minHeight }}

@@ -40,12 +40,18 @@ class Prebuilt_Patterns_Controller extends WP_REST_Controller {
 	 */
 	private $product_slug = '';
 
-		/**
-		 * The remote pattern library URL.
-		 *
-		 * @var string
-		 */
-	protected $remote_url = 'https://kbs.startertemplatecloud.com/wp-json/kadence-cloud/v1/';
+	// **
+	// * The remote pattern library URL.
+	// *
+	// * @var string
+	// */
+	// protected $remote_url = 'https://kbs.startertemplatecloud.com/wp-json/kadence-cloud/v1/';
+	/**
+	 * The remote pattern library URL.
+	 *
+	 * @var string
+	 */
+	protected $remote_url = 'https://patterns.startertemplatecloud.com/wp-json/kadence-cloud/v1/';
 
 	/**
 	 * Cache handler for pattern library.
