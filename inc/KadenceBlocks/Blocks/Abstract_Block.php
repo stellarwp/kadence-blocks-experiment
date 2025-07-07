@@ -661,6 +661,10 @@ class Abstract_Block {
 		$bg_html           = '';
 		$background_layers = $this->get_background_layers( $attribute_name, $attributes, 'background', $block_instance );
 		if ( ! empty( $background_layers ) ) {
+			// If using preset and preset placeholder mode, just output html placeholder.
+			if ( ! empty( $attributes[ $attribute_name ]['preset'] ) && apply_filters( 'kbs_use_preset_placeholder', false ) ) {
+				return '<div class="kbs-bg-placeholder-' . $attributes[ $attribute_name ]['preset'] . '"></div>';
+			}
 			$attributes_meta   = $this->get_attribute_meta( $block_instance, $attribute_name );
 			$meta_class_prefix = $attributes_meta['classPrefix'] ?? 'kbs-bg-style-';
 			foreach ( $background_layers as $index => $layer ) {
