@@ -23,7 +23,7 @@
 									"gradient": "radial-gradient(ellipse at 83% 67%,var(\u002d\u002dkbs-colors-palette9) 0%,var(\u002d\u002dkbs-colors-palette7) 100%)",
 									"type": "gradient",
 									"opacity": "0%",
-									"hoverOpacity": "100%"
+									"opacityHover": "100%"
 								}
 							},
 							{

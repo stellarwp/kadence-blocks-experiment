@@ -62,21 +62,21 @@ export default function BackgroundMaskLayer({
 		onChange(
 			[undefined, undefined, undefined, undefined, undefined, undefined, undefined],
 			'Desktop' === previewDevice ? 'all' : previewDevice,
-			['pattern', 'patternSize', 'maskColor', 'hoverMaskColor', 'hoverPatternSize', 'color', 'hoverColor']
+			['pattern', 'patternSize', 'maskColor', 'maskColorHover', 'patternSizeHover', 'color', 'colorHover']
 		);
 	};
 	const onResetMask = () => {
 		onChange(
 			[undefined, undefined, undefined, undefined, undefined, undefined, undefined],
 			'Desktop' === previewDevice ? 'all' : previewDevice,
-			['mask', 'size', 'maskColor', 'hoverMaskColor', 'hoverSize', 'color', 'hoverColor']
+			['mask', 'size', 'maskColor', 'maskColorHover', 'sizeHover', 'color', 'colorHover']
 		);
 	};
 	const onResetDivider = () => {
 		onChange(
 			[undefined, undefined, undefined, undefined, undefined, undefined, undefined],
 			'Desktop' === previewDevice ? 'all' : previewDevice,
-			['divider', 'dividerSize', 'maskColor', 'hoverMaskColor', 'hoverDividerSize', 'color', 'hoverColor']
+			['divider', 'dividerSize', 'maskColor', 'maskColorHover', 'dividerSizeHover', 'color', 'colorHover']
 		);
 	};
 	const patterns = getPatternOptions();
@@ -109,15 +109,15 @@ export default function BackgroundMaskLayer({
 					<>
 						<ColorSelect
 							label={__('Pattern Color', 'kadence-blocks')}
-							value={isHover ? layer?.hoverMaskColor : layer?.maskColor}
+							value={isHover ? layer?.maskColorHover : layer?.maskColor}
 							onChange={(value) => {
 								if (isHover) {
-									onChange(value, previewDevice, 'hoverMaskColor');
+									onChange(value, previewDevice, 'maskColorHover');
 								} else {
 									onChange(value, previewDevice, 'maskColor');
 								}
 							}}
-							type={isHover ? 'hoverMaskColor' : 'maskColor'}
+							type={isHover ? 'maskColorHover' : 'maskColor'}
 							inherited={
 								isHover
 									? { inheritedValue: layer?.maskColor ? layer?.maskColor : 'palette3' }
@@ -132,7 +132,7 @@ export default function BackgroundMaskLayer({
 						/>
 						<RadioButtonSelect
 							label={__('Pattern Size', 'kadence-blocks')}
-							value={isHover ? layer?.hoverPatternSize : layer?.patternSize}
+							value={isHover ? layer?.patternSizeHover : layer?.patternSize}
 							type={'patternSize'}
 							inherited={
 								isHover
@@ -144,7 +144,7 @@ export default function BackgroundMaskLayer({
 							hasCustomControls={true}
 							onChange={(value) => {
 								if (isHover) {
-									onChange(value, previewDevice, 'hoverPatternSize');
+									onChange(value, previewDevice, 'patternSizeHover');
 								} else {
 									onChange(value, previewDevice, 'patternSize');
 								}
@@ -156,16 +156,16 @@ export default function BackgroundMaskLayer({
 						/>
 						<SelectBasicControlSelect
 							label={__('Pattern Position', 'kadence-blocks')}
-							value={isHover ? layer?.hoverPatternPosition : layer?.patternPosition}
+							value={isHover ? layer?.patternPositionHover : layer?.patternPosition}
 							onChange={(value) => {
 								if (isHover) {
-									onChange(value, previewDevice, 'hoverPatternPosition');
+									onChange(value, previewDevice, 'patternPositionHover');
 								} else {
 									onChange(value, previewDevice, 'patternPosition');
 								}
 							}}
 							isHover={isHover}
-							type={isHover ? 'hoverBackdropFilter' : 'backdropFilter'}
+							type={isHover ? 'patternPositionHover' : 'patternPosition'}
 							previewDevice={previewDevice}
 							inherited={
 								isHover ? { inheritedValue: layer?.patternPosition } : { inheritedValue: 'top left' }

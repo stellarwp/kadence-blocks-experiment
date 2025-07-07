@@ -13,6 +13,8 @@ namespace KadenceWP\KadenceBlocks\Blocks;
 
 use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
 use KadenceWP\KadenceBlocks\Frontend\Font_Engine;
+use KadenceWP\KadenceBlocks\Settings\Global_Style;
+use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
 use function kbs_get_asset_file;
 
 /**
@@ -96,6 +98,13 @@ class Abstract_Block {
 	];
 
 	/**
+	 * The global styles instance.
+	 *
+	 * @var array
+	 */
+	protected $global_styles = null;
+
+	/**
 	 * The CSS engine instance.
 	 *
 	 * @var CSS_Engine
@@ -110,8 +119,8 @@ class Abstract_Block {
 	protected Font_Engine $font_engine;
 
 	/**
-	 * @param  Container  $container The container instance.
-	 * @param  CSS_Engine $css_engine The CSS engine instance.
+	 * @param Container  $container The container instance.
+	 * @param CSS_Engine $css_engine The CSS engine instance.
 	 */
 	public function __construct( CSS_Engine $css_engine, Font_Engine $font_engine ) {
 		$this->css_engine  = $css_engine;
@@ -576,5 +585,194 @@ class Abstract_Block {
 			}
 		}
 		return $classes;
+	}
+	/**
+	 * Get the global styles ids.
+	 *
+	 * @param array    $attributes The attributes of the block.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @return array
+	 */
+	public function get_global_styles_ids( $attributes, $block_instance ) {
+		$parent_global_styles_ids = [];
+		if ( is_object( $block_instance ) && ! empty( $block_instance->context['kbs/parentGlobalStyles'] ) && is_array( $block_instance->context['kbs/parentGlobalStyles'] ) ) {
+			$parent_global_styles_ids = $block_instance->context['kbs/parentGlobalStyles'];
+		}
+		$current_global_styles_ids = [];
+		if ( ! empty( $attributes['globalStyleIds'] ) && is_array( $attributes['globalStyleIds'] ) ) {
+			$current_global_styles_ids = $attributes['globalStyleIds'];
+		}
+		return array_merge( $parent_global_styles_ids, $current_global_styles_ids, [ 'kbs-base' ] );
+	}
+	/**
+	 * Get the preset layers.
+	 *
+	 * @param string $layers_preset The preset layers.
+	 * @param string $component The component.
+	 * @param array  $global_styles_ids Global style IDs.
+	 * @return array
+	 */
+	public function get_preset_layers( $layers_preset, $component, $global_styles_ids ) {
+		$preset_data = $this->get_preset_data( $layers_preset, $component, $global_styles_ids );
+		if ( empty( $preset_data ) ) {
+			return [];
+		}
+		$layers = ! empty( $preset_data['attributes']['layers'] ) ? $preset_data['attributes']['layers'] : [];
+		if ( ! empty( $layers ) ) {
+			// Reverse the layers so we process the first layer last.
+			return array_reverse( $layers );
+		}
+		return [];
+	}
+	/**
+	 * Get the background layers for a block.
+	 *
+	 * @param string   $attribute_name The attribute name.
+	 * @param array    $attributes The blocks attributes.
+	 * @param string   $component The component.
+	 * @param WP_Block $block_instance The block instance.
+	 * @return array
+	 */
+	public function get_background_layers( $attribute_name, $attributes, $component, $block_instance ) {
+		$global_styles_ids = $this->get_global_styles_ids( $attributes, $block_instance );
+		$layers_preset     = ! empty( $attributes[ $attribute_name ]['preset'] ) ? $attributes[ $attribute_name ]['preset'] : '';
+		
+		if ( ! empty( $layers_preset ) ) {
+			return $this->get_preset_layers( $layers_preset, $component, $global_styles_ids );
+		}
+		
+		// Get layers.
+		$layers = ! empty( $attributes[ $attribute_name ]['layers'] ) ? $attributes[ $attribute_name ]['layers'] : [];
+		if ( ! empty( $layers ) ) {
+			// Reverse the layers so we process the first layer last.
+			return array_reverse( $layers );
+		}
+		return [];
+	}
+	/**
+	 * Get the background html for a block.
+	 *
+	 * @param string   $attribute_name The attribute name.
+	 * @param array    $attributes The blocks attributes.
+	 * @param WP_Block $block_instance The block instance.
+	 * @return array
+	 */ 
+	public function get_background_html( $attribute_name, $attributes, $block_instance ) {
+		$bg_html           = '';
+		$background_layers = $this->get_background_layers( $attribute_name, $attributes, 'background', $block_instance );
+		if ( ! empty( $background_layers ) ) {
+			$attributes_meta   = $this->get_attribute_meta( $block_instance, $attribute_name );
+			$meta_class_prefix = $attributes_meta['classPrefix'] ?? 'kbs-bg-style-';
+			foreach ( $background_layers as $index => $layer ) {
+				$bg_type     = ! empty( $layer['desktop']['type'] ) ? $layer['desktop']['type'] : '';
+				$has_effects = false;
+				if ( $index === 0 ) {
+					if ( $this->has_layer_value( $layer, 'opacity', '100%' ) || $this->has_layer_value( $layer, 'opacityHover', '100%' ) || $this->has_layer_value( $layer, 'blendMode', 'normal' ) || $this->has_layer_value( $layer, 'blendModeHover', 'normal' ) || apply_filters( 'kbs_always_use_bg_layers', false ) ) {
+						$has_effects = true;
+					}
+				}
+				if ( $index === 0 && 'video' !== $bg_type && 'mask' !== $bg_type && ! $has_effects ) {
+					continue;
+				}
+				$bg_html .= '<div class="kbs-bg-layer ' . $meta_class_prefix . $index . ' bg-type-' . $bg_type . '">';
+				if ( 'video' === $bg_type ) {
+					$video_type = ! empty( $layer['desktop']['videoType'] ) ? $layer['desktop']['videoType'] : 'local';
+					if ( 'local' === $video_type && ! empty( $layer['desktop']['video'] ) ) {
+						$video_args            = [
+							'class'       => 'kbs-bg-video',
+							'src'         => $layer['desktop']['video'],
+							'autoplay'    => true,
+							'muted'       => true,
+							'loop'        => 'false',
+							'playsinline' => true,
+						];
+						$video_args            = apply_filters( 'kbs_bg_video_args', $video_args, $attributes, $this->block_name, $unique_id, $block_instance );
+						$video_html_attributes = [];
+						foreach ( $video_args as $key => $value ) {
+							if ( empty( $value ) || true === $value ) {
+								$video_html_attributes[] = $key;
+							} else {
+								$video_html_attributes[] = $key . '="' . esc_attr( $value ) . '"';
+							}
+						}
+						$bg_html .= '<div class="kbs-bg-video-wrapper"><video ' . implode( ' ', $video_html_attributes ) . '></video></div>';
+					} elseif ( 'youtube' === $video_type && ! empty( $layer['desktop']['youtube'] ) ) {
+						$bg_html .= '<video class="kbs-bg-video" src="' . $layer['desktop']['youtube'] . '" autoplay muted loop playsinline></video>';
+					} elseif ( 'vimeo' === $video_type && ! empty( $layer['desktop']['vimeo'] ) ) {
+						$bg_html .= '<video src="' . $layer['desktop']['vimeo'] . '" autoplay muted loop playsinline></video>';
+					}
+				}
+				$bg_html .= '</div>';
+			}
+		}
+		return $bg_html;
+	}
+
+	/**
+	 * Check if the layer has a value.
+	 *
+	 * @param array  $layer The layer data.
+	 * @param string $attribute_name The attribute name.
+	 * @return bool
+	 */
+	public function has_layer_value( $layer, $attribute_name, $default_value = '' ) {
+		if ( empty( $layer ) || ! is_array( $layer ) ) {
+			return false;
+		}
+		$device_options = Editor_Assets::get_responsive_device_options();
+		foreach ( $device_options as $device_option ) {
+			if ( isset( $layer[ $device_option['key'] ][ $attribute_name ] ) && '' !== $layer[ $device_option['key'] ][ $attribute_name ] && $default_value !== $layer[ $device_option['key'] ][ $attribute_name ] ) {
+				return true;
+				break;
+			}
+		}
+		return false;
+	}
+	/**
+	 * Get global styles.
+	 */
+	public function get_global_styles() {
+		$global_style_data = Global_Style::get_global_styles();
+		if ( ! $global_style_data ) {
+			return [];
+		}
+
+		return $global_style_data;
+	}
+	/**
+	 * Get preset data.
+	 *
+	 * @param string $preset_key The preset key.
+	 * @param array  $global_styles_ids Global style IDs.
+	 * @return array
+	 */
+	public function get_preset_data( $preset_key, $component, $global_styles_ids ) {
+		if ( null === $this->global_styles ) {
+			$this->global_styles = $this->get_global_styles();
+		}
+		// We use the order of the global styles ids to get the first defined preset. If the global ID doesn't have a defined preset we move to the next.
+		foreach ( $global_styles_ids as $global_style_id ) {
+			if ( ! empty( $this->global_styles[ $global_style_id ]['components'][ $component ]['presets'] ) && is_array( $this->global_styles[ $global_style_id ]['components'][ $component ]['presets'] ) ) {
+				foreach ( $this->global_styles[ $global_style_id ]['components'][ $component ]['presets'] as $preset_item_key => $preset_data ) {
+					if ( $preset_key === $preset_item_key ) {
+						return $preset_data;
+						break;
+					}
+				}
+			}
+		}
+	}
+	/**
+	 * Get the attribute meta from the block instance.
+	 *
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param string   $attribute_name The name of the attribute to get.
+	 * @return array
+	 */
+	public function get_attribute_meta( $block_instance, $attribute_name ) {
+		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes[ $attribute_name ] ) ) {
+			return $block_instance->block_type->attributes[ $attribute_name ];
+		}
+		return [];
 	}
 }

@@ -5,6 +5,7 @@
  */
 
 .kbs-container {
+	position: relative;
 	display: flex;
 	flex-direction: var(--kbs-cont-flex-direction, column);
 	justify-content: var(--kbs-cont-justify-content, flex-start);
@@ -45,6 +46,7 @@
 	> .wp-block {
 		margin-left: 0;
 		margin-right: 0;
+		position: relative;
 	}
 	> .kbs-container {
 		flex: var(--kbs-cont-flex, auto);
@@ -57,5 +59,19 @@
 		border-left: var(--kbs-cont-border-left-hover, var(--kbs-cont-border-left));
 		border-right: var(--kbs-cont-border-right-hover, var(--kbs-cont-border-right));
 		border-bottom: var(--kbs-cont-border-bottom-hover, var(--kbs-cont-border-bottom));
+	}
+	.kbs-bg-layer {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background-color: transparent;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-attachment: scroll;
+		overflow: hidden;
+		transition: all 0.3s ease-in-out;
 	}
 }

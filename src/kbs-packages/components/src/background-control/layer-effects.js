@@ -83,9 +83,9 @@ export default function LayerEffects({
 						<div className="kbs-background-image-layer-control-color-opacity">
 							<ColorSelect
 								label={__('Background Color', 'kadence-blocks')}
-								value={isHover ? layer?.hoverColor : layer?.color}
+								value={isHover ? layer?.colorHover : layer?.color}
 								onChange={onChange}
-								type={isHover ? 'hoverColor' : 'color'}
+								type={isHover ? 'colorHover' : 'color'}
 								previewDevice={previewDevice}
 								globalClasses={globalClasses}
 								globalStylesCss={globalStylesCss}
@@ -98,23 +98,23 @@ export default function LayerEffects({
 								max={100}
 								min={0}
 								units={[{ value: '%', label: '%' }]}
-								value={isHover ? layer?.hoverOpacity : layer?.opacity}
+								value={isHover ? layer?.opacityHover : layer?.opacity}
 								previewDevice={previewDevice}
 								inherited={isHover ? { inheritedValue: layer?.opacity } : { inheritedValue: '' }}
 								placeholder={100}
 								step={1}
 								isHover={isHover}
 								onChange={(value) =>
-									onChange(value, previewDevice, isHover ? 'hoverOpacity' : 'opacity')
+									onChange(value, previewDevice, isHover ? 'opacityHover' : 'opacity')
 								}
 							/>
 						</div>
 					) : (
 						<RadioButtonSelect
 							label={__('Opacity', 'kadence-blocks')}
-							type={isHover ? 'hoverOpacity' : 'opacity'}
-							value={isHover ? layer?.hoverOpacity : layer?.opacity}
-							onChange={(value) => onChange(value, previewDevice, isHover ? 'hoverOpacity' : 'opacity')}
+							type={isHover ? 'opacityHover' : 'opacity'}
+							value={isHover ? layer?.opacityHover : layer?.opacity}
+							onChange={(value) => onChange(value, previewDevice, isHover ? 'opacityHover' : 'opacity')}
 							units={[{ value: '%', label: '%' }]}
 							isHover={isHover}
 							inherited={isHover ? { inheritedValue: layer?.opacity } : { inheritedValue: '' }}
@@ -127,10 +127,10 @@ export default function LayerEffects({
 					)}
 					<SelectBasicControlSelect
 						label={__('Blend Mode', 'kadence-blocks')}
-						value={isHover ? layer?.hoverBlendMode : layer?.blendMode}
-						onChange={(value) => onChange(value, previewDevice, isHover ? 'hoverBlendMode' : 'blendMode')}
+						value={isHover ? layer?.blendModeHover : layer?.blendMode}
+						onChange={(value) => onChange(value, previewDevice, isHover ? 'blendModeHover' : 'blendMode')}
 						isHover={isHover}
-						type={isHover ? 'hoverBlendMode' : 'blendMode'}
+						type={isHover ? 'blendModeHover' : 'blendMode'}
 						previewDevice={previewDevice}
 						inherited={isHover ? { inheritedValue: layer?.blendMode } : { inheritedValue: '' }}
 						options={[

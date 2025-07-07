@@ -22,6 +22,7 @@ import {
 	getInheritedValue,
 	handleMultipleAttributeChange,
 	getSpacingOutput,
+	getPresetOptions,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
@@ -182,22 +183,22 @@ export default function SpaceControl({
 		{
 			icon: sectionLargeIcon,
 			title: __('Section XXL', 'kadence-blocks'),
-			key: 'section-xxl',
+			key: 'kbs-pd-sec-xxl',
 		},
 		{
 			icon: sectionMediumIcon,
 			title: __('Section XL', 'kadence-blocks'),
-			key: 'section-xl',
+			key: 'kbs-pd-sec-xl',
 		},
 		{
 			icon: cardLargeIcon,
 			title: __('Card Large', 'kadence-blocks'),
-			key: 'card-lg',
+			key: 'kbs-pd-card-lg',
 		},
 		{
 			icon: cardMediumIcon,
 			title: __('Card Medium', 'kadence-blocks'),
-			key: 'card-md',
+			key: 'kbs-pd-card-md',
 		},
 	];
 	// Return the JSX directly, not inside an array
