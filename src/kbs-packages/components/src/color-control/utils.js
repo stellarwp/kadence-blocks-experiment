@@ -56,6 +56,9 @@ export const getColorLabel = (value, colors, gradients = []) => {
 		if (value.startsWith('color-mix')) {
 			return __('Color Mix', 'kadence-blocks');
 		}
+		if (value.startsWith('oklch')) {
+			return __('OKLch Color', 'kadence-blocks');
+		}
 	}
 	return value;
 };
@@ -77,7 +80,8 @@ export const getColorHex = (value, ref) => {
 		value.startsWith('color-mix') ||
 		value.startsWith('linear-gradient') ||
 		value.startsWith('radial-gradient') ||
-		value.startsWith('conic-gradient')
+		value.startsWith('conic-gradient') ||
+		value.startsWith('oklch')
 	) {
 		return '';
 	}

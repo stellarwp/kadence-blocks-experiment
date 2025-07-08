@@ -11,6 +11,7 @@ import ColorStorybook from './color-storybook';
 import GradientPicker from '../gradient-control';
 import ColorMix from './color-mix';
 import ColorHSL from './color-hsl';
+import ColorOKLch from './color-oklch';
 import { hoverIcon } from '../constants/icons';
 const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasPalette = true) => {
 	const tempValue = currentValue ? currentValue : inherited?.inheritedValue ? inherited.inheritedValue : '';
@@ -40,7 +41,8 @@ const ColorSelector = ({
 	inherited,
 	hasGradient = false,
 	hasMix = false,
-	hasHSL = true,
+	hasHSL = false,
+	hasOKLch = true,
 	globalClasses,
 	hasHoverControls = false,
 	isHover = false,
@@ -79,8 +81,11 @@ const ColorSelector = ({
 		if (hasHSL) {
 			tempTabs.push({ name: 'hsl', title: __('HSL', 'kadence-blocks') });
 		}
+		if (hasOKLch) {
+			tempTabs.push({ name: 'oklch', title: __('OKLch', 'kadence-blocks') });
+		}
 		return tempTabs;
-	}, [hasGradient, hasMix, hasHSL]);
+	}, [hasGradient, hasMix, hasHSL, hasOKLch]);
 	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasPalette, hasCustomColors);
 	return (
 		<div className="kbs-color-selector-tab-wrapper">
@@ -127,6 +132,17 @@ const ColorSelector = ({
 						} else if ('hsl' === tab.name) {
 							return (
 								<ColorHSL
+									value={currentValue}
+									onChange={handleColorChange}
+									globalClasses={globalClasses}
+									isHover={isHover}
+									inherited={inherited}
+									globalStylesCss={globalStylesCss}
+								/>
+							);
+						} else if ('oklch' === tab.name) {
+							return (
+								<ColorOKLch
 									value={currentValue}
 									onChange={handleColorChange}
 									globalClasses={globalClasses}

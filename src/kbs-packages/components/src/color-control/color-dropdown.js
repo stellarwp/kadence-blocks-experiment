@@ -42,6 +42,7 @@ function ColorDropdownContent({
 	type,
 	hasGradient,
 	hasMix,
+	hasOKLch,
 	globalStylesCss,
 	onToggle,
 	isOpen,
@@ -71,6 +72,7 @@ function ColorDropdownContent({
 				inherited={inherited}
 				hasGradient={hasGradient}
 				hasMix={hasMix}
+				hasOKLch={hasOKLch}
 				globalStylesCss={globalStylesCss}
 				hasPalette={hasPalette}
 				hasCustomColors={hasCustomColors}
@@ -93,6 +95,7 @@ export default function ColorDropdown({
 	type,
 	hasGradient,
 	hasMix,
+	hasOKLch,
 	globalStylesCss,
 	hasPalette,
 	hasGradientPalette = true,
@@ -109,6 +112,7 @@ export default function ColorDropdown({
 				type={type}
 				hasGradient={hasGradient}
 				hasMix={hasMix}
+				hasOKLch={hasOKLch}
 				globalStylesCss={globalStylesCss}
 				onToggle={onToggle}
 				isOpen={isOpen}

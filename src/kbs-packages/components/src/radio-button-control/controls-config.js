@@ -48,6 +48,7 @@ import RadioToggleGroupFlexSizeUI from './ui-toggle-group-flex-size';
 import RadioToggleGroupInputRangeUI from './ui-toggle-group-input-range';
 import RadioToggleGroupBackgroundSizeUI from './ui-toggle-group-background-size';
 import RadioToggleGroupShadeRangeUI from './ui-toggle-group-shade-range';
+import RadioToggleGroupHueRangeUI from './ui-toggle-group-hue-range';
 import RadioToggleGroupInputRangeUINoUnit from './ui-toggle-group-input-range-no-unit';
 import BorderRadiusRangeUIControls from './ui-range-border-radius';
 export const getRadioConfig = (radioType, previewDirection) => {
@@ -240,6 +241,26 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'textOrientation':
 			controls = getTextOrientationControls();
+			break;
+		case 'oklch-lightness':
+		case 'oklchLightness':
+			UIComponent = RadioToggleGroupShadeRangeUI;
+			controls = getOKLchLightnessControls();
+			break;
+		case 'oklch-chroma':
+		case 'oklchChroma':
+			UIComponent = RadioToggleGroupShadeRangeUI;
+			controls = getOKLchChromaControls();
+			break;
+		case 'oklch-hue':
+		case 'oklchHue':
+			UIComponent = RadioToggleGroupHueRangeUI;
+			controls = getOKLchHueControls();
+			break;
+		case 'oklch-alpha':
+		case 'oklchAlpha':
+			UIComponent = RadioToggleGroupShadeRangeUI;
+			controls = getOKLchAlphaControls();
 			break;
 	}
 
@@ -1486,5 +1507,162 @@ export const getTextOrientationControls = () => [
 		icon: sidewaysUpTextOrientationIcon,
 		title: __('Sideways Up', 'kadence-blocks'),
 		key: 'sideways-up',
+	},
+];
+
+export const getOKLchLightnessControls = () => [
+	{
+		title: __('Dark', 'kadence-blocks'),
+		name: '',
+		key: 0,
+	},
+	{
+		title: __('50%', 'kadence-blocks'),
+		name: '',
+		key: 50,
+	},
+	{
+		title: __('80%', 'kadence-blocks'),
+		name: '',
+		key: 80,
+	},
+	{
+		title: __('Normal', 'kadence-blocks'),
+		name: '',
+		key: 100,
+	},
+	{
+		title: __('120%', 'kadence-blocks'),
+		name: '',
+		key: 120,
+	},
+	{
+		title: __('150%', 'kadence-blocks'),
+		name: '',
+		key: 150,
+	},
+	{
+		title: __('Light', 'kadence-blocks'),
+		name: '',
+		key: 200,
+	},
+];
+
+export const getOKLchChromaControls = () => [
+	{
+		title: __('Gray', 'kadence-blocks'),
+		name: '',
+		key: 0,
+	},
+	{
+		title: __('50%', 'kadence-blocks'),
+		name: '',
+		key: 50,
+	},
+	{
+		title: __('80%', 'kadence-blocks'),
+		name: '',
+		key: 80,
+	},
+	{
+		title: __('Normal', 'kadence-blocks'),
+		name: '',
+		key: 100,
+	},
+	{
+		title: __('120%', 'kadence-blocks'),
+		name: '',
+		key: 120,
+	},
+	{
+		title: __('150%', 'kadence-blocks'),
+		name: '',
+		key: 150,
+	},
+	{
+		title: __('Vivid', 'kadence-blocks'),
+		name: '',
+		key: 200,
+	},
+];
+
+export const getOKLchHueControls = () => [
+	{
+		title: __('-90°', 'kadence-blocks'),
+		name: '-90°',
+		key: -90,
+	},
+	{
+		title: __('-45°', 'kadence-blocks'),
+		name: '-45°',
+		key: -45,
+	},
+	{
+		title: __('-15°', 'kadence-blocks'),
+		name: '-15°',
+		key: -15,
+	},
+	{
+		title: __('+15°', 'kadence-blocks'),
+		name: '+15°',
+		key: 15,
+	},
+	{
+		title: __('+45°', 'kadence-blocks'),
+		name: '+45°',
+		key: 45,
+	},
+	{
+		title: __('+90°', 'kadence-blocks'),
+		name: '+90°',
+		key: 90,
+	},
+];
+
+export const getOKLchAlphaControls = () => [
+	{
+		title: __('90% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 90,
+	},
+	{
+		title: __('80% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 80,
+	},
+	{
+		title: __('70% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 70,
+	},
+	{
+		title: __('60% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 60,
+	},
+	{
+		title: __('50% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 50,
+	},
+	{
+		title: __('40% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 40,
+	},
+	{
+		title: __('30% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 30,
+	},
+	{
+		title: __('20% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 20,
+	},
+	{
+		title: __('10% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 10,
 	},
 ];

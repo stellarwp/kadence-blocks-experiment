@@ -54,6 +54,7 @@ export default function ColorControl({
 	customOnChange = undefined,
 	hasGradient = false,
 	hasMix = false,
+	hasOKLch = true,
 	globalStylesCss,
 	hasToggleLabel = true,
 	hasTitleBar = true,
@@ -138,6 +139,7 @@ export default function ColorControl({
 						type: typeToUse,
 						hasGradient: hasGradient,
 						hasMix: hasMix,
+						hasOKLch: hasOKLch,
 						globalStylesCss: globalStylesCss,
 					})}
 				/>

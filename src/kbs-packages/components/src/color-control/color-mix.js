@@ -15,8 +15,8 @@ const getColorMixValues = (value) => {
 		return ['', '', ''];
 	}
 	if (value.startsWith('color-mix')) {
-		// Parse color-mix string like: color-mix(in srgb, var(--kbs-colors-palette1, #ffffff), var(--kbs-mix-black, #000000) 90%)
-		const match = value.match(/color-mix\(in\s+srgb,\s*(var\([^)]+\)|[^,]+),\s*(var\([^)]+\)|[^,]+)\s+(\d+)%\)/);
+		// Parse color-mix string like: color-mix(in oklch, var(--kbs-colors-palette1, #ffffff), var(--kbs-mix-black, #000000) 90%)
+		const match = value.match(/color-mix\(in\s+oklab,\s*(var\([^)]+\)|[^,]+),\s*(var\([^)]+\)|[^,]+)\s+(\d+)%\)/);
 		if (match) {
 			return [match[1].trim(), match[2].trim(), match[3] + '%'];
 		}
@@ -86,7 +86,7 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 				inherited={{ inheritedValue: inheritedColor }}
 				onChange={(value) =>
 					onChange(
-						`color-mix(in srgb, ${getColorOutput(value)}, ${type ? type : inheritedType ? inheritedType : 'black'} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+						`color-mix(in oklch, ${getColorOutput(value)}, ${type ? type : inheritedType ? inheritedType : 'black'} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
 					)
 				}
 				globalClasses={globalClasses}
@@ -108,14 +108,14 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 							if (!value) {
 								if (inheritedTypeValue) {
 									onChange(
-										`color-mix(in srgb, ${color ? color : inheritedColor}, ${inheritedTypeValue} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, ${inheritedTypeValue} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
 									);
 								}
 							} else {
 								if (value === 'shade') {
 									if (!isShade) {
 										onChange(
-											`color-mix(in srgb, ${color ? color : inheritedColor}, var(--kbs-mix-black, #000000) ${mix ? mix : inheritedMix ? inheritedMix : '10%'})`
+											`color-mix(in oklch, ${color ? color : inheritedColor}, var(--kbs-mix-black, #000000) ${mix ? mix : inheritedMix ? inheritedMix : '10%'})`
 										);
 									}
 								} else if (value === 'mix') {
@@ -123,16 +123,16 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 										const tempColor =
 											type === 'var(--kbs-mix-black, #000000)' ? '#000000' : '#ffffff';
 										onChange(
-											`color-mix(in srgb, ${color ? color : inheritedColor}, ${tempColor} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+											`color-mix(in oklch, ${color ? color : inheritedColor}, ${tempColor} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
 										);
 									}
 								} else if (value === 'transparent') {
 									onChange(
-										`color-mix(in srgb, ${color ? color : inheritedColor}, var(--kbs-mix-transparent, transparent) ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, var(--kbs-mix-transparent, transparent) ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
 									);
 								} else {
 									onChange(
-										`color-mix(in srgb, ${color ? color : inheritedColor}, ${value} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, ${value} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
 									);
 								}
 							}
@@ -151,7 +151,7 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 							onChange={(value) => {
 								if (!value) {
 									onChange(
-										`color-mix(in srgb, ${color ? color : inheritedColor}, ${type ? type : inheritedType ? inheritedType : 'var(--kbs-mix-black, #000000)'} 0%)`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, ${type ? type : inheritedType ? inheritedType : 'var(--kbs-mix-black, #000000)'} 0%)`
 									);
 								} else {
 									// the value is the percentage of the shade convert to a number
@@ -162,7 +162,7 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 											? 'var(--kbs-mix-black, #000000)'
 											: 'var(--kbs-mix-white, #ffffff)';
 									onChange(
-										`color-mix(in srgb, ${color ? color : inheritedColor}, ${tempType} ${Math.abs(tempValue)}%)`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, ${tempType} ${Math.abs(tempValue)}%)`
 									);
 								}
 							}}
@@ -186,13 +186,13 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 							onChange={(value) => {
 								if (!value) {
 									onChange(
-										`color-mix(in srgb, ${color ? color : inheritedColor}, ${type ? type : inheritedType ? inheritedType : 'var(--kbs-mix-transparent, transparent)'} 0%)`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, ${type ? type : inheritedType ? inheritedType : 'var(--kbs-mix-transparent, transparent)'} 0%)`
 									);
 								} else {
 									// the value is the percentage of the shade convert to a number
 									const tempValue = parseInt(value);
 									onChange(
-										`color-mix(in srgb, ${color ? color : inheritedColor}, var(--kbs-mix-transparent, transparent) ${Math.abs(tempValue)}%)`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, var(--kbs-mix-transparent, transparent) ${Math.abs(tempValue)}%)`
 									);
 								}
 							}}
@@ -212,7 +212,7 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 								inherited={{ inheritedValue: inheritedType }}
 								onChange={(value) =>
 									onChange(
-										`color-mix(in srgb, ${color ? color : inheritedColor}, ${getColorOutput(value)} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, ${getColorOutput(value)} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
 									)
 								}
 								globalClasses={globalClasses}
@@ -232,13 +232,13 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 								onChange={(value) => {
 									if (!value) {
 										onChange(
-											`color-mix(in srgb, ${color ? color : inheritedColor}, ${type ? type : inheritedType ? inheritedType : '#ffffff'} 0%)`
+											`color-mix(in oklch, ${color ? color : inheritedColor}, ${type ? type : inheritedType ? inheritedType : '#ffffff'} 0%)`
 										);
 									} else {
 										// the value is the percentage of the shade convert to a number
 										const tempValue = parseInt(value);
 										onChange(
-											`color-mix(in srgb, ${color ? color : inheritedColor}, ${type ? type : inheritedType ? inheritedType : '#ffffff'} ${Math.abs(tempValue)}%)`
+											`color-mix(in oklch, ${color ? color : inheritedColor}, ${type ? type : inheritedType ? inheritedType : '#ffffff'} ${Math.abs(tempValue)}%)`
 										);
 									}
 								}}

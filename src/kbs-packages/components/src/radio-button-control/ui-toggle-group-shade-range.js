@@ -35,9 +35,13 @@ function RadioToggleGroupShadeRangeUI({
 	units = [],
 	labelPosition = 'top',
 	placeholder = '',
-	min = -100,
-	max = 100,
+	min = 0,
+	max = 200,
 	step = 1,
+	hue = 0,
+	lightness = 100,
+	chroma = 100,
+	baseColor = '',
 }) {
 	const defaultUnits = [
 		{
@@ -54,29 +58,43 @@ function RadioToggleGroupShadeRangeUI({
 		return placeholder;
 	}, [inherited, placeholder]);
 	const mixColor = useMemo(() => {
-		if (shadeType === 'transparent') {
+		if (shadeType === 'transparent' || shadeType === 'alpha') {
 			return 'transparent';
+		}
+		if (shadeType === 'lightness') {
+			// For lightness, we'll use black/white based on the value
+			return 'white'; // This will be overridden in the style calculation
+		}
+		if (shadeType === 'chroma' || shadeType === 'hue') {
+			// For chroma and hue, we don't mix with another color
+			return null;
 		}
 		return shadeType;
 	}, [shadeType]);
 	const beforeIcon = useMemo(() => {
-		if (shadeType === 'transparent') {
+		if (shadeType === 'transparent' || shadeType === 'alpha') {
 			return fullColorIcon;
 		}
-		if (shadeType === 'shade') {
+		if (shadeType === 'shade' || shadeType === 'lightness') {
 			return darkIcon;
 		}
+		if (shadeType === 'chroma' || shadeType === 'hue') {
+			return <ColorIndicator colorValue={color} />;
+		}
 		return <ColorIndicator colorValue={color} />;
-	}, [shadeType]);
+	}, [shadeType, color]);
 	const afterIcon = useMemo(() => {
-		if (shadeType === 'transparent') {
+		if (shadeType === 'transparent' || shadeType === 'alpha') {
 			return transparentIcon;
 		}
-		if (shadeType === 'shade') {
+		if (shadeType === 'shade' || shadeType === 'lightness') {
 			return lightIcon;
 		}
+		if (shadeType === 'chroma' || shadeType === 'hue') {
+			return <ColorIndicator colorValue={color} />;
+		}
 		return <ColorIndicator colorValue={shadeType} />;
-	}, [shadeType]);
+	}, [shadeType, color]);
 	return (
 		<div className="kbs-radio-button-control__toggle-group-input kbs-radio-button-control__toggle-group-input-shade-range">
 			{controls.length > 0 && !isCustom && (
@@ -93,14 +111,31 @@ function RadioToggleGroupShadeRangeUI({
 				>
 					{map(controls, ({ key, title, name }) => (
 						<ToggleGroupControlOption
-							className={`kbs-radio-button-control__toggle_item ${parseFloat(value) === parseInt(key) ? ' kb-is-pressed' : ''}${!value && parseInt(key) === parseInt(inherited?.inheritedValue) ? ' kb-is-inherited' : ''}`}
+							className={`kbs-radio-button-control__toggle_item ${parseInt(value) === parseInt(key) ? ' kb-is-pressed' : ''}${(value === undefined || value === '') && parseInt(key) === parseInt(inherited?.inheritedValue) ? ' kb-is-inherited' : ''}`}
 							key={key}
 							label={''}
 							aria-label={title}
 							showTooltip={true}
 							value={key}
 							style={{
-								'--bg-mix': `color-mix(in srgb, ${color}, ${shadeType === 'shade' ? (parseInt(key) < 0 ? 'black' : 'white') : mixColor} ${Math.abs(key)}%)`,
+								'--bg-mix': (() => {
+									if (shadeType === 'lightness') {
+										// For OKLch lightness using multiplication
+										return `oklch(from ${baseColor} calc(l * ${(key / 100).toFixed(2)}) calc(c * ${(chroma / 100).toFixed(2)}) calc(h + ${hue}) / 100%)`;
+									} else if (shadeType === 'chroma') {
+										// For OKLch chroma using multiplication
+										return `oklch(from ${baseColor} calc(l * ${(lightness / 100).toFixed(2)}) calc(c * ${(key / 100).toFixed(2)}) calc(h + ${hue}) / 100%)`;
+									} else if (shadeType === 'hue') {
+										// For OKLch hue (degrees, no conversion needed)
+										return `oklch(from ${color} l c calc(h + ${key}) / 100%)`;
+									} else if (shadeType === 'alpha') {
+										// For OKLch alpha (percentage)
+										return `oklch(from ${color} l c h / ${key}%)`;
+									} else {
+										// Default color-mix behavior
+										return `color-mix(in oklch, ${color}, ${shadeType === 'shade' ? (parseInt(key) < 0 ? 'black' : 'white') : mixColor} ${Math.abs(key)}%)`;
+									}
+								})(),
 							}}
 						/>
 					))}
@@ -112,7 +147,7 @@ function RadioToggleGroupShadeRangeUI({
 						<RangeControl
 							className={clsx(
 								'kbs-range-control kbs-input-control',
-								(!value || value === 0) && placeholderValue && 'kbs-inherited'
+								(value === undefined || value === '') && placeholderValue && 'kbs-inherited'
 							)}
 							__next40pxDefaultSize={true}
 							__nextHasNoMarginBottom={true}
@@ -135,7 +170,7 @@ function RadioToggleGroupShadeRangeUI({
 							placeholder={placeholderValue}
 							label={label && 'top' !== labelPosition ? label : undefined}
 							labelPosition={'top' !== labelPosition ? labelPosition : undefined}
-							value={undefined !== value ? value + '%' : ''}
+							value={value !== undefined && value !== '' ? value + '%' : ''}
 							onChange={onChange}
 							units={units.length > 0 ? units : defaultUnits}
 							min={min}
