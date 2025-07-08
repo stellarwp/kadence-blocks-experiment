@@ -120,14 +120,37 @@ function RadioToggleGroupShadeRangeUI({
 							style={{
 								'--bg-mix': (() => {
 									if (shadeType === 'lightness') {
-										// For OKLch lightness using multiplication
-										return `oklch(from ${baseColor} calc(l * ${(key / 100).toFixed(2)}) calc(c * ${(chroma / 100).toFixed(2)}) calc(h + ${hue}) / 100%)`;
+										// For OKLch lightness using hybrid approach
+										let lightnessCalc;
+										if (key <= 100) {
+											// Darken: multiply
+											lightnessCalc = `l * ${(key / 100).toFixed(2)}`;
+										} else {
+											// Lighten: add
+											const addValue = ((key - 100) / 100).toFixed(2);
+											lightnessCalc = `l + ${addValue} * (1 - l)`;
+										}
+										return `oklch(from ${baseColor} calc(${lightnessCalc}) calc(c * ${(chroma / 100).toFixed(2)}) calc(h + ${hue}) / 100%)`;
 									} else if (shadeType === 'chroma') {
 										// For OKLch chroma using multiplication
-										return `oklch(from ${baseColor} calc(l * ${(lightness / 100).toFixed(2)}) calc(c * ${(key / 100).toFixed(2)}) calc(h + ${hue}) / 100%)`;
+										let lightnessCalc;
+										if (lightness <= 100) {
+											lightnessCalc = `l * ${(lightness / 100).toFixed(2)}`;
+										} else {
+											const addValue = ((lightness - 100) / 100).toFixed(2);
+											lightnessCalc = `l + ${addValue} * (1 - l)`;
+										}
+										return `oklch(from ${baseColor} calc(${lightnessCalc}) calc(c * ${(key / 100).toFixed(2)}) calc(h + ${hue}) / 100%)`;
 									} else if (shadeType === 'hue') {
 										// For OKLch hue (degrees, no conversion needed)
-										return `oklch(from ${color} l c calc(h + ${key}) / 100%)`;
+										let lightnessCalc;
+										if (lightness <= 100) {
+											lightnessCalc = `l * ${(lightness / 100).toFixed(2)}`;
+										} else {
+											const addValue = ((lightness - 100) / 100).toFixed(2);
+											lightnessCalc = `l + ${addValue} * (1 - l)`;
+										}
+										return `oklch(from ${baseColor} calc(${lightnessCalc}) calc(c * ${(chroma / 100).toFixed(2)}) calc(h + ${key}) / 100%)`;
 									} else if (shadeType === 'alpha') {
 										// For OKLch alpha (percentage)
 										return `oklch(from ${color} l c h / ${key}%)`;

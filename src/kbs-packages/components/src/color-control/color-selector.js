@@ -13,7 +13,7 @@ import ColorMix from './color-mix';
 import ColorHSL from './color-hsl';
 import ColorOKLch from './color-oklch';
 import { hoverIcon } from '../constants/icons';
-const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasPalette = true) => {
+const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasOKLch, hasPalette = true) => {
 	const tempValue = currentValue ? currentValue : inherited?.inheritedValue ? inherited.inheritedValue : '';
 	if (!tempValue) {
 		return hasPalette ? 'storybook' : 'custom';
@@ -28,6 +28,9 @@ const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasPale
 	}
 	if (hasMix && tempValue.startsWith('color-mix')) {
 		return 'mix';
+	}
+	if (hasOKLch && tempValue.startsWith('oklch')) {
+		return 'oklch';
 	}
 	if (tempValue.startsWith('#')) {
 		return 'custom';
@@ -86,7 +89,7 @@ const ColorSelector = ({
 		}
 		return tempTabs;
 	}, [hasGradient, hasMix, hasHSL, hasOKLch]);
-	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasPalette, hasCustomColors);
+	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasOKLch, hasPalette, hasCustomColors);
 	return (
 		<div className="kbs-color-selector-tab-wrapper">
 			<TabPanel

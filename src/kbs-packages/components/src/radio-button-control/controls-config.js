@@ -254,7 +254,7 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'oklch-hue':
 		case 'oklchHue':
-			UIComponent = RadioToggleGroupHueRangeUI;
+			UIComponent = RadioToggleGroupShadeRangeUI;
 			controls = getOKLchHueControls();
 			break;
 		case 'oklch-alpha':
@@ -1512,9 +1512,14 @@ export const getTextOrientationControls = () => [
 
 export const getOKLchLightnessControls = () => [
 	{
-		title: __('Dark', 'kadence-blocks'),
+		title: __('Black', 'kadence-blocks'),
 		name: '',
 		key: 0,
+	},
+	{
+		title: __('25%', 'kadence-blocks'),
+		name: '',
+		key: 25,
 	},
 	{
 		title: __('50%', 'kadence-blocks'),
@@ -1522,9 +1527,9 @@ export const getOKLchLightnessControls = () => [
 		key: 50,
 	},
 	{
-		title: __('80%', 'kadence-blocks'),
+		title: __('75%', 'kadence-blocks'),
 		name: '',
-		key: 80,
+		key: 75,
 	},
 	{
 		title: __('Normal', 'kadence-blocks'),
@@ -1532,9 +1537,9 @@ export const getOKLchLightnessControls = () => [
 		key: 100,
 	},
 	{
-		title: __('120%', 'kadence-blocks'),
+		title: __('125%', 'kadence-blocks'),
 		name: '',
-		key: 120,
+		key: 125,
 	},
 	{
 		title: __('150%', 'kadence-blocks'),
@@ -1542,7 +1547,12 @@ export const getOKLchLightnessControls = () => [
 		key: 150,
 	},
 	{
-		title: __('Light', 'kadence-blocks'),
+		title: __('175%', 'kadence-blocks'),
+		name: '',
+		key: 175,
+	},
+	{
+		title: __('White', 'kadence-blocks'),
 		name: '',
 		key: 200,
 	},

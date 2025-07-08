@@ -15,17 +15,34 @@ const getColorOKLchValues = (value) => {
 		return ['', '', '', '', ''];
 	}
 	if (value.startsWith('oklch')) {
-		// Parse oklch string like: oklch(from var(--kbs-colors-palette1) calc(l * 1.0) calc(c * 1.0) calc(h + 30) / 100%)
-		// The lightness and chroma use multiplication, hue uses addition
-		const regex = /oklch\(\s*from\s+(?<color>var\(--[a-zA-Z0-9-]+\)|#[0-9a-fA-F]{6})\s+calc\(l\s*\*\s*(?<l_op>\d*\.?\d+)\)\s+calc\(c\s*\*\s*(?<c_op>\d*\.?\d+)\)\s+calc\(h\s*\+\s*(?<h_op>[-+]?\s*\d+)\)\s*\/\s*(?<alpha>\d+)%\)/;
+		// Parse oklch string - handles both multiplication and addition formats for lightness
+		// Examples: calc(l * 0.5), calc(l + 0.5 * (1 - l)), calc(c * 1.0), calc(h + 30)
+		const regex = /oklch\(\s*from\s+(?<color>var\(--[a-zA-Z0-9-]+\)|#[0-9a-fA-F]{6})\s+calc\((?<l_calc>l\s*\*\s*\d*\.?\d+|l\s*\+\s*\d*\.?\d+\s*\*\s*\(1\s*-\s*l\))\)\s+calc\(c\s*\*\s*(?<c_op>\d*\.?\d+)\)\s+calc\(h\s*\+\s*(?<h_op>[-+]?\s*\d+)\)\s*\/\s*(?<alpha>\d+)%\)/;
 		
 		const match = value.match(regex);
 		
 		if (match) {
-			const { color, l_op, c_op, h_op, alpha } = match.groups;
+			const { color, l_calc, c_op, h_op, alpha } = match.groups;
+			
+			// Parse lightness value
+			let lightnessPercent = 100;
+			if (l_calc.includes('*') && l_calc.includes('(1 - l)')) {
+				// Addition format: l + X * (1 - l)
+				const addMatch = l_calc.match(/l\s*\+\s*(\d*\.?\d+)\s*\*/);
+				if (addMatch) {
+					lightnessPercent = 100 + Math.round(parseFloat(addMatch[1]) * 100);
+				}
+			} else if (l_calc.includes('*')) {
+				// Multiplication format: l * X
+				const multMatch = l_calc.match(/l\s*\*\s*(\d*\.?\d+)/);
+				if (multMatch) {
+					lightnessPercent = Math.round(parseFloat(multMatch[1]) * 100);
+				}
+			}
+			
 			return [
 				color,
-				Math.round(parseFloat(l_op) * 100), // Convert multiplier back to percentage for UI
+				lightnessPercent,
 				Math.round(parseFloat(c_op) * 100), // Convert multiplier back to percentage for UI
 				parseInt(h_op.replace(/\s/g, ''), 10),
 				parseInt(alpha, 10) / 100,
@@ -45,8 +62,19 @@ const getColorOKLchValues = (value) => {
 	return [getColorOutput(value), 100, 100, 0, 1];
 };
 
-// Convert percentage to multiplier for OKLch (100 = no change, 0 = minimum, 200 = maximum)
-const percentToLightness = (percent) => (percent / 100).toFixed(2);
+// Convert percentage to OKLch values
+// For lightness: Use a hybrid approach for better range
+// 0-100: multiply down (darken), 100-200: add up (lighten)
+const percentToLightness = (percent) => {
+	if (percent <= 100) {
+		// Darken: multiply (0% = black, 100% = original)
+		return `l * ${(percent / 100).toFixed(2)}`;
+	} else {
+		// Lighten: add to approach white (100% = original, 200% = white)
+		const addValue = ((percent - 100) / 100).toFixed(2);
+		return `l + ${addValue} * (1 - l)`;
+	}
+};
 const percentToChroma = (percent) => (percent / 100).toFixed(2);
 
 const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, globalStylesCss }) => {
@@ -64,7 +92,7 @@ const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, global
 		const h = hue !== '' ? hue : (inheritedHue !== '' ? inheritedHue : 0);
 		const a = alpha ? alpha * 100 : (inheritedAlpha ? inheritedAlpha * 100 : 100);
 		
-		return `oklch(from ${baseColor} calc(l * ${percentToLightness(l)}) calc(c * ${percentToChroma(c)}) calc(h + ${h}) / ${a}%)`;
+		return `oklch(from ${baseColor} calc(${percentToLightness(l)}) calc(c * ${percentToChroma(c)}) calc(h + ${h}) / ${a}%)`;
 	}, [color, lightness, chroma, hue, alpha, inheritedColor, inheritedLightness, inheritedChroma, inheritedHue, inheritedAlpha]);
 	
 	return (
@@ -76,7 +104,7 @@ const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, global
 				inherited={{ inheritedValue: inheritedColor }}
 				onChange={(value) =>
 					onChange(
-						`oklch(from ${getColorOutput(value)} calc(l * ${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : '1.00'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
+						`oklch(from ${getColorOutput(value)} calc(${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
 					)
 				}
 				globalClasses={globalClasses}
@@ -101,12 +129,12 @@ const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, global
 						onChange={(value) => {
 							if (!value && value !== 0) {
 								onChange(
-									`oklch(from ${color ? color : inheritedColor} calc(l * ${inheritedLightness !== '' ? percentToLightness(inheritedLightness) : '1.00'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
+									`oklch(from ${color ? color : inheritedColor} calc(${inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
 								);
 							} else {
 								const tempValue = parseInt(value);
 								onChange(
-									`oklch(from ${color ? color : inheritedColor} calc(l * ${percentToLightness(tempValue)}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
+									`oklch(from ${color ? color : inheritedColor} calc(${percentToLightness(tempValue)}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
 								);
 							}
 						}}
@@ -131,12 +159,12 @@ const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, global
 						onChange={(value) => {
 							if (!value && value !== 0) {
 								onChange(
-									`oklch(from ${color ? color : inheritedColor} calc(l * ${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : '1.00'}) calc(c * ${inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
+									`oklch(from ${color ? color : inheritedColor} calc(${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
 								);
 							} else {
 								const tempValue = parseInt(value);
 								onChange(
-									`oklch(from ${color ? color : inheritedColor} calc(l * ${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : '1.00'}) calc(c * ${percentToChroma(tempValue)}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
+									`oklch(from ${color ? color : inheritedColor} calc(${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${percentToChroma(tempValue)}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
 								);
 							}
 						}}
@@ -154,17 +182,19 @@ const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, global
 						baseColor={color || inheritedColor}
 						shadeType={'hue'}
 						value={hue}
+						lightness={lightness}
+						chroma={chroma}
 						isHover={isHover}
 						inherited={{ inheritedValue: inheritedHue }}
 						onChange={(value) => {
 							if (!value && value !== 0) {
 								onChange(
-									`oklch(from ${color ? color : inheritedColor} calc(l * ${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : '1.00'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
+									`oklch(from ${color ? color : inheritedColor} calc(${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
 								);
 							} else {
 								const tempValue = parseInt(value);
 								onChange(
-									`oklch(from ${color ? color : inheritedColor} calc(l * ${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : '1.00'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${tempValue}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
+									`oklch(from ${color ? color : inheritedColor} calc(${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${tempValue}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
 								);
 							}
 						}}
@@ -187,12 +217,12 @@ const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, global
 						onChange={(value) => {
 							if (!value && value !== 0) {
 								onChange(
-									`oklch(from ${color ? color : inheritedColor} calc(l * ${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : '1.00'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
+									`oklch(from ${color ? color : inheritedColor} calc(${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
 								);
 							} else {
 								const tempValue = parseInt(value);
 								onChange(
-									`oklch(from ${color ? color : inheritedColor} calc(l * ${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : '1.00'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${tempValue}%)`
+									`oklch(from ${color ? color : inheritedColor} calc(${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${tempValue}%)`
 								);
 							}
 						}}
