@@ -1598,6 +1598,16 @@ export const getOKLchChromaControls = () => [
 
 export const getOKLchHueControls = () => [
 	{
+		title: __('-180°', 'kadence-blocks'),
+		name: '-180°',
+		key: -180,
+	},
+	{
+		title: __('-135°', 'kadence-blocks'),
+		name: '-135°',
+		key: -135,
+	},
+	{
 		title: __('-90°', 'kadence-blocks'),
 		name: '-90°',
 		key: -90,
@@ -1627,9 +1637,24 @@ export const getOKLchHueControls = () => [
 		name: '+90°',
 		key: 90,
 	},
+	{
+		title: __('+135°', 'kadence-blocks'),
+		name: '+135°',
+		key: 135,
+	},
+	{
+		title: __('+180°', 'kadence-blocks'),
+		name: '+180°',
+		key: 180,
+	},
 ];
 
 export const getOKLchAlphaControls = () => [
+	{
+		title: __('100% Opacity', 'kadence-blocks'),
+		name: '',
+		key: 100,
+	},
 	{
 		title: __('90% Opacity', 'kadence-blocks'),
 		name: '',

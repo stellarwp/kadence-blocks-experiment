@@ -94,7 +94,6 @@ const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, global
 		
 		return `oklch(from ${baseColor} calc(${percentToLightness(l)}) calc(c * ${percentToChroma(c)}) calc(h + ${h}) / ${a}%)`;
 	}, [color, lightness, chroma, hue, alpha, inheritedColor, inheritedLightness, inheritedChroma, inheritedHue, inheritedAlpha]);
-	
 	return (
 		<div className="kbs-color-oklch-control">
 			<ColorSelect
@@ -211,9 +210,9 @@ const ColorOKLch = ({ onChange, value, globalClasses, isHover, inherited, global
 						color={currentColor}
 						baseColor={color || inheritedColor}
 						shadeType={'alpha'}
-						value={alpha ? alpha * 100 : undefined}
+						value={alpha ? alpha * 100 : ''}
 						isHover={isHover}
-						inherited={{ inheritedValue: inheritedAlpha ? inheritedAlpha * 100 : undefined }}
+						inherited={{ inheritedValue: inheritedAlpha ? inheritedAlpha * 100 : '' }}
 						onChange={(value) => {
 							if (!value && value !== 0) {
 								onChange(
