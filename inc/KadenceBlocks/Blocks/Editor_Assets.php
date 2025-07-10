@@ -169,6 +169,11 @@ class Editor_Assets {
 		}
 	}
 
+	/**
+	 * Get the responsive device options.
+	 *
+	 * @return array
+	 */
 	public static function get_responsive_device_options() {
 		$responsive_device_options = apply_filters(
 			'kadence_blocks_responsive_device_options',

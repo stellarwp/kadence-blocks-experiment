@@ -8,6 +8,7 @@ namespace KadenceWP\KadenceBlocks\Frontend;
 use KadenceWP\KadenceBlocks\Container;
 use KadenceWP\KadenceBlocks\Frontend\Global_Style_Css;
 use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
+use KadenceWP\KadenceBlocks\Settings\Global_Style;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -253,6 +254,12 @@ class CSS_Engine {
 		'md' => 'var(--global-kb-gap-md, 2rem)',
 		'lg' => 'var(--global-kb-gap-lg, 4rem)',
 	);
+	/**
+	 * Global styles.
+	 *
+	 * @var array
+	 */
+	protected $global_styles = null;
 
 	/**
 	 * constructor
@@ -275,12 +282,27 @@ class CSS_Engine {
 				}
 			}
 		}
-
+		if( null === $this->global_styles ) {
+            $this->global_styles = $this->get_global_styles();
+        }
+		
+		// I don't think we need this anymore, all global styles would be handled in the block rendering.
 		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
 		
 		// Generate global styles CSS when the CSS engine is initialized
 		$this->global_styles_css->generate_css();
 		
+	}
+	/**
+	 * Get global styles.
+	 */
+	public function get_global_styles() {
+		$global_style_data = Global_Style::get_global_styles();
+		if ( ! $global_style_data ) {
+			return [];
+		}
+
+		return $global_style_data;
 	}
 
 	/**
@@ -786,6 +808,85 @@ class CSS_Engine {
 		return $attribute_value;
 	}
 	/**
+	 * Get the global styles ids.
+	 *
+	 * @param array $attributes The attributes of the block.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @return array
+	 */
+	public function get_global_styles_ids( $attributes, $block_instance ) {
+		$parent_global_styles_ids = [];
+		if ( is_object( $block_instance ) && !empty( $block_instance->context['kbs/parentGlobalStyles'] ) && is_array( $block_instance->context['kbs/parentGlobalStyles'] ) ) {
+			$parent_global_styles_ids = $block_instance->context['kbs/parentGlobalStyles'];
+		}
+		$current_global_styles_ids = [];
+		if ( !empty( $attributes['globalStyleIds'] ) && is_array( $attributes['globalStyleIds'] ) ) {
+			$current_global_styles_ids = $attributes['globalStyleIds'];
+		}
+		$global_styles_ids = array_merge( $parent_global_styles_ids, $current_global_styles_ids, [ 'kbs-base' ] );
+		return $global_styles_ids;
+	}
+	/**
+	 * Add global style css.
+	 *
+	 * @param array $global_styles_ids The global styles ids.
+	 * @param array $attributes_meta The attributes meta.
+	 * @param WP_Block $block_instance The block instance.
+	 * @return $this
+	 */
+	public function add_global_style_css( $global_styles_ids, $attributes_meta, $block_instance ) {
+		if( !empty( $global_styles_ids ) && is_array( $global_styles_ids ) ) {
+			// Reverse the global styles ids so we can process the last one first.
+			$global_styles_ids = array_reverse( $global_styles_ids );
+			foreach( $global_styles_ids as $global_style_id ) {
+				if ( !empty( $this->global_styles[ $global_style_id ] ) ) {
+					$this->process_global_style( $this->global_styles[ $global_style_id ], $attributes_meta, $block_instance );
+				}
+			}
+		}
+	}
+	/**
+	 * Gets variable name from category and type (PHP equivalent of JS function).
+	 *
+	 * @param string $category The style category (e.g., 'color', 'typography').
+	 * @param string $type The style type or token name (e.g., 'primary', 'body').
+	 * @return string The CSS variable name.
+	 */
+	public function get_mapping_variable_name( $category, $type ) {
+		// First convert camelCase to kebab-case, then clean up
+		$category_slug = preg_replace( '/([a-z])([A-Z])/', '$1-$2', (string) $category );
+		$category_slug = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', $category_slug ) );
+		$category_slug = trim( $category_slug, '-' );
+
+		$type_slug = preg_replace( '/([a-z])([A-Z])/', '$1-$2', (string) $type );
+		$type_slug = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', $type_slug ) );
+		$type_slug = trim( $type_slug, '-' );
+
+		return sprintf( '--kbs-%s-%s', $category_slug, $type_slug );
+	}
+	/**
+	 * Process global style.
+	 *
+	 * @param array $global_style The global style.
+	 * @param array $attributes_meta The attributes meta.
+	 * @param WP_Block $block_instance The block instance.
+	 * @return $this
+	 */
+	public function process_global_style( $global_style, $attributes_meta, $block_instance ) {
+		if( !empty( $global_style['mappings'] ) && is_array( $global_style['mappings'] ) ) {
+			foreach ( $global_style['mappings'] as $category => $tokens ) {
+				if ( ! empty( $tokens ) && is_array( $tokens ) ) {
+					foreach ( $tokens as $token => $token_data ) {
+						if ( isset( $token_data['value'] ) && $token_data['value'] !== '' ) {
+							$variable_name = $this->get_mapping_variable_name( $category, $token );
+							$this->add_property( $variable_name, $token_data['value'] );
+						}
+					}
+				}
+			}
+		}
+	}
+	/**
 	 * Add properties to the css output based on the attributes.
 	 *
 	 * @param string $key The key of the attribute to get.
@@ -794,26 +895,32 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function add_attributes( $attributes, $block_instance ) {
+		$global_styles_ids = $this->get_global_styles_ids( $attributes, $block_instance );
 		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
 			foreach ( $block_instance->block_type->attributes as $key => $attribute ) {
 				$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
-
+				// Only process global style ids if there is more then one global style id that way priority is correct otherwise we rely on the class to handle the global styles css.
+				// This only relates to the mappings part of the global styles.
+				if( 'globalStyleIds' === $key && !empty( $attributes['globalStyleIds'] ) && count( $attributes['globalStyleIds'] ) > 1 ) {
+					$this->add_global_style_css( $attributes['globalStyleIds'], $attributes_meta, $block_instance );
+					continue;
+				}
 				if ( empty( $attributes_meta['renderCSS'] ) ) {
 					continue;
 				}
-				if ( ! isset( $attributes_meta['selector'] ) ) {
+				if ( ! isset( $attributes_meta['component'] ) && ! isset( $attributes_meta['property'] ) ) {
 					continue;
 				}
 				// If the attribute is a component, add the complex attribute.
 				if ( !empty( $attributes_meta['component'] ) ) {
-					$this->add_component( $key, $attributes, $attributes_meta, $block_instance );
+					$this->add_component( $key, $attributes, $attributes_meta, $block_instance, $global_styles_ids );
 					continue;
 				}
 				if ( ! isset( $attributes_meta['property'] ) ) {
 					continue;
 				}
 
-				$this->add_attribute( $key, $attributes, $attributes_meta, $block_instance );
+				$this->add_attribute( $key, $attributes, $attributes_meta, $block_instance, $global_styles_ids );
 			}
 		}
 		return $this;
@@ -871,8 +978,8 @@ class CSS_Engine {
 			case 'flexBox':
 				$expected_keys = ['flexDirection', 'flexWrap', 'alignContent', 'alignItems', 'justifyContent', 'rowGap', 'columnGap'];
 				break;
-			case 'background':
-				$expected_keys = ['color'];		
+			case 'padding':
+				$expected_keys = ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'];		
 				break;
 			case 'icon':
 				$expected_keys = ['iconSize', 'iconLineWidth', 'color', 'iconSizeHover', 'iconLineWidthHover', 'colorHover'];
@@ -895,6 +1002,15 @@ class CSS_Engine {
 			return $value;
 		}
 		switch ( $attribute_name ) {
+			case 'paddingTop':
+			case 'paddingRight':
+			case 'paddingBottom':
+			case 'paddingLeft':
+			case 'marginTop':
+			case 'marginRight':
+			case 'marginBottom':
+			case 'marginLeft':
+				return $this->get_spacing_size( $value );
 			case 'rowGap':
 			case 'columnGap':
 			case 'column-gap':
@@ -982,19 +1098,31 @@ class CSS_Engine {
 				return $attribute_name;
 		}
 	}
-	public function add_component_array( $attributes, $attributes_meta, $variable_name = '' ) {
+	/**
+	 * Add the component array to the css output.
+	 *
+	 * @param string $key The key of the attribute to get.
+	 * @param array $attributes an array of attributes.
+	 * @param array $attributes_meta The meta of the attribute.
+	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param array $global_styles_ids The global styles ids.
+	 * @return $this
+	 */
+	public function add_component_array( $component_attributes, $attributes_meta, $block_instance, $global_styles_ids ) {
+		if ( empty( $component_attributes ) || !is_array( $component_attributes ) ) {
+			return $this;
+		}
 		$processed_keys = [];
 		$is_first_iteration = true;
 		$expected_keys   = $this->get_expected_keys( $attributes_meta );
-
-		foreach ( $attributes as $device_name => $device_attributes ) {
+		foreach ( $component_attributes as $device_name => $device_attributes ) {
 			if( isset( $this->_device_media_queries[ $device_name ] ) && is_array( $this->_device_media_queries[ $device_name ] ) ) {
 				if ( !empty( $device_attributes ) && is_array( $device_attributes ) ) {
 					foreach ( $device_attributes as $attribute_name => $device_attribute ) {
-						if ( 'preset' === $attribute_name || ! in_array( $attribute_name, $expected_keys ) ) {
+						if ( ! in_array( $attribute_name, $expected_keys ) ) {
 							continue;
 						}
-						$processed_keys[$attribute_name] = true;
+						// $processed_keys[$attribute_name] = true;
 
 						$this->set_media_state( $device_name );
 
@@ -1006,25 +1134,29 @@ class CSS_Engine {
 					}
 				}
 
-				// If this is the first device (largest breakpoint), like desktop, handle unprocessed keys
-				if( $is_first_iteration && !empty( $variable_name ) ) {
-					$unprocessed_keys = array_diff($expected_keys, array_keys($processed_keys));
+				/* TODO: I'm not sure if we need this below, I'm not sure what it's for but I need to come back to it. */
 
-					if( !empty( $unprocessed_keys ) ) {
-						foreach( $unprocessed_keys as $unprocessed_key ) {
-							$this->set_media_state( $device_name );
+				// // If this is the first device (largest breakpoint), like desktop, handle unprocessed keys
+				// if( $is_first_iteration && !empty( $variable_name ) ) {
+				// 	$unprocessed_keys = array_diff($expected_keys, array_keys($processed_keys));
 
-							$kebab_variable_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $variable_name);
-							$attribute_selector = $this->get_attribute_selector( $unprocessed_key, $attributes_meta );
-							$this->add_property( $attribute_selector, 'var( --kbs-' . $attribute_selector . '-' . $kebab_variable_name . ')' );
-						}
-					}
-				}
+				// 	if( !empty( $unprocessed_keys ) ) {
+				// 		foreach( $unprocessed_keys as $unprocessed_key ) {
+				// 			$this->set_media_state( $device_name );
+
+				// 			$kebab_variable_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $variable_name);
+				// 			$attribute_selector = $this->get_attribute_selector( $unprocessed_key, $attributes_meta );
+				// 			$this->add_property( $attribute_selector, 'var( --kbs-' . $attribute_selector . '-' . $kebab_variable_name . ')' );
+				// 		}
+				// 	}
+				// }
 			}
 			$is_first_iteration = false;
 		}
 
 		$this->set_media_state( 'desktop' );
+
+		return $this;
 	}
 
 	/**
@@ -1034,20 +1166,286 @@ class CSS_Engine {
 	 * @param array $attributes an array of attributes.
 	 * @param array $attributes_meta The meta of the attribute.
 	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+	 * @param array $global_styles_ids The global styles ids.
 	 * @return $this
 	 */
-	public function add_component( $key, $attributes, $attributes_meta = [], $block_instance = null ) {
+	public function add_component( $key, $attributes, $attributes_meta = [], $block_instance = null, $global_styles_ids = [] ) {
 		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
 		if ( empty( $merged_attribute ) || !isset( $attributes[$key] ) ) {
 			return $this;
 		}
-		// TODO: Merge in preset values if set directly on component here
-		// if( isset( $$attributes['preset'] ) ) {
+		// Handle layered components (background, shadows)
+		if ( isset( $attributes_meta['hasLayers'] ) && $attributes_meta['hasLayers'] ) {
+			$this->process_layered_component( $key, $attributes, $attributes_meta, $block_instance, $global_styles_ids );
+			return $this;
+		}
+		// Handle component preset.
+		if ( !empty( $merged_attribute['preset'] ) ) {
+			$this->process_component_preset( $merged_attribute['preset'], $attributes_meta, $block_instance, $global_styles_ids );
+			return $this;
+		}
 
-		// }
+		$this->add_component_array( $merged_attribute, $attributes_meta, $block_instance, $global_styles_ids );			
+
+		return $this;
+	}
+	/**
+	 * Get preset data.
+	 *
+	 * @param string $preset_key The preset key.
+	 * @param array $global_styles_ids Global style IDs.
+	 * @return array
+	 */
+	public function get_preset_data( $preset_key, $component, $global_styles_ids ) {
+		// We use the order of the global styles ids to get the first defined preset. If the global ID doesn't have a defined preset we move to the next.
+		foreach( $global_styles_ids as $global_style_id ) {
+			if(  !empty( $this->global_styles[$global_style_id]['components'][$component]['presets'] ) && is_array( $this->global_styles[$global_style_id]['components'][$component]['presets'] ) ) {
+				foreach( $this->global_styles[$global_style_id]['components'][$component]['presets'] as $preset_item_key => $preset_data ) {
+					if( $preset_key === $preset_item_key ) {
+						return $preset_data;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Process preset layers.
+	 *
+	 * @param string $layers_preset The preset layers.
+	 * @param array $attributes_meta The attribute metadata.
+	 * @param array $attributes The attributes array.
+	 * @param WP_Block $block_instance The block instance.
+	 * @param array $global_styles_ids Global style IDs.
+	 * @return $this
+	 */
+	public function process_preset_layers( $layers_preset, $attributes_meta, $attributes, $block_instance, $global_styles_ids ) {
+		$preset_data = $this->get_preset_data( $layers_preset, $attributes_meta['component'], $global_styles_ids );
+		if ( empty( $preset_data ) ) {
+			return;
+		}
+		$layers = !empty( $preset_data['attributes']['layers'] ) ? $preset_data['attributes']['layers'] : [];
+		// Reverse the layers so we process the first layer last.
+		$reversed_layers = array_reverse( $layers );
+		foreach ( $reversed_layers as $index => $layer ) {
+			$this->process_background_layer( $layer, $index, $attributes_meta, $attributes, $block_instance, $global_styles_ids );
+		}
+	}
+	/**
+	 * Process component preset.
+	 *
+	 * @param string $preset_key The preset key.
+	 * @param array $attributes_meta The attribute metadata.
+	 * @param WP_Block $block_instance The block instance.
+	 * @param array $global_styles_ids Global style IDs.
+	 * @return $this
+	 */
+	public function process_component_preset( $preset_key, $attributes_meta, $block_instance, $global_styles_ids ) {
+		$preset_data = $this->get_preset_data( $preset_key, $attributes_meta['component'], $global_styles_ids );
+		if ( empty( $preset_data ) ) {
+			return;
+		}
+		$this->add_component_array( $preset_data['attributes'], $attributes_meta, $block_instance, $global_styles_ids );
+
+	}
+	/**
+	 * Get the device value from the layer.
+	 *
+	 * @param array $layer The layer data.
+	 * @param string $attribute_name The attribute name.
+	 * @param string $device_name The device name.
+	 * @return string
+	 */
+	public function get_layer_device_value( $layer, $attribute_name, $device_name ) {
+		if( empty( $layer ) || !is_array( $layer ) ) {
+			return;
+		}
+		return !empty( $layer[ $device_name ][ $attribute_name ] ) ? $layer[ $device_name ][ $attribute_name ] : '';
+	}
+	/**
+	 * Check if the layer has a value.
+	 *
+	 * @param array $layer The layer data.
+	 * @param string $attribute_name The attribute name.
+	 * @return bool
+	 */
+	public function has_layer_value( $layer, $attribute_name, $default_value = '' ) {
+		if( empty( $layer ) || !is_array( $layer ) ) {
+			return false;
+		}
+		foreach ( $this->device_options as $device_option ) {
+			if ( isset( $layer[ $device_option['key'] ][ $attribute_name ] ) && '' !== $layer[ $device_option['key'] ][ $attribute_name ] && $default_value !== $layer[ $device_option['key'] ][ $attribute_name ] ) {
+				return true;
+				break;
+			}
+		}
+		return false;
+	}
+	/**
+	 * Process background layer.
+	 *
+	 * @param array $layer The layer data.
+	 * @param int $index The index of the layer.
+	 * @param array $attributes_meta The attribute metadata.
+	 * @param array $attributes The attributes array.
+	 * @param WP_Block $block_instance The block instance.
+	 * @param array $global_styles_ids Global style IDs.
+	 * @return $this
+	 */
+	public function process_background_layer( $layer, $index, $attributes_meta, $attributes, $block_instance, $global_styles_ids ) {
+		if( empty( $layer ) || !is_array( $layer ) ) {
+			return;
+		}
+		$current_selector = $this->_selector;
+		$temp_selector = $current_selector;
+		$meta_class_prefix = isset( $attributes_meta['classPrefix'] ) ? $attributes_meta['classPrefix'] : 'kbs-bg-style-';
+		// Background type can't change per device so we just get the desktop value.
+		$background_type = $this->get_layer_device_value( $layer, 'type', 'desktop' ) ?: 'color';
+		$has_effects = false;
+		$has_forced_layer_type = false;
+		if ( $index === 0 ) {
+			if ( $this->has_layer_value( $layer, 'opacity', '100%' ) || $this->has_layer_value( $layer, 'opacityHover', '100%' ) || $this->has_layer_value( $layer, 'blendMode', 'normal' ) || $this->has_layer_value( $layer, 'blendModeHover', 'normal' ) || apply_filters( 'kbs_always_use_bg_layers', false ) ) {
+				$has_effects = true;
+			}
+			if ( $background_type === 'video' || $background_type === 'mask' ) {
+				$has_forced_layer_type = true;
+			}
+		}
+
+		if ( $index === 0 && !$has_forced_layer_type && ! $has_effects ) {
+			$this->set_selector( $current_selector );
+		} else {
+			$temp_selector = $current_selector . ' > .' . $meta_class_prefix . $index;
+			$this->set_selector( $temp_selector );
+		}
+		// Loop through the layers devices and add the properties to the css output.
+		foreach ( $layer as $device_name => $device_attributes ) {
+			if( isset( $this->_device_media_queries[ $device_name ] ) && is_array( $this->_device_media_queries[ $device_name ] ) ) {
+				if ( !empty( $device_attributes ) && is_array( $device_attributes ) ) {
+					$this->set_media_state( $device_name );
+					if ( !empty( $device_attributes['opacity'] ) ) {
+						$this->add_property( 'opacity', $device_attributes['opacity'] );
+					}
+					if ( !empty( $device_attributes['blendMode'] ) ) {
+						$this->add_property( 'mix-blend-mode', $device_attributes['blendMode'] );
+					}
+					switch ( $background_type ) {
+						case 'color':
+							if ( !empty( $device_attributes['color'] ) ) {
+								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['color'] ) );
+							}
+							break;
+						case 'image':
+							if ( !empty( $device_attributes['color'] ) ) {
+								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['color'] ) );
+							}
+							if (!empty( $device_attributes['image'] ) ) {
+								$this->add_property( 'background-image', 'url(' . $device_attributes['image'] . ')' );
+							}
+							if ( !empty( $device_attributes['position'] ) ) {
+								$this->add_property( 'background-position', $device_attributes['position'] );
+							}
+							if ( !empty( $device_attributes['size'] ) ) {
+								$this->add_property( 'background-size', $device_attributes['size'] );
+							}
+							if ( !empty( $device_attributes['repeat'] ) ) {
+								$this->add_property( 'background-repeat', $device_attributes['repeat'] );
+							}
+							if ( !empty( $device_attributes['attachment'] ) ) {
+								$this->add_property( 'background-attachment', $device_attributes['attachment'] === 'parallax' ? 'fixed' : $device_attributes['attachment'] );
+							}
+							break;
+						case 'gradient':
+							if ( !empty( $device_attributes['color'] ) ) {
+								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['color'] ) );
+							}
+							if ( !empty( $device_attributes['gradient'] ) ) {
+								$this->add_property( 'background-image', $device_attributes['gradient'] );
+							}
+							break;
+						/* TODO: I need to add all the other background types here. */
+					}
+					// Handle hover states
+					if ( $index === 0 && !$has_forced_layer_type && ! $has_effects ) {
+						$this->set_selector( $current_selector . ':hover' );
+					} else {
+						$this->set_selector( $current_selector . ':hover > .' . $meta_class_prefix . $index );
+					}
+					
+					if ( !empty( $device_attributes['opacityHover'] ) ) {
+						$this->add_property( 'opacity', $device_attributes['opacityHover'] );
+					}
+					if ( !empty( $device_attributes['blendModeHover'] ) ) {
+						$this->add_property( 'mix-blend-mode', $device_attributes['blendModeHover'] );
+					}
+					
+					// Process hover states based on type
+					switch ( $background_type ) {
+						case 'color':
+						case 'image':
+						case 'video':
+						case 'gradient':
+							if ( !empty( $device_attributes['colorHover'] ) ) {
+								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['colorHover'] ) );
+							}
+							break;
+							
+						case 'backdrop':
+							if ( !empty( $device_attributes['backdropFilterHover'] ) ) {
+								if ( $device_attributes['backdropFilterHover'] === 'none' ) {
+									$this->add_property( 'backdrop-filter', 'none' );
+								} else {
+									$hover_unit = $device_attributes['backdropFilterHover'] === 'blur' ? 'px' : ( $device_attributes['backdropFilterHover'] === 'hue-rotate' ? 'deg' : '%' );
+									$backdrop_size = $this->get_layer_device_value( 'backdropSize', $layer, $device_name ) ?: '1';
+									$hover_backdrop_size = $this->get_layer_device_value( 'backdropSizeHover', $layer, $device_name );
+									if ( ! $hover_backdrop_size && $hover_backdrop_size !== 0 ) {
+										$hover_backdrop_size = $backdrop_size;
+									}								
+									$this->add_property( 'backdrop-filter', $device_attributes['backdropFilterHover'] . '(' . $hover_backdrop_size . $hover_unit . ')' );
+								}
+							}
+							break;
+					}
+					
+				}
+			}
+		}
+		// Reset the selector to the original selector.
+		$this->set_selector( $current_selector );
+		// Reset the media state to desktop.
+		$this->set_media_state( 'desktop' );
+		return $this;
+	}
+
+	/**
+	 * Process layered component (backgrounds, shadows).
+	 *
+	 * @param string $attribute_name The attribute name.
+	 * @param array $attributes The attributes array.
+	 * @param array $attributes_meta The attribute metadata.
+	 * @param WP_Block $block_instance The block instance.
+	 * @param array $global_styles_ids Global style IDs.
+	 * @return $this
+	 */
+	protected function process_layered_component( $attribute_name, $attributes, $attributes_meta = [], $block_instance = null, $global_styles_ids = [] ) {
+		$layers_preset = !empty( $attributes[ $attribute_name ]['preset'] ) ? $attributes[ $attribute_name ]['preset'] : '';
 		
-		$this->add_component_array( $attributes[$key], $attributes_meta );			
-
+		if ( !empty( $layers_preset ) ) {
+			$this->process_preset_layers( $layers_preset, $attributes_meta, $attributes, $block_instance, $global_styles_ids );
+			return $this;
+		}
+		
+		// Get layers
+		$layers_data = !empty( $attributes[ $attribute_name ]['layers'] ) ? $attributes[ $attribute_name ]['layers'] : [];
+		if ( $attributes_meta['component'] === 'background' ) {
+			// Process background layers in reverse order
+			$reversed_layers = array_reverse( $layers_data );
+			foreach ( $reversed_layers as $index => $layer ) {
+				$this->process_background_layer( $layer, $index, $attributes_meta, $attributes, $block_instance, $global_styles_ids );
+			}
+		}
+		
 		return $this;
 	}
 
@@ -1069,7 +1467,7 @@ class CSS_Engine {
 			if ( 'desktop' !== $device_option['key'] ) {
 				$this->set_media_state( $device_option['key'] );
 			}
-			$this->add_property( $selector, $this->get_variable_value( $value_array[ $device_option['key'] ] ) );
+			$this->add_property( $selector, $this->get_variable_spacing_value( $value_array[ $device_option['key'] ] ) );
 		}
 		$this->set_media_state( 'desktop' );
 		return $this;
@@ -1298,6 +1696,18 @@ class CSS_Engine {
 		return $size . $unit;
 	}
 	/**
+	 * Generates the spacing output.
+	 *
+	 * @param string  $size a string or number with the spacing size.
+	 * @return string
+	 */
+	public function get_spacing_size( $size ) {
+		if ( $this->is_variable_spacing_value( $size ) ) {
+			return $this->get_variable_spacing_value( $size );
+		}
+		return $size . 'px';
+	}
+	/**
 	 * @param $value
 	 *
 	 * @return bool
@@ -1402,7 +1812,7 @@ class CSS_Engine {
 	 *
 	 * @return bool
 	 */
-	public function is_variable_value( $value ) {
+	public function is_variable_spacing_value( $value ) {
 		return is_string( $value ) && isset( $this->spacing_sizes[ $value ] );
 	}
 
@@ -1411,8 +1821,8 @@ class CSS_Engine {
 	 *
 	 * @return int|string
 	 */
-	public function get_variable_value( $value ) {
-		if( $this->is_variable_value( $value) ) {
+	public function get_variable_spacing_value( $value ) {
+		if( $this->is_variable_spacing_value( $value) ) {
 			return $this->spacing_sizes[$value];
 		}
 

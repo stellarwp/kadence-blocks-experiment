@@ -59,6 +59,8 @@ export default function BackgroundBackdropLayer({
 		onChange([undefined, undefined], 'Desktop' === previewDevice ? 'all' : previewDevice, [
 			'backdropFilter',
 			'backdropSize',
+			'backdropFilterHover',
+			'backdropSizeHover',
 		]);
 	};
 	return (
@@ -76,13 +78,13 @@ export default function BackgroundBackdropLayer({
 			/>
 			<div className={`kbs-background-layer-backdrop-control-inner`}>
 				<SelectBasicControlSelect
-					value={isHover ? layer?.hoverBackdropFilter : layer?.backdropFilter}
+					value={isHover ? layer?.backdropFilterHover : layer?.backdropFilter}
 					onChange={(value) =>
-						onChange(value, previewDevice, isHover ? 'hoverBackdropFilter' : 'backdropFilter')
+						onChange(value, previewDevice, isHover ? 'backdropFilterHover' : 'backdropFilter')
 					}
 					onReset={onReset}
 					isHover={isHover}
-					type={isHover ? 'hoverBackdropFilter' : 'backdropFilter'}
+					type={isHover ? 'backdropFilterHover' : 'backdropFilter'}
 					previewDevice={previewDevice}
 					inherited={isHover ? { inheritedValue: layer?.backdropFilter } : { inheritedValue: '' }}
 					options={[
@@ -99,7 +101,7 @@ export default function BackgroundBackdropLayer({
 				/>
 				<RadioButtonSelect
 					label={__('Backdrop Amount', 'kadence-blocks')}
-					value={isHover ? layer?.hoverBackdropSize : layer?.backdropSize}
+					value={isHover ? layer?.backdropSizeHover : layer?.backdropSize}
 					type={'backdropSize'}
 					inherited={
 						isHover
@@ -111,7 +113,7 @@ export default function BackgroundBackdropLayer({
 					hasCustomControls={false}
 					onChange={(value) => {
 						if (isHover) {
-							onChange(value, previewDevice, 'hoverBackdropSize');
+							onChange(value, previewDevice, 'backdropSizeHover');
 						} else {
 							onChange(value, previewDevice, 'backdropSize');
 						}

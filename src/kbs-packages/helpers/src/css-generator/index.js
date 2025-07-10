@@ -377,11 +377,11 @@ class CSSGenerator {
 			this.setSelector(currentSelector + ' > .' + metaClassPrefix + index);
 		}
 		const backgroundColor = getLayerDeviceValue('color', layer, props.previewDevice);
-		const backgroundHoverColor = getLayerDeviceValue('hoverColor', layer, props.previewDevice);
+		const backgroundColorHover = getLayerDeviceValue('colorHover', layer, props.previewDevice);
 		const backgroundOpacity = getLayerDeviceValue('opacity', layer, props.previewDevice);
-		const backgroundHoverOpacity = getLayerDeviceValue('hoverOpacity', layer, props.previewDevice);
+		const backgroundOpacityHover = getLayerDeviceValue('opacityHover', layer, props.previewDevice);
 		const backgroundBlendMode = getLayerDeviceValue('blendMode', layer, props.previewDevice);
-		const backgroundHoverBlendMode = getLayerDeviceValue('hoverBlendMode', layer, props.previewDevice);
+		const backgroundBlendModeHover = getLayerDeviceValue('blendModeHover', layer, props.previewDevice);
 		if (backgroundOpacity || backgroundOpacity === 0) {
 			this.add({ opacity: backgroundOpacity });
 		}
@@ -596,66 +596,66 @@ class CSSGenerator {
 				}
 				break;
 		}
-		if (index === 0 && backgroundType !== 'video' && '' === anyBackgroundOpacity) {
+		if (index === 0 && backgroundType !== 'video' && backgroundType !== 'mask' && '' === anyBackgroundOpacity) {
 			this.setSelector(currentSelector + ':hover');
 		} else {
 			this.setSelector(currentSelector + ':hover > .' + metaClassPrefix + index);
 		}
-		if (backgroundHoverOpacity || backgroundHoverOpacity === 0) {
-			this.add({ opacity: backgroundHoverOpacity });
+		if (backgroundOpacityHover || backgroundOpacityHover === 0) {
+			this.add({ opacity: backgroundOpacityHover });
 		}
-		if (backgroundHoverBlendMode && backgroundHoverBlendMode !== 'normal') {
-			this.add({ 'mix-blend-mode': backgroundHoverBlendMode });
+		if (backgroundBlendModeHover && backgroundBlendModeHover !== 'normal') {
+			this.add({ 'mix-blend-mode': backgroundBlendModeHover });
 		}
 		switch (backgroundType) {
 			case 'color':
-				if (backgroundHoverColor) {
-					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
+				if (backgroundColorHover) {
+					this.add({ 'background-color': getColorOutput(backgroundColorHover) });
 				}
 				break;
 			case 'image':
 			case 'video':
 			case 'gradient':
-				if (backgroundHoverColor) {
-					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
+				if (backgroundColorHover) {
+					this.add({ 'background-color': getColorOutput(backgroundColorHover) });
 				}
 				break;
 			case 'backdrop':
 				const backdropFilter = getLayerDeviceValue('backdropFilter', layer, props.previewDevice);
-				const hoverBackdropFilter =
-					getLayerDeviceValue('hoverBackdropFilter', layer, props.previewDevice) || backdropFilter;
-				if (hoverBackdropFilter) {
-					if (hoverBackdropFilter === 'none') {
+				const backdropFilterHover =
+					getLayerDeviceValue('backdropFilterHover', layer, props.previewDevice) || backdropFilter;
+				if (backdropFilterHover) {
+					if (backdropFilterHover === 'none') {
 						this.add({ 'backdrop-filter': 'none' });
 					} else {
 						const hoverUnit =
-							hoverBackdropFilter === 'blur' ? 'px' : hoverBackdropFilter === 'hue-rotate' ? 'deg' : '%';
+							backdropFilterHover === 'blur' ? 'px' : backdropFilterHover === 'hue-rotate' ? 'deg' : '%';
 						let backdropSize = getLayerDeviceValue('backdropSize', layer, props.previewDevice) || '1';
-						let hoverBackdropSize = getLayerDeviceValue('hoverBackdropSize', layer, props.previewDevice);
-						if (!hoverBackdropSize && hoverBackdropSize !== 0) {
-							hoverBackdropSize = backdropSize;
+						let backdropSizeHover = getLayerDeviceValue('backdropSizeHover', layer, props.previewDevice);
+						if (!backdropSizeHover && backdropSizeHover !== 0) {
+							backdropSizeHover = backdropSize;
 						}
-						if (hoverBackdropFilter === 'hue-rotate') {
-							hoverBackdropSize = hoverBackdropSize * 3.6;
+						if (backdropFilterHover === 'hue-rotate') {
+							backdropSizeHover = backdropSizeHover * 3.6;
 						}
 						this.add({
-							'backdrop-filter': hoverBackdropFilter + '(' + hoverBackdropSize + hoverUnit + ')',
+							'backdrop-filter': backdropFilterHover + '(' + backdropSizeHover + hoverUnit + ')',
 						});
 					}
 				}
 				break;
 			case 'pattern':
-				if (backgroundHoverColor) {
-					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
-					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundHoverColor) });
+				if (backgroundColorHover) {
+					this.add({ 'background-color': getColorOutput(backgroundColorHover) });
+					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColorHover) });
 				}
-				const hoverPatternSize = getLayerDeviceValue('hoverPatternSize', layer, props.previewDevice);
+				const hoverPatternSize = getLayerDeviceValue('patternSizeHover', layer, props.previewDevice);
 				if (hoverPatternSize) {
 					this.add({ '--kbs-pattern-size': hoverPatternSize });
 				}
-				const hoverPatternColor = getLayerDeviceValue('hoverPatternColor', layer, props.previewDevice);
-				if (hoverPatternColor) {
-					this.add({ '--kbs-pattern-color': getColorOutput(hoverPatternColor) });
+				const maskColorHover = getLayerDeviceValue('maskColorHover', layer, props.previewDevice);
+				if (maskColorHover) {
+					this.add({ '--kbs-pattern-color': getColorOutput(maskColorHover) });
 				}
 				break;
 		}

@@ -5,7 +5,7 @@
 	"components": {
 		"padding": {
 			"presets": {
-				"section-xxl": {
+				"kbs-pd-sec-xxl": {
 					"label": "Section XXL",
 					"description": "A section padding preset",
 					"locked": true,
@@ -18,7 +18,7 @@
 						}
 					}
 				},
-				"section-xl": {
+				"kbs-pd-section-xl": {
 					"label": "Section XL",
 					"description": "A section padding preset",
 					"locked": true,
@@ -31,7 +31,7 @@
 						}
 					}
 				},
-				"card-lg": {
+				"kbs-pd-card-lg": {
 					"label": "Card Large",
 					"description": "A card padding preset",
 					"locked": true,
@@ -44,7 +44,7 @@
 						}
 					}
 				},
-				"card-md": {
+				"kbs-pd-card-md": {
 					"label": "Card Medium",
 					"description": "A card padding preset",
 					"locked": true,
