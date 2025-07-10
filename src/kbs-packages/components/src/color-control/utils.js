@@ -57,7 +57,7 @@ export const getColorLabel = (value, colors, gradients = []) => {
 			return __('Color Mix', 'kadence-blocks');
 		}
 		if (value.startsWith('oklch')) {
-			return __('OKLch Color', 'kadence-blocks');
+			return __('Color Mix', 'kadence-blocks');
 		}
 	}
 	return value;

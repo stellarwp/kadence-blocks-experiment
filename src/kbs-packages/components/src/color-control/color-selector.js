@@ -10,9 +10,8 @@ import ColorPicker from './color-picker';
 import ColorStorybook from './color-storybook';
 import GradientPicker from '../gradient-control';
 import ColorUnifiedMix from './color-unified-mix';
-import ColorHSL from './color-hsl';
 import { hoverIcon } from '../constants/icons';
-const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasOKLch, hasPalette = true) => {
+const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasPalette = true) => {
 	const tempValue = currentValue ? currentValue : inherited?.inheritedValue ? inherited.inheritedValue : '';
 	if (!tempValue) {
 		return hasPalette ? 'storybook' : 'custom';
@@ -26,7 +25,7 @@ const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasOKLc
 		return 'gradient';
 	}
 	// Both color-mix and oklch now go to the unified mix tab
-	if ((hasMix || hasOKLch) && (tempValue.startsWith('color-mix') || tempValue.startsWith('oklch'))) {
+	if (hasMix && (tempValue.startsWith('color-mix') || tempValue.startsWith('oklch'))) {
 		return 'mix';
 	}
 	if (tempValue.startsWith('#')) {
@@ -40,9 +39,7 @@ const ColorSelector = ({
 	currentValue,
 	inherited,
 	hasGradient = false,
-	hasMix = false,
-	hasHSL = false,
-	hasOKLch = true,
+	hasMix = true,
 	globalClasses,
 	hasHoverControls = false,
 	isHover = false,
@@ -76,15 +73,12 @@ const ColorSelector = ({
 			tempTabs.push({ name: 'gradient', title: __('Gradient', 'kadence-blocks') });
 		}
 		// Unified mix tab for both color-mix and OKLch
-		if (hasMix || hasOKLch) {
+		if (hasMix) {
 			tempTabs.push({ name: 'mix', title: __('Mix', 'kadence-blocks') });
 		}
-		if (hasHSL) {
-			tempTabs.push({ name: 'hsl', title: __('HSL', 'kadence-blocks') });
-		}
 		return tempTabs;
-	}, [hasGradient, hasMix, hasHSL, hasOKLch]);
-	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasOKLch, hasPalette);
+	}, [hasGradient, hasMix]);
+	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasPalette);
 	return (
 		<div className="kbs-color-selector-tab-wrapper">
 			<TabPanel
@@ -119,17 +113,6 @@ const ColorSelector = ({
 						} else if ('mix' === tab.name) {
 							return (
 								<ColorUnifiedMix
-									value={currentValue}
-									onChange={handleColorChange}
-									globalClasses={globalClasses}
-									isHover={isHover}
-									inherited={inherited}
-									globalStylesCss={globalStylesCss}
-								/>
-							);
-						} else if ('hsl' === tab.name) {
-							return (
-								<ColorHSL
 									value={currentValue}
 									onChange={handleColorChange}
 									globalClasses={globalClasses}
