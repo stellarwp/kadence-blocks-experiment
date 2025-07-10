@@ -565,3 +565,36 @@
 		text-align: center;
 	}
 }
+
+// Hue control styles
+.kbs-radio-button-control__toggle-group-hue {
+	.kbs-radio-button-control__toggle_item-hue {
+		position: relative;
+		.components-toggle-group-control-option-base {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 2px;
+			padding: 4px 6px;
+		}
+		.kbs-hue-color-indicator {
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			margin-bottom: 2px;
+		}
+		.kbs-hue-degree-label {
+			font-size: 11px;
+			line-height: 1;
+		}
+	}
+}
+
+.kbs-hue-range-control {
+	.components-range-control__wrapper {
+		.dashicon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+}

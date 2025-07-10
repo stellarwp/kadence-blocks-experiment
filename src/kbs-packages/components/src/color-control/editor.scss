@@ -187,3 +187,23 @@
 		}
 	}
 }
+
+// Unified Mix Control Styles
+.kbs-color-unified-mix-control {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	
+	.kbs-color-unified-mix-mode-selector {
+		margin-top: 4px;
+		.components-toggle-group-control {
+			width: 100%;
+		}
+	}
+	
+	.kbs-color-mix-amount-control {
+		.components-range-control {
+			margin-bottom: 0;
+		}
+	}
+}

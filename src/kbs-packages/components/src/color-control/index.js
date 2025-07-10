@@ -53,7 +53,7 @@ export default function ColorControl({
 	defaultValue = undefined,
 	customOnChange = undefined,
 	hasGradient = false,
-	hasMix = false,
+	hasMix = true,
 	globalStylesCss,
 	hasToggleLabel = true,
 	hasTitleBar = true,
