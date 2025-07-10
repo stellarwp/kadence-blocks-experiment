@@ -43,6 +43,15 @@ class Text extends Abstract_Block {
 	 * @var string[]
 	 */
 	protected $allowed_html_tags = [ 'div', 'p', 'span' ];
+	
+	/**
+	 * Block determines in scripts need to be loaded for block.
+	 * Note: this block can have scripts, such as typed text, but because we don't know in attributes if this block needs scripts, we need to check the content during build_html instead.
+	 * This prevents the scripts for some features for loading for blocks that don't need them.
+	 *
+	 * @var string
+	 */
+	protected $has_script = false;
 
 	/**
 	 * Builds CSS for block.
@@ -61,7 +70,7 @@ class Text extends Abstract_Block {
 
 		$css->add_attributes( $attributes, $block_instance );
 
-		// Add text alignment if set
+		// Add text alignment if set.
 		if ( ! empty( $attributes['align'] ) ) {
 			$css->set_selector( $root_selector );
 			$css->add_property( 'text-align', $attributes['align'] );
@@ -83,6 +92,14 @@ class Text extends Abstract_Block {
 	 * @return string
 	 */
 	public function build_html( $attributes, $unique_id, $content, $block_instance ) {
+		//Since we don't know in attributes if this block needs scripts, we need to check the content here
+		if ( strpos( $content, 'kt-typed-text') !== false ) {
+			$this->enqueue_script( 'kbs-' . $this->block_name );
+		}
+		if ( strpos( $content, 'kb-tooltips') !== false || ( ! empty( $attributes['icon'] ) && ! empty( $attributes['iconTooltip'] ) ) ) {
+			$this->enqueue_script( 'kadence-blocks-tippy' );
+		}
+
 		$initial_tag  = $this->get_initial_attribute( $block_instance, 'htmlTag', 'div' );
 		$html_tag     = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
 		$classes      = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
@@ -108,4 +125,19 @@ class Text extends Abstract_Block {
 
 		return sprintf( '<%1$s %2$s>%3$s</%1$s>', $html_tag, $wrapper_attributes, $content );
 	}
-} 
+
+	/**
+	 * Registers scripts and styles.
+	 *
+	 * @param string $handle the handle for the script.
+	 */
+	public function register_scripts( $handle ) {
+		parent::register_scripts( $handle );
+
+		wp_register_script( 'kadence-blocks-typed-js', KADENCE_BLOCKS_URL . 'includes/assets/js/typed.min.js', [], KADENCE_BLOCKS_VERSION, true );
+		wp_register_script( 'kbs-' . $this->block_name, KADENCE_BLOCKS_URL . 'includes/assets/js/kbs-text.min.js', [ 'kadence-blocks-typed-js' ], KADENCE_BLOCKS_VERSION, true );
+
+		wp_register_script( 'kadence-blocks-popper', KADENCE_BLOCKS_URL . 'includes/assets/js/popper.min.js', [], KADENCE_BLOCKS_VERSION, true );
+		wp_register_script( 'kadence-blocks-tippy', KADENCE_BLOCKS_URL . 'includes/assets/js/kb-tippy.min.js', [ 'kadence-blocks-popper' ], KADENCE_BLOCKS_VERSION, true );
+	}
+}
