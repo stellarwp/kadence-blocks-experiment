@@ -735,6 +735,9 @@ class CSSGenerator {
 			case 'textShadow':
 				componentKeys = ['textShadow'];
 				break;
+			case 'textAlign':
+				componentKeys = ['textAlign'];
+				break;
 			case 'flexBox':
 				componentKeys = [
 					'flexDirection',

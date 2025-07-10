@@ -7,7 +7,14 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, LinkControl, LinkStyle, IconControl, ColorControl } from '@kadence/kbsComponents';
+import {
+	ToolsPanelBody,
+	LinkControl,
+	LinkStyle,
+	IconControl,
+	ColorControl,
+	RadioButtonControl,
+} from '@kadence/kbsComponents';
 import { SelectControl } from '@wordpress/components';
 import metadata from '../block.json';
 /**
@@ -41,6 +48,16 @@ export default function InspectorGeneral(props) {
 					value={htmlTag || 'div'}
 					options={htmlOptions}
 					onChange={(value) => setAttributes({ htmlTag: value })}
+				/>
+
+				<RadioButtonControl
+					label={__('Text Align', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'align'}
+					type={'alignText'}
+					previewDevice={previewDevice}
+					meta={metadata}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody

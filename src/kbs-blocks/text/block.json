@@ -30,7 +30,11 @@
 			"type": "array"
 		},
 		"align": {
-			"type": "string"
+			"renderCSS": true,
+			"component": "textAlign",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-"
 		},
 		"htmlTag": {
 			"type": "string",
@@ -184,8 +188,7 @@
 		"ktanimateswipe": true,
 		"ktdynamic": true,
 		"kbcss": true,
-		"kbMetadata": true,
-		"align": ["wide", "full"]
+		"kbMetadata": true
 	},
 	"editorStyle": "kbs-text-editor",
 	"style": "kbs-text"

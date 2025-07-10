@@ -130,6 +130,10 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'alignSelf':
 			controls = getAlignItemsControls(previewDirection);
 			break;
+		case 'align-text':
+		case 'alignText':
+			controls = getAlignTextControls();
+			break;
 		case 'padding-top':
 		case 'paddingTop':
 		case 'padding-right':
@@ -1237,6 +1241,27 @@ export const getAlignItemsControls = (direction) => {
 
 	return controlsByDirection[direction] || [];
 };
+
+export const getAlignTextControls = () => {
+	return [
+		{
+			icon: justifyLeft,
+			title: __('Start', 'kadence-blocks'),
+			key: 'left',
+		},
+		{
+			icon: justifyCenter,
+			title: __('Center', 'kadence-blocks'),
+			key: 'center',
+		},
+		{
+			icon: justifyRight,
+			title: __('End', 'kadence-blocks'),
+			key: 'right',
+		},
+	];
+};
+
 export const getAlignContentControls = (direction) => {
 	const controlsByDirection = {
 		column: [

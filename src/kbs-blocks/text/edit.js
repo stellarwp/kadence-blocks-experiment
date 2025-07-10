@@ -34,8 +34,15 @@ import {
 	getLinkHTML,
 	getResolvedValue,
 	getColorOutput,
+	handleAttributeChange,
 } from '@kadence/kbsHelpers';
-import { DynamicTextControl, IconRender, InlinePaddingResizer, CopyPasteAttributes } from '@kadence/kbsComponents';
+import {
+	DynamicTextControl,
+	IconRender,
+	InlinePaddingResizer,
+	CopyPasteAttributes,
+	TextAlignToolbar,
+} from '@kadence/kbsComponents';
 
 const nonTransAttrs = ['content', 'htmlTag', 'link'];
 
@@ -89,10 +96,6 @@ export default function TextEdit(props) {
 
 	const onContentChange = (value) => {
 		setAttributes({ content: value });
-	};
-
-	const onAlignChange = (nextAlign) => {
-		setAttributes({ align: nextAlign });
 	};
 
 	//TODO
@@ -160,7 +163,7 @@ export default function TextEdit(props) {
 				/>
 				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
-					<AlignmentToolbar value={align} onChange={onAlignChange} />
+					<TextAlignToolbar {...props} />
 					<CopyPasteAttributes
 						attributes={attributes}
 						excludedAttrs={nonTransAttrs}
