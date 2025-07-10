@@ -169,6 +169,14 @@
 			"type": "object",
 			"varPrefix": "--kbs-text-"
 		},
+		"maxWidth": {
+			"renderCSS": true,
+			"component": "maxWidth",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-",
+			"selectorSuffix": " .kbs-text-content"
+		},
 		"icon": {
 			"renderCSS": true,
 			"component": "icon",

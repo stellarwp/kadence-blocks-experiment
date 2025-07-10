@@ -59,6 +59,17 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					meta={metadata}
 				/>
+				<RadioButtonControl
+					label={__('Max Width', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'maxWidth'}
+					radioType={'maxWidth'}
+					type={'maxWidth'}
+					hasCustomControls={true}
+					meta={metadata}
+					previewDevice={previewDevice}
+				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
 				title={__('Link Settings', 'kadence-blocks')}

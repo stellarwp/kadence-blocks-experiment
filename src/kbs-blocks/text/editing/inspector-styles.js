@@ -138,7 +138,6 @@ export default function InspectorStyles(props) {
 					attributeName={'maxHeight'}
 					radioType={'maxHeight'}
 					type={'maxHeight'}
-					// meta={metadata?.attributes?.[maxHeight]}
 					meta={metadata}
 					previewDevice={previewDevice}
 				/>
