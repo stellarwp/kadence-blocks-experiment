@@ -175,7 +175,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 		
 		if (newMode === 'oklch') {
 			// Convert to OKLch using the base color
-			onChange(`oklch(from ${getColorOutput(baseColorToUse)} calc(l) calc(c) calc(h) / 100%)`);
+			onChange(`oklch(from ${getColorOutput(baseColorToUse)} calc(l * 1.00) calc(c * 1.00) calc(h + 0) / 100%)`);
 		} else {
 			// Convert to color-mix using the base color
 			onChange(`color-mix(in oklch, ${getColorOutput(baseColorToUse)}, #000000 50%)`);
@@ -241,6 +241,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 						color={currentOKLchColor}
 						baseColor={currentBaseColor}
 						hue={hue}
+						defaultValue={100}
 						chroma={chroma}
 						value={lightness}
 						shadeType={'lightness'}
@@ -270,6 +271,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 						hasCustomControls={true}
 						color={currentOKLchColor}
 						hue={hue}
+						defaultValue={100}
 						lightness={lightness}
 						baseColor={currentBaseColor}
 						shadeType={'chroma'}
@@ -301,6 +303,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 						color={currentOKLchColor}
 						baseColor={currentBaseColor}
 						shadeType={'hue'}
+						defaultValue={0}
 						value={hue}
 						lightness={lightness}
 						chroma={chroma}
@@ -331,6 +334,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 						color={currentOKLchColor}
 						baseColor={currentBaseColor}
 						shadeType={'alpha'}
+						defaultValue={100}
 						value={alpha ? alpha * 100 : ''}
 						isHover={isHover}
 						inherited={{ inheritedValue: inheritedAlpha ? inheritedAlpha * 100 : '' }}
