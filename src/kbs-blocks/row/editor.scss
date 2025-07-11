@@ -6,7 +6,7 @@
  */
 @use "./style.scss";
 // Remove WP margin added to all blocks.
-.wp-block-kbs-container {
+.wp-block-kbs-row {
 	margin-top: 0;
 	margin-bottom: 0;
 	box-sizing: border-box;

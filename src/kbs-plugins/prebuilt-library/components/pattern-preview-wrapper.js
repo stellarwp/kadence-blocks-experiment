@@ -28,6 +28,7 @@ import { aiSettingsIcon } from '../utils/icons';
 import { kadenceIcon } from '@kadence/kbsHelpers';
 import replaceImages from '../utils/replace/replace-images';
 import replaceMasks from '../utils/replace/replace-masks';
+import replaceBackgrounds from '../utils/replace/replace-backgrounds';
 import { searchItems } from '../utils/search-items';
 
 const roundAccurately = (number, decimalPlaces) =>
@@ -46,11 +47,13 @@ export default function PatternPreviewWrapper({
 	patternType = 'pattern',
 	rootScroll,
 	itemKey,
+	backgrounds,
 }) {
 	const { content, viewportWidth, pro, locked, image, imageHeight, imageWidth, html } = pattern;
 	let htmlContent = html;
 	if (!html && patternHTML) {
 		htmlContent = replaceMasks(patternHTML);
+		htmlContent = replaceBackgrounds(htmlContent, backgrounds);
 	} else if (!html) {
 		htmlContent = ' ';
 	}

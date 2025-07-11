@@ -43,6 +43,7 @@ const PatternLibraryContent = ({
 	isImporting,
 	onSelect,
 	getLibraryContent,
+	backgrounds,
 }) => {
 	return (
 		<div className="kbs-pattern-library-content">
@@ -100,6 +101,7 @@ const PatternLibraryContent = ({
 							onSelect={(pattern) => onSelect(pattern)}
 							search={search}
 							setSearch={setSearch}
+							backgrounds={backgrounds}
 						/>
 					) : (
 						<PatternLibraryContentPatterns
@@ -110,6 +112,7 @@ const PatternLibraryContent = ({
 							onSelect={(pattern) => onSelect(pattern)}
 							search={search}
 							setSearch={setSearch}
+							backgrounds={backgrounds}
 						/>
 					)}
 				</>

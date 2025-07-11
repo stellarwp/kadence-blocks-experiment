@@ -16,10 +16,6 @@
 	min-height: 0;
 	column-gap: var(--kbs-cont-column-gap, var(--global-kb-spacing-xs, 1rem));
 	row-gap: var(--kbs-cont-row-gap, initial);
-	background-size: var(--kbs-cont-background-size, cover);
-	background-repeat: var(--kbs-cont-background-repeat, no-repeat);
-	background-attachment: var(--kbs-cont-background-attachment, scroll);
-	background-position: var(--kbs-cont-background-position, center center);
 
 	max-height: var(--kbs-cont-max-height, unset);
 
@@ -42,10 +38,11 @@
 	border-bottom: var(--kbs-cont-border-bottom);
 
 	box-shadow: var(--kbs-cont-box-shadow);
-	> :is(*, div),
-	> .wp-block {
+	> :where(.wp-block) {
 		margin-left: 0;
 		margin-right: 0;
+		margin-top: 0;
+		margin-bottom: 0;
 		position: relative;
 	}
 	> .kbs-container {

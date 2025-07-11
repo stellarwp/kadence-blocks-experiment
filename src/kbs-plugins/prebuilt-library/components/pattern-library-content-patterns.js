@@ -38,6 +38,7 @@ const PatternLibraryContentPatternsList = ({
 	selectedStyle = 'base',
 	shadowCompatStyles,
 	patternType = 'pattern',
+	backgrounds,
 }) => {
 	const [visibleItems, setVisibleItems] = useState(32); // Start with 12 items
 	const [isLoading, setIsLoading] = useState(false);
@@ -98,6 +99,7 @@ const PatternLibraryContentPatternsList = ({
 						selectedStyle={selectedStyle}
 						shadowCompatStyles={shadowCompatStyles}
 						patternType={patternType}
+						backgrounds={backgrounds}
 					/>
 				);
 			}
@@ -155,6 +157,7 @@ const PatternLibraryContentPatterns = ({
 	search,
 	imageCollection,
 	setSearch,
+	backgrounds,
 }) => {
 	const [sortBy, setSortBy] = useState('id_desc');
 	const [layoutFilter, setLayoutFilter] = useState([]);
@@ -337,6 +340,7 @@ const PatternLibraryContentPatterns = ({
 			patterns={filteredBlockPatterns}
 			patternsHTML={patternsHTML}
 			onClick={onSelect}
+			backgrounds={backgrounds[style]}
 		/>
 	);
 };

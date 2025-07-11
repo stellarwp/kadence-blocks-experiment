@@ -23,12 +23,15 @@ import { usePatternData } from '../hooks/use-pattern-data';
 import { PATTERN_CATEGORY_GROUPS } from '../utils/constants';
 import PatternLibrarySidebar from './pattern-library-sidebar';
 import PatternLibraryContent from './pattern-library-content';
+import { getPresetBackgrounds } from '../hooks/get-preset-backgrounds';
 
 const PatternLibrary = ({ onSelect, activeStorage, updateStorage }) => {
 	const isAIDisabled = window?.kbs_params?.isAIDisabled ? true : false;
 	const isAuthorized = window?.kbs_params?.isAuthorized ? true : false;
 	const activateLink = window?.kbs_params?.homeLink ? window.kbs_params.homeLink : '';
 	const { patterns, patternsHTML, categories, pageCategories, isLoading } = usePatternData();
+	const backgrounds = getPresetBackgrounds();
+	console.log(backgrounds);
 	const [isImporting, setIsImporting] = useState(false);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedSubTab, setSelectedSubTab] = useState(
@@ -123,6 +126,7 @@ const PatternLibrary = ({ onSelect, activeStorage, updateStorage }) => {
 				onSelect={handlePatternSelect}
 				isLoading={isLoading}
 				isImporting={isImporting}
+				backgrounds={backgrounds}
 				// isError={isError}
 				// pages={pages}
 			/>

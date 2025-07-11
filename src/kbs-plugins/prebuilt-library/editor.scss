@@ -233,13 +233,13 @@
 				padding: 0;
 				border-radius: 100%;
 				border: 2px solid rgb(218, 218, 218);
-				&.kbs-pattern-library-style-contrast {
+				&.kbs-pattern-library-style-kbs-contrast {
 					background: var(--global-palette3);
 				}
-				&.kbs-pattern-library-style-accent {
+				&.kbs-pattern-library-style-kbs-accent {
 					background: var(--global-palette1);
 				}
-				&.kbs-pattern-library-style-base {
+				&.kbs-pattern-library-style-kbs-base {
 					background: var(--global-palette9);
 				}
 				&.is-pressed {

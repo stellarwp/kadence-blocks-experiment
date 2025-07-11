@@ -42,6 +42,7 @@ const PatternLibraryContentPagesList = ({
 	rootScroll,
 	shadowCompatStyles,
 	patternType,
+	backgrounds,
 }) => {
 	const showAllItems = (patterns) => {
 		const items = [];
@@ -64,6 +65,7 @@ const PatternLibraryContentPagesList = ({
 						// neededCompatStyles={undefined !== neededCompatStyles ? neededCompatStyles : []}
 						shadowCompatStyles={shadowCompatStyles}
 						patternType={patternType}
+						backgrounds={backgrounds}
 					/>
 				);
 			}

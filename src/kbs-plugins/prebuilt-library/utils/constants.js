@@ -10,7 +10,7 @@ export const PATTERN_CATEGORY_GROUPS = {
 	OTHER: ['header', 'footer', 'navigation'],
 };
 export const PATTERN_STYLES = [
-	{ label: __('Base', 'kadence-blocks'), value: 'base' },
-	{ label: __('Contrast', 'kadence-blocks'), value: 'contrast' },
-	{ label: __('Accent', 'kadence-blocks'), value: 'accent' },
+	{ label: __('Base', 'kadence-blocks'), value: 'kbs-base' },
+	{ label: __('Contrast', 'kadence-blocks'), value: 'kbs-contrast' },
+	{ label: __('Accent', 'kadence-blocks'), value: 'kbs-accent' },
 ];

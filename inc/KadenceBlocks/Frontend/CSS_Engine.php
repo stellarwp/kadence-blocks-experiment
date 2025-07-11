@@ -172,12 +172,6 @@ class CSS_Engine {
 	protected $device_options = null;
 
 	/**
-	 * The singleton instance
-	 */
-	private static $instance = null;
-
-
-	/**
 	 * The device slugs
 	 * 
 	 * @var array
@@ -266,6 +260,7 @@ class CSS_Engine {
 	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'frontend_block_css' ], 180 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'setup_global_styles' ], 2 );
 
 		$this->device_options = Editor_Assets::get_responsive_device_options();
 		// Initialize device slugs and media query arrays dynamically
@@ -285,13 +280,18 @@ class CSS_Engine {
 		if( null === $this->global_styles ) {
             $this->global_styles = $this->get_global_styles();
         }
+	}
+
+	/**
+	 * Setup global styles.
+	 */
+	public function setup_global_styles() {
 		
 		// I don't think we need this anymore, all global styles would be handled in the block rendering.
 		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
 		
 		// Generate global styles CSS when the CSS engine is initialized
 		$this->global_styles_css->generate_css();
-		
 	}
 	/**
 	 * Get global styles.
@@ -836,8 +836,7 @@ class CSS_Engine {
 	 */
 	public function add_global_style_css( $global_styles_ids, $attributes_meta, $block_instance ) {
 		if( !empty( $global_styles_ids ) && is_array( $global_styles_ids ) ) {
-			// Reverse the global styles ids so we can process the last one first.
-			$global_styles_ids = array_reverse( $global_styles_ids );
+			// Use the global styles ids order, this makes the last one have priority.
 			foreach( $global_styles_ids as $global_style_id ) {
 				if ( !empty( $this->global_styles[ $global_style_id ] ) ) {
 					$this->process_global_style( $this->global_styles[ $global_style_id ], $attributes_meta, $block_instance );

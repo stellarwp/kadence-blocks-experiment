@@ -673,7 +673,12 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			return state.styleBookLocalGlobalStylesChanges;
 		},
 		getStyleBookComponentPresetByStyleId(state, styleId, componentId, presetId) {
-			return getMemoizedStyleBookComponentPreset(state.styleBookLocalGlobalStyles, styleId, componentId, presetId);
+			return getMemoizedStyleBookComponentPreset(
+				state.styleBookLocalGlobalStyles,
+				styleId,
+				componentId,
+				presetId
+			);
 		},
 		getStyleBookComponentPresetsByStyleId(state, styleId, componentId) {
 			if (state.styleBookLocalGlobalStyles) {
