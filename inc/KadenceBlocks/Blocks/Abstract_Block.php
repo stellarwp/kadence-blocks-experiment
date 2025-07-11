@@ -706,6 +706,21 @@ class Abstract_Block {
 						$bg_html .= '<video src="' . $layer['desktop']['vimeo'] . '" autoplay muted loop playsinline></video>';
 					}
 				}
+				if ( 'mask' === $bg_type ) {
+					$mask_type = ! empty( $layer['desktop']['maskType'] ) ? $layer['desktop']['maskType'] : 'mask';
+					$divider_position = ! empty( $layer['desktop']['dividerPosition'] ) ? $layer['desktop']['dividerPosition'] : 'bottom';
+					switch ( $mask_type ) {
+						case 'pattern':
+							$bg_html .= '<div class="kbs-pattern-mask-svg kbs-pattern-svg"></div>';
+							break;
+						case 'divider':
+							$bg_html .= '<div class="kbs-divider-svg-wrapper kbs-divider-position-' . $divider_position . '"><div class="kbs-divider-svg"></div></div>';
+							break;
+						default:
+							$bg_html .= '<div class="kbs-pattern-mask-svg kbs-mask-svg"></div>';
+							break;
+					}
+				}
 				$bg_html .= '</div>';
 			}
 		}

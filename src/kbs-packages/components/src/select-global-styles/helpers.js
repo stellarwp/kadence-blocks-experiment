@@ -18,6 +18,7 @@ export const useSelectOptions = ({ forStyleBook = false }) => {
 		? select('kadenceblocks/global-styles')?.getGlobalStyles() || []
 		: select('kadenceblocks/global-styles')?.getStyleBookLocalGlobalStyles() || [];
 	const isLoadingOptions = select('kadenceblocks/global-styles')?.isLoading() || false;
+	console.log(globalStyles);
 
 	// Map global styles to options format
 	if (globalStyles && Object.keys(globalStyles).length > 0) {
@@ -26,7 +27,7 @@ export const useSelectOptions = ({ forStyleBook = false }) => {
 
 			return {
 				value: key,
-				label: style.label || `Style ${key}`,
+				label: style?.label || `Style ${key}`,
 			};
 		});
 		if (!forStyleBook) {

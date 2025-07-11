@@ -249,7 +249,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 		$result                 = '';
 		$sanitized_global_style = [];
 		$style_id               = $data['styleId'] ?? '';
-		if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
+		if ( $style_id == 'kbs-base' || $style_id == 'kbs-contrast' || $style_id == 'kbs-accent' ) {
 			$sanitized_global_style = $this->sanitize_global_style( $data );
 			$core_style             = str_replace( 'kbs-', '', $style_id );
 			if ( $core_style == 'base' ) {
@@ -353,7 +353,7 @@ class Global_Styles_Controller extends WP_REST_Controller {
 		if ( $data && gettype( $data ) == 'array' ) {
 			foreach ( $data as $style_id => $global_style ) {
 				$sanitized_global_style = $this->sanitize_global_style( $global_style );
-				if ( $style_id == 'kbs-base' || $style_id == 'kbs-dark' || $style_id == 'kbs-accent' ) {
+				if ( $style_id == 'kbs-base' || $style_id == 'kbs-contrast' || $style_id == 'kbs-accent' ) {
 					$core_style   = str_replace( 'kbs-', '', $style_id );
 					$global_style = Global_Style::save_options( $global_style, $core_style );
 				} else {

@@ -426,6 +426,9 @@ const resolvers = {
 	*getMergedGlobalStyle() {
 		yield resolvers.getGlobalStyles();
 	},
+	*getResolvedGlobalData() {
+		yield resolvers.getGlobalStyles();
+	},
 	*getResolvedStyleData() {
 		yield resolvers.getGlobalStyles();
 	},
@@ -714,6 +717,28 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		},
 		getError(state) {
 			return state.error;
+		},
+		/**
+		 * Uses the memoized getMergedStylesByIds selector and then extracts the raw style data
+		 * for a specific component attribute path.
+		 *
+		 * @param {Object} state - The store state.
+		 * @param {string[]} styleIds - Array of global style IDs to merge.
+		 * @param {string} subItemName - The name of the sub item (e.g., 'components', 'mappings').
+		 * @returns {Object|undefined} The raw style data object or undefined if not found.
+		 */
+		getResolvedGlobalData(state, styleIds, subItemName) {
+			console.log('getResolvedGlobalData', styleIds);
+			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIds);
+			if (!subItemName) {
+				return mergedStyles;
+			}
+			if (mergedStyles?.[subItemName]) {
+				return mergedStyles?.[subItemName];
+			}
+
+			// Nothing found.
+			return undefined;
 		},
 		/**
 		 * Uses the memoized getMergedStylesByIds selector and then extracts the raw style data

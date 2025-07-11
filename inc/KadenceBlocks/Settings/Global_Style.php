@@ -36,7 +36,7 @@ class Global_Style {
 	 *
 	 * @var default values of the style book.
 	 */
-	protected static $default_dark_options = null;
+	protected static $default_contrast_options = null;
 	/**
 	 * Holds default style book values
 	 *
@@ -55,7 +55,7 @@ class Global_Style {
 	 *
 	 * @var default values of the style book.
 	 */
-	protected static $dark_options = null;
+	protected static $contrast_options = null;
 	/**
 	 * Holds default style book values
 	 *
@@ -73,7 +73,7 @@ class Global_Style {
 	 *
 	 * @var array
 	 */
-	private static $dark_opt_name = null;
+	private static $contrast_opt_name = null;
 
 	/**
 	 * Settings database Name.
@@ -147,8 +147,8 @@ class Global_Style {
 		switch ( $type ) {
 			case 'base':
 				return self::defaults();
-			case 'dark':
-				return self::dark_defaults();
+			case 'contrast':
+				return self::contrast_defaults();
 			case 'accent':
 				return self::accent_defaults();
 		}
@@ -264,23 +264,23 @@ class Global_Style {
 	 *
 	 * @return array
 	 */
-	public static function dark_defaults() {
+	public static function contrast_defaults() {
 		// Don't store defaults until after init.
-		if ( is_null( self::$default_dark_options ) ) {
+		if ( is_null( self::$default_contrast_options ) ) {
 			$styles    = [];
-			$dark_file = KADENCE_BLOCKS_PATH . 'inc/data/dark.json';
-			if ( file_exists( $dark_file ) ) {
-				$dark_content = json_decode( file_get_contents( $dark_file ), true );
-				if ( $dark_content ) {
-					$styles = $dark_content;
+			$contrast_file = KADENCE_BLOCKS_PATH . 'inc/data/contrast.json';
+			if ( file_exists( $contrast_file ) ) {
+				$contrast_content = json_decode( file_get_contents( $contrast_file ), true );
+				if ( $contrast_content ) {
+					$styles = $contrast_content;
 				}
 			}
-			self::$default_dark_options = apply_filters(
-				'kadence_blocks_stylebook_dark_defaults',
+			self::$default_contrast_options = apply_filters(
+				'kadence_blocks_stylebook_contrast_defaults',
 				$styles
 			);
 		}
-		return self::$default_dark_options;
+		return self::$default_contrast_options;
 	}
 	/**
 	 * Set default theme option values
@@ -325,13 +325,13 @@ class Global_Style {
 	 * @access public
 	 * @return string
 	 */
-	public static function get_dark_option_name() {
+	public static function get_contrast_option_name() {
 		// Define sections.
-		if ( is_null( self::$dark_opt_name ) ) {
-			self::$dark_opt_name = apply_filters( 'kadence_blocks_stylebook_dark_option_name', 'kadence_blocks_stylebook_dark' );
+		if ( is_null( self::$contrast_opt_name ) ) {
+			self::$contrast_opt_name = apply_filters( 'kadence_blocks_stylebook_contrast_option_name', 'kadence_blocks_stylebook_contrast' );
 		}
 		// Return option_name.
-		return self::$dark_opt_name;
+		return self::$contrast_opt_name;
 	}
 	/**
 	 * Get Accent Option Name
@@ -374,17 +374,17 @@ class Global_Style {
 		return self::$base_options;
 	}
 	/**
-	 * Get Dark Options
+	 * Get Contrast Options
 	 *
 	 * @access public
 	 * @return array
 	 */
-	public static function get_dark_options() {
-		if ( is_null( self::$dark_options ) ) {
-			$options            = json_decode( get_option( self::get_dark_option_name(), '[]' ), true );
-			self::$dark_options = self::deep_merge( $options, self::dark_defaults() );
+	public static function get_contrast_options() {
+		if ( is_null( self::$contrast_options ) ) {
+			$options            = json_decode( get_option( self::get_contrast_option_name(), '[]' ), true );
+			self::$contrast_options = self::deep_merge( $options, self::contrast_defaults() );
 		}
-		return self::$dark_options;
+		return self::$contrast_options;
 	}
 	/**
 	 * Get Accent Options
@@ -411,8 +411,8 @@ class Global_Style {
 			case 'base':
 				$options = self::get_base_options();
 				break;
-			case 'dark':
-				$options = self::get_dark_options();
+			case 'contrast':
+				$options = self::get_contrast_options();
 				break;
 			case 'accent':
 				$options = self::get_accent_options();
@@ -430,8 +430,8 @@ class Global_Style {
 		switch ( $type ) {
 			case 'base':
 				return self::get_base_option_name();
-			case 'dark':
-				return self::get_dark_option_name();
+			case 'contrast':
+				return self::get_contrast_option_name();
 			case 'accent':
 				return self::get_accent_option_name();
 		}
@@ -534,7 +534,7 @@ class Global_Style {
 	public static function get_global_styles() {
 		$gs_contents = [
 			'kbs-base'   => self::options( 'base' ),
-			'kbs-dark'   => self::options( 'dark' ),
+			'kbs-contrast'   => self::options( 'contrast' ),
 			'kbs-accent' => self::options( 'accent' ),
 		];
 

@@ -11,7 +11,6 @@ export default function replaceBackgrounds(content, backgrounds = {}) {
 	const variant4 = new RegExp('<div class="kbs-bg-placeholder-kbs-bg-variant-4"></div>', 'g');
 	const variant5 = new RegExp('<div class="kbs-bg-placeholder-kbs-bg-variant-5"></div>', 'g');
 	const variant6 = new RegExp('<div class="kbs-bg-placeholder-kbs-bg-variant-6"></div>', 'g');
-	console.log(backgrounds);
 	// Background.
 	content = content.replace(
 		variant1,

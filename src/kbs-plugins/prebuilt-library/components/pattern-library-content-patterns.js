@@ -32,13 +32,12 @@ const PatternLibraryContentPatternsList = ({
 	patterns,
 	patternsHTML,
 	onClick,
-	customStyles,
-	shadowStyles,
 	previewMode = 'html',
 	selectedStyle = 'base',
-	shadowCompatStyles,
 	patternType = 'pattern',
 	backgrounds,
+	mappingStyles,
+	baseStyles,
 }) => {
 	const [visibleItems, setVisibleItems] = useState(32); // Start with 12 items
 	const [isLoading, setIsLoading] = useState(false);
@@ -93,13 +92,12 @@ const PatternLibraryContentPatternsList = ({
 						pattern={itemsToShow[i]}
 						patternHTML={patternsHTML ? patternsHTML?.[itemsToShow[i]?.slug]?.html : null}
 						onClick={onClick}
-						customStyles={customStyles}
-						shadowStyles={shadowStyles}
 						previewMode={previewMode}
 						selectedStyle={selectedStyle}
-						shadowCompatStyles={shadowCompatStyles}
 						patternType={patternType}
 						backgrounds={backgrounds}
+						mappingStyles={mappingStyles}
+						baseStyles={baseStyles}
 					/>
 				);
 			}
@@ -158,6 +156,8 @@ const PatternLibraryContentPatterns = ({
 	imageCollection,
 	setSearch,
 	backgrounds,
+	mappingStyles,
+	baseStyles,
 }) => {
 	const [sortBy, setSortBy] = useState('id_desc');
 	const [layoutFilter, setLayoutFilter] = useState([]);
@@ -340,7 +340,10 @@ const PatternLibraryContentPatterns = ({
 			patterns={filteredBlockPatterns}
 			patternsHTML={patternsHTML}
 			onClick={onSelect}
-			backgrounds={backgrounds[style]}
+			backgrounds={backgrounds?.[style] || {}}
+			mappingStyles={mappingStyles?.[style] || ''}
+			selectedStyle={style}
+			baseStyles={baseStyles}
 		/>
 	);
 };

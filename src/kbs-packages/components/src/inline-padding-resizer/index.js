@@ -628,6 +628,7 @@ function OutputResizer(props) {
 				onResizeStart={onResizeStart}
 				className={clsx(`kbs-right-padding-resize kbs-padding-resize-box`, {
 					'is-resizing': isResizing === 'Right',
+					'is-zero-width': previewRightPadding === 0,
 				})}
 				size={{
 					height: 'auto',

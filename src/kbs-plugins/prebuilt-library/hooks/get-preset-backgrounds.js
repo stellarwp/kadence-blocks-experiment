@@ -31,7 +31,7 @@ const getSingleStylePresetBackgrounds = (globalStyleId, presetsOptions) => {
 		const attributes = rawPresetData?.attributes || {};
 
 		// Generate CSS
-		const selector = `.preset-${globalStyleId}-${option.value}`;
+		const selector = `.single-shadow-preview-content .preset-${globalStyleId}-${option.value}`;
 		const css = new cssGenerator(selector);
 		const reverseLayers = Array.isArray(attributes?.layers) ? [...attributes.layers].reverse() : [];
 
@@ -56,6 +56,8 @@ const getSingleStylePresetBackgrounds = (globalStyleId, presetsOptions) => {
 			const youtube = layer?.desktop?.youtube;
 			const vimeo = layer?.desktop?.vimeo;
 			const videoPoster = layer?.desktop?.image;
+			const maskType = layer?.desktop?.maskType || 'mask';
+			const dividerPosition = layer?.desktop?.dividerPosition || 'bottom';
 
 			// Skip first layer if no effects and not special types
 			const anyBackgroundOpacity = layer?.Mobile?.opacity;
@@ -76,7 +78,16 @@ const getSingleStylePresetBackgrounds = (globalStyleId, presetsOptions) => {
 			}
 			// Add mask rendering if needed
 			if (type === 'mask') {
-				htmlLayers += `<div class="kbs-mask-layer"></div>`;
+				switch (maskType) {
+					case 'pattern':
+						htmlLayers += `<div class="kbs-pattern-mask-svg kbs-pattern-svg"></div>`;
+						break;
+					case 'divider':
+						htmlLayers += `<div class="kbs-divider-svg-wrapper kbs-divider-position-${dividerPosition}"><div class="kbs-divider-svg"></div></div>`;
+						break;
+					default:
+						htmlLayers += `<div class="kbs-pattern-mask-svg kbs-mask-svg"></div>`;
+				}
 			}
 
 			htmlLayers += '</div>';
@@ -87,8 +98,8 @@ const getSingleStylePresetBackgrounds = (globalStyleId, presetsOptions) => {
 		const hasNoBackground = !attributes?.layers?.length ? ' has-no-background' : '';
 
 		acc[option.value] = {
-			html: `<div class="${classes}${hasNoBackground}">${htmlLayers}</div>`,
-			css: cssOutput + '.kbs-bg-preset-render {position: absolute;left: 0;right: 0;top: 0;bottom: 0;}',
+			html: `<div class="kbs-bg-layer ${classes}${hasNoBackground}">${htmlLayers}</div>`,
+			css: cssOutput,
 		};
 
 		return acc;
@@ -107,8 +118,7 @@ export const getPresetBackgrounds = () => {
 		let tempBackgrounds = {};
 
 		PATTERN_STYLES.map((item) => {
-			const backgrounds = getSingleStylePresetBackgrounds(item.value, presetsOptions);
-			tempBackgrounds[item.value] = backgrounds;
+			tempBackgrounds[item.value] = getSingleStylePresetBackgrounds(item.value, presetsOptions);
 		});
 		setBackgrounds(tempBackgrounds);
 	}, []);

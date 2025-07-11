@@ -38,13 +38,13 @@ function ScaledPatternShadowPreview({
 	viewportWidth,
 	containerWidth,
 	minHeight = 70,
-	additionalStyles = [],
 	title,
 	ratio,
-	shadowCompatStyles,
 	shadowStyles = [],
 	patternType = 'pattern',
 	rootScroll,
+	mappingStyles,
+	baseStyles,
 }) {
 	if (!viewportWidth) {
 		viewportWidth = containerWidth;
@@ -74,14 +74,15 @@ function ScaledPatternShadowPreview({
 			<>
 				<link
 					rel="stylesheet"
-					id="kadence-blocks-iframe-base"
+					id="kbs-pattern-preview-base"
 					href={window?.kbs_params?.livePreviewStyles}
 					media="all"
 				></link>
-				{shadowCompatStyles}
+				<style>{`.pattern-shadow-wrap{${baseStyles}}`}</style>
+				<style>{`.single-shadow-preview-content{${mappingStyles}}`}</style>
 			</>
 		),
-		[shadowCompatStyles]
+		[mappingStyles]
 	);
 
 	// Memoize shadow assets with optimized CSS processing
@@ -198,12 +199,11 @@ function ScaledPatternShadowPreview({
 						style={shadowContainerStyles}
 					>
 						{styleAssets}
-						{shadowAssets}
 						<style>{`.pattern-shadow-wrap { transition: ${transitionSpeed} }`}</style>
 						<div part={'container'} className={'editor-styles-wrapper pattern-shadow-wrap'}>
 							{contentResizeListener}
 							<div
-								className={`single-iframe-content${
+								className={`single-shadow-preview-content${
 									window?.kbs_params?.isKadenceT ? ' single-content' : ''
 								}`}
 								dangerouslySetInnerHTML={{ __html: html }}
@@ -242,11 +242,10 @@ export default function PatternPreview({
 	html,
 	viewportWidth = 1200,
 	minHeight,
-	additionalStyles = [],
+	mappingStyles,
+	baseStyles,
 	title,
 	ratio,
-	shadowStyles,
-	shadowCompatStyles,
 	patternType,
 	rootScroll,
 }) {
@@ -259,13 +258,12 @@ export default function PatternPreview({
 			viewportWidth={viewportWidth}
 			minHeight={minHeight}
 			html={html}
-			additionalStyles={additionalStyles}
 			title={title}
 			ratio={ratio}
-			shadowStyles={shadowStyles}
-			shadowCompatStyles={shadowCompatStyles}
 			patternType={patternType}
 			rootScroll={rootScroll}
+			baseStyles={baseStyles}
+			mappingStyles={mappingStyles}
 		/>
 	);
 }

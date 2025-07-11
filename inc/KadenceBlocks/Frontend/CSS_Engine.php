@@ -259,8 +259,6 @@ class CSS_Engine {
 	 * constructor
 	 */
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'frontend_block_css' ], 180 );
-		add_action( 'wp_enqueue_scripts', [ $this, 'setup_global_styles' ], 2 );
 
 		$this->device_options = Editor_Assets::get_responsive_device_options();
 		// Initialize device slugs and media query arrays dynamically
@@ -280,17 +278,15 @@ class CSS_Engine {
 		if( null === $this->global_styles ) {
             $this->global_styles = $this->get_global_styles();
         }
+		// Set up the global styles css engine in the global styles css engine.
+		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
 	}
 
 	/**
 	 * Setup global styles.
 	 */
 	public function setup_global_styles() {
-		
-		// I don't think we need this anymore, all global styles would be handled in the block rendering.
-		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
-		
-		// Generate global styles CSS when the CSS engine is initialized
+		// Generate global styles CSS for all mappings.
 		$this->global_styles_css->generate_css();
 	}
 	/**
@@ -313,10 +309,10 @@ class CSS_Engine {
 			self::$head_styles = self::$styles;
 			$output = '';
 			foreach ( self::$styles as $key => $value ) {
-				if ( strpos( $key, 'global-styles' ) !== false ) {
-					// Global styles go in head_styles but not regular output
-					continue;
-				}
+				// Remove the comments if we want to change how the global mappings are loaded.
+				// if ( strpos( $key, 'global-styles' ) !== false ) {
+				// 	continue;
+				// }
 				$output .= $value;
 			}
 			$custom_output = '';
@@ -1313,6 +1309,7 @@ class CSS_Engine {
 		}
 
 		if ( $index === 0 && !$has_forced_layer_type && ! $has_effects ) {
+			$temp_selector = $current_selector;
 			$this->set_selector( $current_selector );
 		} else {
 			$temp_selector = $current_selector . ' > .' . $meta_class_prefix . $index;
@@ -1363,6 +1360,142 @@ class CSS_Engine {
 								$this->add_property( 'background-image', $device_attributes['gradient'] );
 							}
 							break;
+						case 'mask':
+							$mask_type = $this->get_layer_device_value( $layer, 'maskType', $device_name ) ?: 'mask';
+							if ( !empty( $device_attributes['color'] ) ) {
+								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['color'] ) );
+								$this->add_property( '--kbs-mask-bg', $this->sanitize_color( $device_attributes['color'] ) );
+							}
+							if ( !empty( $device_attributes['maskColor'] ) ) {
+								$this->add_property( '--kbs-mask-color', $this->sanitize_color( $device_attributes['maskColor'] ) );
+							}
+							switch ( $mask_type ) {
+								case 'pattern':
+									$this->add_property( 'mask-image', 'url("data:image/svg+xml, ' . $device_attributes['mask'] . '")' );
+									break;
+								case 'divider':
+									$this->add_property( 'mask-image', 'url("data:image/svg+xml, ' . $device_attributes['mask'] . '")' );
+									break;
+								default:
+									$mask_slug = !empty( $device_attributes['mask'] ) ? $device_attributes['mask'] : '';
+									if ( !empty( $mask_slug ) ) {
+										$this->set_selector( $current_selector . ' > .' . $meta_class_prefix . $index . ' .kbs-pattern-mask-svg' );
+										$mask_inverted = !empty( $device_attributes['maskInverted'] ) ? $device_attributes['maskInverted'] : '';
+										$mask_size = !empty( $device_attributes['maskSize'] ) ? $device_attributes['maskSize'] : '';
+										$mask_ratio = $mask_size === 'stretch' ? 'none' : 'xMidYMid meet';
+										$mask_subset = $mask_inverted === 'enabled' ? 'inverted' : 'normal';
+										$mask_data = $this->get_mask_data( $mask_slug, $mask_subset );
+										if ( !empty( $mask_data['path'] ) ) {
+											if ( !empty( $device_attributes['maskColor'] ) ) {
+												$this->add_property( 'background', $this->sanitize_color( $device_attributes['maskColor'] ) );
+											} else if ( $device_name === 'desktop' ) {
+												$this->add_property( 'background', 'var(--kbs-colors-palette3)' );
+											}
+											$this->add_property( 'mask-image', 'url("data:image/svg+xml, ' . rawurlencode( '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="'. esc_attr( $mask_ratio ) . '" viewBox="0 0 1920 1200" fill="black"><path d="'. esc_attr( $mask_data['path'] ) . '" /></svg>' ) . '")' );
+											$this->add_property( 'mask-repeat', 'no-repeat' );
+											if ( $mask_size === 'contain' ) {
+												$this->add_property( 'mask-size', 'contain' );
+											} else {
+												$this->add_property( 'mask-size', 'cover' );
+											}
+										}
+									}
+									$position_x = 'center';
+									$position_y = 'center';
+									if ( !empty( $device_attributes['alignX'] ) ) {
+										if ( $device_attributes['alignX'] === 'min' ) {
+											$position_x = 'left';
+										} else if ( $device_attributes['alignX'] === 'max' ) {
+											$position_x = 'right';
+										}
+									}
+									if ( !empty( $device_attributes['alignY'] ) ) {
+										if ( $device_attributes['alignY'] === 'min' ) {
+											$position_y = 'top';
+										} else if ( $device_attributes['alignY'] === 'max' ) {
+											$position_y = 'bottom';
+										}
+									}
+									$this->add_property( 'mask-position', $position_x . ' ' . $position_y );
+									$flip_x = !empty( $device_attributes['flipX'] ) ? $device_attributes['flipX'] : '';
+									$flip_y = !empty( $device_attributes['flipY'] ) ? $device_attributes['flipY'] : '';
+									if ( $flip_x === 'enabled' || $flip_y === 'enabled' ) {
+										$this->add_property( 'transform', 'scaleX(' . ( $flip_x === 'enabled' ? '-1' : '1' ) . ') scaleY(' . ( $flip_y === 'enabled' ? '-1' : '1' ) . ')' );
+									}
+									break;
+							}
+							$this->set_selector( $temp_selector );
+							break;
+
+				// if (maskType === 'divider') {
+				// 	const backgroundDivider = getLayerDeviceValue('divider', layer, props.previewDevice);
+				// 	const dividerWidth = getLayerDeviceValue('dividerWidth', layer, props.previewDevice);
+				// 	const dividerHeight = getLayerDeviceValue('dividerHeight', layer, props.previewDevice);
+				// 	const dividerPosition = getLayerDeviceValue('dividerPosition', layer, props.previewDevice);
+				// 	const dividerSide =
+				// 		dividerPosition === 'left' || dividerPosition === 'right' ? 'vertical' : 'horizontal';
+				// 	if (dividerWidth) {
+				// 		this.add({ '--kbs-divider-width': dividerWidth });
+				// 	}
+				// 	if (dividerHeight) {
+				// 		this.add({ '--kbs-divider-height': dividerHeight });
+				// 	}
+				// 	if (backgroundDivider) {
+				// 		const dividerObject =
+				// 			getDividerOptions()[dividerSide].find(({ value }) => value === backgroundDivider) || {};
+				// 		if (dividerObject) {
+				// 			if (dividerObject?.['svg']) {
+				// 				this.setSelector(tempSelector + ' .kbs-divider-svg-wrapper .kbs-divider-svg');
+				// 				if (maskColor) {
+				// 					this.add({ background: getColorOutput(maskColor) });
+				// 				} else {
+				// 					this.add({ background: getColorOutput('palette3') });
+				// 				}
+				// 				this.add({
+				// 					'mask-image': `url("data:image/svg+xml, ${encodeURIComponent(dividerObject['svg'])}")`,
+				// 				});
+				// 				this.add({ 'mask-repeat': 'no-repeat' });
+				// 				this.setSelector(tempSelector);
+				// 			}
+				// 		}
+				// 	}
+				// }
+				// if (maskType === 'pattern') {
+				// 	const backgroundPattern = getLayerDeviceValue('pattern', layer, props.previewDevice);
+				// 	if (backgroundPattern) {
+				// 		const patternSize = getLayerDeviceValue('patternSize', layer, props.previewDevice);
+				// 		const patternPosition =
+				// 			getLayerDeviceValue('patternPosition', layer, props.previewDevice) || 'top left';
+				// 		if (patternSize) {
+				// 			this.add({ '--kbs-pattern-size': patternSize });
+				// 		} else {
+				// 			this.add({ '--kbs-pattern-size': '20' });
+				// 		}
+				// 		const pattern = getPatternOptions().find((pattern) => pattern.value === backgroundPattern);
+				// 		if (pattern) {
+				// 			if (pattern?.['svg']) {
+				// 				this.setSelector(tempSelector + ' .kbs-pattern-svg');
+				// 				if (maskColor) {
+				// 					this.add({ background: getColorOutput(maskColor) });
+				// 				} else {
+				// 					this.add({ background: getColorOutput('palette3') });
+				// 				}
+				// 				this.add({
+				// 					'mask-image': `url("data:image/svg+xml, ${encodeURIComponent(pattern['svg'])}")`,
+				// 				});
+				// 				this.add({ 'mask-repeat': 'repeat' });
+				// 				const currentPatternSize = pattern?.['size'];
+				// 				this.add({
+				// 					'mask-size':
+				// 						'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))',
+				// 				});
+				// 				this.add({ 'mask-position': patternPosition });
+				// 				this.setSelector(tempSelector);
+				// 			}
+				// 		}
+				// 	}
+				// }
+							break;	
 						/* TODO: I need to add all the other background types here. */
 					}
 					// Handle hover states
@@ -1835,6 +1968,94 @@ class CSS_Engine {
 	 */
 	public function set_spacing_sizes( $sizes ) {
 		$this->spacing_sizes = $sizes;
+	}
+	/**
+	 * Encodes the string.
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	public function encode_uri_component($str) {
+		$revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
+		return strtr(rawurlencode($str), $revert);
+	}
+
+	/**
+	 * Returns the mask data.
+	 *
+	 * @param string $mask_slug
+	 * @param string $mask_subset
+	 * @return array
+	 */
+	public function get_mask_data( $mask_slug, $mask_subset ) {
+
+		$masks = [
+			'normal' => [
+				'kbs-mask-panels-1' => [
+					'label' => __('Panels 1', 'kadence-blocks'),
+					'value' => 'kbs-mask-panels-1',
+					'path' => 'M1661.42,0l-1661.42,0l0,1200l461.418,0l1200,-1200Zm258.582,337.987l-862.013,862.013l-172.305,0l1034.32,-1034.32l0,172.305Zm0,600.056l-261.957,261.957l-175.792,0l437.749,-437.749l0,175.792Z',
+				],
+				'kbs-mask-panels-2' => [
+					'label' => __('Panels 2', 'kadence-blocks'),
+					'value' => 'kbs-mask-panels-2',
+					'path' => 'M1920,68.988l0,-68.988l-1920,0l0,1200l788.988,0l1131.01,-1131.01Zm0,869.055l-261.957,261.957l-152.737,0l414.694,-414.694l0,152.737Zm0,-435.58l-697.537,697.537l-150.632,0l848.169,-848.169l0,150.632Z',
+				],
+				'kbs-mask-panels-3' => [
+					'label' => __('Panels 3', 'kadence-blocks'),
+					'value' => 'kbs-mask-panels-3',
+					'path' => 'M1072.83,0l-1072.83,0l0,1200l751.286,0l321.539,-1200Zm314.653,1200l-111.811,0l321.539,-1200l111.811,0l-321.539,1200Zm-318.866,0l-110.27,0l321.539,-1200l110.27,0l-321.539,1200Zm847.461,-1200l-321.539,1200l325.466,0l0,-1200l-3.927,0Z',
+				],
+				'kbs-mask-panels-4' => [
+					'label' => __('Panels 4', 'kadence-blocks'),
+					'value' => 'kbs-mask-panels-4',
+					'path' => 'M1122.29,0l-1122.29,0l0,1200l800.754,0l321.539,-1200Zm-218.921,1200l-50.855,0l321.539,-1200l50.855,0l-321.539,1200Zm196.562,0l-93.034,0l321.539,-1200l93.034,0l-321.539,1200Zm412.398,0l-205.343,0l321.539,-1200l205.343,0l-321.539,1200Z',
+				],
+				'kbs-mask-shape-1' => [
+					'label' => __('Shape 1', 'kadence-blocks'),
+					'value' => 'kbs-mask-shape-1',
+					'path' => 'M872.129,0l-872.129,0l0,1200l1920,0l0,-198.91l-275.551,116.977c-139.204,59.096 -300.198,-5.942 -359.293,-145.146l-413.027,-972.921Z',
+				],
+				'kbs-mask-shape-2' => [
+					'label' => __('Shape 2', 'kadence-blocks'),
+					'value' => 'kbs-mask-shape-2',
+					'path' => 'M1438.9,0l-1438.9,0l0,1200l900.699,0l-137.148,-137.148c-106.935,-106.934 -106.935,-280.569 -0,-387.503l675.349,-675.349Z',
+				],
+			],
+			'inverted' => [
+				'kbs-mask-panels-1' => [
+					'label' => __('Panels 1', 'kadence-blocks'),
+					'value' => 'kbs-mask-panels-1',
+					'path' => 'M1920,165.684l0,-165.684l-258.582,0l-1200,1200l424.266,0l1034.32,-1034.32Zm0,172.305l0,424.264l-437.747,437.747l-424.264,0l862.011,-862.011Zm0,862.011l-261.955,0l261.955,-261.955l0,261.955Z',
+				],
+				'kbs-mask-panels-2' => [
+					'label' => __('Panels 2', 'kadence-blocks'),
+					'value' => 'kbs-mask-panels-2',
+					'path' => 'M1920,0l0,1200l-261.957,0l261.957,-261.957l0,-152.737l-414.694,414.694l-282.843,0l697.537,-697.537l0,-150.632l-848.169,848.169l-282.843,0l1131.01,-1131.01l0,-68.988Z',
+				],
+				'kbs-mask-panels-3' => [
+					'label' => __('Panels 3', 'kadence-blocks'),
+					'value' => 'kbs-mask-panels-3',
+					'path' => 'M1594.54,1200l-207.056,0l321.539,-1200l207.056,0l-321.539,1200Zm-318.867,0l-207.055,0l321.539,-1200l207.055,0l-321.539,1200Zm-317.325,0l321.539,-1200l-207.061,0l-321.539,1200l207.061,0Z',
+				],
+				'kbs-mask-panels-4' => [
+					'label' => __('Panels 4', 'kadence-blocks'),
+					'value' => 'kbs-mask-panels-4',
+					'path' => 'M1920,0l0,1200l-407.671,0l321.539,-1200l86.132,0Zm-613.014,1200l-207.055,0l321.539,-1200l207.055,0l-321.539,1200Zm-300.089,0l-103.528,0l321.539,-1200l103.528,0l-321.539,1200Zm-154.383,0l321.539,-1200l-51.76,0l-321.539,1200l51.76,0Z',
+				],
+				'kbs-mask-shape-1' => [
+					'label' => __('Shape 1', 'kadence-blocks'),
+					'value' => 'kbs-mask-shape-1',
+					'path' => 'M872.129,0l413.027,972.921c59.095,139.204 220.089,204.242 359.293,145.146l275.551,-116.977l0,198.91l0,-1200l-1047.87,0Z',
+				],
+				'kbs-mask-shape-2' => [
+					'label' => __('Shape 2', 'kadence-blocks'),
+					'value' => 'kbs-mask-shape-2',
+					'path' => 'M1438.9,0l-675.349,675.349c-106.935,106.934 -106.935,280.569 -0,387.503l137.148,137.148l1019.3,0l0,-1200l-481.1,0Z',
+				],
+			],
+		];
+		return isset( $masks[$mask_subset][$mask_slug] ) ? $masks[$mask_subset][$mask_slug] : [];
 	}
 
 }

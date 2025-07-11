@@ -44,6 +44,8 @@ const PatternLibraryContent = ({
 	onSelect,
 	getLibraryContent,
 	backgrounds,
+	mappingStyles,
+	baseStyles,
 }) => {
 	return (
 		<div className="kbs-pattern-library-content">
@@ -113,6 +115,8 @@ const PatternLibraryContent = ({
 							search={search}
 							setSearch={setSearch}
 							backgrounds={backgrounds}
+							mappingStyles={mappingStyles}
+							baseStyles={baseStyles}
 						/>
 					)}
 				</>

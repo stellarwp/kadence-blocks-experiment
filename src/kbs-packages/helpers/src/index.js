@@ -32,6 +32,7 @@ export { default as getPatternOptions } from './get-pattern-options';
 export { default as getMaskOptions } from './get-mask-options';
 export { default as getDividerOptions } from './get-divider-options';
 export { default as getGlobalStylesCSSOutput } from './get-global-styles-css';
+export { default as getMappingVariableName } from './get-mapping-variable-name';
 export { default as mouseOverVisualizer } from './mouse-over-visualizer';
 export { default as parseBorderStyle } from './parse-border-style';
 export { default as getSpacingOutput } from './get-spacing-output';

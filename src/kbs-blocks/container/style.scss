@@ -38,7 +38,7 @@
 	border-bottom: var(--kbs-cont-border-bottom);
 
 	box-shadow: var(--kbs-cont-box-shadow);
-	> :where(.wp-block) {
+	> :where(*) {
 		margin-left: 0;
 		margin-right: 0;
 		margin-top: 0;
@@ -70,5 +70,12 @@
 		background-attachment: scroll;
 		overflow: hidden;
 		transition: all 0.3s ease-in-out;
+		.kbs-pattern-mask-svg {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+		}
 	}
 }

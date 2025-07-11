@@ -24,6 +24,7 @@ import { PATTERN_CATEGORY_GROUPS } from '../utils/constants';
 import PatternLibrarySidebar from './pattern-library-sidebar';
 import PatternLibraryContent from './pattern-library-content';
 import { getPresetBackgrounds } from '../hooks/get-preset-backgrounds';
+import { getPresetMappingStyles } from '../hooks/get-preset-mapping-styles';
 
 const PatternLibrary = ({ onSelect, activeStorage, updateStorage }) => {
 	const isAIDisabled = window?.kbs_params?.isAIDisabled ? true : false;
@@ -31,7 +32,9 @@ const PatternLibrary = ({ onSelect, activeStorage, updateStorage }) => {
 	const activateLink = window?.kbs_params?.homeLink ? window.kbs_params.homeLink : '';
 	const { patterns, patternsHTML, categories, pageCategories, isLoading } = usePatternData();
 	const backgrounds = getPresetBackgrounds();
-	console.log(backgrounds);
+	const mappingStyles = getPresetMappingStyles();
+	// For now, base styles are empty.
+	const baseStyles = '';
 	const [isImporting, setIsImporting] = useState(false);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedSubTab, setSelectedSubTab] = useState(
@@ -127,6 +130,8 @@ const PatternLibrary = ({ onSelect, activeStorage, updateStorage }) => {
 				isLoading={isLoading}
 				isImporting={isImporting}
 				backgrounds={backgrounds}
+				mappingStyles={mappingStyles}
+				baseStyles={baseStyles}
 				// isError={isError}
 				// pages={pages}
 			/>

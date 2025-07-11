@@ -23,6 +23,17 @@
 	margin-left: 0px;
 	pointer-events: all;
 }
+.kbs-right-padding-resize {
+	.kbs-inline-padding-label {
+		margin-left: -12px;
+	}
+	&.is-zero-width {
+		.kbs-inline-padding-resizer-handler {
+			margin-left: -20px;
+		}
+	}
+}
+
 .kbs-inline-padding-resizer {
 	display: flex;
 	width: 100%;

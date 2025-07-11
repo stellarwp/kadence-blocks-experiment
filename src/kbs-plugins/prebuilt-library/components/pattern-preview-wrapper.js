@@ -38,16 +38,14 @@ export default function PatternPreviewWrapper({
 	pattern,
 	patternHTML,
 	onClick,
-	customStyles,
 	previewMode = 'html',
 	selectedStyle,
-	editorStyles,
-	shadowStyles,
-	shadowCompatStyles,
 	patternType = 'pattern',
 	rootScroll,
 	itemKey,
 	backgrounds,
+	mappingStyles,
+	baseStyles,
 }) {
 	const { content, viewportWidth, pro, locked, image, imageHeight, imageWidth, html } = pattern;
 	let htmlContent = html;
@@ -107,16 +105,15 @@ export default function PatternPreviewWrapper({
 						html={htmlContent}
 						title={pattern.title}
 						viewportWidth={viewportWidth}
-						additionalStyles={customStyles}
 						ratio={
 							imageWidth && imageHeight
 								? roundAccurately((imageHeight / imageWidth) * 100, 2) + '%'
 								: undefined
 						}
-						shadowStyles={shadowStyles}
-						shadowCompatStyles={shadowCompatStyles}
 						patternType={patternType}
 						rootScroll={rootScroll}
+						mappingStyles={mappingStyles}
+						baseStyles={baseStyles}
 					/>
 				)}
 				{'image' === previewMode && (
