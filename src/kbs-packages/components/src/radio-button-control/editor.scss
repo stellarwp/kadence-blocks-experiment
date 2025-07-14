@@ -598,3 +598,87 @@
 		}
 	}
 }
+
+// Font Size Mapping Control Styles
+.kbs-font-size-mapping-control {
+	.kbs-font-size-mapping-simple {
+		margin-bottom: 12px;
+	}
+	
+	.kbs-font-size-mapping-toggle {
+		margin-bottom: 12px;
+		
+		.components-toggle-control__label {
+			font-weight: 500;
+		}
+	}
+	
+	.kbs-font-size-mapping-clamp {
+		display: flex;
+		gap: 16px;
+		
+		.kbs-font-size-mapping-field {
+			flex: 1;
+			
+			.kbs-font-size-mapping-field-inner {
+				> .components-base-control__label {
+					display: block;
+					margin-bottom: 8px;
+					font-size: 11px;
+					font-weight: 500;
+					text-transform: uppercase;
+				}
+			}
+		}
+		
+		.kbs-font-size-mapping-viewport {
+			margin-top: 8px;
+			
+			.kbs-font-size-mapping-viewport-label {
+				display: block;
+				margin-bottom: 4px;
+				font-size: 11px;
+				font-weight: 400;
+				color: var(--wp-components-color-foreground, #1e1e1e);
+				opacity: 0.8;
+			}
+			
+			.kbs-font-size-mapping-viewport-input {
+				.components-input-control__container {
+					min-height: 32px;
+					background: var(--wp-components-color-background, #fff);
+				}
+			}
+		}
+		
+		.kbs-font-size-mapping-preview {
+			margin-top: 12px;
+			padding: 8px 12px;
+			background: var(--kb-subtle-background, #edf2f7);
+			border-radius: 4px;
+			font-size: 12px;
+			grid-column: 1 / -1;
+			
+			.components-base-control__label {
+				font-size: 11px;
+				font-weight: 500;
+				text-transform: uppercase;
+				margin-right: 8px;
+			}
+			
+			code {
+				font-family: Consolas, Monaco, monospace;
+				font-size: 11px;
+				background: transparent;
+				padding: 0;
+				word-break: break-all;
+			}
+		}
+	}
+	
+	.kbs-font-size-mapping-input {
+		.components-input-control__container {
+			min-height: 36px;
+		}
+	}
+}

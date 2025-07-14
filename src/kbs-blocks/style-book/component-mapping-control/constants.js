@@ -6,11 +6,6 @@ export const MAPPING_COMPONENT_OPTIONS = {
 	// 	options: ['body', 'heading', 'heading-1', 'heading-2', 'heading-3', 'heading-4', 'heading-5', 'heading-6'],
 	// },
 	fontSize: {
-		label: __('Font Size', 'kadence-blocks'),
-		options: ['sm', 'md', 'lg', 'xl', 'xxl', '3xl'],
-	},
-	borderRadius: {
-		label: __('Border Radius', 'kadence-blocks'),
-		options: ['sm', 'md', 'lg'],
+		label: __('Font Sizes', 'kadence-blocks'),
 	},
 };

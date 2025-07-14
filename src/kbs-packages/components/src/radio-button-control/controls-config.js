@@ -41,6 +41,7 @@ import {
 	sidewaysUpTextOrientationIcon,
 } from './constants';
 import NoToggleInputUI from './ui-no-toggle-input';
+import UIFontSizeMapping from './ui-font-size-mapping';
 import RadioToggleGroupButtonUI from './ui-toggle-group';
 import RadioToggleGroupInputUI from './ui-toggle-group-input';
 import RadioToggleGroupPopoverInputUI from './ui-toggle-group-popover-input';
@@ -224,6 +225,9 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputRangeUI;
 			UIComponentAdvanced = BorderRadiusRangeUIControls;
 			controls = getBorderRadiusControls();
+			break;
+		case 'fontSizeMapping':
+			UIComponent = UIFontSizeMapping;
 			break;
 		case 'fontSize':
 			UIComponent = RadioToggleGroupInputRangeUI;

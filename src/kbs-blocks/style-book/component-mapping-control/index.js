@@ -2,9 +2,22 @@ import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { TextControl } from '@wordpress/components';
 
+import {RadioButtonSelect} from '@kadence/kbsComponents';
+
 import './editor.scss';
 
 import { MAPPING_COMPONENT_OPTIONS } from './constants';
+
+
+function MappingControl(props) {
+	const { controlType, label, placeholder, value, onChange } = props;
+	switch (controlType) {
+		case 'fontSize':
+			return <RadioButtonSelect labelPosition="fontMapping" label={label} type="fontSizeMapping" placeholder={placeholder} value={value} onChange={onChange} />;
+		default:
+			return <TextControl label={label} placeholder={placeholder} value={value} onChange={onChange} />;
+	}
+}
 
 /**
  * Build the component preset
@@ -26,15 +39,16 @@ export default function ComponentPresetControl(props) {
 
 	const mappingControlsOutput = Object.keys(MAPPING_COMPONENT_OPTIONS).map(function (key) {
 		const label = MAPPING_COMPONENT_OPTIONS[key].label;
-		const options = MAPPING_COMPONENT_OPTIONS[key].options;
+		const options = styleBookLocalGlobalStyles['kbs-base']?.mappings?.[key] || {};
 		const mappingComponentKey = key;
 
-		const optionsOutput = options.map(function (key) {
-			const mappingKey = key;
+		const optionsOutput = Object.keys(options).map(function (item) {
+			const mappingKey = item;
 			return (
-				<TextControl
+				<MappingControl
+					controlType={key}
 					key={mappingComponentKey + '-' + mappingKey}
-					label={mappingKey}
+					label={options[mappingKey].label}
 					placeholder={''}
 					value={
 						styleBookLocalGlobalStyles?.[globalStyleId]?.mappings?.[mappingComponentKey]?.[mappingKey]
