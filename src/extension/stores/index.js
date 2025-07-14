@@ -27,6 +27,7 @@ const DEFAULT_STATE = {
 		combinedIcons: {},
 		loaded: false,
 	},
+	spacingMap: {},
 };
 
 const actions = {
@@ -197,9 +198,9 @@ const actions = {
 						lineIcons: response?.lineIcons || {},
 						custom: response?.custom || {},
 						combinedIcons: {
-							...response?.solidIcons || {},
-							...response?.lineIcons || {},
-							...response?.custom || {},
+							...(response?.solidIcons || {}),
+							...(response?.lineIcons || {}),
+							...(response?.custom || {}),
 						},
 						loaded: true,
 					},
@@ -228,9 +229,9 @@ const actions = {
 							lineIcons: cachedData?.lineIcons || {},
 							custom: cachedData?.custom || {},
 							combinedIcons: {
-								...cachedData?.solidIcons || {},
-								...cachedData?.lineIcons || {},
-								...cachedData?.custom || {},
+								...(cachedData?.solidIcons || {}),
+								...(cachedData?.lineIcons || {}),
+								...(cachedData?.custom || {}),
 							},
 							loaded: true,
 						},
@@ -249,9 +250,9 @@ const actions = {
 						lineIcons: networkResponse?.lineIcons || {},
 						custom: networkResponse?.custom || {},
 						combinedIcons: {
-							...networkResponse?.solidIcons || {},
-							...networkResponse?.lineIcons || {},
-							...networkResponse?.custom || {},
+							...(networkResponse?.solidIcons || {}),
+							...(networkResponse?.lineIcons || {}),
+							...(networkResponse?.custom || {}),
 						},
 						loaded: true,
 					},
@@ -265,6 +266,13 @@ const actions = {
 		} catch (error) {
 			console.error('Error fetching or caching icons:', error);
 		}
+	},
+	*setSpacingResizeMap(globalStylesIds, spacingMap) {
+		return {
+			type: 'SET_SPACING_RESIZE_MAP',
+			globalStylesIds,
+			spacingMap,
+		};
 	},
 };
 
@@ -474,6 +482,14 @@ const store = createReduxStore('kadenceblocks/data', {
 						loaded: true,
 					},
 				};
+			case 'SET_SPACING_RESIZE_MAP':
+				return {
+					...state,
+					spacingMap: {
+						...state.spacingMap,
+						[JSON.stringify(action?.globalStylesIds || [])]: action.spacingMap,
+					},
+				};
 			default:
 				return state;
 		}
@@ -601,6 +617,14 @@ const store = createReduxStore('kadenceblocks/data', {
 		},
 		areIconsLoaded(state) {
 			return state.icons.loaded;
+		},
+		getSpacingResizeMap(state, globalStylesIds) {
+			// Convert the global styles ids to a string.
+			const globalStylesIdsKey = JSON.stringify(globalStylesIds);
+			if (state.spacingMap?.[globalStylesIdsKey]) {
+				return state.spacingMap?.[globalStylesIdsKey];
+			}
+			return [];
 		},
 	},
 });

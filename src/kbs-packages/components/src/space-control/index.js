@@ -105,7 +105,7 @@ export default function SpaceControl({
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange(resetValue, previewDevice === 'Desktop' ? 'all' : previewDevice, type);
+		onChange(resetValue, previewDevice === 'Desktop' ? 'all' : previewDevice, type, true);
 	};
 	// Memoize event handlers
 	const onSetAttributes = useCallback(
@@ -153,9 +153,9 @@ export default function SpaceControl({
 		},
 		[getInheritedValue, setAttributes, attributes, metaData, globalStylesIds, inheritedTop, inheritedBottom]
 	);
-	const onChange = (value, device, tempType) => {
+	const onChange = (value, device, tempType, reset = false) => {
 		console.log('onChange', value, device, tempType);
-		if (isLinking) {
+		if (isLinking || reset) {
 			handleMultipleAttributeChange(
 				[value, value, value, value],
 				device,
