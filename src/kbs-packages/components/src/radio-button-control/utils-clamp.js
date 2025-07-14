@@ -104,18 +104,47 @@ export const calculatePreferredValueWithViewports = (min, max, minViewport, maxV
 		return calculatePreferredValue(min, max, minViewport, maxViewport);
 	}
 
-	// Use the same unit as the input values
-	const unit = minParsed.unit;
+	// Convert to rem if needed for consistent calculation
+	let minInRem = minParsed.value;
+	let maxInRem = maxParsed.value;
+	let unit = minParsed.unit;
+	
+	// Convert px to rem for calculation (but keep original unit in output)
+	const outputUnit = minParsed.unit;
+	if (minParsed.unit === 'px') {
+		minInRem = minParsed.value / 16;
+		maxInRem = maxParsed.value / 16;
+		unit = 'rem';
+	}
+	
+	// For rem-based calculations, use the precise formula
+	// The formula: preferred = a + b*vw where:
+	// b = 1600 * (F2 - F1) / (W2 - W1)
+	// a = F1 - (b/1600) * W1
+	// This ensures at W1: a + b*(W1/100) = F1 and at W2: a + b*(W2/100) = F2
+	
+	if (unit === 'rem' || unit === 'em') {
+		const slope = 1600 * (maxInRem - minInRem) / (maxViewport - minViewport);
+		const intercept = minInRem - (slope / 1600) * minViewport;
+		
+		// Round to 4 decimal places for precision
+		const roundedIntercept = Math.round(intercept * 10000) / 10000;
+		const roundedSlope = Math.round(slope * 10000) / 10000;
+		
+		// Return clean expression without calc()
+		return `${roundedIntercept}${unit} + ${roundedSlope}vw`;
+	}
+	
+	// For other units (%, vw), use a simpler approach
 	const minValue = minParsed.value;
 	const maxValue = maxParsed.value;
-
-	// Create a calc expression that scales linearly between viewports
-	// Formula: min + (max - min) * ((100vw - minVp) / (maxVp - minVp))
-	// Note: We need to include the unit with the difference value for calc to work properly
-	const difference = maxValue - minValue;
-	const viewportRange = maxViewport - minViewport;
+	const slope = (maxValue - minValue) / (maxViewport - minViewport) * 100;
+	const intercept = minValue - (slope * minViewport / 100);
 	
-	return `calc(${minValue}${unit} + ${difference}${unit} * ((100vw - ${minViewport}px) / ${viewportRange}))`;
+	const roundedIntercept = Math.round(intercept * 10000) / 10000;
+	const roundedSlope = Math.round(slope * 10000) / 10000;
+	
+	return `${roundedIntercept}${unit} + ${roundedSlope}vw`;
 };
 
 /**

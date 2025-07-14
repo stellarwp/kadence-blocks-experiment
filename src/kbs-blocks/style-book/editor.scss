@@ -243,3 +243,14 @@ $editor-control-sidebar-width: 300px;
 		gap: 12px;
 	}
 }
+
+// Mapping styles.
+.kbs-style-book-settings-group {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	.kbs-control-title-bar .kbs-control-title {
+		font-size: 14px;
+		font-weight: 600;
+	}
+}

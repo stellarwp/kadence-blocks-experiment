@@ -14,29 +14,17 @@ import { ToggleControl } from '@wordpress/components';
  * Internal dependencies
  */
 import InputUIControl from './ui-input';
-import { 
-	isClampValue, 
-	getClampOrSimpleValues, 
-	generateClampValue,
-	parseValueAndUnit 
-} from './utils-clamp';
+import { isClampValue, getClampOrSimpleValues, generateClampValue, parseValueAndUnit } from './utils-clamp';
 import TitleBar from '../title-bar';
 
-function UIFontSizeMapping({
-	value,
-	onChange,
-	placeholder = '',
-	inherited,
-	label,
-	previewDevice = 'desktop',
-}) {
+function UIFontSizeMapping({ value, onChange, placeholder = '', inherited, label, previewDevice = 'desktop' }) {
 	// Parse initial values
 	const initialIsClamp = isClampValue(value || inherited?.inheritedValue);
 	const initialValues = getClampOrSimpleValues(value || inherited?.inheritedValue);
-	
+
 	// State
 	const [isCustom, setIsCustom] = useState(initialIsClamp);
-	const [simpleValue, setSimpleValue] = useState(initialIsClamp ? '' : (value || ''));
+	const [simpleValue, setSimpleValue] = useState(initialIsClamp ? '' : value || '');
 	const [mobileValue, setMobileValue] = useState(initialValues.mobile);
 	const [desktopValue, setDesktopValue] = useState(initialValues.desktop);
 	const [mobileViewport, setMobileViewport] = useState(initialValues.mobileViewport || 500);
@@ -56,35 +44,17 @@ function UIFontSizeMapping({
 			a11yLabel: _x('rems', 'Relative to root font size (rem)', 'kadence-blocks'),
 			step: 0.1,
 		},
-		{
-			value: 'em',
-			label: 'em',
-			a11yLabel: _x('ems', 'Relative to parent font size (em)', 'kadence-blocks'),
-			step: 0.1,
-		},
-		{
-			value: '%',
-			label: '%',
-			a11yLabel: __('Percent (%)', 'kadence-blocks'),
-			step: 1,
-		},
-		{
-			value: 'vw',
-			label: 'vw',
-			a11yLabel: __('Viewport width (vw)', 'kadence-blocks'),
-			step: 0.1,
-		},
 	];
 
 	// Update values when prop changes
 	useEffect(() => {
 		const newIsClamp = isClampValue(value);
 		const newValues = getClampOrSimpleValues(value);
-		
+
 		if (newIsClamp !== isCustom) {
 			setIsCustom(newIsClamp);
 		}
-		
+
 		if (newIsClamp) {
 			setMobileValue(newValues.mobile);
 			setDesktopValue(newValues.desktop);
@@ -98,7 +68,7 @@ function UIFontSizeMapping({
 	// Handle custom toggle
 	const handleCustomToggle = (newIsCustom) => {
 		setIsCustom(newIsCustom);
-		
+
 		if (newIsCustom) {
 			// Switching to custom mode
 			if (simpleValue) {
@@ -132,8 +102,17 @@ function UIFontSizeMapping({
 	// Handle mobile value change
 	const handleMobileChange = (newValue) => {
 		setMobileValue(newValue);
+		// Check if the new value has a different unit type then desktop value
+		const newUnit = parseValueAndUnit(newValue)?.unit;
+		const desktopUnit = parseValueAndUnit(desktopValue)?.unit;
+		let newDesktopValue = desktopValue;
+		if (newUnit !== desktopUnit) {
+			// If the new value has a different unit type then desktop value, set the desktop value to the new value
+			newDesktopValue = parseValueAndUnit(desktopValue)?.value + newUnit;
+			setDesktopValue(newDesktopValue);
+		}
 		if (newValue && desktopValue) {
-			const clampValue = generateClampValue(newValue, desktopValue, mobileViewport, desktopViewport);
+			const clampValue = generateClampValue(newValue, newDesktopValue, mobileViewport, desktopViewport);
 			onChange(clampValue);
 		}
 	};
@@ -141,8 +120,17 @@ function UIFontSizeMapping({
 	// Handle desktop value change
 	const handleDesktopChange = (newValue) => {
 		setDesktopValue(newValue);
+		// Check if the new value has a different unit type then mobile value
+		const newUnit = parseValueAndUnit(newValue)?.unit;
+		const mobileUnit = parseValueAndUnit(mobileValue)?.unit;
+		let newMobileValue = mobileValue;
+		if (newUnit !== mobileUnit) {
+			// If the new value has a different unit type then mobile value, set the mobile value to the new value
+			newMobileValue = parseValueAndUnit(mobileValue)?.value + newUnit;
+			setMobileValue(newMobileValue);
+		}
 		if (mobileValue && newValue) {
-			const clampValue = generateClampValue(mobileValue, newValue, mobileViewport, desktopViewport);
+			const clampValue = generateClampValue(newMobileValue, newValue, mobileViewport, desktopViewport);
 			onChange(clampValue);
 		}
 	};
@@ -201,101 +189,102 @@ function UIFontSizeMapping({
 
 	return (
 		<>
-		{label && (
-			<TitleBar
-				label={label}
-				reset={true}
-				onReset={onReset}
-				hasDeviceControls={false}
-				isCustom={isCustom}
-				onToggleCustom={() => handleCustomToggle(!isCustom)}
-				hasCustomControls={true}
-				previewDevice={previewDevice}
-			/>
-		)}
-		<div className="kbs-font-size-mapping-control">
-			{!isCustom && (
-				<div className="kbs-font-size-mapping-simple">
-					<InputUIControl
-						value={simpleValue}
-						placeholder={simplePlaceholder}
-						onChange={handleSimpleChange}
-						units={fontUnits}
-						className="kbs-font-size-mapping-input"
-					/>
-				</div>
-			)}			
-			{isCustom && (
-				<div className="kbs-font-size-mapping-clamp">
-					<div className="kbs-font-size-mapping-field">
-						<div className="kbs-font-size-mapping-field-inner">
-							<label className="components-base-control__label">
-								{__('Minimum', 'kadence-blocks')}
-							</label>
-							<InputUIControl
-								label={__('Minimum Font Size', 'kadence-blocks')}
-								labelPosition="bottom"
-								value={mobileValue}
-								placeholder={mobilePlaceholder}
-								onChange={handleMobileChange}
-								units={fontUnits}
-								className="kbs-font-size-mapping-input"
-							/>
-							<div className="kbs-font-size-mapping-viewport">
-								<label className="components-base-control__label kbs-font-size-mapping-viewport-label">
-									{__('At viewport width', 'kadence-blocks')}
-								</label>
-								<InputUIControl
-									value={mobileViewport + 'px'}
-									placeholder="500px"
-									onChange={handleMobileViewportChange}
-									units={[{ value: 'px', label: 'px' }]}
-									className="kbs-font-size-mapping-viewport-input"
-								/>
-							</div>
-						</div>
-					</div>
-					
-					<div className="kbs-font-size-mapping-field">
-						<div className="kbs-font-size-mapping-field-inner">
-							<label className="components-base-control__label">
-								{__('Maximum', 'kadence-blocks')}
-							</label>
-							<InputUIControl
-								label={__('Maximum Font Size', 'kadence-blocks')}
-									labelPosition="bottom"
-								value={desktopValue}
-								placeholder={desktopPlaceholder}
-								onChange={handleDesktopChange}
-								units={fontUnits}
-								className="kbs-font-size-mapping-input"
-							/>
-							<div className="kbs-font-size-mapping-viewport">
-								<label className="components-base-control__label kbs-font-size-mapping-viewport-label">
-									{__('At viewport width', 'kadence-blocks')}
-								</label>
-								<InputUIControl
-									value={desktopViewport + 'px'}
-									placeholder="1200px"
-									onChange={handleDesktopViewportChange}
-									units={[{ value: 'px', label: 'px' }]}
-									className="kbs-font-size-mapping-viewport-input"
-								/>
-							</div>
-						</div>
-					</div>
-					
-					{mobileValue && desktopValue && (
-						<div className="kbs-font-size-mapping-preview">
-							<span className="components-base-control__label">
-								{__('Output:', 'kadence-blocks')}
-							</span>
-							<code>{generateClampValue(mobileValue, desktopValue, mobileViewport, desktopViewport)}</code>
-						</div>
-					)}
-				</div>
+			{label && (
+				<TitleBar
+					label={label}
+					reset={true}
+					onReset={onReset}
+					hasDeviceControls={false}
+					isCustom={isCustom}
+					onToggleCustom={() => handleCustomToggle(!isCustom)}
+					hasCustomControls={true}
+					previewDevice={previewDevice}
+				/>
 			)}
-		</div>
+			<div className="kbs-font-size-mapping-control">
+				{!isCustom && (
+					<div className="kbs-font-size-mapping-simple">
+						<InputUIControl
+							value={simpleValue}
+							placeholder={simplePlaceholder}
+							onChange={handleSimpleChange}
+							className="kbs-font-size-mapping-input"
+						/>
+					</div>
+				)}
+				{isCustom && (
+					<div className="kbs-font-size-mapping-clamp-container">
+						<div className="kbs-font-size-mapping-clamp">
+							<div className="kbs-font-size-mapping-field">
+								<div className="kbs-font-size-mapping-field-inner kbs-font-size-mapping-field-inner-font-size-mapping">
+									<div className="kbs-font-size-mapping-field-label">
+										{__('Font Size Range', 'kadence-blocks')}
+									</div>
+									<div className="kbs-font-size-mapping-inner-columns">
+										<InputUIControl
+											label={__('Minimum Font Size', 'kadence-blocks')}
+											labelPosition="bottom"
+											value={mobileValue}
+											placeholder={mobilePlaceholder}
+											onChange={handleMobileChange}
+											units={fontUnits}
+											className="kbs-font-size-mapping-input"
+										/>
+										<InputUIControl
+											label={__('Maximum Font Size', 'kadence-blocks')}
+											labelPosition="bottom"
+											value={desktopValue}
+											placeholder={desktopPlaceholder}
+											onChange={handleDesktopChange}
+											units={fontUnits}
+											className="kbs-font-size-mapping-input"
+										/>
+									</div>
+								</div>
+							</div>
+
+							<div className="kbs-font-size-mapping-field">
+								<div className="kbs-font-size-mapping-field-inner">
+									<div className="kbs-font-size-mapping-field-label">
+										{__('Viewport Range', 'kadence-blocks')}
+									</div>
+									<div className="kbs-font-size-mapping-inner-columns">
+										<InputUIControl
+											label={__('Minimum viewport Width', 'kadence-blocks')}
+											value={mobileViewport + 'px'}
+											labelPosition="bottom"
+											placeholder="500px"
+											onChange={handleMobileViewportChange}
+											units={[{ value: 'px', label: 'px' }]}
+											className="kbs-font-size-mapping-viewport-input"
+										/>
+										<InputUIControl
+											label={__('Maximum viewport Width', 'kadence-blocks')}
+											value={desktopViewport + 'px'}
+											labelPosition="bottom"
+											placeholder="1200px"
+											onChange={handleDesktopViewportChange}
+											units={[{ value: 'px', label: 'px' }]}
+											className="kbs-font-size-mapping-viewport-input"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{mobileValue && desktopValue && (
+							<div className="kbs-font-size-mapping-preview">
+								<span className="components-base-control__label">
+									{__('Output:', 'kadence-blocks')}
+								</span>
+								<code>
+									{generateClampValue(mobileValue, desktopValue, mobileViewport, desktopViewport)}
+								</code>
+							</div>
+						)}
+					</div>
+				)}
+			</div>
 		</>
 	);
 }
