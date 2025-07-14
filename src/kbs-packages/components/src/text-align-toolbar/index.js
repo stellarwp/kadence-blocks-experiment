@@ -12,7 +12,15 @@ import { useSelect } from '@wordpress/data';
  * @return {JSX.Element} Font select control.
  */
 export default function TextAlignToolbar(props) {
-	const { value, onChange, attributes, setAttributes, metadata, attributeName = 'align', type = 'textAlign' } = props;
+	const {
+		value,
+		onChange,
+		attributes,
+		setAttributes,
+		metadata,
+		attributeName = 'alignText',
+		type = 'alignText',
+	} = props;
 
 	const { previewDevice } = useSelect((select) => {
 		return {

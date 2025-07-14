@@ -15,6 +15,8 @@ import {
 	formatUnderline,
 } from '@wordpress/icons';
 
+import HeadingLevelIcon from '../heading-level-icon';
+
 import {
 	alignBottom,
 	alignCenter,
@@ -134,6 +136,10 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'align-text':
 		case 'alignText':
 			controls = getAlignTextControls();
+			break;
+		case 'heading-tag':
+		case 'headingTag':
+			controls = getHeadingTagControls();
 			break;
 		case 'padding-top':
 		case 'paddingTop':
@@ -1263,6 +1269,44 @@ export const getAlignTextControls = () => {
 			title: __('End', 'kadence-blocks'),
 			key: 'right',
 		},
+	];
+};
+
+export const getHeadingTagControls = () => {
+	return [
+		{
+			icon: <HeadingLevelIcon level={'h1'} />,
+			title: __('H1', 'kadence-blocks'),
+			key: 'h1',
+		},
+		{
+			icon: <HeadingLevelIcon level={'h2'} />,
+			title: __('H2', 'kadence-blocks'),
+			key: 'h2',
+		},
+		{
+			icon: <HeadingLevelIcon level={'h3'} />,
+			title: __('H3', 'kadence-blocks'),
+			key: 'h3',
+		},
+		{
+			icon: <HeadingLevelIcon level={'h4'} />,
+			title: __('H4', 'kadence-blocks'),
+			key: 'h4',
+		},
+		{
+			icon: <HeadingLevelIcon level={'h5'} />,
+			title: __('H5', 'kadence-blocks'),
+			key: 'h5',
+		},
+		{
+			icon: <HeadingLevelIcon level={'h6'} />,
+			title: __('H6', 'kadence-blocks'),
+			key: 'h6',
+		},
+		{ icon: <HeadingLevelIcon level={'div'} />, title: __('Div', 'kadence-blocks'), key: 'div' },
+		{ icon: <HeadingLevelIcon level={'span'} />, title: __('Span', 'kadence-blocks'), key: 'span' },
+		{ icon: <HeadingLevelIcon level={'p'} />, title: __('Paragraph', 'kadence-blocks'), key: 'p' },
 	];
 };
 

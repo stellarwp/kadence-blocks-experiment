@@ -59,6 +59,7 @@ module.exports = {
 		// 'header-visual-builder': './src/header-visual-builder.js',
 		kbsComponents: './src/kbs-packages/components/src/index.js',
 		kbsHelpers: './src/kbs-packages/helpers/src/index.js',
+		// kbsIcons: './src/kbs-packages/icons/src/index.js',
 		'kbs-container': './src/kbs-blocks/container/index.js',
 		'kbs-text': './src/kbs-blocks/text/index.js',
 		'kbs-row': './src/kbs-blocks/row/index.js',

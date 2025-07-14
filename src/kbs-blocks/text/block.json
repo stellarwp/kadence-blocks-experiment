@@ -29,16 +29,24 @@
 		"preset": {
 			"type": "array"
 		},
-		"align": {
+		"alignText": {
 			"renderCSS": true,
 			"component": "textAlign",
 			"nonInheritable": true,
 			"type": "object",
 			"varPrefix": "--kbs-text-"
 		},
-		"htmlTag": {
-			"type": "string",
-			"initial": "div"
+		"headingTag": {
+			"renderCSS": false,
+			"component": "htmlTag",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-",
+			"initial": {
+				"desktop": {
+					"headingTag": "p"
+				}
+			}
 		},
 		"link": {
 			"type": "object"

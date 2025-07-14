@@ -25,6 +25,7 @@ import { useSelect } from '@wordpress/data';
 import { useRef } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
 import { RichText, useBlockProps, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
+import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 
 import {
@@ -42,6 +43,7 @@ import {
 	InlinePaddingResizer,
 	CopyPasteAttributes,
 	TextAlignToolbar,
+	HeadingLevelIcon,
 } from '@kadence/kbsComponents';
 
 const nonTransAttrs = ['content', 'htmlTag', 'link'];
@@ -51,7 +53,7 @@ const nonTransAttrs = ['content', 'htmlTag', 'link'];
  */
 export default function TextEdit(props) {
 	const { attributes, setAttributes, className, isSelected, clientId, toggleSelection } = props;
-	const { uniqueID, content, align, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
+	const { uniqueID, content, alignText, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
 	const myElementRef = useRef(null);
 
 	// Get merged global styles IDs using the helper hook
@@ -71,21 +73,57 @@ export default function TextEdit(props) {
 	const colorHighlightValue = getResolvedValue(
 		'colorHighlight',
 		attributes,
-		previewDevice,
+		'desktop',
 		metadata,
 		'color',
 		globalStylesIds
 	);
 	const previewColorHighlightValue = getColorOutput(colorHighlightValue?.appliedValue);
 
+	const htmlTagValue = getResolvedValue(
+		'headingTag',
+		attributes,
+		previewDevice,
+		metadata,
+		'headingTag',
+		globalStylesIds
+	);
+	const previewHeadingTag = htmlTagValue?.appliedValue;
+
 	//look for gradient text marker in the color value
 	const hasGradient = previewColorValue?.includes('gradient(');
 	const hasGradientHighlight = previewColorHighlightValue?.includes('gradient(');
 
+	const headingOptions = [
+		['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p'].map((tag) => ({
+			icon: <HeadingLevelIcon level={tag} isPressed={tag === previewHeadingTag} />,
+			title:
+				tag === 'div'
+					? __('Div', 'kadence-blocks')
+					: tag === 'span'
+						? __('Span', 'kadence-blocks')
+						: tag === 'p'
+							? __('Paragraph', 'kadence-blocks')
+							: __(`Heading ${tag.charAt(1)}`, 'kadence-blocks'),
+			isActive: tag === previewHeadingTag,
+			onClick: () =>
+				handleAttributeChange(
+					tag,
+					'desktop',
+					'headingTag',
+					attributes,
+					setAttributes,
+					null,
+					'headingTag',
+					metadata
+				),
+		})),
+	];
+
 	const classes = classnames('kbs-text', {
 		[className]: className,
 		[`kbs-text-${uniqueID}`]: uniqueID,
-		[`has-text-align-${align}`]: align,
+		[`has-text-align-${alignText}`]: alignText,
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
 	});
@@ -132,7 +170,7 @@ export default function TextEdit(props) {
 
 	const contentHTML = (
 		<RichText
-			tagName={htmlTag}
+			tagName={previewHeadingTag}
 			className="kbs-text-content"
 			value={content}
 			onChange={onContentChange}
@@ -163,6 +201,14 @@ export default function TextEdit(props) {
 				/>
 				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 				<BlockControls>
+					<ToolbarGroup group="tag">
+						<ToolbarDropdownMenu
+							icon={<HeadingLevelIcon level={previewHeadingTag} />}
+							label={__('Change heading tag', 'kadence-blocks')}
+							controls={headingOptions}
+						/>
+					</ToolbarGroup>
+
 					<TextAlignToolbar {...props} />
 					<CopyPasteAttributes
 						attributes={attributes}
@@ -179,21 +225,6 @@ export default function TextEdit(props) {
 				{!link?.url && contentHTML}
 
 				<IconRender attributeName={'icon'} attributes={attributes} />
-				{/* {isSelected && (
-					<InlinePaddingResizer
-						previewDevice={previewDevice}
-						type={'padding'}
-						attributes={attributes}
-						setAttributes={setAttributes}
-						attributeName={'padding'}
-						meta={metadata}
-						globalStylesIds={globalStylesIds}
-						blockElementRef={myElementRef}
-						clientId={clientId}
-						uniqueID={uniqueID}
-						toggleSelection={toggleSelection}
-					/>
-				)} */}
 			</div>
 		</GlobalStylesContext.Provider>
 	);

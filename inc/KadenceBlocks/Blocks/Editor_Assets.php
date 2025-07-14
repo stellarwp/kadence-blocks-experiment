@@ -60,7 +60,7 @@ class Editor_Assets {
 		wp_register_style( 'kadence-extension-stores', KADENCE_BLOCKS_URL . 'dist/extension/stores.css', [ 'wp-edit-blocks' ], $kadence_stores_meta['version'] );
 		wp_set_script_translations( 'kadence-extension-stores', 'kadence-blocks' );
 
-		// Global Styles Store
+		// Global Styles Store.
 		$kadence_global_styles_meta = kbs_get_asset_file( 'dist/extension-global-styles-store' );
 		wp_register_script( 'kadence-extension-global-styles-store', KADENCE_BLOCKS_URL . 'dist/extension-global-styles-store.js', array_merge( $kadence_global_styles_meta['dependencies'], [ 'wp-api', 'kadence-blocks-js', 'kadence-extension-stores' ] ), $kadence_global_styles_meta['version'], true );
 		wp_set_script_translations( 'kadence-extension-global-styles-store', 'kadence-blocks' );
@@ -86,6 +86,11 @@ class Editor_Assets {
 		wp_register_script( 'kadence-kbsComponents', KADENCE_BLOCKS_URL . 'dist/kbsComponents.js', array_merge( $kadence_components_meta['dependencies'], [ 'wp-api', 'kadence-extension-stores', 'kadence-blocks-js', 'kadence-extension-global-styles-store' ] ), $kadence_components_meta['version'], true );
 		wp_register_style( 'kadence-kbsComponents', KADENCE_BLOCKS_URL . 'dist/kbsComponents.css', [ 'wp-edit-blocks' ], $kadence_components_meta['version'] );
 		wp_set_script_translations( 'kadence-kbsComponents', 'kadence-blocks' );
+
+		// Icons Scripts & Styles.
+		// $kadence_icons_meta = kbs_get_asset_file( 'dist/kbsIcons' );
+		// wp_register_script( 'kadence-kbsIcons', KADENCE_BLOCKS_URL . 'dist/kbsIcons.js', array_merge( $kadence_icons_meta['dependencies'], [ 'wp-api' ] ), $kadence_icons_meta['version'], true );
+		// wp_set_script_translations( 'kadence-kbsIcons', 'kadence-blocks' );
 
 		// Plugin Scripts & Styles.
 		$kadence_control_meta = kbs_get_asset_file( 'dist/plugin-kbs-control' );

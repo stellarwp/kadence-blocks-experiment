@@ -57,3 +57,4 @@ export { default as LayeredShadowControl } from './layered-shadow-control';
 export { default as CopyPasteAttributes } from './copy-paste-attributes';
 
 export { default as TextAlignToolbar } from './text-align-toolbar';
+export { default as HeadingLevelIcon } from './heading-level-icon';
