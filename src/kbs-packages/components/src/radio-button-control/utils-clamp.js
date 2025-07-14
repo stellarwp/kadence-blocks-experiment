@@ -111,7 +111,11 @@ export const calculatePreferredValueWithViewports = (min, max, minViewport, maxV
 
 	// Create a calc expression that scales linearly between viewports
 	// Formula: min + (max - min) * ((100vw - minVp) / (maxVp - minVp))
-	return `calc(${minValue}${unit} + ${maxValue - minValue} * ((100vw - ${minViewport}px) / ${maxViewport - minViewport}) * 1${unit})`;
+	// Note: We need to include the unit with the difference value for calc to work properly
+	const difference = maxValue - minValue;
+	const viewportRange = maxViewport - minViewport;
+	
+	return `calc(${minValue}${unit} + ${difference}${unit} * ((100vw - ${minViewport}px) / ${viewportRange}))`;
 };
 
 /**
