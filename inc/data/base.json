@@ -457,7 +457,7 @@
 	"mappings": {
 		"fontSize": {
 			"sm": { "value": "0.9rem", "label": "Small", "name": "SM" },
-			"p": { "value": "1rem", "label": "Paragraph", "name": "P" },
+			"base": { "value": "1rem", "label": "Base", "name": "Base" },
 			"md": { "value": "1.25rem", "label": "Medium", "name": "MD" },
 			"lg": { "value": "2rem", "label": "Large", "name": "LG" },
 			"xl": { "value": "3rem", "label": "X Large", "name": "XL" },
