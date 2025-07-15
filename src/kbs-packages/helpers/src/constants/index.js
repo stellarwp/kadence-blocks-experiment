@@ -141,4 +141,28 @@ export const ICON_SIZES_MAP = [
 	},
 ];
 
+export const CONTENT_WIDTH_SIZES_MAP = [
+	{
+		value: 'wide',
+		output: 'var(--kbs-contentwidth-wide, 800px)',
+		size: 800,
+		label: __('Wide', 'kadence-blocks'),
+		name: __('Wide', 'kadence-blocks'),
+	},
+	{
+		value: 'medium',
+		output: 'var(--kbs-contentwidth-medium, 550px)',
+		size: 550,
+		label: __('Medium', 'kadence-blocks'),
+		name: __('Medium', 'kadence-blocks'),
+	},
+	{
+		value: 'narrow',
+		output: 'var(--kbs-contentwidth-narrow, 300px)',
+		size: 300,
+		label: __('Narrow', 'kadence-blocks'),
+		name: __('Narrow', 'kadence-blocks'),
+	},
+];
+
 export const COMPONENTS = ['typography', 'flexBox'];

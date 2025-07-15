@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { SPACING_SIZES_MAP, ICON_SIZES_MAP } from '../constants';
+import { SPACING_SIZES_MAP, ICON_SIZES_MAP, CONTENT_WIDTH_SIZES_MAP } from '../constants';
 import { BORDER_RADIUS_SIZES_MAP, BORDER_STYLES_DEFAULTS } from '../constants/borders';
 import { SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from '../constants/shadows';
 import { merge, kebabCase } from 'lodash';
@@ -168,7 +168,7 @@ class CSSGenerator {
 			case 'maxHeight':
 			case 'minHeight':
 			case 'minWidth':
-				cssValue = appliedValue;
+				cssValue = this.getContentWidthOutput(appliedValue);
 				break;
 			case 'padding':
 			case 'margin':
@@ -962,6 +962,31 @@ class CSSGenerator {
 			return '0';
 		}
 		const found = SPACING_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
+
+	/**
+	 * Get the font sizing option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The font sizing option output
+	 */
+	getContentWidthOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!CONTENT_WIDTH_SIZES_MAP) {
+			return value;
+		}
+		if (value === '0') {
+			return '0';
+		}
+		if (value === 0) {
+			return '0';
+		}
+		const found = CONTENT_WIDTH_SIZES_MAP.find((option) => option.value === value);
 		if (!found) {
 			return value;
 		}

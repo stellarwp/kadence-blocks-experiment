@@ -795,14 +795,14 @@ export const getSpacingControls = () => [
 ];
 export const getMaxWidthControls = () => [
 	{
-		title: __('Content', 'kadence-blocks'),
-		name: 'Content',
-		key: 'content',
-	},
-	{
 		title: __('Wide', 'kadence-blocks'),
 		name: 'Wide',
 		key: 'wide',
+	},
+	{
+		title: __('Medium', 'kadence-blocks'),
+		name: 'Medium',
+		key: 'medium',
 	},
 	{
 		title: __('Narrow', 'kadence-blocks'),
