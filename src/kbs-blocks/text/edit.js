@@ -22,7 +22,7 @@ import metadata from './block.json';
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { useRef } from '@wordpress/element';
+import { useMemo, useRef } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
 import { RichText, useBlockProps, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
@@ -80,15 +80,20 @@ export default function TextEdit(props) {
 	);
 	const previewColorHighlightValue = getColorOutput(colorHighlightValue?.appliedValue);
 
-	const htmlTagValue = getResolvedValue(
-		'headingTag',
-		attributes,
-		previewDevice,
-		metadata,
-		'headingTag',
-		globalStylesIds
+	const htmlTagDesktopValue = useMemo(
+		() => getResolvedValue('headingTag', attributes, 'desktop', metadata, 'headingTag', globalStylesIds),
+		[attributes]
 	);
-	const previewHeadingTag = htmlTagValue?.appliedValue;
+	const previewHeadingTag = htmlTagDesktopValue?.appliedValue;
+
+	const maxWidthAnyValue = useMemo(
+		() => getResolvedValue('maxWidth', attributes, 'any', metadata, 'maxWidth', globalStylesIds),
+		[attributes]
+	);
+	const iconAnyValue = useMemo(
+		() => getResolvedValue('icon', attributes, 'any', metadata, 'icon', globalStylesIds),
+		[attributes]
+	);
 
 	//look for gradient text marker in the color value
 	const hasGradient = previewColorValue?.includes('gradient(');
@@ -120,12 +125,19 @@ export default function TextEdit(props) {
 		})),
 	];
 
+	const hasLink = link?.url ? true : false;
+	const hasMaxWidth = maxWidthAnyValue?.appliedValue ? true : false;
+	const hasIcon = iconAnyValue?.appliedValue ? true : false;
+	const hasTypedText = content?.includes('kt-typed-text');
+	const shouldWrapContent = hasLink || hasMaxWidth || hasIcon || hasGradient || hasTypedText;
+
 	const classes = classnames('kbs-text', {
 		[className]: className,
 		[`kbs-text-${uniqueID}`]: uniqueID,
 		[`has-text-align-${alignText}`]: alignText,
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
+		[`kbs-text-content`]: !shouldWrapContent,
 	});
 
 	const blockProps = useBlockProps({
@@ -168,6 +180,14 @@ export default function TextEdit(props) {
 		richTextFormats = richTextFormatsBase;
 	}
 
+	// This is needed because spacing visualizer needs to be able to access the block element and so does core.
+	const mergedRefs = useMergeRefs([myElementRef, blockProps.ref]);
+	const finalBlocksProps = {
+		...blockProps,
+		ref: mergedRefs,
+		draggable: false,
+	};
+
 	const contentHTML = (
 		<RichText
 			tagName={previewHeadingTag}
@@ -179,53 +199,66 @@ export default function TextEdit(props) {
 		/>
 	);
 
+	const noWrapContentHTML = (
+		<RichText
+			{...finalBlocksProps}
+			tagName={previewHeadingTag}
+			value={content}
+			onChange={onContentChange}
+			placeholder={__('Write something…', 'kadence-blocks')}
+			allowedFormats={richTextFormats}
+		/>
+	);
+
 	const linkContentHTML = getLinkHTML(link, contentHTML);
 
-	// This is needed because spacing visualizer needs to be able to access the block element and so does core.
-	const mergedRefs = useMergeRefs([myElementRef, blockProps.ref]);
-	const finalBlocksProps = {
-		...blockProps,
-		ref: mergedRefs,
-		draggable: false,
-	};
+	const controlsAndStylesHTML = (
+		<>
+			<Inspector
+				{...props}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+				hasGradient={hasGradient}
+				hasGradientHighlight={hasGradientHighlight}
+				blockElementRef={myElementRef}
+			/>
+			<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
+			<BlockControls>
+				<ToolbarGroup group="tag">
+					<ToolbarDropdownMenu
+						icon={<HeadingLevelIcon level={previewHeadingTag} />}
+						label={__('Change heading tag', 'kadence-blocks')}
+						controls={headingOptions}
+					/>
+				</ToolbarGroup>
+
+				<TextAlignToolbar {...props} />
+				<CopyPasteAttributes
+					attributes={attributes}
+					excludedAttrs={nonTransAttrs}
+					defaultAttributes={metadata.attributes}
+					blockSlug={metadata.name}
+					onPaste={(attributesToPaste) => setAttributes(attributesToPaste)}
+				/>
+				{Boolean(kadenceDynamic?.content?.shouldReplace) && (
+					<DynamicTextControl dynamicAttribute={'content'} {...props} />
+				)}
+			</BlockControls>
+		</>
+	);
+
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
-			<div {...finalBlocksProps}>
-				<Inspector
-					{...props}
-					previewDevice={previewDevice}
-					globalStylesIds={globalStylesIds}
-					hasGradient={hasGradient}
-					hasGradientHighlight={hasGradientHighlight}
-					blockElementRef={myElementRef}
-				/>
-				<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
-				<BlockControls>
-					<ToolbarGroup group="tag">
-						<ToolbarDropdownMenu
-							icon={<HeadingLevelIcon level={previewHeadingTag} />}
-							label={__('Change heading tag', 'kadence-blocks')}
-							controls={headingOptions}
-						/>
-					</ToolbarGroup>
+			{controlsAndStylesHTML}
+			{!shouldWrapContent && <>{noWrapContentHTML}</>}
+			{shouldWrapContent && (
+				<div {...finalBlocksProps}>
+					{link?.url && linkContentHTML}
+					{!link?.url && contentHTML}
 
-					<TextAlignToolbar {...props} />
-					<CopyPasteAttributes
-						attributes={attributes}
-						excludedAttrs={nonTransAttrs}
-						defaultAttributes={metadata.attributes}
-						blockSlug={metadata.name}
-						onPaste={(attributesToPaste) => setAttributes(attributesToPaste)}
-					/>
-					{Boolean(kadenceDynamic?.content?.shouldReplace) && (
-						<DynamicTextControl dynamicAttribute={'content'} {...props} />
-					)}
-				</BlockControls>
-				{link?.url && linkContentHTML}
-				{!link?.url && contentHTML}
-
-				<IconRender attributeName={'icon'} attributes={attributes} />
-			</div>
+					<IconRender attributeName={'icon'} attributes={attributes} />
+				</div>
+			)}
 		</GlobalStylesContext.Provider>
 	);
 }
