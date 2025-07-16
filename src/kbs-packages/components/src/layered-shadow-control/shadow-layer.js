@@ -37,19 +37,23 @@ function ShadowIndicator({ value, className, colorValue }) {
 	);
 }
 function renderShadowToggle(layer, isInherited, previewDevice, type) {
+	const isEmptyLayer = Object.keys(layer).length === 0;
+
 	return ({ onToggle, isOpen }) => {
 		const { color } = useMemo(() => {
 			let color = getLayerDeviceValue('color', layer, previewDevice);
-			color = color
-				? color
-				: type == 'boxShadow'
-					? SHADOW_STYLES_DEFAULTS.color.value
-					: TEXT_SHADOW_STYLES_DEFAULTS.color.value;
+			color = isEmptyLayer
+				? ''
+				: color
+					? color
+					: type == 'boxShadow'
+						? SHADOW_STYLES_DEFAULTS.color.value
+						: TEXT_SHADOW_STYLES_DEFAULTS.color.value;
 			return {
 				color: color,
 			};
 		}, [layer, previewDevice]);
-		const displayValue = type == 'boxShadow' ? 'Box Shadow' : 'Text Shadow';
+		const displayValue = isEmptyLayer ? '' : type == 'boxShadow' ? 'Box Shadow' : 'Text Shadow';
 		const previewString = useMemo(() => {
 			return getColorOutput(color);
 		}, [color]);

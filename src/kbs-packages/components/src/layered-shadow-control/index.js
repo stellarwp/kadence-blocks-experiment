@@ -326,8 +326,8 @@ export default function LayeredShadowControl({
 										key={index}
 										layer={layer}
 										index={index}
-										totalLayers={inherited.inheritedValue.length}
 										attributes={attributes}
+										totalLayers={inherited.inheritedValue.length}
 										setAttributes={onSetAttributes}
 										attributeName={attributeName}
 										meta={metaData}
@@ -340,13 +340,29 @@ export default function LayeredShadowControl({
 									/>
 								))
 							) : (
-								<Button
-									variant="secondary"
-									className="kbs-shadow-layer-add-button"
-									onClick={AddNewEmptyLayer}
-								>
-									{__('Enable Shadow', 'kadence-blocks')}
-								</Button>
+								<SortableShadowLayer
+									key={0}
+									layer={{}}
+									index={0}
+									attributes={attributes}
+									totalLayers={1}
+									setAttributes={onSetAttributes}
+									attributeName={attributeName}
+									meta={metaData}
+									previewDevice={previewDevice}
+									globalStylesIds={globalStylesIds}
+									globalStylesCss={globalStylesCss}
+									isInherited={inherited.inheritedSource !== 'direct'}
+									inherited={inherited}
+									type={type}
+								/>
+								// <Button
+								// 	variant="secondary"
+								// 	className="kbs-shadow-layer-add-button"
+								// 	onClick={AddNewEmptyLayer}
+								// >
+								// 	{__('Enable Shadow', 'kadence-blocks')}
+								// </Button>
 							)}
 						</div>
 					</SortableContext>
