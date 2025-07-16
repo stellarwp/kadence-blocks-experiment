@@ -5,17 +5,11 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { useMemo } from '@wordpress/element';
+import { ToggleControl as CoreToggleControl } from '@wordpress/components';
 
-/**
- * External dependencies
- */
-
+import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import './editor.scss';
-import { SelectControl } from '@wordpress/components';
-import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 
 /**
  * Build the Font Select control
@@ -23,13 +17,12 @@ import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '
  * @param {Object} props Component props.
  * @return {JSX.Element} Font select control.
  */
-export default function SelectBasicControl(props) {
+export default function ToggleControl(props) {
 	const {
 		label,
 		onChange,
 		defaultValue,
 		attributeName,
-		options,
 		attributes,
 		setAttributes,
 		type = '',
@@ -37,8 +30,10 @@ export default function SelectBasicControl(props) {
 		previewDevice = 'desktop',
 		meta,
 		globalStylesIds,
+		className,
 		titleBar = true,
 		hasDeviceControls = false,
+		...rest
 	} = props;
 	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
 	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
@@ -57,7 +52,7 @@ export default function SelectBasicControl(props) {
 	};
 
 	return (
-		<div className={`components-base-control kbs-control kbs-select-basic-control`}>
+		<div className={`components-base-control kbs-control kbs-toggle-control`}>
 			{label && titleBar && (
 				<TitleBar
 					label={label}
@@ -67,17 +62,15 @@ export default function SelectBasicControl(props) {
 					previewDevice={previewDevice}
 				/>
 			)}
-			<div className="kbs-control-inner">
-				<SelectControl
-					className="kbs-core-select-control"
-					__next40pxDefaultSize={true}
-					value={currentValue}
-					onChange={(itemValue) => onChangeToUse(itemValue, previewDevice, type)}
-					options={options}
-					inherited={inherited}
-					label={!titleBar ? label : undefined}
-				/>
-			</div>
+			<CoreToggleControl
+				{...rest}
+				__next40pxDefaultSize
+				className={clsx('kbs-input-control', className)}
+				checked={currentValue}
+				onChange={(itemValue) => onChangeToUse(itemValue, previewDevice, type)}
+				inherited={inherited}
+				label={!titleBar ? label : undefined}
+			/>
 		</div>
 	);
 }

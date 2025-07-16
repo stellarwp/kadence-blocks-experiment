@@ -119,6 +119,10 @@ export default function InspectorGeneral(props) {
 					meta={metadata}
 					previewDevice={previewDevice}
 					attributeName={'icon'}
+					hasTooltip={true}
+					hasPlacement={true}
+					hasAlignment={true}
+					hasSpacing={true}
 				/>
 			</ToolsPanelBody>
 		</>

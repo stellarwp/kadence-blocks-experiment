@@ -95,7 +95,8 @@ class Text extends Abstract_Block {
 		//Since we don't know in attributes if this block needs scripts, we need to check the content here
 		$has_typed_text = strpos( $content, 'kt-typed-text' ) !== false;
 		$has_tooltip = strpos( $content, 'kb-tooltips' ) !== false;
-		$has_icon_tooltip = ! empty( $attributes['icon'] ) && ! empty( $attributes['iconTooltip'] );
+		$icon_tooltip_content_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'icon' ), 'tooltipContent', [] );
+		$has_icon_tooltip = ! empty( $icon_tooltip_content_any_value['appliedValue'] );
 		if ( $has_typed_text ) {
 			$this->enqueue_script( 'kbs-' . $this->block_name );
 		}
@@ -113,6 +114,7 @@ class Text extends Abstract_Block {
 		$icon_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'icon' ), 'icon', [] );
 		$max_width_any_value = self::get_resolved_value( 'maxWidth', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'maxWidth' ), 'maxWidth', [] );
 		$color_any_value = self::get_resolved_value( 'color', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'color' ), 'color', [] );
+		$icon_placement_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconPlacement' ), 'placement', [] );
 
 		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
 		$has_max_width = ! empty( $max_width_any_value['appliedValue'] ) ? true : false;
@@ -124,6 +126,9 @@ class Text extends Abstract_Block {
 
 		if ( ! empty( $attributes['align'] ) ) {
 			$wrapper_classes[] = 'has-text-align-' . $attributes['align'];
+		}
+		if ( $has_icon ) {
+			$wrapper_classes[] = 'kbs-text-has-icon';
 		}
 
 		$content_classes[] = 'kbs-text-content';
@@ -146,7 +151,12 @@ class Text extends Abstract_Block {
 		$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 
 		$icon_html = Svg_Render::render_icon( $attributes, 'icon', 'kbs-text-' );
-		$content = $content . $icon_html;
+		$icon_placement = $icon_placement_any_value['appliedValue'];
+		if ( $icon_placement === 'right' ) {
+			$content = $content . $icon_html;
+		} else {
+			$content = $icon_html . $content;
+		}
 
 		if ( $has_link ) {
 			$content = self::get_link_html( $attributes['link'], $content);

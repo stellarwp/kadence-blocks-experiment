@@ -52,7 +52,8 @@ const nonTransAttrs = ['content', 'htmlTag', 'link'];
  * Build the text editor.
  */
 export default function TextEdit(props) {
-	const { attributes, setAttributes, className, isSelected, clientId, toggleSelection } = props;
+	const { attributes, setAttributes, className, isSelected, clientId, toggleSelection, mergeBlocks, onReplace } =
+		props;
 	const { uniqueID, content, alignText, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
 	const myElementRef = useRef(null);
 
@@ -94,6 +95,11 @@ export default function TextEdit(props) {
 		() => getResolvedValue('icon', attributes, 'any', metadata, 'icon', globalStylesIds),
 		[attributes]
 	);
+	const iconPlacementAnyValue = useMemo(
+		() => getResolvedValue('icon', attributes, 'any', metadata, 'placement', globalStylesIds),
+		[attributes]
+	);
+	const previewIconPlacement = iconPlacementAnyValue?.appliedValue;
 
 	//look for gradient text marker in the color value
 	const hasGradient = previewColorValue?.includes('gradient(');
@@ -138,6 +144,7 @@ export default function TextEdit(props) {
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
 		[`kbs-text-content`]: !shouldWrapContent,
+		['kbs-text-has-icon']: hasIcon,
 	});
 
 	const blockProps = useBlockProps({
@@ -190,23 +197,24 @@ export default function TextEdit(props) {
 
 	const contentHTML = (
 		<RichText
-			tagName={previewHeadingTag}
-			className="kbs-text-content"
-			value={content}
-			onChange={onContentChange}
-			placeholder={__('Write something…', 'kadence-blocks')}
-			allowedFormats={richTextFormats}
-		/>
-	);
-
-	const noWrapContentHTML = (
-		<RichText
-			{...finalBlocksProps}
+			{...(shouldWrapContent ? { className: 'kbs-text-content' } : finalBlocksProps)}
 			tagName={previewHeadingTag}
 			value={content}
 			onChange={onContentChange}
 			placeholder={__('Write something…', 'kadence-blocks')}
 			allowedFormats={richTextFormats}
+			onMerge={mergeBlocks}
+			onSplit={(value) => {
+				if (!value && !isDefaultEditorBlock) {
+					return createBlock('core/paragraph');
+				}
+				return createBlock('kadence/advancedheading', {
+					...attributes,
+					content: value ?? '',
+				});
+			}}
+			onReplace={onReplace}
+			onRemove={() => onReplace([])}
 		/>
 	);
 
@@ -250,13 +258,13 @@ export default function TextEdit(props) {
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			{controlsAndStylesHTML}
-			{!shouldWrapContent && <>{noWrapContentHTML}</>}
+			{!shouldWrapContent && <>{contentHTML}</>}
 			{shouldWrapContent && (
 				<div {...finalBlocksProps}>
+					{previewIconPlacement !== 'right' && <IconRender attributeName={'icon'} attributes={attributes} />}
 					{link?.url && linkContentHTML}
 					{!link?.url && contentHTML}
-
-					<IconRender attributeName={'icon'} attributes={attributes} />
+					{previewIconPlacement === 'right' && <IconRender attributeName={'icon'} attributes={attributes} />}
 				</div>
 			)}
 		</GlobalStylesContext.Provider>

@@ -160,6 +160,8 @@ class CSSGenerator {
 					cssValue = getColorOutput(appliedValue);
 				} else if (key === 'iconSize' || key === 'iconSizeHover') {
 					cssValue = this.getIconSizeOutput(appliedValue);
+				} else if (key.includes('padding') || key.includes('margin')) {
+					cssValue = this.getSpacingOutput(appliedValue);
 				} else {
 					cssValue = appliedValue;
 				}
@@ -773,6 +775,15 @@ class CSSGenerator {
 					'iconSizeHover',
 					'iconLineWidthHover',
 					'colorHover',
+					'paddingTop',
+					'paddingRight',
+					'paddingBottom',
+					'paddingLeft',
+					'paddingHoverTop',
+					'paddingHoverRight',
+					'paddingHoverBottom',
+					'paddingHoverLeft',
+					'alignItems',
 				];
 				break;
 			case 'linkStyle':
