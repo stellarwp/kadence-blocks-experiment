@@ -19,6 +19,7 @@ export default function SpacingControl({
 	showVisualizer = false,
 	clientId,
 	blockElementRef = null,
+	initialOpen = true,
 }) {
 	const onAllReset = () => {
 		const resetObject = {};
@@ -42,6 +43,7 @@ export default function SpacingControl({
 			reset={onAllReset}
 			panelName={'container-spacing'}
 			componentName={'spacing-control'}
+			initialOpen={initialOpen}
 		>
 			{types.map((type, i) => (
 				<SpaceControl

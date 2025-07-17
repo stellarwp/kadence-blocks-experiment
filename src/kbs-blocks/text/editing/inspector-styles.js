@@ -86,17 +86,6 @@ export default function InspectorStyles(props) {
 					attributeName={'typography'}
 					globalStylesIds={globalStylesIds}
 				/>
-
-				<LayeredShadowControl
-					attributeName={'textShadow'}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					metaData={metadata}
-					previewDevice={previewDevice}
-					globalStylesIds={globalStylesIds}
-					globalStylesCss={globalStylesCss}
-					type={'textShadow'}
-				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
 				title={__('Border Settings', 'kadence-blocks')}
@@ -114,6 +103,23 @@ export default function InspectorStyles(props) {
 					labelBorderRadius={__('Border Radius', 'kadence-blocks')}
 					label={__('Border', 'kadence-blocks')}
 					hasPresetControl={true}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
+				title={__('Shadow Settings', 'kadence-blocks')}
+				panelName={'text-shadow'}
+				componentName={'shadow-control'}
+				initialOpen={false}
+			>
+				<LayeredShadowControl
+					attributeName={'textShadow'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					metaData={metadata}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
+					type={'textShadow'}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody

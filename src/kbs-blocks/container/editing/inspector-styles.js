@@ -63,16 +63,6 @@ export default function InspectorStyles(props) {
 				panelName={'border-controls'}
 				initialOpen={false}
 			>
-				<LayeredShadowControl
-					attributeName={'boxShadow'}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					metaData={metadata}
-					previewDevice={previewDevice}
-					globalStylesIds={globalStylesIds}
-					globalStylesCss={globalStylesCss}
-					type={'boxShadow'}
-				/>
 				<BorderControl
 					attributes={attributes}
 					attributeName={'border'}
@@ -83,6 +73,22 @@ export default function InspectorStyles(props) {
 					labelBorderRadius={__('Border Radius', 'kadence-blocks')}
 					label={__('Border', 'kadence-blocks')}
 					hasPresetControl={true}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
+				title={__('Shadow Controls', 'kadence-blocks')}
+				panelName={'shadow-controls'}
+				initialOpen={false}
+			>
+				<LayeredShadowControl
+					attributeName={'boxShadow'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					metaData={metadata}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
+					type={'boxShadow'}
 				/>
 			</ToolsPanelBody>
 		</>

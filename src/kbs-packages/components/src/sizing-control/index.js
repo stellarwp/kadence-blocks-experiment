@@ -10,6 +10,7 @@ export default function SizingControl({
 	label = __('Sizing', 'kadence-blocks'),
 	types = ['maxWidth', 'minHeight'],
 	metadata,
+	initialOpen = false,
 }) {
 	const onAllReset = () => {
 		const resetObject = {};
@@ -31,7 +32,12 @@ export default function SizingControl({
 		}
 	};
 	return (
-		<ToolsPanelBody title={title} panelName={'container-sizing'} componentName={'sizing-control'}>
+		<ToolsPanelBody
+			title={title}
+			panelName={'container-sizing'}
+			componentName={'sizing-control'}
+			initialOpen={initialOpen}
+		>
 			{types.map((type) => (
 				<RadioButtonControl
 					key={type}

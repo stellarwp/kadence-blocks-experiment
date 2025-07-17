@@ -64,6 +64,7 @@ export default function InspectorAdvanced(props) {
 				globalStylesIds={globalStylesIds}
 				title={__('Sizing Settings', 'kadence-blocks')}
 				types={['maxWidth', 'minHeight']}
+				initialOpen={false}
 			/>
 			<FlexChildControl
 				attributeName={'flexChild'}
@@ -72,6 +73,7 @@ export default function InspectorAdvanced(props) {
 				metaData={metadata}
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
+				initialOpen={false}
 			/>
 		</>
 	);

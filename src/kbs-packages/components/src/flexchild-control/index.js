@@ -15,6 +15,7 @@ export default function FlexChildControl({
 	customOnChange,
 	forStyleBook,
 	forPresetControl,
+	initialOpen = false,
 }) {
 	const [currentView, setCurrentView] = useState('normal');
 	const onSelectView = (view) => {
@@ -31,6 +32,7 @@ export default function FlexChildControl({
 			onSelectView={onSelectView}
 			currentView={currentView}
 			hasViewControls={true}
+			initialOpen={initialOpen}
 		>
 			<RadioButtonControl
 				label={__('Flex', 'kadence-blocks')}

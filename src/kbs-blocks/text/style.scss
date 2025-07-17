@@ -138,6 +138,10 @@
 		border-right: var(--kbs-text-border-right-hover, var(--kbs-text-border-right));
 		border-bottom: var(--kbs-text-border-bottom-hover, var(--kbs-text-border-bottom));
 	}
+
+	a[data-kb-tooltip-content]:not([href]) {
+		border-bottom: 1px dashed var(--kbs-text-icon-tooltip-dash-color, currentColor);
+	}
 }
 
 .kbs-text-content {
