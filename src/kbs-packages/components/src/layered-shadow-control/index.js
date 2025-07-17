@@ -41,12 +41,12 @@ import {
  */
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
-import BackgroundPresetControl from './background-preset-control';
 import ColorControl from '../color-control';
 import BackgroundImageControl from '../background-image-control';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import ShadowLayer from './shadow-layer';
 import LayerTitleBar from './layer-title-bar';
+import ShadowPresetControl from './shadow-preset-control';
 
 import './editor.scss';
 
@@ -284,7 +284,7 @@ export default function LayeredShadowControl({
 	return (
 		<div className={classes}>
 			{!forPresetControl && (
-				<BackgroundPresetControl
+				<ShadowPresetControl
 					label={
 						type == 'boxShadow'
 							? __('Box Shadow Presets', 'kadence-blocks')
