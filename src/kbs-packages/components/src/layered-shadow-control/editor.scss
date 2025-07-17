@@ -1,9 +1,9 @@
 // Preset Radio Control Editor.
-.kbs-radio-preset-control .kbs-radio-preset-control-inner {
+.kbs-radio-preset-control-boxShadow .kbs-radio-preset-control-inner {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 20px;
-	padding: 15px;
+	gap: 15px;
+	padding: 10px;
 	background: var(--kb-subtle-background, #edf2f7);
 	border-radius: 2px;
 	overflow: hidden;
@@ -15,10 +15,11 @@
 		box-shadow: none;
 		padding: 0;
 		height: 40px;
-		border: 2px solid transparent;
-		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+		// box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 		padding: 1px;
 		outline: none;
+		transform: scale(0.7);
+
 		.kbs-radio-preset-control-style {
 			display: block;
 			width: 100%;
@@ -32,28 +33,23 @@
 			overflow: hidden;
 			transition: all 0.3s ease-in-out;
 		}
-		&:hover {
-			box-shadow: none;
-			outline: none;
-			background: transparent;
-			outline: none;
-			box-shadow: inset 0 0 0 1px var(--kb-border-color, #859cb6);
+
+		.kbs-shadow-preset-render {
+			border: 2px solid lightgray;
+		}
+
+		&:hover,
+		&.is-pressed {
+			border: none;
+			// border-color: var(--wp-components-color-foreground, #1e1e1e);
+			// box-shadow: inset 0 0 0 1px var(--kb-border-color, #859cb6);
 			//border-color: var(--kb-border-color, #859cb6);
 			// .kbs-radio-preset-control-style {
 			// 	box-shadow: inset 0 0 0 1px var(--kb-border-color, #859cb6);
 			// }
-		}
-		&.is-pressed {
-			box-shadow: none;
-			outline: none;
-			background: transparent;
-			border-color: var(--wp-components-color-foreground, #1e1e1e);
-			box-shadow: inset 0 0 0 1px white;
-			// .kbs-radio-preset-control-style {
-			// 	outline: 1px solid white;
-			// 	outline-offset: -3px;
-			// 	box-shadow: inset 0 0 0 2px var(--wp-components-color-foreground, #1e1e1e);
-			// }
+			.kbs-shadow-preset-render {
+				border-color: var(--wp-components-color-foreground, #1e1e1e);
+			}
 		}
 	}
 }

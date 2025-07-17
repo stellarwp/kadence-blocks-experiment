@@ -225,21 +225,32 @@
 		},
 		"border": {
 			"presets": {
-				"simple": {
-					"label": "Simple",
+				"card": {
+					"label": "Card",
 					"description": "A border preset",
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
-							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
-							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
-							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)"
+							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette3)",
+							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette3)",
+							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette3)",
+							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette3)",
+							"borderRadius": ["sm", "sm", "sm", "sm"]
 						}
 					}
 				},
-				"simple-rounded": {
-					"label": "Simple Rounded",
+				"card-alt": {
+					"label": "Card Alt",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderRadius": ["sm", "sm", "sm", "sm"]
+						}
+					}
+				},
+				"image": {
+					"label": "Image",
 					"description": "A border preset",
 					"locked": true,
 					"attributes": {
@@ -248,27 +259,17 @@
 							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
 							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
 							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
-							"borderRadius": ["sm", "sm", "sm", "sm"]
+							"borderRadius": ["md", "md", "md", "md"]
 						}
 					}
 				},
-				"none-rounded-sm": {
-					"label": "Rounded Only",
+				"image-alt": {
+					"label": "Image Alt",
 					"description": "A border preset",
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderRadius": ["sm", "sm", "sm", "sm"]
-						}
-					}
-				},
-				"none-rounded-full": {
-					"label": "Rounded Only Full",
-					"description": "A border preset",
-					"locked": true,
-					"attributes": {
-						"desktop": {
-							"borderRadius": ["full", "full", "full", "full"]
+							"borderRadius": ["md", "md", "md", "md"]
 						}
 					}
 				}
@@ -284,7 +285,7 @@
 						"layers": [
 							{
 								"desktop": {
-									"color": "palette1"
+									"color": "var(--kbs-text-shadow-default-color,#00000066)"
 								}
 							}
 						]
@@ -298,11 +299,20 @@
 						"layers": [
 							{
 								"desktop": {
-									"color": "palette2",
+									"color": "palette3",
 									"x": "6px",
 									"y": "6px",
-									"blur": "10px",
-									"spread": "10px"
+									"blur": "0px",
+									"spread": "0px"
+								}
+							},
+							{
+								"desktop": {
+									"color": "palette9",
+									"x": "6px",
+									"y": "6px",
+									"blur": "0px",
+									"spread": "-3px"
 								}
 							}
 						]
@@ -321,62 +331,6 @@
 									"y": "6px",
 									"blur": "0px",
 									"spread": "0px"
-								}
-							}
-						]
-					}
-				},
-				"kbs-box-shadow-variant-3": {
-					"label": "Variant 3",
-					"description": "A variant 3 box shadow preset",
-					"locked": true,
-					"attributes": {
-						"layers": [
-							{
-								"desktop": {
-									"color": "palette3",
-									"x": "6px",
-									"y": "6px",
-									"blur": "10px",
-									"spread": "10px",
-									"inset": "inset"
-								}
-							}
-						]
-					}
-				},
-				"kbs-box-shadow-variant-4": {
-					"label": "Variant 4",
-					"description": "A variant 4 box shadow preset",
-					"locked": true,
-					"attributes": {
-						"layers": [
-							{
-								"desktop": {
-									"color": "palette3",
-									"x": "6px",
-									"y": "6px",
-									"blur": "0px",
-									"spread": "0px",
-									"inset": "inset"
-								}
-							}
-						]
-					}
-				},
-				"kbs-box-shadow-variant-5": {
-					"label": "Variant 5",
-					"description": "A variant 5 box shadow preset",
-					"locked": true,
-					"attributes": {
-						"layers": [
-							{
-								"desktop": {
-									"color": "palette3",
-									"x": "0px",
-									"y": "0px",
-									"blur": "10px",
-									"spread": "10px"
 								}
 							}
 						]
