@@ -54,7 +54,7 @@ const nonTransAttrs = ['content', 'htmlTag', 'link'];
 export default function TextEdit(props) {
 	const { attributes, setAttributes, className, isSelected, clientId, toggleSelection, mergeBlocks, onReplace } =
 		props;
-	const { uniqueID, content, alignText, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
+	const { uniqueID, content, textAlign, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
 	const myElementRef = useRef(null);
 
 	// Get merged global styles IDs using the helper hook
@@ -140,7 +140,7 @@ export default function TextEdit(props) {
 	const classes = classnames('kbs-text', {
 		[className]: className,
 		[`kbs-text-${uniqueID}`]: uniqueID,
-		[`has-text-align-${alignText}`]: alignText,
+		[`has-text-align-${textAlign}`]: textAlign,
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
 		[`kbs-text-content`]: !shouldWrapContent,

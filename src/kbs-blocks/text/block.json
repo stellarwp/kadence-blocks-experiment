@@ -30,7 +30,7 @@
 		"preset": {
 			"type": "array"
 		},
-		"alignText": {
+		"textAlign": {
 			"renderCSS": true,
 			"component": "textAlign",
 			"nonInheritable": true,

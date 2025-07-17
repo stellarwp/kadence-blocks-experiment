@@ -135,6 +135,8 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'align-text':
 		case 'alignText':
+		case 'text-align':
+		case 'textAlign':
 			controls = getAlignTextControls();
 			break;
 		case 'heading-tag':

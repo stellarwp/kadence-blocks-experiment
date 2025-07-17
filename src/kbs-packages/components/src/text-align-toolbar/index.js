@@ -18,8 +18,8 @@ export default function TextAlignToolbar(props) {
 		attributes,
 		setAttributes,
 		metadata,
-		attributeName = 'alignText',
-		type = 'alignText',
+		attributeName = 'textAlign',
+		type = 'textAlign',
 	} = props;
 
 	const { previewDevice } = useSelect((select) => {

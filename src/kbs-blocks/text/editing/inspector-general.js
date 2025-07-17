@@ -51,8 +51,8 @@ export default function InspectorGeneral(props) {
 					label={__('Text Align', 'kadence-blocks')}
 					attributes={attributes}
 					setAttributes={setAttributes}
-					attributeName={'alignText'}
-					type={'alignText'}
+					attributeName={'textAlign'}
+					type={'textAlign'}
 					previewDevice={previewDevice}
 					meta={metadata}
 				/>
