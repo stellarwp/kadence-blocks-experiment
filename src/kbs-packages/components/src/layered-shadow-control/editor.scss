@@ -54,6 +54,17 @@
 	}
 }
 
+.kbs-radio-preset-control-textShadow {
+	.kbs-shadow-preset-render.kbs-shadow-preset-render.kbs-shadow-preset-render {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.kbs-shadow-preset-render span {
+		font-size: 18px;
+	}
+}
+
 .kbs-popover-background-select-control__dropdown-content.kbs-radio-preset-control {
 	.components-popover__content {
 		min-height: 200px;

@@ -14,14 +14,15 @@ import { blockDefault, brush, settings } from '@wordpress/icons';
 import { cssGenerator } from '@kadence/kbsHelpers';
 
 function ShadowPresetCSSStyles(props) {
-	const { attributes, previewDevice, preset, uniqueID, meta, attributeMeta, attributeName } = props;
+	const { attributes, previewDevice, preset, uniqueID, meta, attributeMeta, attributeName, type } = props;
 	const cssOutput = useMemo(() => {
-		const selector = `.preset-${uniqueID}-${preset.value}`;
+		const selector = `.preset-${uniqueID}-${preset.value}` + (type === 'textShadow' ? ' span' : '');
 		const css = new cssGenerator(selector);
+		console.log('layer styles', attributeName, attributeMeta, props, meta);
 		css.addComponent(attributeName, attributeMeta, props, meta);
 		let output = css.generate();
 		return output;
-	}, [attributes?.layers, previewDevice, preset?.value, uniqueID]);
+	}, [attributes?.layers, previewDevice, preset?.value, uniqueID, type]);
 	return <style>{cssOutput}</style>;
 }
 
@@ -35,10 +36,11 @@ function ShadowPresetRender(props) {
 		globalStylesIds = [],
 		globalStyleId = '',
 		className,
+		type = 'boxShadow',
 	} = props;
 	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
 		globalStylesIds,
-		'boxShadow',
+		type,
 		'presets.' + preset?.value
 	);
 	const { styleBookComponent } = useSelect(
@@ -53,6 +55,8 @@ function ShadowPresetRender(props) {
 		},
 		[globalStyleId, attributeName, preset?.value]
 	);
+	console.log('attributes', attributeName, preset?.value, styleBookComponent, rawPresetData);
+	console.log('globalStyleId', globalStyleId);
 	const attributes = globalStyleId
 		? { [attributeName]: styleBookComponent?.attributes } || {}
 		: { [attributeName]: rawPresetData?.attributes } || {};
@@ -60,8 +64,8 @@ function ShadowPresetRender(props) {
 	const classes = clsx(className, 'kbs-shadow-preset-render', `preset-${uniqueID}-${preset.value}`, {
 		'has-no-shadow': !attributes?.[attributeName]?.layers?.length,
 	});
-	return (
-		<div className={classes}>
+	const shadowStyles = useMemo(() => {
+		return (
 			<ShadowPresetCSSStyles
 				preset={preset}
 				attributes={attributes}
@@ -70,8 +74,17 @@ function ShadowPresetRender(props) {
 				meta={meta}
 				previewDevice={previewDevice}
 				attributeName={attributeName}
+				type={type}
 			/>
-		</div>
+		);
+	}, [attributes, previewDevice, preset, uniqueID, meta, attributeName]);
+	return (
+		<>
+			<div className={classes}>
+				{shadowStyles}
+				{type === 'textShadow' && <span>{__('Abc', 'kadence-blocks')}</span>}
+			</div>
+		</>
 	);
 }
 

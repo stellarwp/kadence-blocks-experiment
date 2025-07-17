@@ -68,6 +68,7 @@ export default function ShadowPresetControl({
 	globalStylesIds,
 	customOnChange,
 	globalStylesCss,
+	type = 'boxShadow',
 	view = 'default',
 }) {
 	const attributeMeta = meta?.attributes?.[attributeName];
@@ -165,7 +166,7 @@ export default function ShadowPresetControl({
 					}}
 					className="kbs-popover-background-select-control__dropdown-content kbs-radio-preset-control"
 				>
-					<TitleBar label={__('Background Presets', 'kadence-blocks')} reset={false} />
+					<TitleBar label={__('Shadow Presets', 'kadence-blocks')} reset={false} />
 					<div ref={divRef} className="kbs-control-inner kbs-radio-preset-control-inner">
 						{presets.map((option) => (
 							<Button
@@ -199,6 +200,7 @@ export default function ShadowPresetControl({
 				</Popover>
 			)}
 			<div className="kbs-control-inner kbs-radio-preset-control-inner">
+				{console.log('presetOptions', presetOptions)}
 				{presetOptions.map((option) => (
 					<Button
 						key={option.value}
@@ -219,6 +221,7 @@ export default function ShadowPresetControl({
 							globalStylesIds={globalStylesIds}
 							uniqueID={attributes?.uniqueID}
 							className={`kbs-radio-preset-control-style`}
+							type={type}
 						/>
 					</Button>
 				))}
