@@ -9,17 +9,11 @@
  */
 import {
 	ToolsPanelBody,
-	RadioButtonControl,
-	PresetSelectControl,
-	Typography,
 	SelectGlobalStyles,
-	BlockComponentControls,
-	TransformControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
  */
-import { getPreviewValue } from '@kadence/kbsHelpers';
 import { FlexBoxControl } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -46,15 +40,6 @@ export default function InspectorGeneral(props) {
 			>
 				<SelectGlobalStyles attributes={attributes} setAttributes={setAttributes} />
 			</ToolsPanelBody>
-			<TransformControl
-				attributes={attributes}
-				setAttributes={setAttributes}
-				meta={metadata}
-				previewDevice={previewDevice}
-				attributeName={'transform'}
-				globalStylesIds={globalStylesIds}
-				hasHoverControls={true}
-			/>
 			<FlexBoxControl
 				attributeName={'flexBox'}
 				attributes={attributes}

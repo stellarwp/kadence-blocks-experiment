@@ -45,17 +45,11 @@ export default function TransitionControl({
 	return (
 		<ToolsPanelBody
 			title={__('Transition', 'kadence-blocks')}
-			initialOpen={true}
+			initialOpen={false}
 			resetAll={handleReset}
 			className="kbs-transition-control"
 			hasDeviceControls={false}
 		>
-			<TitleBar
-				label={__('Transition', 'kadence-blocks')}
-				hasReset={handleReset}
-				onReset={handleReset}
-			/>
-
 			<RadioButtonControl
 				label={__('Duration', 'kadence-blocks')}
 				attributes={attributes}
@@ -79,13 +73,13 @@ export default function TransitionControl({
 			/>
 
 			<SelectControl
-				label={__('Transition Ease', 'kadence-blocks')}
+				label={__('Timing Function', 'kadence-blocks')}
 				attributes={attributes}
 				setAttributes={setAttributes}
 				attributeName={attributeName}
 				meta={meta}
 				previewDevice={previewDevice}
-				type={'transitionEase'}
+				type={'transitionTimingFunction'}
 				globalStylesIds={globalStylesIds}
 			/>
 

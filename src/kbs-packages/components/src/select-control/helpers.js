@@ -124,7 +124,7 @@ export const useSelectOptions = ({
 			options = presetOptions;
 			break;
 		}
-		case 'transitionEase': {
+		case 'transitionTimingFunction': {
 			options = [
 				{ value: 'ease', label: __('Ease', 'kadence-blocks') },
 				{ value: 'ease-in', label: __('Ease In', 'kadence-blocks') },

@@ -1055,7 +1055,7 @@ class CSSGenerator {
 				componentKeys = [component];
 				break;
 			case 'transition':
-				componentKeys = ['transitionProperty', 'transitionDuration', 'transitionEase'];
+				componentKeys = ['transitionProperty', 'transitionDuration', 'transitionTimingFunction'];
 				break;
 		}
 		return componentKeys;
