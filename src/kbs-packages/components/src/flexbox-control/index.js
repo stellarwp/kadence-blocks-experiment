@@ -34,7 +34,7 @@ export default function FlexBoxControl({
 		metaData,
 		'alignContent'
 	);
-	const selector = metaData?.attributes?.[attributeName]?.selector || 'flex';
+	const selector = metaData?.attributes?.[attributeName]?.varPrefix || 'flex';
 	return (
 		<ToolsPanelBody
 			title={__('Flex Settings', 'kadence-blocks')}

@@ -9,7 +9,7 @@ import { getColorHex } from './utils';
 import ColorPicker from './color-picker';
 import ColorStorybook from './color-storybook';
 import GradientPicker from '../gradient-control';
-import ColorMix from './color-mix';
+import ColorUnifiedMix from './color-unified-mix';
 import { hoverIcon } from '../constants/icons';
 const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasPalette = true) => {
 	const tempValue = currentValue ? currentValue : inherited?.inheritedValue ? inherited.inheritedValue : '';
@@ -24,7 +24,8 @@ const getInitialTabName = (currentValue, inherited, hasGradient, hasMix, hasPale
 	) {
 		return 'gradient';
 	}
-	if (hasMix && tempValue.startsWith('color-mix')) {
+	// Both color-mix and oklch now go to the unified mix tab
+	if (hasMix && (tempValue.startsWith('color-mix') || tempValue.startsWith('oklch'))) {
 		return 'mix';
 	}
 	if (tempValue.startsWith('#')) {
@@ -38,7 +39,7 @@ const ColorSelector = ({
 	currentValue,
 	inherited,
 	hasGradient = false,
-	hasMix = false,
+	hasMix = true,
 	globalClasses,
 	hasHoverControls = false,
 	isHover = false,
@@ -71,12 +72,13 @@ const ColorSelector = ({
 		if (hasGradient) {
 			tempTabs.push({ name: 'gradient', title: __('Gradient', 'kadence-blocks') });
 		}
+		// Unified mix tab for both color-mix and OKLch
 		if (hasMix) {
 			tempTabs.push({ name: 'mix', title: __('Mix', 'kadence-blocks') });
 		}
 		return tempTabs;
 	}, [hasGradient, hasMix]);
-	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasPalette, hasCustomColors);
+	const initialTabName = getInitialTabName(currentValue, inherited, hasGradient, hasMix, hasPalette);
 	return (
 		<div className="kbs-color-selector-tab-wrapper">
 			<TabPanel
@@ -110,7 +112,7 @@ const ColorSelector = ({
 							);
 						} else if ('mix' === tab.name) {
 							return (
-								<ColorMix
+								<ColorUnifiedMix
 									value={currentValue}
 									onChange={handleColorChange}
 									globalClasses={globalClasses}

@@ -22,6 +22,7 @@ import {
 	getInheritedValue,
 	handleMultipleAttributeChange,
 	getSpacingOutput,
+	getPresetOptions,
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
@@ -104,7 +105,7 @@ export default function SpaceControl({
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange(resetValue, previewDevice === 'Desktop' ? 'all' : previewDevice, type);
+		onChange(resetValue, previewDevice === 'Desktop' ? 'all' : previewDevice, type, true);
 	};
 	// Memoize event handlers
 	const onSetAttributes = useCallback(
@@ -152,9 +153,9 @@ export default function SpaceControl({
 		},
 		[getInheritedValue, setAttributes, attributes, metaData, globalStylesIds, inheritedTop, inheritedBottom]
 	);
-	const onChange = (value, device, tempType) => {
+	const onChange = (value, device, tempType, reset = false) => {
 		console.log('onChange', value, device, tempType);
-		if (isLinking) {
+		if (isLinking || reset) {
 			handleMultipleAttributeChange(
 				[value, value, value, value],
 				device,
@@ -182,22 +183,22 @@ export default function SpaceControl({
 		{
 			icon: sectionLargeIcon,
 			title: __('Section XXL', 'kadence-blocks'),
-			key: 'section-xxl',
+			key: 'kbs-pd-sec-xxl',
 		},
 		{
 			icon: sectionMediumIcon,
 			title: __('Section XL', 'kadence-blocks'),
-			key: 'section-xl',
+			key: 'kbs-pd-sec-xl',
 		},
 		{
 			icon: cardLargeIcon,
 			title: __('Card Large', 'kadence-blocks'),
-			key: 'card-lg',
+			key: 'kbs-pd-card-lg',
 		},
 		{
 			icon: cardMediumIcon,
 			title: __('Card Medium', 'kadence-blocks'),
-			key: 'card-md',
+			key: 'kbs-pd-card-md',
 		},
 	];
 	// Return the JSX directly, not inside an array
@@ -318,7 +319,7 @@ export default function SpaceControl({
 					</div>
 				</div>
 			</div>
-			{type === 'padding' && (
+			{type === 'padding' && showVisualizer && (
 				<PaddingVisualizer
 					forceShow={typeMouseOver.isMouseOver}
 					clientId={clientId}
@@ -326,7 +327,7 @@ export default function SpaceControl({
 					value={[inheritedTop, inheritedRight, inheritedBottom, inheritedLeft]}
 				/>
 			)}
-			{type === 'margin' && (
+			{type === 'margin' && showVisualizer && (
 				<MarginVisualizer
 					forceShow={typeMouseOver.isMouseOver}
 					clientId={clientId}

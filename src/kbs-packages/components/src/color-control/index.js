@@ -15,7 +15,7 @@ import {
 	TabPanel,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useRef, useMemo } from '@wordpress/element';
+import { useRef, useMemo, useState } from '@wordpress/element';
 import { color as colorIcon, check as checkIcon, close as closeIcon } from '@wordpress/icons';
 import { useSettings } from '@wordpress/block-editor';
 /**
@@ -53,13 +53,15 @@ export default function ColorControl({
 	defaultValue = undefined,
 	customOnChange = undefined,
 	hasGradient = false,
-	hasMix = false,
+	hasMix = true,
 	globalStylesCss,
 	hasToggleLabel = true,
 	hasTitleBar = true,
+	hasHoverControls = false,
 	currentValue,
 	inherited,
 }) {
+	const [isHover, setIsHover] = useState(false);
 	const popoverProps = {
 		placement: 'left-start',
 		//offset: 36,
@@ -69,21 +71,32 @@ export default function ColorControl({
 	const globalColors = getColorOptions();
 	const globalGradients = hasGradient ? getGradientOptions() : [];
 	const isDisableCustomColors = !customColors ? true : false;
+	const typeToUse = isHover ? `${type}Hover` : type;
 
-	const currentValueToUse = currentValue ?? getDeviceValue(attributeName, attributes, previewDevice, type);
+	const currentValueToUse = currentValue ?? getDeviceValue(attributeName, attributes, previewDevice, typeToUse);
 	const inheritedToUse =
-		inherited ?? getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+		inherited ??
+		getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, typeToUse, globalStylesIds);
 
 	const onReset = () => {
 		let resetValue = undefined;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange(resetValue, 'all', type);
+		onChange(resetValue, 'all', typeToUse);
 	};
 	const onChange = (value, device, customType) => {
-		const typeToUse = customType ?? type;
-		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, typeToUse, meta);
+		const typeToUseHere = customType ?? typeToUse;
+		handleAttributeChange(
+			value,
+			device,
+			attributeName,
+			attributes,
+			setAttributes,
+			customOnChange,
+			typeToUseHere,
+			meta
+		);
 	};
 	return (
 		<div className={`components-base-control kbs-control kbs-color-control`}>
@@ -99,6 +112,9 @@ export default function ColorControl({
 					isCustom={isCustom}
 					onToggleCustom={() => setIsCustom(!isCustom)}
 					hasCustomControls={hasCustomControls}
+					hasHoverControls={hasHoverControls}
+					onToggleHover={() => setIsHover(!isHover)}
+					isHover={isHover}
 				/>
 			)}
 			<div className="kbs-control-inner">
@@ -119,7 +135,7 @@ export default function ColorControl({
 						inherited: inheritedToUse?.inheritedValue ? inheritedToUse.inheritedValue : '',
 						onChange: onChange,
 						previewDevice: previewDevice,
-						type: type,
+						type: typeToUse,
 						hasGradient: hasGradient,
 						hasMix: hasMix,
 						globalStylesCss: globalStylesCss,

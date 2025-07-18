@@ -73,7 +73,15 @@ const eslintConfig = {
 		'import/no-unresolved': [
 			'error',
 			{
-				ignore: ['@kadence/icons', '@kadence/components', '@kadence/helpers', '@kadence/kbsComponents', '@kadence/kbsHelpers', '@wordpress/*'],
+				ignore: [
+					'@kadence/icons',
+					'@kadence/components',
+					'@kadence/helpers',
+					'@kadence/kbsComponents',
+					'@kadence/kbsHelpers',
+					// '@kadence/kbsIcons',
+					'@wordpress/*',
+				],
 			},
 		],
 		'import/no-extraneous-dependencies': 'off',

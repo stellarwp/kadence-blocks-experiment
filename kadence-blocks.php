@@ -27,13 +27,6 @@ require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . '/inc/functions/helper-functions.php';
 require_once plugin_dir_path( __FILE__ ) . '/inc/functions/app.php';
 
-use KadenceWP\KadenceBlocks\App;
-use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Container\ContainerAdapter;
-use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Config;
-use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Core as Telemetry;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Config as UplinkConfig;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Register;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Uplink;
 
 // Get the plugin's singleton instance.
 
@@ -43,7 +36,8 @@ add_action(
 	static function (): void {
 		$core = kbs_plugin();
 		$core->init();
-	}
+	},
+	1
 );
 
 /**
@@ -58,10 +52,7 @@ register_activation_hook( __FILE__, 'kadence_blocks_activate' );
  * Load Plugin.
  */
 function kadence_blocks_init(): void {
-	$container = new ContainerAdapter( new \KadenceWP\KadenceBlocks\lucatume\DI52\Container() );
-
-	// The Kadence Blocks Application.
-	App::instance( $container );
+	$container = kbs_container();
 
 	// require_once KADENCE_BLOCKS_PATH . 'includes/init.php';
 	// require_once KADENCE_BLOCKS_PATH . 'includes/form-ajax.php';
@@ -144,18 +135,10 @@ function kadence_blocks_init(): void {
 	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-image-picker.php';
 
 	// /**
-	//  * Site Health.
-	//  */
+	// * Site Health.
+	// */
 	// require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-site-health.php';
 
-	/**
-	 * Telemetry.
-	 */
-	Config::set_container( $container );
-	Config::set_server_url( 'https://telemetry.stellarwp.com/api/v1' );
-	Config::set_hook_prefix( 'kadence-blocks' );
-	Config::set_stellar_slug( 'kadence-blocks' );
-	Telemetry::instance()->init( __FILE__ );
 	/**
 	 * AI-specific usage tracking. Only track if AI is opted in by user.
 	 */
@@ -163,41 +146,14 @@ function kadence_blocks_init(): void {
 	// $ai_events = new Kadence_Blocks_AI_Events();
 	// $ai_events->register();
 
-	/**
-	 * Uplink.
-	 */
-	UplinkConfig::set_container( $container );
-	UplinkConfig::set_hook_prefix( 'kadence-blocks' );
-	UplinkConfig::set_token_auth_prefix( 'kadence' );
-	UplinkConfig::set_auth_cache_expiration( WEEK_IN_SECONDS );
-	Uplink::init();
-
-	Register::plugin(
-		'kadence-blocks',
-		'Kadence Blocks',
-		KADENCE_BLOCKS_VERSION,
-		'kadence-blocks/kadence-blocks.php',
-		Kadence_Blocks::class
-	);
-
 	do_action( 'kadence_blocks_uplink_loaded' );
-
-	add_filter( 'stellarwp/uplink/kadence-blocks/prevent_update_check', '__return_true' );
-	add_filter(
-		'stellarwp/uplink/kadence-blocks/api_get_base_url',
-		static function () {
-			return 'https://licensing.kadencewp.com';
-		},
-		10,
-		0
-	);
 }
-add_action( 'plugins_loaded', 'kadence_blocks_init', 1 );
+// add_action( 'plugins_loaded', 'kadence_blocks_init', 2 );
 
 /**
  * Load the plugin textdomain
  */
 function kadence_blocks_lang(): void {
-	load_plugin_textdomain( 'kadence-blocks', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'kadence-blocks', false, basename( __DIR__ ) . '/languages' );
 }
 // add_action( 'init', 'kadence_blocks_lang' );

@@ -8,11 +8,10 @@ import { useEffect, useMemo } from '@wordpress/element';
  */
 export default function uniqueIdHelper(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
-	const { uniqueID } = attributes;
 	const { addUniqueID } = useDispatch('kadenceblocks/data');
 
 	// Get the select function once
-	const select = useSelect((select) => select, []);
+	const select = useSelect((select) => select, [clientId]);
 
 	// Memoize the functions to prevent unnecessary re-renders
 	const { isUniqueID, isUniqueBlock, parentData } = useMemo(
@@ -30,13 +29,15 @@ export default function uniqueIdHelper(props) {
 				editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
 			},
 		}),
-		[select]
+		[select, clientId]
 	);
 
 	const updateUniqueID = (newUniqueID) => {
 		if (!isUniqueID(newUniqueID)) {
+			// Solves for rare case where the client id matches enough that our unique id is not unique.
 			newUniqueID = uniqueId(newUniqueID);
 		}
+		// Set the unique ID in the attributes and the store. On the attribute variable is important for race conditions.
 		attributes.uniqueID = newUniqueID;
 		setAttributes({ uniqueID: newUniqueID });
 		addUniqueID(newUniqueID, clientId);
@@ -53,18 +54,22 @@ export default function uniqueIdHelper(props) {
 			}
 		}
 
-		const hasBlockPostIdPrefix = uniqueID && uniqueID.split('_').length === 2;
+		const hasBlockPostIdPrefix = attributes?.uniqueID && attributes?.uniqueID.split('_').length === 2;
 		const blockPostIdPrefix = blockPostId ? blockPostId + '_' : '';
 		const newUniqueID = blockPostIdPrefix + clientId.substr(2, 9);
 
-		if (!uniqueID || (hasBlockPostIdPrefix && uniqueID.split('_')[0] !== blockPostId.toString())) {
+		if (
+			!attributes?.uniqueID ||
+			(hasBlockPostIdPrefix && attributes?.uniqueID.split('_')[0] !== blockPostId.toString())
+		) {
 			// New block
 			return updateUniqueID(newUniqueID);
-		} else if (!isUniqueID(uniqueID) && !isUniqueBlock(uniqueID, clientId)) {
+		} else if (!isUniqueID(attributes?.uniqueID) && !isUniqueBlock(attributes?.uniqueID, clientId)) {
 			// This checks if we are just switching views, client ID the same means we don't need to update but otherwise we assume it's a duplicate block.
 			return updateUniqueID(newUniqueID);
 		}
-		addUniqueID(uniqueID, clientId);
+		// This just logs the block in the store and it doesn't need to be updated.
+		addUniqueID(attributes?.uniqueID, clientId);
 	}, [clientId]);
 
 	return;

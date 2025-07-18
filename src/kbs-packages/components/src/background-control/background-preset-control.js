@@ -79,7 +79,6 @@ export default function BackgroundPresetControl({
 	}
 	// Fetch available presets
 	const presets = getPresetOptions(presetType);
-	// console.log(presets);
 	// Get the first three presets in a custom array
 	const presetOptions = presets.slice(0, 3);
 	const currentValue = attributes?.[attributeName]?.preset;

@@ -373,6 +373,18 @@ const performStyleMerge = (globalStyles, styleIds) => {
 // Memoized merge of global styles merge function.
 const getMemoizedMergedStyles = memize(performStyleMerge);
 
+// Memoized function to get style book component preset
+const getMemoizedStyleBookComponentPreset = memize((styleBookLocalGlobalStyles, styleId, componentId, presetId) => {
+	if (styleBookLocalGlobalStyles) {
+		const presetToReturn =
+			styleBookLocalGlobalStyles?.[styleId]?.['components']?.[componentId]?.['presets']?.[presetId];
+		if (presetToReturn) {
+			return presetToReturn;
+		}
+	}
+	return null;
+});
+
 /**
  * Resolvers for the store
  */
@@ -412,6 +424,9 @@ const resolvers = {
 		yield resolvers.getGlobalStyles();
 	},
 	*getMergedGlobalStyle() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getResolvedGlobalData() {
 		yield resolvers.getGlobalStyles();
 	},
 	*getResolvedStyleData() {
@@ -632,7 +647,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 				: styleIds.map((id) => state.styleBookLocalGlobalStyles?.[id]).filter(Boolean); // Remove any undefined values
 
 			if (stylesToMerge.length === 0) {
-				return {};
+				return null;
 			}
 
 			// Deep merge the styles, with later items in array taking precedence
@@ -661,14 +676,12 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 			return state.styleBookLocalGlobalStylesChanges;
 		},
 		getStyleBookComponentPresetByStyleId(state, styleId, componentId, presetId) {
-			if (state.styleBookLocalGlobalStyles) {
-				const presetToReturn =
-					state.styleBookLocalGlobalStyles?.[styleId]?.['components']?.[componentId]?.['presets']?.[presetId];
-				if (presetToReturn) {
-					return presetToReturn;
-				}
-			}
-			return {};
+			return getMemoizedStyleBookComponentPreset(
+				state.styleBookLocalGlobalStyles,
+				styleId,
+				componentId,
+				presetId
+			);
 		},
 		getStyleBookComponentPresetsByStyleId(state, styleId, componentId) {
 			if (state.styleBookLocalGlobalStyles) {
@@ -678,7 +691,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					return presetToReturn;
 				}
 			}
-			return {};
+			return null;
 		},
 		getGlobalStylesComponentPresetByStyleId(state, styleId, componentId, presetId) {
 			if (state.globalStyles) {
@@ -688,7 +701,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					return presetToReturn;
 				}
 			}
-			return {};
+			return null;
 		},
 		getGlobalStylesComponentPresetsByStyleId(state, styleId, componentId) {
 			if (state.globalStyles) {
@@ -697,13 +710,35 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 					return presetToReturn;
 				}
 			}
-			return {};
+			return null;
 		},
 		hasResolved(state) {
 			return state.hasResolved;
 		},
 		getError(state) {
 			return state.error;
+		},
+		/**
+		 * Uses the memoized getMergedStylesByIds selector and then extracts the raw style data
+		 * for a specific component attribute path.
+		 *
+		 * @param {Object} state - The store state.
+		 * @param {string[]} styleIds - Array of global style IDs to merge.
+		 * @param {string} subItemName - The name of the sub item (e.g., 'components', 'mappings').
+		 * @returns {Object|undefined} The raw style data object or undefined if not found.
+		 */
+		getResolvedGlobalData(state, styleIds, subItemName) {
+			console.log('getResolvedGlobalData', styleIds);
+			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIds);
+			if (!subItemName) {
+				return mergedStyles;
+			}
+			if (mergedStyles?.[subItemName]) {
+				return mergedStyles?.[subItemName];
+			}
+
+			// Nothing found.
+			return undefined;
 		},
 		/**
 		 * Uses the memoized getMergedStylesByIds selector and then extracts the raw style data

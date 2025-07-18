@@ -186,13 +186,15 @@ final class Image_Downloader {
 
 			return $this->importer->import( $downloaded );
 		} catch ( Throwable $e ) {
-			$this->logger->error( 'Image download or import error', [
-				'message' => $e->getMessage(),
-				'trace'   => $e->getTraceAsString(),
-			] );
+			$this->logger->error(
+				'Image download or import error',
+				[
+					'message' => $e->getMessage(),
+					'trace'   => $e->getTraceAsString(),
+				] 
+			);
 
 			return [];
 		}
 	}
-
 }

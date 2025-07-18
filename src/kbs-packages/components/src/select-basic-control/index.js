@@ -13,8 +13,9 @@ import { useMemo } from '@wordpress/element';
  */
 
 import TitleBar from '../title-bar';
-import SelectBasicControlSelect from './select';
 import './editor.scss';
+import { SelectControl } from '@wordpress/components';
+import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';
 
 /**
  * Build the Font Select control
@@ -25,7 +26,7 @@ import './editor.scss';
 export default function SelectBasicControl(props) {
 	const {
 		label,
-		customOnChange,
+		onChange,
 		defaultValue,
 		attributeName,
 		options,
@@ -35,39 +36,46 @@ export default function SelectBasicControl(props) {
 		reset = true,
 		previewDevice = 'desktop',
 		meta,
+		globalStylesIds,
+		titleBar = true,
+		hasDeviceControls = false,
 	} = props;
+	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
+	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
+	const defaultOnChange = (value, device, type) => {
+		handleAttributeChange(value, device, attributeName, attributes, setAttributes, onChange, type, meta);
+	};
+
+	const onChangeToUse = onChange ?? defaultOnChange;
+
 	const onReset = () => {
 		let resetValue = undefined;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange(resetValue, previewDevice === 'desktop' ? 'all' : previewDevice, type);
+		onChangeToUse(resetValue, previewDevice === 'desktop' ? 'all' : previewDevice, type);
 	};
-	const currentValue = getDeviceValue(attributeName, attributes, previewDevice, type);
-	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
-	const onChange = (value, device, type) => {
-		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
-	};
+
 	return (
 		<div className={`components-base-control kbs-control kbs-select-basic-control`}>
-			{label && (
+			{label && titleBar && (
 				<TitleBar
 					label={label}
-					reset={true}
+					reset={reset}
 					onReset={onReset}
-					hasDeviceControls={false}
-					isHover={isHover}
+					hasDeviceControls={hasDeviceControls}
 					previewDevice={previewDevice}
 				/>
 			)}
 			<div className="kbs-control-inner">
-				<SelectBasicControlSelect
+				<SelectControl
 					className="kbs-core-select-control"
 					__next40pxDefaultSize={true}
 					value={currentValue}
-					onChange={(itemValue) => onChange(itemValue, previewDevice, type)}
+					onChange={(itemValue) => onChangeToUse(itemValue, previewDevice, type)}
 					options={options}
 					inherited={inherited}
+					label={!titleBar ? label : undefined}
 				/>
 			</div>
 		</div>

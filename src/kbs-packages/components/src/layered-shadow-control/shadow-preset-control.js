@@ -23,7 +23,7 @@ import {
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
 import TitleBar from '../title-bar';
-import BackgroundPresetRender from '../background-styles/preset-render';
+import ShadowPresetRender from './preset-render';
 function PresetControlConfirm({
 	showConfirmPopover,
 	confirmAnchor,
@@ -42,9 +42,7 @@ function PresetControlConfirm({
 					className="kbs-confirm-popover"
 				>
 					<div className="kbs-confirm-popover-inner">
-						<p>
-							{__('This will override your existing background styles. Are you sure?', 'kadence-blocks')}
-						</p>
+						<p>{__('This will override your existing shadow styles. Are you sure?', 'kadence-blocks')}</p>
 						<div className="kbs-confirm-buttons">
 							<Button variant="primary" onClick={handleConfirm}>
 								{__('Confirm', 'kadence-blocks')}
@@ -59,7 +57,7 @@ function PresetControlConfirm({
 		</>
 	);
 }
-export default function BackgroundPresetControl({
+export default function ShadowPresetControl({
 	label,
 	reset = true,
 	attributes,
@@ -70,6 +68,7 @@ export default function BackgroundPresetControl({
 	globalStylesIds,
 	customOnChange,
 	globalStylesCss,
+	type = 'boxShadow',
 	view = 'default',
 }) {
 	const attributeMeta = meta?.attributes?.[attributeName];
@@ -167,7 +166,7 @@ export default function BackgroundPresetControl({
 					}}
 					className="kbs-popover-background-select-control__dropdown-content kbs-radio-preset-control"
 				>
-					<TitleBar label={__('Background Presets', 'kadence-blocks')} reset={false} />
+					<TitleBar label={__('Shadow Presets', 'kadence-blocks')} reset={false} />
 					<div ref={divRef} className="kbs-control-inner kbs-radio-preset-control-inner">
 						{presets.map((option) => (
 							<Button
@@ -181,7 +180,7 @@ export default function BackgroundPresetControl({
 									onChange(option.value);
 								}}
 							>
-								<BackgroundPresetRender
+								<ShadowPresetRender
 									preset={option}
 									attributeName={attributeName}
 									meta={meta}
@@ -201,6 +200,7 @@ export default function BackgroundPresetControl({
 				</Popover>
 			)}
 			<div className="kbs-control-inner kbs-radio-preset-control-inner">
+				{console.log('presetOptions', presetOptions)}
 				{presetOptions.map((option) => (
 					<Button
 						key={option.value}
@@ -213,7 +213,7 @@ export default function BackgroundPresetControl({
 							onChange(option.value);
 						}}
 					>
-						<BackgroundPresetRender
+						<ShadowPresetRender
 							preset={option}
 							attributeName={attributeName}
 							meta={meta}
@@ -221,6 +221,7 @@ export default function BackgroundPresetControl({
 							globalStylesIds={globalStylesIds}
 							uniqueID={attributes?.uniqueID}
 							className={`kbs-radio-preset-control-style`}
+							type={type}
 						/>
 					</Button>
 				))}

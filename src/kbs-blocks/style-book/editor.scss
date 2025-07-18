@@ -44,6 +44,9 @@ $editor-control-sidebar-width: 300px;
 
 .kbs-style-book-preview-heading {
 	margin-top: 0;
+	font-size: 1.2rem;
+	line-height: 1.4;
+	font-weight: 500;
 }
 
 .kbs-style-book-content {
@@ -238,5 +241,16 @@ $editor-control-sidebar-width: 300px;
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
+	}
+}
+
+// Mapping styles.
+.kbs-style-book-settings-group {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	.kbs-control-title-bar .kbs-control-title {
+		font-size: 14px;
+		font-weight: 600;
 	}
 }

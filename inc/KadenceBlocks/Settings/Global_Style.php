@@ -36,7 +36,7 @@ class Global_Style {
 	 *
 	 * @var default values of the style book.
 	 */
-	protected static $default_dark_options = null;
+	protected static $default_contrast_options = null;
 	/**
 	 * Holds default style book values
 	 *
@@ -55,7 +55,7 @@ class Global_Style {
 	 *
 	 * @var default values of the style book.
 	 */
-	protected static $dark_options = null;
+	protected static $contrast_options = null;
 	/**
 	 * Holds default style book values
 	 *
@@ -73,7 +73,7 @@ class Global_Style {
 	 *
 	 * @var array
 	 */
-	private static $dark_opt_name = null;
+	private static $contrast_opt_name = null;
 
 	/**
 	 * Settings database Name.
@@ -95,7 +95,7 @@ class Global_Style {
 	 */
 	protected static $palette = null;
 
-	private static $slug               = 'kadence_global_style';
+	private static $slug = 'kadence_global_style';
 	
 	/**
 	 * Get Palette Option.
@@ -113,10 +113,10 @@ class Global_Style {
 			}
 		}
 		$active = ! empty( $active_palette ) ? $active_palette : apply_filters( 'kadence_active_palette', ( self::$palette && is_array( self::$palette ) && isset( self::$palette['active'] ) && ! empty( self::$palette['active'] ) ? self::$palette['active'] : 'palette' ) );
-		$value = '';
+		$value  = '';
 		if ( self::$palette && is_array( self::$palette ) && isset( self::$palette[ $active ] ) && is_array( self::$palette[ $active ] ) ) {
 			$palette_number = (int) substr( $subkey, -1 ) - 1;
-			$palette_item   = ( isset( self::$palette[ $active ][ $palette_number ] ) && is_array( self::$palette[ $active ][ $palette_number ] ) ? self::$palette[ $active ][ $palette_number ] : array() );
+			$palette_item   = ( isset( self::$palette[ $active ][ $palette_number ] ) && is_array( self::$palette[ $active ][ $palette_number ] ) ? self::$palette[ $active ][ $palette_number ] : [] );
 			if ( isset( $palette_item['slug'] ) && $palette_item['slug'] === $subkey ) {
 				$value = ( isset( $palette_item['color'] ) && ! empty( $palette_item['color'] ) ? $palette_item['color'] : '' );
 			}
@@ -147,8 +147,8 @@ class Global_Style {
 		switch ( $type ) {
 			case 'base':
 				return self::defaults();
-			case 'dark':
-				return self::dark_defaults();
+			case 'contrast':
+				return self::contrast_defaults();
 			case 'accent':
 				return self::accent_defaults();
 		}
@@ -162,7 +162,7 @@ class Global_Style {
 	public static function defaults() {
 		// Don't store defaults until after init.
 		if ( is_null( self::$default_options ) ) {
-			$styles = [];
+			$styles    = [];
 			$base_file = KADENCE_BLOCKS_PATH . 'inc/data/base.json';
 			if ( file_exists( $base_file ) ) {
 				$base_content = json_decode( file_get_contents( $base_file ), true );
@@ -201,40 +201,40 @@ class Global_Style {
 		if ( isset( $global_style['mappings']['colors'] ) && is_array( $global_style['mappings']['colors'] ) ) {
 			foreach ( $global_style['mappings']['colors'] as $key => $value ) {
 				if ( $key === 'palette1' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][0]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][0]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 				if ( $key === 'palette2' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][1]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][1]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 				if ( $key === 'palette3' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][2]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][2]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 				if ( $key === 'palette4' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][3]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][3]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 				if ( $key === 'palette5' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][4]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][4]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 				if ( $key === 'palette6' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][5]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][5]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 				if ( $key === 'palette7' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][6]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][6]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 				if ( $key === 'palette8' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][7]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][7]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 				if ( $key === 'palette9' && ! empty( $value['value'] ) ) {
-					$global_palette[$active][8]['color'] = $value['value'];
-					$update_palette = true;
+					$global_palette[ $active ][8]['color'] = $value['value'];
+					$update_palette                        = true;
 				}
 			}
 		}
@@ -258,23 +258,29 @@ class Global_Style {
 		}
 		return $colors;
 	}
-	public static function dark_defaults() {
+
+	/**
+	 * Get dark defaults.
+	 *
+	 * @return array
+	 */
+	public static function contrast_defaults() {
 		// Don't store defaults until after init.
-		if ( is_null( self::$default_dark_options ) ) {
-			$styles = [];
-			$dark_file = KADENCE_BLOCKS_PATH . 'inc/data/dark.json';
-			if ( file_exists( $dark_file ) ) {
-				$dark_content = json_decode( file_get_contents( $dark_file ), true );
-				if ( $dark_content ) {
-					$styles = $dark_content;
+		if ( is_null( self::$default_contrast_options ) ) {
+			$styles    = [];
+			$contrast_file = KADENCE_BLOCKS_PATH . 'inc/data/contrast.json';
+			if ( file_exists( $contrast_file ) ) {
+				$contrast_content = json_decode( file_get_contents( $contrast_file ), true );
+				if ( $contrast_content ) {
+					$styles = $contrast_content;
 				}
 			}
-			self::$default_dark_options = apply_filters(
-				'kadence_blocks_stylebook_dark_defaults',
+			self::$default_contrast_options = apply_filters(
+				'kadence_blocks_stylebook_contrast_defaults',
 				$styles
 			);
 		}
-		return self::$default_dark_options;
+		return self::$default_contrast_options;
 	}
 	/**
 	 * Set default theme option values
@@ -284,7 +290,7 @@ class Global_Style {
 	public static function accent_defaults() {
 		// Don't store defaults until after init.
 		if ( is_null( self::$default_accent_options ) ) {
-			$styles = [];
+			$styles      = [];
 			$accent_file = KADENCE_BLOCKS_PATH . 'inc/data/accent.json';
 			if ( file_exists( $accent_file ) ) {
 				$accent_content = json_decode( file_get_contents( $accent_file ), true );
@@ -319,13 +325,13 @@ class Global_Style {
 	 * @access public
 	 * @return string
 	 */
-	public static function get_dark_option_name() {
+	public static function get_contrast_option_name() {
 		// Define sections.
-		if ( is_null( self::$dark_opt_name ) ) {
-			self::$dark_opt_name = apply_filters( 'kadence_blocks_stylebook_dark_option_name', 'kadence_blocks_stylebook_dark' );
+		if ( is_null( self::$contrast_opt_name ) ) {
+			self::$contrast_opt_name = apply_filters( 'kadence_blocks_stylebook_contrast_option_name', 'kadence_blocks_stylebook_contrast' );
 		}
 		// Return option_name.
-		return self::$dark_opt_name;
+		return self::$contrast_opt_name;
 	}
 	/**
 	 * Get Accent Option Name
@@ -349,9 +355,9 @@ class Global_Style {
 	 */
 	public static function get_base_options() {
 		if ( is_null( self::$base_options ) ) {
-			$options       = json_decode( get_option( self::get_base_option_name(), '[]' ), true );
-			$settings_options = self::deep_merge( self::defaults(), $options );
-			$global_colors = [
+			$options                                = json_decode( get_option( self::get_base_option_name(), '[]' ), true );
+			$settings_options                       = self::deep_merge( self::defaults(), $options );
+			$global_colors                          = [
 				'palette1' => self::palette_option( 'palette1' ),
 				'palette2' => self::palette_option( 'palette2' ),
 				'palette3' => self::palette_option( 'palette3' ),
@@ -363,22 +369,22 @@ class Global_Style {
 				'palette9' => self::palette_option( 'palette9' ),
 			];
 			$settings_options['mappings']['colors'] = self::merge_colors( $settings_options['mappings']['colors'], $global_colors );
-			self::$base_options = $settings_options;
+			self::$base_options                     = $settings_options;
 		}
 		return self::$base_options;
 	}
 	/**
-	 * Get Dark Options
+	 * Get Contrast Options
 	 *
 	 * @access public
 	 * @return array
 	 */
-	public static function get_dark_options() {
-		if ( is_null( self::$dark_options ) ) {
-			$options       = json_decode( get_option( self::get_dark_option_name(), '[]' ), true );
-			self::$dark_options = self::deep_merge( $options, self::dark_defaults() );
+	public static function get_contrast_options() {
+		if ( is_null( self::$contrast_options ) ) {
+			$options            = json_decode( get_option( self::get_contrast_option_name(), '[]' ), true );
+			self::$contrast_options = self::deep_merge( $options, self::contrast_defaults() );
 		}
-		return self::$dark_options;
+		return self::$contrast_options;
 	}
 	/**
 	 * Get Accent Options
@@ -388,7 +394,7 @@ class Global_Style {
 	 */
 	public static function get_accent_options() {
 		if ( is_null( self::$accent_options ) ) {
-			$options       = json_decode( get_option( self::get_accent_option_name(), '[]' ), true );
+			$options              = json_decode( get_option( self::get_accent_option_name(), '[]' ), true );
 			self::$accent_options = self::deep_merge( $options, self::accent_defaults() );
 		}
 		return self::$accent_options;
@@ -405,8 +411,8 @@ class Global_Style {
 			case 'base':
 				$options = self::get_base_options();
 				break;
-			case 'dark':
-				$options = self::get_dark_options();
+			case 'contrast':
+				$options = self::get_contrast_options();
 				break;
 			case 'accent':
 				$options = self::get_accent_options();
@@ -424,8 +430,8 @@ class Global_Style {
 		switch ( $type ) {
 			case 'base':
 				return self::get_base_option_name();
-			case 'dark':
-				return self::get_dark_option_name();
+			case 'contrast':
+				return self::get_contrast_option_name();
 			case 'accent':
 				return self::get_accent_option_name();
 		}
@@ -433,14 +439,14 @@ class Global_Style {
 	/**
 	 * Get Global Style
 	 * 
-	 * @param array $global_style The global style to save.	
+	 * @param array  $global_style The global style to save. 
 	 * @param string $type The type of options to save.
 	 * @return bool True if the options were saved, false otherwise.
 	 */
 	public static function save_options( $global_style = [], $type = 'base' ) {
-		$default_options = self::get_default_options_by_type( $type );
-		$new_options = self::deep_diff( $default_options, $global_style, true );
-		$stamped_new_options = Global_Styles_Controller::stamp_changes( $global_style, $new_options );
+		$default_options       = self::get_default_options_by_type( $type );
+		$new_options           = self::deep_diff( $default_options, $global_style, true );
+		$stamped_new_options   = Global_Styles_Controller::stamp_changes( $global_style, $new_options );
 		$sanitized_new_options = Global_Styles_Controller::sanitize_global_style( $stamped_new_options );
 		return update_option( self::get_option_name( $type ), json_encode( $sanitized_new_options ) );
 	}
@@ -528,7 +534,7 @@ class Global_Style {
 	public static function get_global_styles() {
 		$gs_contents = [
 			'kbs-base'   => self::options( 'base' ),
-			'kbs-dark'   => self::options( 'dark' ),
+			'kbs-contrast'   => self::options( 'contrast' ),
 			'kbs-accent' => self::options( 'accent' ),
 		];
 

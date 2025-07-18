@@ -7,8 +7,15 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, LinkControl, LinkStyle, IconControl } from '@kadence/kbsComponents';
-import { SelectControl } from '@wordpress/components';
+import {
+	ToolsPanelBody,
+	LinkControl,
+	LinkStyle,
+	IconControl,
+	ColorControl,
+	RadioButtonControl,
+} from '@kadence/kbsComponents';
+
 import metadata from '../block.json';
 /**
  * Import WordPress
@@ -22,13 +29,8 @@ export default function InspectorGeneral(props) {
 	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, globalStylesIds } =
 		props;
 
-	const { htmlTag, link } = attributes;
+	const { link } = attributes;
 
-	const htmlOptions = [
-		{ value: 'div', label: __('Div', 'kadence-blocks') },
-		{ value: 'p', label: __('Paragraph', 'kadence-blocks') },
-		{ value: 'span', label: __('Span', 'kadence-blocks') },
-	];
 	return (
 		<>
 			<ToolsPanelBody
@@ -36,11 +38,34 @@ export default function InspectorGeneral(props) {
 				panelName={'text-settings'}
 				initialOpen={true}
 			>
-				<SelectControl
+				<RadioButtonControl
 					label={__('HTML Tag', 'kadence-blocks')}
-					value={htmlTag || 'div'}
-					options={htmlOptions}
-					onChange={(value) => setAttributes({ htmlTag: value })}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'headingTag'}
+					type={'headingTag'}
+					previewDevice={previewDevice}
+					meta={metadata}
+				/>
+				<RadioButtonControl
+					label={__('Text Align', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'textAlign'}
+					type={'textAlign'}
+					previewDevice={previewDevice}
+					meta={metadata}
+				/>
+				<RadioButtonControl
+					label={__('Max Width', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'maxWidth'}
+					radioType={'maxWidth'}
+					type={'maxWidth'}
+					hasCustomControls={true}
+					meta={metadata}
+					previewDevice={previewDevice}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
@@ -68,6 +93,18 @@ export default function InspectorGeneral(props) {
 					attributeName={'linkStyle'}
 					globalStylesIds={globalStylesIds}
 				/>
+				<ColorControl
+					label={__('Link Color', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					previewDevice={previewDevice}
+					attributeName={'colorLink'}
+					globalStylesIds={globalStylesIds}
+					hasGradient={true}
+					hasMix={true}
+					hasHoverControls={true}
+				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
 				title={__('Icon Settings', 'kadence-blocks')}
@@ -82,6 +119,10 @@ export default function InspectorGeneral(props) {
 					meta={metadata}
 					previewDevice={previewDevice}
 					attributeName={'icon'}
+					hasTooltip={true}
+					hasPlacement={true}
+					hasAlignment={true}
+					hasSpacing={true}
 				/>
 			</ToolsPanelBody>
 		</>

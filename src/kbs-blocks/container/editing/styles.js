@@ -18,7 +18,7 @@ export default function Styles(props) {
 			output = output + attributes.kbsCSS.replace(/selector/g, selector);
 		}
 		return output;
-	}, [attributes, previewDevice, mergedGlobalStyles]);
+	}, [attributes, attributes?.uniqueID, previewDevice, mergedGlobalStyles]);
 
 	const googleFontUrl = useMemo(() => {
 		if (!metadata.attributes) {

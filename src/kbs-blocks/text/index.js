@@ -1,5 +1,7 @@
+import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';
 import { __, _x } from '@wordpress/i18n';
+import { getResolvedValue } from '@kadence/kbsHelpers';
 /**
  * Import Css
  */
@@ -23,15 +25,25 @@ registerBlockType('kbs/text', {
 	},
 	edit,
 	save: ({ attributes }) => {
-		const { content } = attributes;
-		
-		return (
-				<div className="kbs-text-content" dangerouslySetInnerHTML={{ __html: content }} />
+		const { content, globalStyleIds } = attributes;
+
+		const htmlTagDesktopValue = getResolvedValue(
+			'headingTag',
+			attributes,
+			'desktop',
+			metadata,
+			'headingTag',
+			globalStyleIds
 		);
+		const previewHeadingTag = htmlTagDesktopValue?.appliedValue;
+		return React.createElement(previewHeadingTag, {
+			className: 'kbs-text-content',
+			dangerouslySetInnerHTML: { __html: content },
+		});
 	},
 	example: {
 		attributes: {
 			content: __('Sample text content...', 'kadence-blocks'),
 		},
 	},
-}); 
+});

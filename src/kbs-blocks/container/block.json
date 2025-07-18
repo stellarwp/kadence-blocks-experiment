@@ -28,7 +28,7 @@
 			"component": "flexBox",
 			"nonInheritable": true,
 			"type": "object",
-			"selector": "--kbs-cont-",
+			"varPrefix": "--kbs-cont-",
 			"initial": {
 				"desktop": {
 					"flexDirection": "column",
@@ -43,7 +43,7 @@
 			"component": "flexChild",
 			"nonInheritable": true,
 			"type": "object",
-			"selector": "--kbs-cont-",
+			"varPrefix": "--kbs-cont-",
 			"initial": {
 				"desktop": {
 					"flex": "initial"
@@ -55,21 +55,21 @@
 			"renderCSS": true,
 			"component": "padding",
 			"nonInheritable": true,
-			"selector": "--kbs-cont-"
+			"varPrefix": "--kbs-cont-"
 		},
 		"margin": {
 			"type": "object",
 			"renderCSS": true,
 			"component": "margin",
 			"nonInheritable": true,
-			"selector": "--kbs-cont-"
+			"varPrefix": "--kbs-cont-"
 		},
 		"background": {
 			"renderCSS": true,
 			"component": "background",
 			"nonInheritable": true,
 			"type": "object",
-			"selector": "--kbs-cont-",
+			"varPrefix": "--kbs-cont-",
 			"classPrefix": "kbs-cont-bg-",
 			"hasLayers": true
 		},
@@ -78,7 +78,7 @@
 			"component": "boxShadow",
 			"nonInheritable": true,
 			"type": "object",
-			"selector": "--kbs-cont-",
+			"varPrefix": "--kbs-cont-",
 			"classPrefix": "kbs-cont-shadow-",
 			"hasLayers": true
 		},
@@ -86,7 +86,7 @@
 			"renderCSS": true,
 			"component": "border",
 			"type": "object",
-			"selector": "--kbs-cont-",
+			"varPrefix": "--kbs-cont-",
 			"classPrefix": "kbs-cont-border-"
 		},
 		"color": {
@@ -128,14 +128,25 @@
 		},
 		"minHeight": {
 			"renderCSS": true,
-			"property": "min-height",
+			"component": "minHeight",
+			"varPrefix": "--kbs-cont-",
+			"nonInheritable": true,
+			"initial": {},
+			"type": "object"
+		},
+		"maxWidth": {
+			"renderCSS": true,
+			"component": "maxWidth",
+			"varPrefix": "--kbs-cont-",
+			"selectorSuffix": "%selector%",
+			"nonInheritable": true,
 			"initial": {},
 			"type": "object"
 		},
 		"typography": {
 			"renderCSS": true,
 			"component": "typography",
-			"selector": "--kbs-cont-",
+			"varPrefix": "--kbs-cont-",
 			"tag": "h1",
 			"initial": {},
 			"type": "object"

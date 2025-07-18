@@ -1,5 +1,5 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { SPACING_SIZES_MAP, ICON_SIZES_MAP } from '../constants';
+import { SPACING_SIZES_MAP, ICON_SIZES_MAP, CONTENT_WIDTH_SIZES_MAP } from '../constants';
 import { BORDER_RADIUS_SIZES_MAP, BORDER_STYLES_DEFAULTS } from '../constants/borders';
 import { SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from '../constants/shadows';
 import { merge, kebabCase } from 'lodash';
@@ -110,25 +110,15 @@ class CSSGenerator {
 
 		// Check if the attribute exists in the attributes object
 		if (mergedAttribute) {
-			if (!meta?.property) {
+			if (!meta?.property && !meta?.varPrefix) {
 				return this;
 			}
-			switch (meta.property) {
-				case 'flex-direction':
-				case 'flex-wrap':
-				case 'align-content':
-				case 'align-items':
-				case 'justify-content':
-				case 'row-gap':
-				case 'column-gap':
-				case 'min-height':
-					this.renderStringProperty(
-						mergedAttribute,
-						meta?.selector ? meta?.selector : meta.property,
-						previewDevice
-					);
-					break;
-			}
+
+			this.renderStringProperty(
+				mergedAttribute,
+				meta?.varPrefix ? meta?.varPrefix : meta?.property,
+				previewDevice
+			);
 		}
 		return this;
 	}
@@ -136,7 +126,7 @@ class CSSGenerator {
 	processComponentKey(attributeName, meta, props, metadata, key) {
 		//get the components for the line to add
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
-		const cssSelector = this.getCssSelector();
+		const cssSelector = this.getCssSelector(attributeName, meta, key);
 		const attributeSelector = this.getAttributeSelector(key, meta);
 
 		if (cssValue && cssSelector && attributeSelector) {
@@ -157,9 +147,12 @@ class CSSGenerator {
 
 		const isBorderRadius = key.includes('border') && key.includes('Radius');
 		const isBorderStyle = key.includes('border') && !key.includes('Radius');
+		const isTextOrientation = key === 'textOrientation' || key === 'writingMode';
 
 		if (isBorderRadius) {
 			keyForValue = 'borderRadius';
+		} else if (isTextOrientation) {
+			keyForValue = 'textOrientation';
 		}
 
 		const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue } = getResolvedValue(
@@ -204,11 +197,29 @@ class CSSGenerator {
 					cssValue = appliedValue;
 				}
 				break;
+			case 'textOrientation':
+				if (key === 'textOrientation') {
+					if (appliedValue === 'stacked') {
+						cssValue = 'upright';
+					} else {
+						cssValue = '';
+					}
+				} else if (key === 'writingMode') {
+					cssValue =
+						appliedValue === 'stacked' || appliedValue === 'sideways-down'
+							? 'vertical-lr'
+							: appliedValue === 'sideways-up'
+								? 'sideways-lr'
+								: '';
+				}
+				break;
 			case 'icon':
 				if (key === 'color' || key === 'colorHover') {
 					cssValue = getColorOutput(appliedValue);
 				} else if (key === 'iconSize' || key === 'iconSizeHover') {
 					cssValue = this.getIconSizeOutput(appliedValue);
+				} else if (key.includes('padding') || key.includes('margin')) {
+					cssValue = this.getSpacingOutput(appliedValue);
 				} else {
 					cssValue = appliedValue;
 				}
@@ -217,7 +228,7 @@ class CSSGenerator {
 			case 'maxHeight':
 			case 'minHeight':
 			case 'minWidth':
-				cssValue = appliedValue;
+				cssValue = this.getContentWidthOutput(appliedValue);
 				break;
 			case 'padding':
 			case 'margin':
@@ -292,7 +303,7 @@ class CSSGenerator {
 			return '';
 		}
 		const useVariableName = attributesMeta?.nonInheritable ? false : true;
-		const selectorPrefix = attributesMeta?.selector || '';
+		const selectorPrefix = attributesMeta?.varPrefix || '';
 		const componentName = attributesMeta?.component || '';
 		const attributeNameSlug =
 			attributeName === 'textDecoration' && this.currentAppliedValue === 'hover-underline'
@@ -352,8 +363,20 @@ class CSSGenerator {
 	 * @private
 	 * @returns {void}
 	 */
-	getCssSelector() {
-		return this.currentSelector;
+	getCssSelector(attributeName = '', meta = {}, key = '') {
+		let selector = this.currentSelector;
+		if (meta && meta?.nonInheritable) {
+			if (meta?.selectorSuffix) {
+				const processedSelectorSuffix = meta.selectorSuffix.replaceAll('%selector%', this.currentSelector);
+				selector = this.currentSelector + processedSelectorSuffix;
+			}
+			if (key && key.endsWith('Hover')) {
+				selector = selector + ':hover';
+			} else if (key && key.endsWith('Active')) {
+				selector = selector + ':active, ' + selector + ':focus';
+			}
+		}
+		return selector;
 	}
 
 	/**
@@ -365,7 +388,7 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @param {Object} metadata - The metadata of the block
 	 */
-	processLayeredShadowLayers(layers, meta, props, metadata, key) {
+	processLayeredShadowLayers(layers, meta, props, metadata, key, attributeName) {
 		let cssValue = '';
 
 		const reverseLayers = Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : [];
@@ -399,7 +422,7 @@ class CSSGenerator {
 			});
 		}
 
-		const cssSelector = this.getCssSelector();
+		const cssSelector = this.getCssSelector(attributeName, meta, key);
 		const attributeSelector = this.getAttributeSelector(key, meta);
 
 		if (cssValue && cssSelector && attributeSelector) {
@@ -419,7 +442,7 @@ class CSSGenerator {
 	 * @param {Object} props - The props of the block
 	 * @param {Object} metadata - The metadata of the block
 	 */
-	processBackgroundLayer(layer, index, meta, props, metadata) {
+	processBackgroundLayer(layer, index, meta, props, metadata, attributeName) {
 		const currentSelector = this.getCssSelector();
 		const backgroundType = getLayerDeviceValue('type', layer, props.previewDevice) || 'color';
 		const metaClassPrefix = meta?.classPrefix || 'kbs-bg-style-';
@@ -432,11 +455,11 @@ class CSSGenerator {
 			this.setSelector(currentSelector + ' > .' + metaClassPrefix + index);
 		}
 		const backgroundColor = getLayerDeviceValue('color', layer, props.previewDevice);
-		const backgroundHoverColor = getLayerDeviceValue('hoverColor', layer, props.previewDevice);
+		const backgroundColorHover = getLayerDeviceValue('colorHover', layer, props.previewDevice);
 		const backgroundOpacity = getLayerDeviceValue('opacity', layer, props.previewDevice);
-		const backgroundHoverOpacity = getLayerDeviceValue('hoverOpacity', layer, props.previewDevice);
+		const backgroundOpacityHover = getLayerDeviceValue('opacityHover', layer, props.previewDevice);
 		const backgroundBlendMode = getLayerDeviceValue('blendMode', layer, props.previewDevice);
-		const backgroundHoverBlendMode = getLayerDeviceValue('hoverBlendMode', layer, props.previewDevice);
+		const backgroundBlendModeHover = getLayerDeviceValue('blendModeHover', layer, props.previewDevice);
 		if (backgroundOpacity || backgroundOpacity === 0) {
 			this.add({ opacity: backgroundOpacity });
 		}
@@ -651,66 +674,66 @@ class CSSGenerator {
 				}
 				break;
 		}
-		if (index === 0 && backgroundType !== 'video' && '' === anyBackgroundOpacity) {
+		if (index === 0 && backgroundType !== 'video' && backgroundType !== 'mask' && '' === anyBackgroundOpacity) {
 			this.setSelector(currentSelector + ':hover');
 		} else {
 			this.setSelector(currentSelector + ':hover > .' + metaClassPrefix + index);
 		}
-		if (backgroundHoverOpacity || backgroundHoverOpacity === 0) {
-			this.add({ opacity: backgroundHoverOpacity });
+		if (backgroundOpacityHover || backgroundOpacityHover === 0) {
+			this.add({ opacity: backgroundOpacityHover });
 		}
-		if (backgroundHoverBlendMode && backgroundHoverBlendMode !== 'normal') {
-			this.add({ 'mix-blend-mode': backgroundHoverBlendMode });
+		if (backgroundBlendModeHover && backgroundBlendModeHover !== 'normal') {
+			this.add({ 'mix-blend-mode': backgroundBlendModeHover });
 		}
 		switch (backgroundType) {
 			case 'color':
-				if (backgroundHoverColor) {
-					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
+				if (backgroundColorHover) {
+					this.add({ 'background-color': getColorOutput(backgroundColorHover) });
 				}
 				break;
 			case 'image':
 			case 'video':
 			case 'gradient':
-				if (backgroundHoverColor) {
-					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
+				if (backgroundColorHover) {
+					this.add({ 'background-color': getColorOutput(backgroundColorHover) });
 				}
 				break;
 			case 'backdrop':
 				const backdropFilter = getLayerDeviceValue('backdropFilter', layer, props.previewDevice);
-				const hoverBackdropFilter =
-					getLayerDeviceValue('hoverBackdropFilter', layer, props.previewDevice) || backdropFilter;
-				if (hoverBackdropFilter) {
-					if (hoverBackdropFilter === 'none') {
+				const backdropFilterHover =
+					getLayerDeviceValue('backdropFilterHover', layer, props.previewDevice) || backdropFilter;
+				if (backdropFilterHover) {
+					if (backdropFilterHover === 'none') {
 						this.add({ 'backdrop-filter': 'none' });
 					} else {
 						const hoverUnit =
-							hoverBackdropFilter === 'blur' ? 'px' : hoverBackdropFilter === 'hue-rotate' ? 'deg' : '%';
+							backdropFilterHover === 'blur' ? 'px' : backdropFilterHover === 'hue-rotate' ? 'deg' : '%';
 						let backdropSize = getLayerDeviceValue('backdropSize', layer, props.previewDevice) || '1';
-						let hoverBackdropSize = getLayerDeviceValue('hoverBackdropSize', layer, props.previewDevice);
-						if (!hoverBackdropSize && hoverBackdropSize !== 0) {
-							hoverBackdropSize = backdropSize;
+						let backdropSizeHover = getLayerDeviceValue('backdropSizeHover', layer, props.previewDevice);
+						if (!backdropSizeHover && backdropSizeHover !== 0) {
+							backdropSizeHover = backdropSize;
 						}
-						if (hoverBackdropFilter === 'hue-rotate') {
-							hoverBackdropSize = hoverBackdropSize * 3.6;
+						if (backdropFilterHover === 'hue-rotate') {
+							backdropSizeHover = backdropSizeHover * 3.6;
 						}
 						this.add({
-							'backdrop-filter': hoverBackdropFilter + '(' + hoverBackdropSize + hoverUnit + ')',
+							'backdrop-filter': backdropFilterHover + '(' + backdropSizeHover + hoverUnit + ')',
 						});
 					}
 				}
 				break;
 			case 'pattern':
-				if (backgroundHoverColor) {
-					this.add({ 'background-color': getColorOutput(backgroundHoverColor) });
-					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundHoverColor) });
+				if (backgroundColorHover) {
+					this.add({ 'background-color': getColorOutput(backgroundColorHover) });
+					this.add({ '--kbs-pattern-bg': getColorOutput(backgroundColorHover) });
 				}
-				const hoverPatternSize = getLayerDeviceValue('hoverPatternSize', layer, props.previewDevice);
+				const hoverPatternSize = getLayerDeviceValue('patternSizeHover', layer, props.previewDevice);
 				if (hoverPatternSize) {
 					this.add({ '--kbs-pattern-size': hoverPatternSize });
 				}
-				const hoverPatternColor = getLayerDeviceValue('hoverPatternColor', layer, props.previewDevice);
-				if (hoverPatternColor) {
-					this.add({ '--kbs-pattern-color': getColorOutput(hoverPatternColor) });
+				const maskColorHover = getLayerDeviceValue('maskColorHover', layer, props.previewDevice);
+				if (maskColorHover) {
+					this.add({ '--kbs-pattern-color': getColorOutput(maskColorHover) });
 				}
 				break;
 		}
@@ -748,7 +771,7 @@ class CSSGenerator {
 				}
 			}
 			if (meta?.component === 'boxShadow' || meta?.component === 'textShadow') {
-				this.processLayeredShadowLayers(layers, meta, props, metadata, meta.component);
+				this.processLayeredShadowLayers(layers, meta, props, metadata, meta.component, attributeName);
 			}
 			return this;
 		}
@@ -984,7 +1007,7 @@ class CSSGenerator {
 		let componentKeys = [];
 		switch (component) {
 			case 'color':
-				componentKeys = ['color'];
+				componentKeys = ['color', 'colorHover'];
 				break;
 			case 'border':
 				componentKeys = [
@@ -1010,6 +1033,9 @@ class CSSGenerator {
 				break;
 			case 'textShadow':
 				componentKeys = ['textShadow'];
+				break;
+			case 'textAlign':
+				componentKeys = ['textAlign'];
 				break;
 			case 'flexBox':
 				componentKeys = [
@@ -1046,10 +1072,22 @@ class CSSGenerator {
 					'iconSizeHover',
 					'iconLineWidthHover',
 					'colorHover',
+					'paddingTop',
+					'paddingRight',
+					'paddingBottom',
+					'paddingLeft',
+					'paddingHoverTop',
+					'paddingHoverRight',
+					'paddingHoverBottom',
+					'paddingHoverLeft',
+					'alignItems',
 				];
 				break;
 			case 'linkStyle':
 				componentKeys = ['textDecoration'];
+				break;
+			case 'textOrientation':
+				componentKeys = ['textOrientation', 'writingMode'];
 				break;
 			case 'maxWidth':
 			case 'maxHeight':
@@ -1239,6 +1277,31 @@ class CSSGenerator {
 			return '0';
 		}
 		const found = SPACING_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
+
+	/**
+	 * Get the font sizing option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The font sizing option output
+	 */
+	getContentWidthOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!CONTENT_WIDTH_SIZES_MAP) {
+			return value;
+		}
+		if (value === '0') {
+			return '0';
+		}
+		if (value === 0) {
+			return '0';
+		}
+		const found = CONTENT_WIDTH_SIZES_MAP.find((option) => option.value === value);
 		if (!found) {
 			return value;
 		}

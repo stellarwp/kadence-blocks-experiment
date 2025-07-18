@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { ResizableBox } from '@wordpress/components';
 import { useState, useReducer, useMemo, useEffect, useRef, useCallback } from '@wordpress/element';
 import { Icon } from '@wordpress/components';
+import { useDispatch, useSelect } from '@wordpress/data';
 /**
  * Internal block libraries
  */
@@ -168,7 +169,6 @@ function OutputResizer(props) {
 	// Memoize helper functions
 	const getSpacingSizeFromKey = useCallback(
 		(key) => {
-			console.log('getSpacingSizeFromKey', key);
 			const size = paddingResizeMap.find((control) => control.key === key)?.size || 0;
 			return size;
 		},
@@ -628,6 +628,7 @@ function OutputResizer(props) {
 				onResizeStart={onResizeStart}
 				className={clsx(`kbs-right-padding-resize kbs-padding-resize-box`, {
 					'is-resizing': isResizing === 'Right',
+					'is-zero-width': previewRightPadding === 0,
 				})}
 				size={{
 					height: 'auto',
@@ -718,9 +719,20 @@ export default function InlinePaddingResizer({
 	const editorDocumentRef = useRef(
 		document.querySelector('iframe[name="editor-canvas"]')?.contentWindow.document || document
 	);
-
-	// Memoize paddingResizeMap to prevent recalculation
-	const paddingResizeMap = useMemo(() => computeStyle(blockElement, editorDocumentRef.current), [globalStylesIds]);
+	const { setSpacingResizeMap } = useDispatch('kadenceblocks/data');
+	const spacingResizeMap = useSelect(
+		(select) => select('kadenceblocks/data').getSpacingResizeMap(globalStylesIds),
+		[globalStylesIds]
+	);
+	const hasComputedRef = useRef({});
+	useEffect(() => {
+		const key = JSON.stringify(globalStylesIds || []);
+		if (!spacingResizeMap.length && blockElement && editorDocumentRef?.current && !hasComputedRef.current[key]) {
+			const computed = computeStyle(blockElement, editorDocumentRef.current);
+			setSpacingResizeMap(globalStylesIds, computed);
+			hasComputedRef.current[key] = computed;
+		}
+	}, [spacingResizeMap, blockElement, editorDocumentRef?.current, globalStylesIds, setSpacingResizeMap]);
 
 	return (
 		<OutputResizer
@@ -738,7 +750,7 @@ export default function InlinePaddingResizer({
 			blockElement={blockElement}
 			editorDocumentRef={editorDocumentRef}
 			setAttributes={setAttributes}
-			paddingResizeMap={paddingResizeMap}
+			paddingResizeMap={spacingResizeMap || []}
 		/>
 	);
 }

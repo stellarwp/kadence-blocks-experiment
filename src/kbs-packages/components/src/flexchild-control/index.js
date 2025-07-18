@@ -15,12 +15,13 @@ export default function FlexChildControl({
 	customOnChange,
 	forStyleBook,
 	forPresetControl,
+	initialOpen = false,
 }) {
 	const [currentView, setCurrentView] = useState('normal');
 	const onSelectView = (view) => {
 		setCurrentView(view);
 	};
-	const selector = metaData?.attributes?.[attributeName]?.selector || 'flex';
+	const selector = metaData?.attributes?.[attributeName]?.varPrefix || 'flex';
 	return (
 		<ToolsPanelBody
 			title={__('Flex Child Settings', 'kadence-blocks')}
@@ -31,6 +32,7 @@ export default function FlexChildControl({
 			onSelectView={onSelectView}
 			currentView={currentView}
 			hasViewControls={true}
+			initialOpen={initialOpen}
 		>
 			<RadioButtonControl
 				label={__('Flex', 'kadence-blocks')}

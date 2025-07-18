@@ -67,6 +67,9 @@ class Svg_Render {
 		// Get icon properties from desktop (fallback for all devices)
 		$icon_name = $attributes[$attribute_name]['desktop']['icon'];
 		$title = $attributes[$attribute_name]['desktop']['title'] ?? '';
+		$tooltip_content = $attributes[$attribute_name]['desktop']['tooltipContent'] ?? '';
+		$tooltip_placement = $attributes[$attribute_name]['desktop']['tooltipPlacement'] ?? '';
+		$tooltip_dash = $attributes[$attribute_name]['desktop']['tooltipDash'] ?? false;
 
 		// Check if it's a line icon
 		$is_line_icon = strpos( $icon_name, 'fe_' ) === 0;
@@ -89,6 +92,10 @@ class Svg_Render {
 			$wrapper_classes[] = esc_attr( $wrapper_args['class'] );
 		}
 
+		if ( ! empty( $tooltip_dash ) ) {
+			$wrapper_classes[] = 'kbs-icon-tooltip-dash';
+		}
+
 		// Render the SVG
 		$svg = self::render_svg( $icon_name, $fill, $stroke_width, $title );
 
@@ -100,6 +107,18 @@ class Svg_Render {
 		$wrapper_atts = [
 			'class' => implode( ' ', $wrapper_classes ),
 		];
+
+		if ( ! empty( $tooltip_content ) ) {
+			$wrapper_atts['data-kb-tooltip-content'] = esc_attr( $tooltip_content );
+		}
+
+		if ( ! empty( $tooltip_placement ) ) {
+			$wrapper_atts['data-tooltip-placement'] = esc_attr( $tooltip_placement );
+		}
+
+		if ( ! empty( $tooltip_dash ) ) {
+			$wrapper_atts['data-kb-tooltip-dash'] = esc_attr( $tooltip_dash );
+		}
 
 		// Add any additional wrapper attributes
 		foreach ( $wrapper_args as $key => $value ) {

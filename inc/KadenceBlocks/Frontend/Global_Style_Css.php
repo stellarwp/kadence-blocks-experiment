@@ -138,24 +138,25 @@ class Global_Style_Css {
 				}
 			}
 
-			// Components
-			if ( ! empty( $style_data['components'] ) && is_array( $style_data['components'] ) ) {
-				foreach ( $style_data['components'] as $component => $component_data ) {
-					if ( ! empty( $component_data['presets'] ) && is_array( $component_data['presets'] ) ) {
-						foreach ( $component_data['presets'] as $preset => $preset_data ) {
-							$component_attributes = $preset_data['attributes'] ?? [];
-							$component_meta = [
-								'component' => $component,
-								'nonInheritable' => $this->get_non_inheritable_attribute( $component ),
-								'selector' => $this->get_component_selector( $component ),
-							];
-							$this->css->set_selector( '.' . $preset );
-							$this->css->add_component( $component, [$component => $component_attributes], $component_meta );
-						}
-					}					
-				}
-			}
+			// // Components
+			// if ( ! empty( $style_data['components'] ) && is_array( $style_data['components'] ) ) {
+			// 	foreach ( $style_data['components'] as $component => $component_data ) {
+			// 		if ( ! empty( $component_data['presets'] ) && is_array( $component_data['presets'] ) ) {
+			// 			foreach ( $component_data['presets'] as $preset => $preset_data ) {
+			// 				$component_attributes = $preset_data['attributes'] ?? [];
+			// 				$component_meta = [
+			// 					'component' => $component,
+			// 					'nonInheritable' => $this->get_non_inheritable_attribute( $component ),
+			// 					'selector' => $this->get_component_selector( $component ),
+			// 				];
+			// 				$this->css->set_selector( '.' . $preset );
+			// 				$this->css->add_component( $component, [$component => $component_attributes], $component_meta );
+			// 			}
+			// 		}					
+			// 	}
+			// }
 		}
+		$this->css->css_output();
 	}
 
 	/**

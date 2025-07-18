@@ -29,6 +29,17 @@ export default function getDeviceValue(attributeName, attributes, device, type =
 		return attributes?.[attributeName]?.layers?.[layerKey]?.[deviceSlug] ?? '';
 	}
 	if (type) {
+		if (device === 'any') {
+			const deviceOptions = window?.kbs_params?.responsive_device_options || [];
+			for (const deviceOption of deviceOptions) {
+				const deviceKey = deviceOption.key;
+				const value = attributes?.[attributeName]?.[deviceKey]?.[type];
+				if (value) {
+					return value;
+				}
+			}
+			return '';
+		}
 		return attributes?.[attributeName]?.[deviceSlug]?.[type] ?? '';
 	}
 	// If there are no device specific values, return empty string.

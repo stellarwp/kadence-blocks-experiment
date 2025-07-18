@@ -38,6 +38,7 @@
 		"colord": "^2.9.3",
 		"crypto-js": "^4.2.0",
 		"gradient-parser": "^1.0.2",
+		"masonic": "^2.0.3",
 		"memize": "^1.0.5",
 		"progressbar.js": "^1.1.1",
 		"prop-types": "^15.6.2",

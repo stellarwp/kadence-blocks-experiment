@@ -164,11 +164,11 @@ function RowEdit(props) {
 	);
 }
 const RowEditWrapper = (props) => {
-	const { clientId, attributes } = props;
+	const { clientId, attributes, setAttributes } = props;
 	const { prebuilt } = attributes;
 	// Cut everything short if we are just accessing the modal.
 	if (prebuilt) {
-		return <PrebuiltLibraryModal clientId={clientId} open={true} onlyModal={true} />;
+		return <PrebuiltLibraryModal clientId={clientId} onlyModal={true} isOpen={true} setIsOpen={() => {}} />;
 	}
 
 	return <RowEdit {...props} />;

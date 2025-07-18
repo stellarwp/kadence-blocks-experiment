@@ -63,6 +63,7 @@ class Container extends Abstract_Block {
 
 		return $css->css_output();
 	}
+
 	/**
 	 * Build HTML for dynamic blocks
 	 *
@@ -90,6 +91,9 @@ class Container extends Abstract_Block {
 		$wrapper_args       = apply_filters( 'kbs_wrapper_args', $wrapper_args, $attributes, $this->block_name, $unique_id, $block_instance );
 		$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 
-		return sprintf( '<%1$s %2$s>%3$s</%1$s>', $html_tag, $wrapper_attributes, $content );
+		$bg_html = $this->get_background_html( 'background', $attributes, $block_instance );
+		
+
+		return sprintf( '<%1$s %2$s>%3$s%4$s</%1$s>', $html_tag, $wrapper_attributes, $bg_html, $content );
 	}
 }

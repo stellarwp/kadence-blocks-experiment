@@ -4,6 +4,12 @@ import RadioButtonControl from '../radio-button-control';
 import BorderStyleControl from './border-style-control';
 import PresetControl from '../preset-control';
 import { sectionLargeIcon, sectionMediumIcon, cardLargeIcon, cardMediumIcon } from '../constants/icons';
+import {
+	homeButton as homeButtonIcon,
+	caption as captionIcon,
+	image as imageIcon,
+	media as mediaIcon,
+} from '@wordpress/icons';
 
 export default function BorderControl({
 	attributeName,
@@ -25,24 +31,24 @@ export default function BorderControl({
 }) {
 	const borderPresets = [
 		{
-			icon: sectionLargeIcon,
-			title: __('Simple', 'kadence-blocks'),
-			key: 'simple',
+			icon: homeButtonIcon,
+			title: __('Card', 'kadence-blocks'),
+			key: 'card',
 		},
 		{
-			icon: sectionMediumIcon,
-			title: __('Simple Rounded', 'kadence-blocks'),
-			key: 'simple-rounded',
+			icon: captionIcon,
+			title: __('Card Alt', 'kadence-blocks'),
+			key: 'card-alt',
 		},
 		{
-			icon: cardLargeIcon,
-			title: __('Rounded', 'kadence-blocks'),
-			key: 'none-rounded-sm',
+			icon: imageIcon,
+			title: __('Image', 'kadence-blocks'),
+			key: 'image',
 		},
 		{
-			icon: cardMediumIcon,
-			title: __('Rounded Full', 'kadence-blocks'),
-			key: 'none-rounded-full',
+			icon: mediaIcon,
+			title: __('Image Alt', 'kadence-blocks'),
+			key: 'image-alt',
 		},
 	];
 

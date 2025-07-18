@@ -2,12 +2,12 @@
 
 namespace KadenceWP\KadenceBlocks\Cache;
 
-use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Storage\Contracts\Storage;
-use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Storage\Drivers\LocalStorage;
+use KadenceWP\KadenceBlocks\Storage\Contracts\Storage;
+use KadenceWP\KadenceBlocks\Storage\Drivers\LocalStorage;
 use KadenceWP\KadenceBlocks\Symfony\Component\Filesystem\Filesystem;
-use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Container\Contracts\Provider;
+use KadenceWP\KadenceBlocks\Contracts\Service_Provider;
 
-final class Cache_Provider extends Provider {
+class Provider extends Service_Provider {
 
 	/**
 	 * @inheritDoc
@@ -27,8 +27,8 @@ final class Cache_Provider extends Provider {
 		$path              = $this->container->get( Config::class )->base_path() . $library_subfolder;
 
 		$this->container->when( Block_Library_Cache::class )
-		                ->needs( Storage::class )
-		                ->give( new LocalStorage( $this->container->get( Filesystem::class ), $path ) );
+						->needs( Storage::class )
+						->give( new LocalStorage( $this->container->get( Filesystem::class ), $path ) );
 
 		$this->container->singleton( Block_Library_Cache::class, Block_Library_Cache::class );
 	}
@@ -38,10 +38,9 @@ final class Cache_Provider extends Provider {
 		$path         = $this->container->get( Config::class )->base_path() . $ai_subfolder;
 
 		$this->container->when( Ai_Cache::class )
-		                ->needs( Storage::class )
-		                ->give( new LocalStorage( $this->container->get( Filesystem::class ), $path ) );
+						->needs( Storage::class )
+						->give( new LocalStorage( $this->container->get( Filesystem::class ), $path ) );
 
 		$this->container->singleton( Ai_Cache::class, Ai_Cache::class );
 	}
-
 }

@@ -26,7 +26,7 @@ export const useSelectOptions = ({ forStyleBook = false }) => {
 
 			return {
 				value: key,
-				label: style.label || `Style ${key}`,
+				label: style?.label || `Style ${key}`,
 			};
 		});
 		if (!forStyleBook) {

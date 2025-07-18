@@ -41,12 +41,12 @@ import {
  */
 import ToolsPanelBody from '../tools-panel-body';
 import RadioButtonControl from '../radio-button-control';
-import BackgroundPresetControl from './background-preset-control';
 import ColorControl from '../color-control';
 import BackgroundImageControl from '../background-image-control';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import ShadowLayer from './shadow-layer';
 import LayerTitleBar from './layer-title-bar';
+import ShadowPresetControl from './shadow-preset-control';
 
 import './editor.scss';
 
@@ -200,7 +200,7 @@ export default function LayeredShadowControl({
 	const onSelectView = (view) => {
 		setCurrentView(view);
 	};
-	const selector = metaData?.attributes?.[attributeName]?.selector || 'background';
+	const selector = metaData?.attributes?.[attributeName]?.varPrefix || 'background';
 	const inherited = getInheritedValue(attributeName, attributes, 'none', metaData, 'layers', globalStylesIds);
 	const hasLayers = metaData?.attributes?.[attributeName]?.hasLayers;
 	const presetLabel = getPresetLabel(attributes[attributeName]?.preset, metaData, attributeName);
@@ -284,7 +284,7 @@ export default function LayeredShadowControl({
 	return (
 		<div className={classes}>
 			{!forPresetControl && (
-				<BackgroundPresetControl
+				<ShadowPresetControl
 					label={
 						type == 'boxShadow'
 							? __('Box Shadow Presets', 'kadence-blocks')
@@ -326,8 +326,8 @@ export default function LayeredShadowControl({
 										key={index}
 										layer={layer}
 										index={index}
-										totalLayers={inherited.inheritedValue.length}
 										attributes={attributes}
+										totalLayers={inherited.inheritedValue.length}
 										setAttributes={onSetAttributes}
 										attributeName={attributeName}
 										meta={metaData}
@@ -340,13 +340,29 @@ export default function LayeredShadowControl({
 									/>
 								))
 							) : (
-								<Button
-									variant="secondary"
-									className="kbs-shadow-layer-add-button"
-									onClick={AddNewEmptyLayer}
-								>
-									{__('Enable Shadow', 'kadence-blocks')}
-								</Button>
+								<SortableShadowLayer
+									key={0}
+									layer={{}}
+									index={0}
+									attributes={attributes}
+									totalLayers={1}
+									setAttributes={onSetAttributes}
+									attributeName={attributeName}
+									meta={metaData}
+									previewDevice={previewDevice}
+									globalStylesIds={globalStylesIds}
+									globalStylesCss={globalStylesCss}
+									isInherited={inherited.inheritedSource !== 'direct'}
+									inherited={inherited}
+									type={type}
+								/>
+								// <Button
+								// 	variant="secondary"
+								// 	className="kbs-shadow-layer-add-button"
+								// 	onClick={AddNewEmptyLayer}
+								// >
+								// 	{__('Enable Shadow', 'kadence-blocks')}
+								// </Button>
 							)}
 						</div>
 					</SortableContext>

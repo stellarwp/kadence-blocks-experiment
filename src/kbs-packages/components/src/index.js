@@ -5,6 +5,7 @@ import './editor.scss';
 
 export { default as ToolsPanelBody } from './tools-panel-body';
 export { default as RadioButtonControl } from './radio-button-control';
+export { default as RadioButtonSelect } from './radio-button-control/radio-button-select';
 export { default as PresetDropdownControl } from './preset-dropdown-control';
 export { default as SelectControl } from './select-control';
 export { default as Typography } from './typography';
@@ -25,9 +26,11 @@ export { default as ColorSelect } from './color-control/color-select';
 export { default as BackgroundStyles } from './background-styles';
 export { default as DynamicTextControl } from './dynamic-text-control';
 export { default as TextControl } from './text-control';
+export { default as ToggleControl } from './toggle-control';
 export { default as TitleBar } from './title-bar';
 export { default as BackgroundPresetRender } from './background-styles/preset-render';
 export { default as SpacingControl } from './spacing-control';
+export { default as SpaceControl } from './space-control';
 export { default as Notice } from './notice';
 export { default as InlinePaddingResizer } from './inline-padding-resizer';
 // export { default as PopColorControl } from './pop-color-control';
@@ -53,6 +56,10 @@ export { default as SelectBasicControl } from './select-basic-control';
 export { default as SingleBorderStyleControl } from './border-control/single-border-style-control';
 export { default as LayeredShadowControl } from './layered-shadow-control';
 export { default as CopyPasteAttributes } from './copy-paste-attributes';
+
 export { default as TransformControl } from './transform-control';
 export { default as TransitionControl } from './transition-control';
 export { default as SharedInspectorAdvanced } from './shared-inspector-advanced';
+
+export { default as TextAlignToolbar } from './text-align-toolbar';
+export { default as HeadingLevelIcon } from './heading-level-icon';

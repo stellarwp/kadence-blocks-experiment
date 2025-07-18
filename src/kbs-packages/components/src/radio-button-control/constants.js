@@ -174,6 +174,35 @@ export const noRepeat = (
 		<Path fillRule="nonzero" d="M11.986 10c-1.097 0-2 .903-2 2s.903 2 2 2 2-.903 2-2-.903-2-2-2" />
 	</SVG>
 );
+
+export const horizontalTextOrientationIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" id="b" viewBox="0 0 131 164.33">
+		<g id="c" strokeWidth="0">
+			<Path d="m131 145.76-28.18-18.57v10.82H0v15.5h102.82v10.82zM84.03 97.69H42.98L37.28 117H.37L44.34 0h39.44l43.96 117H89.88zm-7.5-25.3L63.62 30.33 50.84 72.39z"></Path>
+		</g>
+	</SVG>
+);
+export const stackedTextOrientationIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" id="b" viewBox="0 0 164 164.33">
+		<g id="c" strokeWidth="0">
+			<Path d="M126.51 99.72H85.46l-5.7 19.31H42.85L86.83 2.04h39.44l43.96 117h-37.86l-5.85-19.31Zm-7.5-25.3L106.1 32.36 93.32 74.42zM18.57 131l18.58-28.18H26.32V0h-15.5v102.82H0z"></Path>
+		</g>
+	</SVG>
+);
+export const sidewaysDownTextOrientationIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" id="b" viewBox="0 0 164 164.33">
+		<g id="c" strokeWidth="0">
+			<Path d="m18.57 131 18.58-28.18H26.32V0h-15.5v102.82H0zM66.65 84.03V42.98l-19.31-5.7V.37l117 43.97v39.44l-117 43.96V89.88zm25.3-7.5 42.06-12.91-42.06-12.78z"></Path>
+		</g>
+	</SVG>
+);
+export const sidewaysUpTextOrientationIcon = (
+	<SVG xmlns="http://www.w3.org/2000/svg" id="b" viewBox="0 0 164 164.33">
+		<g id="c" strokeWidth="0">
+			<Path d="m145.76 0-18.57 28.18h10.82V131h15.5V28.18h10.82zM97.69 46.97v41.05l19.31 5.7v36.91L0 86.66V47.22L117 3.26v37.86zm-25.3 7.5L30.33 67.38l42.06 12.78z"></Path>
+		</g>
+	</SVG>
+);
 export const TEXT_ALIGNMENT_OPTIONS = [
 	{
 		icon: textAlignLeft,
