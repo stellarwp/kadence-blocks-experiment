@@ -2,6 +2,7 @@ import { uniqueId } from 'lodash';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { getPostOrWidgetId } from '@kadence/helpers';
 import { useEffect, useMemo } from '@wordpress/element';
+import { has, get } from 'lodash';
 /**
  * Creates or keeps a uniqueId for a block depending on it's status.
  * requires the current block unique Id, client id, and the useSelect functions for isUniqueId and isUniqueBlock
