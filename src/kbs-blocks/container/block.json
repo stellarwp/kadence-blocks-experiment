@@ -153,6 +153,33 @@
 		},
 		"globalStyleIds": {
 			"type": "array"
+		},
+		"transform": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-container-transform-",
+			"classPrefix": "kbs-container-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transformHover": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-container-transform-",
+			"classPrefix": "kbs-container-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transition": {
+			"renderCSS": true,
+			"component": "transition",
+			"nonInheritable": true,
+			"selector": "--kbs-container-transition-",
+			"classPrefix": "kbs-container-transition-",
+			"initial": {},
+			"type": "object"
 		}
 	},
 	"supports": {

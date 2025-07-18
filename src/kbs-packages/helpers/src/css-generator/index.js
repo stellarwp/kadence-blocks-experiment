@@ -33,13 +33,6 @@ class CSSGenerator {
 	}
 	
 	build() {
-		if( this.metadata?.name ) {
-			const blockName = this.metadata.name.replace('kbs/', '');
-
-			this.autoAddTransformComponents( blockName );
-			this.autoAddTransitionComponents( blockName );
-		}
-
 		if (this.metadata?.attributes) {
 			Object.entries(this.metadata.attributes).forEach(([attributeName, value]) => {
 				if (value.renderCSS) {
@@ -53,40 +46,6 @@ class CSSGenerator {
 		}
 	}
 
-	/**
-	 * Automatically add transform components based on block name
-	 * This mirrors the transform attributes added by early-filters.js
-	 */
-	autoAddTransformComponents( blockName ) {
-		
-		const transformMeta = {
-			renderCSS: true,
-			component: 'transform',
-			nonInheritable: true,
-			selector: `--kbs-${blockName}-transform-`,
-			classPrefix: `kbs-${blockName}-transform-`
-		};
-		
-		this.addComponent('transform', transformMeta, this.props, this.metadata);
-		this.addComponent('transformHover', transformMeta, this.props, this.metadata);
-	}
-
-	/**
-	 * Automatically add transform components based on block name
-	 * This mirrors the transform attributes added by early-filters.js
-	 */
-		autoAddTransitionComponents( blockName ) {
-			
-			const transitionMeta = {
-				renderCSS: true,
-				component: 'transition',
-				nonInheritable: true,
-				selector: `--kbs-${blockName}-transition-`,
-				classPrefix: `kbs-${blockName}-transition-`
-			};
-			
-			this.addComponent('transition', transitionMeta, this.props, this.metadata);
-		}
 
 	/**
 	 * Set the current selector for subsequent property additions

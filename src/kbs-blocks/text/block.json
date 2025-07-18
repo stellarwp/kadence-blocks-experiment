@@ -195,6 +195,33 @@
 		},
 		"globalStyleIds": {
 			"type": "string"
+		},
+		"transform": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-text-transform-",
+			"classPrefix": "kbs-text-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transformHover": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-text-transform-",
+			"classPrefix": "kbs-text-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transition": {
+			"renderCSS": true,
+			"component": "transition",
+			"nonInheritable": true,
+			"selector": "--kbs-text-transition-",
+			"classPrefix": "kbs-text-transition-",
+			"initial": {},
+			"type": "object"
 		}
 	},
 	"supports": {
