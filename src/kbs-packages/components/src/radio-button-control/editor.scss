@@ -68,6 +68,7 @@
 		border-radius: 3px;
 		&:before {
 			border-radius: 4px;
+			left: 1px;
 			box-shadow: inset 0px 0px 0px 1px var(--kb-subtle-background, #edf2f7);
 		}
 		.kbs-radio-button-control__toggle_item {

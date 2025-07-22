@@ -4,17 +4,17 @@
 export const TEXT_ICON = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width="24"
-		height="24"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		strokeWidth="2"
-		strokeLinecap="round"
+		xmlSpace="preserve"
+		fillRule="evenodd"
 		strokeLinejoin="round"
+		strokeMiterlimit="2"
+		clipRule="evenodd"
+		viewBox="0 0 24 24"
 	>
-		<polyline points="4 7 4 4 20 4 20 7"></polyline>
-		<line x1="9" y1="20" x2="15" y2="20"></line>
-		<line x1="12" y1="4" x2="12" y2="20"></line>
+		<path
+			fillRule="nonzero"
+			fill="var(--kadence-color, #0058b0 )"
+			d="M21.424 22c.316 0 .576-.26.576-.576V2.576A.58.58 0 0 0 21.424 2H2.576A.58.58 0 0 0 2 2.576v18.848c0 .316.26.576.576.576zM3.153 3.153h17.694v17.694H3.153zm7.47 14.827V8.335H6.562V6.02h10.876v2.315h-4.052v9.645z"
+		></path>
 	</svg>
-); 
+);

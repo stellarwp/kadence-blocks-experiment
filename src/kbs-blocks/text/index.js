@@ -17,7 +17,7 @@ import { TEXT_ICON } from './constants';
 
 registerBlockType('kbs/text', {
 	...metadata,
-	title: _x('Text', 'block title', 'kadence-blocks'),
+	title: _x('Text (Adv)', 'block title', 'kadence-blocks'),
 	description: __('A rich text input block for formatted content.', 'kadence-blocks'),
 	keywords: [__('text', 'kadence-blocks'), __('paragraph', 'kadence-blocks'), 'KB'],
 	icon: {
