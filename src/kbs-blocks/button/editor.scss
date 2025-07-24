@@ -1,0 +1,27 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+@use "../mixins.scss" as mixins;
+@use "./style.scss";
+
+// Remove WP margin added to all blocks.
+.wp-block-kbs-button {
+	@include mixins.kbs-block-resets;
+}
+
+.kbs-button {
+	a {
+		cursor: text;
+	}
+}
+
+.kbs-button-content {
+	&:focus {
+		outline: none;
+	}
+}
+
+//TODO create and include ai text styling partial (find in text block editor styles)

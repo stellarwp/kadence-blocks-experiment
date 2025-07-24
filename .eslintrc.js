@@ -79,7 +79,7 @@ const eslintConfig = {
 					'@kadence/helpers',
 					'@kadence/kbsComponents',
 					'@kadence/kbsHelpers',
-					// '@kadence/kbsIcons',
+					'@kadence/kbsIcons',
 					'@wordpress/*',
 				],
 			},

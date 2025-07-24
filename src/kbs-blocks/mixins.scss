@@ -1,0 +1,23 @@
+@mixin kbs-block-resets {
+	margin-top: 0;
+	margin-bottom: 0;
+	box-sizing: border-box;
+
+	// &.kbs-only-appender {
+	// 	.block-list-appender.wp-block {
+	// 		align-self: stretch;
+	// 		margin-left: 0;
+	// 		margin-right: 0;
+	// 		position: relative;
+	// 		.block-editor-button-block-appender {
+	// 			padding: 6px;
+	// 			outline: 1px dashed #d5dadf;
+	// 			box-shadow: none;
+	// 		}
+	// 	}
+	// }
+
+	* {
+		box-sizing: border-box;
+	}
+}

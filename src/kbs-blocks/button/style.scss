@@ -1,0 +1,169 @@
+/**
+ * #.# Styles
+ *
+ * CSS for both Frontend+Backend.
+ */
+
+.kbs-button {
+	--kbs-button-color: var(--kbs-colors-palette9);
+	--kbs-button-background-color: var(--kbs-colors-palette1);
+	--kbs-button-border-top-left-radius: var(--kbs-button-default-border-radius-top-left, 10px);
+	--kbs-button-border-top-right-radius: var(--kbs-button-default-border-radius-top-right, 10px);
+	--kbs-button-border-bottom-right-radius: var(--kbs-button-default-border-radius-bottom-right, 10px);
+	--kbs-button-border-bottom-left-radius: var(--kbs-button-default-border-radius-bottom-left, 10px);
+	--kbs-button-border-top: var(--kbs-button-default-border-top, 1px solid var(--kbs-colors-palette3));
+	--kbs-button-border-left: var(--kbs-button-default-border-left, 1px solid var(--kbs-colors-palette3));
+	--kbs-button-border-right: var(--kbs-button-default-border-right, 1px solid var(--kbs-colors-palette3));
+	--kbs-button-border-bottom: var(--kbs-button-default-border-bottom, 1px solid var(--kbs-colors-palette3));
+	--kbs-button-padding-top: var(--kbs-button-default-padding-top, 5px);
+	--kbs-button-padding-right: var(--kbs-button-default-padding-right, 10px);
+	--kbs-button-padding-bottom: var(--kbs-button-default-padding-bottom, 5px);
+	--kbs-button-padding-left: var(--kbs-button-default-padding-left, 10px);
+
+	font-family: var(--kbs-button-font-family);
+	font-weight: var(--kbs-button-font-weight);
+	font-size: var(--kbs-button-font-size);
+	line-height: var(--kbs-button-line-height);
+	letter-spacing: var(--kbs-button-letter-spacing);
+	text-transform: var(--kbs-button-text-transform);
+	font-style: var(--kbs-button-font-style);
+	color: var(--kbs-button-color);
+	background: var(--kbs-button-background-color);
+	text-shadow: var(--kbs-button-text-shadow);
+	border-top-left-radius: var(--kbs-button-border-top-left-radius);
+	border-top-right-radius: var(--kbs-button-border-top-right-radius);
+	border-bottom-right-radius: var(--kbs-button-border-bottom-right-radius);
+	border-bottom-left-radius: var(--kbs-button-border-bottom-left-radius);
+	border-top: var(--kbs-button-border-top);
+	border-left: var(--kbs-button-border-left);
+	border-right: var(--kbs-button-border-right);
+	border-bottom: var(--kbs-button-border-bottom);
+	padding-top: var(--kbs-button-padding-top);
+	padding-right: var(--kbs-button-padding-right);
+	padding-bottom: var(--kbs-button-padding-bottom);
+	padding-left: var(--kbs-button-padding-left);
+
+	min-width: 0;
+
+	// Alignment classes
+	&.has-text-align-left {
+		text-align: left;
+	}
+
+	&.has-text-align-center {
+		text-align: center;
+	}
+
+	&.has-text-align-right {
+		text-align: right;
+	}
+
+	a {
+		text-decoration: var(--kbs-button-link-text-decoration);
+		color: var(--kbs-button-link-color);
+
+		&:hover {
+			text-decoration: var(--kbs-button-link-text-decoration-hover, var(--kbs-button-link-text-decoration));
+			color: var(--kbs-button-link-color-hover, var(--button-text-link-color));
+		}
+	}
+
+	.kbs-highlight {
+		font-family: var(--kbs-button-highlight-font-family);
+		font-weight: var(--kbs-button-highlight-font-weight);
+		font-size: var(--kbs-button-highlight-font-size);
+		line-height: var(--kbs-button-highlight-line-height);
+		letter-spacing: var(--kbs-button-highlight-letter-spacing);
+		text-transform: var(--kbs-button-highlight-text-transform);
+		font-style: var(--kbs-button-highlight-font-style);
+		color: var(--kbs-button-highlight-color, var(--kbs-colors-palette-warning));
+		background: var(--kbs-button-highlight-background-color);
+		border-top-left-radius: var(--kbs-button-highlight-border-top-left-radius);
+		border-top-right-radius: var(--kbs-button-highlight-border-top-right-radius);
+		border-bottom-right-radius: var(--kbs-button-highlight-border-bottom-right-radius);
+		border-bottom-left-radius: var(--kbs-button-highlight-border-bottom-left-radius);
+		border-top: var(--kbs-button-highlight-border-top);
+		border-left: var(--kbs-button-highlight-border-left);
+		border-right: var(--kbs-button-highlight-border-right);
+		border-bottom: var(--kbs-button-highlight-border-bottom);
+
+		&:hover {
+			border-top: var(--kbs-button-highlight-border-top-hover, var(--kbs-button-highlight-border-top));
+			border-left: var(--kbs-button-highlight-border-left-hover, var(--kbs-button-highlight-border-left));
+			border-right: var(--kbs-button-highlight-border-right-hover, var(--kbs-button-highlight-border-right));
+			border-bottom: var(--kbs-button-highlight-border-bottom-hover, var(--kbs-button-highlight-border-bottom));
+		}
+	}
+
+	&.has-gradient {
+		.kbs-button-content {
+			background-image: var(--kbs-button-color);
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			box-decoration-break: clone;
+		}
+		&:not(.has-gradient-highlight) {
+			.kbs-highlight {
+				background-clip: initial;
+				-webkit-text-fill-color: initial;
+				box-decoration-break: clone;
+			}
+		}
+	}
+	&.has-gradient-highlight {
+		.kbs-highlight {
+			background-image: var(--kbs-button-highlight-color);
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			box-decoration-break: clone;
+		}
+	}
+
+	&.kbs-button-has-icon {
+		display: flex;
+		gap: var(--kbs-button-icon-gap, 0.25em);
+		align-items: var(--kbs-button-icon-align-items, center);
+	}
+
+	.kt-svg-icon-wrap {
+		color: var(--kbs-button-icon-color);
+		stroke-width: var(--kbs-button-icon-icon-line-width);
+		width: var(--kbs-button-icon-icon-size, 24px);
+		height: var(--kbs-button-icon-icon-size, 24px);
+		padding-left: var(--kbs-button-icon-padding-left, 0);
+		padding-right: var(--kbs-button-icon-padding-right, 0);
+		padding-top: var(--kbs-button-icon-padding-top, 0);
+		padding-bottom: var(--kbs-button-icon-padding-bottom, 0);
+
+		&:hover {
+			color: var(--kbs-button-icon-color-hover, var(--kbs-button-icon-color));
+			stroke-width: var(--kbs-button-icon-icon-line-width-hover, var(--kbs-button-icon-icon-line-width));
+			width: var(--kbs-button-icon-icon-size-hover, var(--kbs-button-icon-icon-size, 24px));
+			height: var(--kbs-button-icon-icon-size-hover, var(--kbs-button-icon-icon-size, 24px));
+			padding-left: var(--kbs-button-icon-padding-hover-left, var(--kbs-button-icon-padding-left));
+			padding-right: var(--kbs-button-icon-padding-hover-right, var(--kbs-button-icon-padding-right));
+			padding-top: var(--kbs-button-icon-padding-hover-top, var(--kbs-button-icon-padding-top));
+			padding-bottom: var(--kbs-button-icon-padding-hover-bottom, var(--kbs-button-icon-padding-bottom));
+		}
+
+		&.kbs-icon-tooltip-dash {
+			border-bottom: 1px dashed var(--kbs-button-icon-tooltip-dash-color, currentColor);
+		}
+	}
+
+	&:hover {
+		border-top: var(--kbs-button-border-top-hover, var(--kbs-button-border-top));
+		border-left: var(--kbs-button-border-left-hover, var(--kbs-button-border-left));
+		border-right: var(--kbs-button-border-right-hover, var(--kbs-button-border-right));
+		border-bottom: var(--kbs-button-border-bottom-hover, var(--kbs-button-border-bottom));
+	}
+
+	a[data-kb-tooltip-content]:not([href]) {
+		border-bottom: 1px dashed var(--kbs-button-icon-tooltip-dash-color, currentColor);
+	}
+}
+
+.kbs-button-content {
+	margin: 0;
+	padding: 0;
+}

@@ -1,0 +1,240 @@
+{
+	"apiVersion": 3,
+	"title": "Button",
+	"name": "kbs/button",
+	"parent": ["kbs/buttons"],
+	"category": "kadence-blocks",
+	"textdomain": "kadence-blocks",
+	"usesContext": [
+		"postId",
+		"queryId",
+		"kbs/globalStyles",
+		"kbs/parentUniqueId",
+		"kadence/dynamicSource",
+		"kadence/repeaterRowData",
+		"kadence/repeaterRow"
+	],
+	"attributes": {
+		"uniqueID": {
+			"type": "string"
+		},
+		"anchor": {
+			"type": "string"
+		},
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": ".kbs-button-content",
+			"default": "",
+			"__experimentalRole": "content"
+		},
+		"preset": {
+			"type": "array"
+		},
+		"textAlign": {
+			"renderCSS": true,
+			"component": "textAlign",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-button-"
+		},
+		"headingTag": {
+			"renderCSS": false,
+			"component": "htmlTag",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"initial": {
+				"desktop": {
+					"headingTag": "p"
+				}
+			}
+		},
+		"link": {
+			"type": "object"
+		},
+		"linkStyle": {
+			"renderCSS": true,
+			"component": "linkStyle",
+			"varPrefix": "--kbs-button-link-",
+			"initial": {},
+			"type": "object"
+		},
+		"background": {
+			"type": "object"
+		},
+		"padding": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-button-"
+		},
+		"margin": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-button-"
+		},
+		"shadow": {
+			"type": "object"
+		},
+		"visibility": {
+			"type": "object"
+		},
+		"typography": {
+			"renderCSS": true,
+			"component": "typography",
+			"varPrefix": "--kbs-button-",
+			"initial": {},
+			"type": "object"
+		},
+		"color": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"classPrefix": "kbs-button-color-"
+		},
+		"backgroundColor": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-button-background-",
+			"classPrefix": "kbs-button-background-color"
+		},
+		"border": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"classPrefix": "kbs-button-border-"
+		},
+		"colorHighlight": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-button-highlight-",
+			"classPrefix": "kbs-button-color-highlight-"
+		},
+		"backgroundColorHighlight": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-button-highlight-background-",
+			"classPrefix": "kbs-button-background-highlight-"
+		},
+		"borderHighlight": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"varPrefix": "--kbs-button-highlight-",
+			"classPrefix": "kbs-button-border-highlight-"
+		},
+		"typographyHighlight": {
+			"renderCSS": true,
+			"component": "typography",
+			"initial": {},
+			"type": "object",
+			"varPrefix": "--kbs-button-highlight-",
+			"selectorSuffix": " mark"
+		},
+		"paddingHighlight": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-button-highlight-",
+			"selectorSuffix": " mark"
+		},
+		"colorLink": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-button-link-",
+			"classPrefix": "kbs-button-color-link-",
+			"selectorSuffix": " a"
+		},
+		"textShadow": {
+			"renderCSS": true,
+			"component": "textShadow",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"classPrefix": "kbs-button-shadow-",
+			"hasLayers": true
+		},
+		"textOrientation": {
+			"renderCSS": true,
+			"component": "textOrientation",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-button-"
+		},
+		"maxHeight": {
+			"renderCSS": true,
+			"component": "maxHeight",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-button-"
+		},
+		"maxWidth": {
+			"renderCSS": true,
+			"component": "maxWidth",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"selectorSuffix": " .kbs-button-content"
+		},
+		"icon": {
+			"renderCSS": true,
+			"component": "icon",
+			"varPrefix": "--kbs-button-icon-",
+			"initial": {},
+			"type": "object"
+		},
+		"globalStyleIds": {
+			"type": "string"
+		},
+		"transform": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-button-transform-",
+			"classPrefix": "kbs-button-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transformHover": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-button-transform-",
+			"classPrefix": "kbs-button-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transition": {
+			"renderCSS": true,
+			"component": "transition",
+			"nonInheritable": true,
+			"selector": "--kbs-button-transition-",
+			"classPrefix": "kbs-button-transition-",
+			"initial": {},
+			"type": "object"
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"ktanimate": true,
+		"ktanimateadd": true,
+		"ktanimatepreview": true,
+		"ktanimateswipe": true,
+		"ktdynamic": true,
+		"kbcss": true,
+		"kbMetadata": true
+	},
+	"editorStyle": "kbs-button-editor",
+	"style": "kbs-button"
+}

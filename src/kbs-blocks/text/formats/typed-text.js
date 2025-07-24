@@ -42,7 +42,7 @@ const icon = (
 );
 
 const name = 'kadence/typed';
-const allowedBlocks = ['kbs/text'];
+const allowedBlocks = ['kbs/text', 'kbs/button'];
 
 export const kadenceTypedText = {
 	title: __('Typed Text', 'kadence-blocks'),

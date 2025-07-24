@@ -27,7 +27,7 @@ import { convertStreamDataToJson } from './convert-stream-data-to-json';
 import { insert, replace, remove, create, registerFormatType, toggleFormat, applyFormat } from '@wordpress/rich-text';
 import { sendEvent } from '../../../extension/analytics/send-event';
 const name = 'kadence/ai-text';
-const allowedBlocks = ['kbs/text'];
+const allowedBlocks = ['kbs/text', 'kbs/button'];
 export const AIText = {
 	title: __('Kadence AI', 'kadence-blocks'),
 	tagName: 'span',

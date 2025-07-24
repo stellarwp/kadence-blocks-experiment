@@ -1,0 +1,104 @@
+{
+	"apiVersion": 3,
+	"title": "Buttons",
+	"name": "kbs/buttons",
+	"category": "kadence-blocks",
+	"usesContext": ["postId", "queryId", "kbs/parentGlobalStyles", "kbs/parentUniqueId"],
+	"textdomain": "kadence-blocks",
+	"providesContext": {
+		"kbs/parentUniqueId": "uniqueID",
+		"kbs/parentGlobalStyles": "globalStyleIds"
+	},
+	"attributes": {
+		"uniqueID": {
+			"type": "string"
+		},
+		"prebuilt": {
+			"type": "boolean",
+			"default": false
+		},
+		"anchor": {
+			"type": "string"
+		},
+		"tagName": {
+			"type": "string",
+			"initial": "div"
+		},
+		"padding": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"selector": "--kbs-buttons-"
+		},
+		"margin": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": true,
+			"selector": "--kbs-buttons-"
+		},
+		"background": {
+			"renderCSS": true,
+			"component": "background",
+			"nonInheritable": true,
+			"type": "object",
+			"selector": "--kbs-buttons-",
+			"classPrefix": "kbs-buttons-bg-",
+			"hasLayers": true
+		},
+		"templateLock": {
+			"type": ["string", "boolean"],
+			"enum": ["all", "insert", "contentOnly", false]
+		},
+		"minHeight": {
+			"renderCSS": true,
+			"property": "min-height",
+			"initial": {},
+			"type": "object"
+		},
+		"globalStyleIds": {
+			"type": "array"
+		},
+		"transform": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-buttons-transform-",
+			"classPrefix": "kbs-buttons-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transformHover": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-buttons-transform-",
+			"classPrefix": "kbs-buttons-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transition": {
+			"renderCSS": true,
+			"component": "transition",
+			"nonInheritable": true,
+			"selector": "--kbs-buttons-transition-",
+			"classPrefix": "kbs-buttons-transition-",
+			"initial": {},
+			"type": "object"
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"ktanimate": true,
+		"ktanimateadd": true,
+		"ktanimatepreview": true,
+		"ktanimateswipe": true,
+		"ktdynamic": true,
+		"kbcss": true,
+		"kbMetadata": true,
+		"align": ["wide", "full"]
+	},
+	"editorStyle": "kbs-buttons-editor",
+	"style": "kbs-buttons"
+}

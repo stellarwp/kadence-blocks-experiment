@@ -40,7 +40,7 @@
 		],
 		"zip_dir": ".pup-zip"
 	},
-	"repo": "stellarwp/kadence-blocks",
+	"repo": "stellarwp/kadence-blocks-experiment",
 	"zip_use_default_ignore": false,
-	"zip_name": "kadence-blocks"
+	"zip_name": "kadence-blocks-experiment"
 }

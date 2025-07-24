@@ -88,9 +88,9 @@ class Editor_Assets {
 		wp_set_script_translations( 'kadence-kbsComponents', 'kadence-blocks' );
 
 		// Icons Scripts & Styles.
-		// $kadence_icons_meta = kbs_get_asset_file( 'dist/kbsIcons' );
-		// wp_register_script( 'kadence-kbsIcons', KADENCE_BLOCKS_URL . 'dist/kbsIcons.js', array_merge( $kadence_icons_meta['dependencies'], [ 'wp-api' ] ), $kadence_icons_meta['version'], true );
-		// wp_set_script_translations( 'kadence-kbsIcons', 'kadence-blocks' );
+		$kadence_icons_meta = kbs_get_asset_file( 'dist/kbsIcons' );
+		wp_register_script( 'kadence-kbsIcons', KADENCE_BLOCKS_URL . 'dist/kbsIcons.js', array_merge( $kadence_icons_meta['dependencies'], [ 'wp-api' ] ), $kadence_icons_meta['version'], true );
+		wp_set_script_translations( 'kadence-kbsIcons', 'kadence-blocks' );
 
 		// Plugin Scripts & Styles.
 		$kadence_control_meta = kbs_get_asset_file( 'dist/plugin-kbs-control' );
@@ -107,6 +107,7 @@ class Editor_Assets {
 			'container',
 			'row',
 			'text',
+			'buttons',
 		];
 		foreach ( $blocks as $block ) {
 			$meta   = kbs_get_asset_file( sprintf( 'dist/kbs-%s', $block ) );
