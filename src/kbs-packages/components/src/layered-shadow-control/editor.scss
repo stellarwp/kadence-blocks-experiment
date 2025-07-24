@@ -35,7 +35,7 @@
 		}
 
 		.kbs-shadow-preset-render {
-			border: 2px solid lightgray;
+			border: 1px solid lightgray;
 		}
 
 		&:hover,
@@ -50,6 +50,20 @@
 			.kbs-shadow-preset-render {
 				border-color: var(--wp-components-color-foreground, #1e1e1e);
 			}
+		}
+	}
+}
+.kbs-radio-preset-control-textShadow .kbs-radio-preset-control-inner {
+	.kbs-radio-preset-control-button {
+		&.is-pressed {
+			border-color: lightgray;
+			background: white;
+			color: initial;
+		}
+		&:hover {
+			border-width: 1px;
+			border-color: var(--wp-components-color-foreground, #1e1e1e);
+			color: initial;
 		}
 	}
 }
