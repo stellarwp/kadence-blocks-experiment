@@ -1,5 +1,6 @@
 import getDeviceValue from '../get-device-value';
 import getPresetValue from '../get-preset-value';
+import getBundlePresetValue from '../get-bundle-preset-value';
 
 /**
  * Get the inherited value for a device, following the inheritance chain
@@ -125,6 +126,24 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 				};
 			}
 		}
+	}
+
+	//check for bundle preset value
+	const { value: bundlePresetValue, source: bundlePresetSource } = getBundlePresetValue(
+		attributeName,
+		attributes,
+		device,
+		meta,
+		type,
+		globalStylesIds
+	);
+	if (bundlePresetValue) {
+		return {
+			inheritedValue: bundlePresetValue,
+			inheritanceType: 'preset',
+			inheritedSource: bundlePresetSource,
+			inheritedType: 'preset',
+		};
 	}
 
 	// Return empty values if nothing found

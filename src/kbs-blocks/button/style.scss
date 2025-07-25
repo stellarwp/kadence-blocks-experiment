@@ -5,21 +5,6 @@
  */
 
 .kbs-button {
-	--kbs-button-color: var(--kbs-colors-palette9);
-	--kbs-button-background-color: var(--kbs-colors-palette1);
-	--kbs-button-border-top-left-radius: var(--kbs-button-default-border-radius-top-left, 10px);
-	--kbs-button-border-top-right-radius: var(--kbs-button-default-border-radius-top-right, 10px);
-	--kbs-button-border-bottom-right-radius: var(--kbs-button-default-border-radius-bottom-right, 10px);
-	--kbs-button-border-bottom-left-radius: var(--kbs-button-default-border-radius-bottom-left, 10px);
-	--kbs-button-border-top: var(--kbs-button-default-border-top, 1px solid var(--kbs-colors-palette3));
-	--kbs-button-border-left: var(--kbs-button-default-border-left, 1px solid var(--kbs-colors-palette3));
-	--kbs-button-border-right: var(--kbs-button-default-border-right, 1px solid var(--kbs-colors-palette3));
-	--kbs-button-border-bottom: var(--kbs-button-default-border-bottom, 1px solid var(--kbs-colors-palette3));
-	--kbs-button-padding-top: var(--kbs-button-default-padding-top, 5px);
-	--kbs-button-padding-right: var(--kbs-button-default-padding-right, 10px);
-	--kbs-button-padding-bottom: var(--kbs-button-default-padding-bottom, 5px);
-	--kbs-button-padding-left: var(--kbs-button-default-padding-left, 10px);
-
 	font-family: var(--kbs-button-font-family);
 	font-weight: var(--kbs-button-font-weight);
 	font-size: var(--kbs-button-font-size);

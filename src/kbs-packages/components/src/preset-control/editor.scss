@@ -28,3 +28,15 @@
 	right: 0;
 	z-index: 1;
 }
+
+// .kbs-radio-preset-control .kbs-radio-preset-control-inner .kbs-radio-preset-control-button.is-pressed
+
+.kbs-radio-preset-control-bundle .kbs-radio-preset-control-inner {
+	.kbs-radio-preset-control-button {
+		justify-content: center;
+		&.is-pressed.is-pressed {
+			color: var(--wp-components-color-foreground, #1e1e1e);
+			background: var(--wp-components-color-foreground-inverted, #fff);
+		}
+	}
+}

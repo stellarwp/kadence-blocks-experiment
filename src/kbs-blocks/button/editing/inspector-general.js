@@ -14,6 +14,7 @@ import {
 	IconControl,
 	ColorControl,
 	RadioButtonControl,
+	PresetControl,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -33,6 +34,17 @@ export default function InspectorGeneral(props) {
 
 	return (
 		<>
+			<PresetControl
+				label={__('Variants', 'kadence-blocks')}
+				type={'buttonVariant'}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				attributeName={'variant'}
+				metaData={metadata}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+				isBundlePreset={true}
+			/>
 			<ToolsPanelBody
 				title={__('Text Settings', 'kadence-blocks')}
 				panelName={'text-settings'}
