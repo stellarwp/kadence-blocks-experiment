@@ -29,9 +29,8 @@ export default function SharedInspectorAdvanced({
 	metadata,
 }) {
 
-	// You can disable controls on a specific block by setting its value to false in the block.json
-	const supportTransformControl = metadata?.supports?.kbstransform !== false;
-	const supportsTransitionControl = metadata?.supports?.kbstransition !== false;
+	const supportTransformControl = metadata?.attributes?.transform !== undefined;
+	const supportsTransitionControl = metadata?.attributes?.transition !== undefined;
 
 	return (
 		<>
