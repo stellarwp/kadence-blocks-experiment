@@ -48,6 +48,20 @@ class CSS_Engine {
 	protected $global_styles_css = null;
 
 	/**
+	 * CSS Registry instance
+	 *
+	 * @var CSS_Registry
+	 */
+	protected $css_registry = null;
+
+	/**
+	 * Whether to use CSS registry
+	 *
+	 * @var bool
+	 */
+	protected $use_registry = false;
+
+	/**
 	 * The css group id.
 	 *
 	 * @access protected
@@ -280,6 +294,8 @@ class CSS_Engine {
         }
 		// Set up the global styles css engine in the global styles css engine.
 		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
+		// Get CSS Registry instance if available
+		$this->css_registry = CSS_Registry::get_instance();
 	}
 
 	/**
@@ -288,6 +304,17 @@ class CSS_Engine {
 	public function setup_global_styles() {
 		// Generate global styles CSS for all mappings.
 		$this->global_styles_css->generate_css();
+	}
+
+	/**
+	 * Enable or disable CSS registry mode
+	 *
+	 * @param bool $use_registry Whether to use the registry
+	 * @return $this
+	 */
+	public function set_registry_mode( $use_registry = true ) {
+		$this->use_registry = $use_registry;
+		return $this;
 	}
 	/**
 	 * Get global styles.
@@ -854,6 +881,10 @@ class CSS_Engine {
 			// Use the global styles ids order, this makes the last one have priority.
 			foreach( $global_styles_ids as $global_style_id ) {
 				if ( !empty( $this->global_styles[ $global_style_id ] ) ) {
+					// Register with CSS Registry if in registry mode
+					if ( $this->use_registry && $this->css_registry ) {
+						$this->css_registry->register_global_style( $global_style_id, $this->global_styles[ $global_style_id ] );
+					}
 					$this->process_global_style( $this->global_styles[ $global_style_id ], $attributes_meta, $block_instance );
 				}
 			}
@@ -1259,6 +1290,10 @@ class CSS_Engine {
 		$preset_data = $this->get_preset_data( $preset_key, $attributes_meta['component'], $global_styles_ids );
 		if ( empty( $preset_data ) ) {
 			return;
+		}
+		// Register preset with CSS Registry if in registry mode
+		if ( $this->use_registry && $this->css_registry ) {
+			$this->css_registry->register_preset( $attributes_meta['component'], $preset_key, $preset_data );
 		}
 		$this->add_component_array( $preset_data['attributes'], $attributes_meta, $block_instance, $global_styles_ids );
 
@@ -1822,14 +1857,26 @@ class CSS_Engine {
 		}
 		// Add current selector's rules to output
 		$this->add_selector_rules_to_output();
-		// Output minified css.
-		self::$styles[ $this->_style_id ] = $this->_output;
-		if ( ! empty( $this->_css_string ) ) {
-			if ( ! isset( self::$custom_styles[ $this->_style_id ] ) ) {
-				self::$custom_styles[ $this->_style_id ] = '';
+		
+		// If using registry mode, register the CSS instead of storing it
+		if ( $this->use_registry && $this->css_registry ) {
+			if ( ! empty( $this->_output ) ) {
+				$this->css_registry->register_css( $this->_output, 'blocks', $this->_style_id );
 			}
-			self::$custom_styles[ $this->_style_id ] = $this->_css_string;
+			if ( ! empty( $this->_css_string ) ) {
+				$this->css_registry->register_css( $this->_css_string, 'blocks', $this->_style_id . '-custom' );
+			}
+		} else {
+			// Output minified css.
+			self::$styles[ $this->_style_id ] = $this->_output;
+			if ( ! empty( $this->_css_string ) ) {
+				if ( ! isset( self::$custom_styles[ $this->_style_id ] ) ) {
+					self::$custom_styles[ $this->_style_id ] = '';
+				}
+				self::$custom_styles[ $this->_style_id ] = $this->_css_string;
+			}
 		}
+		
 		$this->clear();
 		return self::$styles[ $this->_style_id ] . ( isset( self::$custom_styles[ $this->_style_id ] ) ? self::$custom_styles[ $this->_style_id ] : '' );
 	}

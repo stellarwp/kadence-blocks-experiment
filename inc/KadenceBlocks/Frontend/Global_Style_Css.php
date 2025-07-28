@@ -23,6 +23,13 @@ class Global_Style_Css {
 	private $css;
 
 	/**
+	 * CSS Registry instance.
+	 *
+	 * @var CSS_Registry
+	 */
+	private $css_registry;
+
+	/**
 	 * Global Styles data.
 	 *
 	 * @var array
@@ -44,6 +51,7 @@ class Global_Style_Css {
 	public function __construct( CSS_Engine $css_engine, $device_options ) {
 		$this->css = $css_engine;
 		$this->device_options = $device_options;
+		$this->css_registry = CSS_Registry::get_instance();
 	}
 
 	/**
@@ -119,6 +127,15 @@ class Global_Style_Css {
 						foreach ( $tokens as $token => $token_data ) {
 							if ( isset( $token_data['value'] ) && $token_data['value'] !== '' ) {
 								$variable_name = self::get_mapping_variable_name( $category, $token );
+								// Register this global style mapping with the registry
+								if ( $this->css_registry ) {
+									$mapping_data = array(
+										'category' => $category,
+										'token' => $token,
+										'value' => $token_data['value']
+									);
+									$this->css_registry->register_global_style( $style_id, $mapping_data );
+								}
 								// Mappings apply globally, no media queries needed here.
 								if ( 'kbs-base' === $style_id ) {
 									$this->css->set_selector( ':root' );
@@ -138,23 +155,28 @@ class Global_Style_Css {
 				}
 			}
 
-			// // Components
-			// if ( ! empty( $style_data['components'] ) && is_array( $style_data['components'] ) ) {
-			// 	foreach ( $style_data['components'] as $component => $component_data ) {
-			// 		if ( ! empty( $component_data['presets'] ) && is_array( $component_data['presets'] ) ) {
-			// 			foreach ( $component_data['presets'] as $preset => $preset_data ) {
-			// 				$component_attributes = $preset_data['attributes'] ?? [];
-			// 				$component_meta = [
-			// 					'component' => $component,
-			// 					'nonInheritable' => $this->get_non_inheritable_attribute( $component ),
-			// 					'selector' => $this->get_component_selector( $component ),
-			// 				];
-			// 				$this->css->set_selector( '.' . $preset );
-			// 				$this->css->add_component( $component, [$component => $component_attributes], $component_meta );
-			// 			}
-			// 		}					
-			// 	}
-			// }
+			// Components
+			if ( ! empty( $style_data['components'] ) && is_array( $style_data['components'] ) ) {
+				foreach ( $style_data['components'] as $component => $component_data ) {
+					if ( ! empty( $component_data['presets'] ) && is_array( $component_data['presets'] ) ) {
+						foreach ( $component_data['presets'] as $preset => $preset_data ) {
+							// Register preset with CSS Registry
+							if ( $this->css_registry ) {
+								$this->css_registry->register_preset( $component, $preset, $preset_data );
+							}
+							
+							$component_attributes = $preset_data['attributes'] ?? [];
+							$component_meta = [
+								'component' => $component,
+								'nonInheritable' => $this->get_non_inheritable_attribute( $component ),
+								'selector' => $this->get_component_selector( $component ),
+							];
+							$this->css->set_selector( '.' . $preset );
+							$this->css->add_component( $component, [$component => $component_attributes], $component_meta );
+						}
+					}					
+				}
+			}
 		}
 		$this->css->css_output();
 	}

@@ -30,10 +30,13 @@ class Provider extends Service_Provider {
 	public function register(): void {
 		$this->container->bind( Assets::class, new Assets( $this->container ) );
 		$this->container->singleton( CSS_Engine::class, CSS_Engine::class );
+		$this->container->singleton( CSS_Registry::class, CSS_Registry::class );
 		$this->container->singleton( Font_Engine::class, Font_Engine::class );
 		$this->container->singleton( Svg_Render::class, Svg_Render::class );
 		add_action( 'wp_enqueue_scripts', $this->container->callback( Assets::class, 'post_blocks_css' ), 19 );
 		add_action( 'wp_enqueue_scripts', $this->container->callback( CSS_Engine::class, 'frontend_block_css' ), 180 );
 		add_action( 'template_redirect', $this->container->callback( CSS_Engine::class, 'setup_global_styles' ), 20 );
+		// Add CSS Registry output hook
+		add_action( 'wp_head', $this->container->callback( CSS_Registry::class, 'output_css' ), 190 );
 	}
 }

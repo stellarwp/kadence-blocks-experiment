@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace KadenceWP\KadenceBlocks\Blocks;
 
 use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
+use KadenceWP\KadenceBlocks\Frontend\CSS_Registry;
 use KadenceWP\KadenceBlocks\Frontend\Font_Engine;
 use KadenceWP\KadenceBlocks\Settings\Global_Style;
 use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
@@ -384,6 +385,44 @@ class Abstract_Block {
 	 */
 	public function build_css( $attributes, $css, $unique_id, $unique_style_id, $block_instance ) {
 		return '';
+	}
+
+	/**
+	 * Register block CSS with the CSS Registry
+	 *
+	 * @param string $css The CSS rules.
+	 * @param string $unique_id The block's unique ID.
+	 */
+	protected function register_block_css( $css, $unique_id = '' ) {
+		$registry = CSS_Registry::get_instance();
+		$identifier = ! empty( $unique_id ) ? $this->block_name . '-' . $unique_id : $this->block_name;
+		$registry->register_css( $css, 'blocks', $identifier );
+	}
+
+	/**
+	 * Register component CSS with the CSS Registry
+	 *
+	 * @param string $css The CSS rules.
+	 * @param string $component The component name.
+	 * @param string $unique_id The block's unique ID.
+	 */
+	protected function register_component_css( $css, $component, $unique_id = '' ) {
+		$registry = CSS_Registry::get_instance();
+		$identifier = ! empty( $unique_id ) ? $component . '-' . $unique_id : $component;
+		$registry->register_css( $css, 'components', $identifier );
+	}
+
+	/**
+	 * Register preset CSS with the CSS Registry
+	 *
+	 * @param string $css The CSS rules.
+	 * @param string $preset_type The preset type.
+	 * @param string $preset_slug The preset slug.
+	 */
+	protected function register_preset_css( $css, $preset_type, $preset_slug ) {
+		$registry = CSS_Registry::get_instance();
+		$identifier = $preset_type . '-' . $preset_slug;
+		$registry->register_css( $css, 'presets', $identifier );
 	}
 
 	/**
