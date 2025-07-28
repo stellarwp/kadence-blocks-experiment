@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { 
+import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	RangeControl,
 	Flex,
-	FlexItem 
+	FlexItem,
 } from '@wordpress/components';
 import { useMemo, useState, useEffect } from '@wordpress/element';
 /**
@@ -38,13 +38,14 @@ const getColorOKLchValues = (value) => {
 	}
 	if (value.startsWith('oklch')) {
 		// Parse oklch string - handles both multiplication and addition formats for lightness
-		const regex = /oklch\(\s*from\s+(?<color>var\(--[a-zA-Z0-9-]+\)|#[0-9a-fA-F]{6})\s+calc\((?<l_calc>l\s*\*\s*\d*\.?\d+|l\s*\+\s*\d*\.?\d+\s*\*\s*\(1\s*-\s*l\))\)\s+calc\(c\s*\*\s*(?<c_op>\d*\.?\d+)\)\s+calc\(h\s*\+\s*(?<h_op>[-+]?\s*\d+)\)\s*\/\s*(?<alpha>\d+)%\)/;
-		
+		const regex =
+			/oklch\(\s*from\s+(?<color>var\(--[a-zA-Z0-9-]+\)|#[0-9a-fA-F]{6})\s+calc\((?<l_calc>l\s*\*\s*\d*\.?\d+|l\s*\+\s*\d*\.?\d+\s*\*\s*\(1\s*-\s*l\))\)\s+calc\(c\s*\*\s*(?<c_op>\d*\.?\d+)\)\s+calc\(h\s*\+\s*(?<h_op>[-+]?\s*\d+)\)\s*\/\s*(?<alpha>\d+)%\)/;
+
 		const match = value.match(regex);
-		
+
 		if (match) {
 			const { color, l_calc, c_op, h_op, alpha } = match.groups;
-			
+
 			// Parse lightness value
 			let lightnessPercent = 100;
 			if (l_calc.includes('*') && l_calc.includes('(1 - l)')) {
@@ -60,7 +61,7 @@ const getColorOKLchValues = (value) => {
 					lightnessPercent = Math.round(parseFloat(multMatch[1]) * 100);
 				}
 			}
-			
+
 			return [
 				color,
 				lightnessPercent,
@@ -71,7 +72,11 @@ const getColorOKLchValues = (value) => {
 		}
 		return ['', '', '', '', ''];
 	}
-	if (value.startsWith('linear-gradient') || value.startsWith('radial-gradient') || value.startsWith('conic-gradient')) {
+	if (
+		value.startsWith('linear-gradient') ||
+		value.startsWith('radial-gradient') ||
+		value.startsWith('conic-gradient')
+	) {
 		return ['', '', '', '', ''];
 	}
 	return [getColorOutput(value), 100, 100, 0, 1];
@@ -82,22 +87,22 @@ const getColorMixValues = (value) => {
 	if (!value || typeof value !== 'string') {
 		return ['', '', ''];
 	}
-	
+
 	// Handle color-mix format
 	if (value.startsWith('color-mix')) {
 		const regex = /color-mix\(\s*in\s+oklch\s*,\s*([^,]+(?:\([^)]*\)[^,]*)?)\s*,\s*(.+)\s+(\d+(?:\.\d+)?%)\s*\)/;
 		const match = value.match(regex);
-		
+
 		if (match) {
 			const firstColor = match[1].trim();
 			const secondColor = match[2].trim();
 			const percentage = match[3];
-			
+
 			return [firstColor, secondColor, percentage];
 		}
 		return ['', '#000000', '50%'];
 	}
-	
+
 	// Handle regular color values
 	return [getColorOutput(value), '#000000', '50%'];
 };
@@ -121,11 +126,11 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 		const format = detectColorFormat(value || inherited?.inheritedValue);
 		return format === 'color-mix' ? 'color-mix' : 'oklch';
 	}, []);
-	
+
 	const [mode, setMode] = useState(initialMode);
 	// Track the base color separately to maintain it across mode switches
 	const [baseColorState, setBaseColorState] = useState(null);
-	
+
 	// Update mode when value changes externally
 	useEffect(() => {
 		const format = detectColorFormat(value);
@@ -135,44 +140,59 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 			setMode('oklch');
 		}
 	}, [value]);
-	
+
 	// Parse values based on current mode
-	const [color, lightness, chroma, hue, alpha] = getColorOKLchValues(mode === 'oklch' ? value : (value && !value.startsWith('color-mix') ? value : ''));
-	const [inheritedColor, inheritedLightness, inheritedChroma, inheritedHue, inheritedAlpha] = getColorOKLchValues(inherited?.inheritedValue);
-	
+	const [color, lightness, chroma, hue, alpha] = getColorOKLchValues(
+		mode === 'oklch' ? value : value && !value.startsWith('color-mix') ? value : ''
+	);
+	const [inheritedColor, inheritedLightness, inheritedChroma, inheritedHue, inheritedAlpha] = getColorOKLchValues(
+		inherited?.inheritedValue
+	);
+
 	const [mixColor1, mixColor2, mixPercent] = getColorMixValues(mode === 'color-mix' ? value : '');
 	const [inheritedMixColor1, inheritedMixColor2, inheritedMixPercent] = getColorMixValues(inherited?.inheritedValue);
-	
+
 	// Determine the current base color (prefer state over parsed values)
-	const currentBaseColor = baseColorState || (mode === 'oklch' ? (color || inheritedColor) : (mixColor1 || inheritedMixColor1));
-	
+	const currentBaseColor =
+		baseColorState || (mode === 'oklch' ? color || inheritedColor : mixColor1 || inheritedMixColor1);
+
 	// Update base color state when the actual base color changes
 	useEffect(() => {
-		const newBaseColor = mode === 'oklch' ? (color || inheritedColor) : (mixColor1 || inheritedMixColor1);
+		const newBaseColor = mode === 'oklch' ? color || inheritedColor : mixColor1 || inheritedMixColor1;
 		if (newBaseColor && newBaseColor !== baseColorState) {
 			setBaseColorState(newBaseColor);
 		}
 	}, [color, mixColor1, inheritedColor, inheritedMixColor1, mode]);
-	
+
 	// Calculate the current color for live previews (OKLch mode)
 	const currentOKLchColor = useMemo(() => {
 		if (!currentBaseColor) return '';
-		
-		const l = lightness !== '' ? lightness : (inheritedLightness !== '' ? inheritedLightness : 100);
-		const c = chroma !== '' ? chroma : (inheritedChroma !== '' ? inheritedChroma : 100);
-		const h = hue !== '' ? hue : (inheritedHue !== '' ? inheritedHue : 0);
-		const a = alpha ? alpha * 100 : (inheritedAlpha ? inheritedAlpha * 100 : 100);
-		
+
+		const l = lightness !== '' ? lightness : inheritedLightness !== '' ? inheritedLightness : 100;
+		const c = chroma !== '' ? chroma : inheritedChroma !== '' ? inheritedChroma : 100;
+		const h = hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : 0;
+		const a = alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : 100;
+
 		return `oklch(from ${currentBaseColor} calc(${percentToLightness(l)}) calc(c * ${percentToChroma(c)}) calc(h + ${h}) / ${a}%)`;
-	}, [currentBaseColor, lightness, chroma, hue, alpha, inheritedLightness, inheritedChroma, inheritedHue, inheritedAlpha]);
-	
+	}, [
+		currentBaseColor,
+		lightness,
+		chroma,
+		hue,
+		alpha,
+		inheritedLightness,
+		inheritedChroma,
+		inheritedHue,
+		inheritedAlpha,
+	]);
+
 	// Handle mode change
 	const handleModeChange = (newMode) => {
 		if (newMode === mode) return;
-		
+
 		// Use the tracked base color for conversion
 		const baseColorToUse = currentBaseColor || '#000000';
-		
+
 		if (newMode === 'oklch') {
 			// Convert to OKLch using the base color
 			onChange(`oklch(from ${getColorOutput(baseColorToUse)} calc(l * 1.00) calc(c * 1.00) calc(h + 0) / 100%)`);
@@ -182,7 +202,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 		}
 		setMode(newMode);
 	};
-	
+
 	// Render appropriate controls based on mode
 	return (
 		<div className="kbs-color-unified-mix-control">
@@ -194,7 +214,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 				onChange={(value) => {
 					// Update the base color state
 					setBaseColorState(value);
-					
+
 					if (mode === 'oklch') {
 						onChange(
 							`oklch(from ${getColorOutput(value)} calc(${lightness !== '' ? percentToLightness(lightness) : inheritedLightness !== '' ? percentToLightness(inheritedLightness) : 'l'}) calc(c * ${chroma !== '' ? percentToChroma(chroma) : inheritedChroma !== '' ? percentToChroma(inheritedChroma) : '1.00'}) calc(h + ${hue !== '' ? hue : inheritedHue !== '' ? inheritedHue : '0'}) / ${alpha ? alpha * 100 : inheritedAlpha ? inheritedAlpha * 100 : '100'}%)`
@@ -210,7 +230,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 				hasGradient={false}
 				hasMix={false}
 			/>
-			
+
 			{/* Mode selector */}
 			<div className="kbs-color-unified-mix-mode-selector">
 				<ToggleGroupControl
@@ -219,18 +239,13 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 					onChange={handleModeChange}
 					isBlock
 					__nextHasNoMarginBottom
+					__next40pxDefaultSize
 				>
-					<ToggleGroupControlOption
-						value="oklch"
-						label={__('OKLch', 'kadence-blocks')}
-					/>
-					<ToggleGroupControlOption
-						value="color-mix"
-						label={__('Mix', 'kadence-blocks')}
-					/>
+					<ToggleGroupControlOption value="oklch" label={__('OKLch', 'kadence-blocks')} />
+					<ToggleGroupControlOption value="color-mix" label={__('Mix', 'kadence-blocks')} />
 				</ToggleGroupControl>
 			</div>
-			
+
 			{/* OKLch Controls */}
 			{mode === 'oklch' && currentBaseColor && (
 				<>
@@ -358,7 +373,7 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 					/>
 				</>
 			)}
-			
+
 			{/* Color Mix Controls */}
 			{mode === 'color-mix' && currentBaseColor && (
 				<>
@@ -378,17 +393,24 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 						hasMix={false}
 					/>
 					<div className="kbs-color-mix-amount-control">
-						<RangeControl
+						<RadioButtonSelect
 							label={__('Mix Amount', 'kadence-blocks')}
-							value={parseInt(mixPercent) || 50}
+							hasCustomControls={true}
+							color={currentBaseColor}
+							shadeType={mixColor2 || inheritedMixColor2 || '#000000'}
+							isHover={isHover}
+							inherited={{ inheritedValue: inheritedMixPercent }}
+							units={[{ value: '%', label: '%' }]}
+							value={mixPercent ? parseInt(mixPercent) : ''}
 							onChange={(value) =>
 								onChange(
-									`color-mix(in oklch, ${currentBaseColor}, ${mixColor2 || inheritedMixColor2 || '#000000'} ${value}%)`
+									`color-mix(in oklch, ${currentBaseColor}, ${mixColor2 || inheritedMixColor2 || '#000000'} ${parseInt(value)}%)`
 								)
 							}
 							min={0}
 							max={100}
 							step={1}
+							type={'color-mix-amount'}
 							initialPosition={parseInt(inheritedMixPercent) || 50}
 							__nextHasNoMarginBottom
 						/>

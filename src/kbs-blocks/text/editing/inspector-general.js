@@ -42,7 +42,10 @@ export default function InspectorGeneral(props) {
 				<RadioButtonSelect
 					label={__('HTML Tag', 'kadence-blocks')}
 					value={attributes.htmlTag}
-					onChange={(value) => setAttributes({ htmlTag: value })}
+					onChange={(value) => {
+						setAttributes({ htmlTag: value || 'p' });
+					}}
+					isDeselectable={false}
 					attributeName={'htmlTag'}
 					type={'headingTag'}
 					meta={metadata}

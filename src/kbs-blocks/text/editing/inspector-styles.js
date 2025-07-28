@@ -48,35 +48,6 @@ export default function InspectorStyles(props) {
 				panelName={'text-typography'}
 				componentName={'typography-control'}
 			>
-				<ColorControl
-					label={__('Color', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					meta={metadata}
-					previewDevice={previewDevice}
-					attributeName={'color'}
-					globalStylesIds={globalStylesIds}
-					hasGradient={true}
-					hasMix={true}
-				/>
-				{!hasGradient && (
-					<ColorControl
-						label={__('Background Color', 'kadence-blocks')}
-						attributes={attributes}
-						setAttributes={setAttributes}
-						meta={metadata}
-						previewDevice={previewDevice}
-						attributeName={'backgroundColor'}
-						globalStylesIds={globalStylesIds}
-						hasGradient={true}
-						hasMix={true}
-					/>
-				)}
-				{hasGradient && (
-					<Notice>
-						{__('Background color will be ignored while a gradient color is applied.', 'kadence-blocks')}
-					</Notice>
-				)}
 				<Typography
 					label={__('Typography', 'kadence-blocks')}
 					attributes={attributes}
@@ -86,6 +57,7 @@ export default function InspectorStyles(props) {
 					attributeName={'typography'}
 					hasColor={true}
 					hasBackgroundColor={true}
+					supportsGradient={true}
 					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>

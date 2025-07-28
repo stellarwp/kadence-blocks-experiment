@@ -44,6 +44,7 @@ export default function Typography({
 					globalStylesIds={globalStylesIds}
 					supportsGradient={supportsGradient}
 					hasColor={hasColor}
+					attributeName={attributeName}
 					hasBackgroundColor={hasBackgroundColor}
 				/>
 			)}

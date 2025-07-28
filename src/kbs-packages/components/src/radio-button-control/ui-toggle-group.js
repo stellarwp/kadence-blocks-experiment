@@ -14,6 +14,7 @@ function RadioToggleGroupButtonUI({
 	onChange,
 	inherited,
 	controls = [],
+	isDeselectable = true,
 	label = __('Align', 'kadence-blocks'),
 }) {
 	return (
@@ -23,7 +24,7 @@ function RadioToggleGroupButtonUI({
 			label={label}
 			onChange={(value) => onChange(value)}
 			value={value ? value : undefined}
-			isDeselectable={true}
+			isDeselectable={isDeselectable}
 			isBlock={true}
 			__nextHasNoMarginBottom
 			__next40pxDefaultSize

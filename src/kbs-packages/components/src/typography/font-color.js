@@ -21,9 +21,10 @@ export default function FontColor({
 	hasBackgroundColor = false,
 	supportsGradient = false,
 }) {
-	const colorValue = getResolvedValue('color', attributes, 'any', meta, 'color', globalStylesIds);
+	const colorValue = getResolvedValue(attributeName, attributes, 'any', meta, 'color', globalStylesIds);
 	const previewColorValue = getColorOutput(colorValue?.appliedValue);
-	const hasGradient = hasColor && previewColorValue?.includes('gradient(');
+	const hasGradient = hasColor && previewColorValue && previewColorValue?.includes('gradient');
+	console.log(colorValue);
 	return (
 		<div className="components-base-control kbs-typography-color-group">
 			{hasColor && (
@@ -33,7 +34,8 @@ export default function FontColor({
 					setAttributes={setAttributes}
 					meta={meta}
 					previewDevice={previewDevice}
-					attributeName={'color'}
+					attributeName={attributeName}
+					type={'color'}
 					globalStylesIds={globalStylesIds}
 					hasGradient={supportsGradient}
 					hasMix={true}
@@ -46,7 +48,8 @@ export default function FontColor({
 					setAttributes={setAttributes}
 					meta={meta}
 					previewDevice={previewDevice}
-					attributeName={'backgroundColor'}
+					attributeName={attributeName}
+					type={'backgroundColor'}
 					globalStylesIds={globalStylesIds}
 					hasGradient={true}
 					hasMix={true}

@@ -46,6 +46,7 @@ export default function RadioButtonSelect({
 	hue = 0,
 	lightness = 0,
 	chroma = 0,
+	isDeselectable = true,
 }) {
 	const radioConfig = type ? type : radioType;
 	const { UIComponent, controls, advancedControls } = getRadioConfig(radioConfig, previewDirection);
@@ -115,6 +116,7 @@ export default function RadioButtonSelect({
 					step={step}
 					shadeType={shadeType}
 					defaultUnit={defaultUnit}
+					isDeselectable={isDeselectable}
 				/>
 			</div>
 		</div>

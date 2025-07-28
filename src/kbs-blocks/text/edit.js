@@ -81,12 +81,6 @@ export default function TextEdit(props) {
 	);
 	const previewColorHighlightValue = getColorOutput(colorHighlightValue?.appliedValue);
 
-	const htmlTagDesktopValue = useMemo(
-		() => getResolvedValue('headingTag', attributes, 'desktop', metadata, 'headingTag', globalStylesIds),
-		[attributes]
-	);
-	const previewHeadingTag = htmlTagDesktopValue?.appliedValue;
-
 	const maxWidthAnyValue = useMemo(
 		() => getResolvedValue('maxWidth', attributes, 'any', metadata, 'maxWidth', globalStylesIds),
 		[attributes]
@@ -107,7 +101,7 @@ export default function TextEdit(props) {
 
 	const headingOptions = [
 		['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p'].map((tag) => ({
-			icon: <HeadingLevelIcon level={tag} isPressed={tag === previewHeadingTag} />,
+			icon: <HeadingLevelIcon level={tag} isPressed={tag === htmlTag} />,
 			title:
 				tag === 'div'
 					? __('Div', 'kadence-blocks')
@@ -116,18 +110,8 @@ export default function TextEdit(props) {
 						: tag === 'p'
 							? __('Paragraph', 'kadence-blocks')
 							: __(`Heading ${tag.charAt(1)}`, 'kadence-blocks'),
-			isActive: tag === previewHeadingTag,
-			onClick: () =>
-				handleAttributeChange(
-					tag,
-					'desktop',
-					'headingTag',
-					attributes,
-					setAttributes,
-					null,
-					'headingTag',
-					metadata
-				),
+			isActive: tag === htmlTag,
+			onClick: () => setAttributes({ htmlTag: tag }),
 		})),
 	];
 
@@ -198,7 +182,7 @@ export default function TextEdit(props) {
 	const contentHTML = (
 		<RichText
 			{...(shouldWrapContent ? { className: 'kbs-text-content' } : finalBlocksProps)}
-			tagName={previewHeadingTag}
+			tagName={htmlTag}
 			value={content}
 			onChange={onContentChange}
 			placeholder={__('Write something…', 'kadence-blocks')}
@@ -225,7 +209,7 @@ export default function TextEdit(props) {
 			<BlockControls>
 				<ToolbarGroup group="tag">
 					<ToolbarDropdownMenu
-						icon={<HeadingLevelIcon level={previewHeadingTag} />}
+						icon={<HeadingLevelIcon level={htmlTag} />}
 						label={__('Change heading tag', 'kadence-blocks')}
 						controls={headingOptions}
 					/>

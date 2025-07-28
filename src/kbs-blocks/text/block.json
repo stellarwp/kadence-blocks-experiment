@@ -20,12 +20,18 @@
 		"anchor": {
 			"type": "string"
 		},
+		"htmlTag": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "string",
+			"default": "p"
+		},
 		"content": {
 			"type": "string",
 			"source": "html",
 			"selector": ".kbs-text-content",
 			"default": "",
-			"__experimentalRole": "content"
+			"role": "content"
 		},
 		"preset": {
 			"type": "array"
@@ -36,13 +42,6 @@
 			"nonInheritable": true,
 			"type": "object",
 			"varPrefix": "--kbs-text-"
-		},
-		"htmlTag": {
-			"renderCSS": false,
-			"nonInheritable": true,
-			"type": "string",
-			"default": "p",
-			"enum": ["p", "h1", "h2", "h3", "h4", "h5", "h6", "span", "div"]
 		},
 		"link": {
 			"type": "object"
