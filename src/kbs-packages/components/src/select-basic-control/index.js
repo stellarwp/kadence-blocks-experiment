@@ -34,7 +34,7 @@ export default function SelectBasicControl(props) {
 		setAttributes,
 		type = '',
 		reset = true,
-		previewDevice = 'desktop',
+		previewDevice = 'Desktop',
 		meta,
 		globalStylesIds,
 		titleBar = true,
@@ -69,12 +69,14 @@ export default function SelectBasicControl(props) {
 			)}
 			<div className="kbs-control-inner">
 				<SelectControl
-					className="kbs-core-select-control"
+					className={clsx(
+						'kbs-core-select-control',
+						!currentValue && inherited?.inheritedValue && 'kbs-inherited'
+					)}
 					__next40pxDefaultSize={true}
-					value={currentValue}
+					value={currentValue || inherited?.inheritedValue}
 					onChange={(itemValue) => onChangeToUse(itemValue, previewDevice, type)}
 					options={options}
-					inherited={inherited}
 					label={!titleBar ? label : undefined}
 				/>
 			</div>

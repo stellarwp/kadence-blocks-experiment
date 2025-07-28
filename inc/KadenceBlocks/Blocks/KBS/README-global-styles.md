@@ -34,67 +34,11 @@ In your block's `build_css` method, you can access parent global styles:
 public function build_css($attributes, $css, $unique_id, $unique_style_id, $block_instance) {
     $css->set_style_id('my-block-' . $unique_style_id);
     $css->set_selector('.my-block-' . $unique_id);
-    
+
     // Apply regular block attributes
     $css->add_attributes($attributes, $block_instance);
-    
-    // Apply parent global styles if available
-    if (!empty($attributes['_parentGlobalStyles'])) {
-        // Each item in the array is a global style ID from a parent block
-        // The array is ordered from top-most parent down
-        $parent_styles = $attributes['_parentGlobalStyles'];
-        
-        // You can access the top-most parent's global style
-        if (!empty($parent_styles[0])) {
-            $top_parent_style = $parent_styles[0];
-            $css->add_property('--top-parent-style', '"' . $top_parent_style . '"');
-            
-            // Apply specific styling based on the top parent's global style
-            if ($top_parent_style === 'main-theme') {
-                $css->add_property('background-color', 'var(--kb-main-theme-background, #f5f5f5)');
-            }
-        }
-        
-        // You can apply styles based on all parent global styles
-        $css->add_property('--parent-global-styles', '"' . implode(',', $parent_styles) . '"');
-        
-        // Or you can apply specific styles based on each parent global style ID
-        foreach ($parent_styles as $index => $style_id) {
-            // Apply styling based on the global style ID and its position in the hierarchy
-            $css->add_property('--parent-style-' . $index, '"' . $style_id . '"');
-            
-            if ($style_id === 'red-theme') {
-                $css->add_property('background-color', 'var(--kb-red-theme-background, #ffeeee)');
-            }
-        }
-    }
-    
-    // Apply all global styles (parent + current) if available
-    if (!empty($attributes['_myGlobalStyles'])) {
-        // This is a flattened array containing all global style IDs from parents and this block
-        // The array is ordered from top-most parent down to the current block
-        $all_styles = $attributes['_myGlobalStyles'];
-        
-        // You can apply styles based on all global styles
-        $css->add_property('--all-global-styles', '"' . implode(',', $all_styles) . '"');
-        
-        // Or you can apply specific styles based on each global style ID
-        foreach ($all_styles as $index => $style_id) {
-            // Apply styling based on the global style ID and its position in the hierarchy
-            $css->add_property('--style-' . $index, '"' . $style_id . '"');
-            
-            if ($style_id === 'blue-theme') {
-                $css->add_property('color', 'var(--kb-blue-theme-text, #0000ff)');
-            }
-        }
-        
-        // The last item in the array is always the current block's global style
-        if (!empty($all_styles)) {
-            $current_style = end($all_styles);
-            $css->add_property('--current-style', '"' . $current_style . '"');
-        }
-    }
-    
+
+
     return $css->css_output();
 }
 ```
@@ -107,22 +51,13 @@ In your block's `build_html` method, you can access parent global styles:
 public function build_html($attributes, $unique_id, $content, $block_instance) {
     // Add data attributes for global styles
     $data_attributes = [];
-    if (!empty($attributes['globalStyleIds'])) {
-        $data_attributes['data-global-style-ids'] = esc_attr($attributes['globalStyleIds']);
-    }
-    if (!empty($attributes['_parentGlobalStyles'])) {
-        $data_attributes['data-parent-global-styles'] = esc_attr(implode(',', $attributes['_parentGlobalStyles']));
-    }
-    if (!empty($attributes['_myGlobalStyles'])) {
-        $data_attributes['data-my-global-styles'] = esc_attr(implode(',', $attributes['_myGlobalStyles']));
-    }
-    
+
     $wrapper_args = array_merge([
         'class' => 'my-block my-block-' . $unique_id,
     ], $data_attributes);
-    
+
     $wrapper_attributes = get_block_wrapper_attributes($wrapper_args);
-    
+
     return sprintf('<div %s>%s</div>', $wrapper_attributes, $content);
 }
 ```
@@ -140,4 +75,4 @@ See the `test-global-styles.php` file for a complete example of how to use paren
 5. You can access the top-most parent's global style with `$attributes['_parentGlobalStyles'][0]`
 6. Add data attributes to your block's HTML to make the global styles available to JavaScript
 7. Use CSS custom properties to apply global styles to your block
-8. When applying styles based on global style IDs, use a loop to process each ID individually 
+8. When applying styles based on global style IDs, use a loop to process each ID individually

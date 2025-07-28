@@ -1,10 +1,9 @@
 import SelectControl from '../select-control';
 import { __ } from '@wordpress/i18n';
-import FontWeight from './font-weight';
-import ResponsiveRadioRangeControls from '../range/responsive-radio-range-control';
 import RadioButtonControl from '../radio-button-control';
-import ResponsiveUnitControl from '../responsive-unit-control';
-
+import FamilyAppearance from './family-appearance';
+import FontColor from './font-color';
+import './editor.scss';
 export default function Typography({
 	attributes,
 	setAttributes,
@@ -15,6 +14,9 @@ export default function Typography({
 	customOnChange,
 	forStyleBook,
 	forPresetControl,
+	hasColor = false,
+	hasBackgroundColor = false,
+	supportsGradient = false,
 }) {
 	return (
 		<div className="components-base-control">
@@ -33,32 +35,18 @@ export default function Typography({
 					hasDeviceControls={false}
 				/>
 			)}
-
-			<SelectControl
-				label={__('Font Family', 'kadence-blocks')}
-				attributes={attributes}
-				setAttributes={setAttributes}
-				attributeName={attributeName}
-				meta={meta}
-				previewDevice={previewDevice}
-				type={'fontFamily'}
-				globalStylesIds={globalStylesIds}
-				customOnChange={customOnChange}
-				forStyleBook={forStyleBook}
-			/>
-
-			<FontWeight
-				label={__('Font Weight', 'kadence-blocks')}
-				attributes={attributes}
-				setAttributes={setAttributes}
-				meta={meta}
-				previewDevice={previewDevice}
-				attributeName={attributeName}
-				globalStylesIds={globalStylesIds}
-				customOnChange={customOnChange}
-				forStyleBook={forStyleBook}
-			/>
-
+			{hasColor && (
+				<FontColor
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={meta}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					supportsGradient={supportsGradient}
+					hasColor={hasColor}
+					hasBackgroundColor={hasBackgroundColor}
+				/>
+			)}
 			<RadioButtonControl
 				label={__('Font Size', 'kadence-blocks')}
 				attributes={attributes}
@@ -71,19 +59,6 @@ export default function Typography({
 				forStyleBook={forStyleBook}
 				hasCustomControls={true}
 			/>
-
-			<RadioButtonControl
-				label={__('Letter Case', 'kadence-blocks')}
-				attributes={attributes}
-				setAttributes={setAttributes}
-				attributeName={attributeName}
-				type="textTransform"
-				meta={meta}
-				previewDevice={previewDevice}
-				customOnChange={customOnChange}
-				forStyleBook={forStyleBook}
-			/>
-
 			<RadioButtonControl
 				label={__('Line Height', 'kadence-blocks')}
 				attributes={attributes}
@@ -96,7 +71,17 @@ export default function Typography({
 				forStyleBook={forStyleBook}
 				hasCustomControls={true}
 			/>
-
+			<RadioButtonControl
+				label={__('Letter Case', 'kadence-blocks')}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				attributeName={attributeName}
+				type="textTransform"
+				meta={meta}
+				previewDevice={previewDevice}
+				customOnChange={customOnChange}
+				forStyleBook={forStyleBook}
+			/>
 			<RadioButtonControl
 				label={__('Letter Spacing', 'kadence-blocks')}
 				attributes={attributes}
@@ -109,6 +94,17 @@ export default function Typography({
 				customOnChange={customOnChange}
 				forStyleBook={forStyleBook}
 				hasCustomControls={true}
+			/>
+
+			<FamilyAppearance
+				attributes={attributes}
+				setAttributes={setAttributes}
+				meta={meta}
+				previewDevice={previewDevice}
+				attributeName={attributeName}
+				globalStylesIds={globalStylesIds}
+				customOnChange={customOnChange}
+				forStyleBook={forStyleBook}
 			/>
 		</div>
 	);

@@ -41,7 +41,7 @@ export default function ColorSelect({
 	type,
 	reset = true,
 	label,
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	onChange,
 	defaultValue = undefined,
 	globalClasses = [],

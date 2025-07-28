@@ -375,7 +375,7 @@ export default function PopoverSelect({
 	type,
 	reset = true,
 	label,
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	defaultValue = undefined,
 	globalClasses,
 	patterns = [],

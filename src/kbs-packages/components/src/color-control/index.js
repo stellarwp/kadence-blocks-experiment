@@ -48,7 +48,7 @@ export default function ColorControl({
 	advancedControls = [],
 	isCustom = false,
 	hasCustomControls = false,
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	forStyleBook = false,
 	defaultValue = undefined,
 	customOnChange = undefined,

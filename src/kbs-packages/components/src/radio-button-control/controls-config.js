@@ -14,6 +14,7 @@ import {
 	formatBold,
 	formatUnderline,
 } from '@wordpress/icons';
+import { getFontSizeOptions } from '@kadence/kbsHelpers';
 
 import HeadingLevelIcon from '../heading-level-icon';
 
@@ -201,6 +202,9 @@ export const getRadioConfig = (radioType, previewDirection) => {
 		case 'min-height':
 			UIComponent = RadioToggleGroupInputRangeUI;
 			break;
+		case 'variableFontWeight':
+			UIComponent = RadioToggleGroupInputRangeUINoUnit;
+			break;
 		case 'opacity':
 		case 'hoverOpacity':
 		case 'backgroundOpacity':
@@ -242,7 +246,7 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'fontSize':
 			UIComponent = RadioToggleGroupInputRangeUI;
-			controls = getFontSizeControls();
+			controls = getFontSizeOptions();
 			break;
 		case 'textTransform':
 			controls = getTextTransformControls();
@@ -1460,43 +1464,10 @@ export const getAlignContentControls = (direction) => {
 	return controlsByDirection[direction] || [];
 };
 
-export const getFontSizeControls = () => [
-	{
-		title: __('Small', 'kadence-blocks'),
-		name: 'SM',
-		key: 'sm',
-	},
-	{
-		title: __('Medium', 'kadence-blocks'),
-		name: 'MD',
-		key: 'md',
-	},
-	{
-		title: __('Large', 'kadence-blocks'),
-		name: 'LG',
-		key: 'lg',
-	},
-	{
-		title: __('X Large', 'kadence-blocks'),
-		name: 'XL',
-		key: 'xl',
-	},
-	{
-		title: __('2X Large', 'kadence-blocks'),
-		name: 'XXL',
-		key: 'xxl',
-	},
-	{
-		title: __('3X Large', 'kadence-blocks'),
-		name: '3XL',
-		key: '3xl',
-	},
-];
-
 export const getTextTransformControls = () => [
 	{
 		title: __('None', 'kadence-blocks'),
-		name: __('None', 'kadence-blocks'),
+		name: __('-', 'kadence-blocks'),
 		key: 'none',
 	},
 	{
@@ -1531,18 +1502,18 @@ export const getInsetControls = () => [
 
 export const getLineHeightControls = () => [
 	{
-		title: __('Narrow', 'kadence-blocks'),
-		name: __('Narrow', 'kadence-blocks'),
+		title: __('Small', 'kadence-blocks'),
+		name: __('Small', 'kadence-blocks'),
 		key: 'sm',
 	},
 	{
 		title: __('Normal', 'kadence-blocks'),
 		name: __('Normal', 'kadence-blocks'),
-		key: 'md',
+		key: 'normal',
 	},
 	{
-		title: __('Tall', 'kadence-blocks'),
-		name: __('Tall', 'kadence-blocks'),
+		title: __('Large', 'kadence-blocks'),
+		name: __('Large', 'kadence-blocks'),
 		key: 'lg',
 	},
 ];
@@ -1556,7 +1527,7 @@ export const getLetterSpacingControls = () => [
 	{
 		title: __('Normal', 'kadence-blocks'),
 		name: __('Normal', 'kadence-blocks'),
-		key: 'md',
+		key: 'normal',
 	},
 	{
 		title: __('Wide', 'kadence-blocks'),

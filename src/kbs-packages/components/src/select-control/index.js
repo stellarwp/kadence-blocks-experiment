@@ -99,6 +99,14 @@ export default function SelectControl({
 						[type]: undefined,
 						['fontSource']: undefined,
 						['fontWeight']: undefined,
+						['fontStyle']: undefined,
+					};
+					break;
+				}
+				if (directValue === value) {
+					updatedAttributes = {
+						[type]: value,
+						['fontSource']: selectedOption.source,
 					};
 					break;
 				}
@@ -110,6 +118,8 @@ export default function SelectControl({
 				updatedAttributes = {
 					[type]: value,
 					['fontSource']: selectedOption.source,
+					['fontWeight']: undefined,
+					['fontStyle']: undefined,
 				};
 
 				break;

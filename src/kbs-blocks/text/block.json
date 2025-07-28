@@ -37,17 +37,12 @@
 			"type": "object",
 			"varPrefix": "--kbs-text-"
 		},
-		"headingTag": {
+		"htmlTag": {
 			"renderCSS": false,
-			"component": "htmlTag",
 			"nonInheritable": true,
-			"type": "object",
-			"varPrefix": "--kbs-text-",
-			"initial": {
-				"desktop": {
-					"headingTag": "p"
-				}
-			}
+			"type": "string",
+			"default": "p",
+			"enum": ["p", "h1", "h2", "h3", "h4", "h5", "h6", "span", "div"]
 		},
 		"link": {
 			"type": "object"
@@ -225,6 +220,7 @@
 		}
 	},
 	"supports": {
+		"splitting": true,
 		"anchor": true,
 		"ktanimate": true,
 		"ktanimateadd": true,

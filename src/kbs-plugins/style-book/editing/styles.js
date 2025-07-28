@@ -136,12 +136,12 @@ export default function Styles(props) {
 						]?.attributes,
 				};
 
-				css.addComponent(
-					componentToRender,
-					fakeMetaData.attributes[presetsToRender[i]],
-					{ attributes, previewDevice },
-					fakeMetaData
-				);
+				// css.addComponent(
+				// 	componentToRender,
+				// 	fakeMetaData.attributes[presetsToRender[i]],
+				// 	{ attributes, previewDevice },
+				// 	fakeMetaData
+				// );
 				i++;
 			});
 		}
@@ -157,7 +157,7 @@ export default function Styles(props) {
 	const tempGradients = styleBookLocalGlobalStyles[currentGlobalStyleId]?.mappings?.gradients || [];
 	const baseVariables = useMemo(() => {
 		let outputCssString = '';
-		if ( tempColors ) {
+		if (tempColors) {
 			// Loop through global style ids
 			Object.entries(tempColors).forEach(([key, value]) => {
 				if (value?.value) {
@@ -165,7 +165,7 @@ export default function Styles(props) {
 				}
 			});
 		}
-		if ( tempGradients ) {
+		if (tempGradients) {
 			Object.entries(tempGradients).forEach(([key, value]) => {
 				if (value?.value) {
 					outputCssString += `--kbs-gradients-${key}: ${value.value};\n`;

@@ -17,7 +17,7 @@ import InputUIControl from './ui-input';
 import { isClampValue, getClampOrSimpleValues, generateClampValue, parseValueAndUnit } from './utils-clamp';
 import TitleBar from '../title-bar';
 
-function UIFontSizeMapping({ value, onChange, placeholder = '', inherited, label, previewDevice = 'desktop' }) {
+function UIFontSizeMapping({ value, onChange, placeholder = '', inherited, label, previewDevice = 'Desktop' }) {
 	// Parse initial values
 	const initialIsClamp = isClampValue(value || inherited?.inheritedValue);
 	const initialValues = getClampOrSimpleValues(value || inherited?.inheritedValue);

@@ -48,7 +48,7 @@ import ToolsPanelBody from '../tools-panel-body';
 import SelectBasicControlSelect from '../select-basic-control/select';
 
 export default function BackgroundBackdropLayer({
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	layer,
 	onChange,
 	globalClasses,

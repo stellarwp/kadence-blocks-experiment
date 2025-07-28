@@ -39,7 +39,7 @@ export default function BackgroundImageControl(props) {
 		advancedControls = [],
 		isCustom = false,
 		hasCustomControls = false,
-		previewDevice = 'desktop',
+		previewDevice = 'Desktop',
 		forStyleBook = false,
 		defaultValue,
 		customOnChange,

@@ -41,6 +41,7 @@ export default function SelectBasicControlSelect(props) {
 		}
 		onChange(resetValue, previewDevice === 'desktop' ? 'all' : previewDevice, type);
 	};
+	console.log('inherited', inherited);
 	return (
 		<div className={`components-base-control kbs-control kbs-select-basic-control`}>
 			{label && (
@@ -58,7 +59,7 @@ export default function SelectBasicControlSelect(props) {
 					className={clsx('kbs-core-select-control', !value && inherited?.inheritedValue && 'kbs-inherited')}
 					__next40pxDefaultSize={true}
 					value={value || inherited?.inheritedValue}
-					onChange={onChange}
+					onChange={(item) => onChange(item, previewDevice, type)}
 					options={options}
 				/>
 			</div>

@@ -204,15 +204,6 @@ export default function TextEdit(props) {
 			placeholder={__('Write something…', 'kadence-blocks')}
 			allowedFormats={richTextFormats}
 			onMerge={mergeBlocks}
-			onSplit={(value) => {
-				if (!value && !isDefaultEditorBlock) {
-					return createBlock('core/paragraph');
-				}
-				return createBlock('kadence/advancedheading', {
-					...attributes,
-					content: value ?? '',
-				});
-			}}
 			onReplace={onReplace}
 			onRemove={() => onReplace([])}
 		/>

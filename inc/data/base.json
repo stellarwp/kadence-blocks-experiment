@@ -152,72 +152,152 @@
 		},
 		"typography": {
 			"presets": {
-				"text-body": {
-					"label": "Body text",
-					"name": "Body text",
-					"description": "Body text",
+				"title-3xl": {
+					"label": "Title 3XL",
+					"name": "Title 3XL",
+					"description": "Huge title text for hero and call to action sections",
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "Arial, sans-serif",
+							"fontFamily": "var(--kbs-font-family-heading)",
 							"fontSource": "system",
-							"fontSize": "md"
+							"fontSize": "3xl",
+							"color": "palette3",
+							"fontWeight": "700",
+							"lineHeight": "sm"
+						}
+					}
+				},
+				"title-xxl": {
+					"label": "Title XXL",
+					"name": "Title XXL",
+					"description": "Extra large title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "var(--kbs-font-family-heading)",
+							"fontSource": "system",
+							"fontSize": "xxl",
+							"color": "palette3",
+							"fontWeight": "700",
+							"lineHeight": "sm"
+						}
+					}
+				},
+				"title-xl": {
+					"label": "Title XL",
+					"name": "Title XL",
+					"description": "Large title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "var(--kbs-font-family-heading)",
+							"fontSource": "system",
+							"fontSize": "xl",
+							"color": "palette3",
+							"fontWeight": "700",
+							"lineHeight": "sm"
+						}
+					}
+				},
+				"title-lg": {
+					"label": "Title LG",
+					"name": "Title LG",
+					"description": "Large title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "var(--kbs-font-family-heading)",
+							"fontSource": "system",
+							"fontSize": "lg",
+							"color": "palette4",
+							"fontWeight": "500",
+							"lineHeight": "base"
+						}
+					}
+				},
+				"title-md": {
+					"label": "Title MD",
+					"name": "Title MD",
+					"description": "Medium title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "var(--kbs-font-family-heading)",
+							"fontSource": "system",
+							"fontSize": "md",
+							"color": "palette4",
+							"fontWeight": "400",
+							"lineHeight": "base"
+						}
+					}
+				},
+				"title-sm": {
+					"label": "Title SM",
+					"name": "Title SM",
+					"description": "Small title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "var(--kbs-font-family-heading)",
+							"fontSource": "system",
+							"fontSize": "sm",
+							"color": "palette4",
+							"fontWeight": "400",
+							"lineHeight": "base"
+						}
+					}
+				},
+				"text-body": {
+					"label": "Body",
+					"name": "Body",
+					"description": "Body text for paragraphs and other body content",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "var(--kbs-font-family-body)",
+							"fontSource": "system",
+							"fontSize": "base",
+							"color": "palette5",
+							"fontWeight": "400",
+							"lineHeight": "base"
 						}
 					}
 				},
 				"overline": {
 					"label": "Overline",
 					"name": "Overline",
-					"description": "Overline",
+					"description": "Small text for overlines and other small text content",
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "Comic Sans MS, cursive, sans-serif",
-							"fontSize": "lg"
+							"fontFamily": "var(--kbs-font-family-body)",
+							"fontSource": "system",
+							"fontSize": "base",
+							"color": "palette5",
+							"lineHeight": "base"
 						}
 					}
 				},
-				"subtitle": {
-					"label": "Subtitle",
-					"name": "Subtitle",
-					"description": "Subtitle",
+				"accent": {
+					"label": "Accent",
+					"name": "Accent",
+					"description": "Accent text for accent content",
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontSize": "lg"
+							"fontStyle": "italic"
 						}
 					}
 				},
-				"title": {
-					"label": "Title",
-					"name": "Title",
-					"description": "Title",
+				"accent-alt": {
+					"label": "Accent Alt",
+					"name": "Accent Alt",
+					"description": "Accent text for accent content",
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontSize": "xl"
-						}
-					}
-				},
-				"heroxl": {
-					"label": "Hero XL",
-					"name": "Hero XL",
-					"description": "Hero XL",
-					"locked": true,
-					"attributes": {
-						"desktop": {
-							"fontSize": "2xl"
-						}
-					}
-				},
-				"heroxxl": {
-					"label": "Hero XXL",
-					"name": "Hero XXL",
-					"description": "Hero XXL",
-					"locked": true,
-					"attributes": {
-						"desktop": {
-							"fontSize": "3xl"
+							"color": "palette1"
 						}
 					}
 				}
@@ -426,11 +506,12 @@
 			"lg": { "value": "4rem" }
 		},
 		"lineHeight": {
-			"none": { "value": "0rem" },
-			"xs": { "value": "0.5rem" },
-			"sm": { "value": "1rem" },
-			"md": { "value": "2rem" },
-			"lg": { "value": "4rem" }
+			"xs": { "value": "1" },
+			"sm": { "value": "1.2" },
+			"base": { "value": "1.4" },
+			"md": { "value": "1.6" },
+			"lg": { "value": "1.8" },
+			"xl": { "value": "2" }
 		},
 		"gap": {
 			"none": { "value": "0rem" },

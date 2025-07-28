@@ -23,6 +23,7 @@ function RangeUIControlNoUnit({
 	max = null,
 	placeholder,
 	labelPosition = 'top',
+	initialPosition = null,
 	label = '',
 	step = null,
 	inherited,
@@ -39,6 +40,15 @@ function RangeUIControlNoUnit({
 		}
 		return placeholder;
 	}, [inherited, placeholder]);
+	const initialPositionValue = useMemo(() => {
+		if (inherited?.inheritedValue) {
+			return getNumberFromRawValue(inherited?.inheritedValue);
+		}
+		if (initialPosition) {
+			return initialPosition;
+		}
+		return placeholder;
+	}, [inherited, placeholder, initialPosition]);
 	return (
 		<Flex>
 			<FlexItem className="kbs-range-control-wrapper">
@@ -50,7 +60,7 @@ function RangeUIControlNoUnit({
 					__next40pxDefaultSize={true}
 					__nextHasNoMarginBottom={true}
 					value={getNumberFromRawValue(value)}
-					initialPosition={placeholderValue}
+					initialPosition={initialPositionValue}
 					onChange={rangeControlOnChange}
 					min={null !== min ? min : minValue}
 					max={null !== max ? max : maxValue}

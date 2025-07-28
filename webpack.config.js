@@ -65,7 +65,7 @@ module.exports = {
 		'kbs-row': './src/kbs-blocks/row/index.js',
 		'kbs-buttons': './src/kbs-blocks/buttons/index.js',
 		'kbs-button': './src/kbs-blocks/button/index.js',
-		'plugin-kbs-control': './src/kbs-blocks/plugin.js',
+		'plugin-kbs-control': './src/kbs-plugins/plugin.js',
 		'kbs-prebuilt-library': './src/kbs-plugins/prebuilt-library/index.js',
 	},
 	output: {

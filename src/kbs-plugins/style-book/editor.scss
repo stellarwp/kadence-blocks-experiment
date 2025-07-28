@@ -254,3 +254,7 @@ $editor-control-sidebar-width: 300px;
 		font-weight: 600;
 	}
 }
+.kbs-style-book-style-guide-divider {
+	border-top: 1px solid var(--wp-components-color-border, #d9e7ec);
+	margin: 24px 0;
+}

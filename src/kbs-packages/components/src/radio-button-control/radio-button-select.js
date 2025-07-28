@@ -27,11 +27,12 @@ export default function RadioButtonSelect({
 	type = '',
 	radioType = 'textAlign',
 	reset = true,
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	previewDirection = 'column',
 	hasCustomControls = false,
 	view = 'default',
 	labelPosition = 'top',
+	initialPosition = null,
 	units = [],
 	min = null,
 	max = null,
@@ -53,7 +54,7 @@ export default function RadioButtonSelect({
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
-		onChange(resetValue, 'all', type);
+		onChange(resetValue, 'Desktop' === previewDevice ? 'all' : previewDevice, type);
 	};
 	const [isAdvanced, setIsAdvanced] = useState(view === 'advanced');
 	const [isCustom, setIsCustom] = useState(false);
@@ -108,6 +109,7 @@ export default function RadioButtonSelect({
 					isCustom={isCustom}
 					type={type}
 					units={units}
+					initialPosition={initialPosition}
 					min={min}
 					max={max}
 					step={step}

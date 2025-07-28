@@ -1,7 +1,6 @@
-import React from 'react';
+import { RichText } from '@wordpress/block-editor';
 import { registerBlockType } from '@wordpress/blocks';
 import { __, _x } from '@wordpress/i18n';
-import { getResolvedValue } from '@kadence/kbsHelpers';
 /**
  * Import Css
  */
@@ -25,21 +24,8 @@ registerBlockType('kbs/text', {
 	},
 	edit,
 	save: ({ attributes }) => {
-		const { content, globalStyleIds } = attributes;
-
-		const htmlTagDesktopValue = getResolvedValue(
-			'headingTag',
-			attributes,
-			'desktop',
-			metadata,
-			'headingTag',
-			globalStyleIds
-		);
-		const previewHeadingTag = htmlTagDesktopValue?.appliedValue;
-		return React.createElement(previewHeadingTag, {
-			className: 'kbs-text-content',
-			dangerouslySetInnerHTML: { __html: content },
-		});
+		const { content, htmlTag } = attributes;
+		return <RichText.Content tagName={htmlTag} className="kbs-text-content" value={content} />;
 	},
 	example: {
 		attributes: {

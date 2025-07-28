@@ -35,7 +35,7 @@ export default function ImageControl(props) {
 		advancedControls = [],
 		isCustom = false,
 		hasCustomControls = false,
-		previewDevice = 'desktop',
+		previewDevice = 'Desktop',
 		forStyleBook = false,
 		defaultValue,
 		customOnChange,

@@ -14,6 +14,7 @@ import {
 	IconControl,
 	ColorControl,
 	RadioButtonControl,
+	RadioButtonSelect,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -38,13 +39,12 @@ export default function InspectorGeneral(props) {
 				panelName={'text-settings'}
 				initialOpen={true}
 			>
-				<RadioButtonControl
+				<RadioButtonSelect
 					label={__('HTML Tag', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={'headingTag'}
+					value={attributes.htmlTag}
+					onChange={(value) => setAttributes({ htmlTag: value })}
+					attributeName={'htmlTag'}
 					type={'headingTag'}
-					previewDevice={previewDevice}
 					meta={metadata}
 				/>
 				<RadioButtonControl

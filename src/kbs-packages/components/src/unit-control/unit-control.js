@@ -28,7 +28,7 @@ export default function UnitControl({
 	placeholder = '',
 	className = '',
 	defaultValue = '',
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	max = 200,
 	min = 0,
 	units = [],

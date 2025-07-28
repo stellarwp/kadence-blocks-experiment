@@ -18,6 +18,7 @@ function RadioToggleGroupInputRangeUINoUnit({
 	label = '',
 	isCustom = false,
 	labelPosition = 'top',
+	initialPosition = null,
 	placeholder = '',
 	min = null,
 	max = null,
@@ -42,6 +43,7 @@ function RadioToggleGroupInputRangeUINoUnit({
 					onChange={onChange}
 					controls={controls}
 					label={label}
+					initialPosition={initialPosition}
 					labelPosition={labelPosition}
 					placeholder={placeholder}
 					min={min}

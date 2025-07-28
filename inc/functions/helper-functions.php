@@ -31,12 +31,91 @@ function kbs_get_asset_file( $filepath ) {
  * @return array Array of Google Fonts data
  */
 function kbs_get_google_fonts() {
-    $fonts_file = dirname(__FILE__) . '/../data/google-fonts.php';
-    if (!file_exists($fonts_file)) {
-        return array();
-    }
-    
-    return include $fonts_file;
+	$fonts_file = __DIR__ . '/../data/google-fonts.php';
+	if ( ! file_exists( $fonts_file ) ) {
+		return [];
+	}
+	
+	return include $fonts_file;
+}
+/**
+ * Get the Google Font weights from the variants.
+ *
+ * @param array $variants The variants.
+ * @return array The Google Font weights.
+ */
+function kbs_get_google_font_weights_from_variants( $variants ) {
+	$weights = [];
+	
+	if ( ! isset( $variants ) || ! is_array( $variants ) ) {
+		return $weights;
+	}
+	
+	// Map of Google Font weight names to numeric values.
+	$weight_map = [
+		'thin'        => '100',
+		'extra-light' => '200',
+		'ultra-light' => '200',
+		'light'       => '300',
+		'normal'      => '400',
+		'regular'     => '400',
+		'medium'      => '500',
+		'semi-bold'   => '600',
+		'demi-bold'   => '600',
+		'bold'        => '700',
+		'extra-bold'  => '800',
+		'ultra-bold'  => '800',
+		'black'       => '900',
+		'heavy'       => '900',
+		'lighter'     => 'lighter',
+		'bolder'      => 'bolder',
+	];
+	
+	foreach ( $variants as $variant ) {
+		// Remove 'italic' suffix to get the weight.
+		$weight = str_replace( 'italic', '', $variant );
+		
+		// If the weight is numeric, use it directly.
+		if ( is_numeric( $weight ) ) {
+			$weights[] = $weight;
+		} elseif ( isset( $weight_map[ $weight ] ) ) {
+			// Map named weights to numeric values.
+			$weights[] = $weight_map[ $weight ];
+		} elseif ( in_array( $weight, [ 'lighter', 'bolder' ], true ) ) {
+			// Keep relative weights as-is.
+			$weights[] = $weight;
+		}
+	}
+	
+	// Remove duplicates and sort.
+	$weights = array_unique( $weights );
+	sort( $weights );
+	
+	return $weights;
+}
+
+/**
+ * Get the Google Font styles from the variants.
+ *
+ * @param array $variants The variants.
+ * @return array The Google Font styles.
+ */
+function kbs_get_google_font_styles_from_variants( $variants ) {
+	$styles = [ 'normal' ];
+	if ( isset( $variants ) && is_array( $variants ) ) {
+		// Use array_filter with strpos to check for italic variants more efficiently.
+		$has_italic = array_filter(
+			$variants,
+			function ( $variant ) {
+				return strpos( $variant, 'italic' ) !== false;
+			}
+		);
+		
+		if ( ! empty( $has_italic ) ) {
+			$styles[] = 'italic';
+		}
+	}
+	return $styles;
 }
 
 /**
@@ -45,61 +124,64 @@ function kbs_get_google_fonts() {
  * @param string $api_key Google Fonts API key
  * @return bool|WP_Error True on success, WP_Error on failure
  */
-function kbs_update_google_fonts($api_key) {
-    if (empty($api_key)) {
-        return new \WP_Error('missing_api_key', 'Google Fonts API key is required');
-    }
+function kbs_update_google_fonts( $api_key ) {
+	if ( empty( $api_key ) ) {
+		return new \WP_Error( 'missing_api_key', 'Google Fonts API key is required' );
+	}
 
-    // Fetch variable fonts
-    $fonts_url = add_query_arg(array(
-        'key' => $api_key,
-        'sort' => 'alpha',
-        'capability' => 'VF'
-    ), 'https://www.googleapis.com/webfonts/v1/webfonts');
+	// Fetch variable fonts
+	$fonts_url = add_query_arg(
+		[
+			'key'        => $api_key,
+			'sort'       => 'alpha',
+			'capability' => 'VF',
+		],
+		'https://www.googleapis.com/webfonts/v1/webfonts'
+	);
 
-    $response = wp_remote_get($fonts_url);
-    if (is_wp_error($response)) {
-        return $response;
-    }
+	$response = wp_remote_get( $fonts_url );
+	if ( is_wp_error( $response ) ) {
+		return $response;
+	}
 
-    $body = wp_remote_retrieve_body($response);
-    $data = json_decode($body, true);
-    
-    if (!isset($data['items']) || !is_array($data['items'])) {
-        return new \WP_Error('invalid_response', 'Invalid response from Google Fonts API');
-    }
+	$body = wp_remote_retrieve_body( $response );
+	$data = json_decode( $body, true );
+	
+	if ( ! isset( $data['items'] ) || ! is_array( $data['items'] ) ) {
+		return new \WP_Error( 'invalid_response', 'Invalid response from Google Fonts API' );
+	}
 
-    // Process fonts
-    $processed_fonts = array();
-    foreach ($data['items'] as $font) {        
-        $processed_fonts[ $font['family'] ] = array(
-            'family' => $font['family'],
-            'variants' => $font['variants'],
-            'subsets' => $font['subsets'],
-            'category' => $font['category'],
-            'is_variable' => isset($font['axes']) ? true : false,
-            'axes' => isset($font['axes']) ? $font['axes'] : array()
-        );
-    }
+	// Process fonts
+	$processed_fonts = [];
+	foreach ( $data['items'] as $font ) {        
+		$processed_fonts[ $font['family'] ] = [
+			'family'      => $font['family'],
+			'variants'    => $font['variants'],
+			// 'styles'      => kbs_get_google_font_styles_from_variants( $font['variants'] ),
+			'category'    => $font['category'],
+			'is_variable' => isset( $font['axes'] ) ? true : false,
+			'axes'        => $font['axes'] ?? [],
+		];
+	}
 
-    // Ensure data directory exists
-    $data_dir = dirname(__FILE__) . '/../data';
-    if (!file_exists($data_dir)) {
-        wp_mkdir_p($data_dir);
-    }
+	// Ensure data directory exists
+	$data_dir = __DIR__ . '/../data';
+	if ( ! file_exists( $data_dir ) ) {
+		wp_mkdir_p( $data_dir );
+	}
 
-    // Generate PHP file content
-    $php_content = "<?php\n\n// This file is auto-generated. Do not edit manually.\nreturn " . var_export($processed_fonts, true) . ";\n";
+	// Generate PHP file content
+	$php_content = "<?php\n\n// This file is auto-generated. Do not edit manually.\nreturn " . var_export( $processed_fonts, true ) . ";\n";
 
-    // Save to file
-    $fonts_file = $data_dir . '/google-fonts.php';
-    $save_result = file_put_contents($fonts_file, $php_content);
+	// Save to file
+	$fonts_file  = $data_dir . '/google-fonts.php';
+	$save_result = file_put_contents( $fonts_file, $php_content );
 
-    if ($save_result === false) {
-        return new \WP_Error('save_failed', 'Failed to save Google Fonts data');
-    }
+	if ( $save_result === false ) {
+		return new \WP_Error( 'save_failed', 'Failed to save Google Fonts data' );
+	}
 
-    return true;
+	return true;
 }
 
 /**
@@ -167,7 +249,7 @@ function kbs_hex2rgba( $hex, $alpha ) {
  *
  * @access public
  *
- * @param  string $value - the css property.
+ * @param string $value - the css property.
  * @return boolean
  */
 function kbs_is_number( &$value ) {

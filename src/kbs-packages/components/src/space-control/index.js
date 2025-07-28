@@ -45,7 +45,7 @@ export default function SpaceControl({
 	placeholder = '',
 	className = '',
 	defaultValue = '',
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	max = 200,
 	min = 0,
 	units = [],

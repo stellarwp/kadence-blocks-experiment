@@ -48,7 +48,7 @@ import PopoverSelect from './popover-select';
 import SelectBasicControlSelect from '../select-basic-control/select';
 
 export default function BackgroundMaskLayer({
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	layer,
 	onChange,
 	globalClasses,

@@ -27,7 +27,7 @@ export default function ToggleControl(props) {
 		setAttributes,
 		type = '',
 		reset = true,
-		previewDevice = 'desktop',
+		previewDevice = 'Desktop',
 		meta,
 		globalStylesIds,
 		className,

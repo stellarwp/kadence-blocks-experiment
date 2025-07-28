@@ -23,7 +23,7 @@ export default function BorderStyleControl({
 	setAttributes,
 	attributeName,
 	meta,
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	hasCustomControls = true,
 	hasAdvancedControls = true,
 	styles,

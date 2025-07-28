@@ -650,7 +650,7 @@ export default function BackgroundLayer({
 	advancedControls = [],
 	isCustom = false,
 	hasCustomControls = false,
-	previewDevice = 'desktop',
+	previewDevice = 'Desktop',
 	defaultValue = undefined,
 	globalStylesCss,
 	customOnChange = undefined,

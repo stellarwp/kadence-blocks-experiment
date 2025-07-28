@@ -84,6 +84,8 @@ export default function InspectorStyles(props) {
 					meta={metadata}
 					previewDevice={previewDevice}
 					attributeName={'typography'}
+					hasColor={true}
+					hasBackgroundColor={true}
 					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>

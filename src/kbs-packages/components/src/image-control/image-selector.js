@@ -20,7 +20,7 @@ import './editor.scss';
 export default function ImageSelector(props) {
 	const {
 		type,
-		previewDevice = 'desktop',
+		previewDevice = 'Desktop',
 		onChange,
 		hasSizeControls = false,
 		hasClearControls = true,
@@ -62,16 +62,18 @@ export default function ImageSelector(props) {
 					disableMediaButtons={false}
 					dynamicControl={
 						dynamicAttribute && kbs_params.dynamic_enabled ? (
-							<DynamicImageControl customOnChange={onChange} dynamicAttributes={dynamicImage} {...props} />
+							<DynamicImageControl
+								customOnChange={onChange}
+								dynamicAttributes={dynamicImage}
+								{...props}
+							/>
 						) : undefined
 					}
 				/>
 			)}
 			{hasImage && (
 				<>
-					{dynamicAttribute &&
-					kbs_params.dynamic_enabled &&
-					dynamicImage?.enable ? (
+					{dynamicAttribute && kbs_params.dynamic_enabled && dynamicImage?.enable ? (
 						<div className="kb-dynamic-image-sidebar-top">
 							<DynamicImageControl
 								startOpen={dynamicImage?.field ? false : true}
