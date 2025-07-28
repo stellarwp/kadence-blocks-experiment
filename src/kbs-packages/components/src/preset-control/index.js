@@ -71,6 +71,7 @@ export default function PresetControl({
 	previewAmount = 3,
 	definedPresets = [],
 	view = 'default',
+	isBundlePreset = false,
 }) {
 	const attributeMeta = metaData?.attributes?.[attributeName];
 	const presetType = attributeMeta?.component ? attributeMeta?.component : '';
@@ -82,7 +83,7 @@ export default function PresetControl({
 	// Get the first three presets in a custom array
 	const presetOptions = definedPresets.length > 0 ? definedPresets : presets.slice(0, previewAmount);
 	const hasRadioToggle = definedPresets.length > 0 ? true : false;
-	const currentValue = attributes?.[attributeName]?.preset;
+	const currentValue = isBundlePreset ? attributes?.[attributeName] : attributes?.[attributeName]?.preset;
 
 	const [isPopover, setIsPopover] = useState(false);
 	const [showConfirmPopover, setShowConfirmPopover] = useState(false);
@@ -112,6 +113,10 @@ export default function PresetControl({
 		) {
 			setPendingPreset(value);
 			setShowConfirmPopover(true);
+			return;
+		}
+		if (isBundlePreset) {
+			setAttributes({ [attributeName]: value });
 			return;
 		}
 		handleAttributeChange(
@@ -154,7 +159,7 @@ export default function PresetControl({
 
 	return (
 		<div
-			className={`components-base-control kbs-control kbs-radio-preset-control kbs-radio-preset-control-${presetType}`}
+			className={`components-base-control kbs-control kbs-radio-preset-control kbs-radio-preset-control-${presetType} ${isBundlePreset ? 'kbs-radio-preset-control-bundle' : ''}`}
 		>
 			<TitleBar
 				label={label}
@@ -182,7 +187,7 @@ export default function PresetControl({
 					className="kbs-preset-popover__dropdown-content kbs-radio-preset-control"
 				>
 					<TitleBar label={label} reset={false} />
-					<div ref={divRef} className="kbs-control-inner kbs-radio-preset-control-inner">
+					<div ref={divRef} className={`kbs-control-inner kbs-radio-preset-control-inner`}>
 						{presets.map((option) => (
 							<Button
 								key={option.value}

@@ -50,6 +50,14 @@
 				}
 			}
 		},
+		"variant": {
+			"renderCSS": false,
+			"component": "buttonVariant",
+			"bundlePreset": true,
+			"nonInheritable": true,
+			"type": "string",
+			"initial": "primary"
+		},
 		"link": {
 			"type": "object"
 		},

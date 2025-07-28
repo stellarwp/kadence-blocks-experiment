@@ -16,6 +16,7 @@ export { default as useGlobalStylesIds } from './use-global-styles-ids';
 export { default as getGlobalStylesPresetOptions } from './get-global-styles-preset-options';
 export { default as deepMerge } from './deep-merge';
 export { default as getPresetValue } from './get-preset-value';
+export { default as getBundlePresetValue } from './get-bundle-preset-value';
 export { default as useEditorElement } from './use-editor-element';
 export { default as getComponentView } from './get-component-view';
 export { isAdvancedOption } from './is-advanced-option';

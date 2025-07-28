@@ -311,10 +311,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette3)",
-							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette3)",
-							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette3)",
-							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette3)",
+							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
 							"borderRadius": ["sm", "sm", "sm", "sm"]
 						}
 					}
@@ -335,10 +335,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
-							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
-							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
-							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width-simple,1px) var(--kbs-colors-palette1)",
+							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
+							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
+							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
+							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
 							"borderRadius": ["md", "md", "md", "md"]
 						}
 					}
@@ -483,6 +483,103 @@
 								}
 							}
 						]
+					}
+				}
+			}
+		},
+		"buttonVariant": {
+			"presets": {
+				"primary": {
+					"label": "Primary",
+					"description": "A primary button variant preset",
+					"locked": true,
+					"attributes": {
+						"color": {
+							"desktop": {
+								"color": "palette9"
+							}
+						},
+						"backgroundColor": {
+							"desktop": {
+								"color": "palette1"
+							}
+						},
+						"border": {
+							"desktop": {
+								"borderRadius": ["md", "md", "md", "md"],
+								"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+								"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+								"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+								"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)"
+							}
+						},
+						"padding": {
+							"desktop": {
+								"paddingTop": "xs",
+								"paddingRight": "sm",
+								"paddingBottom": "xs",
+								"paddingLeft": "sm"
+							}
+						}
+					}
+				},
+				"secondary": {
+					"label": "Secondary",
+					"description": "A secondary button variant preset",
+					"locked": true,
+					"attributes": {
+						"color": {
+							"desktop": {
+								"color": "palette1"
+							}
+						},
+						"backgroundColor": {
+							"desktop": {
+								"color": "palette9"
+							}
+						},
+						"border": {
+							"desktop": {
+								"borderRadius": ["md", "md", "md", "md"],
+								"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+								"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+								"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+								"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)"
+							}
+						},
+						"padding": {
+							"desktop": {
+								"paddingTop": "xs",
+								"paddingRight": "sm",
+								"paddingBottom": "xs",
+								"paddingLeft": "sm"
+							}
+						}
+					}
+				},
+				"tertiary": {
+					"label": "Tertiary",
+					"description": "A tertiary button variant preset",
+					"locked": true,
+					"attributes": {
+						"color": {
+							"desktop": {
+								"color": "palette9"
+							}
+						},
+						"backgroundColor": {
+							"desktop": {
+								"color": "palette3"
+							}
+						},
+						"padding": {
+							"desktop": {
+								"paddingTop": "xxs",
+								"paddingRight": "xs",
+								"paddingBottom": "xxs",
+								"paddingLeft": "xs"
+							}
+						}
 					}
 				}
 			}

@@ -6,6 +6,7 @@ import './editor.scss';
 export { default as ToolsPanelBody } from './tools-panel-body';
 export { default as RadioButtonControl } from './radio-button-control';
 export { default as RadioButtonSelect } from './radio-button-control/radio-button-select';
+export { default as PresetControl } from './preset-control';
 export { default as PresetDropdownControl } from './preset-dropdown-control';
 export { default as SelectControl } from './select-control';
 export { default as Typography } from './typography';
