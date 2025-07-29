@@ -7,7 +7,6 @@
 		"postId",
 		"queryId",
 		"kbs/globalStyles",
-		"kbs/parentUniqueId",
 		"kadence/dynamicSource",
 		"kadence/repeaterRowData",
 		"kadence/repeaterRow"

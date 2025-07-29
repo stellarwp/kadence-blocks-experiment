@@ -41,13 +41,6 @@ class CSS_Engine {
 	public static $custom_styles = array();
 
 	/**
-	 * Global styles css
-	 *
-	 * @var object
-	 */
-	protected $global_styles_css = null;
-
-	/**
 	 * The css group id.
 	 *
 	 * @access protected
@@ -278,16 +271,14 @@ class CSS_Engine {
 		if( null === $this->global_styles ) {
             $this->global_styles = $this->get_global_styles();
         }
-		// Set up the global styles css engine in the global styles css engine.
-		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
 	}
 
 	/**
 	 * Setup global styles.
 	 */
-	public function setup_global_styles() {
+	public function set_global_styles() {
 		// Generate global styles CSS for all mappings.
-		$this->global_styles_css->generate_css();
+		$this->global_styles = '';
 	}
 	/**
 	 * Get global styles.
@@ -830,16 +821,11 @@ class CSS_Engine {
 	 * @return array
 	 */
 	public function get_global_styles_ids( $attributes, $block_instance ) {
-		$parent_global_styles_ids = [];
-		if ( is_object( $block_instance ) && !empty( $block_instance->context['kbs/parentGlobalStyles'] ) && is_array( $block_instance->context['kbs/parentGlobalStyles'] ) ) {
-			$parent_global_styles_ids = $block_instance->context['kbs/parentGlobalStyles'];
-		}
-		$current_global_styles_ids = [];
 		if ( !empty( $attributes['globalStyleIds'] ) && is_array( $attributes['globalStyleIds'] ) ) {
-			$current_global_styles_ids = $attributes['globalStyleIds'];
+			return array_merge( $attributes['globalStyleIds'], [ 'kbs-base' ] );
 		}
-		$global_styles_ids = array_merge( $parent_global_styles_ids, $current_global_styles_ids, [ 'kbs-base' ] );
-		return $global_styles_ids;
+
+		return [ 'kbs-base' ];
 	}
 	/**
 	 * Add global style css.

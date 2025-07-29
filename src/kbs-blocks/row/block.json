@@ -3,10 +3,9 @@
 	"title": "Row/Grid",
 	"name": "kbs/row",
 	"category": "kadence-blocks",
-	"usesContext": ["postId", "queryId", "kbs/parentGlobalStyles", "kbs/parentUniqueId"],
+	"usesContext": ["postId", "queryId", "kbs/parentGlobalStyles"],
 	"textdomain": "kadence-blocks",
 	"providesContext": {
-		"kbs/parentUniqueId": "uniqueID",
 		"kbs/parentGlobalStyles": "globalStyleIds"
 	},
 	"attributes": {

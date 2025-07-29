@@ -15,6 +15,7 @@ use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
 use KadenceWP\KadenceBlocks\Frontend\Font_Engine;
 use KadenceWP\KadenceBlocks\Settings\Global_Style;
 use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
+use KadenceWP\KadenceBlocks\Frontend\Global_Style_Css;
 use function kbs_get_asset_file;
 
 /**
@@ -118,13 +119,19 @@ class Abstract_Block {
 	 */
 	protected Font_Engine $font_engine;
 
+	/** 
+	 * Global style css instance.
+	 */
+	protected Global_Style_Css $global_style_css;
+
 	/**
 	 * @param CSS_Engine  $css_engine The CSS engine instance.
 	 * @param Font_Engine $font_engine The Font engine instance.
 	 */
-	public function __construct( CSS_Engine $css_engine, Font_Engine $font_engine ) {
+	public function __construct( CSS_Engine $css_engine, Font_Engine $font_engine, Global_Style_css $global_style_css ) {
 		$this->css_engine  = $css_engine;
 		$this->font_engine = $font_engine;
+		$this->global_style_css = $global_style_css;
 	}
 
 	/**
@@ -320,11 +327,48 @@ class Abstract_Block {
 	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 */
 	public function render_css( $attributes, $content, $block_instance ) {
+		$unique_id = $this->get_unique_id( $attributes );
+		$unique_id = str_replace( '/', '-', $unique_id );
+
+		if ( empty( $unique_id ) ) {
+			return $content;
+		}
+
 		$this->render_scripts( $attributes, true );
 
 		// Process and enqueue fonts
 		$this->process_fonts( $attributes, $block_instance );
 
+		// Track global style mapping use
+		$this->global_style_css->track_global_style_uses( $block_instance );
+
+		// If filter didn't run in header (which would have enqueued the specific css id ) then filter attributes for easier dynamic css.
+		$attributes = apply_filters( 'kadence_blocks_' . str_replace( '-', '_', $this->block_name ) . '_render_block_attributes', $attributes, $block_instance );
+		$unique_style_id = apply_filters( 'kadence_blocks_build_render_unique_id', $unique_id, $this->block_name, $attributes );
+
+		$content = $this->build_html( $attributes, $unique_id, $content, $block_instance );
+		if ( ! $this->css_engine->has_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
+			$css = $this->build_css( $attributes, $this->css_engine, $unique_id, $unique_style_id, $block_instance );
+			if ( ! empty( $css ) && ! wp_is_block_theme() ) {
+				$this->do_inline_styles( $content, $unique_style_id, $css );
+			}
+		} elseif ( ! wp_is_block_theme() && ! $this->css_engine->has_header_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
+			// Some plugins run render block without outputing the content, this makes it so css can be rebuilt.
+			$css = $this->build_css( $attributes, $this->css_engine, $unique_id, $unique_style_id, $block_instance );
+			if ( ! empty( $css ) ) {
+				$this->do_inline_styles( $content, $unique_style_id, $css );
+			}
+		}
+
+		return $content;
+	}
+
+	/*
+	 * Get the unique ID for the block.
+	 *
+	 * @param array $attributes the blocks attributes.
+	 */
+	private function get_unique_id ( $attributes ) {
 		if ( in_array( $this->block_name, $this->is_cpt_block ) ) {
 			$unique_id = ! empty( $attributes['id'] ) ? strval( $attributes['id'] ) . '-cpt-id' : '';
 			if ( empty( $unique_id ) ) {
@@ -333,29 +377,8 @@ class Abstract_Block {
 		} else {
 			$unique_id = ! empty( $attributes['uniqueID'] ) ? $attributes['uniqueID'] : '';
 		}
-		if ( ! empty( $unique_id ) ) {
-			$unique_id       = str_replace( '/', '-', $unique_id );
-			$unique_style_id = apply_filters( 'kadence_blocks_build_render_unique_id', $unique_id, $this->block_name, $attributes );
 
-			// If filter didn't run in header (which would have enqueued the specific css id ) then filter attributes for easier dynamic css.
-			$attributes = apply_filters( 'kadence_blocks_' . str_replace( '-', '_', $this->block_name ) . '_render_block_attributes', $attributes, $block_instance );
-
-			$content = $this->build_html( $attributes, $unique_id, $content, $block_instance );
-			if ( ! $this->css_engine->has_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
-				$css = $this->build_css( $attributes, $this->css_engine, $unique_id, $unique_style_id, $block_instance );
-				if ( ! empty( $css ) && ! wp_is_block_theme() ) {
-					$this->do_inline_styles( $content, $unique_style_id, $css );
-				}
-			} elseif ( ! wp_is_block_theme() && ! $this->css_engine->has_header_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
-				// Some plugins run render block without outputing the content, this makes it so css can be rebuilt.
-				$css = $this->build_css( $attributes, $this->css_engine, $unique_id, $unique_style_id, $block_instance );
-				if ( ! empty( $css ) ) {
-					$this->do_inline_styles( $content, $unique_style_id, $css );
-				}
-			}
-		}
-
-		return $content;
+		return $unique_id;
 	}
 
 	/**
@@ -596,15 +619,10 @@ class Abstract_Block {
 	 * @return array
 	 */
 	public function get_global_styles_ids( $attributes, $block_instance ) {
-		$parent_global_styles_ids = [];
-		if ( is_object( $block_instance ) && ! empty( $block_instance->context['kbs/parentGlobalStyles'] ) && is_array( $block_instance->context['kbs/parentGlobalStyles'] ) ) {
-			$parent_global_styles_ids = $block_instance->context['kbs/parentGlobalStyles'];
-		}
-		$current_global_styles_ids = [];
 		if ( ! empty( $attributes['globalStyleIds'] ) && is_array( $attributes['globalStyleIds'] ) ) {
-			$current_global_styles_ids = $attributes['globalStyleIds'];
+			return array_merge( $attributes['globalStyleIds'], [ 'kbs-base' ] );
 		}
-		return array_merge( $parent_global_styles_ids, $current_global_styles_ids, [ 'kbs-base' ] );
+		return [ 'kbs-base' ];
 	}
 	/**
 	 * Get the preset layers.
