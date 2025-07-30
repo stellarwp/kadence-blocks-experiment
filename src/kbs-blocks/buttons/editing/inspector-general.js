@@ -45,6 +45,14 @@ export default function InspectorGeneral(props) {
 			>
 				<SelectGlobalStyles attributes={attributes} setAttributes={setAttributes} />
 			</ToolsPanelBody>
+			<FlexBoxControl
+				attributeName={'flexBox'}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				metaData={metadata}
+				previewDevice={previewDevice}
+				globalStylesIds={globalStylesIds}
+			/>
 		</>
 	);
 }

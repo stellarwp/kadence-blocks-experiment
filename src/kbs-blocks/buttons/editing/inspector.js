@@ -50,9 +50,14 @@ export default function Inspector(props) {
 	return (
 		<InspectorControls>
 			<div className={classes} ref={divRef}>
-				<InspectorControlTabs panelName={PANEL_NAME} setActiveTab={setActiveTab} activeTab={activeTab} />
+				<InspectorControlTabs
+					panelName={PANEL_NAME}
+					setActiveTab={setActiveTab}
+					activeTab={activeTab}
+					allowedTabs={['general', 'advanced']}
+				/>
 				{activeTab === 'general' && <InspectorGeneral globalStylesCss={globalStylesCss} {...props} />}
-				{activeTab === 'style' && <InspectorStyles globalStylesCss={globalStylesCss} {...props} />}
+				{/* {activeTab === 'style' && <InspectorStyles globalStylesCss={globalStylesCss} {...props} />} */}
 				{activeTab === 'advanced' && <InspectorAdvanced globalStylesCss={globalStylesCss} {...props} />}
 			</div>
 		</InspectorControls>
