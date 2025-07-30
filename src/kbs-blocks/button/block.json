@@ -208,7 +208,12 @@
 			"component": "width",
 			"nonInheritable": true,
 			"type": "object",
-			"varPrefix": "--kbs-button-"
+			"varPrefix": "--kbs-button-",
+			"initial": {
+				"desktop": {
+					"width": "auto"
+				}
+			}
 		},
 		"icon": {
 			"renderCSS": true,
