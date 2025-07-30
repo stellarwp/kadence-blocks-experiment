@@ -22,7 +22,7 @@ import metadata from './block.json';
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { useMemo, useRef } from '@wordpress/element';
+import { useMemo, useRef, useEffect } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
 import { RichText, useBlockProps, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
@@ -36,6 +36,8 @@ import {
 	getResolvedValue,
 	getColorOutput,
 	handleAttributeChange,
+	getGlobalStylesCSSOutput,
+	registerGoogleFonts,
 } from '@kadence/kbsHelpers';
 import {
 	DynamicTextControl,
@@ -54,11 +56,12 @@ const nonTransAttrs = ['content', 'htmlTag', 'link'];
 export default function TextEdit(props) {
 	const { attributes, setAttributes, className, isSelected, clientId, toggleSelection, mergeBlocks, onReplace } =
 		props;
-	const { uniqueID, content, textAlign, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
+	const { uniqueID, content, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
 	const myElementRef = useRef(null);
 
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
+	const globalStylesCss = getGlobalStylesCSSOutput(globalStylesIds);
 
 	const { previewDevice, allowedFormats } = useSelect((select) => {
 		return {
@@ -68,6 +71,7 @@ export default function TextEdit(props) {
 	}, []);
 
 	uniqueIdHelper(props);
+	registerGoogleFonts(props, metadata);
 
 	const colorValue = getResolvedValue('color', attributes, previewDevice, metadata, 'color', globalStylesIds);
 	const previewColorValue = getColorOutput(colorValue?.appliedValue);
@@ -124,7 +128,6 @@ export default function TextEdit(props) {
 	const classes = classnames('kbs-text', {
 		[className]: className,
 		[`kbs-text-${uniqueID}`]: uniqueID,
-		[`has-text-align-${textAlign}`]: textAlign,
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
 		[`kbs-text-content`]: !shouldWrapContent,
@@ -182,7 +185,7 @@ export default function TextEdit(props) {
 	const contentHTML = (
 		<RichText
 			{...(shouldWrapContent ? { className: 'kbs-text-content' } : finalBlocksProps)}
-			tagName={htmlTag}
+			tagName={shouldWrapContent ? 'span' : htmlTag}
 			value={content}
 			onChange={onContentChange}
 			placeholder={__('Write something…', 'kadence-blocks')}
@@ -192,8 +195,8 @@ export default function TextEdit(props) {
 			onRemove={() => onReplace([])}
 		/>
 	);
-
 	const linkContentHTML = getLinkHTML(link, contentHTML);
+	const WrapperTag = htmlTag;
 
 	const controlsAndStylesHTML = (
 		<>
@@ -204,13 +207,14 @@ export default function TextEdit(props) {
 				hasGradient={hasGradient}
 				hasGradientHighlight={hasGradientHighlight}
 				blockElementRef={myElementRef}
+				globalStylesCss={globalStylesCss}
 			/>
 			<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 			<BlockControls>
 				<ToolbarGroup group="tag">
 					<ToolbarDropdownMenu
 						icon={<HeadingLevelIcon level={htmlTag} />}
-						label={__('Change heading tag', 'kadence-blocks')}
+						label={__('Change text tag', 'kadence-blocks')}
 						controls={headingOptions}
 					/>
 				</ToolbarGroup>
@@ -235,12 +239,12 @@ export default function TextEdit(props) {
 			{controlsAndStylesHTML}
 			{!shouldWrapContent && <>{contentHTML}</>}
 			{shouldWrapContent && (
-				<div {...finalBlocksProps}>
+				<WrapperTag {...finalBlocksProps}>
 					{previewIconPlacement !== 'right' && <IconRender attributeName={'icon'} attributes={attributes} />}
 					{link?.url && linkContentHTML}
 					{!link?.url && contentHTML}
 					{previewIconPlacement === 'right' && <IconRender attributeName={'icon'} attributes={attributes} />}
-				</div>
+				</WrapperTag>
 			)}
 		</GlobalStylesContext.Provider>
 	);

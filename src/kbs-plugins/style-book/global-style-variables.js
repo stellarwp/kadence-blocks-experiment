@@ -38,10 +38,11 @@ const specialTypographyPresets = [
 ];
 
 export const GlobalStyleVariableOutput = () => {
-	const { globalStyles, previewDevice } = useSelect(
+	const { globalStyles, previewDevice, googleFonts } = useSelect(
 		(select) => ({
 			globalStyles: select('kadenceblocks/global-styles').getGlobalStyles(),
 			previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+			googleFonts: select('kadenceblocks/data').getGoogleFonts(),
 		}),
 		[]
 	);
@@ -175,6 +176,40 @@ export const GlobalStyleVariableOutput = () => {
 		return finalCssString;
 	}, [globalStyles, previewDevice]);
 
+	const googleFontsUrls = useMemo(() => {
+		if (!googleFonts || typeof googleFonts !== 'object') {
+			return [];
+		}
+
+		const fontUrls = Object.entries(googleFonts).flatMap(([fontFamily, data]) => {
+			if (data?.variable) {
+				return [
+					{
+						url: `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontFamily)}:wght@${data?.variable}&display=swap`,
+						id: fontFamily.replace(/ /g, '-').toLowerCase(),
+					},
+				];
+			} else if (data.weights && data.weights.length > 0) {
+				//const weights = data.weights.join(',');
+				return data.weights.map((weight) => {
+					return {
+						url: `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontFamily)}:wght@${weight}&display=swap`,
+						id: fontFamily.replace(/ /g, '-').toLowerCase() + '-' + weight,
+					};
+				});
+			} else {
+				return [
+					{
+						url: `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontFamily)}&display=swap`,
+						id: fontFamily.replace(/ /g, '-').toLowerCase(),
+					},
+				];
+			}
+		});
+
+		return fontUrls;
+	}, [googleFonts]);
+
 	useEffect(() => {
 		const styleId = 'kadence-global-styles-variables';
 		let iframeDoc;
@@ -236,6 +271,68 @@ export const GlobalStyleVariableOutput = () => {
 			}
 		};
 	}, [cssVariables, previewDevice]);
+
+	useEffect(() => {
+		const styleId = 'kadence-global-fonts-';
+		let iframeDoc;
+		try {
+			iframeDoc = document.querySelector('iframe[name="editor-canvas"]')?.contentWindow?.document;
+		} catch (e) {
+			console.error('Could not access iframe document:', e);
+			return;
+		}
+
+		const updateOrCreateLinkTags = (doc, id, fontUrls) => {
+			console.log('fontUrls', fontUrls);
+			fontUrls.map((font) => {
+				const linkID = id + font.id; // Make lowercase and replace spaces with hyphens
+				let linkTag = doc.getElementById(linkID);
+				if (!linkTag) {
+					linkTag = doc.createElement('link');
+					linkTag.id = linkID;
+					linkTag.rel = 'stylesheet';
+					linkTag.href = font.url;
+					if (doc?.head) {
+						doc.head.appendChild(linkTag);
+					}
+				}
+			});
+		};
+		if (!iframeDoc) {
+			const timeoutId = setTimeout(() => {
+				iframeDoc = document.querySelector('iframe[name="editor-canvas"]')?.contentWindow?.document;
+				if (iframeDoc) {
+					updateOrCreateLinkTags(iframeDoc, styleId, googleFontsUrls);
+					updateOrCreateLinkTags(document, styleId, googleFontsUrls);
+				} else {
+					console.warn('Editor iframe still not found after delay.');
+				}
+			}, 250);
+			return () => clearTimeout(timeoutId);
+		}
+		updateOrCreateLinkTags(iframeDoc, styleId, googleFontsUrls);
+		updateOrCreateLinkTags(document, styleId, googleFontsUrls);
+
+		// Cleanup the style tag when the component unmounts
+		return () => {
+			if (iframeDoc) {
+				fontUrls.map((font) => {
+					const linkID = id + font.id;
+					const linkTag = iframeDoc.getElementById(linkID);
+					if (linkTag) {
+						linkTag.remove();
+					}
+				});
+			}
+			fontUrls.map((font) => {
+				const linkID = id + font.id;
+				const linkTag = document.getElementById(linkID);
+				if (linkTag) {
+					linkTag.remove();
+				}
+			});
+		};
+	}, [previewDevice, googleFontsUrls]);
 
 	return null;
 };

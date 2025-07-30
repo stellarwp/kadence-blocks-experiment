@@ -1,5 +1,5 @@
 import { useRef, useMemo } from '@wordpress/element';
-import { cssGenerator, getGoogleFontUrl } from '@kadence/kbsHelpers';
+import { cssGenerator } from '@kadence/kbsHelpers';
 
 export default function Styles(props) {
 	const {
@@ -177,16 +177,8 @@ export default function Styles(props) {
 	}, [tempColors, tempGradients]);
 	// console.log('style', cssOutput, selectedComponent, attributes, styleBookLocalGlobalStyles);
 
-	const googleFontUrl = useMemo(() => {
-		if (!fakeMetaData.attributes) {
-			return '';
-		}
-		return getGoogleFontUrl(attributes, fakeMetaData.attributes);
-	}, [attributes]);
-
 	return (
 		<>
-			{googleFontUrl && <link href={googleFontUrl} rel="stylesheet" />}
 			<style>{cssOutput + baseVariables}</style>
 		</>
 	);

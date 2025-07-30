@@ -13,6 +13,9 @@ import {
 	justifyBottom,
 	formatBold,
 	formatUnderline,
+	alignCenter as textAlignCenter,
+	alignLeft as textAlignLeft,
+	alignRight as textAlignRight,
 } from '@wordpress/icons';
 import { getFontSizeOptions } from '@kadence/kbsHelpers';
 
@@ -1264,18 +1267,18 @@ export const getAlignItemsControls = (direction) => {
 export const getAlignTextControls = () => {
 	return [
 		{
-			icon: justifyLeft,
-			title: __('Start', 'kadence-blocks'),
+			icon: textAlignLeft,
+			title: __('Left', 'kadence-blocks'),
 			key: 'left',
 		},
 		{
-			icon: justifyCenter,
+			icon: textAlignCenter,
 			title: __('Center', 'kadence-blocks'),
 			key: 'center',
 		},
 		{
-			icon: justifyRight,
-			title: __('End', 'kadence-blocks'),
+			icon: textAlignRight,
+			title: __('Right', 'kadence-blocks'),
 			key: 'right',
 		},
 	];

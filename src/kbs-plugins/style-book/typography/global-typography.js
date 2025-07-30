@@ -124,7 +124,6 @@ export default function GlobalTypography(props) {
 				</div>
 				<div className="kbs-control-inner kbs-typography-mapping-grid">
 					{globalTypography.map((item, index) => {
-						console.log(item);
 						let fontFamily =
 							tempTypography[item.value]?.attributes?.desktop?.fontFamily ||
 							__('Unset', 'kadence-blocks');

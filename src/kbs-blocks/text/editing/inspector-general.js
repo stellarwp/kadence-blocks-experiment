@@ -27,8 +27,17 @@ import { __ } from '@wordpress/i18n';
  * Build the section edit.
  */
 export default function InspectorGeneral(props) {
-	const { attributes, setAttributes, previewDevice, isSelected, clientId, context, className, globalStylesIds } =
-		props;
+	const {
+		attributes,
+		setAttributes,
+		previewDevice,
+		isSelected,
+		clientId,
+		context,
+		className,
+		globalStylesIds,
+		globalStylesCss,
+	} = props;
 
 	const { link } = attributes;
 
@@ -78,7 +87,7 @@ export default function InspectorGeneral(props) {
 				initialOpen={false}
 			>
 				<LinkControl
-					label={__('Link', 'kadence-blocks')}
+					label={__('Text Wrap Link', 'kadence-blocks')}
 					value={link}
 					onChange={(value) => setAttributes({ link: value })}
 					additionalControls={true}
@@ -104,6 +113,7 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					attributeName={'colorLink'}
 					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
 					hasGradient={true}
 					hasMix={true}
 					hasHoverControls={true}
@@ -126,6 +136,8 @@ export default function InspectorGeneral(props) {
 					hasPlacement={true}
 					hasAlignment={true}
 					hasSpacing={true}
+					globalStylesCss={globalStylesCss}
+					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>
 		</>

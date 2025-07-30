@@ -22,13 +22,12 @@
 		cursor: text;
 	}
 }
-
+// No outline on focus of rich text editor.
 .kbs-text-content {
 	&:focus {
 		outline: none;
 	}
 }
-
 /** AI TEXT **/
 .components-toolbar-group.kb-ai-toolbar-group {
 	padding: 0;

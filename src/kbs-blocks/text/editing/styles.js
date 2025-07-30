@@ -5,9 +5,9 @@
 /**
  * Import External
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo, useEffect } from '@wordpress/element';
 import { select } from '@wordpress/data';
-import { cssGenerator, getGoogleFontUrl } from '@kadence/kbsHelpers';
+import { cssGenerator } from '@kadence/kbsHelpers';
 import metadata from '../block.json';
 
 export default function Styles(props) {
@@ -26,13 +26,6 @@ export default function Styles(props) {
 		return output;
 	}, [attributes, attributes?.uniqueID, previewDevice, mergedGlobalStyles]);
 
-	const googleFontUrl = useMemo(() => {
-		if (!metadata.attributes) {
-			return '';
-		}
-		return getGoogleFontUrl(attributes, metadata.attributes);
-	}, [attributes]);
-
 	const globalStylesCssOutput = useMemo(() => {
 		if (!globalStylesCss) {
 			return '';
@@ -42,7 +35,6 @@ export default function Styles(props) {
 
 	return (
 		<>
-			{googleFontUrl && <link href={googleFontUrl} rel="stylesheet" />}
 			{globalStylesCssOutput && <style>{globalStylesCssOutput}</style>}
 			<style>{cssOutput}</style>
 		</>

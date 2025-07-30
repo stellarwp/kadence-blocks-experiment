@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import {
 	getResolvedValue,
-	getFontStylesAndWeights,
 	getInheritedDeviceValue,
 	handleMultipleAttributeChange,
 	getColorOutput,
@@ -24,7 +23,6 @@ export default function FontColor({
 	const colorValue = getResolvedValue(attributeName, attributes, 'any', meta, 'color', globalStylesIds);
 	const previewColorValue = getColorOutput(colorValue?.appliedValue);
 	const hasGradient = hasColor && previewColorValue && previewColorValue?.includes('gradient');
-	console.log(colorValue);
 	return (
 		<div className="components-base-control kbs-typography-color-group">
 			{hasColor && (

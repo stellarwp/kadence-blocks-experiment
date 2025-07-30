@@ -81,7 +81,8 @@
 			"component": "typography",
 			"varPrefix": "--kbs-text-",
 			"initial": {},
-			"type": "object"
+			"type": "object",
+			"nonInheritable": true
 		},
 		"color": {
 			"renderCSS": true,

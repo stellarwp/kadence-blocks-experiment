@@ -18,6 +18,7 @@ const DEFAULT_STATE = {
 		google: [],
 		theme: [],
 		custom: [],
+		system: [],
 		loaded: false,
 	},
 	icons: {
@@ -27,6 +28,7 @@ const DEFAULT_STATE = {
 		combinedIcons: {},
 		loaded: false,
 	},
+	googleFonts: {},
 	spacingMap: {},
 };
 
@@ -112,6 +114,13 @@ const actions = {
 			frame,
 		};
 	},
+	addGoogleFont(fontFamily, data) {
+		return {
+			type: 'ADD_GOOGLE_FONT',
+			fontFamily,
+			data,
+		};
+	},
 	setImagePickerQuery(query) {
 		return {
 			type: 'SET_IMAGE_PICKER_QUERY',
@@ -159,8 +168,9 @@ const actions = {
 				type: 'SET_FONTS',
 				fonts: {
 					google: response?.google || [],
-					theme: response?.theme_json || [],
-					custom: response?.kadence_custom || [],
+					theme: response?.theme || [],
+					custom: response?.custom || [],
+					system: response?.system || [],
 					loaded: true,
 				},
 			};
@@ -172,6 +182,7 @@ const actions = {
 					google: [],
 					theme: [],
 					custom: [],
+					system: [],
 					loaded: true,
 				},
 			};
@@ -439,6 +450,37 @@ const store = createReduxStore('kadenceblocks/data', {
 					...state,
 					webFonts: updatedFonts,
 				};
+			case 'ADD_GOOGLE_FONT':
+				const updatedGoogleFonts = { ...state.googleFonts };
+				const fontFamily = action.fontFamily.toString();
+
+				// Initialize the font family entry if it doesn't exist
+				if (!updatedGoogleFonts[fontFamily]) {
+					updatedGoogleFonts[fontFamily] = {
+						weights: [],
+						styles: [],
+						variable: action.data?.variable || undefined,
+					};
+				}
+				if (action.data?.variable) {
+					updatedGoogleFonts[fontFamily].variable = action.data.variable;
+				} else if (
+					action.data?.weight &&
+					!updatedGoogleFonts[fontFamily].weights.includes(action.data.weight)
+				) {
+					// Add unique weight if it exists and isn't already in the array
+					updatedGoogleFonts[fontFamily].weights.push(action.data.weight);
+				}
+
+				// Add unique style if it exists and isn't already in the array
+				if (action.data?.style && !updatedGoogleFonts[fontFamily].styles.includes(action.data.style)) {
+					updatedGoogleFonts[fontFamily].styles.push(action.data.style);
+				}
+
+				return {
+					...state,
+					googleFonts: updatedGoogleFonts,
+				};
 			case 'SET_IMAGE_PICKER_QUERY':
 				return {
 					...state,
@@ -566,6 +608,32 @@ const store = createReduxStore('kadenceblocks/data', {
 			}
 			return isUniqueFont;
 		},
+		isUniqueGoogleFont(state, fontFamily, fontData) {
+			const { googleFonts } = state;
+			let isUniqueGoogleFont = true;
+			if (fontData?.variable) {
+				// Since we don't need to update to add new weights or styles we can just check if the font family exists.
+				if (googleFonts.hasOwnProperty(fontFamily)) {
+					isUniqueGoogleFont = false;
+				}
+			} else {
+				console.log('fontData', fontData);
+				// Since we need to update to add new weights or styles we need to check if the font family exists and if the weights and styles are the same.
+				if (googleFonts.hasOwnProperty(fontFamily)) {
+					if (!fontData?.weight) {
+						isUniqueGoogleFont = false;
+					} else {
+						if (
+							googleFonts[fontFamily]?.weights &&
+							googleFonts[fontFamily].weights.includes(fontData?.weight)
+						) {
+							isUniqueGoogleFont = false;
+						}
+					}
+				}
+			}
+			return isUniqueGoogleFont;
+		},
 		getOpenHeaderVisualBuilderId(state) {
 			return get(state, ['headerVisualBuilder', 'open'], null);
 		},
@@ -625,6 +693,9 @@ const store = createReduxStore('kadenceblocks/data', {
 				return state.spacingMap?.[globalStylesIdsKey];
 			}
 			return [];
+		},
+		getGoogleFonts(state) {
+			return state.googleFonts;
 		},
 	},
 });

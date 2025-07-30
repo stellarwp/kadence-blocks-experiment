@@ -58,7 +58,6 @@ export default function FontWeight({
 		);
 	};
 	const onChangeWeight = (value, device, type) => {
-		console.log('onChangeWeight', value, device, type);
 		handleMultipleAttributeChange(
 			[value],
 			device,
@@ -71,7 +70,6 @@ export default function FontWeight({
 		);
 	};
 	const onChangeStyle = (value, device, type) => {
-		console.log('onChangeStyle', value, previewDevice);
 		handleMultipleAttributeChange(
 			[value],
 			device,
@@ -84,7 +82,6 @@ export default function FontWeight({
 		);
 	};
 	const onChangeCombined = (value, device, type) => {
-		console.log('onChangeCombined', value, device, type);
 		if (!value) {
 			onReset(device);
 			return;
@@ -107,9 +104,6 @@ export default function FontWeight({
 	const minWeight = fontWeightOptions?.minWeight || 400;
 	const maxWeight = fontWeightOptions?.maxWeight || 700;
 	const saneInitialPosition = minWeight > 400 || maxWeight < 400 ? (minWeight + maxWeight) / 2 : 400;
-	console.log('fontWeightOptions', fontWeightOptions);
-	console.log('fontWeightValue', fontWeightValue);
-	console.log('device', previewDevice);
 	return (
 		<>
 			{/* Loading Font / Font Weights */}

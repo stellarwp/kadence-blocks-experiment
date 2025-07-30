@@ -12,7 +12,6 @@ export default function getGoogleFontUrl(attributes, attributesMeta) {
 	if (!attributes || !attributesMeta) {
 		return '';
 	}
-
 	// Track unique font families and their weights
 	const fonts = new Map();
 

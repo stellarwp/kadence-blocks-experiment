@@ -93,7 +93,7 @@ export const useFontOptions = () => {
 		const customOptions = Object.entries(fonts.custom).map(([family, data]) => ({
 			label: family,
 			value: family,
-			source: 'kadence_custom',
+			source: 'custom',
 		}));
 
 		if (customOptions.length) {
@@ -105,19 +105,37 @@ export const useFontOptions = () => {
 		}
 	}
 	// Add standard fonts
-	options.push({
-		type: 'group',
-		label: __('Standard Fonts', 'kadence-blocks'),
-		options: getStandardFontOptions(),
-		source: 'standard',
-	});
+	if (fonts?.system) {
+		const systemOptions = Object.entries(fonts.system).map(([family, data]) => ({
+			label: data.label,
+			value: data.family,
+			source: 'system',
+		}));
+		options.push({
+			type: 'group',
+			label: __('Standard Fonts', 'kadence-blocks'),
+			options: systemOptions,
+		});
+	}
 	// Add Google fonts
 	if (fonts?.google) {
-		const googleOptions = Object.entries(fonts.google).map(([family, data]) => ({
-			label: data.family,
-			value: family,
-			source: 'google',
-		}));
+		const googleOptions = Object.entries(fonts.google).map(([family, data]) => {
+			if (data?.is_variable) {
+				const axesWeights = data.axes.filter((axis) => axis.tag === 'wght');
+				return {
+					label: data.family,
+					value: family,
+					source: 'google',
+					isVariable: axesWeights?.[0]?.start + '..' + axesWeights?.[0]?.end,
+				};
+			}
+			return {
+				label: data.family,
+				value: family,
+				source: 'google',
+				isVariable: undefined,
+			};
+		});
 
 		if (googleOptions.length) {
 			options.push({
@@ -155,6 +173,28 @@ export function getFontStylesAndWeights(fontFamily) {
 		{ value: '800', label: __('Extra-Bold 800', 'kadence-blocks') },
 		{ value: '900', label: __('Ultra-Bold 900', 'kadence-blocks') },
 	];
+	// system Combined
+	const systemCombined = [
+		{ value: '', label: __('Default', 'kadence-blocks') },
+		{ value: '100', label: __('Thin 100', 'kadence-blocks') },
+		{ value: '200', label: __('Extra-Light 200', 'kadence-blocks') },
+		{ value: '300', label: __('Light 300', 'kadence-blocks') },
+		{ value: '400', label: __('Regular', 'kadence-blocks') },
+		{ value: '500', label: __('Medium 500', 'kadence-blocks') },
+		{ value: '600', label: __('Semi-Bold 600', 'kadence-blocks') },
+		{ value: '700', label: __('Bold 700', 'kadence-blocks') },
+		{ value: '800', label: __('Extra-Bold 800', 'kadence-blocks') },
+		{ value: '900', label: __('Ultra-Bold 900', 'kadence-blocks') },
+		{ value: '100italic', label: __('Thin 100 Italic', 'kadence-blocks') },
+		{ value: '200italic', label: __('Extra-Light 200 Italic', 'kadence-blocks') },
+		{ value: '300italic', label: __('Light 300 Italic', 'kadence-blocks') },
+		{ value: '400italic', label: __('Regular Italic', 'kadence-blocks') },
+		{ value: '500italic', label: __('Medium 500 Italic', 'kadence-blocks') },
+		{ value: '600italic', label: __('Semi-Bold 600 Italic', 'kadence-blocks') },
+		{ value: '700italic', label: __('Bold 700 Italic', 'kadence-blocks') },
+		{ value: '800italic', label: __('Extra-Bold 800 Italic', 'kadence-blocks') },
+		{ value: '900italic', label: __('Ultra-Bold 900 Italic', 'kadence-blocks') },
+	];
 	// Standard weights
 	const standardWeights = [
 		{ value: '', label: __('Default', 'kadence-blocks') },
@@ -172,8 +212,9 @@ export function getFontStylesAndWeights(fontFamily) {
 	const standardCombined = [
 		{ value: '', label: __('Default', 'kadence-blocks') },
 		{ value: 'normal', label: __('Normal', 'kadence-blocks') },
-		{ value: '400italic', label: __('Italic', 'kadence-blocks') },
-		{ value: 'normal', label: __('Normal', 'kadence-blocks') },
+		{ value: '700', label: __('Bold', 'kadence-blocks') },
+		{ value: 'italic', label: __('Italic', 'kadence-blocks') },
+		{ value: '700italic', label: __('Bold Italic', 'kadence-blocks') },
 	];
 
 	// Get fonts from the data store
@@ -199,14 +240,66 @@ export function getFontStylesAndWeights(fontFamily) {
 	// Check theme fonts
 	if (fonts.theme && fonts.theme[fontFamily]) {
 		const themeFont = fonts.theme[fontFamily];
-		if (themeFont.styles && themeFont.styles.length) {
+		if (themeFont?.is_variable) {
+			let tempStyles = [];
+			if (themeFont?.styles && themeFont?.styles.length) {
+				tempStyles = themeFont.styles.map((variant) => ({
+					value: variant === 'regular' ? 'normal' : variant,
+					label:
+						variant === 'normal'
+							? __('Normal', 'kadence-blocks')
+							: variant === 'italic'
+								? __('Italic', 'kadence-blocks')
+								: variant,
+				}));
+				tempStyles.unshift({
+					value: '',
+					label: __('Default', 'kadence-blocks'),
+				});
+			}
+			return {
+				fontsLoaded: true,
+				type: 'variable',
+				weights: [],
+				styles: tempStyles,
+				combined: [],
+				minWeight: themeFont?.min || 400,
+				maxWeight: themeFont?.max || 700,
+			};
+		}
+		if (themeFont?.combinedLabels && themeFont.combinedLabels.length) {
+			const combined = themeFont.combinedLabels;
+			combined.unshift({
+				value: '',
+				label: __('Default', 'kadence-blocks'),
+			});
 			return {
 				fontsLoaded: true,
 				type: 'static',
-				options: themeFont.styles.map((style) => ({
-					value: style,
-					label: style === 'regular' ? __('Regular', 'kadence-blocks') : style,
-				})),
+				weights: [],
+				styles: [],
+				combined: themeFont.combinedLabels,
+			};
+		} else if (themeFont?.combined && themeFont.combined.length) {
+			const combined = themeFont.combined.map((style) => ({
+				value: style,
+				label:
+					style === '400'
+						? __('Regular', 'kadence-blocks')
+						: style === 'italic'
+							? __('Italic', 'kadence-blocks')
+							: style,
+			}));
+			combined.unshift({
+				value: '',
+				label: __('Default', 'kadence-blocks'),
+			});
+			return {
+				fontsLoaded: true,
+				type: 'static',
+				weights: [],
+				styles: [],
+				combined: combined,
 			};
 		}
 	}
@@ -218,10 +311,79 @@ export function getFontStylesAndWeights(fontFamily) {
 			return {
 				fontsLoaded: true,
 				type: 'static',
-				options: customFont.styles.map((style) => ({
+				weights: [],
+				styles: [],
+				combined: customFont.styles.map((style) => ({
 					value: style,
 					label: style === 'regular' ? __('Regular', 'kadence-blocks') : style,
 				})),
+			};
+		}
+	}
+	// Check System fonts
+	if (fonts.system && fonts.system[fontFamily]) {
+		const systemFont = fonts.system[fontFamily];
+		if (systemFont?.is_variable) {
+			let tempStyles = [];
+			if (systemFont?.styles && systemFont?.styles.length) {
+				tempStyles = systemFont.styles.map((variant) => ({
+					value: variant === 'regular' ? 'normal' : variant,
+					label:
+						variant === 'normal'
+							? __('Normal', 'kadence-blocks')
+							: variant === 'italic'
+								? __('Italic', 'kadence-blocks')
+								: variant,
+				}));
+				tempStyles.unshift({
+					value: '',
+					label: __('Default', 'kadence-blocks'),
+				});
+			}
+			return {
+				fontsLoaded: true,
+				type: 'variable',
+				weights: [],
+				styles: tempStyles,
+				combined: [],
+				minWeight: systemFont?.min || 400,
+				maxWeight: systemFont?.max || 700,
+			};
+		}
+		if (fontFamily === 'var(--kbs-font-family-system)') {
+			return {
+				fontsLoaded: true,
+				type: 'static',
+				weights: [],
+				styles: [],
+				combined: systemCombined,
+			};
+		} else if (systemFont.combinedLabels && systemFont.combinedLabels.length) {
+			return {
+				fontsLoaded: true,
+				type: 'static',
+				weights: [],
+				styles: [],
+				combined: systemFont.combinedLabels,
+			};
+		} else if (systemFont.combined && systemFont.combined.length) {
+			return {
+				fontsLoaded: true,
+				type: 'static',
+				weights: [],
+				styles: [],
+				combined: systemFont.combined.map((style) => ({
+					value: style,
+					label: style === 'regular' ? __('Regular', 'kadence-blocks') : style,
+				})),
+			};
+		} else {
+			return {
+				fontsLoaded: true,
+				type: 'static',
+				weights: [],
+				styles: [],
+				combined: standardCombined,
 			};
 		}
 	}

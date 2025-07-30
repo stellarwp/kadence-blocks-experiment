@@ -31,7 +31,7 @@ class CSSGenerator {
 		this.props = props;
 		this.metadata = metadata;
 	}
-	
+
 	build() {
 		if (this.metadata?.attributes) {
 			Object.entries(this.metadata.attributes).forEach(([attributeName, value]) => {
@@ -45,7 +45,6 @@ class CSSGenerator {
 			});
 		}
 	}
-
 
 	/**
 	 * Set the current selector for subsequent property additions
@@ -87,7 +86,6 @@ class CSSGenerator {
 		const cssValue = this.getCssValue(attributeName, meta, props, metadata, key);
 		const cssSelector = this.getCssSelector(attributeName, meta, key);
 		const attributeSelector = this.getAttributeSelector(key, meta);
-
 		if (cssValue && cssSelector && attributeSelector) {
 			const currentSelectorBackup = this.currentSelector;
 			this.setSelector(cssSelector);
@@ -140,13 +138,20 @@ class CSSGenerator {
 				break;
 			case 'typography':
 				if (isDirectOrParent || (isNonInheritable && isPresetOrPresetParent)) {
-					cssValue = this.getSizingOutput(appliedValue);
+					if (key === 'fontFamily') {
+						cssValue = appliedValue;
+					} else if (key === 'color' || key === 'backgroundColor') {
+						cssValue = getColorOutput(appliedValue);
+					} else {
+						cssValue = this.getSizingOutput(appliedValue);
+					}
 				} else if (inheritedSource) {
-					const variableName = this.getGlobalStyleVariableName(
-						inheritedSource, // inheritedSource
-						key // attributeKey
-					);
-					cssValue = `var(${variableName})`;
+					// NOTE: If it's inherited from preset the it's styled from the added preset class.
+					// const variableName = this.getGlobalStyleVariableName(
+					// 	inheritedSource, // inheritedSource
+					// 	key // attributeKey
+					// );
+					// cssValue = `var(${variableName})`;
 				}
 				break;
 			case 'linkStyle':
@@ -711,6 +716,7 @@ class CSSGenerator {
 		if (!meta?.component) {
 			return this;
 		}
+		const { attributes, previewDevice, globalStylesIds } = props;
 		if (meta?.hasLayers) {
 			// Add the CSS for the layers.
 			const layers = getInheritedValue(
@@ -736,14 +742,12 @@ class CSSGenerator {
 		}
 
 		if (meta.component === 'transform') {
-			const { attributes, previewDevice, globalStylesIds } = props;
-			
 			// Check if this is a hover transform
 			const isHover = attributeName.endsWith('Hover');
-			
+
 			// Store the current selector
 			const originalSelector = this.currentSelector;
-			
+
 			// If hover, modify the selector
 			if (isHover) {
 				this.setSelector(originalSelector + ':hover');
@@ -754,7 +758,7 @@ class CSSGenerator {
 			if (isHover) {
 				// For hover, we need to merge with base values
 				const baseAttributeName = attributeName.replace('Hover', '');
-				
+
 				// Get base transform values
 				const baseScale = getResolvedValue(
 					baseAttributeName,
@@ -947,7 +951,7 @@ class CSSGenerator {
 					this.add({ 'transform-origin': `${x} ${y}` });
 				}
 			}
-			
+
 			// Restore the original selector
 			if (isHover) {
 				this.setSelector(originalSelector);
@@ -1021,6 +1025,9 @@ class CSSGenerator {
 					'lineHeight',
 					'letterSpacing',
 					'textTransform',
+					'fontStyle',
+					'color',
+					'backgroundColor',
 				];
 				break;
 			case 'icon':
@@ -1183,7 +1190,8 @@ class CSSGenerator {
 	 * @returns {string} - The generated CSS string
 	 */
 	generate() {
-		if( this.metadata?.name ) { // Are we building a block
+		if (this.metadata?.name) {
+			// Are we building a block
 			this.build();
 		}
 

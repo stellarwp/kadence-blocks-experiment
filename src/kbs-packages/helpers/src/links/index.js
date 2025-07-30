@@ -10,7 +10,6 @@
  */
 export default function getLinkHTML(link, children, className = '', enableClick = false) {
 	const classString = className + (link?.linkStyle ? ' ' + link?.linkStyle : '');
-
 	let rel = '';
 	if (link?.linkTarget) {
 		link.target = '_blank';
@@ -34,9 +33,9 @@ export default function getLinkHTML(link, children, className = '', enableClick 
 	return (
 		<a
 			href={link?.url}
-			className={classString}
+			className={classString || undefined}
 			target={link?.target}
-			rel={rel}
+			rel={rel || undefined}
 			onClick={(event) => {
 				enableClick ? null : event.preventDefault();
 			}}
