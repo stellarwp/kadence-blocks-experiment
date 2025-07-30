@@ -5,6 +5,8 @@
  */
 
 .kbs-button {
+	display: inline-block;
+
 	font-family: var(--kbs-button-font-family);
 	font-weight: var(--kbs-button-font-weight);
 	font-size: var(--kbs-button-font-size);

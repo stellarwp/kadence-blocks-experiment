@@ -24,6 +24,35 @@
 			"type": "string",
 			"initial": "div"
 		},
+		"flexBox": {
+			"renderCSS": true,
+			"component": "flexBox",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-buttons-",
+			"initial": {
+				"desktop": {
+					"flexDirection": "row",
+					"justifyContent": "flex-start",
+					"alignItems": "stretch",
+					"columnGap": "xs",
+					"rowGap": "xs",
+					"flexWrap": "wrap"
+				}
+			}
+		},
+		"flexChild": {
+			"renderCSS": true,
+			"component": "flexChild",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-buttons-",
+			"initial": {
+				"desktop": {
+					"flex": "initial"
+				}
+			}
+		},
 		"padding": {
 			"type": "object",
 			"renderCSS": true,
@@ -37,15 +66,6 @@
 			"component": "margin",
 			"nonInheritable": true,
 			"selector": "--kbs-buttons-"
-		},
-		"background": {
-			"renderCSS": true,
-			"component": "background",
-			"nonInheritable": true,
-			"type": "object",
-			"selector": "--kbs-buttons-",
-			"classPrefix": "kbs-buttons-bg-",
-			"hasLayers": true
 		},
 		"templateLock": {
 			"type": ["string", "boolean"],

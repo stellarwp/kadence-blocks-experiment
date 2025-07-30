@@ -3,3 +3,17 @@
  *
  * CSS for both Frontend+Backend.
  */
+
+.kbs-buttons {
+	position: relative;
+	display: flex;
+	flex-direction: var(--kbs-buttons-flex-direction, row);
+	justify-content: var(--kbs-buttons-justify-content, flex-start);
+	align-items: var(--kbs-buttons-align-items, center);
+	align-content: var(--kbs-buttons-align-content, initial);
+	flex-wrap: var(--kbs-buttons-flex-wrap, wrap);
+	min-width: 0;
+	min-height: 0;
+	column-gap: var(--kbs-buttons-column-gap, var(--global-kb-spacing-xs, 1rem));
+	row-gap: var(--kbs-buttons-row-gap, var(--global-kb-spacing-xs, 1rem));
+}

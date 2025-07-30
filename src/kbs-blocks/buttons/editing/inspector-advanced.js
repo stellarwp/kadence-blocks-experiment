@@ -7,11 +7,7 @@
 /**
  * Kadence Components.
  */
-import {
-	SizingControl,
-	SpacingControl,
-	SharedInspectorAdvanced,
-} from '@kadence/kbsComponents';
+import { SizingControl, SpacingControl, SharedInspectorAdvanced } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -48,16 +44,6 @@ export default function InspectorAdvanced(props) {
 				clientId={clientId}
 				showVisualizer={true}
 				blockElementRef={blockElementRef}
-			/>
-			<SizingControl
-				attributes={attributes}
-				setAttributes={setAttributes}
-				previewDevice={previewDevice}
-				metaData={metadata}
-				globalStylesIds={globalStylesIds}
-				title={__('Sizing Settings', 'kadence-blocks')}
-				types={['maxWidth', 'minHeight']}
-				initialOpen={false}
 			/>
 			<SharedInspectorAdvanced
 				attributes={attributes}
