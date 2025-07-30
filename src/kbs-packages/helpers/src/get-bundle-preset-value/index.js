@@ -69,15 +69,6 @@ export default function getBundlePresetValue(
 				);
 
 				if (appliedValue !== undefined && appliedValue !== null && appliedValue !== '') {
-					console.log(
-						'found bundle preset value',
-						attributeName,
-						appliedValue,
-						bundlePresetKey,
-						bundlePresetComponent
-					);
-
-					console.log(rawPresetData.attributes);
 					return { value: appliedValue, source: 'preset' };
 				}
 			}
