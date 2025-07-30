@@ -16,6 +16,8 @@ import {
 	LayeredShadowControl,
 	SpaceControl,
 	RadioButtonControl,
+	IconControl,
+	TabsControl,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -23,6 +25,7 @@ import metadata from '../block.json';
  * Import WordPress
  */
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 
 /**
  * Build the section edit.
@@ -39,44 +42,152 @@ export default function InspectorStyles(props) {
 		blockElementRef,
 		clientId,
 	} = props;
+	const [isHover, setIsHover] = useState(false);
 
-	const { link } = attributes;
 	return (
 		<>
+			<ToolsPanelBody
+				title={__('Button Settings', 'kadence-blocks')}
+				panelName={'button-settings'}
+				initialOpen={true}
+			>
+				<TabsControl
+					tabs={[
+						{ name: 'default', title: __('Normal', 'kadence-blocks') },
+						{ name: 'hover', title: __('Hover', 'kadence-blocks') },
+					]}
+					selected={isHover ? 'hover' : 'default'}
+					onSelect={(name) => setIsHover(name === 'hover')}
+				>
+					{!isHover && (
+						<>
+							<ColorControl
+								label={__('Color', 'kadence-blocks')}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								meta={metadata}
+								previewDevice={previewDevice}
+								attributeName={'color'}
+								globalStylesIds={globalStylesIds}
+								hasGradient={true}
+								hasMix={true}
+							/>
+							{!hasGradient && (
+								<ColorControl
+									label={__('Background Color', 'kadence-blocks')}
+									attributes={attributes}
+									setAttributes={setAttributes}
+									meta={metadata}
+									previewDevice={previewDevice}
+									attributeName={'backgroundColor'}
+									type={'color'}
+									globalStylesIds={globalStylesIds}
+									hasGradient={true}
+									hasMix={true}
+								/>
+							)}
+							{hasGradient && (
+								<Notice>
+									{__(
+										'Background color will be ignored while a gradient color is applied.',
+										'kadence-blocks'
+									)}
+								</Notice>
+							)}
+							<BorderControl
+								attributes={attributes}
+								attributeName={'border'}
+								setAttributes={setAttributes}
+								previewDevice={previewDevice}
+								meta={metadata}
+								globalStylesIds={globalStylesIds}
+								labelBorderRadius={__('Border Radius', 'kadence-blocks')}
+								label={__('Border', 'kadence-blocks')}
+								hasPresetControl={true}
+								isHover={isHover}
+								setIsHover={setIsHover}
+							/>
+							<LayeredShadowControl
+								attributeName={'boxShadow'}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								metaData={metadata}
+								previewDevice={previewDevice}
+								globalStylesIds={globalStylesIds}
+								globalStylesCss={globalStylesCss}
+								type={'boxShadow'}
+							/>
+						</>
+					)}
+					{isHover && (
+						<>
+							<ColorControl
+								label={__('Color', 'kadence-blocks')}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								meta={metadata}
+								previewDevice={previewDevice}
+								attributeName={'color'}
+								type={'colorHover'}
+								globalStylesIds={globalStylesIds}
+								hasGradient={true}
+								hasMix={true}
+							/>
+							{!hasGradient && (
+								<ColorControl
+									label={__('Background Color', 'kadence-blocks')}
+									attributes={attributes}
+									setAttributes={setAttributes}
+									meta={metadata}
+									previewDevice={previewDevice}
+									attributeName={'backgroundColor'}
+									type={'colorHover'}
+									globalStylesIds={globalStylesIds}
+									hasGradient={true}
+									hasMix={true}
+								/>
+							)}
+							{hasGradient && (
+								<Notice>
+									{__(
+										'Background color will be ignored while a gradient color is applied.',
+										'kadence-blocks'
+									)}
+								</Notice>
+							)}
+							<BorderControl
+								attributes={attributes}
+								attributeName={'border'}
+								type={'borderHover'}
+								setAttributes={setAttributes}
+								previewDevice={previewDevice}
+								meta={metadata}
+								globalStylesIds={globalStylesIds}
+								labelBorderRadius={__('Border Radius', 'kadence-blocks')}
+								label={__('Border', 'kadence-blocks')}
+								hasPresetControl={true}
+								isHover={isHover}
+								setIsHover={setIsHover}
+							/>
+							<LayeredShadowControl
+								attributeName={'boxShadowHover'}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								metaData={metadata}
+								previewDevice={previewDevice}
+								globalStylesIds={globalStylesIds}
+								globalStylesCss={globalStylesCss}
+							/>
+						</>
+					)}
+				</TabsControl>
+			</ToolsPanelBody>
 			<ToolsPanelBody
 				title={__('Typography Settings', 'kadence-blocks')}
 				panelName={'text-typography'}
 				componentName={'typography-control'}
+				initialOpen={false}
 			>
-				<ColorControl
-					label={__('Color', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					meta={metadata}
-					previewDevice={previewDevice}
-					attributeName={'color'}
-					globalStylesIds={globalStylesIds}
-					hasGradient={true}
-					hasMix={true}
-				/>
-				{!hasGradient && (
-					<ColorControl
-						label={__('Background Color', 'kadence-blocks')}
-						attributes={attributes}
-						setAttributes={setAttributes}
-						meta={metadata}
-						previewDevice={previewDevice}
-						attributeName={'backgroundColor'}
-						globalStylesIds={globalStylesIds}
-						hasGradient={true}
-						hasMix={true}
-					/>
-				)}
-				{hasGradient && (
-					<Notice>
-						{__('Background color will be ignored while a gradient color is applied.', 'kadence-blocks')}
-					</Notice>
-				)}
 				<Typography
 					label={__('Typography', 'kadence-blocks')}
 					attributes={attributes}
@@ -85,41 +196,6 @@ export default function InspectorStyles(props) {
 					previewDevice={previewDevice}
 					attributeName={'typography'}
 					globalStylesIds={globalStylesIds}
-				/>
-			</ToolsPanelBody>
-			<ToolsPanelBody
-				title={__('Border Settings', 'kadence-blocks')}
-				panelName={'text-border'}
-				componentName={'border-control'}
-				initialOpen={false}
-			>
-				<BorderControl
-					attributes={attributes}
-					attributeName={'border'}
-					setAttributes={setAttributes}
-					previewDevice={previewDevice}
-					meta={metadata}
-					globalStylesIds={globalStylesIds}
-					labelBorderRadius={__('Border Radius', 'kadence-blocks')}
-					label={__('Border', 'kadence-blocks')}
-					hasPresetControl={true}
-				/>
-			</ToolsPanelBody>
-			<ToolsPanelBody
-				title={__('Shadow Settings', 'kadence-blocks')}
-				panelName={'text-shadow'}
-				componentName={'shadow-control'}
-				initialOpen={false}
-			>
-				<LayeredShadowControl
-					attributeName={'textShadow'}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					metaData={metadata}
-					previewDevice={previewDevice}
-					globalStylesIds={globalStylesIds}
-					globalStylesCss={globalStylesCss}
-					type={'textShadow'}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
@@ -146,6 +222,25 @@ export default function InspectorStyles(props) {
 					type={'maxHeight'}
 					meta={metadata}
 					previewDevice={previewDevice}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
+				title={__('Icon Settings', 'kadence-blocks')}
+				panelName={'icon-settings'}
+				componentName={'icon-control'}
+				initialOpen={false}
+			>
+				<IconControl
+					label={__('Icon', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					previewDevice={previewDevice}
+					attributeName={'icon'}
+					hasTooltip={true}
+					hasPlacement={true}
+					hasAlignment={true}
+					hasSpacing={true}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody

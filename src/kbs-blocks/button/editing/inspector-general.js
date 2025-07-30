@@ -7,15 +7,7 @@
 /**
  * Kadence Components.
  */
-import {
-	ToolsPanelBody,
-	LinkControl,
-	LinkStyle,
-	IconControl,
-	ColorControl,
-	RadioButtonControl,
-	PresetControl,
-} from '@kadence/kbsComponents';
+import { ToolsPanelBody, LinkControl, RadioButtonControl, PresetControl } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -34,60 +26,9 @@ export default function InspectorGeneral(props) {
 
 	return (
 		<>
-			<PresetControl
-				label={__('Variants', 'kadence-blocks')}
-				type={'buttonVariant'}
-				attributes={attributes}
-				setAttributes={setAttributes}
-				attributeName={'variant'}
-				metaData={metadata}
-				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
-				isBundlePreset={true}
-			/>
-			<ToolsPanelBody
-				title={__('Text Settings', 'kadence-blocks')}
-				panelName={'text-settings'}
-				initialOpen={true}
-			>
-				<RadioButtonControl
-					label={__('HTML Tag', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={'headingTag'}
-					type={'headingTag'}
-					previewDevice={previewDevice}
-					meta={metadata}
-				/>
-				<RadioButtonControl
-					label={__('Text Align', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={'textAlign'}
-					type={'textAlign'}
-					previewDevice={previewDevice}
-					meta={metadata}
-				/>
-				<RadioButtonControl
-					label={__('Max Width', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={'maxWidth'}
-					radioType={'maxWidth'}
-					type={'maxWidth'}
-					hasCustomControls={true}
-					meta={metadata}
-					previewDevice={previewDevice}
-				/>
-			</ToolsPanelBody>
-			<ToolsPanelBody
-				title={__('Link Settings', 'kadence-blocks')}
-				panelName={'container-link'}
-				componentName={'link-control'}
-				initialOpen={false}
-			>
+			<ToolsPanelBody panelName={'button-variants'} initialOpen={true}>
 				<LinkControl
-					label={__('Link', 'kadence-blocks')}
+					label={__('Button Link', 'kadence-blocks')}
 					value={link}
 					onChange={(value) => setAttributes({ link: value })}
 					additionalControls={true}
@@ -96,45 +37,38 @@ export default function InspectorGeneral(props) {
 					changeTargetType={false}
 					{...props}
 				/>
-				<LinkStyle
-					label={__('Link Style', 'kadence-blocks')}
+				<PresetControl
+					label={__('Variants', 'kadence-blocks')}
+					type={'buttonVariant'}
 					attributes={attributes}
 					setAttributes={setAttributes}
-					meta={metadata}
+					attributeName={'variant'}
+					metaData={metadata}
 					previewDevice={previewDevice}
-					attributeName={'linkStyle'}
 					globalStylesIds={globalStylesIds}
+					isBundlePreset={true}
 				/>
-				<ColorControl
-					label={__('Link Color', 'kadence-blocks')}
+				<PresetControl
+					label={__('Size', 'kadence-blocks')}
+					type={'buttonSize'}
 					attributes={attributes}
 					setAttributes={setAttributes}
-					meta={metadata}
+					attributeName={'size'}
+					metaData={metadata}
 					previewDevice={previewDevice}
-					attributeName={'colorLink'}
 					globalStylesIds={globalStylesIds}
-					hasGradient={true}
-					hasMix={true}
-					hasHoverControls={true}
+					isBundlePreset={true}
 				/>
-			</ToolsPanelBody>
-			<ToolsPanelBody
-				title={__('Icon Settings', 'kadence-blocks')}
-				panelName={'icon-settings'}
-				componentName={'icon-control'}
-				initialOpen={false}
-			>
-				<IconControl
-					label={__('Icon', 'kadence-blocks')}
+				<RadioButtonControl
+					label={__('Width', 'kadence-blocks')}
 					attributes={attributes}
 					setAttributes={setAttributes}
+					attributeName={'width'}
+					radioType={'buttonWidth'}
+					type={'width'}
+					hasCustomControls={true}
 					meta={metadata}
 					previewDevice={previewDevice}
-					attributeName={'icon'}
-					hasTooltip={true}
-					hasPlacement={true}
-					hasAlignment={true}
-					hasSpacing={true}
 				/>
 			</ToolsPanelBody>
 		</>

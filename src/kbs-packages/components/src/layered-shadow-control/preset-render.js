@@ -18,7 +18,6 @@ function ShadowPresetCSSStyles(props) {
 	const cssOutput = useMemo(() => {
 		const selector = `.preset-${uniqueID}-${preset.value}` + (type === 'textShadow' ? ' span' : '');
 		const css = new cssGenerator(selector);
-		console.log('layer styles', attributeName, attributeMeta, props, meta);
 		css.addComponent(attributeName, attributeMeta, props, meta);
 		let output = css.generate();
 		return output;
@@ -55,8 +54,6 @@ function ShadowPresetRender(props) {
 		},
 		[globalStyleId, attributeName, preset?.value]
 	);
-	console.log('attributes', attributeName, preset?.value, styleBookComponent, rawPresetData);
-	console.log('globalStyleId', globalStyleId);
 	const attributes = globalStyleId
 		? { [attributeName]: styleBookComponent?.attributes } || {}
 		: { [attributeName]: rawPresetData?.attributes } || {};

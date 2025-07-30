@@ -117,7 +117,6 @@ function renderShadowDropdown(
 				previewDevice={previewDevice}
 				globalClasses={globalClasses}
 				globalStylesCss={globalStylesCss}
-				layerKey={layerKey}
 				containerRef={containerRef}
 				isHover={isHover}
 				setIsHover={setIsHover}

@@ -189,6 +189,11 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputRangeUI;
 			controls = getMaxWidthControls();
 			break;
+		case 'button-width':
+		case 'buttonWidth':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			controls = getButtonWidthControls();
+			break;
 		case 'iconSize':
 		case 'iconSizeHover':
 			UIComponent = RadioToggleGroupInputRangeUI;
@@ -820,6 +825,18 @@ export const getMaxWidthControls = () => [
 		title: __('Narrow', 'kadence-blocks'),
 		name: 'Narrow',
 		key: 'narrow',
+	},
+];
+export const getButtonWidthControls = () => [
+	{
+		title: __('Auto', 'kadence-blocks'),
+		name: 'auto',
+		key: 'auto',
+	},
+	{
+		title: __('Full', 'kadence-blocks'),
+		name: 'full',
+		key: 'full',
 	},
 ];
 export const getFlexWrapControls = () => [

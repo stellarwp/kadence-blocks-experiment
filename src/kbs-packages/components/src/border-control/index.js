@@ -52,19 +52,22 @@ export default function BorderControl({
 		},
 	];
 
+	const hoverSuffix = isHover ? 'Hover' : '';
+
 	return (
 		<>
 			{hasPresetControl && (
 				<PresetControl
 					label={__('Border Presets', 'kadence-blocks')}
-					type={'border'}
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={attributeName}
+					type={'border' + hoverSuffix}
 					metaData={meta}
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 					definedPresets={borderPresets}
+					key={'border' + hoverSuffix}
 				/>
 			)}
 			{hasBorderRadius && (
@@ -73,12 +76,13 @@ export default function BorderControl({
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={attributeName}
+					type={'borderRadius' + hoverSuffix}
 					radioType={'borderRadius'}
 					meta={meta?.attributes?.[attributeName]}
 					previewDevice={previewDevice}
 					hasCustomControls={hasCustomControls}
 					hasAdvancedControls={hasAdvancedControls}
-					type={'borderRadius'}
+					key={'borderRadius' + hoverSuffix}
 				/>
 			)}
 			{hasBorder && (

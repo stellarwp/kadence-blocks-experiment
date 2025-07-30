@@ -169,7 +169,7 @@ export default function PresetControl({
 				hasDeviceControls={false}
 				isPopover={isPopover}
 				onTogglePopover={() => setIsPopover(!isPopover)}
-				hasPopoverControls={presets.length > 3}
+				hasPopoverControls={presets.length > previewAmount}
 			/>
 			{isPopover && popoverAnchor && (
 				<Popover

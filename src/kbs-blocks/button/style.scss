@@ -16,7 +16,7 @@
 	font-style: var(--kbs-button-font-style);
 	color: var(--kbs-button-color);
 	background: var(--kbs-button-background-color);
-	text-shadow: var(--kbs-button-text-shadow);
+	box-shadow: var(--kbs-button-box-shadow);
 	border-top-left-radius: var(--kbs-button-border-top-left-radius);
 	border-top-right-radius: var(--kbs-button-border-top-right-radius);
 	border-bottom-right-radius: var(--kbs-button-border-bottom-right-radius);
@@ -43,6 +43,32 @@
 
 	&.has-text-align-right {
 		text-align: right;
+	}
+
+	&:hover {
+		color: var(--kbs-button-color-hover, var(--kbs-button-color));
+		background: var(--kbs-button-background-color-hover, var(--kbs-button-background-color));
+		box-shadow: var(--kbs-button-box-shadow-hover, var(--kbs-button-box-shadow));
+		border-top-left-radius: var(
+			--kbs-button-border-top-left-radius-hover,
+			var(--kbs-button-border-top-left-radius)
+		);
+		border-top-right-radius: var(
+			--kbs-button-border-top-right-radius-hover,
+			var(--kbs-button-border-top-right-radius)
+		);
+		border-bottom-right-radius: var(
+			--kbs-button-border-bottom-right-radius-hover,
+			var(--kbs-button-border-bottom-right-radius)
+		);
+		border-bottom-left-radius: var(
+			--kbs-button-border-bottom-left-radius-hover,
+			var(--kbs-button-border-bottom-left-radius)
+		);
+		border-top: var(--kbs-button-border-top-hover, var(--kbs-button-border-top));
+		border-left: var(--kbs-button-border-left-hover, var(--kbs-button-border-left));
+		border-right: var(--kbs-button-border-right-hover, var(--kbs-button-border-right));
+		border-bottom: var(--kbs-button-border-bottom-hover, var(--kbs-button-border-bottom));
 	}
 
 	a {

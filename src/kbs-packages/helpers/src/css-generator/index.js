@@ -103,10 +103,13 @@ class CSSGenerator {
 		let keyForValue = key;
 
 		const isBorderRadius = key.includes('border') && key.includes('Radius');
+		const isBorderRadiusHover = key.includes('border') && key.includes('Radius') && key.includes('Hover');
 		const isBorderStyle = key.includes('border') && !key.includes('Radius');
 		const isTextOrientation = key === 'textOrientation' || key === 'writingMode';
 
-		if (isBorderRadius) {
+		if (isBorderRadiusHover) {
+			keyForValue = 'borderRadiusHover';
+		} else if (isBorderRadius) {
 			keyForValue = 'borderRadius';
 		} else if (isTextOrientation) {
 			keyForValue = 'textOrientation';
@@ -192,6 +195,7 @@ class CSSGenerator {
 			case 'maxHeight':
 			case 'minHeight':
 			case 'minWidth':
+			case 'width':
 				cssValue = this.getContentWidthOutput(appliedValue);
 				break;
 			case 'padding':
@@ -212,21 +216,16 @@ class CSSGenerator {
 				break;
 			case 'border':
 				//Border values are an array of 4 values for the top, left, right, and bottom sides. (corners for radius)
-				if (isBorderRadius) {
+				if (isBorderRadius || isBorderRadiusHover) {
 					if (Array.isArray(appliedValue)) {
-						switch (key) {
-							case 'borderTopLeftRadius':
-								cssValue = this.getBorderRadiusOutput(appliedValue[0]);
-								break;
-							case 'borderTopRightRadius':
-								cssValue = this.getBorderRadiusOutput(appliedValue[1]);
-								break;
-							case 'borderBottomLeftRadius':
-								cssValue = this.getBorderRadiusOutput(appliedValue[2]);
-								break;
-							case 'borderBottomRightRadius':
-								cssValue = this.getBorderRadiusOutput(appliedValue[3]);
-								break;
+						if (key == 'borderTopLeftRadius' || key == 'borderTopLeftRadiusHover') {
+							cssValue = this.getBorderRadiusOutput(appliedValue[0]);
+						} else if (key == 'borderTopRightRadius' || key == 'borderTopRightRadiusHover') {
+							cssValue = this.getBorderRadiusOutput(appliedValue[1]);
+						} else if (key == 'borderBottomLeftRadius' || key == 'borderBottomLeftRadiusHover') {
+							cssValue = this.getBorderRadiusOutput(appliedValue[2]);
+						} else if (key == 'borderBottomRightRadius' || key == 'borderBottomRightRadiusHover') {
+							cssValue = this.getBorderRadiusOutput(appliedValue[3]);
 						}
 					} else {
 						cssValue = this.getBorderRadiusOutput(appliedValue);
@@ -268,13 +267,14 @@ class CSSGenerator {
 		}
 		const useVariableName = attributesMeta?.nonInheritable ? false : true;
 		const selectorPrefix = attributesMeta?.varPrefix || '';
+		const selectorSuffix = attributesMeta?.varSuffix || '';
 		const componentName = attributesMeta?.component || '';
 		const attributeNameSlug =
 			attributeName === 'textDecoration' && this.currentAppliedValue === 'hover-underline'
 				? kebabCase('textDecorationHover')
 				: kebabCase(attributeName);
 		if (useVariableName) {
-			return selectorPrefix + attributeNameSlug;
+			return selectorPrefix + attributeNameSlug + selectorSuffix;
 		}
 		const attributeNameForComponent = this.getCssPropertyForComponent(attributeNameSlug, componentName);
 		return attributeNameForComponent;
@@ -978,6 +978,10 @@ class CSSGenerator {
 					'borderTopRightRadius',
 					'borderBottomRightRadius',
 					'borderBottomLeftRadius',
+					'borderTopLeftRadiusHover',
+					'borderTopRightRadiusHover',
+					'borderBottomRightRadiusHover',
+					'borderBottomLeftRadiusHover',
 					'borderTop',
 					'borderLeft',
 					'borderRight',
@@ -1059,6 +1063,7 @@ class CSSGenerator {
 			case 'maxHeight':
 			case 'minHeight':
 			case 'minWidth':
+			case 'width':
 				componentKeys = [component];
 				break;
 			case 'transition':
