@@ -8,4 +8,20 @@ export const MAPPING_COMPONENT_OPTIONS = {
 	fontSize: {
 		label: __('Font Sizes', 'kadence-blocks'),
 	},
+	lineHeight: {
+		label: __('Line Heights', 'kadence-blocks'),
+	},
+	letterSpacing: {
+		label: __('Letter Spacing', 'kadence-blocks'),
+	},
+	iconSize: {
+		label: __('Icon Sizes', 'kadence-blocks'),
+	},
+	spacing: {
+		label: __('Spacing', 'kadence-blocks'),
+	},
+	gaps: {
+		label: __('Gaps', 'kadence-blocks'),
+	},
+
 };

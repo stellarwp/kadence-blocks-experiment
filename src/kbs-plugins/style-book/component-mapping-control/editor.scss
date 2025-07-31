@@ -6,3 +6,17 @@
  */
 .kbs-component-mapping-control {
 }
+.kbs-component-mapping-control-tabs {
+    margin-bottom: 12px;
+	.components-button.kbs-style-book-mapping-heading {
+		height: 36px;
+		font-weight: 500;
+		padding: 3px 8px;
+		border-radius: 4px;
+		color: var(--wp-components-color-foreground, #1e1e1e);
+		&.is-pressed {
+			background: var(--kb-subtle-background, #edf2f7);
+			color: var(--wp-components-color-foreground, #1e1e1e);
+		}
+	}
+}
