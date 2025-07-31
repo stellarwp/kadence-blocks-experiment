@@ -26,18 +26,9 @@ registerBlockType('kbs/button', {
 	},
 	edit,
 	save: ({ attributes }) => {
-		const { content, globalStyleIds } = attributes;
+		const { content } = attributes;
 
-		const htmlTagDesktopValue = getResolvedValue(
-			'headingTag',
-			attributes,
-			'desktop',
-			metadata,
-			'headingTag',
-			globalStyleIds
-		);
-		const previewHeadingTag = htmlTagDesktopValue?.appliedValue;
-		return React.createElement(previewHeadingTag, {
+		return React.createElement('span', {
 			className: 'kbs-button-content',
 			dangerouslySetInnerHTML: { __html: content },
 		});
