@@ -59,6 +59,7 @@ export default function InspectorStyles(props) {
 					hasBackgroundColor={true}
 					supportsGradient={true}
 					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
@@ -77,6 +78,7 @@ export default function InspectorStyles(props) {
 					labelBorderRadius={__('Border Radius', 'kadence-blocks')}
 					label={__('Border', 'kadence-blocks')}
 					hasPresetControl={true}
+					globalStylesCss={globalStylesCss}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody

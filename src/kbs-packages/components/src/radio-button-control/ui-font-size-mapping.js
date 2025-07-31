@@ -273,7 +273,7 @@ function UIFontSizeMapping({ value, onChange, placeholder = '', inherited, label
 						</div>
 
 						{mobileValue && desktopValue && (
-							<div className="kbs-font-size-mapping-preview">
+							<div className="kbs-font-size-mapping-preview" style={{ display: 'none' }}>
 								<span className="components-base-control__label">
 									{__('Output:', 'kadence-blocks')}
 								</span>

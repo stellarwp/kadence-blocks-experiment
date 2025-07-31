@@ -1,5 +1,12 @@
 import getDeviceAttributeSlug from '../get-device-attribute-slug';
-import { SPACING_SIZES_MAP, ICON_SIZES_MAP, CONTENT_WIDTH_SIZES_MAP } from '../constants';
+import {
+	SPACING_SIZES_MAP,
+	ICON_SIZES_MAP,
+	CONTENT_WIDTH_SIZES_MAP,
+	LINE_HEIGHT_SIZES_MAP,
+	FONT_SIZES_MAP,
+	LETTER_SPACING_SIZES_MAP,
+} from '../constants';
 import { BORDER_RADIUS_SIZES_MAP, BORDER_STYLES_DEFAULTS } from '../constants/borders';
 import { SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from '../constants/shadows';
 import { merge, kebabCase } from 'lodash';
@@ -14,7 +21,6 @@ import { default as getInheritedDeviceValue } from '../get-inherited-device-valu
 import { useMemo } from 'react';
 import parseBorderStyle from '../parse-border-style';
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
-
 /**
  * CSS Generator class for building CSS strings
  */
@@ -142,6 +148,12 @@ class CSSGenerator {
 						cssValue = appliedValue;
 					} else if (key === 'color' || key === 'backgroundColor') {
 						cssValue = getColorOutput(appliedValue);
+					} else if (key === 'lineHeight') {
+						cssValue = this.getLineHeightOutput(appliedValue);
+					} else if (key === 'fontSize') {
+						cssValue = this.getFontSizeOutput(appliedValue);
+					} else if (key === 'letterSpacing') {
+						cssValue = this.getLetterSpacingOutput(appliedValue);
 					} else {
 						cssValue = this.getSizingOutput(appliedValue);
 					}
@@ -1244,6 +1256,80 @@ class CSSGenerator {
 			return '0';
 		}
 		const found = SPACING_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
+
+	/**
+	 * Get the font sizing option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The font sizing option output
+	 */
+	getLineHeightOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!LINE_HEIGHT_SIZES_MAP) {
+			return value;
+		}
+		if (value === '0') {
+			return '0';
+		}
+		if (value === 0) {
+			return '0';
+		}
+		const found = LINE_HEIGHT_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
+
+	/**
+	 * Get the font sizing option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The font sizing option output
+	 */
+	getFontSizeOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!FONT_SIZES_MAP) {
+			return value;
+		}
+		if (value === '0') {
+			return '0';
+		}
+		if (value === 0) {
+			return '0';
+		}
+		const found = FONT_SIZES_MAP.find((option) => option.value === value);
+		if (!found) {
+			return value;
+		}
+		return found.output;
+	}
+	/**
+	 * Get the font sizing option output
+	 * @param {string} value - The value of the attribute
+	 * @returns {string} - The font sizing option output
+	 */
+	getLetterSpacingOutput(value) {
+		if (undefined === value) {
+			return '';
+		}
+		if (!LETTER_SPACING_SIZES_MAP) {
+			return value;
+		}
+		if (value === '0') {
+			return '0';
+		}
+		if (value === 0) {
+			return '0';
+		}
+		const found = LETTER_SPACING_SIZES_MAP.find((option) => option.value === value);
 		if (!found) {
 			return value;
 		}

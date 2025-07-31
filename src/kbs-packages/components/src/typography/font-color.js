@@ -14,6 +14,7 @@ export default function FontColor({
 	previewDevice,
 	attributeName,
 	globalStylesIds,
+	globalStylesCss,
 	customOnChange,
 	forStyleBook,
 	hasColor = false,
@@ -37,6 +38,7 @@ export default function FontColor({
 					globalStylesIds={globalStylesIds}
 					hasGradient={supportsGradient}
 					hasMix={true}
+					globalStylesCss={globalStylesCss}
 				/>
 			)}
 			{hasBackgroundColor && !hasGradient && (
@@ -51,6 +53,7 @@ export default function FontColor({
 					globalStylesIds={globalStylesIds}
 					hasGradient={true}
 					hasMix={true}
+					globalStylesCss={globalStylesCss}
 				/>
 			)}
 			{supportsGradient && hasGradient && (

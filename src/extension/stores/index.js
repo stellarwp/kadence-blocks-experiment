@@ -617,7 +617,6 @@ const store = createReduxStore('kadenceblocks/data', {
 					isUniqueGoogleFont = false;
 				}
 			} else {
-				console.log('fontData', fontData);
 				// Since we need to update to add new weights or styles we need to check if the font family exists and if the weights and styles are the same.
 				if (googleFonts.hasOwnProperty(fontFamily)) {
 					if (!fontData?.weight) {

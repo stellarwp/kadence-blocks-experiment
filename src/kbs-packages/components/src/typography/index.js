@@ -3,6 +3,8 @@ import { __ } from '@wordpress/i18n';
 import RadioButtonControl from '../radio-button-control';
 import FamilyAppearance from './family-appearance';
 import FontColor from './font-color';
+import PresetControl from '../preset-control';
+import TypographyPresetControl from './preset-control';
 import './editor.scss';
 export default function Typography({
 	attributes,
@@ -14,26 +16,40 @@ export default function Typography({
 	customOnChange,
 	forStyleBook,
 	forPresetControl,
+	onlyPresetControl = false,
+	hasPresetControl = true,
 	hasColor = false,
 	hasBackgroundColor = false,
 	supportsGradient = false,
+	globalStylesCss,
 }) {
 	return (
 		<div className="components-base-control">
-			{!forPresetControl && (
-				<SelectControl
-					label={__('Preset', 'kadence-blocks')}
+			{(hasPresetControl || onlyPresetControl) && (
+				<TypographyPresetControl
+					label={__('Typography Preset', 'kadence-blocks')}
+					type={'typography'}
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={attributeName}
-					meta={meta}
-					previewDevice={'none'}
-					type={'preset'}
+					metaData={meta}
+					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
-					customOnChange={customOnChange}
-					forStyleBook={forStyleBook}
-					hasDeviceControls={false}
+					globalStylesCss={globalStylesCss}
 				/>
+				// <PresetControl
+				// 	label={__('Preset', 'kadence-blocks')}
+				// 	attributes={attributes}
+				// 	setAttributes={setAttributes}
+				// 	attributeName={attributeName}
+				// 	meta={meta}
+				// 	previewDevice={'none'}
+				// 	type={'preset'}
+				// 	globalStylesIds={globalStylesIds}
+				// 	customOnChange={customOnChange}
+				// 	forStyleBook={forStyleBook}
+				// 	hasDeviceControls={false}
+				// />
 			)}
 			{hasColor && (
 				<FontColor
@@ -46,6 +62,7 @@ export default function Typography({
 					hasColor={hasColor}
 					attributeName={attributeName}
 					hasBackgroundColor={hasBackgroundColor}
+					globalStylesCss={globalStylesCss}
 				/>
 			)}
 			<RadioButtonControl

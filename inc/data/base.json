@@ -587,13 +587,13 @@
 	},
 	"mappings": {
 		"fontSize": {
-			"sm": { "value": "0.9rem", "label": "Small", "name": "SM" },
-			"base": { "value": "1rem", "label": "Base", "name": "Base" },
-			"md": { "value": "1.25rem", "label": "Medium", "name": "MD" },
-			"lg": { "value": "2rem", "label": "Large", "name": "LG" },
-			"xl": { "value": "3rem", "label": "X Large", "name": "XL" },
-			"xxl": { "value": "56px", "label": "XX Large", "name": "XXL" },
-			"3xl": { "value": "5rem", "label": "3X Large", "name": "3XL" }
+			"sm": { "value": "clamp(0.8rem, 0.7286rem + 0.2286vw, 0.9rem)", "label": "Small", "name": "SM" },
+			"base": { "value": "clamp(1rem, 0.8214rem + 0.5714vw, 1.25rem)", "label": "Base", "name": "Base" },
+			"md": { "value": "clamp(1.25rem, 1.1429rem + 0.3429vw, 1.4rem)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(2rem, 1.7143rem + 0.9143vw, 2.4rem)", "label": "Large", "name": "LG" },
+			"xl": { "value": "clamp(3rem, 2.5714rem + 1.3714vw, 3.6rem)", "label": "X Large", "name": "XL" },
+			"xxl": { "value": "clamp(4rem, 3.4286rem + 1.8286vw, 4.8rem)", "label": "XX Large", "name": "XXL" },
+			"3xl": { "value": "clamp(5rem, 4.2857rem + 2.2857vw, 6rem)", "label": "3X Large", "name": "3XL" }
 		},
 		"letterSpacing": {
 			"none": { "value": "0rem" },
@@ -689,7 +689,7 @@
 			},
 			"palette-complement": {
 				"label": "Accent - Complement",
-				"value": "var(--global-palette-complement)",
+				"value": "oklch(from var(--global-palette1) calc(l + 0.10 * (1 - l)) calc(c * 1.00) calc(h + 180) / 100%)",
 				"locked": true,
 				"category": "accent"
 			},

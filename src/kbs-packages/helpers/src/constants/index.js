@@ -78,6 +78,120 @@ export const SPACING_SIZES_MAP = [
 		name: __('5X Large', 'kadence-blocks'),
 	},
 ];
+export const LETTER_SPACING_SIZES_MAP = [
+	{
+		value: 'none',
+		label: __('None', 'kadence-blocks'),
+		output: 'var(--kbs-letter-spacing-none, 0rem)',
+		name: __('None', 'kadence-blocks'),
+	},
+	{
+		value: 'xs',
+		label: __('X Small', 'kadence-blocks'),
+		output: 'var(--kbs-letter-spacing-xs, 0.5rem)',
+		name: __('X Small', 'kadence-blocks'),
+	},
+	{
+		value: 'sm',
+		label: __('Small', 'kadence-blocks'),
+		output: 'var(--kbs-letter-spacing-sm, 1rem)',
+		name: __('Small', 'kadence-blocks'),
+	},
+	{
+		value: 'md',
+		label: __('Medium', 'kadence-blocks'),
+		output: 'var(--kbs-letter-spacing-md, 2rem)',
+		name: __('Medium', 'kadence-blocks'),
+	},
+	{
+		value: 'lg',
+		label: __('Large', 'kadence-blocks'),
+		output: 'var(--kbs-letter-spacing-lg, 4rem)',
+		name: __('Large', 'kadence-blocks'),
+	},
+];
+export const FONT_SIZES_MAP = [
+	{
+		value: 'sm',
+		label: __('Small', 'kadence-blocks'),
+		output: 'var(--kbs-font-size-sm, 0.9rem)',
+		name: __('Small', 'kadence-blocks'),
+	},
+	{
+		value: 'base',
+		label: __('Base', 'kadence-blocks'),
+		output: 'var(--kbs-font-size-base, 1rem)',
+		name: __('Base', 'kadence-blocks'),
+	},
+	{
+		value: 'md',
+		label: __('Medium', 'kadence-blocks'),
+		output: 'var(--kbs-font-size-md, 1.25rem)',
+		name: __('Medium', 'kadence-blocks'),
+	},
+	{
+		value: 'lg',
+		label: __('Large', 'kadence-blocks'),
+		output: 'var(--kbs-font-size-lg, 2rem)',
+		name: __('Large', 'kadence-blocks'),
+	},
+	{
+		value: 'xl',
+		label: __('X Large', 'kadence-blocks'),
+		output: 'var(--kbs-font-size-xl, 3rem)',
+		name: __('X Large', 'kadence-blocks'),
+	},
+	{
+		value: 'xxl',
+		label: __('XX Large', 'kadence-blocks'),
+		output: 'var(--kbs-font-size-xxl, 56px)',
+		name: __('XX Large', 'kadence-blocks'),
+	},
+	{
+		value: '3xl',
+		label: __('3X Large', 'kadence-blocks'),
+		output: 'var(--kbs-font-size-3xl, 5rem)',
+		name: __('3X Large', 'kadence-blocks'),
+	},
+];
+export const LINE_HEIGHT_SIZES_MAP = [
+	{
+		value: 'xs',
+		label: __('X Small', 'kadence-blocks'),
+		output: 'var(--kbs-line-height-xs, 1)',
+		name: __('X Small', 'kadence-blocks'),
+	},
+	{
+		value: 'sm',
+		label: __('Small', 'kadence-blocks'),
+		output: 'var(--kbs-line-height-sm, 1.2)',
+		name: __('Small', 'kadence-blocks'),
+	},
+	{
+		value: 'base',
+		label: __('Normal', 'kadence-blocks'),
+		output: 'var(--kbs-line-height-base, 1.4)',
+		name: __('Normal', 'kadence-blocks'),
+	},
+	{
+		value: 'md',
+		label: __('Medium', 'kadence-blocks'),
+		output: 'var(--kbs-line-height-md, 1.6)',
+		name: __('Medium', 'kadence-blocks'),
+	},
+	{
+		value: 'lg',
+		label: __('Large', 'kadence-blocks'),
+		output: 'var(--kbs-line-height-lg, 1.8)',
+		name: __('Large', 'kadence-blocks'),
+	},
+	{
+		value: 'xl',
+		label: __('X Large', 'kadence-blocks'),
+		output: 'var(--kbs-line-height-xl, 2)',
+		name: __('X Large', 'kadence-blocks'),
+	},
+];
 
 export const BORDER_RADIUS_SIZES_MAP = [
 	{

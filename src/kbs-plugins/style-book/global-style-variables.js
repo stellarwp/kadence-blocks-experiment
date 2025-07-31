@@ -283,7 +283,6 @@ export const GlobalStyleVariableOutput = () => {
 		}
 
 		const updateOrCreateLinkTags = (doc, id, fontUrls) => {
-			console.log('fontUrls', fontUrls);
 			fontUrls.map((font) => {
 				const linkID = id + font.id; // Make lowercase and replace spaces with hyphens
 				let linkTag = doc.getElementById(linkID);
