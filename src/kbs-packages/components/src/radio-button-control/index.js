@@ -29,7 +29,7 @@ export default function RadioButtonControl({
 	setAttributes,
 	isCollapsed = false,
 	type = '',
-	radioType = 'textAlign',
+	radioType = '',
 	reset = true,
 	previewDevice = 'Desktop',
 	meta,
@@ -48,7 +48,7 @@ export default function RadioButtonControl({
 }) {
 	// Get the globalStylesIds from context
 	const globalStylesIds = useContext(GlobalStylesContext);
-	const radioConfig = type ? type : radioType;
+	const radioConfig = radioType ? radioType : type;
 	const currentValue = value ? value : getDeviceValue(attributeName, attributes, previewDevice, type);
 	let inheritedValue = inherited
 		? inherited
@@ -72,7 +72,7 @@ export default function RadioButtonControl({
 		previewDirection
 	);
 	const defaultOnChange = (value, device, type) => {
-		if (type == 'borderRadius' && !Array.isArray(value) && !isAdvanced) {
+		if ((type == 'borderRadius' || type == 'borderRadiusHover') && !Array.isArray(value) && !isAdvanced) {
 			value = [value, value, value, value];
 		}
 		handleAttributeChange(value, device, attributeName, attributes, setAttributes, customOnChange, type, meta);
@@ -108,7 +108,7 @@ export default function RadioButtonControl({
 	const UIComponentToUse = isAdvanced && UIComponentAdvanced ? UIComponentAdvanced : UIComponent;
 
 	let normalizedValue = currentValue;
-	if (type == 'borderRadius' && Array.isArray(currentValue) && !isAdvanced) {
+	if ((type == 'borderRadius' || type == 'borderRadiusHover') && Array.isArray(currentValue) && !isAdvanced) {
 		normalizedValue = currentValue[0];
 	}
 

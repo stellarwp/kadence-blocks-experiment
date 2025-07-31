@@ -31,57 +31,47 @@ export default function getBundlePresetValue(
 	// Look for bundlePreset attributes in the meta
 	const bundlePresetMetaAttributes = meta?.attributes || {};
 
-	// Find any attribute that has a bundlePreset key with a value
-	let bundlePresetAttributeKey = null;
-	let bundlePresetKey = null;
-	let bundlePresetComponent = null;
-
 	for (const [key, attributeMeta] of Object.entries(bundlePresetMetaAttributes)) {
 		if (attributeMeta?.bundlePreset) {
 			const initialValue = attributeMeta?.initial;
 			const directValue = attributes?.[key];
-			bundlePresetAttributeKey = key;
-			bundlePresetKey = directValue ?? initialValue;
-			bundlePresetComponent = attributeMeta?.component;
-			break;
-		}
-	}
 
-	// If no bundle preset key was found, exit early
-	if (!bundlePresetKey || !bundlePresetComponent) {
-		return { value: undefined, source: undefined };
-	}
+			const bundlePresetAttributeKey = key;
+			const bundlePresetKey = directValue ?? initialValue;
+			const bundlePresetComponent = attributeMeta?.component;
 
-	// Fetch the raw preset data object from the store using the bundle preset key
-	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
-		globalStylesIds,
-		bundlePresetComponent,
-		'presets.' + bundlePresetKey
-	);
+			// Fetch the raw preset data object from the store using the bundle preset key
+			const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
+				globalStylesIds,
+				bundlePresetComponent,
+				'presets.' + bundlePresetKey
+			);
 
-	// Check if we got preset data and extract the specific attribute value for the device
-	if (rawPresetData?.attributes) {
-		// Create a copy of meta without the bundlePreset attribute
-		const metaWithoutBundle = {
-			...meta,
-			attributes: Object.fromEntries(
-				Object.entries(meta.attributes).filter(([key]) => key !== bundlePresetAttributeKey)
-			),
-		};
+			// Check if we got preset data and extract the specific attribute value for the device
+			if (rawPresetData?.attributes && rawPresetData?.attributes?.[attributeName]) {
+				// Create a copy of meta without the bundlePreset attribute
+				const metaWithoutBundle = {
+					...meta,
+					attributes: Object.fromEntries(
+						Object.entries(meta.attributes).filter(([key]) => key !== bundlePresetAttributeKey)
+					),
+				};
 
-		// recusively call getResolvedValue to get the value of the attribute
-		// this will handle things like individual attribute presets, etc
-		const { appliedValue } = getResolvedValue(
-			attributeName,
-			rawPresetData.attributes,
-			device,
-			metaWithoutBundle,
-			type,
-			globalStylesIds
-		);
+				// recusively call getResolvedValue to get the value of the attribute
+				// this will handle things like individual attribute presets, etc
+				const { appliedValue } = getResolvedValue(
+					attributeName,
+					rawPresetData.attributes,
+					device,
+					metaWithoutBundle,
+					type,
+					globalStylesIds
+				);
 
-		if (appliedValue !== undefined && appliedValue !== null && appliedValue !== '') {
-			return { value: appliedValue, source: 'preset' };
+				if (appliedValue !== undefined && appliedValue !== null && appliedValue !== '') {
+					return { value: appliedValue, source: 'preset' };
+				}
+			}
 		}
 	}
 

@@ -200,7 +200,6 @@ export default function ShadowPresetControl({
 				</Popover>
 			)}
 			<div className="kbs-control-inner kbs-radio-preset-control-inner">
-				{console.log('presetOptions', presetOptions)}
 				{presetOptions.map((option) => (
 					<Button
 						key={option.value}

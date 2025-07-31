@@ -277,6 +277,20 @@ export const CONTENT_WIDTH_SIZES_MAP = [
 		label: __('Narrow', 'kadence-blocks'),
 		name: __('Narrow', 'kadence-blocks'),
 	},
+	{
+		value: 'auto',
+		output: '',
+		size: 0,
+		label: __('Auto', 'kadence-blocks'),
+		name: __('Auto', 'kadence-blocks'),
+	},
+	{
+		value: 'full',
+		output: 'var(--kbs-contentwidth-full, 100%)',
+		size: 1000,
+		label: __('Full', 'kadence-blocks'),
+		name: __('Full', 'kadence-blocks'),
+	},
 ];
 
 export const COMPONENTS = ['typography', 'flexBox'];

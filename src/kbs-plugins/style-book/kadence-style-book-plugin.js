@@ -44,6 +44,7 @@ function KadenceConfig() {
 	);
 	const [isKadenceStyleBookOpened, setIsKadenceStyleBookOpened] = useState(false);
 	const [selectedTab, setSelectedTab] = useState('style-guide');
+	const [selectedMappingComponent, setSelectedMappingComponent] = useState('fontSize');
 	const [selectedComponent, setSelectedComponent] = useState('');
 	const [newGlobalStyleName, setNewGlobalStyleName] = useState('');
 	const [newPresetName, setNewPresetName] = useState('');
@@ -616,7 +617,12 @@ function KadenceConfig() {
 						)}
 						{selectedTab == 'mappings' && (
 							<div className="kbs-style-book-mappings">
-								<ComponentMappingControl globalStyleId={currentGlobalStyleId} />
+								<ComponentMappingControl
+									globalStyleId={currentGlobalStyleId}
+									setNeedsSave={setNeedsSave}
+									selectedMappingComponent={selectedMappingComponent}
+									setSelectedMappingComponent={setSelectedMappingComponent}
+								/>
 							</div>
 						)}
 					</div>

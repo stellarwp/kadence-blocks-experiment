@@ -12,45 +12,21 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useState, useEffect, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Icon, DropdownMenu, MenuGroup, MenuItem, Button } from '@wordpress/components';
-import {
-	dragHandle,
-	more,
-	arrowUp,
-	arrowDown,
-	trash,
-	copy,
-	moreVertical,
-	check,
-	chevronUp,
-	chevronDown,
-} from '@wordpress/icons';
+import { arrowUp, arrowDown, trash, copy, moreVertical } from '@wordpress/icons';
 /**
  * Internal libraries
  */
-import {
-	getPreviewValue,
-	getInheritedDeviceValue,
-	getInheritedValue,
-	handleAttributeChange,
-	handleLayerAttributeChange,
-	getLayerDeviceValue,
-	getPresetOptions,
-} from '@kadence/kbsHelpers';
+import { getInheritedValue, handleAttributeChange, getPresetOptions } from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
  */
-import ToolsPanelBody from '../tools-panel-body';
-import RadioButtonControl from '../radio-button-control';
-import ColorControl from '../color-control';
-import BackgroundImageControl from '../background-image-control';
-import RadioButtonSelect from '../radio-button-control/radio-button-select';
 import ShadowLayer from './shadow-layer';
 import LayerTitleBar from './layer-title-bar';
 import ShadowPresetControl from './shadow-preset-control';
 
 import './editor.scss';
 
-function SortableShadowLayer({ layer, index, totalLayers, ...props }) {
+function SortableShadowLayer({ layer, index, totalLayers, type, ...props }) {
 	const {
 		attributes: sortableAttributes,
 		listeners,
@@ -98,7 +74,7 @@ function SortableShadowLayer({ layer, index, totalLayers, ...props }) {
 	};
 	return (
 		<div
-			key={index}
+			key={index + type}
 			className={clsx('kbs-shadow-layer-wrapper', {
 				'is-dragging': isDragging,
 			})}
@@ -196,13 +172,7 @@ export default function LayeredShadowControl({
 	globalStylesCss,
 	type = 'boxShadow',
 }) {
-	const [currentView, setCurrentView] = useState('normal');
-	const onSelectView = (view) => {
-		setCurrentView(view);
-	};
-	const selector = metaData?.attributes?.[attributeName]?.varPrefix || 'background';
 	const inherited = getInheritedValue(attributeName, attributes, 'none', metaData, 'layers', globalStylesIds);
-	const hasLayers = metaData?.attributes?.[attributeName]?.hasLayers;
 	const presetLabel = getPresetLabel(attributes[attributeName]?.preset, metaData, attributeName);
 	const onLayerReset = () => {
 		handleAttributeChange(
@@ -323,7 +293,7 @@ export default function LayeredShadowControl({
 							{inherited?.inheritedValue?.length > 0 ? (
 								inherited.inheritedValue.map((layer, index) => (
 									<SortableShadowLayer
-										key={index}
+										key={index + type}
 										layer={layer}
 										index={index}
 										attributes={attributes}
@@ -341,7 +311,7 @@ export default function LayeredShadowControl({
 								))
 							) : (
 								<SortableShadowLayer
-									key={0}
+									key={0 + type}
 									layer={{}}
 									index={0}
 									attributes={attributes}

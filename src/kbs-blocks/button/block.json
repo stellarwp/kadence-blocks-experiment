@@ -50,6 +50,14 @@
 				}
 			}
 		},
+		"size": {
+			"renderCSS": false,
+			"component": "buttonSize",
+			"bundlePreset": true,
+			"nonInheritable": true,
+			"type": "string",
+			"initial": "md"
+		},
 		"variant": {
 			"renderCSS": false,
 			"component": "buttonVariant",
@@ -164,13 +172,21 @@
 			"classPrefix": "kbs-button-color-link-",
 			"selectorSuffix": " a"
 		},
-		"textShadow": {
+		"boxShadow": {
 			"renderCSS": true,
-			"component": "textShadow",
-			"nonInheritable": true,
+			"component": "boxShadow",
 			"type": "object",
 			"varPrefix": "--kbs-button-",
 			"classPrefix": "kbs-button-shadow-",
+			"hasLayers": true
+		},
+		"boxShadowHover": {
+			"renderCSS": true,
+			"component": "boxShadow",
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"varSuffix": "-hover",
+			"classPrefix": "kbs-button-shadow-hover-",
 			"hasLayers": true
 		},
 		"textOrientation": {
@@ -187,13 +203,17 @@
 			"type": "object",
 			"varPrefix": "--kbs-button-"
 		},
-		"maxWidth": {
+		"width": {
 			"renderCSS": true,
-			"component": "maxWidth",
+			"component": "width",
 			"nonInheritable": true,
 			"type": "object",
 			"varPrefix": "--kbs-button-",
-			"selectorSuffix": " .kbs-button-content"
+			"initial": {
+				"desktop": {
+					"width": "auto"
+				}
+			}
 		},
 		"icon": {
 			"renderCSS": true,

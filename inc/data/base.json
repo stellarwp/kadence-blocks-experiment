@@ -583,6 +583,90 @@
 					}
 				}
 			}
+		},
+		"buttonSize": {
+			"presets": {
+				"sm": {
+					"label": "SM",
+					"description": "A small button size preset",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"desktop": {
+								"paddingTop": "xxs",
+								"paddingRight": "xs",
+								"paddingBottom": "xxs",
+								"paddingLeft": "xs"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "sm"
+							}
+						}
+					}
+				},
+				"md": {
+					"label": "MD",
+					"description": "A medium button size preset",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"desktop": {
+								"paddingTop": "xs",
+								"paddingRight": "sm",
+								"paddingBottom": "xs",
+								"paddingLeft": "sm"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "md"
+							}
+						}
+					}
+				},
+				"lg": {
+					"label": "LG",
+					"description": "A large button size preset",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"desktop": {
+								"paddingTop": "sm",
+								"paddingRight": "md",
+								"paddingBottom": "sm",
+								"paddingLeft": "md"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "lg"
+							}
+						}
+					}
+				},
+				"xl": {
+					"label": "XL",
+					"description": "An extra large button size preset",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"desktop": {
+								"paddingTop": "sm",
+								"paddingRight": "md",
+								"paddingBottom": "sm",
+								"paddingLeft": "md"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "xl"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"mappings": {
