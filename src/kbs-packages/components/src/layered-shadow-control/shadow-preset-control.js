@@ -16,6 +16,7 @@ import {
 	handleAttributeChange,
 	isAdvancedOption,
 	handleMultipleAttributeChange,
+	getInheritedValue,
 } from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
@@ -81,7 +82,17 @@ export default function ShadowPresetControl({
 
 	// Get the first three presets in a custom array
 	const presetOptions = presets.slice(0, 3);
-	const currentValue = attributes?.[attributeName]?.preset;
+
+	const { inheritedValue, inheritedSource, inheritedType } = getInheritedValue(
+		attributeName,
+		attributes,
+		'none',
+		meta,
+		'',
+		globalStylesIds
+	);
+
+	const currentValue = inheritedValue?.preset;
 
 	const [isPopover, setIsPopover] = useState(false);
 	const [showConfirmPopover, setShowConfirmPopover] = useState(false);

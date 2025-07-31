@@ -16,6 +16,7 @@ import {
 	handleAttributeChange,
 	isAdvancedOption,
 	handleMultipleAttributeChange,
+	getInheritedValue,
 } from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
@@ -72,6 +73,7 @@ export default function PresetControl({
 	definedPresets = [],
 	view = 'default',
 	isBundlePreset = false,
+	globalStylesIds,
 }) {
 	const attributeMeta = metaData?.attributes?.[attributeName];
 	const presetType = attributeMeta?.component ? attributeMeta?.component : '';
@@ -83,7 +85,16 @@ export default function PresetControl({
 	// Get the first three presets in a custom array
 	const presetOptions = definedPresets.length > 0 ? definedPresets : presets.slice(0, previewAmount);
 	const hasRadioToggle = definedPresets.length > 0 ? true : false;
-	const currentValue = isBundlePreset ? attributes?.[attributeName] : attributes?.[attributeName]?.preset;
+
+	const { inheritedValue, inheritedSource, inheritedType } = getInheritedValue(
+		attributeName,
+		attributes,
+		'none',
+		metaData,
+		'',
+		globalStylesIds
+	);
+	const currentValue = isBundlePreset ? inheritedValue : inheritedValue?.preset;
 
 	const [isPopover, setIsPopover] = useState(false);
 	const [showConfirmPopover, setShowConfirmPopover] = useState(false);
@@ -103,7 +114,7 @@ export default function PresetControl({
 		}
 	}, [globalStylesCss, isPopover, divRef?.current]);
 	const onChange = (value) => {
-		if (attributes?.[attributeName]?.preset === value) {
+		if (attributes?.[attributeName]?.preset === value && value !== undefined) {
 			return;
 		}
 		if (
