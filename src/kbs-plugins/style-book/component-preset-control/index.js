@@ -74,7 +74,10 @@ export default function ComponentPresetControl(props) {
 			globalStylesCss={globalStylesCss}
 			globalStylesIds={[globalStyleId]}
 			forStyleBook={true}
-			forPresetControl={true}
+			hasColor={true}
+			hasBackgroundColor={true}
+			supportsGradient={true}
+			hasPresetControl={false}
 		/>
 	);
 }

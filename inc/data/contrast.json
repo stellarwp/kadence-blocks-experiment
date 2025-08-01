@@ -62,6 +62,7 @@
 		"colors": {
 			"palette1": { "value": "var(--global-palette1)" },
 			"palette2": { "value": "var(--global-palette2)" },
+			"palette-complement": { "value": "var(--global-palette-complement)" },
 			"palette3": { "value": "var(--global-palette9)" },
 			"palette4": { "value": "var(--global-palette8)" },
 			"palette5": { "value": "var(--global-palette7)" },

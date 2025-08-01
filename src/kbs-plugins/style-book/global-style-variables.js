@@ -314,22 +314,26 @@ export const GlobalStyleVariableOutput = () => {
 
 		// Cleanup the style tag when the component unmounts
 		return () => {
-			if (iframeDoc) {
-				fontUrls.map((font) => {
-					const linkID = id + font.id;
-					const linkTag = iframeDoc.getElementById(linkID);
-					if (linkTag) {
-						linkTag.remove();
-					}
-				});
-			}
-			fontUrls.map((font) => {
-				const linkID = id + font.id;
-				const linkTag = document.getElementById(linkID);
-				if (linkTag) {
-					linkTag.remove();
-				}
-			});
+			// if (iframeDoc) {
+			// 	if (googleFontsUrls.length > 0) {
+			// 		googleFontsUrls.map((font) => {
+			// 			const linkID = id + font.id;
+			// 			const linkTag = iframeDoc.getElementById(linkID);
+			// 			if (linkTag) {
+			// 				linkTag.remove();
+			// 			}
+			// 		});
+			// 	}
+			// }
+			// if (googleFontsUrls.length > 0) {
+			// 	googleFontsUrls.map((font) => {
+			// 		const linkID = id + font.id;
+			// 		const linkTag = document.getElementById(linkID);
+			// 		if (linkTag) {
+			// 			linkTag.remove();
+			// 		}
+			// 	});
+			// }
 		};
 	}, [previewDevice, googleFontsUrls]);
 
