@@ -38,18 +38,6 @@
 			"type": "object",
 			"varPrefix": "--kbs-button-"
 		},
-		"headingTag": {
-			"renderCSS": false,
-			"component": "htmlTag",
-			"nonInheritable": true,
-			"type": "object",
-			"varPrefix": "--kbs-button-",
-			"initial": {
-				"desktop": {
-					"headingTag": "p"
-				}
-			}
-		},
 		"size": {
 			"renderCSS": false,
 			"component": "buttonSize",
@@ -65,6 +53,16 @@
 			"nonInheritable": true,
 			"type": "string",
 			"initial": "primary"
+		},
+		"buttonRole": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"ariaLabel": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
 		},
 		"link": {
 			"type": "object"

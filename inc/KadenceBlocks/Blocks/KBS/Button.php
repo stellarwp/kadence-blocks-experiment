@@ -115,11 +115,15 @@ class Button extends Abstract_Block {
 		$max_width_any_value = self::get_resolved_value( 'maxWidth', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'maxWidth' ), 'maxWidth', [] );
 		$color_any_value = self::get_resolved_value( 'color', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'color' ), 'color', [] );
 		$icon_placement_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconPlacement' ), 'placement', [] );
+		$button_role_any_value = self::get_resolved_value( 'buttonRole', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'buttonRole' ), 'buttonRole', [] );
+		$aria_label_any_value = self::get_resolved_value( 'ariaLabel', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'ariaLabel' ), 'ariaLabel', [] );
 
 		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
 		$has_max_width = ! empty( $max_width_any_value['appliedValue'] ) ? true : false;
 		$has_icon = ! empty( $icon_any_value['appliedValue'] ) ? true : false;
 		$has_gradient = ! empty( $color_any_value['appliedValue'] ) && strpos( $color_any_value['appliedValue'], 'gradient(' ) !== false;
+		$has_button_role = ! empty( $button_role_any_value['appliedValue'] ) ? true : false;
+		$has_aria_label = ! empty( $aria_label_any_value['appliedValue'] ) ? true : false;
 
 		$should_wrap_content = $has_link || $has_max_width || $has_icon || $has_gradient || $has_typed_text;
 
@@ -135,7 +139,7 @@ class Button extends Abstract_Block {
 		$content_class_string = 'class="' . esc_attr( implode( ' ', $content_classes ) ) . '"';
 
 
-		if ( !$should_wrap_content ) {
+		if ( ! $should_wrap_content ) {
 			$wrapper_classes = array_merge( $wrapper_classes, $content_classes );
 		}
 		
@@ -145,6 +149,12 @@ class Button extends Abstract_Block {
 		
 		if ( ! empty( $attributes['anchor'] ) ) {
 			$wrapper_args['id'] = $attributes['anchor'];
+		}
+		if ( $has_button_role ) {
+			$wrapper_args['role'] = 'button';
+		}
+		if ( $has_aria_label ) {
+			$wrapper_args['aria-label'] = $aria_label_any_value['appliedValue'];
 		}
 		
 		$wrapper_args       = apply_filters( 'kbs_wrapper_args', $wrapper_args, $attributes, $this->block_name, $unique_id, $block_instance );
@@ -163,7 +173,7 @@ class Button extends Abstract_Block {
 		}
 
 		if ( $should_wrap_content ) {
-			$content = str_replace( 'class="kbs-button-content"', $content_class_string,  $content );
+			$content = str_replace( 'class="kbs-button-content"', $content_class_string, $content );
 			return sprintf( '<div %1$s>%2$s</div>', $wrapper_attributes, $content );
 		} else {
 			$content = str_replace( 'class="kbs-button-content"', $wrapper_attributes, $content );
