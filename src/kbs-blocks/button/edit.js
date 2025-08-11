@@ -90,6 +90,11 @@ export default function ButtonEdit(props) {
 		() => getResolvedValue('icon', attributes, 'any', metadata, 'placement', globalStylesIds),
 		[attributes]
 	);
+	const iconRevealAnyValue = useMemo(
+		() => getResolvedValue('iconReveal', attributes, 'any', metadata, 'iconReveal', globalStylesIds),
+		[attributes]
+	);
+
 	const previewIconPlacement = iconPlacementAnyValue?.appliedValue;
 
 	//look for gradient text marker in the color value
@@ -97,6 +102,7 @@ export default function ButtonEdit(props) {
 	const hasGradientHighlight = previewColorHighlightValue?.includes('gradient(');
 
 	const hasIcon = iconAnyValue?.appliedValue ? true : false;
+	const hasIconReveal = iconRevealAnyValue?.appliedValue ? true : false;
 
 	const classes = classnames('kbs-button', {
 		[className]: className,
@@ -105,6 +111,7 @@ export default function ButtonEdit(props) {
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
 		['kbs-button-has-icon']: hasIcon,
+		['icon-reveal']: hasIcon && hasIconReveal,
 	});
 
 	const blockProps = useBlockProps({

@@ -18,6 +18,7 @@ import {
 	RadioButtonControl,
 	IconControl,
 	TabsControl,
+	ToggleControl,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -241,6 +242,16 @@ export default function InspectorStyles(props) {
 					hasPlacement={true}
 					hasAlignment={true}
 					hasSpacing={true}
+					hasRotation={true}
+				/>
+				<ToggleControl
+					label={__('Reveal Icon on Hover', 'kadence-blocks')}
+					titleBar={false}
+					attributeName={'iconReveal'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					type={'iconReveal'}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody

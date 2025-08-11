@@ -27,6 +27,7 @@ export { default as ColorSelect } from './color-control/color-select';
 export { default as BackgroundStyles } from './background-styles';
 export { default as DynamicTextControl } from './dynamic-text-control';
 export { default as TextControl } from './text-control';
+export { default as AnglePickerControl } from './angle-picker-control';
 export { default as ToggleControl } from './toggle-control';
 export { default as TitleBar } from './title-bar';
 export { default as BackgroundPresetRender } from './background-styles/preset-render';

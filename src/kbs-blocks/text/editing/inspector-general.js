@@ -15,6 +15,7 @@ import {
 	ColorControl,
 	RadioButtonControl,
 	RadioButtonSelect,
+	ToggleControl,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -136,8 +137,18 @@ export default function InspectorGeneral(props) {
 					hasPlacement={true}
 					hasAlignment={true}
 					hasSpacing={true}
+					hasRotation={true}
 					globalStylesCss={globalStylesCss}
 					globalStylesIds={globalStylesIds}
+				/>
+				<ToggleControl
+					label={__('Reveal Icon on Hover', 'kadence-blocks')}
+					titleBar={false}
+					attributeName={'iconReveal'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					type={'iconReveal'}
 				/>
 			</ToolsPanelBody>
 		</>

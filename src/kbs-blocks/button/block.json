@@ -59,6 +59,11 @@
 			"nonInheritable": true,
 			"type": "object"
 		},
+		"iconReveal": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
 		"ariaLabel": {
 			"renderCSS": false,
 			"nonInheritable": true,

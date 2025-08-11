@@ -199,6 +199,8 @@ class CSSGenerator {
 					cssValue = this.getIconSizeOutput(appliedValue);
 				} else if (key.includes('padding') || key.includes('margin')) {
 					cssValue = this.getSpacingOutput(appliedValue);
+				} else if (key.includes('rotation')) {
+					cssValue = appliedValue + 'deg';
 				} else {
 					cssValue = appliedValue;
 				}
@@ -1063,6 +1065,8 @@ class CSSGenerator {
 					'paddingHoverBottom',
 					'paddingHoverLeft',
 					'alignItems',
+					'rotation',
+					'rotationHover',
 				];
 				break;
 			case 'linkStyle':

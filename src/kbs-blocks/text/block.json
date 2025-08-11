@@ -181,6 +181,11 @@
 			"varPrefix": "--kbs-text-",
 			"selectorSuffix": " .kbs-text-content"
 		},
+		"iconReveal": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
 		"icon": {
 			"renderCSS": true,
 			"component": "icon",

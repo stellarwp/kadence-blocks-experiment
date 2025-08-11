@@ -8,6 +8,7 @@ import TabsControl from '../tabs-control';
 import SpaceControl from '../space-control';
 import SelectBasicControl from '../select-basic-control';
 import ToggleControl from '../toggle-control';
+import AnglePickerControl from '../angle-picker-control';
 
 export default function IconControl(props) {
 	const {
@@ -22,6 +23,7 @@ export default function IconControl(props) {
 		hasPlacement = false,
 		hasAlignment = false,
 		hasSpacing = false,
+		hasRotation = false,
 	} = props;
 	const [activeTab, setActiveTab] = useState('default');
 
@@ -129,6 +131,19 @@ export default function IconControl(props) {
 								globalStylesIds={globalStylesIds}
 							/>
 						)}
+						{hasRotation && (
+							<AnglePickerControl
+								label={__('Rotation', 'kadence-blocks')}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								attributeName={attributeName}
+								type={'rotation'}
+								meta={meta}
+								previewDevice={previewDevice}
+								previewDirection={previewDirection?.inheritedValue}
+								hasCustomControls={true}
+							/>
+						)}
 					</>
 				)}
 				{activeTab === 'hover' && (
@@ -184,6 +199,19 @@ export default function IconControl(props) {
 								hasPresetControl={false}
 								metaData={meta}
 								globalStylesIds={globalStylesIds}
+							/>
+						)}
+						{hasRotation && (
+							<AnglePickerControl
+								label={__('Rotation', 'kadence-blocks')}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								attributeName={attributeName}
+								type={'rotationHover'}
+								meta={meta}
+								previewDevice={previewDevice}
+								previewDirection={previewDirection?.inheritedValue}
+								hasCustomControls={true}
 							/>
 						)}
 					</>

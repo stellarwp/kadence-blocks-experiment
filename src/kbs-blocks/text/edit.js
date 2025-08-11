@@ -93,6 +93,10 @@ export default function TextEdit(props) {
 		() => getResolvedValue('icon', attributes, 'any', metadata, 'icon', globalStylesIds),
 		[attributes]
 	);
+	const iconRevealAnyValue = useMemo(
+		() => getResolvedValue('iconReveal', attributes, 'any', metadata, 'iconReveal', globalStylesIds),
+		[attributes]
+	);
 	const iconPlacementAnyValue = useMemo(
 		() => getResolvedValue('icon', attributes, 'any', metadata, 'placement', globalStylesIds),
 		[attributes]
@@ -122,6 +126,7 @@ export default function TextEdit(props) {
 	const hasLink = link?.url ? true : false;
 	const hasMaxWidth = maxWidthAnyValue?.appliedValue ? true : false;
 	const hasIcon = iconAnyValue?.appliedValue ? true : false;
+	const hasIconReveal = iconRevealAnyValue?.appliedValue ? true : false;
 	const hasTypedText = content?.includes('kt-typed-text');
 	const shouldWrapContent = hasLink || hasMaxWidth || hasIcon || hasGradient || hasTypedText;
 
@@ -132,6 +137,7 @@ export default function TextEdit(props) {
 		[`has-gradient-highlight`]: hasGradientHighlight,
 		[`kbs-text-content`]: !shouldWrapContent,
 		['kbs-text-has-icon']: hasIcon,
+		['icon-reveal']: hasIcon && hasIconReveal,
 	});
 
 	const blockProps = useBlockProps({

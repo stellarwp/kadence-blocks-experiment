@@ -115,10 +115,12 @@ class Text extends Abstract_Block {
 		$max_width_any_value = self::get_resolved_value( 'maxWidth', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'maxWidth' ), 'maxWidth', [] );
 		$color_any_value = self::get_resolved_value( 'color', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'color' ), 'color', [] );
 		$icon_placement_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconPlacement' ), 'placement', [] );
+		$icon_reveal_any_value = self::get_resolved_value( 'iconReveal', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconReveal' ), 'iconReveal', [] );
 
 		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
 		$has_max_width = ! empty( $max_width_any_value['appliedValue'] ) ? true : false;
 		$has_icon = ! empty( $icon_any_value['appliedValue'] ) ? true : false;
+		$has_icon_reveal = ! empty( $icon_reveal_any_value['appliedValue'] ) ? true : false;
 		$has_gradient = ! empty( $color_any_value['appliedValue'] ) && strpos( $color_any_value['appliedValue'], 'gradient(' ) !== false;
 
 		$should_wrap_content = $has_link || $has_max_width || $has_icon || $has_gradient || $has_typed_text;
@@ -129,6 +131,9 @@ class Text extends Abstract_Block {
 		}
 		if ( $has_icon ) {
 			$wrapper_classes[] = 'kbs-text-has-icon';
+		}
+		if ( $has_icon && $has_icon_reveal ) {
+			$wrapper_classes[] = 'icon-reveal';
 		}
 
 		$content_classes[] = 'kbs-text-content';

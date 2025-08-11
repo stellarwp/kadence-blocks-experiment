@@ -139,6 +139,11 @@
 	}
 
 	.kt-svg-icon-wrap {
+		transition:
+			transform 0.3s ease-in-out,
+			width 0.3s ease-in-out,
+			opacity 0.3s ease-in-out;
+
 		color: var(--kbs-button-icon-color);
 		stroke-width: var(--kbs-button-icon-icon-line-width);
 		width: var(--kbs-button-icon-icon-size, 24px);
@@ -147,6 +152,7 @@
 		padding-right: var(--kbs-button-icon-padding-right, 0);
 		padding-top: var(--kbs-button-icon-padding-top, 0);
 		padding-bottom: var(--kbs-button-icon-padding-bottom, 0);
+		transform: rotate(var(--kbs-button-icon-rotation));
 
 		&:hover {
 			color: var(--kbs-button-icon-color-hover, var(--kbs-button-icon-color));
@@ -169,10 +175,31 @@
 		border-left: var(--kbs-button-border-left-hover, var(--kbs-button-border-left));
 		border-right: var(--kbs-button-border-right-hover, var(--kbs-button-border-right));
 		border-bottom: var(--kbs-button-border-bottom-hover, var(--kbs-button-border-bottom));
+
+		.kt-svg-icon-wrap {
+			transform: rotate(var(--kbs-button-icon-rotation-hover, var(--kbs-button-icon-rotation)));
+		}
 	}
 
 	a[data-kb-tooltip-content]:not([href]) {
 		border-bottom: 1px dashed var(--kbs-button-icon-tooltip-dash-color, currentColor);
+	}
+
+	//reveal icon by setting it's width and opacity to 0 and then on hover, set it's width and opacity to the icon size and 1.
+	&.icon-reveal {
+		$icon-size: var(--kbs-button-icon-icon-size, 24px);
+
+		.kt-svg-icon-wrap {
+			width: 0;
+			opacity: 0;
+		}
+
+		&:hover {
+			.kt-svg-icon-wrap {
+				width: $icon-size;
+				opacity: 1;
+			}
+		}
 	}
 }
 

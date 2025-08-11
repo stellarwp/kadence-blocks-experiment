@@ -117,10 +117,12 @@ class Button extends Abstract_Block {
 		$icon_placement_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconPlacement' ), 'placement', [] );
 		$button_role_any_value = self::get_resolved_value( 'buttonRole', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'buttonRole' ), 'buttonRole', [] );
 		$aria_label_any_value = self::get_resolved_value( 'ariaLabel', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'ariaLabel' ), 'ariaLabel', [] );
+		$icon_reveal_any_value = self::get_resolved_value( 'iconReveal', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconReveal' ), 'iconReveal', [] );
 
 		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
 		$has_max_width = ! empty( $max_width_any_value['appliedValue'] ) ? true : false;
 		$has_icon = ! empty( $icon_any_value['appliedValue'] ) ? true : false;
+		$has_icon_reveal = ! empty( $icon_reveal_any_value['appliedValue'] ) ? true : false;
 		$has_gradient = ! empty( $color_any_value['appliedValue'] ) && strpos( $color_any_value['appliedValue'], 'gradient(' ) !== false;
 		$has_button_role = ! empty( $button_role_any_value['appliedValue'] ) ? true : false;
 		$has_aria_label = ! empty( $aria_label_any_value['appliedValue'] ) ? true : false;
@@ -132,7 +134,10 @@ class Button extends Abstract_Block {
 			$wrapper_classes[] = 'has-text-align-' . $attributes['align'];
 		}
 		if ( $has_icon ) {
-			$wrapper_classes[] = 'kbs-text-has-icon';
+			$wrapper_classes[] = 'kbs-button-has-icon';
+		}
+		if ( $has_icon && $has_icon_reveal ) {
+			$wrapper_classes[] = 'icon-reveal';
 		}
 
 		$content_classes[] = 'kbs-button-content';
