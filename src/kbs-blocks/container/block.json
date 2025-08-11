@@ -62,7 +62,8 @@
 			"renderCSS": true,
 			"component": "margin",
 			"nonInheritable": true,
-			"varPrefix": "--kbs-cont-"
+			"varPrefix": "--kbs-cont-",
+			"selectorSuffix": "%selector%"
 		},
 		"background": {
 			"renderCSS": true,

@@ -20,6 +20,14 @@ export default function SpacingControl({
 	clientId,
 	blockElementRef = null,
 	initialOpen = true,
+	hasMarginTop = true,
+	hasMarginRight = true,
+	hasMarginBottom = true,
+	hasMarginLeft = true,
+	hasPaddingTop = true,
+	hasPaddingRight = true,
+	hasPaddingBottom = true,
+	hasPaddingLeft = true,
 }) {
 	const onAllReset = () => {
 		const resetObject = {};
@@ -34,6 +42,26 @@ export default function SpacingControl({
 				return __('Padding', 'kadence-blocks');
 			case 'margin':
 				return __('Margin', 'kadence-blocks');
+		}
+	};
+
+	const getHasSide = (type, side) => {
+		if (type === 'margin') {
+			return side === 'top'
+				? hasMarginTop
+				: side === 'right'
+					? hasMarginRight
+					: side === 'bottom'
+						? hasMarginBottom
+						: hasMarginLeft;
+		} else if (type === 'padding') {
+			return side === 'top'
+				? hasPaddingTop
+				: side === 'right'
+					? hasPaddingRight
+					: side === 'bottom'
+						? hasPaddingBottom
+						: hasPaddingLeft;
 		}
 	};
 
@@ -61,6 +89,10 @@ export default function SpacingControl({
 					hasPresetControl={hasPresetControl}
 					metaData={metaData}
 					globalStylesIds={globalStylesIds}
+					hasTop={getHasSide(type, 'top')}
+					hasRight={getHasSide(type, 'right')}
+					hasBottom={getHasSide(type, 'bottom')}
+					hasLeft={getHasSide(type, 'left')}
 				/>
 			))}
 		</ToolsPanelBody>

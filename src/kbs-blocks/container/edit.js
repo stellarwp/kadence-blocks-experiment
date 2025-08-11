@@ -42,13 +42,14 @@ export default function ContainerEdit(props) {
 	const myElementRef = useRef(null);
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
-	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice } = useSelect(
+	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice, inAnyBlock } = useSelect(
 		(select) => {
 			const { getBlock, getBlockRootClientId, getBlockParentsByBlockName, getBlocksByClientId } =
 				select(blockEditorStore);
 			const block = getBlock(clientId);
 			const rootID = getBlockRootClientId(clientId);
 			let inRowBlock = false;
+			let inAnyBlock = false;
 			let inFormBlock = false;
 			if (rootID) {
 				const hasForm = getBlockParentsByBlockName(clientId, 'kadence/advanced-form');
@@ -61,12 +62,15 @@ export default function ContainerEdit(props) {
 					parentBlock[0].name === 'kadence/rowlayout'
 						? true
 						: false;
+				inAnyBlock =
+					undefined !== parentBlock && undefined !== parentBlock[0] && undefined !== parentBlock[0].name;
 			}
 			return {
 				inRowBlock,
 				hasInnerBlocks: !!(block && block.innerBlocks.length),
 				inFormBlock,
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+				inAnyBlock,
 			};
 		},
 		[clientId]
@@ -124,6 +128,7 @@ export default function ContainerEdit(props) {
 				globalStylesIds={globalStylesIds}
 				globalStylesCss={globalStylesCss}
 				blockElementRef={myElementRef}
+				inAnyBlock={inAnyBlock}
 			/>
 			{/* <Toolbar {...props} />
 				<Inspector {...props} />

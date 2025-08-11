@@ -58,6 +58,10 @@ export default function SpaceControl({
 	clientId = '',
 	blockElementRef = null,
 	hasPresetControl = true,
+	hasTop = true,
+	hasLeft = true,
+	hasRight = true,
+	hasBottom = true,
 }) {
 	const parentType = type;
 	const typeMouseOver = mouseOverVisualizer();
@@ -261,28 +265,32 @@ export default function SpaceControl({
 						</div> */}
 						</div>
 						<div className="kbs-radio-button-popup-grid-container">
-							<RadioToggleGroupPopoverInputUI
-								label={__('Top', 'kadence-blocks')}
-								parentLabel={label}
-								type={type + 'Top'}
-								hasCustomControls={true}
-								controls={controls}
-								isCustom={isCustom}
-								value={topValue}
-								inherited={inheritedTop}
-								onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Top')}
-							/>
-							<RadioToggleGroupPopoverInputUI
-								label={__('Left', 'kadence-blocks')}
-								type={type + 'Left'}
-								parentLabel={label}
-								hasCustomControls={true}
-								value={leftValue}
-								controls={controls}
-								isCustom={isCustom}
-								inherited={inheritedLeft}
-								onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Left')}
-							/>
+							{hasTop && (
+								<RadioToggleGroupPopoverInputUI
+									label={__('Top', 'kadence-blocks')}
+									parentLabel={label}
+									type={type + 'Top'}
+									hasCustomControls={true}
+									controls={controls}
+									isCustom={isCustom}
+									value={topValue}
+									inherited={inheritedTop}
+									onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Top')}
+								/>
+							)}
+							{hasLeft && (
+								<RadioToggleGroupPopoverInputUI
+									label={__('Left', 'kadence-blocks')}
+									type={type + 'Left'}
+									parentLabel={label}
+									hasCustomControls={true}
+									value={leftValue}
+									controls={controls}
+									isCustom={isCustom}
+									inherited={inheritedLeft}
+									onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Left')}
+								/>
+							)}
 							<div className={'kbs-space-control-linking'}>
 								<Button
 									iconSize={16}
@@ -293,28 +301,32 @@ export default function SpaceControl({
 									label={isLinking ? __('Unlink', 'kadence-blocks') : __('Link', 'kadence-blocks')}
 								/>
 							</div>
-							<RadioToggleGroupPopoverInputUI
-								label={__('Right', 'kadence-blocks')}
-								type={type + 'Right'}
-								parentLabel={label}
-								hasCustomControls={true}
-								value={rightValue}
-								controls={controls}
-								isCustom={isCustom}
-								inherited={inheritedRight}
-								onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Right')}
-							/>
-							<RadioToggleGroupPopoverInputUI
-								label={__('Bottom', 'kadence-blocks')}
-								type={type + 'Bottom'}
-								hasCustomControls={true}
-								parentLabel={label}
-								isCustom={isCustom}
-								controls={controls}
-								value={bottomValue}
-								inherited={inheritedBottom}
-								onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Bottom')}
-							/>
+							{hasRight && (
+								<RadioToggleGroupPopoverInputUI
+									label={__('Right', 'kadence-blocks')}
+									type={type + 'Right'}
+									parentLabel={label}
+									hasCustomControls={true}
+									value={rightValue}
+									controls={controls}
+									isCustom={isCustom}
+									inherited={inheritedRight}
+									onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Right')}
+								/>
+							)}
+							{hasBottom && (
+								<RadioToggleGroupPopoverInputUI
+									label={__('Bottom', 'kadence-blocks')}
+									type={type + 'Bottom'}
+									hasCustomControls={true}
+									parentLabel={label}
+									isCustom={isCustom}
+									controls={controls}
+									value={bottomValue}
+									inherited={inheritedBottom}
+									onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Bottom')}
+								/>
+							)}
 						</div>
 					</div>
 				</div>

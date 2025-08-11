@@ -7,12 +7,7 @@
 /**
  * Kadence Components.
  */
-import {
-	FlexChildControl,
-	SizingControl,
-	SpacingControl,
-	SharedInspectorAdvanced,
-} from '@kadence/kbsComponents';
+import { FlexChildControl, SizingControl, SpacingControl, SharedInspectorAdvanced } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -35,6 +30,7 @@ export default function InspectorAdvanced(props) {
 		globalStylesIds,
 		globalStylesCss,
 		blockElementRef,
+		inAnyBlock,
 	} = props;
 	return (
 		<>
@@ -49,6 +45,8 @@ export default function InspectorAdvanced(props) {
 				clientId={clientId}
 				showVisualizer={true}
 				blockElementRef={blockElementRef}
+				hasMarginLeft={inAnyBlock ? true : false}
+				hasMarginRight={inAnyBlock ? true : false}
 			/>
 			<SizingControl
 				attributes={attributes}
