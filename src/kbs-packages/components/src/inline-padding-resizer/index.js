@@ -24,7 +24,20 @@ function getComputedCSS(element, editorDocument, property) {
 		element?.ownerDocument?.defaultView
 			?.getComputedStyle(element)
 			?.getPropertyValue(property.replace('var(', '').split(',')[0].replace(')', '')) || '0';
-
+	// if the value contains 'clamp'
+	if (cssValue.includes('clamp')) {
+		// Return Max Value
+		const clampValue = cssValue.split('(')[1].split(')')[0].split(',');
+		// check if rem is in the value
+		if (clampValue[2].includes('rem')) {
+			const remValue = parseFloat(clampValue[2]);
+			const fontSize =
+				parseFloat(editorDocument?.defaultView?.getComputedStyle(editorDocument.documentElement)?.fontSize) ||
+				16;
+			return remValue * fontSize;
+		}
+		return parseFloat(clampValue[2]);
+	}
 	// Convert rem to px if the value contains 'rem'
 	if (cssValue.includes('rem')) {
 		const remValue = parseFloat(cssValue);
