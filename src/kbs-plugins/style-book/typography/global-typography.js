@@ -11,6 +11,10 @@ import {
 	getGradientOptions,
 	getFontSizeLabel,
 	getPresetOptions,
+	getLineHeightOutput,
+	getFontSizeOutput,
+	getLetterSpacingOutput,
+	getDeviceValue,
 } from '@kadence/kbsHelpers';
 
 //import GlobalPaletteCreator from './global-palette-creator';
@@ -22,6 +26,49 @@ export const typographyIcon = (
 		<Path d="M437.69-180v-515h-217.3v-85H740v85H522.69v515z" />
 	</SVG>
 );
+
+const getStylebookSettingValue = (tempAttributes, baseAttributes, attributeName, device, type) => {
+	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
+	const currentDeviceIndex = deviceOptions.findIndex(
+		(option) =>
+			option.key?.toLowerCase() === device?.toLowerCase() || option.name?.toLowerCase() === device?.toLowerCase()
+	);
+	// Check if there's a direct value on the block (highest priority)
+	const directValue = getDeviceValue(attributeName, tempAttributes, device, type);
+	if (directValue) {
+		return directValue;
+	}
+
+	if (device !== 'none') {
+		// Check direct value from parent device
+		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
+			const parentDevice = deviceOptions[i];
+			const parentDeviceName = parentDevice.key || parentDevice.name;
+
+			const parentValue = getDeviceValue(attributeName, tempAttributes, parentDeviceName, type);
+			if (parentValue) {
+				return parentValue;
+			}
+		}
+	}
+	const baseValue = getDeviceValue(attributeName, baseAttributes, device, type);
+	if (baseValue) {
+		return baseValue;
+	}
+	if (device !== 'none') {
+		// Check direct value from parent device
+		for (let i = currentDeviceIndex - 1; i >= 0; i--) {
+			const parentDevice = deviceOptions[i];
+			const parentDeviceName = parentDevice.key || parentDevice.name;
+
+			const parentValue = getDeviceValue(attributeName, baseAttributes, parentDeviceName, type);
+			if (parentValue) {
+				return parentValue;
+			}
+		}
+	}
+	return undefined;
+};
 /**
  * Build the component preset
  */
@@ -52,8 +99,9 @@ export default function GlobalTypography(props) {
 
 	const { setStyleBookComponentMappingByStyleId } = useDispatch('kadenceblocks/global-styles');
 
-	const tempTypography = styleBookLocalGlobalStyles[globalStyleId]?.components?.typography?.presets || [];
-	console.log(tempTypography);
+	const tempTypography = styleBookLocalGlobalStyles?.[globalStyleId]?.components?.typography?.presets || [];
+	const baseTypography = styleBookLocalGlobalStyles?.['kbs-base']?.components?.typography?.presets || [];
+	//console.log(tempTypography);
 	const globalTypography = getPresetOptions('typography');
 	// const setStyleBookColor = (colorKey, colorValue) => {
 	// 	setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', colorKey, colorValue);
@@ -124,13 +172,74 @@ export default function GlobalTypography(props) {
 				</div>
 				<div className="kbs-control-inner kbs-typography-mapping-grid">
 					{globalTypography.map((item, index) => {
-						let fontFamily =
-							tempTypography[item.value]?.attributes?.desktop?.fontFamily ||
-							__('Unset', 'kadence-blocks');
-						if (fontFamily === 'var(--kbs-font-family-heading)') {
-							fontFamily = __('Heading Font Family', 'kadence-blocks');
-						} else if (fontFamily === 'var(--kbs-font-family-body)') {
-							fontFamily = __('Body Font Family', 'kadence-blocks');
+						let fontFamily = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'fontFamily'
+						);
+						const fontSize = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'fontSize'
+						);
+						const fontWeight = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'fontWeight'
+						);
+						const fontStyle = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'fontStyle'
+						);
+						const fontColor = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'color'
+						);
+						const backgroundColor = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'backgroundColor'
+						);
+						const fontLetterSpacing = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'letterSpacing'
+						);
+						const fontLineHeight = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'lineHeight'
+						);
+						const fontTextTransform = getStylebookSettingValue(
+							{ typography: tempTypography?.[item.value]?.attributes },
+							{ typography: baseTypography?.[item.value]?.attributes },
+							'typography',
+							previewDevice,
+							'textTransform'
+						);
+						let fontFamilyLabel = fontFamily ? fontFamily : __('Unset', 'kadence-blocks');
+						if (fontFamilyLabel === 'var(--kbs-font-family-heading)') {
+							fontFamilyLabel = __('Heading Font Family', 'kadence-blocks');
+						} else if (fontFamilyLabel === 'var(--kbs-font-family-body)') {
+							fontFamilyLabel = __('Body Font Family', 'kadence-blocks');
 						}
 						return (
 							<Button
@@ -144,39 +253,46 @@ export default function GlobalTypography(props) {
 								isPressed={item.value === currentPreset}
 								className="kbs-typography-control-btn"
 							>
-								<div className="kbs-typography-control-label-wrap">
-									<div
-										className="kbs-typography-control-label"
-										style={{
-											fontFamily: tempTypography[item.value]?.attributes?.desktop?.fontFamily,
-											fontWeight: tempTypography[item.value]?.attributes?.desktop?.fontWeight,
-											letterSpacing:
-												tempTypography[item.value]?.attributes?.desktop?.letterSpacing,
-										}}
-									>
-										{item.label}
+								<div className="kbs-typography-control-inner-info">
+									<div className="kbs-typography-control-label-wrap">
+										<div className="kbs-typography-control-label">{item.label}</div>
+										<ColorIndicator
+											colorValue={getColorOutput(fontColor)}
+											className="kbs-typography-control-color-indicator"
+										/>
 									</div>
-									<ColorIndicator
-										colorValue={getColorOutput(
-											tempTypography[item.value]?.attributes?.desktop?.color
-										)}
-										className="kbs-typography-control-color-indicator"
-									/>
-								</div>
-								<div className="kbs-typography-control-meta">
-									<div className="kbs-typography-control-family">{fontFamily}</div>
-									<div className="kbs-typography-control-size">
-										<span className="kbs-typography-control-size-value">
-											{getFontSizeLabel(
-												tempTypography[item.value]?.attributes?.desktop?.fontSize
-											) || __('Unset', 'kadence-blocks')}
-										</span>
+									<div className="kbs-typography-control-meta">
+										<div className="kbs-typography-control-family">{fontFamilyLabel}</div>
 										<span className="kbs-typography-control-size-divider">/</span>
-										<span className="kbs-typography-control-weight-value">
-											{tempTypography[item.value]?.attributes?.desktop?.fontWeight ||
-												__('Unset', 'kadence-blocks')}
-										</span>
+										<div className="kbs-typography-control-size">
+											<span className="kbs-typography-control-size-value">
+												{getFontSizeLabel(fontSize) || __('Unset', 'kadence-blocks')}
+											</span>
+											<span className="kbs-typography-control-size-divider">/</span>
+											<span className="kbs-typography-control-weight-value">
+												{fontWeight || __('Unset', 'kadence-blocks')}
+											</span>
+										</div>
 									</div>
+								</div>
+								<div
+									className="kbs-typography-control-preview"
+									style={{
+										fontFamily: fontFamily,
+										fontWeight: fontWeight,
+										letterSpacing: getLetterSpacingOutput(fontLetterSpacing),
+										fontSize: getFontSizeOutput(fontSize),
+										lineHeight: getLineHeightOutput(fontLineHeight),
+										fontStyle: fontStyle,
+										color: getColorOutput(fontColor),
+										textTransform: fontTextTransform,
+										backgroundColor: getColorOutput(backgroundColor),
+									}}
+								>
+									{__(
+										'Visualize your font styles. Design is not just what it looks like and feels like. Design is how it works.',
+										'kadence-blocks'
+									)}
 								</div>
 							</Button>
 						);

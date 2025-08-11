@@ -233,6 +233,7 @@ class Fonts_Controller extends WP_REST_Controller {
 	 * Get an array font weight options.
 	 */
 	public function get_theme_heading_font_appearance_options() {
+		$font_options       = [];
 		$appearance_options = [];
 		if ( function_exists( 'Kadence\kadence' ) ) {
 			$heading_font = \Kadence\kadence()->option( 'heading_font' );
@@ -244,6 +245,9 @@ class Fonts_Controller extends WP_REST_Controller {
 					$is_body      = true;
 					$body_font    = \Kadence\kadence()->option( 'base_font' );
 					$heading_font = $body_font;
+				}
+				if ( ! empty( $heading_font['family'] ) ) {
+					$font_options['family'] = $heading_font['family'];
 				}
 				if ( isset( $heading_font['google'] ) && $heading_font['google'] ) {
 					// Google font.
@@ -294,7 +298,8 @@ class Fonts_Controller extends WP_REST_Controller {
 				}
 			}
 		}
-		return apply_filters( 'kadence_blocks_heading_font_appearance_options', $appearance_options );
+		$font_options['appearance'] = $appearance_options;
+		return apply_filters( 'kadence_blocks_heading_font_appearance_options', $font_options );
 	}
 	/**
 	 * Get an array font weight options.
@@ -401,10 +406,12 @@ class Fonts_Controller extends WP_REST_Controller {
 	 * Get an array font weight options.
 	 */
 	public function get_theme_body_font_appearance_options() {
+		$font_options       = [];
 		$appearance_options = [];
 		if ( function_exists( 'Kadence\kadence' ) ) {
 			$base_font = \Kadence\kadence()->option( 'base_font' );
 			if ( ! empty( $base_font['family'] ) ) {
+				$font_options['family'] = $base_font['family'];
 				if ( isset( $base_font['google'] ) && $base_font['google'] ) {
 					$variants = $this->get_google_font_variants( $base_font['family'] );
 					if ( ! empty( $variants['min'] ) ) {
@@ -446,7 +453,8 @@ class Fonts_Controller extends WP_REST_Controller {
 				}
 			}
 		}
-		return apply_filters( 'kadence_blocks_body_font_appearance_options', $appearance_options );
+		$font_options['appearance'] = $appearance_options;
+		return apply_filters( 'kadence_blocks_body_font_appearance_options', $font_options );
 	}
 
 	/**
@@ -459,25 +467,25 @@ class Fonts_Controller extends WP_REST_Controller {
 		if ( function_exists( 'Kadence\kadence' ) ) {
 			$heading_font_appearance_options                   = $this->get_theme_heading_font_appearance_options();
 			$formatted_fonts['var(--kbs-font-family-heading)'] = [
-				'label'          => __( 'Heading Font Family', 'kadence-blocks' ),
+				'label'          => __( 'Heading Font Family', 'kadence-blocks' ) . ! empty( $heading_font_appearance_options['family'] ) ? ' ( ' . $heading_font_appearance_options['family'] . ' )' : '',
 				'family'         => 'var(--kbs-font-family-heading)',
-				'combinedLabels' => ( ! isset( $heading_font_appearance_options['is_variable'] ) ? $heading_font_appearance_options : [] ),
-				'styles'         => ( $heading_font_appearance_options['styles'] ?? [] ),
-				'min'            => ( $heading_font_appearance_options['min'] ?? '' ),
-				'max'            => ( $heading_font_appearance_options['max'] ?? '' ),
+				'combinedLabels' => ( ! isset( $heading_font_appearance_options['appearance']['is_variable'] ) ? $heading_font_appearance_options['appearance'] : [] ),
+				'styles'         => ( $heading_font_appearance_options['appearance']['styles'] ?? [] ),
+				'min'            => ( $heading_font_appearance_options['appearance']['min'] ?? '' ),
+				'max'            => ( $heading_font_appearance_options['appearance']['max'] ?? '' ),
 				'weights'        => [],
-				'is_variable'    => ( isset( $heading_font_appearance_options['is_variable'] ) ? true : false ),
+				'is_variable'    => ( isset( $heading_font_appearance_options['appearance']['is_variable'] ) ? true : false ),
 			];
 			$body_font_appearance_options                      = $this->get_theme_body_font_appearance_options();
 			$formatted_fonts['var(--kbs-font-family-body)']    = [
-				'label'          => __( 'Body Font Family', 'kadence-blocks' ),
+				'label'          => __( 'Body Font Family', 'kadence-blocks' ) . ! empty( $body_font_appearance_options['family'] ) ? ' ( ' . $body_font_appearance_options['family'] . ' )' : '',
 				'family'         => 'var(--kbs-font-family-body)',
-				'combinedLabels' => ( ! isset( $body_font_appearance_options['is_variable'] ) ? $body_font_appearance_options : [] ),
-				'styles'         => ( $body_font_appearance_options['styles'] ?? [] ),
-				'min'            => ( $body_font_appearance_options['min'] ?? '' ),
-				'max'            => ( $body_font_appearance_options['max'] ?? '' ),
+				'combinedLabels' => ( ! isset( $body_font_appearance_options['appearance']['is_variable'] ) ? $body_font_appearance_options['appearance'] : [] ),
+				'styles'         => ( $body_font_appearance_options['appearance']['styles'] ?? [] ),
+				'min'            => ( $body_font_appearance_options['appearance']['min'] ?? '' ),
+				'max'            => ( $body_font_appearance_options['appearance']['max'] ?? '' ),
 				'weights'        => [],
-				'is_variable'    => ( isset( $body_font_appearance_options['is_variable'] ) ? true : false ),
+				'is_variable'    => ( isset( $body_font_appearance_options['appearance']['is_variable'] ) ? true : false ),
 			];
 		}
 		if ( ! wp_is_block_theme() || ! class_exists( '\WP_Font_Face_Resolver' ) ) {

@@ -70,7 +70,7 @@ function PresetToggle({ currentValue, inherited, presets = [], hasToggleLabel = 
 		return (
 			<>
 				<Button __next40pxDefaultSize {...toggleProps}>
-					<span className="kbs-color-select-control__toggle-label">
+					<span className="kbs-typography-preset-select-control__toggle-label">
 						{presetLabel ? presetLabel : __('Unset', 'kadence-blocks')}
 					</span>
 					<span className="kbs-typography-preset-select-control__toggle-color" />
@@ -89,11 +89,22 @@ function PresetDropdown({ presets, currentValue, onChange, previewDevice, global
 				previewDevice={previewDevice}
 				globalStylesCss={globalStylesCss}
 				globalStylesIds={globalStylesIds}
+				onToggle={onToggle}
+				isOpen={isOpen}
 			/>
 		);
 	};
 }
-function PresetDropdownContent({ presets, currentValue, onChange, previewDevice, globalStylesCss, globalStylesIds }) {
+function PresetDropdownContent({
+	presets,
+	currentValue,
+	onChange,
+	previewDevice,
+	globalStylesCss,
+	globalStylesIds,
+	onToggle,
+	isOpen,
+}) {
 	// const { styleBookLocalGlobalStyles } = useSelect((select) => {
 	// 	return {
 	// 		styleBookLocalGlobalStyles: select('kadenceblocks/global-styles').getGlobalStylesComponentPresetsByStyleId(
@@ -102,6 +113,16 @@ function PresetDropdownContent({ presets, currentValue, onChange, previewDevice,
 	// 		),
 	// 	};
 	// });
+	const divRef = useRef(null);
+	useEffect(() => {
+		if (divRef.current) {
+			if (globalStylesCss) {
+				divRef.current.setAttribute('style', globalStylesCss);
+			} else {
+				divRef.current.removeAttribute('style');
+			}
+		}
+	}, [globalStylesCss, isOpen, divRef?.current]);
 	const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
 		globalStylesIds,
 		'typography',
@@ -109,58 +130,76 @@ function PresetDropdownContent({ presets, currentValue, onChange, previewDevice,
 	);
 	const tempTypography = rawPresetData || {};
 	return (
-		<>
-			{presets.map((item, index) => {
-				let fontFamily =
-					tempTypography?.[item.value]?.attributes?.desktop?.fontFamily || __('Unset', 'kadence-blocks');
-				if (fontFamily === 'var(--kbs-font-family-heading)') {
-					fontFamily = __('Heading Font Family', 'kadence-blocks');
-				} else if (fontFamily === 'var(--kbs-font-family-body)') {
-					fontFamily = __('Body Font Family', 'kadence-blocks');
-				}
-				return (
-					<Button
-						key={index}
-						onClick={() => {
-							onChange(item.value);
-						}}
-						isPressed={item.value === currentValue}
-						className="kbs-typography-control-btn"
-					>
-						<div className="kbs-typography-control-label-wrap">
-							<div
-								className="kbs-typography-control-label"
-								style={{
-									fontFamily: tempTypography?.[item.value]?.attributes?.desktop?.fontFamily,
-									fontWeight: tempTypography?.[item.value]?.attributes?.desktop?.fontWeight,
-									letterSpacing: tempTypography?.[item.value]?.attributes?.desktop?.letterSpacing,
-								}}
-							>
-								{item.label}
+		<div
+			className="kbs-typography-preset-list-wrapper kbs-typography-preset-select-control__dropdown-content"
+			ref={divRef}
+		>
+			<div className="kbs-typography-preset-list-heading">
+				<span className="kbs-typography-preset-list-heading-label">
+					{__('Typography Presets', 'kadence-blocks')}
+				</span>
+			</div>
+			<div className="kbs-typography-preset-list">
+				{presets.map((item, index) => {
+					let fontFamily =
+						tempTypography?.[item.value]?.attributes?.desktop?.fontFamily || __('Unset', 'kadence-blocks');
+					if (fontFamily === 'var(--kbs-font-family-heading)') {
+						fontFamily = __('Heading Font Family', 'kadence-blocks');
+					} else if (fontFamily === 'var(--kbs-font-family-body)') {
+						fontFamily = __('Body Font Family', 'kadence-blocks');
+					}
+					return (
+						<Button
+							key={index}
+							onClick={() => {
+								onChange(item.value);
+							}}
+							isPressed={item.value === currentValue}
+							className="kbs-typography-control-btn"
+						>
+							<div className="kbs-typography-control-label-wrap">
+								<div
+									className="kbs-typography-control-label"
+									style={{
+										fontFamily: tempTypography?.[item.value]?.attributes?.desktop?.fontFamily,
+										fontWeight: tempTypography?.[item.value]?.attributes?.desktop?.fontWeight,
+										letterSpacing: tempTypography?.[item.value]?.attributes?.desktop?.letterSpacing,
+									}}
+								>
+									{item.label}
+								</div>
+								<ColorIndicator
+									colorValue={getColorOutput(
+										tempTypography?.[item.value]?.attributes?.desktop?.color
+									)}
+									className="kbs-typography-control-color-indicator"
+								/>
 							</div>
-							<ColorIndicator
-								colorValue={getColorOutput(tempTypography?.[item.value]?.attributes?.desktop?.color)}
-								className="kbs-typography-control-color-indicator"
-							/>
-						</div>
-						<div className="kbs-typography-control-meta">
-							<div className="kbs-typography-control-family">{fontFamily}</div>
-							<div className="kbs-typography-control-size">
-								<span className="kbs-typography-control-size-value">
-									{getFontSizeLabel(tempTypography?.[item.value]?.attributes?.desktop?.fontSize) ||
-										__('Unset', 'kadence-blocks')}
-								</span>
-								<span className="kbs-typography-control-size-divider">/</span>
-								<span className="kbs-typography-control-weight-value">
-									{tempTypography?.[item.value]?.attributes?.desktop?.fontWeight ||
-										__('Unset', 'kadence-blocks')}
-								</span>
+							<div className="kbs-typography-control-meta">
+								<div className="kbs-typography-control-family">{fontFamily}</div>
+								<div className="kbs-typography-control-size">
+									<span className="kbs-typography-control-size-value">
+										{getFontSizeLabel(
+											tempTypography?.[item.value]?.attributes?.desktop?.fontSize
+										) || __('Unset', 'kadence-blocks')}
+									</span>
+									<span className="kbs-typography-control-size-divider">/</span>
+									<span className="kbs-typography-control-weight-value">
+										{tempTypography?.[item.value]?.attributes?.desktop?.fontWeight ||
+											__('Unset', 'kadence-blocks')}
+									</span>
+								</div>
 							</div>
-						</div>
-					</Button>
-				);
-			})}
-		</>
+						</Button>
+					);
+				})}
+			</div>
+			<div className="kbs-typography-preset-list-close">
+				<Button __next40pxDefaultSize onClick={onToggle}>
+					<Icon icon={closeIcon} size={24} />
+				</Button>
+			</div>
+		</div>
 	);
 }
 

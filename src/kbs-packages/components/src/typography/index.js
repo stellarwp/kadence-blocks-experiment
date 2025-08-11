@@ -26,30 +26,30 @@ export default function Typography({
 	return (
 		<div className="components-base-control">
 			{(hasPresetControl || onlyPresetControl) && (
-				// <TypographyPresetControl
-				// 	label={__('Typography Preset', 'kadence-blocks')}
-				// 	type={'typography'}
-				// 	attributes={attributes}
-				// 	setAttributes={setAttributes}
-				// 	attributeName={attributeName}
-				// 	metaData={meta}
-				// 	previewDevice={previewDevice}
-				// 	globalStylesIds={globalStylesIds}
-				// 	globalStylesCss={globalStylesCss}
-				// />
-				<SelectControl
-					label={__('Preset', 'kadence-blocks')}
+				<TypographyPresetControl
+					label={__('Typography Preset', 'kadence-blocks')}
+					type={'typography'}
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={attributeName}
-					meta={meta}
-					previewDevice={'none'}
-					type={'preset'}
+					metaData={meta}
+					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
-					customOnChange={customOnChange}
-					forStyleBook={forStyleBook}
-					hasDeviceControls={false}
+					globalStylesCss={globalStylesCss}
 				/>
+				// <SelectControl
+				// 	label={__('Preset', 'kadence-blocks')}
+				// 	attributes={attributes}
+				// 	setAttributes={setAttributes}
+				// 	attributeName={attributeName}
+				// 	meta={meta}
+				// 	previewDevice={'none'}
+				// 	type={'preset'}
+				// 	globalStylesIds={globalStylesIds}
+				// 	customOnChange={customOnChange}
+				// 	forStyleBook={forStyleBook}
+				// 	hasDeviceControls={false}
+				// />
 			)}
 			{hasColor && (
 				<FontColor

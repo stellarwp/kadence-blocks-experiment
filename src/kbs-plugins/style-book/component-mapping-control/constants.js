@@ -20,8 +20,7 @@ export const MAPPING_COMPONENT_OPTIONS = {
 	spacing: {
 		label: __('Spacing', 'kadence-blocks'),
 	},
-	gaps: {
-		label: __('Gaps', 'kadence-blocks'),
+	gap: {
+		label: __('Gap', 'kadence-blocks'),
 	},
-
 };

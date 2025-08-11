@@ -159,8 +159,8 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "var(--kbs-font-family-heading)",
-							"fontSource": "system",
+							"fontFamily": "",
+							"fontSource": "",
 							"fontSize": "3xl",
 							"color": "palette3",
 							"fontWeight": "700",
@@ -175,8 +175,8 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "var(--kbs-font-family-heading)",
-							"fontSource": "system",
+							"fontFamily": "",
+							"fontSource": "",
 							"fontSize": "xxl",
 							"color": "palette3",
 							"fontWeight": "700",
@@ -191,7 +191,7 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "var(--kbs-font-family-heading)",
+							"fontFamily": "",
 							"fontSource": "system",
 							"fontSize": "xl",
 							"color": "palette3",
@@ -207,8 +207,8 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "var(--kbs-font-family-heading)",
-							"fontSource": "system",
+							"fontFamily": "",
+							"fontSource": "",
 							"fontSize": "lg",
 							"color": "palette4",
 							"fontWeight": "500",
@@ -223,8 +223,8 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "var(--kbs-font-family-heading)",
-							"fontSource": "system",
+							"fontFamily": "",
+							"fontSource": "",
 							"fontSize": "md",
 							"color": "palette4",
 							"fontWeight": "400",
@@ -239,8 +239,8 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "var(--kbs-font-family-heading)",
-							"fontSource": "system",
+							"fontFamily": "",
+							"fontSource": "",
 							"fontSize": "sm",
 							"color": "palette4",
 							"fontWeight": "400",
@@ -255,8 +255,8 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "var(--kbs-font-family-body)",
-							"fontSource": "system",
+							"fontFamily": "",
+							"fontSource": "",
 							"fontSize": "base",
 							"color": "palette5",
 							"fontWeight": "400",
@@ -271,8 +271,8 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"fontFamily": "var(--kbs-font-family-body)",
-							"fontSource": "system",
+							"fontFamily": "",
+							"fontSource": "",
 							"fontSize": "base",
 							"color": "palette5",
 							"lineHeight": "base"
@@ -680,38 +680,34 @@
 			"3xl": { "value": "clamp(5rem, 4.2857rem + 2.2857vw, 6rem)", "label": "3X Large", "name": "3XL" }
 		},
 		"letterSpacing": {
-			"none": { "value": "0rem" },
-			"xs": { "value": "0.5rem" },
-			"sm": { "value": "1rem" },
-			"md": { "value": "2rem" },
-			"lg": { "value": "4rem" }
+			"sm": { "value": "-0.02em", "label": "Narrow", "name": "Narrow" },
+			"normal": { "value": "normal", "label": "Normal", "name": "Normal" },
+			"lg": { "value": "0.08em", "label": "Wide", "name": "Wide" }
 		},
 		"lineHeight": {
-			"xs": { "value": "1" },
-			"sm": { "value": "1.2" },
-			"base": { "value": "1.4" },
-			"md": { "value": "1.6" },
-			"lg": { "value": "1.8" },
-			"xl": { "value": "2" }
+			"sm": { "value": "1.2", "label": "Small", "name": "Small" },
+			"base": { "value": "1.4", "label": "Base", "name": "Base" },
+			"lg": { "value": "1.8", "label": "Large", "name": "Large" }
 		},
 		"gap": {
-			"none": { "value": "0rem" },
-			"xs": { "value": "0.5rem" },
-			"sm": { "value": "1rem" },
-			"md": { "value": "2rem" },
-			"lg": { "value": "4rem" }
+			"none": { "value": "0rem", "label": "None", "name": "0" },
+			"xxs": { "value": "clamp(0.25rem, 0.0714rem + 0.5714vw, 0.5rem)", "label": "XX Small", "name": "XXS" },
+			"xs": { "value": "clamp(0.75rem, 0.5714rem + 0.5714vw, 1rem)", "label": "X Small", "name": "XS" },
+			"sm": { "value": "clamp(1.25rem, 1.0714rem + 0.5714vw, 1.5rem)", "label": "Small", "name": "SM" },
+			"md": { "value": "clamp(1.65rem, 1.4rem + 0.8vw, 2rem)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(2.5rem, 2.1429rem + 1.1429vw, 3rem)", "label": "Large", "name": "LG" }
 		},
 		"spacing": {
-			"xxs": { "value": "0.5rem" },
-			"xs": { "value": "1rem" },
-			"sm": { "value": "1.5rem" },
-			"md": { "value": "2rem" },
-			"lg": { "value": "3rem" },
-			"xl": { "value": "4rem" },
-			"xxl": { "value": "5rem" },
-			"3xl": { "value": "6.5rem" },
-			"4xl": { "value": "8rem" },
-			"5xl": { "value": "10rem" }
+			"xxs": { "value": "clamp(0.25rem, 0.0714rem + 0.5714vw, 0.5rem)", "label": "XX Small", "name": "XXS" },
+			"xs": { "value": "clamp(0.75rem, 0.5714rem + 0.5714vw, 1rem)", "label": "X Small", "name": "XS" },
+			"sm": { "value": "clamp(1.25rem, 1.0714rem + 0.5714vw, 1.5rem)", "label": "Small", "name": "SM" },
+			"md": { "value": "clamp(1.65rem, 1.4rem + 0.8vw, 2rem)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(2.5rem, 2.1429rem + 1.1429vw, 3rem)", "label": "Large", "name": "LG" },
+			"xl": { "value": "clamp(3.25rem, 2.7143rem + 1.7143vw, 4rem)", "label": "X Large", "name": "XL" },
+			"xxl": { "value": "clamp(4rem, 3.2857rem + 2.2857vw, 5rem)", "label": "XX Large", "name": "XXL" },
+			"3xl": { "value": "clamp(5.25rem, 4.3571rem + 2.8571vw, 6.5rem)", "label": "3X Large", "name": "3XL" },
+			"4xl": { "value": "clamp(6.5rem, 5.4286rem + 3.4286vw, 8rem)", "label": "4X Large", "name": "4XL" },
+			"5xl": { "value": "clamp(8rem, 6.5714rem + 4.5714vw, 10rem)", "label": "5X Large", "name": "5XL" }
 		},
 		"gradients": {
 			"gradient1": {

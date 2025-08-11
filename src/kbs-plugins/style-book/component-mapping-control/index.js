@@ -2,18 +2,38 @@ import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { TextControl, Button } from '@wordpress/components';
 
-import {RadioButtonSelect} from '@kadence/kbsComponents';
+import { RadioButtonSelect } from '@kadence/kbsComponents';
 
 import './editor.scss';
 
 import { MAPPING_COMPONENT_OPTIONS } from './constants';
 
-
 function MappingControl(props) {
 	const { controlType, label, placeholder, value, onChange } = props;
 	switch (controlType) {
 		case 'fontSize':
-			return <RadioButtonSelect labelPosition="fontMapping" label={label} type="fontSizeMapping" placeholder={placeholder} value={value} onChange={onChange} />;
+			return (
+				<RadioButtonSelect
+					labelPosition="fontMapping"
+					label={label}
+					type="fontSizeMapping"
+					placeholder={placeholder}
+					value={value}
+					onChange={onChange}
+				/>
+			);
+		case 'spacing':
+		case 'gap':
+			return (
+				<RadioButtonSelect
+					labelPosition="clampMapping"
+					label={label}
+					type="clampMapping"
+					placeholder={placeholder}
+					value={value}
+					onChange={onChange}
+				/>
+			);
 		default:
 			return <TextControl label={label} placeholder={placeholder} value={value} onChange={onChange} />;
 	}
@@ -61,7 +81,7 @@ export default function ComponentPresetControl(props) {
 			);
 		});
 		return (
-		<div
+			<div
 				key={mappingComponentKey}
 				className={'kbs-style-book-settings-group kbs-style-book-settings-group-' + mappingComponentKey}
 			>
@@ -105,11 +125,22 @@ export default function ComponentPresetControl(props) {
 		);
 	});
 	const mappingControlsTabs = Object.keys(MAPPING_COMPONENT_OPTIONS).map(function (key) {
-		return <Button key={key} isPressed={selectedMappingComponent === key} onClick={() => setSelectedMappingComponent(key)} className={'kbs-style-book-mapping-heading'}>{MAPPING_COMPONENT_OPTIONS[key].label}</Button>;
+		return (
+			<Button
+				key={key}
+				isPressed={selectedMappingComponent === key}
+				onClick={() => setSelectedMappingComponent(key)}
+				className={'kbs-style-book-mapping-heading'}
+			>
+				{MAPPING_COMPONENT_OPTIONS[key].label}
+			</Button>
+		);
 	});
 
-	return <div className={'kbs-component-mapping-control'}>
-		<div className={'kbs-component-mapping-control-tabs'}>{mappingControlsTabs}</div>
-		{singleMappingControl(selectedMappingComponent)}
-		</div>;
+	return (
+		<div className={'kbs-component-mapping-control'}>
+			<div className={'kbs-component-mapping-control-tabs'}>{mappingControlsTabs}</div>
+			{singleMappingControl(selectedMappingComponent)}
+		</div>
+	);
 }

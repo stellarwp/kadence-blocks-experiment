@@ -48,6 +48,7 @@ import {
 } from './constants';
 import NoToggleInputUI from './ui-no-toggle-input';
 import UIFontSizeMapping from './ui-font-size-mapping';
+import UIClampMapping from './ui-clamp-mapping';
 import RadioToggleGroupButtonUI from './ui-toggle-group';
 import RadioToggleGroupInputUI from './ui-toggle-group-input';
 import RadioToggleGroupPopoverInputUI from './ui-toggle-group-popover-input';
@@ -251,6 +252,9 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			break;
 		case 'fontSizeMapping':
 			UIComponent = UIFontSizeMapping;
+			break;
+		case 'clampMapping':
+			UIComponent = UIClampMapping;
 			break;
 		case 'fontSize':
 			UIComponent = RadioToggleGroupInputRangeUI;
@@ -733,6 +737,11 @@ export const getGapControls = () => [
 		key: '0',
 	},
 	{
+		title: __('XX Small', 'kadence-blocks'),
+		name: 'XXS',
+		key: 'xxs',
+	},
+	{
 		title: __('X Small', 'kadence-blocks'),
 		name: 'XS',
 		key: 'xs',
@@ -751,11 +760,6 @@ export const getGapControls = () => [
 		title: __('Large', 'kadence-blocks'),
 		name: 'LG',
 		key: 'lg',
-	},
-	{
-		title: __('X Large', 'kadence-blocks'),
-		name: 'XL',
-		key: 'xl',
 	},
 ];
 export const getSpacingControls = () => [
@@ -1527,9 +1531,9 @@ export const getLineHeightControls = () => [
 		key: 'sm',
 	},
 	{
-		title: __('Normal', 'kadence-blocks'),
-		name: __('Normal', 'kadence-blocks'),
-		key: 'normal',
+		title: __('Base', 'kadence-blocks'),
+		name: __('Base', 'kadence-blocks'),
+		key: 'base',
 	},
 	{
 		title: __('Large', 'kadence-blocks'),

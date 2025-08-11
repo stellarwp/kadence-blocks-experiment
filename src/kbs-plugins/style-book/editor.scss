@@ -258,3 +258,8 @@ $editor-control-sidebar-width: 300px;
 	border-top: 1px solid var(--wp-components-color-border, #d9e7ec);
 	margin: 24px 0;
 }
+
+.kbs-style-book-close-modal-actions {
+	display: flex;
+	gap: 12px;
+}

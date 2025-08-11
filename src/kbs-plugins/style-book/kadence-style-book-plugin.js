@@ -490,29 +490,45 @@ function KadenceConfig() {
 				<Modal
 					title={__('Style Book', 'kadence-blocks')}
 					headerActions={
-						<div className="kbs-style-book-header-actions">
-							<Button
-								className="kbs-storybook-subtab-btn"
-								isPressed={selectedTab === 'style-guide'}
-								onClick={() => setSelectedTab('style-guide')}
-							>
-								{__('Style Guide', 'kadence-blocks')}
-							</Button>
-							<Button
-								className="kbs-storybook-subtab-btn"
-								isPressed={selectedTab === 'design-system'}
-								onClick={() => setSelectedTab('design-system')}
-							>
-								{__('Presets', 'kadence-blocks')}
-							</Button>
-							<Button
-								className="kbs-storybook-subtab-btn"
-								isPressed={selectedTab === 'mappings'}
-								onClick={() => setSelectedTab('mappings')}
-							>
-								{__('Control Settings', 'kadence-blocks')}
-							</Button>
-						</div>
+						<>
+							<div className="kbs-style-book-header-actions">
+								<Button
+									className="kbs-storybook-subtab-btn"
+									isPressed={selectedTab === 'style-guide'}
+									onClick={() => setSelectedTab('style-guide')}
+								>
+									{__('Style Guide', 'kadence-blocks')}
+								</Button>
+								<Button
+									className="kbs-storybook-subtab-btn"
+									isPressed={selectedTab === 'design-system'}
+									onClick={() => setSelectedTab('design-system')}
+								>
+									{__('Presets', 'kadence-blocks')}
+								</Button>
+								<Button
+									className="kbs-storybook-subtab-btn"
+									isPressed={selectedTab === 'mappings'}
+									onClick={() => setSelectedTab('mappings')}
+								>
+									{__('Control Settings', 'kadence-blocks')}
+								</Button>
+							</div>
+							<div className="kbs-style-book-close-header">
+								<Button
+									size="compact"
+									icon={close}
+									onClick={() => {
+										if (needsSave) {
+											setIsConfirmCloseModal(true);
+										} else {
+											setIsKadenceStyleBookOpened(false);
+										}
+									}}
+									label={__('Close', 'kadence-blocks')}
+								/>
+							</div>
+						</>
 					}
 					onRequestClose={() => {
 						if (needsSave) {
@@ -521,6 +537,7 @@ function KadenceConfig() {
 							setIsKadenceStyleBookOpened(false);
 						}
 					}}
+					isDismissible={false}
 					className="kbs-style-book-modal"
 					overlayClassName="kbs-style-book-modal-overlay"
 				>
@@ -563,37 +580,23 @@ function KadenceConfig() {
 									</div>
 								</div>
 								<div className="kbs-style-book-style-guide-divider" />
-								<div className="kbs-style-book-style-guide">
-									<div className="kbs-style-book-style-guide-left">
-										<GlobalTypography
-											setStyleBookAttributes={(props) => {
-												setStyleBookAttributes(props);
-												setNeedsSave(true);
-											}}
-											setSelectedComponent={setSelectedComponent}
-											globalStyleId={currentGlobalStyleId}
-											currentPreset={currentPreset}
-											previewDevice={previewDevice}
-											globalStylesCss={globalStylesCss}
-											startNewPreset={startNewPreset}
-											newPresetName={newPresetName}
-											setNewPresetName={setNewPresetName}
-											isFontPairingCreatorOpen={isFontPairingCreatorOpen}
-											setIsFontPairingCreatorOpen={setIsFontPairingCreatorOpen}
-										/>
-									</div>
-									<div className="kbs-style-book-style-guide-typography-preview">
-										{/* <Preview
-											globalStyleId={currentGlobalStyleId}
-											colorsSubTab={colorsSubTab}
-											setColorsSubTab={setColorsSubTab}
-											isPaletteCreatorOpen={isPaletteCreatorOpen}
-											setIsPaletteCreatorOpen={setIsPaletteCreatorOpen}
-											customPalette={customPalette}
-											setCustomPalette={setCustomPalette}
-											styleBookLocalGlobalStyles={styleBookLocalGlobalStyles}
-										/> */}
-									</div>
+								<div className="kbs-style-book-style-guide kbs-style-book-style-guide-typography">
+									<GlobalTypography
+										setStyleBookAttributes={(props) => {
+											setStyleBookAttributes(props);
+											setNeedsSave(true);
+										}}
+										setSelectedComponent={setSelectedComponent}
+										globalStyleId={currentGlobalStyleId}
+										currentPreset={currentPreset}
+										previewDevice={previewDevice}
+										globalStylesCss={globalStylesCss}
+										startNewPreset={startNewPreset}
+										newPresetName={newPresetName}
+										setNewPresetName={setNewPresetName}
+										isFontPairingCreatorOpen={isFontPairingCreatorOpen}
+										setIsFontPairingCreatorOpen={setIsFontPairingCreatorOpen}
+									/>
 								</div>
 							</>
 						)}
