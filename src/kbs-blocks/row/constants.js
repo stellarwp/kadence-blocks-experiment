@@ -165,5 +165,3 @@ export const COLUMN_WIDTH_MAP = {
 		equal: [16.66, 16.66, 16.66, 16.66, 16.66, 16.66],
 	},
 };
-
-export const PADDING_RESIZE_MAP = [0, 8, 16, 24, 32, 48, 64, 80, 104, 128, 160];

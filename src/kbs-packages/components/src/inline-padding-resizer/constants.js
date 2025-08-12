@@ -90,6 +90,11 @@ export const PADDING_RESIZE_CONTROLS = [
 		key: '0',
 	},
 	{
+		title: __('XX Small', 'kadence-blocks'),
+		name: 'XXS',
+		key: 'xxs',
+	},
+	{
 		title: __('X Small', 'kadence-blocks'),
 		name: 'XS',
 		key: 'xs',

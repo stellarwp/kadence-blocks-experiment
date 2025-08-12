@@ -32,6 +32,7 @@ export default function InputSearch(props) {
 		advancedOptions,
 		onExpandSettings,
 		context,
+		showAdditionalToggle = true,
 	} = props;
 
 	const [search, setSearch] = useState('');
@@ -186,7 +187,7 @@ export default function InputSearch(props) {
 		return (
 			<>
 				{additionalControls && isSettingsExpanded && (
-					<div className="kb-link-control-additional-controls">{advancedOptions}</div>
+					<div className="kbs-link-control-additional-controls">{advancedOptions}</div>
 				)}
 			</>
 		);
@@ -287,7 +288,7 @@ export default function InputSearch(props) {
 						</BaseControl>
 					)}
 					{dynamicAttribute && window?.kbs_params?.dynamic_enabled && <DynamicLinkControl {...props} />}
-					{additionalControls && (
+					{additionalControls && showAdditionalToggle && (
 						<Button
 							className="kb-link-settings-toggle"
 							icon={chevronDown}

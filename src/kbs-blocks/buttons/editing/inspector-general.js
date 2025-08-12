@@ -35,7 +35,7 @@ export default function InspectorGeneral(props) {
 		props;
 	return (
 		<>
-			<ToolsPanelBody
+			{/* <ToolsPanelBody
 				title={__('Global Styles', 'kadence-blocks')}
 				panelName={'global-styles'}
 				componentName={'global-styles-control'}
@@ -44,7 +44,7 @@ export default function InspectorGeneral(props) {
 				hasDeviceControls={false}
 			>
 				<SelectGlobalStyles attributes={attributes} setAttributes={setAttributes} />
-			</ToolsPanelBody>
+			</ToolsPanelBody> */}
 			<FlexBoxControl
 				attributeName={'flexBox'}
 				attributes={attributes}

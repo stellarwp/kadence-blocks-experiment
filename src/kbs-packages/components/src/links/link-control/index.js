@@ -18,7 +18,7 @@ import './editor.scss';
  * Internal dependencies
  */
 import InputSearch from '../input-search';
-
+import TitleBar from '../../title-bar';
 /**
  * Build the typography controls
  * @returns {object} typography settings.
@@ -48,6 +48,10 @@ export default function LinkControl(props) {
 
 	const toggleSettingsVisibility = () => {
 		setIsSettingsExpanded(!isSettingsExpanded);
+	};
+
+	const onReset = () => {
+		onChange(undefined);
 	};
 
 	const advancedOptions = (
@@ -102,6 +106,8 @@ export default function LinkControl(props) {
 					label={__('Title', 'kadence-blocks')}
 					onChange={(value) => onChange({ ...linkObj, title: value })}
 					value={linkObj?.title || ''}
+					__next40pxDefaultSize
+					className={'kbs-text-control'}
 				/>
 			)}
 			{changeLinkClass && (
@@ -109,6 +115,8 @@ export default function LinkControl(props) {
 					label={__('Link CSS Class', 'kadence-blocks')}
 					onChange={(value) => onChange({ ...linkObj, className: value })}
 					value={linkObj?.className || ''}
+					__next40pxDefaultSize
+					className={'kbs-text-control'}
 				/>
 			)}
 		</>
@@ -116,12 +124,21 @@ export default function LinkControl(props) {
 
 	return (
 		<div
-			className={`components-base-control kb-side-link-control${dynamicAttribute && window?.kbs_params?.dynamic_enabled ? ' has-dynamic-support' : ''}`}
+			className={`components-base-control kbs-side-link-control${dynamicAttribute && window?.kbs_params?.dynamic_enabled ? ' has-dynamic-support' : ''}`}
 		>
-			{label && <label className="components-base-control__label">{label}</label>}
+			{label && (
+				<TitleBar
+					label={label}
+					reset={true}
+					onReset={onReset}
+					isAdvanced={isSettingsExpanded}
+					onToggleView={toggleSettingsVisibility}
+					hasAdvancedControls={true}
+				/>
+			)}
 			<InputSearch
 				{...props}
-				url={linkObj?.url}
+				url={linkObj?.url || ''}
 				onChange={(url) => onChange({ ...linkObj, url: url })}
 				attributes={attributes}
 				dynamicAttribute={dynamicAttribute}
@@ -130,6 +147,7 @@ export default function LinkControl(props) {
 				isSettingsExpanded={isSettingsExpanded}
 				onExpandSettings={toggleSettingsVisibility}
 				allowClear={allowClear}
+				showAdditionalToggle={false}
 			/>
 		</div>
 	);

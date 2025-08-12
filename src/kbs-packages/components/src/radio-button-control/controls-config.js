@@ -765,81 +765,86 @@ export const getGapControls = () => [
 export const getSpacingControls = () => [
 	{
 		title: __('None', 'kadence-blocks'),
-		name: '0',
+		name: __('0', 'kadence-blocks'),
 		key: '0',
 	},
 	{
+		title: __('XX Small', 'kadence-blocks'),
+		name: __('XXS', 'kadence-blocks'),
+		key: 'xxs',
+	},
+	{
 		title: __('X Small', 'kadence-blocks'),
-		name: 'XS',
+		name: __('XS', 'kadence-blocks'),
 		key: 'xs',
 	},
 	{
 		title: __('Small', 'kadence-blocks'),
-		name: 'SM',
+		name: __('SM', 'kadence-blocks'),
 		key: 'sm',
 	},
 	{
 		title: __('Medium', 'kadence-blocks'),
-		name: 'MD',
+		name: __('MD', 'kadence-blocks'),
 		key: 'md',
 	},
 	{
 		title: __('Large', 'kadence-blocks'),
-		name: 'LG',
+		name: __('LG', 'kadence-blocks'),
 		key: 'lg',
 	},
 	{
 		title: __('X Large', 'kadence-blocks'),
-		name: 'XL',
+		name: __('XL', 'kadence-blocks'),
 		key: 'xl',
 	},
 	{
 		title: __('2X Large', 'kadence-blocks'),
-		name: 'XXL',
+		name: __('XXL', 'kadence-blocks'),
 		key: 'xxl',
 	},
 	{
 		title: __('3X Large', 'kadence-blocks'),
-		name: '3XL',
+		name: __('3XL', 'kadence-blocks'),
 		key: '3xl',
 	},
 	{
 		title: __('4X Large', 'kadence-blocks'),
-		name: '4XL',
+		name: __('4XL', 'kadence-blocks'),
 		key: '4xl',
 	},
 	{
 		title: __('5X Large', 'kadence-blocks'),
-		name: '5XL',
+		name: __('5XL', 'kadence-blocks'),
 		key: '5xl',
 	},
 ];
 export const getMaxWidthControls = () => [
 	{
 		title: __('Wide', 'kadence-blocks'),
-		name: 'Wide',
+		name: __('Wide', 'kadence-blocks'),
 		key: 'wide',
 	},
 	{
 		title: __('Medium', 'kadence-blocks'),
-		name: 'Medium',
+		name: __('Medium', 'kadence-blocks'),
 		key: 'medium',
 	},
 	{
 		title: __('Narrow', 'kadence-blocks'),
-		name: 'Narrow',
+		name: __('Narrow', 'kadence-blocks'),
 		key: 'narrow',
 	},
 ];
 export const getButtonWidthControls = () => [
 	{
 		title: __('Auto', 'kadence-blocks'),
-		name: 'auto',
+		name: __('Auto', 'kadence-blocks'),
 		key: 'auto',
 	},
 	{
 		title: __('Full', 'kadence-blocks'),
-		name: 'full',
+		name: __('Full', 'kadence-blocks'),
 		key: 'full',
 	},
 ];

@@ -8,7 +8,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
  * Internal block libraries
  */
 import { __ } from '@wordpress/i18n';
-import { PADDING_RESIZE_MAP, PADDING_RESIZE_CONTROLS } from './constants';
+import { PADDING_RESIZE_CONTROLS } from './constants';
 import {
 	getInheritedValue,
 	getInheritedDeviceValue,
