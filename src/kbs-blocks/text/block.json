@@ -7,7 +7,6 @@
 		"postId",
 		"queryId",
 		"kbs/globalStyles",
-		"kbs/parentUniqueId",
 		"kadence/dynamicSource",
 		"kadence/repeaterRowData",
 		"kadence/repeaterRow"
@@ -132,7 +131,8 @@
 			"initial": {},
 			"type": "object",
 			"varPrefix": "--kbs-text-highlight-",
-			"selectorSuffix": " mark"
+			"selectorSuffix": " mark",
+			"nonInheritable": true
 		},
 		"paddingHighlight": {
 			"type": "object",

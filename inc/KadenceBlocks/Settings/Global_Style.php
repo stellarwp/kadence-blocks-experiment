@@ -531,13 +531,14 @@ class Global_Style {
 	 * @access public
 	 * @return array
 	 */
-	public static function get_global_styles() {
+	public static function get_global_styles( $global_style_keys = [] ) {
 		$gs_contents = [
 			'kbs-base'   => self::options( 'base' ),
 			'kbs-contrast'   => self::options( 'contrast' ),
 			'kbs-accent' => self::options( 'accent' ),
 		];
 
+		// TODO: Limit get_posts call the passed global_style_keys
 		$all_posts = get_posts( 
 			[
 				'post_type'   => self::$slug,
