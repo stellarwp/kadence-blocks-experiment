@@ -733,7 +733,15 @@ class CSSGenerator {
 		const { attributes, previewDevice, globalStylesIds } = props;
 		if (meta?.hasLayers) {
 			// Add the CSS for the layers.
-			const layers = getInheritedValue(
+			// const layers = getInheritedValue(
+			// 	attributeName,
+			// 	props.attributes,
+			// 	'none',
+			// 	metadata,
+			// 	'layers',
+			// 	props.globalStylesIds
+			// );
+			const layers = getResolvedValue(
 				attributeName,
 				props.attributes,
 				'none',

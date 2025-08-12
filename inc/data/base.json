@@ -667,6 +667,42 @@
 					}
 				}
 			}
+		},
+		"containerVariant": {
+			"presets": {
+				"card": {
+					"label": "Card",
+					"description": "A container variant for cards",
+					"locked": true,
+					"attributes": {
+						"border": {
+							"preset": "card"
+						},
+						"boxShadow": {
+							"preset": "kbs-box-shadow-base"
+						},
+						"padding": {
+							"preset": "kbs-pd-card-lg"
+						}
+					}
+				},
+				"card-alt": {
+					"label": "Card Alt",
+					"description": "A container variant for cards with an alt background",
+					"locked": true,
+					"attributes": {
+						"border": {
+							"preset": "card"
+						},
+						"boxShadow": {
+							"preset": "kbs-box-shadow-variant-2"
+						},
+						"padding": {
+							"preset": "kbs-pd-card-md"
+						}
+					}
+				}
+			}
 		}
 	},
 	"mappings": {

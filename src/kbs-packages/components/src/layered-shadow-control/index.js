@@ -66,11 +66,13 @@ function SortableShadowLayer({ layer, index, totalLayers, type, ...props }) {
 		});
 	};
 	const handleLayerRemove = (index) => {
-		const newLayers = [...props.attributes[props.attributeName].layers];
-		newLayers.splice(index, 1);
-		props.setAttributes({
-			[props.attributeName]: { ...props.attributes[props.attributeName], layers: newLayers },
-		});
+		if (props?.attributes?.[props.attributeName]?.layers) {
+			const newLayers = [...props.attributes[props.attributeName].layers];
+			newLayers.splice(index, 1);
+			props.setAttributes({
+				[props.attributeName]: { ...props.attributes[props.attributeName], layers: newLayers },
+			});
+		}
 	};
 	return (
 		<div

@@ -7,10 +7,7 @@
 /**
  * Kadence Components.
  */
-import {
-	ToolsPanelBody,
-	SelectGlobalStyles,
-} from '@kadence/kbsComponents';
+import { ToolsPanelBody, SelectGlobalStyles, PresetControl } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
  */
@@ -48,6 +45,19 @@ export default function InspectorGeneral(props) {
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
 			/>
+			<ToolsPanelBody>
+				<PresetControl
+					label={__('Variants', 'kadence-blocks')}
+					type={'containerVariant'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'variant'}
+					metaData={metadata}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					isBundlePreset={true}
+				/>
+			</ToolsPanelBody>
 
 			{/* <ToolsPanelBody
 				title={__('Typography Settings', 'kadence-blocks')}

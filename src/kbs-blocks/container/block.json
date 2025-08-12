@@ -86,9 +86,17 @@
 		"border": {
 			"renderCSS": true,
 			"component": "border",
+			"nonInheritable": true,
 			"type": "object",
 			"varPrefix": "--kbs-cont-",
 			"classPrefix": "kbs-cont-border-"
+		},
+		"variant": {
+			"renderCSS": false,
+			"component": "containerVariant",
+			"bundlePreset": true,
+			"nonInheritable": true,
+			"type": "string"
 		},
 		"color": {
 			"type": "object"
