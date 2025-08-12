@@ -212,6 +212,17 @@ class CSS_Engine {
 		'3xl' => 'var(--kbs-font-size-3xl, 5rem)',
 	);
 	/**
+	 * Border radius variables used in string based border radius values.
+	 */
+	protected $border_radius_sizes = array(
+		'sm' => 'var(--global-kb-border-radius-sm, 5px)',
+		'md' => 'var(--global-kb-border-radius-md, 15px)',
+		'lg' => 'var(--global-kb-border-radius-lg, 30px)',
+		'xl' => 'var(--global-kb-border-radius-xl, 50px)',
+		'xxl' => 'var(--global-kb-border-radius-xxl, 100px)',
+		'3xl' => 'var(--global-kb-border-radius-3xl, 200px)',
+	);
+	/**
 	 * Line height variables used in string based line heights.
 	 */
 	protected $line_heights = array(
@@ -1127,6 +1138,20 @@ class CSS_Engine {
 					return $letter_spacing_value;
 				}
 				return $value;
+			case 'borderTopLeftRadius':
+			case 'borderTopRightRadius':
+			case 'borderBottomRightRadius':
+			case 'borderBottomLeftRadius':
+			case 'borderTopLeftRadiusHover':
+			case 'borderTopRightRadiusHover':
+			case 'borderBottomRightRadiusHover':
+			case 'borderBottomLeftRadiusHover':
+				// Check if it's a variable border radius value
+				$border_radius_value = $this->get_variable_border_radius_value( $value );
+				if ( $border_radius_value ) {
+					return $border_radius_value;
+				}
+				return $value;
 			default:
 				return $value;
 		}
@@ -1795,6 +1820,26 @@ class CSS_Engine {
 	public function get_variable_letter_spacing_value( $value ) {
 		if ( $this->is_variable_letter_spacing_value( $value ) ) {
 			return $this->letter_spacings[ $value ];
+		}
+
+		return false;
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	public function is_variable_border_radius_value( $value ) {
+		return is_string( $value ) && isset( $this->border_radius_sizes[ $value ] );
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	public function get_variable_border_radius_value( $value ) {
+		if ( $this->is_variable_border_radius_value( $value ) ) {
+			return $this->border_radius_sizes[ $value ];
 		}
 
 		return false;

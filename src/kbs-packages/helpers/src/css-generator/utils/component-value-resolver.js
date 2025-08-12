@@ -123,7 +123,7 @@ export function resolveComponentValues(attributeName, attributes, device, metada
  * @returns {Object|null} Resolved value with source information
  */
 function resolveSingleValue(attributeName, attributes, device, metadata, key, globalStylesIds) {
-	// Priority 1: Direct value from current device
+	// Priority 1: Direct value from current device (check individual keys first)
 	const directValue = getDeviceValue(attributeName, attributes, device, key);
 	if (directValue !== undefined && directValue !== null && directValue !== '') {
 		return {
@@ -131,6 +131,37 @@ function resolveSingleValue(attributeName, attributes, device, metadata, key, gl
 			source: 'direct',
 			inherited: false,
 		};
+	}
+	
+	// Special handling for border radius stored as array (check after individual keys)
+	if (attributeName === 'border' && key.includes('Radius')) {
+		const isHover = key.includes('Hover');
+		const arrayKey = isHover ? 'borderRadiusHover' : 'borderRadius';
+		
+		// Check if borderRadius is stored as an array at the attribute level
+		const borderRadiusArray = getDeviceValue(attributeName, attributes, device, arrayKey);
+		
+		if (Array.isArray(borderRadiusArray)) {
+			let cornerValue;
+			// Map individual corner keys to array indices
+			if (key === 'borderTopLeftRadius' || key === 'borderTopLeftRadiusHover') {
+				cornerValue = borderRadiusArray[0];
+			} else if (key === 'borderTopRightRadius' || key === 'borderTopRightRadiusHover') {
+				cornerValue = borderRadiusArray[1];
+			} else if (key === 'borderBottomRightRadius' || key === 'borderBottomRightRadiusHover') {
+				cornerValue = borderRadiusArray[2];
+			} else if (key === 'borderBottomLeftRadius' || key === 'borderBottomLeftRadiusHover') {
+				cornerValue = borderRadiusArray[3];
+			}
+			
+			if (cornerValue !== undefined && cornerValue !== null && cornerValue !== '') {
+				return {
+					value: cornerValue,
+					source: 'direct',
+					inherited: false,
+				};
+			}
+		}
 	}
 
 	// Priority 2: Parent device value (responsive inheritance)
@@ -219,10 +250,39 @@ function getParentDeviceValue(attributeName, attributes, device, key) {
 
 	const parentDevices = deviceHierarchy[device] || [];
 	
+	// First check for individual key values in parent devices
 	for (const parentDevice of parentDevices) {
 		const parentValue = getDeviceValue(attributeName, attributes, parentDevice, key);
-		if (parentValue !== undefined && parentValue !== null) {
+		if (parentValue !== undefined && parentValue !== null && parentValue !== '') {
 			return parentValue;
+		}
+	}
+	
+	// Special handling for border radius arrays (only check if individual keys not found)
+	if (attributeName === 'border' && key.includes('Radius')) {
+		const isHover = key.includes('Hover');
+		const arrayKey = isHover ? 'borderRadiusHover' : 'borderRadius';
+		
+		for (const parentDevice of parentDevices) {
+			const borderRadiusArray = getDeviceValue(attributeName, attributes, parentDevice, arrayKey);
+			
+			if (Array.isArray(borderRadiusArray)) {
+				let cornerValue;
+				// Map individual corner keys to array indices
+				if (key === 'borderTopLeftRadius' || key === 'borderTopLeftRadiusHover') {
+					cornerValue = borderRadiusArray[0];
+				} else if (key === 'borderTopRightRadius' || key === 'borderTopRightRadiusHover') {
+					cornerValue = borderRadiusArray[1];
+				} else if (key === 'borderBottomRightRadius' || key === 'borderBottomRightRadiusHover') {
+					cornerValue = borderRadiusArray[2];
+				} else if (key === 'borderBottomLeftRadius' || key === 'borderBottomLeftRadiusHover') {
+					cornerValue = borderRadiusArray[3];
+				}
+				
+				if (cornerValue !== undefined && cornerValue !== null && cornerValue !== '') {
+					return cornerValue;
+				}
+			}
 		}
 	}
 

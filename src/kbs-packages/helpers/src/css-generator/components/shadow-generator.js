@@ -21,7 +21,7 @@ export class ShadowGenerator extends BaseComponentGenerator {
 			this.generateLayeredShadows(attributeName, meta);
 		} else {
 			// Simple shadow without layers (shouldn't happen typically)
-			this.generateSimpleShadow(resolvedValues, meta);
+			this.generateSimpleShadow(resolvedValues, meta, attributeName);
 		}
 	}
 
@@ -42,7 +42,7 @@ export class ShadowGenerator extends BaseComponentGenerator {
 		if (reverseLayers.length > 0) {
 			const shadowValues = this.buildShadowValues(reverseLayers, meta);
 			if (shadowValues) {
-				this.applyShadowProperty(shadowValues, meta);
+				this.applyShadowProperty(shadowValues, meta, attributeName);
 			}
 		}
 	}
@@ -95,10 +95,11 @@ export class ShadowGenerator extends BaseComponentGenerator {
 		if (shadowInset) {
 			shadowString += 'inset ';
 		}
-		shadowString += `${shadowColor} ${shadowX} ${shadowY} ${shadowBlur}`;
+		shadowString += `${shadowX} ${shadowY} ${shadowBlur}`;
 		if (isBoxShadow && shadowSpread !== '') {
 			shadowString += ` ${shadowSpread}`;
 		}
+		shadowString += ` ${shadowColor}`;
 
 		return shadowString.trim();
 	}
@@ -106,9 +107,11 @@ export class ShadowGenerator extends BaseComponentGenerator {
 	/**
 	 * Apply shadow property to the element
 	 */
-	applyShadowProperty(shadowValue, meta) {
-		const property = meta.component === 'boxShadow' ? 'box-shadow' : 'text-shadow';
-		const selector = this.getSelector(meta.component, meta);
+	applyShadowProperty(shadowValue, meta, attributeName) {
+		// Use the proper CSS property that respects varPrefix
+		const property = this.getCssProperty(attributeName || meta.component, meta);
+		// Use attributeName for selector to properly handle hover states
+		const selector = this.getSelector(attributeName || meta.component, meta);
 		
 		const currentSelectorBackup = this.currentSelector;
 		this.setSelector(selector);
@@ -119,10 +122,10 @@ export class ShadowGenerator extends BaseComponentGenerator {
 	/**
 	 * Generate simple shadow (non-layered fallback)
 	 */
-	generateSimpleShadow(resolvedValues, meta) {
+	generateSimpleShadow(resolvedValues, meta, attributeName) {
 		const shadowValue = resolvedValues[meta.component];
 		if (shadowValue?.value) {
-			this.applyShadowProperty(shadowValue.value, meta);
+			this.applyShadowProperty(shadowValue.value, meta, attributeName || meta.component);
 		}
 	}
 
@@ -130,12 +133,21 @@ export class ShadowGenerator extends BaseComponentGenerator {
 	 * Override getCssProperty for shadow-specific mappings
 	 */
 	getCssProperty(key, meta) {
-		if (meta.component === 'boxShadow') {
-			return 'box-shadow';
-		} else if (meta.component === 'textShadow') {
-			return 'text-shadow';
+		// Map component names to CSS property names
+		let mappedKey = key;
+		if (key === 'boxShadow' || key === 'boxShadowHover') {
+			// Both map to 'box-shadow' - the hover suffix comes from varSuffix
+			mappedKey = 'box-shadow';
+		} else if (key === 'textShadow' || key === 'textShadowHover') {
+			// Both map to 'text-shadow' - the hover suffix comes from varSuffix
+			mappedKey = 'text-shadow';
 		}
 
-		return super.getCssProperty(key, meta);
+		// Handle varPrefix if specified
+		if (meta?.varPrefix) {
+			return meta.varPrefix + mappedKey + (meta?.varSuffix || '');
+		}
+
+		return mappedKey;
 	}
 }

@@ -148,6 +148,37 @@ class Component_Value_Resolver {
 	 * @return array|null Resolved value with source information.
 	 */
 	protected static function resolve_single_value( $attribute_name, $attributes, $device, $metadata, $key, $global_styles_ids, $css_engine ) {
+		// Special handling for border radius stored as array
+		if ( $attribute_name === 'border' && strpos( $key, 'Radius' ) !== false ) {
+			$is_hover = strpos( $key, 'Hover' ) !== false;
+			$array_key = $is_hover ? 'borderRadiusHover' : 'borderRadius';
+			
+			// Check if borderRadius is stored as an array at the attribute level
+			$border_radius_array = self::get_device_value( $attribute_name, $attributes, $device, $array_key );
+			
+			if ( is_array( $border_radius_array ) ) {
+				$corner_value = null;
+				// Map individual corner keys to array indices
+				if ( $key === 'borderTopLeftRadius' || $key === 'borderTopLeftRadiusHover' ) {
+					$corner_value = isset( $border_radius_array[0] ) ? $border_radius_array[0] : null;
+				} elseif ( $key === 'borderTopRightRadius' || $key === 'borderTopRightRadiusHover' ) {
+					$corner_value = isset( $border_radius_array[1] ) ? $border_radius_array[1] : null;
+				} elseif ( $key === 'borderBottomRightRadius' || $key === 'borderBottomRightRadiusHover' ) {
+					$corner_value = isset( $border_radius_array[2] ) ? $border_radius_array[2] : null;
+				} elseif ( $key === 'borderBottomLeftRadius' || $key === 'borderBottomLeftRadiusHover' ) {
+					$corner_value = isset( $border_radius_array[3] ) ? $border_radius_array[3] : null;
+				}
+				
+				if ( $corner_value !== null && $corner_value !== '' ) {
+					return array(
+						'value'     => $corner_value,
+						'source'    => 'direct',
+						'inherited' => false,
+					);
+				}
+			}
+		}
+		
 		// Priority 1: Direct value from current device
 		$direct_value = self::get_device_value( $attribute_name, $attributes, $device, $key );
 		if ( $direct_value !== null && $direct_value !== '' ) {
@@ -260,6 +291,34 @@ class Component_Value_Resolver {
 	 */
 	protected static function get_parent_device_value( $attribute_name, $attributes, $device, $key ) {
 		$device_hierarchy = self::get_device_hierarchy( $device );
+		
+		// Special handling for border radius arrays
+		if ( $attribute_name === 'border' && strpos( $key, 'Radius' ) !== false ) {
+			$is_hover = strpos( $key, 'Hover' ) !== false;
+			$array_key = $is_hover ? 'borderRadiusHover' : 'borderRadius';
+			
+			foreach ( $device_hierarchy as $parent_device ) {
+				$border_radius_array = self::get_device_value( $attribute_name, $attributes, $parent_device, $array_key );
+				
+				if ( is_array( $border_radius_array ) ) {
+					$corner_value = null;
+					// Map individual corner keys to array indices
+					if ( $key === 'borderTopLeftRadius' || $key === 'borderTopLeftRadiusHover' ) {
+						$corner_value = isset( $border_radius_array[0] ) ? $border_radius_array[0] : null;
+					} elseif ( $key === 'borderTopRightRadius' || $key === 'borderTopRightRadiusHover' ) {
+						$corner_value = isset( $border_radius_array[1] ) ? $border_radius_array[1] : null;
+					} elseif ( $key === 'borderBottomRightRadius' || $key === 'borderBottomRightRadiusHover' ) {
+						$corner_value = isset( $border_radius_array[2] ) ? $border_radius_array[2] : null;
+					} elseif ( $key === 'borderBottomLeftRadius' || $key === 'borderBottomLeftRadiusHover' ) {
+						$corner_value = isset( $border_radius_array[3] ) ? $border_radius_array[3] : null;
+					}
+					
+					if ( $corner_value !== null && $corner_value !== '' ) {
+						return $corner_value;
+					}
+				}
+			}
+		}
 		
 		foreach ( $device_hierarchy as $parent_device ) {
 			$parent_value = self::get_device_value( $attribute_name, $attributes, $parent_device, $key );

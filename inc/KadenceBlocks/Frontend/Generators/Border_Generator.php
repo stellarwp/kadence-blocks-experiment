@@ -60,15 +60,22 @@ class Border_Generator extends Base_Generator {
 	}
 	
 	/**
-	 * Process border value based on property type
+	 * Process CSS value based on property type
+	 * Override base class to handle border-specific processing
 	 *
 	 * @param string $key The property key.
 	 * @param mixed  $value The resolved value.
+	 * @param array  $meta Component metadata.
 	 * @return string The processed CSS value.
 	 */
-	protected function process_border_value( $key, $value ) {
+	protected function process_value( $key, $value, $meta ) {
 		// Handle border radius properties
 		if ( strpos( $key, 'Radius' ) !== false ) {
+			// Check if it's a variable border radius value (sm, md, lg, etc.)
+			$border_radius_value = $this->css_engine->get_variable_border_radius_value( $value );
+			if ( $border_radius_value ) {
+				return $border_radius_value;
+			}
 			// If numeric, add 'px' unit
 			if ( is_numeric( $value ) ) {
 				return $value . 'px';
@@ -86,6 +93,19 @@ class Border_Generator extends Base_Generator {
 		}
 		
 		return $value;
+	}
+	
+	/**
+	 * Process border value based on property type
+	 * Kept for backward compatibility
+	 *
+	 * @param string $key The property key.
+	 * @param mixed  $value The resolved value.
+	 * @return string The processed CSS value.
+	 */
+	protected function process_border_value( $key, $value ) {
+		// Delegate to process_value for consistency
+		return $this->process_value( $key, $value, array() );
 	}
 	
 	/**

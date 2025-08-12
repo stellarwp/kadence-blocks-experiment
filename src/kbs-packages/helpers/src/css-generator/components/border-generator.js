@@ -40,31 +40,20 @@ export class BorderGenerator extends BaseComponentGenerator {
 	}
 
 	/**
-	 * Process border value based on property type
+	 * Process CSS value based on property type
+	 * Override base class to handle border-specific processing
 	 * @param {string} key - The property key
 	 * @param {*} value - The resolved value
+	 * @param {Object} meta - Component metadata
 	 * @returns {string} - The processed CSS value
 	 */
-	processBorderValue(key, value) {
+	processValue(key, value, meta) {
 		const isBorderRadius = key.includes('border') && key.includes('Radius');
 		const isBorderStyle = key.includes('border') && !key.includes('Radius');
 
 		if (isBorderRadius) {
-			// Handle border radius values
-			if (Array.isArray(value)) {
-				// For array values, extract the appropriate corner
-				if (key === 'borderTopLeftRadius' || key === 'borderTopLeftRadiusHover') {
-					return getBorderRadiusOutput(value[0]);
-				} else if (key === 'borderTopRightRadius' || key === 'borderTopRightRadiusHover') {
-					return getBorderRadiusOutput(value[1]);
-				} else if (key === 'borderBottomRightRadius' || key === 'borderBottomRightRadiusHover') {
-					return getBorderRadiusOutput(value[2]);
-				} else if (key === 'borderBottomLeftRadius' || key === 'borderBottomLeftRadiusHover') {
-					return getBorderRadiusOutput(value[3]);
-				}
-			} else {
-				return getBorderRadiusOutput(value);
-			}
+			// Handle border radius values - use getBorderRadiusOutput to convert size names to CSS variables
+			return getBorderRadiusOutput(value);
 		}
 
 		if (isBorderStyle) {
@@ -80,6 +69,18 @@ export class BorderGenerator extends BaseComponentGenerator {
 		}
 
 		return value;
+	}
+
+	/**
+	 * Process border value based on property type
+	 * Kept for backward compatibility
+	 * @param {string} key - The property key
+	 * @param {*} value - The resolved value
+	 * @returns {string} - The processed CSS value
+	 */
+	processBorderValue(key, value) {
+		// Delegate to processValue for consistency
+		return this.processValue(key, value, {});
 	}
 
 }

@@ -145,6 +145,12 @@ function kadence_blocks_add_global_gutenberg_inline_styles() {
 		--global-kb-gutter-md: 2rem;
 		--global-kb-gutter-lg: 3rem;
 		--global-kb-gutter-xl: 5rem;
+		--global-kb-border-radius-sm: 5px;
+		--global-kb-border-radius-md: 15px;
+		--global-kb-border-radius-lg: 30px;
+		--global-kb-border-radius-xl: 50px;
+		--global-kb-border-radius-xxl: 100px;
+		--global-kb-border-radius-3xl: 200px;
 		--global-kb-editor-admin-sidebar: 0px;
 		--global-kb-editor-sidebar: 0px;
 		--global-kb-editor-sidebar-secondary: 0px;
