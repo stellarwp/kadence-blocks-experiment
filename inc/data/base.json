@@ -701,6 +701,19 @@
 							"preset": "kbs-pd-card-md"
 						}
 					}
+				},
+				"section": {
+					"label": "Section",
+					"description": "A container variant for sections",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"preset": "kbs-pd-sec-xxl"
+						},
+						"background": {
+							"preset": "kbs-bg-variant-2"
+						}
+					}
 				}
 			}
 		}

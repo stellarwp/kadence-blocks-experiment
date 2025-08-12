@@ -47,7 +47,7 @@ export default function InspectorGeneral(props) {
 			/>
 			<ToolsPanelBody>
 				<PresetControl
-					label={__('Variants', 'kadence-blocks')}
+					label={__('Container Presets', 'kadence-blocks')}
 					type={'containerVariant'}
 					attributes={attributes}
 					setAttributes={setAttributes}
