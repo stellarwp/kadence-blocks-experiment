@@ -18,7 +18,7 @@
 						}
 					}
 				},
-				"kbs-pd-section-xl": {
+				"kbs-pd-sec-xl": {
 					"label": "Section XL",
 					"description": "A section padding preset",
 					"locked": true,
@@ -708,7 +708,7 @@
 					"locked": true,
 					"attributes": {
 						"padding": {
-							"preset": "kbs-pd-sec-xxl"
+							"preset": "kbs-pd-sec-xl"
 						},
 						"background": {
 							"preset": "kbs-bg-variant-2"

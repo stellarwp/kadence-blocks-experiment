@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { Button, Popover, Icon } from '@wordpress/components';
 import { close as closeIcon } from '@wordpress/icons';
-
+import classnames from 'classnames';
 /**
  * Internal libraries
  */
@@ -17,6 +17,7 @@ import {
 	isAdvancedOption,
 	handleMultipleAttributeChange,
 	getInheritedValue,
+	getResolvedValue,
 } from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
@@ -86,15 +87,10 @@ export default function PresetControl({
 	const presetOptions = definedPresets.length > 0 ? definedPresets : presets.slice(0, previewAmount);
 	const hasRadioToggle = definedPresets.length > 0 ? true : false;
 
-	const { inheritedValue, inheritedSource, inheritedType } = getInheritedValue(
-		attributeName,
-		attributes,
-		'none',
-		metaData,
-		'',
-		globalStylesIds
-	);
+	const resolved = getResolvedValue(attributeName, attributes, 'none', metaData, '', globalStylesIds);
+	const { inheritedValue, inheritedSource, inheritedType, directValue } = resolved;
 	const currentValue = isBundlePreset ? inheritedValue : inheritedValue?.preset;
+	const currentDirectValue = isBundlePreset ? directValue : directValue?.preset;
 
 	const [isPopover, setIsPopover] = useState(false);
 	const [showConfirmPopover, setShowConfirmPopover] = useState(false);
@@ -168,6 +164,10 @@ export default function PresetControl({
 		onChange(undefined);
 	};
 
+	const controlButtonClasses = classnames('kbs-radio-preset-control-button', {
+		'kbs-radio-preset-control-button-inherited': inheritedSource === 'preset' || inheritedSource === 'initial',
+	});
+
 	return (
 		<div
 			className={`components-base-control kbs-control kbs-radio-preset-control kbs-radio-preset-control-${presetType} ${isBundlePreset ? 'kbs-radio-preset-control-bundle' : ''}`}
@@ -204,7 +204,7 @@ export default function PresetControl({
 								key={option.value}
 								label={option.label}
 								isPressed={option.value === currentValue}
-								className={`kbs-radio-preset-control-button`}
+								className={controlButtonClasses}
 								onClick={(event) => {
 									setConfirmAnchor(event.currentTarget);
 									setPopoverPlacement('top');
@@ -227,7 +227,8 @@ export default function PresetControl({
 					<div ref={setRadioToggleAnchor} className="kbs-control-inner kbs-radio-toggle-control-inner">
 						<RadioToggleGroupButtonUI
 							label={label}
-							value={currentValue}
+							value={currentDirectValue}
+							inherited={resolved}
 							onChange={(value) => {
 								const target = radioToggleAnchor.querySelector(`[data-value="${value}"]`);
 								setConfirmAnchor(target ? target : radioToggleAnchor);
@@ -235,6 +236,7 @@ export default function PresetControl({
 								onChange(value);
 							}}
 							controls={presetOptions}
+							isPreset={true}
 						/>
 					</div>
 				</div>
@@ -246,7 +248,7 @@ export default function PresetControl({
 							key={option.value}
 							label={option.label}
 							isPressed={option.value === currentValue}
-							className={`kbs-radio-preset-control-button`}
+							className={controlButtonClasses}
 							onClick={(event) => {
 								setConfirmAnchor(event.currentTarget);
 								setPopoverPlacement('top-start');

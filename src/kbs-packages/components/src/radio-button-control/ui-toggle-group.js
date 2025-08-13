@@ -16,7 +16,9 @@ function RadioToggleGroupButtonUI({
 	controls = [],
 	isDeselectable = true,
 	label = __('Align', 'kadence-blocks'),
+	isPreset = false,
 }) {
+	const inheritedValue = isPreset ? inherited?.inheritedValue?.preset : inherited?.inheritedValue;
 	return (
 		<ToggleGroupControl
 			className="kbs-radio-button-control__toggle-group"
@@ -32,7 +34,7 @@ function RadioToggleGroupButtonUI({
 			{map(controls, ({ key, title, icon, name }) =>
 				icon ? (
 					<ToggleGroupControlOptionIcon
-						className={`kbs-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
+						className={`kbs-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inheritedValue ? ' kb-is-inherited' : ''}`}
 						key={key}
 						label={title}
 						icon={icon}
@@ -40,7 +42,7 @@ function RadioToggleGroupButtonUI({
 					/>
 				) : (
 					<ToggleGroupControlOption
-						className={`kbs-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inherited?.inheritedValue ? ' kb-is-inherited' : ''}`}
+						className={`kbs-radio-button-control__toggle_item${value === key ? ' kb-is-pressed' : ''}${!value && key === inheritedValue ? ' kb-is-inherited' : ''}`}
 						key={key}
 						label={name}
 						aria-label={title}
