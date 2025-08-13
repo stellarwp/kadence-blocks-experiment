@@ -255,8 +255,8 @@ class Abstract_Block {
 
 		// Get block attributes meta from instance if available
 		$attributes_meta = [];
-		if ( is_object( $block_instance ) && isset( $block_instance->attributes ) ) {
-			$attributes_meta = $block_instance->attributes;
+		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
+			$attributes_meta = $block_instance->block_type->attributes;
 		}
 
 		// Process fonts through the font engine
