@@ -71,8 +71,22 @@ class Dimension_Generator extends Base_Generator {
 	 * @return string The processed CSS value.
 	 */
 	protected function process_dimension_value( $value ) {
-		// Handle special values
-		if ( $value === 'auto' || $value === 'inherit' || $value === 'initial' || $value === 'unset' ) {
+        // Map token values (matches editor JS CONTENT_WIDTH_SIZES_MAP)
+        if ( $value === 'full' ) {
+            return 'var(--kbs-contentwidth-full, 100%)';
+        }
+        if ( $value === 'wide' ) {
+            return 'var(--kbs-contentwidth-wide, 800px)';
+        }
+        if ( $value === 'medium' ) {
+            return 'var(--kbs-contentwidth-medium, 550px)';
+        }
+        if ( $value === 'narrow' ) {
+            return 'var(--kbs-contentwidth-narrow, 300px)';
+        }
+
+        // Handle special values
+        if ( $value === 'auto' || $value === 'inherit' || $value === 'initial' || $value === 'unset' ) {
 			return $value;
 		}
 		
