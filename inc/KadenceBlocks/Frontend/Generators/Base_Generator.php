@@ -102,155 +102,39 @@ abstract class Base_Generator {
 	 * @return string The CSS property name.
 	 */
 	protected function get_mapped_css_property( $key ) {
-		// Universal property mappings for all components
-		$property_map = array(
-			// Typography properties
-			'fontSize'        => 'font-size',
-			'fontFamily'      => 'font-family',
-			'fontWeight'      => 'font-weight',
-			'fontStyle'       => 'font-style',
-			'lineHeight'      => 'line-height',
-			'letterSpacing'   => 'letter-spacing',
-			'textTransform'   => 'text-transform',
-			'textAlign'       => 'text-align',
-			'textDecoration'  => 'text-decoration',
-			'textOrientation' => 'text-orientation',
-			'writingMode'     => 'writing-mode',
-			'textIndent'      => 'text-indent',
-			'textOverflow'    => 'text-overflow',
-			'whiteSpace'      => 'white-space',
-			'wordBreak'       => 'word-break',
-			'wordWrap'        => 'word-wrap',
-			'overflowWrap'    => 'overflow-wrap',
-			'verticalAlign'   => 'vertical-align',
-			'direction'       => 'direction',
-			
-			// Color properties
-			'color'           => 'color',
-			'colorHover'      => 'color',
-			'backgroundColor' => 'background-color',
-			
-			// Spacing properties
-			'paddingTop'      => 'padding-top',
-			'paddingRight'    => 'padding-right',
-			'paddingBottom'   => 'padding-bottom',
-			'paddingLeft'     => 'padding-left',
-			'marginTop'       => 'margin-top',
-			'marginRight'     => 'margin-right',
-			'marginBottom'    => 'margin-bottom',
-			'marginLeft'      => 'margin-left',
-			
-			// Spacing hover variants
-			'paddingHoverTop'    => 'padding-top',
-			'paddingHoverRight'  => 'padding-right',
-			'paddingHoverBottom' => 'padding-bottom',
-			'paddingHoverLeft'   => 'padding-left',
-			'marginHoverTop'     => 'margin-top',
-			'marginHoverRight'   => 'margin-right',
-			'marginHoverBottom'  => 'margin-bottom',
-			'marginHoverLeft'    => 'margin-left',
-			
-			// FlexBox properties
-			'flexDirection'   => 'flex-direction',
-			'flexWrap'        => 'flex-wrap',
-			'justifyContent'  => 'justify-content',
-			'alignItems'      => 'align-items',
-			'alignContent'    => 'align-content',
-			'rowGap'          => 'row-gap',
-			'columnGap'       => 'column-gap',
-			
-			// Border properties
-			'borderTopLeftRadius'     => 'border-top-left-radius',
-			'borderTopRightRadius'    => 'border-top-right-radius',
-			'borderBottomRightRadius' => 'border-bottom-right-radius',
-			'borderBottomLeftRadius'  => 'border-bottom-left-radius',
-			'borderTop'               => 'border-top',
-			'borderLeft'              => 'border-left',
-			'borderRight'             => 'border-right',
-			'borderBottom'            => 'border-bottom',
-			
-			// Border hover variants
-			'borderTopLeftRadiusHover'     => 'border-top-left-radius',
-			'borderTopRightRadiusHover'    => 'border-top-right-radius',
-			'borderBottomRightRadiusHover' => 'border-bottom-right-radius',
-			'borderBottomLeftRadiusHover'  => 'border-bottom-left-radius',
-			'borderTopHover'               => 'border-top',
-			'borderLeftHover'              => 'border-left',
-			'borderRightHover'             => 'border-right',
-			'borderBottomHover'            => 'border-bottom',
-			
-			// General border properties
-			'borderWidth'     => 'border-width',
-			'borderStyle'     => 'border-style',
-			'borderColor'     => 'border-color',
-			
-			// Shadow properties
-			'boxShadow'       => 'box-shadow',
-			'textShadow'      => 'text-shadow',
-			
-			// Dimension properties
-			'maxWidth'        => 'max-width',
-			'maxHeight'       => 'max-height',
-			'minHeight'       => 'min-height',
-			'minWidth'        => 'min-width',
-			'width'           => 'width',
-			'height'          => 'height',
-			
-			// Icon properties
-			'iconSize'        => 'font-size',
-			'iconLineWidth'   => 'stroke-width',
-			'iconSizeHover'   => 'font-size',
-			'iconLineWidthHover' => 'stroke-width',
-			
-			// Transform properties
-			'scale'           => 'scale',
-			'translate'       => 'translate',
-			'rotate'          => 'rotate',
-			'skew'            => 'skew',
-			'origin'          => 'transform-origin',
-			
-			// Transition properties
-			'transitionProperty'       => 'transition-property',
-			'transitionDuration'       => 'transition-duration',
-			'transitionTimingFunction' => 'transition-timing-function',
-			'transitionDelay'          => 'transition-delay',
-			'transition'               => 'transition',
-			
-			// Background properties
-			'backgroundImage'      => 'background-image',
-			'backgroundSize'       => 'background-size',
-			'backgroundPosition'   => 'background-position',
-			'backgroundRepeat'     => 'background-repeat',
-			'backgroundAttachment' => 'background-attachment',
-			
-			// Background component sub-properties
-			'image'       => 'background-image',
-			'size'        => 'background-size',
-			'position'    => 'background-position',
-			'repeat'      => 'background-repeat',
-			'attachment'  => 'background-attachment',
-			'gradient'    => 'background-image',
-		);
-		
-		// Check for hover variants
+		// Normalize state suffix for mapping only; selector handles :hover/:active
 		$base_key = $key;
 		if ( substr( $key, -5 ) === 'Hover' ) {
 			$base_key = substr( $key, 0, -5 );
-			if ( isset( $property_map[ $base_key ] ) ) {
-				return $property_map[ $base_key ];
-			}
-		}
-		
-		// Check for active variants
-		if ( substr( $key, -6 ) === 'Active' ) {
+		} elseif ( substr( $key, -6 ) === 'Active' ) {
 			$base_key = substr( $key, 0, -6 );
-			if ( isset( $property_map[ $base_key ] ) ) {
-				return $property_map[ $base_key ];
-			}
 		}
-		
-		// Return mapped property or fall back to key
-		return isset( $property_map[ $key ] ) ? $property_map[ $key ] : $this->camel_to_kebab( $key );
+
+		switch ( $base_key ) {
+			case 'iconSize':
+			case 'iconSizeHover':
+				return 'font-size';
+			case 'iconLineWidth':
+			case 'iconLineWidthHover':
+				return 'stroke-width';
+			case 'origin':
+				return 'transform-origin';
+			case 'image':
+				return 'background-image';
+			case 'size':
+				return 'background-size';
+			case 'position':
+				return 'background-position';
+			case 'repeat':
+				return 'background-repeat';
+			case 'attachment':
+				return 'background-attachment';
+			case 'gradient':
+				return 'background-image';
+		}
+
+		// Default: convert camelCase to kebab-case
+		return $this->camel_to_kebab( $base_key );
 	}
 	
 	/**
