@@ -15,7 +15,6 @@ import { select } from '@wordpress/data';
 
 import { TypographyGenerator } from './components/typography-generator';
 import { FlexBoxGenerator } from './components/flexbox-generator';
-import { FlexChildGenerator } from './components/flexchild-generator';
 import { BorderGenerator } from './components/border-generator';
 import { TransformGenerator } from './components/transform-generator';
 import { SimpleGenerator } from './components/simple-generator';
@@ -49,7 +48,7 @@ class CSSGenerator {
 		this.generators = {
 			typography: new TypographyGenerator(this),
 			flexBox: new FlexBoxGenerator(this),
-			flexChild: new FlexChildGenerator(this),
+			flexChild: simpleGenerator,
 			border: new BorderGenerator(this),
 			transform: new TransformGenerator(this),
 			background: new BackgroundGenerator(this),
