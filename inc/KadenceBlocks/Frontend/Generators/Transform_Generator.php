@@ -200,25 +200,6 @@ class Transform_Generator extends Base_Generator {
 	 * @param mixed $value The value to add unit to.
 	 * @return string The value with unit.
 	 */
-	protected function add_unit( $value ) {
-		if ( is_numeric( $value ) ) {
-			return $value . 'px';
-		}
-		return $value;
-	}
-	
-	/**
-	 * Add degree unit to numeric value
-	 *
-	 * @param mixed $value The value to add unit to.
-	 * @return string The value with degree unit.
-	 */
-	protected function add_deg_unit( $value ) {
-		if ( is_numeric( $value ) ) {
-			return $value . 'deg';
-		}
-		return $value;
-	}
 	
 	/**
 	 * Get component keys for transform

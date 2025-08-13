@@ -281,6 +281,32 @@ abstract class Base_Generator {
 		// To be implemented by subclasses
 		return array();
 	}
+
+	/**
+	 * Add px unit to numeric values, otherwise return as-is
+	 *
+	 * @param mixed $value The value to add unit to.
+	 * @return string The value with unit when numeric.
+	 */
+	protected function add_unit( $value ) {
+		if ( is_numeric( $value ) ) {
+			return $value . 'px';
+		}
+		return $value;
+	}
+
+	/**
+	 * Add deg unit to numeric values, otherwise return as-is
+	 *
+	 * @param mixed $value The value to add unit to.
+	 * @return string The value with degree unit when numeric.
+	 */
+	protected function add_deg_unit( $value ) {
+		if ( is_numeric( $value ) ) {
+			return $value . 'deg';
+		}
+		return $value;
+	}
 	
 	/**
 	 * Generic implementation for simple generators

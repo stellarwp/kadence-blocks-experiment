@@ -114,28 +114,15 @@ class Border_Generator extends Base_Generator {
 	 * @param array $border_data The border data array.
 	 * @return string The formatted border shorthand.
 	 */
-	protected function format_border_shorthand( $border_data ) {
-		$width = isset( $border_data['width'] ) ? $border_data['width'] : '1px';
-		$style = isset( $border_data['style'] ) ? $border_data['style'] : 'solid';
-		$color = isset( $border_data['color'] ) ? $border_data['color'] : '';
-		
-		// Add px unit to width if numeric
-		if ( is_numeric( $width ) ) {
-			$width = $width . 'px';
-		}
-		
-		// Sanitize color
-		if ( ! empty( $color ) ) {
-			$color = $this->css_engine->sanitize_color( $color );
-		}
-		
-		// Return shorthand
-		if ( ! empty( $color ) ) {
-			return $width . ' ' . $style . ' ' . $color;
-		}
-		
-		return $width . ' ' . $style;
-	}
+    protected function format_border_shorthand( $border_data ) {
+        $width = isset( $border_data['width'] ) ? $this->add_unit( $border_data['width'] ) : '1px';
+        $style = isset( $border_data['style'] ) ? $border_data['style'] : 'solid';
+        $color = isset( $border_data['color'] ) ? $border_data['color'] : '';
+        if ( ! empty( $color ) ) {
+            $color = $this->css_engine->sanitize_color( $color );
+        }
+        return trim( $width . ' ' . $style . ( ! empty( $color ) ? ' ' . $color : '' ) );
+    }
 	
 	/**
 	 * Get component keys for border

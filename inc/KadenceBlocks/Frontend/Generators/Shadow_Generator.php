@@ -23,30 +23,25 @@ class Shadow_Generator extends Base_Generator {
 	 */
 	protected $component_type = 'shadow';
 	
-	/**
-	 * Default values for box shadows
-	 *
-	 * @var array
-	 */
-	protected $box_shadow_defaults = array(
-		'color'  => 'var(--kbs-shadow-default-color,#00000033)',
-		'x'      => 'var(--kbs-shadow-default-x,6px)',
-		'y'      => 'var(--kbs-shadow-default-y,6px)',
-		'blur'   => 'var(--kbs-shadow-default-blur,9px)',
-		'spread' => 'var(--kbs-shadow-default-spread,0)',
-	);
-	
-	/**
-	 * Default values for text shadows
-	 *
-	 * @var array
-	 */
-	protected $text_shadow_defaults = array(
-		'color' => 'var(--kbs-text-shadow-default-color,#00000066)',
-		'x'     => 'var(--kbs-text-shadow-default-x,2px)',
-		'y'     => 'var(--kbs-text-shadow-default-y,2px)',
-		'blur'  => 'var(--kbs-text-shadow-default-blur,2px)',
-	);
+    /**
+     * Default values for box/text shadows
+     * Using a single structure keeps things compact.
+     */
+    protected $shadow_defaults = array(
+        'box' => array(
+            'color'  => 'var(--kbs-shadow-default-color,#00000033)',
+            'x'      => 'var(--kbs-shadow-default-x,6px)',
+            'y'      => 'var(--kbs-shadow-default-y,6px)',
+            'blur'   => 'var(--kbs-shadow-default-blur,9px)',
+            'spread' => 'var(--kbs-shadow-default-spread,0)',
+        ),
+        'text' => array(
+            'color' => 'var(--kbs-text-shadow-default-color,#00000066)',
+            'x'     => 'var(--kbs-text-shadow-default-x,2px)',
+            'y'     => 'var(--kbs-text-shadow-default-y,2px)',
+            'blur'  => 'var(--kbs-text-shadow-default-blur,2px)',
+        ),
+    );
 	
 	/**
 	 * Generate CSS for shadow component
@@ -216,11 +211,8 @@ class Shadow_Generator extends Base_Generator {
 	 */
 	protected function format_layer_shadow( $shadow_data, $attribute_name ) {
 		// Check if this is a text shadow - look for 'textshadow' in the lowercase attribute name
-		$is_text_shadow = strpos( strtolower( $attribute_name ), 'textshadow' ) !== false;
-		$is_box_shadow = ! $is_text_shadow;
-		
-		// Select appropriate defaults
-		$defaults = $is_box_shadow ? $this->box_shadow_defaults : $this->text_shadow_defaults;
+        $is_text_shadow = strpos( strtolower( $attribute_name ), 'textshadow' ) !== false;
+        $defaults = $is_text_shadow ? $this->shadow_defaults['text'] : $this->shadow_defaults['box'];
 		
 		// Get values with proper defaults
 		// If value is set and is 0 or a valid value, use it; otherwise use the CSS variable with fallback
@@ -337,8 +329,8 @@ class Shadow_Generator extends Base_Generator {
 	 */
 	protected function format_single_shadow( $shadow, $shadow_type ) {
 		// Determine if this is a text shadow or box shadow
-		$is_text_shadow = ( $shadow_type === 'textshadow' || $shadow_type === 'text-shadow' );
-		$defaults = $is_text_shadow ? $this->text_shadow_defaults : $this->box_shadow_defaults;
+        $is_text_shadow = ( $shadow_type === 'textshadow' || $shadow_type === 'text-shadow' );
+        $defaults = $is_text_shadow ? $this->shadow_defaults['text'] : $this->shadow_defaults['box'];
 		
 		// Get values with proper defaults
 		$h_offset = isset( $shadow['hOffset'] ) && ( $shadow['hOffset'] !== '' && $shadow['hOffset'] !== null ) ? 
@@ -378,12 +370,6 @@ class Shadow_Generator extends Base_Generator {
 	 * @param mixed $value The value to add unit to.
 	 * @return string The value with unit.
 	 */
-	protected function add_unit( $value ) {
-		if ( is_numeric( $value ) ) {
-			return $value . 'px';
-		}
-		return $value;
-	}
 	
 	/**
 	 * Get component keys for shadow

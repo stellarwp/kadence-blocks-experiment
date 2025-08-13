@@ -151,25 +151,20 @@ class Background_Generator extends Base_Generator {
 			$this->set_media_state( $device_name );
 			$device_attributes = $layer[ $device_name ];
 			
-			// Process opacity and blend mode
-			if ( ! empty( $device_attributes['opacity'] ) ) {
-				$this->add_property( 'opacity', $device_attributes['opacity'] );
-			}
-			if ( ! empty( $device_attributes['blendMode'] ) ) {
-				$this->add_property( 'mix-blend-mode', $device_attributes['blendMode'] );
-			}
+            // Process opacity and blend mode
+            $this->apply_opacity_and_blend( $device_attributes );
 			
 			// Process based on background type
 			switch ( $background_type ) {
-				case 'color':
-					$this->process_color_background( $device_attributes );
-					break;
-				case 'image':
-					$this->process_image_background( $device_attributes );
-					break;
-				case 'gradient':
-					$this->process_gradient_background( $device_attributes );
-					break;
+                case 'color':
+                    $this->process_color_background( $device_attributes );
+                    break;
+                case 'image':
+                    $this->process_image_background( $device_attributes );
+                    break;
+                case 'gradient':
+                    $this->process_gradient_background( $device_attributes );
+                    break;
 				case 'mask':
 					$this->process_mask_background( $layer, $device_name, $temp_selector, $meta_class_prefix, $index );
 					break;
@@ -192,12 +187,7 @@ class Background_Generator extends Base_Generator {
 			}
 			
 			// Process hover properties
-			if ( ! empty( $device_attributes['opacityHover'] ) ) {
-				$this->add_property( 'opacity', $device_attributes['opacityHover'] );
-			}
-			if ( ! empty( $device_attributes['blendModeHover'] ) ) {
-				$this->add_property( 'mix-blend-mode', $device_attributes['blendModeHover'] );
-			}
+            $this->apply_opacity_and_blend( $device_attributes, true );
 			
 			// Process hover colors based on type
 			if ( ! empty( $device_attributes['colorHover'] ) && 
@@ -231,6 +221,20 @@ class Background_Generator extends Base_Generator {
 			$this->add_property( 'background-color', $this->css_engine->sanitize_color( $attributes['color'] ) );
 		}
 	}
+
+    /**
+     * Shared: apply opacity and blend mode
+     */
+    protected function apply_opacity_and_blend( $attributes, $is_hover = false ) {
+		$suffix = $is_hover ? 'Hover' : '';
+		
+        if ( ! empty( $attributes['opacity' . $suffix] ) ) {
+            $this->add_property( 'opacity', $attributes['opacity' . $suffix] );
+        }
+        if ( ! empty( $attributes['blendMode' . $suffix] ) ) {
+            $this->add_property( 'mix-blend-mode', $attributes['blendMode' . $suffix] );
+        }
+    }
 	
 	/**
 	 * Process image background

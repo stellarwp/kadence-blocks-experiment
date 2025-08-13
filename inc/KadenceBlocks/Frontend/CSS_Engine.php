@@ -392,20 +392,11 @@ class CSS_Engine {
 	public function frontend_block_css() {
 		if ( ! empty( self::$styles ) ) {
 			self::$head_styles = self::$styles;
-			$output = '';
-			foreach ( self::$styles as $key => $value ) {
-				// Remove the comments if we want to change how the global mappings are loaded.
-				// if ( strpos( $key, 'global-styles' ) !== false ) {
-				// 	continue;
-				// }
-				$output .= $value;
-			}
-			$custom_output = '';
-			if ( ! empty( self::$custom_styles ) && is_array( self::$custom_styles ) ) {
-				foreach ( self::$custom_styles as $c_key => $c_value ) {
-					$custom_output .= $c_value;
-				}
-			}
+			// Concatenate outputs in one pass
+			$output = implode( '', array_values( self::$styles ) );
+			$custom_output = ! empty( self::$custom_styles ) && is_array( self::$custom_styles )
+				? implode( '', array_values( self::$custom_styles ) )
+				: '';
 			if ( ! empty( $output ) ) {
 				wp_register_style( 'kbs_css', false );
 				wp_enqueue_style( 'kbs_css' );
@@ -1176,35 +1167,16 @@ class CSS_Engine {
 		}
 		$use_variable_name = ( isset( $attributes_meta['nonInheritable'] ) && $attributes_meta['nonInheritable'] ) ? false : true;
 		$selector_prefix = ( isset( $attributes_meta['selector'] ) ) ? $attributes_meta['selector'] : '';
-		$component_name = ( isset( $attributes_meta['component'] ) ) ? $attributes_meta['component'] : '';
 		$attribute_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $attribute_name);
 		$attribute_name = strtolower($attribute_name);
 		if ( $use_variable_name ) {
 			return $selector_prefix . $attribute_name;
 		}
-		$attribute_name = $this->map_attribute_for_component( $attribute_name, $component_name );
+		// Non-inheritable direct CSS property: do minimal special mapping
+		if ( isset( $attributes_meta['component'] ) && 'background' === $attributes_meta['component'] && 'color' === $attribute_name ) {
+			return 'background-color';
+		}
 		return $attribute_name;
-	}
-	/**
-	 * Map the attribute for the component.
-	 *
-	 * @param string $attribute_name The name of the attribute.
-	 * @param string $component_name The name of the component.
-	 * @return string
-	 */
-	public function map_attribute_for_component( $attribute_name, $component_name ) {
-		if ( empty( $component_name ) ) {
-			return $attribute_name;
-		}
-		switch ( $component_name ) {
-			case 'background':
-				if ( 'color' === $attribute_name ) {
-					return 'background-color';
-				}
-				return $attribute_name;
-			default:
-				return $attribute_name;
-		}
 	}
 	/**
 	 * Add the component array to the css output.
@@ -1348,22 +1320,16 @@ class CSS_Engine {
 				
 				// Only generate CSS if there are resolved values for this device
 				if ( ! empty( $resolved_values ) ) {
-					// Check if this is a hover attribute and modify selector accordingly
+					// Check if this is a hover attribute and use state handling
 					$is_hover = substr( $key, -5 ) === 'Hover';
-					$original_selector = '';
-					
 					if ( $is_hover ) {
-						// Store the current selector and append :hover
-						$original_selector = $this->get_current_selector();
-						$this->set_selector( $original_selector . ':hover' );
+						$this->add_selector_state( ':hover' );
 					}
-					
 					// Generate CSS using the appropriate component generator
 					$this->generators[ $component_type ]->generate( $key, $attributes_meta, $resolved_values, $block_instance );
-					
-					// Restore the original selector if we modified it for hover
 					if ( $is_hover ) {
-						$this->set_selector( $original_selector );
+						// Flush hover state rules and clear states
+						$this->reset_selector_states();
 					}
 				}
 			}
