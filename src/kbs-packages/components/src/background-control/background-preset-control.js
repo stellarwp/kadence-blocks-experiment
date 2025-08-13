@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { Button, Popover, Icon } from '@wordpress/components';
 import { close as closeIcon } from '@wordpress/icons';
-
+import classnames from 'classnames';
 /**
  * Internal libraries
  */
@@ -16,6 +16,7 @@ import {
 	handleAttributeChange,
 	isAdvancedOption,
 	handleMultipleAttributeChange,
+	getResolvedValue,
 } from '@kadence/kbsHelpers';
 /**
  * Internal Dependencies
@@ -71,6 +72,7 @@ export default function BackgroundPresetControl({
 	customOnChange,
 	globalStylesCss,
 	view = 'default',
+	isBundlePreset = false,
 }) {
 	const attributeMeta = meta?.attributes?.[attributeName];
 	const presetType = attributeMeta?.component ? attributeMeta?.component : '';
@@ -81,7 +83,15 @@ export default function BackgroundPresetControl({
 	const presets = getPresetOptions(presetType);
 	// Get the first three presets in a custom array
 	const presetOptions = presets.slice(0, 3);
-	const currentValue = attributes?.[attributeName]?.preset;
+
+	const resolved = getResolvedValue(attributeName, attributes, 'none', meta, '', globalStylesIds);
+	const { inheritedValue, inheritedSource, inheritedType, directValue } = resolved;
+	const currentValue = isBundlePreset ? inheritedValue : inheritedValue?.preset;
+	const currentDirectValue = isBundlePreset ? directValue : directValue?.preset;
+
+	const controlButtonClasses = classnames('kbs-radio-preset-control-button', {
+		'kbs-radio-preset-control-button-inherited': inheritedSource === 'preset' || inheritedSource === 'initial',
+	});
 
 	const [isPopover, setIsPopover] = useState(false);
 	const [showConfirmPopover, setShowConfirmPopover] = useState(false);
@@ -173,7 +183,7 @@ export default function BackgroundPresetControl({
 								key={option.value}
 								label={option.label}
 								isPressed={option.value === currentValue}
-								className={`kbs-radio-preset-control-button`}
+								className={controlButtonClasses}
 								onClick={(event) => {
 									setConfirmAnchor(event.currentTarget);
 									setPopoverPlacement('top');
@@ -205,7 +215,7 @@ export default function BackgroundPresetControl({
 						key={option.value}
 						label={option.label}
 						isPressed={option.value === currentValue}
-						className={`kbs-radio-preset-control-button`}
+						className={controlButtonClasses}
 						onClick={(event) => {
 							setConfirmAnchor(event.currentTarget);
 							setPopoverPlacement('top-start');
