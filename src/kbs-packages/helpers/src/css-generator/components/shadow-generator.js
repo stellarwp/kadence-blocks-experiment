@@ -143,7 +143,12 @@ export class ShadowGenerator extends BaseComponentGenerator {
 			mappedKey = 'text-shadow';
 		}
 
-		// Handle varPrefix if specified
+		// Respect nonInheritable
+		if (meta?.nonInheritable === true) {
+			return mappedKey;
+		}
+
+		// Otherwise, handle CSS variables with varPrefix if specified
 		if (meta?.varPrefix) {
 			return meta.varPrefix + mappedKey + (meta?.varSuffix || '');
 		}

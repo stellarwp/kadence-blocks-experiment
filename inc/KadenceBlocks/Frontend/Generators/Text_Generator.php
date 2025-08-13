@@ -59,8 +59,16 @@ class Text_Generator extends Base_Generator {
 			return;
 		}
 		
-		// Use the inherited method for applying the property
+		// Apply the primary property
 		$this->apply_property( $key, array_merge( $resolved_value, array( 'value' => $css_value ) ), $meta );
+
+		// If setting textOrientation, ensure we also output a matching writing-mode
+		if ( $key === 'textOrientation' ) {
+			$writing_mode = $this->process_text_value( 'writingMode', $resolved_value['value'], $text_type );
+			if ( ! empty( $writing_mode ) ) {
+				$this->apply_property( 'writingMode', array_merge( $resolved_value, array( 'value' => $writing_mode ) ), $meta );
+			}
+		}
 	}
 	
 	/**
@@ -81,13 +89,24 @@ class Text_Generator extends Base_Generator {
 				// Handle text decoration
 				return $this->format_text_decoration( $value );
 				
-			case 'textOrientation':
-				// Text orientation values are used as-is
-				return $value;
+				case 'textOrientation':
+					// Map UI values to valid CSS values
+					if ( $value === 'stacked' ) {
+						return 'upright';
+					}
+					if ( $value === 'sideways-down' || $value === 'sideways-up' ) {
+						return 'sideways';
+					}
+					return '';
 				
-			case 'writingMode':
-				// Writing mode values are used as-is
-				return $value;
+				case 'writingMode':
+					// Map UI values to valid CSS writing-mode values
+					if ( $value === 'stacked' || $value === 'sideways-down' ) {
+						return 'vertical-lr';
+					} elseif ( $value === 'sideways-up' ) {
+						return 'sideways-lr';
+					}
+					return '';
 				
 			case 'textIndent':
 				// Add unit if numeric

@@ -80,11 +80,18 @@ export class TextGenerator extends BaseComponentGenerator {
 			}
 		}
 
+
 		// Process writing mode
 		if (writingMode && shouldRenderValue(writingMode, meta)) {
 			const writingModeValue = this.processWritingModeValue(writingMode.value);
 			if (writingModeValue) {
 				this.applyProperty('writingMode', { ...writingMode, value: writingModeValue }, meta);
+			}
+		} else if (textOrientation && shouldRenderValue(textOrientation, meta)) {
+			// If writingMode isn't explicitly set, infer it from the textOrientation control
+			const inferredWritingMode = this.processWritingModeValue(textOrientation.value);
+			if (inferredWritingMode) {
+				this.applyProperty('writingMode', { ...textOrientation, value: inferredWritingMode }, meta);
 			}
 		}
 	}
@@ -117,6 +124,9 @@ export class TextGenerator extends BaseComponentGenerator {
 	processTextOrientationValue(value) {
 		if (value === 'stacked') {
 			return 'upright';
+		}
+		if (value === 'sideways-down' || value === 'sideways-up') {
+			return 'sideways';
 		}
 		return '';
 	}

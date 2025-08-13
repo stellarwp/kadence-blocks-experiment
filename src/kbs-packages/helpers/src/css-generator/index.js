@@ -148,7 +148,6 @@ class CSSGenerator {
 		const { attributes, previewDevice } = props;
 		const mergedAttribute = mergeInitialAttribute(meta, attributes?.[key] || {});
 
-		// Check if the attribute exists in the attributes object
 		if (mergedAttribute) {
 			if (!meta?.property && !meta?.varPrefix) {
 				return this;
@@ -178,7 +177,6 @@ class CSSGenerator {
 
 		const componentType = meta.component;
 
-		// Check if we have a generator for this component type
 		if (this.generators[componentType]) {
 			// Resolve all values for the component at once
 			const resolvedValues = resolveComponentValues(
@@ -190,13 +188,11 @@ class CSSGenerator {
 				componentType
 			);
 
-			// Generate CSS using the appropriate component generator
 			this.generators[componentType].generate(attributeName, meta, resolvedValues);
 			return this;
 		}
 
-		// Fallback for any components not in the generators map
-		console.warn(`Component type "${componentType}" not found in generators map`);
+		console.warn(`Component type "${componentType}" not found`);
 		return this;
 	}
 
