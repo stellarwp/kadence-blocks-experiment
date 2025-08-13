@@ -61,6 +61,8 @@ function getComponentKeys(componentType) {
 			'paddingHoverBottom',
 			'paddingHoverLeft',
 			'alignItems',
+			'rotation',
+			'rotationHover',
 		],
 		linkStyle: ['textDecoration'],
 		textOrientation: ['textOrientation', 'writingMode'],

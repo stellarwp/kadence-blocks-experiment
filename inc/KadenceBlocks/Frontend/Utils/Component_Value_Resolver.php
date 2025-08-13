@@ -77,6 +77,8 @@ class Component_Value_Resolver {
 				'paddingHoverBottom',
 				'paddingHoverLeft',
 				'alignItems',
+				'rotation',
+				'rotationHover',
 			),
 			'linkStyle'   => array( 'textDecoration' ),
 			'textOrientation' => array( 'textOrientation', 'writingMode' ),

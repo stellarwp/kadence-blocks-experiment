@@ -12,9 +12,7 @@ use KadenceWP\KadenceBlocks\Settings\Global_Style;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Typography_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Background_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Simple_Generator;
-use KadenceWP\KadenceBlocks\Frontend\Generators\FlexBox_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Border_Generator;
-use KadenceWP\KadenceBlocks\Frontend\Generators\Dimension_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Shadow_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Icon_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Transform_Generator;
@@ -265,6 +263,15 @@ class CSS_Engine {
 		'lg' => 'var(--global-kb-gap-lg, 4rem)',
 	);
 	/**
+	 * Content width variables used in dimension values.
+	 */
+	protected $content_width_sizes = array(
+		'full' => 'var(--kbs-contentwidth-full, 100%)',
+		'wide' => 'var(--kbs-contentwidth-wide, 800px)',
+		'medium' => 'var(--kbs-contentwidth-medium, 550px)',
+		'narrow' => 'var(--kbs-contentwidth-narrow, 300px)',
+	);
+	/**
 	 * Global styles.
 	 *
 	 * @var array
@@ -334,7 +341,6 @@ class CSS_Engine {
 			// Complex generators with custom logic
 			'typography'      => new Typography_Generator( $this ),
 			'background'      => new Background_Generator( $this ),
-			'flexBox'         => new FlexBox_Generator( $this ),
 			'border'          => new Border_Generator( $this ),
 			'boxShadow'       => new Shadow_Generator( $this ),
 			'textShadow'      => new Shadow_Generator( $this ),
@@ -349,14 +355,15 @@ class CSS_Engine {
 			'color'           => $simple_generator,
 			'padding'         => $simple_generator,
 			'margin'          => $simple_generator,
+			'flexBox'         => $simple_generator,
 			
-			// Dimension generators for various size properties
-			'maxWidth'        => new Dimension_Generator( $this ),
-			'maxHeight'       => new Dimension_Generator( $this ),
-			'minWidth'        => new Dimension_Generator( $this ),
-			'minHeight'       => new Dimension_Generator( $this ),
-			'width'           => new Dimension_Generator( $this ),
-			'height'          => new Dimension_Generator( $this ),
+			// Dimension generators using simple generator
+			'maxWidth'        => $simple_generator,
+			'maxHeight'       => $simple_generator,
+			'minWidth'        => $simple_generator,
+			'minHeight'       => $simple_generator,
+			'width'           => $simple_generator,
+			'height'          => $simple_generator,
 		);
 	}
 	
@@ -1893,6 +1900,27 @@ class CSS_Engine {
 	 */
 	public function set_spacing_sizes( $sizes ) {
 		$this->spacing_sizes = $sizes;
+	}
+	/**
+	 * Check if value is a variable content width value
+	 *
+	 * @param mixed $value The value to check.
+	 * @return bool
+	 */
+	public function is_variable_content_width_value( $value ) {
+		return is_string( $value ) && isset( $this->content_width_sizes[ $value ] );
+	}
+	/**
+	 * Get variable content width value
+	 *
+	 * @param mixed $value The value to get.
+	 * @return string The processed value.
+	 */
+	public function get_variable_content_width_value( $value ) {
+		if ( $this->is_variable_content_width_value( $value ) ) {
+			return $this->content_width_sizes[ $value ];
+		}
+		return $value;
 	}
 	/**
 	 * Encodes the string.
