@@ -16,6 +16,11 @@ export class ShadowGenerator extends BaseComponentGenerator {
 	 * @param {Object} resolvedValues - Pre-resolved component values
 	 */
 	generate(attributeName, meta, resolvedValues) {
+		// Check if debugging is enabled for this component
+		if (meta?.debug === true) {
+			this.outputGeneratorDebug(meta, resolvedValues);
+		}
+		
 		// Shadows use layers
 		if (meta?.hasLayers) {
 			this.generateLayeredShadows(attributeName, meta);

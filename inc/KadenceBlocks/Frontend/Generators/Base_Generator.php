@@ -318,12 +318,55 @@ abstract class Base_Generator {
 	 * @return void
 	 */
 	protected function generate_simple( $attribute_name, $meta, $resolved_values, $output_function = null ) {
+		// Check if debugging is enabled for this component
+		if ( ! empty( $meta['debug'] ) && $meta['debug'] === true ) {
+			$this->output_generator_debug( $attribute_name, $meta, $resolved_values );
+		}
+		
 		foreach ( $resolved_values as $key => $resolved_value ) {
 			if ( $this->should_render_value( $resolved_value, $meta ) ) {
 				$css_value = $output_function ? call_user_func( $output_function, $resolved_value['value'] ) : $resolved_value['value'];
 				if ( ! empty( $css_value ) ) {
 					$this->apply_property( $key, array_merge( $resolved_value, array( 'value' => $css_value ) ), $meta );
 				}
+			}
+		}
+	}
+	
+	/**
+	 * Output debug information for a component generator
+	 *
+	 * @param string $attribute_name The attribute name.
+	 * @param array $meta Component metadata.
+	 * @param array $resolved_values Pre-resolved component values.
+	 * @return void
+	 */
+	protected function output_generator_debug( $attribute_name, $meta, $resolved_values ) {		
+		$is_rest_request = defined( 'REST_REQUEST' ) && REST_REQUEST;
+		$is_admin_request = is_admin();
+
+		if ( ! $is_admin_request && ! $is_rest_request && defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_DISPLAY' ) && WP_DEBUG_DISPLAY ) {
+			$debug_data = array(
+				'generator' => get_class( $this ),
+				'component_type' => $this->component_type,
+				'attribute_name' => $attribute_name,
+				'selector' => $this->get_current_selector(),
+				'resolved_values' => $resolved_values,
+				'metadata' => $meta,
+			);
+	
+			if ( property_exists( $this->css_engine, 'debug_styles' ) ) {
+				$reflection = new \ReflectionClass( $this->css_engine );
+				$property = $reflection->getProperty( 'debug_styles' );
+				$property->setAccessible( true );
+				$debug_values = $property->getValue( $this->css_engine );
+				$debug_styles = "\n<!-- Generator Debug: " . $this->component_type . "\n" . json_encode( $debug_data, JSON_PRETTY_PRINT ) . "\n-->\n";
+
+				echo '<pre>';
+				print_r( $debug_values[0] );
+				echo '</pre>';
+
+				echo( $debug_styles );
 			}
 		}
 	}

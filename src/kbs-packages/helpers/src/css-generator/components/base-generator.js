@@ -65,6 +65,11 @@ export class BaseComponentGenerator {
 	 * @param {Function} outputFunction - Optional function to process values
 	 */
 	generateSimple(resolvedValues, meta, outputFunction) {
+		// Check if debugging is enabled for this component
+		if (meta?.debug === true) {
+			this.outputGeneratorDebug(meta, resolvedValues);
+		}
+		
 		Object.entries(resolvedValues).forEach(([key, resolvedValue]) => {
 			if (shouldRenderValue(resolvedValue, meta)) {
 				const cssValue = outputFunction ? outputFunction(resolvedValue.value) : resolvedValue.value;
@@ -73,6 +78,23 @@ export class BaseComponentGenerator {
 				}
 			}
 		});
+	}
+	
+	/**
+	 * Output debug information for a component generator
+	 * @param {Object} meta - Component metadata
+	 * @param {Object} resolvedValues - Pre-resolved component values
+	 */
+	outputGeneratorDebug(meta, resolvedValues) {
+		console.group(
+			`%c🔧 Generator Debug: ${this.constructor.name}`,
+			'background: #4ecdc4; color: white; padding: 2px 6px; border-radius: 3px; font-weight: bold;'
+		);
+		console.log('%cComponent Type:', 'font-weight: bold;', meta?.component || 'unknown');
+		console.log('%cSelector:', 'font-weight: bold;', this.currentSelector);
+		console.log('%cResolved Values:', 'font-weight: bold;', resolvedValues);
+		console.log('%cMetadata:', 'font-weight: bold;', meta);
+		console.groupEnd();
 	}
 
 	/**

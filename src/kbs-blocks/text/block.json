@@ -69,9 +69,6 @@
 			"nonInheritable": true,
 			"varPrefix": "--kbs-text-"
 		},
-		"shadow": {
-			"type": "object"
-		},
 		"visibility": {
 			"type": "object"
 		},

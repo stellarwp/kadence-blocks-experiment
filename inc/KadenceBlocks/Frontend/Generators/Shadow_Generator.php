@@ -53,6 +53,11 @@ class Shadow_Generator extends Base_Generator {
 	 * @return void
 	 */
 	public function generate( $attribute_name, $meta, $resolved_values, $block_instance ) {
+		// Check if debugging is enabled for this component
+		if ( ! empty( $meta['debug'] ) && $meta['debug'] === true ) {
+			$this->output_generator_debug( $attribute_name, $meta, $resolved_values );
+		}
+		
 		// If this component has layers and resolved_values is empty, we need to handle layers
 		if ( ! empty( $meta['hasLayers'] ) && empty( $resolved_values ) ) {
 			$this->generate_layered_shadows( $attribute_name, $meta, $block_instance );
@@ -237,7 +242,7 @@ class Shadow_Generator extends Base_Generator {
 		$shadow_string = '';
 		
 		// Box shadow can have spread and inset
-		if ( $is_box_shadow ) {
+		if ( ! $is_text_shadow ) {
 			$spread = isset( $shadow_data['spread'] ) && ( $shadow_data['spread'] !== '' && $shadow_data['spread'] !== null ) ? 
 				$this->add_unit( $shadow_data['spread'] ) : 
 				$defaults['spread'];

@@ -49,6 +49,13 @@ class CSS_Engine {
 	 * @var array
 	 */
 	public static $custom_styles = array();
+	
+	/**
+	 * Debug output to include
+	 *
+	 * @var array
+	 */
+	protected $debug_styles = array();
 
 	/**
 	 * The css group id.
@@ -1268,6 +1275,11 @@ class CSS_Engine {
 		
 		$component_type = isset( $attributes_meta['component'] ) ? $attributes_meta['component'] : '';
 		
+		// Check if debugging is enabled for this component
+		if ( ! empty( $attributes_meta['debug'] ) && $attributes_meta['debug'] === true ) {
+			$this->output_component_debug( $key, $component_type, $merged_attributes, $attributes_meta, $global_styles_ids );
+		}
+		
 		// Check if we have a generator for this component type
 		if ( ! empty( $component_type ) && isset( $this->generators[ $component_type ] ) ) {
 			// Prepare metadata in the expected format
@@ -1689,6 +1701,14 @@ class CSS_Engine {
 			}
 			self::$custom_styles[ $this->_style_id ] = $this->_css_string;
 		}
+		
+		// Add debug output if available
+		$debug_output = '';
+		if ( ! empty( $this->debug_styles ) ) {
+			$debug_output = implode( '', $this->debug_styles );
+			$this->debug_styles = array(); // Clear debug styles after outputting
+		}
+		
 		$this->clear();
 		return self::$styles[ $this->_style_id ] . ( isset( self::$custom_styles[ $this->_style_id ] ) ? self::$custom_styles[ $this->_style_id ] : '' );
 	}
@@ -1917,5 +1937,66 @@ class CSS_Engine {
 		return $this->current_attributes;
 	}
 	
+	/**
+	 * Output debug information for a component
+	 *
+	 * @param string $key The attribute key
+	 * @param string $component_type The component type
+	 * @param array $attributes The merged attributes
+	 * @param array $attributes_meta The attribute metadata
+	 * @param array $global_styles_ids The global style IDs
+	 * @return void
+	 */
+	protected function output_component_debug( $key, $component_type, $attributes, $attributes_meta, $global_styles_ids ) {
+		$debug_data = array(
+			'attribute_key' => $key,
+			'component_type' => $component_type,
+			'selector' => $this->_selector,
+			'media_state' => $this->_media_state,
+			'attributes' => isset( $attributes[ $key ] ) ? $attributes[ $key ] : null,
+			'metadata' => $attributes_meta,
+			'global_styles_ids' => $global_styles_ids,
+		);
+		
+		// Check if WP_DEBUG is enabled
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_DISPLAY' ) && WP_DEBUG_DISPLAY ) {
+			// Output styled debug block in the content
+			$this->debug_styles[] = $this->format_debug_output_styled( $debug_data );
+		} else {
+			// Output as HTML comment
+			$this->debug_styles[] = $this->format_debug_output_comment( $debug_data );
+		}
+	}
+	
+	/**
+	 * Format debug output as styled HTML
+	 *
+	 * @param array $debug_data The debug data
+	 * @return string
+	 */
+	protected function format_debug_output_styled( $debug_data ) {
+		$output = '<div class="kbs-component-debug" style="background:#f0f0f0;border:2px solid #333;padding:10px;margin:10px 0;font-family:monospace;font-size:12px;">';
+		$output .= '<h4 style="margin:0 0 10px;color:#c00;">🐛 Component Debug: ' . esc_html( $debug_data['component_type'] ) . '</h4>';
+		$output .= '<pre style="background:#fff;padding:8px;overflow:auto;border:1px solid #ddd;">';
+		$output .= esc_html( json_encode( $debug_data, JSON_PRETTY_PRINT ) );
+		$output .= '</pre>';
+		$output .= '</div>';
+		return $output;
+	}
+	
+	/**
+	 * Format debug output as HTML comment
+	 *
+	 * @param array $debug_data The debug data
+	 * @return string
+	 */
+	protected function format_debug_output_comment( $debug_data ) {
+		$output = "\n<!-- KBS Component Debug:\n";
+		$output .= "Component: " . $debug_data['component_type'] . "\n";
+		$output .= "Attribute: " . $debug_data['attribute_key'] . "\n";
+		$output .= "Data: " . json_encode( $debug_data, JSON_PRETTY_PRINT ) . "\n";
+		$output .= "-->\n";
+		return $output;
+	}
 
 }

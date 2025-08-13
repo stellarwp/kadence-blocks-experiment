@@ -159,6 +159,11 @@ class CSSGenerator {
 		}
 
 		const componentType = meta.component;
+		
+		// Check if debugging is enabled for this component
+		if (meta?.debug === true) {
+			this.outputComponentDebug(attributeName, componentType, props, meta, metadata);
+		}
 
 		if (this.generators[componentType]) {
 			// Resolve all values for the component at once
@@ -234,7 +239,12 @@ class CSSGenerator {
 		}
 
 		const existingProperties = this.rules.get(this.currentSelector) || {};
-		this.rules.set(this.currentSelector, { ...existingProperties, ...properties });
+		// Preserve first-write to ensure direct values added in the primary pass
+		// are not overridden by bundle preset/application passes. Merge so that
+		// any existing property on this selector keeps priority over newly added
+		// ones for the same CSS property key.
+		const mergedProperties = { ...properties, ...existingProperties };
+		this.rules.set(this.currentSelector, mergedProperties);
 		return this;
 	}
 
@@ -286,6 +296,41 @@ class CSSGenerator {
 		});
 		ruleString += '}\n';
 		return ruleString;
+	}
+	
+	/**
+	 * Output debug information for a component
+	 * @param {string} attributeName - The attribute name
+	 * @param {string} componentType - The component type
+	 * @param {Object} props - The props of the block
+	 * @param {Object} meta - The metadata of the attribute
+	 * @param {Object} metadata - The metadata of the block
+	 */
+	outputComponentDebug(attributeName, componentType, props, meta, metadata) {
+		const debugData = {
+			attributeName,
+			componentType,
+			selector: this.currentSelector,
+			attributes: props.attributes?.[attributeName] || null,
+			metadata: meta,
+			previewDevice: props.previewDevice || 'desktop',
+			globalStylesIds: props.globalStylesIds || [],
+			blockMetadata: metadata?.name || 'unknown'
+		};
+		
+		// Console log with styled output
+		console.group(
+			`%c🐛 KBS Component Debug: ${componentType}`,
+			'background: #ff6b6b; color: white; padding: 2px 6px; border-radius: 3px; font-weight: bold;'
+		);
+		console.log('%cAttribute:', 'font-weight: bold;', attributeName);
+		console.log('%cSelector:', 'font-weight: bold;', this.currentSelector);
+		console.log('%cPreview Device:', 'font-weight: bold;', debugData.previewDevice);
+		console.log('%cAttribute Data:', 'font-weight: bold;', debugData.attributes);
+		console.log('%cMetadata:', 'font-weight: bold;', debugData.metadata);
+		console.log('%cGlobal Style IDs:', 'font-weight: bold;', debugData.globalStylesIds);
+		console.log('%cFull Debug Data:', 'font-weight: bold;', debugData);
+		console.groupEnd();
 	}
 }
 
