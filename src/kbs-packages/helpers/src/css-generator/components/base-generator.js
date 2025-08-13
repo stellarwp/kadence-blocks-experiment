@@ -93,63 +93,47 @@ export class BaseComponentGenerator {
 	 * @param {Object} meta - Component metadata
 	 * @returns {string} - The CSS property name
 	 */
-	getCssProperty(key, meta) {
-		// Only include mappings that don't convert correctly with kebabCase
-		const propertyMap = {
-			// Hover variants that strip the 'Hover' suffix
-			colorHover: 'color',
-			textDecorationHover: 'text-decoration',
-			paddingHoverTop: 'padding-top',
-			paddingHoverRight: 'padding-right',
-			paddingHoverBottom: 'padding-bottom',
-			paddingHoverLeft: 'padding-left',
-			marginHoverTop: 'margin-top',
-			marginHoverRight: 'margin-right',
-			marginHoverBottom: 'margin-bottom',
-			marginHoverLeft: 'margin-left',
-			borderTopHover: 'border-top',
-			borderLeftHover: 'border-left',
-			borderRightHover: 'border-right',
-			borderBottomHover: 'border-bottom',
-			borderTopLeftRadiusHover: 'border-top-left-radius',
-			borderTopRightRadiusHover: 'border-top-right-radius',
-			borderBottomRightRadiusHover: 'border-bottom-right-radius',
-			borderBottomLeftRadiusHover: 'border-bottom-left-radius',
-			
-			// Icon properties that map to different CSS properties
-			iconSize: 'font-size',
-			iconLineWidth: 'stroke-width',
-			iconSizeHover: 'font-size',
-			iconLineWidthHover: 'stroke-width',
-			
-			// Short names that need full CSS property names
-			origin: 'transform-origin',
-			image: 'background-image',
-			size: 'background-size',
-			position: 'background-position',
-			repeat: 'background-repeat',
-			attachment: 'background-attachment',
-			gradient: 'background-image',
-			
-			// Alias mapping
-			transitionEase: 'transition-timing-function',
-		};
+    getCssProperty(key, meta) {
+        // 1) Normalize hover suffix handling (strip only for mapping; selector handles :hover)
+        const baseKey = key.endsWith('Hover') ? key.slice(0, -5) : key;
 
-		// Check if we have a mapping for this key
-		let property = propertyMap[key] || kebabCase(key);
+        // 2) Explicit exceptional cases that cannot be kebab-cased directly
+        const specialCases = new Set([
+            'iconSize', 'iconLineWidth', 'origin', 'image', 'size', 'position', 'repeat', 'attachment', 'gradient', 'transitionEase'
+        ]);
 
-		// If nonInheritable is true, output direct CSS property
-		if (meta?.nonInheritable === true) {
-			return property;
-		}
+        let property;
+        if (specialCases.has(baseKey)) {
+            // Minimal mapping without a large table
+            switch (baseKey) {
+                case 'iconSize': property = 'font-size'; break;
+                case 'iconLineWidth': property = 'stroke-width'; break;
+                case 'origin': property = 'transform-origin'; break;
+                case 'image': property = 'background-image'; break;
+                case 'size': property = 'background-size'; break;
+                case 'position': property = 'background-position'; break;
+                case 'repeat': property = 'background-repeat'; break;
+                case 'attachment': property = 'background-attachment'; break;
+                case 'gradient': property = 'background-image'; break;
+                case 'transitionEase': property = 'transition-timing-function'; break;
+                default: property = kebabCase(baseKey);
+            }
+        } else {
+            property = kebabCase(baseKey);
+        }
 
-		// Otherwise, handle CSS variables with varPrefix
-		if (meta?.varPrefix) {
-			return meta.varPrefix + property + (meta?.varSuffix || '');
-		}
+        // If nonInheritable is true, output direct CSS property
+        if (meta?.nonInheritable === true) {
+            return property;
+        }
 
-		return property;
-	}
+        // Otherwise, handle CSS variables with varPrefix
+        if (meta?.varPrefix) {
+            return meta.varPrefix + property + (meta?.varSuffix || '');
+        }
+
+        return property;
+    }
 
 	/**
 	 * Get the CSS selector for a component property

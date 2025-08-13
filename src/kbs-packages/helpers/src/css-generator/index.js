@@ -1,16 +1,6 @@
-import { merge } from 'lodash';
 import { mergeInitialAttribute, getPreviewProperty } from './utils/attribute-helpers';
-import { 
-	getSizingOutput,
-	getFontSizeOutput,
-	getLineHeightOutput,
-	getLetterSpacingOutput,
-	getIconSizeOutput,
-	getSpacingOutput,
-	getColorOutput
-} from './utils/output-helpers';
+import { getSizingOutput } from './utils/output-helpers';
 import { resolveComponentValues } from './utils/component-value-resolver';
-import getBundlePresetValue from '../get-bundle-preset-value';
 import { select } from '@wordpress/data';
 
 import { TypographyGenerator } from './components/typography-generator';
@@ -22,18 +12,10 @@ import { ShadowGenerator } from './components/shadow-generator';
 import { IconGenerator } from './components/icon-generator';
 import { TextGenerator } from './components/text-generator';
 
-const deviceOptions = window?.kbs_params?.responsive_device_options || [];
-
 /**
  * CSS Generator class for building CSS strings
  */
 class CSSGenerator {
-	/**
-	 * The current applied value
-	 * @type {string}
-	 */
-	currentAppliedValue = '';
-
 	constructor(selector = '', props = {}, metadata = {}) {
 		this.rules = new Map();
 		this.currentSelector = selector;
@@ -153,11 +135,12 @@ class CSSGenerator {
 				return this;
 			}
 
-			this.renderStringProperty(
-				mergedAttribute,
-				meta?.varPrefix ? meta?.varPrefix : meta?.property,
-				previewDevice
-			);
+			// Fast path for direct property without variable prefix
+			const propertyKey = meta?.varPrefix ? meta?.varPrefix : meta?.property;
+			const propertyValue = getPreviewProperty(mergedAttribute, previewDevice);
+			if (propertyValue !== undefined && propertyValue !== null && propertyValue !== '') {
+				this.add({ [propertyKey]: getSizingOutput(String(propertyValue)) });
+			}
 		}
 		return this;
 	}

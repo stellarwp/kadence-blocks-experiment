@@ -72,26 +72,22 @@ export class TextGenerator extends BaseComponentGenerator {
 		const textOrientation = resolvedValues.textOrientation;
 		const writingMode = resolvedValues.writingMode;
 
-		// Process text orientation
-		if (textOrientation && shouldRenderValue(textOrientation, meta)) {
+		// Prefer explicit writingMode; otherwise infer from textOrientation
+		const shouldApplyOrientation = textOrientation && shouldRenderValue(textOrientation, meta);
+		const shouldApplyWritingMode = writingMode && shouldRenderValue(writingMode, meta);
+
+		if (shouldApplyOrientation) {
 			const orientationValue = this.processTextOrientationValue(textOrientation.value);
 			if (orientationValue) {
 				this.applyProperty('textOrientation', { ...textOrientation, value: orientationValue }, meta);
 			}
 		}
 
-
-		// Process writing mode
-		if (writingMode && shouldRenderValue(writingMode, meta)) {
-			const writingModeValue = this.processWritingModeValue(writingMode.value);
-			if (writingModeValue) {
-				this.applyProperty('writingMode', { ...writingMode, value: writingModeValue }, meta);
-			}
-		} else if (textOrientation && shouldRenderValue(textOrientation, meta)) {
-			// If writingMode isn't explicitly set, infer it from the textOrientation control
-			const inferredWritingMode = this.processWritingModeValue(textOrientation.value);
-			if (inferredWritingMode) {
-				this.applyProperty('writingMode', { ...textOrientation, value: inferredWritingMode }, meta);
+		const wmSource = shouldApplyWritingMode ? writingMode : shouldApplyOrientation ? textOrientation : null;
+		if (wmSource) {
+			const wmValue = this.processWritingModeValue(wmSource.value);
+			if (wmValue) {
+				this.applyProperty('writingMode', { ...wmSource, value: wmValue }, meta);
 			}
 		}
 	}
@@ -122,12 +118,8 @@ export class TextGenerator extends BaseComponentGenerator {
 	 * Process text orientation value
 	 */
 	processTextOrientationValue(value) {
-		if (value === 'stacked') {
-			return 'upright';
-		}
-		if (value === 'sideways-down' || value === 'sideways-up') {
-			return 'sideways';
-		}
+		if (value === 'stacked') return 'upright';
+		if (value === 'sideways-down' || value === 'sideways-up') return 'sideways';
 		return '';
 	}
 
@@ -135,11 +127,8 @@ export class TextGenerator extends BaseComponentGenerator {
 	 * Process writing mode value
 	 */
 	processWritingModeValue(value) {
-		if (value === 'stacked' || value === 'sideways-down') {
-			return 'vertical-lr';
-		} else if (value === 'sideways-up') {
-			return 'sideways-lr';
-		}
+		if (value === 'stacked' || value === 'sideways-down') return 'vertical-lr';
+		if (value === 'sideways-up') return 'sideways-lr';
 		return '';
 	}
 }

@@ -321,27 +321,6 @@ function getInitialValue(attributeName, device, metadata, key) {
 }
 
 /**
- * Resolve values for a layered component (background, shadows)
- */
-export function resolveLayeredComponentValues(
-	attributeName,
-	attributes,
-	device,
-	metadata,
-	globalStylesIds,
-	layerIndex
-) {
-	// This function would handle the special case of layered components
-	// Implementation would follow similar pattern but handle layer arrays
-	const resolvedValues = {};
-
-	// TODO: Implement layered component resolution
-	// This would merge layers from multiple global styles efficiently
-
-	return resolvedValues;
-}
-
-/**
  * Check if a resolved value should be rendered based on inheritance rules
  */
 export function shouldRenderValue(resolvedValue, meta) {

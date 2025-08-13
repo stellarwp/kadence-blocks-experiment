@@ -133,15 +133,11 @@ export class ShadowGenerator extends BaseComponentGenerator {
 	 * Override getCssProperty for shadow-specific mappings
 	 */
 	getCssProperty(key, meta) {
-		// Map component names to CSS property names
-		let mappedKey = key;
-		if (key === 'boxShadow' || key === 'boxShadowHover') {
-			// Both map to 'box-shadow' - the hover suffix comes from varSuffix
-			mappedKey = 'box-shadow';
-		} else if (key === 'textShadow' || key === 'textShadowHover') {
-			// Both map to 'text-shadow' - the hover suffix comes from varSuffix
-			mappedKey = 'text-shadow';
-		}
+		// Normalize suffix for mapping only
+		const baseKey = key.endsWith('Hover') ? key.slice(0, -5) : key;
+		let mappedKey = baseKey;
+		if (baseKey === 'boxShadow') mappedKey = 'box-shadow';
+		else if (baseKey === 'textShadow') mappedKey = 'text-shadow';
 
 		// Respect nonInheritable
 		if (meta?.nonInheritable === true) {
