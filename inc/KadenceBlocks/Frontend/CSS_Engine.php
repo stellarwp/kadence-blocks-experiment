@@ -6,7 +6,7 @@
 namespace KadenceWP\KadenceBlocks\Frontend;
 
 use KadenceWP\KadenceBlocks\Container;
-use KadenceWP\KadenceBlocks\Frontend\Global_Style_Css;
+use KadenceWP\KadenceBlocks\Frontend\Global_Style_Variables;
 use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
 use KadenceWP\KadenceBlocks\Settings\Global_Style;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Typography_Generator;
@@ -281,7 +281,7 @@ class CSS_Engine {
 	/**
 	 * Global styles CSS instance.
 	 *
-	 * @var Global_Style_Css
+	 * @var Global_Style_Variables
 	 */
 	protected $global_styles_css;
 
@@ -324,7 +324,7 @@ class CSS_Engine {
         }
 
 		// Set up the global styles css engine in the global styles css engine.
-		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
+		$this->global_styles_css = new Global_Style_Variables( $this, $this->device_options );
 		
 		// Initialize component generators
 		$this->init_generators();

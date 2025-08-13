@@ -1,22 +1,21 @@
 <?php
 /**
- * Generates CSS for Global Styles.
+ * Generates CSS variables for Global Styles.
  */
 
 namespace KadenceWP\KadenceBlocks\Frontend;
 use KadenceWP\KadenceBlocks\Settings\Global_Style;
 use KadenceWP\KadenceBlocks\Settings\Global_Styles_Manager;
 use KadenceWP\KadenceBlocks\Settings\Global_Style_Item;
-use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Class to generate CSS for Global Styles.
+ * Class to generate CSS variables for Global Styles.
  */
-class Global_Style_Css {
+class Global_Style_Variables {
 
 	/**
 	 * CSS Engine instance.
@@ -31,12 +30,7 @@ class Global_Style_Css {
 	 * @var array
 	 */
 	private $global_styles = null;
-	/**
-	 * Responsive device options.
-	 *
-	 * @var array
-	 */
-	private $device_options;
+    // Note: device options were unused and removed for simplicity
 
 	/**
 	 * Map of global styles needed for the page
@@ -55,16 +49,15 @@ class Global_Style_Css {
 	 */
 	private $all_used_variables = [];
 
-	/**
-	 * Constructor
-	 *
-	 * @param CSS_Engine $css_engine The CSS Engine instance.
-	 * @param array      $device_options Responsive device options.
-	 */
-	public function __construct( CSS_Engine $css_engine ) {
-		$this->css = $css_engine;
-		$this->device_options = Editor_Assets::get_responsive_device_options();
-	}
+    /**
+     * Constructor
+     *
+     * @param CSS_Engine $css_engine The CSS Engine instance.
+     * @param mixed      $device_options Optional, ignored (kept for compatibility).
+     */
+    public function __construct( CSS_Engine $css_engine, $device_options = null ) {
+        $this->css = $css_engine;
+    }
 
 	/**
 	 * Fetches global styles from the database.
@@ -87,18 +80,23 @@ class Global_Style_Css {
 		return Global_Styles_Manager::get_global_styles_by_ids( array_keys( $unique_style_ids ) );
 	}
 
-	/**
-	 * Create a combined style ID from multiple style IDs.
-	 *
-	 * @param array $style_ids Array of style IDs.
-	 * @return string|null Combined ID or null if less than 2 IDs.
-	 */
-	private function create_combined_style_key( array $style_ids ) {
-		return implode( '__', $style_ids );
-	}
+    /**
+     * Create a combined style key from multiple style IDs.
+     * If one ID, returns that ID; if none, returns empty string.
+     *
+     * @param array $style_ids Array of style IDs.
+     * @return string Combined key.
+     */
+    private function create_combined_style_key( array $style_ids ) {
+        $style_ids = array_values( array_filter( $style_ids ) );
+        if ( empty( $style_ids ) ) {
+            return '';
+        }
+        return count( $style_ids ) > 1 ? implode( '__', $style_ids ) : $style_ids[0];
+    }
 
-	public function output_style_usage() {
-		if(  empty( $this->all_used_variables ) ) {
+    public function output_style_usage() {
+        if ( empty( $this->all_used_variables ) ) {
 			return '';
 		}
 
@@ -117,40 +115,47 @@ class Global_Style_Css {
 			$this->global_style_map['kbs-base'] = [ 'kbs-base' ];
 		}
 
-		// For each global style class key
-		foreach ( $this->global_style_map as $class_name => $global_styles ) {
-			// Build selector
-			if ( 'kbs-base' === $class_name ) {
-				$selector = ':root';
-			} else {
-				$selector = '.kbs-global-style-' . $class_name;
-			}
+        // Prepare parsed variables once
+        $used_vars   = array_keys( $this->all_used_variables );
+        $parsed_vars = [];
+        foreach ( $used_vars as $var_name ) {
+            $parts = $this->parse_variable_name( $var_name );
+            if ( $parts ) {
+                $parsed_vars[] = [ 'name' => $var_name, 'parts' => $parts ];
+            }
+        }
 
-			// For each global style used in this class
-			foreach ( $global_styles as $global_style_key ) {
-				$style_id   = $global_style_key;
-				if ( ! isset( $this->global_styles[ $style_id ] ) ) {
-					continue;
-				}
-				$style_item = new Global_Style_Item( $style_id, $this->global_styles[ $style_id ] );
+        // Cache style items and base style for palette resolution
+        $style_item_cache = [];
+        $base_style_item  = isset( $this->global_styles['kbs-base'] )
+            ? new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] )
+            : null;
 
-				// Loop through the used variables and define their value
-				foreach ( $this->all_used_variables as $variable_name ) {
-					$parts = $this->parse_variable_name( $variable_name );
-					if ( ! $parts ) {
-						continue;
-					}
+        // For each global style class key
+        foreach ( $this->global_style_map as $class_name => $global_styles ) {
+            $selector = ( 'kbs-base' === $class_name ) ? ':root' : '.kbs-global-style-' . $class_name;
+            $this->css->set_selector( $selector );
 
-					$value = $style_item->get_mapping_value( $parts['category'], $parts['token'] );
-					if ( $value !== null ) {
-						// Resolve references to undefined --global-palette* variables into concrete values
-						$value = $this->resolve_global_palette_references( $value );
-						$this->css->set_selector( $selector );
-						$this->css->add_property( $variable_name, $value );
-					}
-				}
-			}
-		}
+            foreach ( $global_styles as $style_id ) {
+                if ( ! isset( $this->global_styles[ $style_id ] ) ) {
+                    continue;
+                }
+                if ( ! isset( $style_item_cache[ $style_id ] ) ) {
+                    $style_item_cache[ $style_id ] = new Global_Style_Item( $style_id, $this->global_styles[ $style_id ] );
+                }
+                $style_item = $style_item_cache[ $style_id ];
+
+                foreach ( $parsed_vars as $v ) {
+                    $value = $style_item->get_mapping_value( $v['parts']['category'], $v['parts']['token'] );
+                    if ( $value !== null ) {
+                        if ( is_string( $value ) && strpos( $value, 'var(--global-palette' ) !== false ) {
+                            $value = $this->resolve_global_palette_references( $value, $base_style_item );
+                        }
+                        $this->css->add_property( $v['name'], $value );
+                    }
+                }
+            }
+        }
 
 		$css = $this->css->css_output();
 		if ( ! empty( $css ) ) {
@@ -166,14 +171,16 @@ class Global_Style_Css {
 	 * @param string $value Raw mapping value (may include var(--global-paletteX) or color-mix with those)
 	 * @return string Resolved value
 	 */
-	private function resolve_global_palette_references( $value ) {
-		if ( ! is_string( $value ) || strpos( $value, 'var(--global-palette' ) === false ) {
-			return $value;
-		}
+    private function resolve_global_palette_references( $value, $base_style = null ) {
+        if ( ! is_string( $value ) || strpos( $value, 'var(--global-palette' ) === false ) {
+            return $value;
+        }
 
-		$base_style = isset( $this->global_styles['kbs-base'] ) ? new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] ) : null;
+        if ( ! $base_style && isset( $this->global_styles['kbs-base'] ) ) {
+            $base_style = new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] );
+        }
 
-		$replaced = preg_replace_callback( '/var\(\s*--global-palette(-?[a-z0-9]+)\s*\)/i', function( $matches ) use ( $base_style ) {
+        $replaced = preg_replace_callback( '/var\(\s*--global-palette(-?[a-z0-9]+)\s*\)/i', function( $matches ) use ( $base_style ) {
 			$token = ltrim( $matches[1], '-' ); // e.g. '9' or 'alert'
 			$hex   = '';
 			if ( ctype_digit( $token ) ) {
@@ -191,20 +198,53 @@ class Global_Style_Css {
 		return $replaced;
 	}
 
-	public function track_global_style_uses( $block_instance ) {
-		// Check if this is a reusable block
-		if ( 'core/block' === $block_instance->name && ! empty( $block_instance->attributes['ref'] ) ) {
-			$this->process_reusable_block( $block_instance->attributes['ref'] );
-		}
+	/**
+	 * Track global style usage for a block.
+	 * Can be called with either:
+	 * - A WP_Block instance (from render_css)
+	 * - Raw attributes array and block name (from output_head_data)
+	 *
+	 * @param WP_Block|array $block_or_attributes Block instance or attributes array
+	 * @param string|null    $block_name Block name (only needed if first param is array)
+	 * @param object|null    $block_type Block type (only needed if first param is array)
+	 */
+	public function track_global_style_uses( $block_or_attributes, $block_name = null, $block_type = null ) {
+		// Handle WP_Block instance (existing behavior)
+		if ( is_object( $block_or_attributes ) ) {
+			$block_instance = $block_or_attributes;
+			
+			// Check if this is a reusable block
+			if ( 'core/block' === $block_instance->name && ! empty( $block_instance->attributes['ref'] ) ) {
+				$this->process_reusable_block( $block_instance->attributes['ref'] );
+			}
 
-		if( !is_object( $block_instance ) || empty( $block_instance->attributes['uniqueID'] ) ) {
+			if ( empty( $block_instance->attributes['uniqueID'] ) ) {
+				return;
+			}
+
+			$attributes = $block_instance->attributes;
+			$block_name = $block_instance->name ?? '';
+			$inner_blocks = $block_instance->inner_blocks;
+		}
+		// Handle raw attributes array (new behavior for output_head_data)
+		elseif ( is_array( $block_or_attributes ) ) {
+			$attributes = $block_or_attributes;
+			
+			if ( empty( $attributes['uniqueID'] ) ) {
+				return;
+			}
+			
+			// Create a minimal block instance for CSS_Variable_Detector
+			$block_instance = new \stdClass();
+			$block_instance->block_type = $block_type;
+			$inner_blocks = [];
+		}
+		else {
 			return;
 		}
 
-		$global_style_ids = $block_instance->attributes['globalStyleIds'] ?? [];
+		$global_style_ids = $attributes['globalStyleIds'] ?? [];
 		$global_styles_key = $this->create_combined_style_key( $global_style_ids );
-		$attributes = $block_instance->attributes;
-		$block_name = $block_instance->name ?? '';
 		
 		if ( !empty( $global_styles_key ) && ! isset( $this->global_style_map[ $global_styles_key ] ) ) {
 			$this->global_style_map[ $global_styles_key ] = $global_style_ids;
@@ -213,19 +253,12 @@ class Global_Style_Css {
 		// Detect CSS variables used by this block
 		$used_variables = CSS_Variable_Detector::detect_variables( $attributes, $block_name, $block_instance );
 		
-		// Track globally used variables
-		if ( ! empty( $used_variables ) ) {
-			foreach ( $used_variables as $variable ) {
-				if ( ! in_array( $variable, $this->all_used_variables, true ) ) {
-					$this->all_used_variables[] = $variable;
-				}
-			}
-		}
-		
-		// Process inner blocks
-		foreach( $block_instance->inner_blocks as $inner_block ) {
-			$this->track_global_style_uses( $inner_block );
-		}
+        // Track globally used variables as a set
+        if ( ! empty( $used_variables ) ) {
+            foreach ( $used_variables as $variable ) {
+                $this->all_used_variables[ $variable ] = true;
+            }
+        }
 	}
 
 	/**
