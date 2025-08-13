@@ -14,15 +14,12 @@ import getBundlePresetValue from '../get-bundle-preset-value';
 import { select } from '@wordpress/data';
 
 import { TypographyGenerator } from './components/typography-generator';
-import { FlexBoxGenerator } from './components/flexbox-generator';
 import { BorderGenerator } from './components/border-generator';
 import { TransformGenerator } from './components/transform-generator';
 import { SimpleGenerator } from './components/simple-generator';
-import { DimensionGenerator } from './components/dimension-generator';
 import { BackgroundGenerator } from './components/background-generator';
 import { ShadowGenerator } from './components/shadow-generator';
 import { IconGenerator } from './components/icon-generator';
-import { TransitionGenerator } from './components/transition-generator';
 import { TextGenerator } from './components/text-generator';
 
 const deviceOptions = window?.kbs_params?.responsive_device_options || [];
@@ -47,7 +44,7 @@ class CSSGenerator {
 		
 		this.generators = {
 			typography: new TypographyGenerator(this),
-			flexBox: new FlexBoxGenerator(this),
+			flexBox: simpleGenerator,
 			flexChild: simpleGenerator,
 			border: new BorderGenerator(this),
 			transform: new TransformGenerator(this),
@@ -55,17 +52,17 @@ class CSSGenerator {
 			boxShadow: new ShadowGenerator(this),
 			textShadow: new ShadowGenerator(this),
 			icon: new IconGenerator(this),
-			transition: new TransitionGenerator(this),
+			transition: simpleGenerator,
 			textAlign: new TextGenerator(this),
 			linkStyle: new TextGenerator(this),
 			textOrientation: new TextGenerator(this),
 			
-			maxWidth: new DimensionGenerator(this),
-			maxHeight: new DimensionGenerator(this),
-			minWidth: new DimensionGenerator(this),
-			minHeight: new DimensionGenerator(this),
-			width: new DimensionGenerator(this),
-			height: new DimensionGenerator(this),
+			maxWidth: simpleGenerator,
+			maxHeight: simpleGenerator,
+			minWidth: simpleGenerator,
+			minHeight: simpleGenerator,
+			width: simpleGenerator,
+			height: simpleGenerator,
 			
 			color: simpleGenerator,
 			padding: simpleGenerator,
