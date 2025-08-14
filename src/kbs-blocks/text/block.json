@@ -7,7 +7,6 @@
 		"postId",
 		"queryId",
 		"kbs/globalStyles",
-		"kbs/parentUniqueId",
 		"kadence/dynamicSource",
 		"kadence/repeaterRowData",
 		"kadence/repeaterRow"
@@ -70,9 +69,6 @@
 			"nonInheritable": true,
 			"varPrefix": "--kbs-text-"
 		},
-		"shadow": {
-			"type": "object"
-		},
 		"visibility": {
 			"type": "object"
 		},
@@ -82,7 +78,8 @@
 			"varPrefix": "--kbs-text-",
 			"initial": {},
 			"type": "object",
-			"nonInheritable": true
+			"nonInheritable": true,
+			"selectorSuffix": " .kbs-text-content, %selector%.kbs-text-content"
 		},
 		"color": {
 			"renderCSS": true,
@@ -132,7 +129,8 @@
 			"initial": {},
 			"type": "object",
 			"varPrefix": "--kbs-text-highlight-",
-			"selectorSuffix": " mark"
+			"selectorSuffix": " mark",
+			"nonInheritable": true
 		},
 		"paddingHighlight": {
 			"type": "object",
