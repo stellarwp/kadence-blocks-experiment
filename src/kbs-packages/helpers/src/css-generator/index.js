@@ -73,11 +73,9 @@ class CSSGenerator {
 					result[key] = this.deepMergeWithPriority(result[key], source[key]);
 				}
 				// If target has a value that's not an object, keep it (user override)
-			} else {
+			} else if (result[key] === undefined || result[key] === null || result[key] === '') {
 				// For primitive values and arrays, only set if target doesn't have a value
-				if (result[key] === undefined || result[key] === null || result[key] === '') {
-					result[key] = source[key];
-				}
+				result[key] = source[key];
 			}
 		});
 
@@ -263,20 +261,6 @@ class CSSGenerator {
 		this.metadata = originalMetadata;
 
 		return this;
-	}
-
-	/**
-	 * Render the property as a string
-	 * @param {string} attributeValue - The value of the attribute
-	 * @param {string} selector - The CSS selector
-	 * @param {string} previewDevice - The preview device
-	 */
-	renderStringProperty(attributeValue, selector, previewDevice) {
-		const propertyValue = String(getPreviewProperty(attributeValue, previewDevice));
-		if (!propertyValue) {
-			return this;
-		}
-		this.add({ [selector]: getSizingOutput(propertyValue) });
 	}
 
 	/**

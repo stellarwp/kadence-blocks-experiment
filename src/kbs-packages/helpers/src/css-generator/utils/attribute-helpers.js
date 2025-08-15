@@ -96,12 +96,3 @@ export function getPreviewProperty(attributeValue, previewDevice) {
 export function hasLayers(meta) {
 	return meta?.hasLayers === true;
 }
-
-/**
- * Check if a property is non-inheritable
- * @param {Object} meta - Component metadata
- * @returns {boolean}
- */
-export function isNonInheritable(meta) {
-	return meta?.nonInheritable === true;
-}

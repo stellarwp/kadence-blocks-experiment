@@ -1,5 +1,5 @@
 import { kebabCase } from 'lodash';
-import { resolveComponentValues, shouldRenderValue } from '../utils/component-value-resolver';
+import { shouldRenderValue } from '../utils/component-value-resolver';
 
 /**
  * Base class for all component CSS generators
@@ -209,25 +209,6 @@ export class BaseComponentGenerator {
 		}
 
 		return selector;
-	}
-
-	/**
-	 * Resolve all values for this component
-	 * @param {string} attributeName - The attribute name
-	 * @param {string} componentType - The component type
-	 * @returns {Object} - Resolved values for all component properties
-	 */
-	resolveValues(attributeName, componentType) {
-		const { attributes, previewDevice, globalStylesIds } = this.props;
-
-		return resolveComponentValues(
-			attributeName,
-			attributes,
-			previewDevice,
-			this.metadata,
-			globalStylesIds,
-			componentType
-		);
 	}
 
 	/**

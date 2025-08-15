@@ -333,10 +333,5 @@ export function shouldRenderValue(resolvedValue, meta) {
 		return true;
 	}
 
-	// Don't render inherited preset values (they're handled by class names)
-	if (inherited && (source === 'preset' || source === 'preset-parent') && !meta?.nonInheritable) {
-		return false;
-	}
-
 	return !!value;
 }
