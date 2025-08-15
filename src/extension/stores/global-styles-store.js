@@ -408,7 +408,6 @@ const resolvers = {
 	},
 	*getStyleBookLocalGlobalStylesChanges() {
 		// This selector just returns local state, no fetching needed
-		return;
 	},
 	*getGlobalStyleByName() {
 		yield resolvers.getGlobalStyles();

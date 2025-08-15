@@ -118,10 +118,10 @@ export default function TextEdit(props) {
 						: tag === 'p'
 							? __('Paragraph', 'kadence-blocks')
 							: sprintf(
-								/* translators: %s: heading level number (1-6) */
-								__('Heading %s', 'kadence-blocks'),
-								tag.charAt(1)
-							),
+									/* translators: %s: heading level number (1-6) */
+									__('Heading %s', 'kadence-blocks'),
+									tag.charAt(1)
+								),
 			isActive: tag === htmlTag,
 			onClick: () => setAttributes({ htmlTag: tag }),
 		})),
