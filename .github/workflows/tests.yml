@@ -104,7 +104,7 @@ jobs:
 
             - name: Set up plugin
               run: |
-                  ${SLIC_BIN} use kadence-blocks
+                  ${SLIC_BIN} use kadence-blocks-experiment
                   ${SLIC_BIN} composer set-version 2
                   ${SLIC_BIN} composer validate
                   ${SLIC_BIN} composer install
