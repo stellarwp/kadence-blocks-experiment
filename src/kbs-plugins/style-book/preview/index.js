@@ -235,7 +235,6 @@ export default function Preview(props) {
 												/>
 												<path
 													d="M399.977,197.266c-40.412,0 -73.271,-32.875 -73.271,-73.263c-0,-40.412 32.859,-73.302 73.271,-73.302c40.427,-0 73.317,32.89 73.317,73.302c0,40.388 -32.89,73.263 -73.317,73.263Z"
-													fill="var(--kbs-colors-palette4)"
 													fill={
 														colorsSubTab === 'gradients'
 															? 'var(--kbs-colors-palette9)'
@@ -299,7 +298,6 @@ export default function Preview(props) {
 												/>
 												<path
 													d="M399.977,197.266c-40.412,0 -73.271,-32.875 -73.271,-73.263c-0,-40.412 32.859,-73.302 73.271,-73.302c40.427,-0 73.317,32.89 73.317,73.302c0,40.388 -32.89,73.263 -73.317,73.263Z"
-													fill="var(--kbs-colors-palette4)"
 													fill={
 														colorsSubTab === 'gradients'
 															? 'var(--kbs-colors-palette9)'
@@ -363,7 +361,6 @@ export default function Preview(props) {
 												/>
 												<path
 													d="M399.977,197.266c-40.412,0 -73.271,-32.875 -73.271,-73.263c-0,-40.412 32.859,-73.302 73.271,-73.302c40.427,-0 73.317,32.89 73.317,73.302c0,40.388 -32.89,73.263 -73.317,73.263Z"
-													fill="var(--kbs-colors-palette4)"
 													fill={
 														colorsSubTab === 'gradients'
 															? 'var(--kbs-colors-palette9)'

@@ -153,10 +153,10 @@ function TransformScale(props) {
 			setVisualScale({ x: newScaleX, y: newScaleY });
 
 			if (rafRef.current) {
-				cancelAnimationFrame(rafRef.current);
+				window.cancelAnimationFrame(rafRef.current);
 			}
 
-			rafRef.current = requestAnimationFrame(() => {
+			rafRef.current = window.requestAnimationFrame(() => {
 				const scaleXPercent = Math.round(newScaleX * 100) + '%';
 				const scaleYPercent = Math.round(newScaleY * 100) + '%';
 				onChange({ x: scaleXPercent, y: scaleYPercent });
@@ -167,7 +167,7 @@ function TransformScale(props) {
 
 	const handleMouseUp = useCallback(() => {
 		if (rafRef.current) {
-			cancelAnimationFrame(rafRef.current);
+			window.cancelAnimationFrame(rafRef.current);
 			rafRef.current = null;
 		}
 

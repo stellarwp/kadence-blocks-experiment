@@ -117,11 +117,11 @@ export default function TransformOrigin(props) {
 			setVisualOrigin({ x, y });
 
 			if (rafRef.current) {
-				cancelAnimationFrame(rafRef.current);
+				window.cancelAnimationFrame(rafRef.current);
 			}
 
 			// Throttle onChange calls
-			rafRef.current = requestAnimationFrame(() => {
+			rafRef.current = window.requestAnimationFrame(() => {
 				onChange({ x: Math.round(x) + '%', y: Math.round(y) + '%' });
 			});
 		},
@@ -130,7 +130,7 @@ export default function TransformOrigin(props) {
 
 	const handleMouseUp = useCallback(() => {
 		if (rafRef.current) {
-			cancelAnimationFrame(rafRef.current);
+			window.cancelAnimationFrame(rafRef.current);
 			rafRef.current = null;
 		}
 
@@ -152,7 +152,7 @@ export default function TransformOrigin(props) {
 
 				// Clean up any pending RAF on unmount
 				if (rafRef.current) {
-					cancelAnimationFrame(rafRef.current);
+					window.cancelAnimationFrame(rafRef.current);
 					rafRef.current = null;
 				}
 			};

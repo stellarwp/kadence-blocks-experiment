@@ -132,10 +132,10 @@ function TransformSkew(props) {
 			}
 
 			if (rafRef.current) {
-				cancelAnimationFrame(rafRef.current);
+				window.cancelAnimationFrame(rafRef.current);
 			}
 
-			rafRef.current = requestAnimationFrame(() => {
+			rafRef.current = window.requestAnimationFrame(() => {
 				if (isLinking) {
 					onChange({
 						x: Math.round(clampedSkew) + 'deg',
@@ -154,7 +154,7 @@ function TransformSkew(props) {
 
 	const handleMouseUp = useCallback(() => {
 		if (rafRef.current) {
-			cancelAnimationFrame(rafRef.current);
+			window.cancelAnimationFrame(rafRef.current);
 			rafRef.current = null;
 		}
 

@@ -34,10 +34,9 @@ function getSingleLevelPreviewValue(attributeName, attributes, meta, previewDevi
 	if (meta?.attributes?.[attributeName]) {
 		mergedAttribute = mergeInitialValue(meta?.attributes?.[attributeName], mergedAttribute);
 	}
-	const mobile = getDeviceAttributeSlug('mobile');
-	const tablet = getDeviceAttributeSlug('tablet');
-	const desktop = getDeviceAttributeSlug('desktop');
 	if (previewDevice === 'Mobile') {
+		const mobile = getDeviceAttributeSlug('mobile');
+		const tablet = getDeviceAttributeSlug('tablet');
 		if (
 			undefined !== mergedAttribute?.[mobile] &&
 			'' !== mergedAttribute?.[mobile] &&
@@ -52,6 +51,7 @@ function getSingleLevelPreviewValue(attributeName, attributes, meta, previewDevi
 			return mergedAttribute?.[tablet];
 		}
 	} else if (previewDevice === 'Tablet') {
+		const tablet = getDeviceAttributeSlug('tablet');
 		if (
 			undefined !== mergedAttribute?.[tablet] &&
 			'' !== mergedAttribute?.[tablet] &&
@@ -60,6 +60,7 @@ function getSingleLevelPreviewValue(attributeName, attributes, meta, previewDevi
 			return mergedAttribute?.[tablet];
 		}
 	}
+	const desktop = getDeviceAttributeSlug('desktop');
 	return undefined !== mergedAttribute?.[desktop] &&
 		'' !== mergedAttribute?.[desktop] &&
 		null !== mergedAttribute?.[desktop]
@@ -76,10 +77,9 @@ function getTwoLevelPreviewValue(attributePath, attributes, meta, previewDevice)
 	if (meta?.attributes?.[topLevelAttributeName]) {
 		mergedAttribute = mergeInitialValue(meta?.attributes?.[topLevelAttributeName], mergedAttribute);
 	}
-	const mobile = getDeviceAttributeSlug('mobile');
-	const tablet = getDeviceAttributeSlug('tablet');
-	const desktop = getDeviceAttributeSlug('desktop');
 	if (previewDevice === 'Mobile') {
+		const mobile = getDeviceAttributeSlug('mobile');
+		const tablet = getDeviceAttributeSlug('tablet');
 		if (
 			undefined !== mergedAttribute?.[mobile]?.[secondLevelAttributeName] &&
 			'' !== mergedAttribute?.[mobile]?.[secondLevelAttributeName] &&
@@ -94,6 +94,7 @@ function getTwoLevelPreviewValue(attributePath, attributes, meta, previewDevice)
 			return mergedAttribute?.[tablet]?.[secondLevelAttributeName];
 		}
 	} else if (previewDevice === 'Tablet') {
+		const tablet = getDeviceAttributeSlug('tablet');
 		if (
 			undefined !== mergedAttribute?.[tablet]?.[secondLevelAttributeName] &&
 			'' !== mergedAttribute?.[tablet]?.[secondLevelAttributeName] &&
@@ -102,6 +103,7 @@ function getTwoLevelPreviewValue(attributePath, attributes, meta, previewDevice)
 			return mergedAttribute?.[tablet]?.[secondLevelAttributeName];
 		}
 	}
+	const desktop = getDeviceAttributeSlug('desktop');
 	return undefined !== mergedAttribute?.[desktop]?.[secondLevelAttributeName] &&
 		'' !== mergedAttribute?.[desktop]?.[secondLevelAttributeName] &&
 		null !== mergedAttribute?.[desktop]?.[secondLevelAttributeName]
@@ -119,10 +121,9 @@ function getThreeLevelPreviewValue(attributePath, attributes, meta, previewDevic
 	if (meta?.attributes?.[topLevelAttributeName]) {
 		mergedAttribute = mergeInitialValue(meta?.attributes?.[topLevelAttributeName], mergedAttribute);
 	}
-	const mobile = getDeviceAttributeSlug('mobile');
-	const tablet = getDeviceAttributeSlug('tablet');
-	const desktop = getDeviceAttributeSlug('desktop');
 	if (previewDevice === 'Mobile') {
+		const mobile = getDeviceAttributeSlug('mobile');
+		const tablet = getDeviceAttributeSlug('tablet');
 		if (
 			undefined !== mergedAttribute?.[mobile]?.[secondLevelAttributeName]?.[thirdLevelAttributeName] &&
 			'' !== mergedAttribute?.[mobile]?.[secondLevelAttributeName]?.[thirdLevelAttributeName] &&
@@ -137,6 +138,7 @@ function getThreeLevelPreviewValue(attributePath, attributes, meta, previewDevic
 			return mergedAttribute?.[tablet]?.[secondLevelAttributeName]?.[thirdLevelAttributeName];
 		}
 	} else if (previewDevice === 'Tablet') {
+		const tablet = getDeviceAttributeSlug('tablet');
 		if (
 			undefined !== mergedAttribute?.[tablet]?.[secondLevelAttributeName]?.[thirdLevelAttributeName] &&
 			'' !== mergedAttribute?.[tablet]?.[secondLevelAttributeName]?.[thirdLevelAttributeName] &&
@@ -145,6 +147,7 @@ function getThreeLevelPreviewValue(attributePath, attributes, meta, previewDevic
 			return mergedAttribute?.[tablet]?.[secondLevelAttributeName]?.[thirdLevelAttributeName];
 		}
 	}
+	const desktop = getDeviceAttributeSlug('desktop');
 	return undefined !== mergedAttribute?.[desktop]?.[secondLevelAttributeName]?.[thirdLevelAttributeName] &&
 		'' !== mergedAttribute?.[desktop]?.[secondLevelAttributeName]?.[thirdLevelAttributeName] &&
 		null !== mergedAttribute?.[desktop]?.[secondLevelAttributeName]?.[thirdLevelAttributeName]

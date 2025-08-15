@@ -14,7 +14,6 @@ export default function getDeviceValue(attributeName, attributes, device, type =
 	if (!attributes?.[attributeName]) {
 		return deviceValue;
 	}
-	const deviceSlug = getDeviceAttributeSlug(device);
 	// for device less values like preset.
 	if (device === 'none') {
 		if (type) {
@@ -22,6 +21,7 @@ export default function getDeviceValue(attributeName, attributes, device, type =
 		}
 		return attributes?.[attributeName] ?? '';
 	}
+	const deviceSlug = getDeviceAttributeSlug(device);
 	if (null !== layerKey) {
 		if (type) {
 			return attributes?.[attributeName]?.layers?.[layerKey]?.[deviceSlug]?.[type] ?? '';

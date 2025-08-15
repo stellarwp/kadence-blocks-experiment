@@ -139,10 +139,10 @@ function TransformTranslate(props) {
 			setVisualTranslate({ x: visualX, y: visualY });
 
 			if (rafRef.current) {
-				cancelAnimationFrame(rafRef.current);
+				window.cancelAnimationFrame(rafRef.current);
 			}
 
-			rafRef.current = requestAnimationFrame(() => {
+			rafRef.current = window.requestAnimationFrame(() => {
 				const getUnit = (val) => {
 					if (typeof val === 'string') {
 						const match = val.match(/[a-z%]+$/i);
@@ -177,7 +177,7 @@ function TransformTranslate(props) {
 
 	const handleMouseUp = useCallback(() => {
 		if (rafRef.current) {
-			cancelAnimationFrame(rafRef.current);
+			window.cancelAnimationFrame(rafRef.current);
 			rafRef.current = null;
 		}
 

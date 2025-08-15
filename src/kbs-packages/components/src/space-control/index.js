@@ -211,6 +211,8 @@ export default function SpaceControl({
 			<div
 				onMouseOver={typeMouseOver.onMouseOver}
 				onMouseOut={typeMouseOver.onMouseOut}
+				onFocus={typeMouseOver.onMouseOver}
+				onBlur={typeMouseOver.onMouseOut}
 				className={`components-base-control kbs-control kbs-space-control${className ? ' ' + className : ''}`}
 			>
 				{hasPresetControl && type === 'padding' && (
