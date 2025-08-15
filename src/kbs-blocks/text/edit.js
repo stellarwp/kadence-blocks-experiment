@@ -20,7 +20,7 @@ import metadata from './block.json';
 /**
  * Import WordPress
  */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useMemo, useRef, useEffect } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
@@ -117,7 +117,11 @@ export default function TextEdit(props) {
 						? __('Span', 'kadence-blocks')
 						: tag === 'p'
 							? __('Paragraph', 'kadence-blocks')
-							: __(`Heading ${tag.charAt(1)}`, 'kadence-blocks'),
+							: sprintf(
+								/* translators: %s: heading level number (1-6) */
+								__('Heading %s', 'kadence-blocks'),
+								tag.charAt(1)
+							),
 			isActive: tag === htmlTag,
 			onClick: () => setAttributes({ htmlTag: tag }),
 		})),

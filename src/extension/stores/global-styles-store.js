@@ -388,16 +388,16 @@ const getMemoizedStyleBookComponentPreset = memize((styleBookLocalGlobalStyles, 
  */
 const resolvers = {
 	*getGlobalStyles() {
-		// Get the global presets
-		yield selectors.getGlobalStyles();
+		// Fetch global styles if not already loaded
+		yield actions.fetchGlobalStyles();
 	},
 	*getGlobalPresets() {
-		// Get the global presets
-		yield selectors.getGlobalPresets();
+		// Fetch global styles first to ensure presets are available
+		yield actions.fetchGlobalStyles();
 	},
 	*getGlobalMappings() {
-		// Get the global mappings
-		yield selectors.getGlobalMappings();
+		// Fetch global styles first to ensure mappings are available
+		yield actions.fetchGlobalStyles();
 	},
 	*getMergedStylesByIds() {
 		yield resolvers.getGlobalStyles();
@@ -407,7 +407,8 @@ const resolvers = {
 		yield actions.fetchStyleBookLocalGlobalStyles();
 	},
 	*getStyleBookLocalGlobalStylesChanges() {
-		yield selectors.getStyleBookLocalGlobalStylesChanges();
+		// This selector just returns local state, no fetching needed
+		return;
 	},
 	*getGlobalStyleByName() {
 		yield resolvers.getGlobalStyles();

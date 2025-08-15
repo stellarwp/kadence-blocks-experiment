@@ -14,6 +14,7 @@ const eslintConfig = {
 	},
 	globals: {
 		kt_blocks_params: 'readonly',
+		kbs_params: 'readonly',
 		kadenceHeaderConfig: 'readonly',
 		kadence_blocks_params: 'writable',
 		kt_deregister_params: 'readonly',

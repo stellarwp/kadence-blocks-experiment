@@ -171,7 +171,7 @@ export default function ButtonEdit(props) {
 			allowedFormats={richTextFormats}
 			onMerge={mergeBlocks}
 			onSplit={(value) => {
-				if (!value && !isDefaultEditorBlock) {
+				if (!value) {
 					return createBlock('core/paragraph');
 				}
 				return createBlock('kadence/advancedheading', {
