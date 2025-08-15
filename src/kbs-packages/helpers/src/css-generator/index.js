@@ -56,7 +56,7 @@ class CSSGenerator {
 	 * Propagate variant presets to component attributes
 	 * This ensures that when a variant defines presets for components,
 	 * those presets are applied if the component doesn't already have one
-	 * 
+	 *
 	 * @param {Object} props - The original props
 	 * @param {Object} metadata - The block metadata
 	 * @returns {Object} - Modified props with propagated presets
@@ -76,17 +76,17 @@ class CSSGenerator {
 			if (attributeMeta?.bundlePreset) {
 				// Get the variant value
 				const variantValue = props.attributes?.[attributeName] || attributeMeta?.initial;
-				
+
 				if (variantValue) {
 					const bundlePresetComponent = attributeMeta?.component;
-				
+
 					// Get the variant's preset data
 					const variantData = select('kadenceblocks/global-styles').getResolvedStyleData(
 						props.globalStylesIds || [],
 						bundlePresetComponent,
 						'presets.' + variantValue
 					);
-					
+
 					// If the variant has attributes with presets
 					if (variantData?.attributes) {
 						Object.entries(variantData.attributes).forEach(([componentName, componentValue]) => {
@@ -101,7 +101,7 @@ class CSSGenerator {
 									// Set the preset from the variant
 									modifiedAttributes[componentName] = {
 										...modifiedAttributes[componentName],
-										preset: componentValue.preset
+										preset: componentValue.preset,
 									};
 								}
 							}
