@@ -1,6 +1,5 @@
 import getDeviceValue from '../../get-device-value';
 import getInheritedDeviceValue from '../../get-inherited-device-value';
-import getBundlePresetValue from '../../get-bundle-preset-value';
 import { merge } from 'lodash';
 
 /**
@@ -194,24 +193,25 @@ function resolveSingleValue(attributeName, attributes, device, metadata, key, gl
 		}
 	}
 
+	// Handled up front now by propagateVariantPresets
 	// Priority 4: Bundle preset value
-	const { value: bundlePresetValue, source: bundlePresetSource } = getBundlePresetValue(
-		attributeName,
-		attributes,
-		device,
-		metadata,
-		key,
-		globalStylesIds
-	);
+	// const { value: bundlePresetValue, source: bundlePresetSource } = getBundlePresetValue(
+	// 	attributeName,
+	// 	attributes,
+	// 	device,
+	// 	metadata,
+	// 	key,
+	// 	globalStylesIds
+	// );
 
-	if (bundlePresetValue !== undefined && bundlePresetValue !== null && bundlePresetValue !== '') {
-		return {
-			value: bundlePresetValue,
-			source: bundlePresetSource || 'bundle-preset',
-			inherited: true,
-			inheritedType: 'preset',
-		};
-	}
+	// if (bundlePresetValue !== undefined && bundlePresetValue !== null && bundlePresetValue !== '') {
+	// 	return {
+	// 		value: bundlePresetValue,
+	// 		source: bundlePresetSource || 'bundle-preset',
+	// 		inherited: true,
+	// 		inheritedType: 'preset',
+	// 	};
+	// }
 
 	// Priority 5: Initial value from metadata
 	const initialValue = getInitialValue(attributeName, device, metadata, key);
