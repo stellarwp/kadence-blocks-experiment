@@ -4,7 +4,6 @@ import { COMPONENTS } from '../constants';
  * Simple get a device attribute value.
  */
 export default function getDeviceValue(attributeName, attributes, device, type = null, layerKey = null) {
-	const deviceSlug = getDeviceAttributeSlug(device);
 	const deviceValue = '';
 	if (!attributeName) {
 		return deviceValue;
@@ -15,6 +14,7 @@ export default function getDeviceValue(attributeName, attributes, device, type =
 	if (!attributes?.[attributeName]) {
 		return deviceValue;
 	}
+	const deviceSlug = getDeviceAttributeSlug(device);
 	// for device less values like preset.
 	if (device === 'none') {
 		if (type) {

@@ -1,6 +1,7 @@
 // Copyright (c) 2014 Rafael Caricio. All rights reserved.
 // Use of this source code is governed by (The MIT License).
 
+// eslint-disable-next-line no-var
 var GradientParser = GradientParser || {};
 
 GradientParser.stringify = (function () {
@@ -51,8 +52,8 @@ GradientParser.stringify = (function () {
 		},
 
 		'visit_default-radial'(node) {
-			let result = '',
-				at = visitor.visit(node.at);
+			let result = '';
+			const at = visitor.visit(node.at);
 
 			if (at) {
 				result += at;
@@ -61,8 +62,8 @@ GradientParser.stringify = (function () {
 		},
 
 		'visit_extent-keyword'(node) {
-			let result = node.value,
-				at = visitor.visit(node.at);
+			let result = node.value;
+			const at = visitor.visit(node.at);
 
 			if (at) {
 				result += ' at ' + at;
@@ -172,7 +173,7 @@ GradientParser.stringify = (function () {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-var GradientParser = GradientParser || {};
+GradientParser = GradientParser || {};
 
 GradientParser.parse = (function () {
 	const tokens = {

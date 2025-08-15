@@ -9,7 +9,6 @@
  */
 import classnames from 'classnames';
 import { debounce } from 'lodash';
-import { getPreviewGutterSize } from '@kadence/components';
 import { FORM_ALLOWED_BLOCKS } from '../constants';
 import { BLEND_OPTIONS } from '../../../blocks/rowlayout/constants';
 
@@ -17,6 +16,7 @@ import { BLEND_OPTIONS } from '../../../blocks/rowlayout/constants';
  * Kadence Components.
  */
 import {
+	getPreviewGutterSize,
 	PopColorControl,
 	ResponsiveMeasurementControls,
 	SmallResponsiveControl,

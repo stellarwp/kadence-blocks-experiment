@@ -23,7 +23,7 @@ import { forwardRef, useRef } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { moreVertical, check, chevronUp, chevronDown } from '@wordpress/icons';
 import { speak } from '@wordpress/a11y';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import DeviceSwitchControl from '../device-switch-control';
 
 /**

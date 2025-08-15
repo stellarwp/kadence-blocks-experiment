@@ -30,13 +30,13 @@ function mergeInitialValue(attributeMeta, attributeValue) {
  * Simple get a device attribute value.
  */
 function getSingleLevelPreviewValue(attributeName, attributes, meta, previewDevice) {
-	const mobile = getDeviceAttributeSlug('mobile');
-	const tablet = getDeviceAttributeSlug('tablet');
-	const desktop = getDeviceAttributeSlug('desktop');
 	let mergedAttribute = attributes?.[attributeName] ? attributes?.[attributeName] : {};
 	if (meta?.attributes?.[attributeName]) {
 		mergedAttribute = mergeInitialValue(meta?.attributes?.[attributeName], mergedAttribute);
 	}
+	const mobile = getDeviceAttributeSlug('mobile');
+	const tablet = getDeviceAttributeSlug('tablet');
+	const desktop = getDeviceAttributeSlug('desktop');
 	if (previewDevice === 'Mobile') {
 		if (
 			undefined !== mergedAttribute?.[mobile] &&
@@ -72,13 +72,13 @@ function getSingleLevelPreviewValue(attributeName, attributes, meta, previewDevi
 function getTwoLevelPreviewValue(attributePath, attributes, meta, previewDevice) {
 	const topLevelAttributeName = attributePath[0];
 	const secondLevelAttributeName = attributePath[1];
-	const mobile = getDeviceAttributeSlug('mobile');
-	const tablet = getDeviceAttributeSlug('tablet');
-	const desktop = getDeviceAttributeSlug('desktop');
 	let mergedAttribute = attributes?.[topLevelAttributeName] ? attributes?.[topLevelAttributeName] : {};
 	if (meta?.attributes?.[topLevelAttributeName]) {
 		mergedAttribute = mergeInitialValue(meta?.attributes?.[topLevelAttributeName], mergedAttribute);
 	}
+	const mobile = getDeviceAttributeSlug('mobile');
+	const tablet = getDeviceAttributeSlug('tablet');
+	const desktop = getDeviceAttributeSlug('desktop');
 	if (previewDevice === 'Mobile') {
 		if (
 			undefined !== mergedAttribute?.[mobile]?.[secondLevelAttributeName] &&
@@ -115,13 +115,13 @@ function getThreeLevelPreviewValue(attributePath, attributes, meta, previewDevic
 	const topLevelAttributeName = attributePath[0];
 	const secondLevelAttributeName = attributePath[1];
 	const thirdLevelAttributeName = attributePath[2];
-	const mobile = getDeviceAttributeSlug('mobile');
-	const tablet = getDeviceAttributeSlug('tablet');
-	const desktop = getDeviceAttributeSlug('desktop');
 	let mergedAttribute = attributes?.[topLevelAttributeName] ? attributes?.[topLevelAttributeName] : {};
 	if (meta?.attributes?.[topLevelAttributeName]) {
 		mergedAttribute = mergeInitialValue(meta?.attributes?.[topLevelAttributeName], mergedAttribute);
 	}
+	const mobile = getDeviceAttributeSlug('mobile');
+	const tablet = getDeviceAttributeSlug('tablet');
+	const desktop = getDeviceAttributeSlug('desktop');
 	if (previewDevice === 'Mobile') {
 		if (
 			undefined !== mergedAttribute?.[mobile]?.[secondLevelAttributeName]?.[thirdLevelAttributeName] &&

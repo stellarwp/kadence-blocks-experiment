@@ -39,21 +39,18 @@ export function parseUnitTypeFromRawValue(rawValue, allowedUnits) {
  * @return {string|undefined} The extracted unit if matched, null otherwise.
  */
 export function getUnitFromRawValue(rawValue, allowedUnits) {
-	let trimmedValue;
-
-	if (typeof rawValue !== 'undefined' && rawValue !== null) {
-		trimmedValue = `${rawValue}`.trim();
-	} else {
+	if (typeof rawValue === 'undefined' || rawValue === null) {
 		return undefined;
 	}
-	// create a simple array from allowedUnits, exclude empty values
-	const allowedUnitsArray = allowedUnits.filter((unit) => unit.value !== '').map((unit) => unit.value);
+
+	const trimmedValue = `${rawValue}`.trim();
 
 	// if trimmedValue is empty, return undefined
 	if (trimmedValue === '') {
 		return undefined;
 	}
-
+	// create a simple array from allowedUnits, exclude empty values
+	const allowedUnitsArray = allowedUnits.filter((unit) => unit.value !== '').map((unit) => unit.value);
 	const unitMatch = trimmedValue.match(/[\d.\-\+]*\s*(.*)/);
 	const matchedUnit = unitMatch?.[1]?.toLowerCase();
 
@@ -100,9 +97,7 @@ export function getNumberFromRawValue(rawValue) {
  *
  * @param rawValue     The raw value as a string (may or may not contain the unit)
  * @param controls     The radio button controls to derive from.
- * @return The extracted quantity and unit. The quantity can be `undefined` in case the raw value
- * could not be parsed to a number correctly. The unit can be `undefined` in case the unit parsed
- * from the raw value could not be matched against the list of allowed units.
+ * @return {boolean} True if the value is a valid control, false otherwise.
  */
 export function parseValueTypeFromRawValue(rawValue, controls) {
 	const trimmedValue = `${rawValue}`.trim();

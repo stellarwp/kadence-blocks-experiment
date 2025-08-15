@@ -16,14 +16,14 @@ export default function getLinkHTML(link, children, className = '', enableClick 
 		rel += 'noreferrer noopener';
 	}
 	if (link?.linkNoFollow) {
-		if (!empty(rel)) {
+		if (rel.length > 0) {
 			rel += ' nofollow';
 		} else {
 			rel += 'nofollow';
 		}
 	}
 	if (link?.linkSponsored) {
-		if (!empty(rel)) {
+		if (rel.length > 0) {
 			rel += ' sponsored';
 		} else {
 			rel += 'sponsored';

@@ -25,16 +25,17 @@ export default function getInheritedValue(
 	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 	const attributeMeta = meta?.attributes?.[attributeName];
 	const initialValue = attributeMeta?.initial ? attributeMeta?.initial : null;
-	const currentDeviceIndex = deviceOptions.findIndex(
-		(option) =>
-			option.key?.toLowerCase() === device?.toLowerCase() || option.name?.toLowerCase() === device?.toLowerCase()
-	);
 
 	// Check if there's a direct value on the block (highest priority)
 	const directValue = getDeviceValue(attributeName, attributes, device, type, layerKey);
 	if (directValue) {
 		return { inheritedValue: directValue, inheritedSource: 'direct', inheritedType: 'direct' };
 	}
+
+	const currentDeviceIndex = deviceOptions.findIndex(
+		(option) =>
+			option.key?.toLowerCase() === device?.toLowerCase() || option.name?.toLowerCase() === device?.toLowerCase()
+	);
 
 	if (device !== 'none') {
 		// Check direct value from parent device

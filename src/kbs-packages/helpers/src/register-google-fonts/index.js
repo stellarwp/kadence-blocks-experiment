@@ -1,5 +1,7 @@
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useMemo, useEffect } from '@wordpress/element';
+import { uniqueId, get, has } from 'lodash';
+import { getPostOrWidgetId, hashString } from '@kadence/helpers';
 
 /**
  * Register Google Fonts from block attributes

@@ -282,9 +282,6 @@ export class BackgroundGenerator extends BaseComponentGenerator {
 	 */
 	processStandardMask(layer, tempSelector, maskColor) {
 		const backgroundMask = getLayerDeviceValue('mask', layer, this.props.previewDevice);
-		const backgroundMaskSize = getLayerDeviceValue('maskSize', layer, this.props.previewDevice);
-		const maskAlignX = getLayerDeviceValue('alignX', layer, this.props.previewDevice);
-		const maskAlignY = getLayerDeviceValue('alignY', layer, this.props.previewDevice);
 		const maskInverted = getLayerDeviceValue('maskInverted', layer, this.props.previewDevice);
 		const maskSubset = maskInverted === 'enabled' ? 'inverted' : 'normal';
 
@@ -292,6 +289,10 @@ export class BackgroundGenerator extends BaseComponentGenerator {
 		if (!mask?.path) {
 			return;
 		}
+
+		const backgroundMaskSize = getLayerDeviceValue('maskSize', layer, this.props.previewDevice);
+		const maskAlignX = getLayerDeviceValue('alignX', layer, this.props.previewDevice);
+		const maskAlignY = getLayerDeviceValue('alignY', layer, this.props.previewDevice);
 
 		this.setSelector(tempSelector + ' .kbs-pattern-mask-svg');
 		this.add({ background: maskColor ? getColorOutput(maskColor) : getColorOutput('palette3') });
