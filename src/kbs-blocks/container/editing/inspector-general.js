@@ -7,7 +7,7 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, SelectGlobalStyles, FlexBoxControl } from '@kadence/kbsComponents';
+import { ToolsPanelBody, SelectGlobalStyles, FlexBoxControl, PresetControl } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -41,6 +41,19 @@ export default function InspectorGeneral(props) {
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
 			/>
+			<ToolsPanelBody>
+				<PresetControl
+					label={__('Container Presets', 'kadence-blocks')}
+					type={'containerVariant'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'variant'}
+					metaData={metadata}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					isBundlePreset={true}
+				/>
+			</ToolsPanelBody>
 
 			{/* <ToolsPanelBody
 				title={__('Typography Settings', 'kadence-blocks')}

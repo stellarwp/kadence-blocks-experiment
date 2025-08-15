@@ -23,10 +23,10 @@
 	border-top-right-radius: var(--kbs-cont-border-top-right-radius);
 	border-bottom-right-radius: var(--kbs-cont-border-bottom-right-radius);
 	border-bottom-left-radius: var(--kbs-cont-border-bottom-left-radius);
-	border-top: var(--kbs-cont-border-top);
-	border-left: var(--kbs-cont-border-left);
-	border-right: var(--kbs-cont-border-right);
-	border-bottom: var(--kbs-cont-border-bottom);
+	// border-top: var(--kbs-cont-border-top);
+	// border-left: var(--kbs-cont-border-left);
+	// border-right: var(--kbs-cont-border-right);
+	// border-bottom: var(--kbs-cont-border-bottom);
 
 	box-shadow: var(--kbs-cont-box-shadow);
 	> :where(*) {
@@ -43,10 +43,10 @@
 	}
 
 	&:hover {
-		border-top: var(--kbs-cont-border-top-hover, var(--kbs-cont-border-top));
-		border-left: var(--kbs-cont-border-left-hover, var(--kbs-cont-border-left));
-		border-right: var(--kbs-cont-border-right-hover, var(--kbs-cont-border-right));
-		border-bottom: var(--kbs-cont-border-bottom-hover, var(--kbs-cont-border-bottom));
+		// border-top: var(--kbs-cont-border-top-hover, var(--kbs-cont-border-top));
+		// border-left: var(--kbs-cont-border-left-hover, var(--kbs-cont-border-left));
+		// border-right: var(--kbs-cont-border-right-hover, var(--kbs-cont-border-right));
+		// border-bottom: var(--kbs-cont-border-bottom-hover, var(--kbs-cont-border-bottom));
 	}
 	.kbs-bg-layer {
 		position: absolute;

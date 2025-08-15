@@ -18,7 +18,7 @@
 						}
 					}
 				},
-				"kbs-pd-section-xl": {
+				"kbs-pd-sec-xl": {
 					"label": "Section XL",
 					"description": "A section padding preset",
 					"locked": true,
@@ -663,6 +663,55 @@
 							"desktop": {
 								"fontSize": "xl"
 							}
+						}
+					}
+				}
+			}
+		},
+		"containerVariant": {
+			"presets": {
+				"card": {
+					"label": "Card",
+					"description": "A container variant for cards",
+					"locked": true,
+					"attributes": {
+						"border": {
+							"preset": "card"
+						},
+						"boxShadow": {
+							"preset": "kbs-box-shadow-base"
+						},
+						"padding": {
+							"preset": "kbs-pd-card-lg"
+						}
+					}
+				},
+				"card-alt": {
+					"label": "Card Alt",
+					"description": "A container variant for cards with an alt background",
+					"locked": true,
+					"attributes": {
+						"border": {
+							"preset": "card"
+						},
+						"boxShadow": {
+							"preset": "kbs-box-shadow-variant-2"
+						},
+						"padding": {
+							"preset": "kbs-pd-card-md"
+						}
+					}
+				},
+				"section": {
+					"label": "Section",
+					"description": "A container variant for sections",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"preset": "kbs-pd-sec-xl"
+						},
+						"background": {
+							"preset": "kbs-bg-variant-2"
 						}
 					}
 				}
