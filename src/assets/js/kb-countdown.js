@@ -46,23 +46,57 @@
 				currentDate.getMonth() === 11
 					? 0
 					: futureDayOfMonth >= dayOfMonth
-					? currentDate.getMonth() + 1
-					: currentDate.getMonth();
+						? currentDate.getMonth() + 1
+						: currentDate.getMonth();
 			const futureYear =
 				currentDate.getMonth() === 11 ? currentDate.getFullYear() + 1 : currentDate.getFullYear();
 			const nextMonthDays = new Date(futureYear, futureMonth + 1, 0).getDate();
 
 			switch (window.kadenceCountdown.timers[id].frequency) {
 				case 'daily':
-					offsetDays = daysPassed + 1;
-					futureDate.setDate(initialDate.getDate() + offsetDays);
+					// Check if the target time has already passed today
+					const todayTargetTime = new Date();
+					todayTargetTime.setHours(hours, minutes, seconds, 0);
+
+					if (currentDate.getTime() >= todayTargetTime.getTime()) {
+						// Target time has passed today, set for tomorrow
+						offsetDays = 1;
+					} else {
+						// Target time hasn't passed today, set for today
+						offsetDays = 0;
+					}
+
+					futureDate.setDate(currentDate.getDate() + offsetDays);
 					futureDate.setHours(hours);
 					futureDate.setMinutes(minutes);
 					futureDate.setSeconds(seconds);
 					break;
 				case 'weekly':
-					offsetDays = daysPassed + (7 - (daysPassed % 7));
-					futureDate.setDate(initialDate.getDate() + offsetDays);
+					// Check if the target time has already passed today
+					const todayWeeklyTargetTime = new Date();
+					todayWeeklyTargetTime.setHours(hours, minutes, seconds, 0);
+
+					// Calculate days since the initial date
+					const daysSinceInitial = Math.floor(
+						(currentDate.getTime() - initialDate.getTime()) / (1000 * 3600 * 24)
+					);
+
+					if (currentDate.getTime() >= todayWeeklyTargetTime.getTime()) {
+						// Target time has passed today, find next week's occurrence
+						offsetDays = 7 - (daysSinceInitial % 7);
+					} else {
+						// Target time hasn't passed today, check if today is the right day of week
+						const dayOfWeekDiff = (currentDate.getDay() - initialDate.getDay() + 7) % 7;
+						if (dayOfWeekDiff === 0) {
+							// Today is the right day of week and time hasn't passed
+							offsetDays = 0;
+						} else {
+							// Find next occurrence
+							offsetDays = 7 - dayOfWeekDiff;
+						}
+					}
+
+					futureDate.setDate(currentDate.getDate() + offsetDays);
 					futureDate.setHours(hours);
 					futureDate.setMinutes(minutes);
 					futureDate.setSeconds(seconds);
@@ -241,8 +275,8 @@
 			const stopRepeating = !window.kadenceCountdown.timers[id].stopCount
 				? true
 				: new Date(window.kadenceCountdown.timers[id].endDate) <= new Date()
-				? false
-				: true;
+					? false
+					: true;
 
 			if (window.kadenceCountdown.timers[id].repeat && total <= 0 && stopRepeating) {
 				const futureTimeStamp = window.kadenceCountdown.getRepeaterTimeStamp(id);

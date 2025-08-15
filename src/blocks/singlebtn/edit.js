@@ -14,9 +14,8 @@ import {
 	getBorderStyle,
 	setBlockDefaults,
 	getBorderColor,
-	getUniqueId,
+	uniqueIdHelper,
 	getInQueryBlock,
-	getPostOrFseId,
 } from '@kadence/helpers';
 
 import {
@@ -215,6 +214,8 @@ export default function KadenceButtonEdit(props) {
 		shadowStickyHover,
 		tooltip,
 		tooltipPlacement,
+		buttonRole,
+		iconReveal,
 	} = attributes;
 
 	// Support rank math content analysis.
@@ -248,41 +249,19 @@ export default function KadenceButtonEdit(props) {
 	const updateParentBlock = (key, value) => {
 		updateBlockAttributes(rootID, { [key]: value });
 	};
-	const { addUniqueID } = useDispatch('kadenceblocks/data');
-	const { isUniqueID, isUniqueBlock, previewDevice, parentData } = useSelect(
+	const { previewDevice } = useSelect(
 		(select) => {
 			return {
-				isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
-				isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-				parentData: {
-					rootBlock: select('core/block-editor').getBlock(
-						select('core/block-editor').getBlockHierarchyRootClientId(clientId)
-					),
-					postId: select('core/editor')?.getCurrentPostId() ? select('core/editor')?.getCurrentPostId() : '',
-					reusableParent: select('core/block-editor').getBlockAttributes(
-						select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0]
-					),
-					editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
-				},
 			};
 		},
 		[clientId]
 	);
 	const marginMouseOver = mouseOverVisualizer();
 	const paddingMouseOver = mouseOverVisualizer();
+
 	useEffect(() => {
 		setBlockDefaults('kadence/singlebtn', attributes);
-
-		const postOrFseId = getPostOrFseId(props, parentData);
-		const uniqueId = getUniqueId(uniqueID, clientId, isUniqueID, isUniqueBlock, postOrFseId);
-		if (uniqueId !== uniqueID) {
-			attributes.uniqueID = uniqueId;
-			setAttributes({ uniqueID: uniqueId });
-			addUniqueID(uniqueId, clientId);
-		} else {
-			addUniqueID(uniqueID, clientId);
-		}
 
 		setAttributes({ inQueryBlock: getInQueryBlock(context, inQueryBlock) });
 
@@ -290,6 +269,8 @@ export default function KadenceButtonEdit(props) {
 			doAction('kadence.triggerDynamicUpdate', 'link', 'link', props);
 		}
 	}, []);
+
+	uniqueIdHelper(props);
 
 	const [activeTab, setActiveTab] = useState('general');
 	const [isEditingURL, setIsEditingURL] = useState(false);
@@ -522,18 +503,20 @@ export default function KadenceButtonEdit(props) {
 		undefined !== onlyText?.[1] ? onlyText[1] : undefined
 	);
 	const nonTransAttrs = ['hideLink', 'link', 'target', 'download', 'text', 'sponsor'];
+	const hasIcon = undefined !== previewOnlyText && previewOnlyText ? false : icon;
 	const btnClassName = classnames({
 		'kt-button': true,
 		[`kt-button-${uniqueID}`]: true,
 		[`kb-btn-global-${inheritStyles}`]: inheritStyles,
 		'wp-block-button__link': inheritStyles && 'inherit' === inheritStyles,
-		[`kb-btn-has-icon`]: undefined !== previewOnlyText && previewOnlyText ? false : icon,
+		[`kb-btn-has-icon`]: hasIcon,
 		[`kt-btn-svg-show-${!iconHover ? 'always' : 'hover'}`]: icon,
 		[`kb-btn-only-icon`]: previewOnlyIcon,
 		[`kb-btn-only-text`]: previewOnlyText,
 		[`kt-btn-size-${sizePreset ? sizePreset : 'standard'}`]: true,
 		[`kb-btn-underline-${textUnderline}`]: textUnderline,
 		[`${className}`]: className,
+		[`icon-reveal`]: hasIcon && iconReveal,
 	});
 	const wrapClasses = classnames({
 		[`kb-single-btn-${uniqueID}`]: true,
@@ -2088,10 +2071,10 @@ export default function KadenceButtonEdit(props) {
 														undefined !== onlyText?.[0] && onlyText[0]
 															? 'text'
 															: undefined !== onlyIcon?.[1] && onlyIcon[1]
-															? 'true'
-															: undefined !== onlyIcon?.[1] && false === onlyIcon[1]
-															? 'false'
-															: ''
+																? 'true'
+																: undefined !== onlyIcon?.[1] && false === onlyIcon[1]
+																	? 'false'
+																	: ''
 													}
 													options={[
 														{ value: '', label: __('Inherit', 'kadence-blocks') },
@@ -2149,10 +2132,10 @@ export default function KadenceButtonEdit(props) {
 														undefined !== onlyText?.[1] && onlyText[1]
 															? 'text'
 															: undefined !== onlyIcon?.[2] && onlyIcon[2]
-															? 'true'
-															: undefined !== onlyIcon?.[2] && false === onlyIcon[2]
-															? 'false'
-															: ''
+																? 'true'
+																: undefined !== onlyIcon?.[2] && false === onlyIcon[2]
+																	? 'false'
+																	: ''
 													}
 													options={[
 														{ value: '', label: __('Inherit', 'kadence-blocks') },
@@ -2301,6 +2284,11 @@ export default function KadenceButtonEdit(props) {
 												setAttributes({ iconTitle: value });
 											}}
 										/>
+										<ToggleControl
+											label={__('Icon Reveal on Hover', 'kadence-blocks')}
+											checked={iconReveal}
+											onChange={(value) => setAttributes({ iconReveal: value })}
+										/>
 									</KadencePanelBody>
 								)}
 								{showSettings('fontSettings', 'kadence/advancedbtn') && (
@@ -2408,6 +2396,15 @@ export default function KadenceButtonEdit(props) {
 												onChange={(value) => setAttributes({ label: value })}
 												className={'kb-textbox-style'}
 											/>
+											<ToggleControl
+												label={__('Button Role', 'kadence-blocks')}
+												help={__(
+													'If the button is used to trigger something in javascript enable this to apply the button role.',
+													'kadence-blocks'
+												)}
+												checked={buttonRole}
+												onChange={(value) => setAttributes({ buttonRole: value })}
+											/>
 										</KadencePanelBody>
 
 										<div className="kt-sidebar-settings-spacer"></div>
@@ -2443,7 +2440,17 @@ export default function KadenceButtonEdit(props) {
 				}
 			>
 				<Tooltip text={tooltip} placement={tooltipPlacement || 'top'}>
-					<span className={btnClassName}>
+					<span
+						className={btnClassName}
+						style={{
+							'--kb-button-icon-size': previewIconSize
+								? getFontSizeOptionOutput(
+										previewIconSize,
+										undefined !== iconSizeUnit ? iconSizeUnit : 'px'
+									)
+								: undefined,
+						}}
+					>
 						{icon && 'left' === iconSide && (
 							<IconRender
 								className={`kt-btn-svg-icon kt-btn-svg-icon-${icon} kt-btn-side-${iconSide}`}
@@ -2454,8 +2461,12 @@ export default function KadenceButtonEdit(props) {
 										? getFontSizeOptionOutput(
 												previewIconSize,
 												undefined !== iconSizeUnit ? iconSizeUnit : 'px'
-										  )
+											)
 										: undefined,
+									paddingTop: previewIconPaddingTop,
+									paddingBottom: previewIconPaddingBottom,
+									paddingLeft: previewIconPaddingLeft,
+									paddingRight: previewIconPaddingRight,
 								}}
 							/>
 						)}
@@ -2496,8 +2507,12 @@ export default function KadenceButtonEdit(props) {
 										? getFontSizeOptionOutput(
 												previewIconSize,
 												undefined !== iconSizeUnit ? iconSizeUnit : 'px'
-										  )
+											)
 										: undefined,
+									paddingTop: previewIconPaddingTop,
+									paddingBottom: previewIconPaddingBottom,
+									paddingLeft: previewIconPaddingLeft,
+									paddingRight: previewIconPaddingRight,
 								}}
 							/>
 						)}

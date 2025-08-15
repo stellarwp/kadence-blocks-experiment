@@ -3,6 +3,7 @@
  *
  * CSS for Frontend.
  */
+@import '../../assets/css/variables';
 .kb-gallery-ul * {
 	box-sizing: border-box;
 }
@@ -561,5 +562,330 @@
 	&[data-slider-type="thumbnail"] ~ .kb-blocks-slider {
 		display: flex;
 		gap: 10px;
+	}
+}
+
+// Mosaic gallery layout styles
+.kb-gallery-ul.kb-gallery-type-mosaic {
+	.grid-pattern-container {
+		display: grid;
+		grid-auto-rows: 150px;
+		grid-template-columns: repeat(4, 1fr);
+		grid-gap: 10px;
+		gap: 10px;
+		width: 100%;
+	}
+
+	.kadence-blocks-gallery-item {
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+		// Default grid item sizing for mobile (767px and below)
+		@media (max-width: 767px) {
+			&.grid-item-wide,
+			&.grid-item-large,
+			&.grid-item-tall,
+			&.grid-item-small,
+			&.last {
+				grid-column: span 4;
+				grid-row: span 2;
+			}
+
+			// Extra styles for the last images to prevent white spacing
+			&.only-one,
+			&.only-two,
+			&.only-three,
+			&.only-four,
+			&.only-five,
+			&.only-six,
+			&.only-seven {
+				grid-column: span 4;
+				grid-row: span 2;
+			}
+		}
+
+		@media (min-width: 768px) {
+
+			// Grid item patterns
+			&.grid-item-wide {
+				grid-column: span 2;
+				grid-row: span 1;
+			}
+
+			&.grid-item-large {
+				grid-column: span 2;
+				grid-row: span 2;
+			}
+
+			&.grid-item-tall {
+				grid-column: span 1;
+				grid-row: span 2;
+			}
+
+			&.grid-item-small {
+				grid-column: span 1;
+				grid-row: span 1;
+			}
+
+			// Extra styles for the last images to prevent white spacing
+			&.only-one {
+				grid-column: span 4;
+				grid-row: span 2;
+			}
+			&.only-two {
+				grid-row: span 1;
+			}
+			&.only-three {
+				grid-column: span 2;
+				grid-row: span 1;
+			}
+			&.only-four {
+				grid-row: span 1;
+			}
+			&.only-five {
+				grid-column: span 3;
+				grid-row: span 1;
+			}
+			&.only-six {
+				grid-row: span 1;
+			}
+			&.only-seven {
+				grid-row: span 2;
+			}
+		}
+
+		// All nested elements need 100% height
+		.kadence-blocks-gallery-item-inner,
+		figure.kb-gallery-figure,
+		.kb-gal-image-radius,
+		.kb-gallery-image-contain,
+		.kadence-blocks-gallery-item-inner figure.kb-gallery-figure .kadence-blocks-gallery-intrinsic {
+			height: 100%;
+			width: 100%;
+			display: block;
+		}
+
+		.kadence-blocks-gallery-item-inner figcaption.kadence-blocks-gallery-item__caption {
+			overflow: hidden;
+		}
+
+		// Figure needs proper box sizing and margin removal
+		.kb-gallery-figure {
+			margin: 0;
+			box-sizing: border-box;
+		}
+
+		// Image styling
+		.kb-gallery-image-contain {
+			padding: 0;
+			background: none;
+			border: none;
+			cursor: pointer;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+		}
+
+		// Prevents the intrinsic aspect ratio from affecting layout
+		.kadence-blocks-gallery-intrinsic {
+			position: relative;
+
+			&::before {
+				content: none !important;
+			}
+		}
+	}
+}
+
+// Styles for the Mosaic caption when below the image
+.kb-gallery-type-mosaic.kb-gallery-caption-style-below .grid-pattern-container .kadence-blocks-gallery-item {
+	display: flex;
+	flex-direction: column;
+
+	figure.kb-gallery-figure a {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+
+		.kadence-blocks-gallery-item__caption {
+			overflow-y: visible;
+		}
+	}
+}
+
+// Arrow Position
+	// .kt-blocks-carousel .splide:not(.kb-slider-arrow-position-center, .kb-slider-arrow-position-bottom-right, .kb-slider-arrow-position-top-right) .splide__arrow--next {
+	// 	right: -100px;
+	// }
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-top-right .splide__arrows {
+		right: 1rem;
+		top: 1rem;
+		.splide__arrow--prev {
+			left: unset;
+			right: 4em;
+		}
+	}
+	
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-top-left .splide__arrows {
+		left: 1rem;
+		top: 1rem;
+		.splide__arrow--next {
+			left: 4em;
+		}
+	}
+	
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-bottom-left .splide__arrows {
+		bottom: 1rem;
+		left: 1rem;
+		.splide__arrow--next {
+			left: 4em;
+		}
+	}
+	
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-bottom-right .splide__arrows {
+		bottom: 1rem;
+		right: 1rem;
+		.splide__arrow--prev {
+			left: unset;
+			right: 4em;
+		}
+	}
+	
+	.kt-blocks-carousel .splide.kb-slider-group-arrow.kb-slider-arrow-position-outside-top .splide__arrows {
+		position: relative;
+		top: -2rem;
+	}
+
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-outside-top-right .splide__arrows {
+		right: 1rem;
+		top: -4rem;
+		.splide__arrow--prev {
+			left: unset;
+			right: 4em;
+		}
+	}
+	
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-outside-top-left .splide__arrows {
+		left: 1rem;
+		top: -4rem;
+		.splide__arrow--next {
+			left: 4em;
+		}
+	}
+
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-outside-bottom .splide__arrows {
+		position: absolute;
+		bottom: -2rem;
+		width: 100%;
+	}
+
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-outside-bottom-right .splide__arrows {
+		right: 1rem;
+		bottom: -4rem;
+		.splide__arrow--prev {
+			left: unset;
+			right: 4em;
+		}
+	}
+
+	.kt-blocks-carousel .splide.kb-slider-arrow-position-outside-bottom-left .splide__arrows {
+		left: 1rem;
+		bottom: -4rem;
+		.splide__arrow--next {
+			left: 4em;
+		}
+	}
+
+	.kt-blocks-carousel .splide.kb-slider-group-arrows .splide__arrows {
+		display: flex;
+		gap: 1rem;
+		position: absolute;
+		z-index: 1;
+	}
+
+// Pause Button Styles
+.wp-block-kadence-advancedgallery {
+	.kt-blocks-carousel {
+		position: relative;
+	}
+	
+	.kb-gallery-pause-button {
+		display: none;
+	}
+	
+	.kt-blocks-carousel:has(.kt-blocks-carousel-init[data-show-pause-button="true"]) .kb-gallery-pause-button,
+	.kt-blocks-carousel:has(.kb-blocks-slider[data-show-pause-button="true"]) .kb-gallery-pause-button {
+		display: flex;
+	}
+	
+	.kb-gallery-pause-button {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		background: var(--splide-nav-background, rgba(0, 0, 0, 0.8));
+		color: var(--splide-nav-color, #fff);
+		border: var(--splide-nav-border, 2px solid transparent);
+		border-radius: 4px;
+		padding: 8px 12px;
+		cursor: pointer;
+		font-size: 14px;
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: $splide-arrow-opacity;
+		transition: opacity 0.4s ease-in-out;
+		
+		&:hover, &:focus {
+			opacity: $splide-arrow-opacity-hover;
+		}
+		
+		&:focus {
+			outline: 2px solid currentColor;
+			outline-offset: 2px;
+		}
+		
+		svg {
+			width: 24px;
+			height: 24px;
+			display: block;
+		}
+		
+		.kb-gallery-pause-icon,
+		.kb-gallery-play-icon {
+			fill: currentColor;
+			line-height: 0;
+		}
+		
+		// Splide's toggle system handles visibility automatically
+		// When autoplay is running, pause icon is shown
+		// When autoplay is paused, play icon is shown
+	}
+	
+	.kt-blocks-carousel:hover .kb-gallery-pause-button {
+		opacity: $splide-arrow-opacity;
+	}
+	
+	&:has(.kb-slider-arrow-position-bottom-right) {
+		.kb-gallery-pause-button {
+			bottom: 50px;
+		}
+	}
+	
+	&:has(.kb-slider-arrow-position-outside-bottom-right) {
+		.kb-gallery-pause-button {
+			bottom: 80px;
+		}
+	}
+	
+	// Add margin-right to pause button in thumbnail slider mode
+	.kb-blocks-slider[data-slider-type="thumbnail"] .kb-gallery-pause-button {
+		margin-right: 25px;
 	}
 }

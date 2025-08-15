@@ -9,6 +9,10 @@
 		"uniqueID": {
 			"type": "string"
 		},
+		"overflow": {
+			"type": "boolean",
+			"default": false
+		},
 		"columns": {
 			"type": "array",
 			"default": [3, 3, 3, 2, 1, 1]
@@ -158,6 +162,14 @@
 			"default": ["", "", ""]
 		},
 		"gutterUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"mosaicRowHeight": {
+			"type": "array",
+			"default": [150, "", ""]
+		},
+		"mosaicRowHeightUnit": {
 			"type": "string",
 			"default": "px"
 		},
@@ -338,6 +350,108 @@
 		"kbVersion": {
 			"type": "number",
 			"default": ""
+		},
+		"mosaicType": {
+			"type": "string",
+			"default": "first"
+		},
+		"arrowPosition": {
+			"type": "string",
+			"default": "center"
+		},
+		"arrowMargin": {
+			"type": "array",
+			"default": ["", "", "", ""]
+		},
+		"tabletArrowMargin": {
+			"type": "array",
+			"default": ["", "", "", ""]
+		},
+		"mobileArrowMargin": {
+			"type": "array",
+			"default": ["", "", "", ""]
+		},
+		"arrowMarginUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"arrowSize": {
+			"type": "array",
+			"default": [ "", "", "" ]
+		},
+		"arrowSizeUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"arrowCustomColor": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowCustomColorHover": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowCustomColorActive": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowCustomColorBackground": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowCustomColorBackgroundHover": {
+			"type": "string",
+			"default": ""	
+		},
+		"arrowCustomColorBackgroundActive": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowCustomColorBorder": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowCustomColorBorderHover": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowCustomColorBorderActive": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowCustomBorderWidth": {
+			"type": "number"
+		},
+		"dotCustomColor": {
+			"type": "string",
+			"default": ""
+		},
+		"dotCustomColorHover": {
+			"type": "string",
+			"default": ""
+		},
+		"dotCustomColorActive": {
+			"type": "string",
+			"default": ""
+		},
+		"dotCustomColorBorder": {
+			"type": "string",
+			"default": ""
+		},
+		"dotCustomColorBorderHover": {
+			"type": "string",
+			"default": ""	
+		},
+		"dotCustomColorBorderActive": {
+			"type": "string",
+			"default": ""
+		},
+		"dotCustomBorderWidth": {
+			"type": "number"
+		},
+		"showPauseButton": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {

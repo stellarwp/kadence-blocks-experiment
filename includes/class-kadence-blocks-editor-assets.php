@@ -2,7 +2,7 @@
 /**
  * Class to Enqueue editor script assets of all the blocks.
  *
- * @since   1.0.0
+ * @since 1.0.0
  * @package Kadence Blocks
  */
 namespace KadenceWP\KadenceBlocks;
@@ -111,6 +111,7 @@ class Editor_Assets {
 
 		$blocks = [
 			'accordion',
+			'advanced-form',
 			'advancedbtn',
 			'advancedgallery',
 			'advancedheading',
@@ -119,12 +120,15 @@ class Editor_Assets {
 			'countdown',
 			'form',
 			'googlemaps',
+			'header',
 			'icon',
 			'iconlist',
 			'image',
 			'infobox',
 			'lottie',
 			'identity',
+			'navigation',
+			'navigation-link',
 			'posts',
 			'rowlayout',
 			'progress-bar',
@@ -135,10 +139,7 @@ class Editor_Assets {
 			'tableofcontents',
 			'tabs',
 			'testimonials',
-			'advanced-form',
-			'header',
-			'navigation',
-			'navigation-link',
+			'vector',
 		];
 
 		// for blocks moved from pro to free
@@ -232,7 +233,7 @@ class Editor_Assets {
 			$userrole = 'contributor';
 		}
 		$access_levels = [];
-		$level_ids     = false;
+		$level_ids     = [];
 		if ( function_exists( 'rcp_get_access_levels' ) ) {
 			foreach ( rcp_get_access_levels() as $key => $access_level_label ) {
 				$access_levels[] = [
@@ -247,6 +248,9 @@ class Editor_Assets {
 					'label' => esc_attr( $level->get_name() ),
 				];
 			}
+		}
+		if ( empty( $level_ids ) ) {
+			$level_ids = false;
 		}
 		if ( ! class_exists( 'Kadence\Theme' ) ) {
 			$global_colors = [
@@ -300,9 +304,11 @@ class Editor_Assets {
 		$font_sizes       = apply_filters( 'kadence_blocks_variable_font_sizes', $font_sizes );
 		$subscribed       = class_exists( 'Kadence_Blocks_Pro' ) || class_exists( 'KadenceWP\CreativeKit' ) ? true : get_option( 'kadence_blocks_wire_subscribe' );
 		$gfont_names_path = KADENCE_BLOCKS_PATH . 'includes/gfonts-names-array.php';
+
 		$icon_names_path  = KADENCE_BLOCKS_PATH . 'inc/data/icons/Icon_Names_Array.php';
 		$icon_ico_path    = KADENCE_BLOCKS_PATH . 'inc/data/icons/Icons_Ico_Array.php';
 		$icons_path       = KADENCE_BLOCKS_PATH . 'inc/data/icons/Icons_Array.php';
+
 		$current_user     = wp_get_current_user();
 		$user_email       = $current_user->user_email;
 		$recent_posts     = wp_get_recent_posts( [ 'numberposts' => '1' ] );
@@ -388,6 +394,7 @@ class Editor_Assets {
 				'hasKadencePro'          => ( is_plugin_active( 'kadence-pro/kadence-pro.php' ) ? true : false ),
 				'adminUrl'               => get_admin_url(),
 				'aiLang'                 => ( ! empty( $prophecy_data['lang'] ) ? $prophecy_data['lang'] : '' ),
+				'env'                    => ( ! empty( $pro_data['env'] ) ? $pro_data['env'] : '' ),
 				'kadenceBlocksUrl'       => KADENCE_BLOCKS_URL,
 			]
 		);
@@ -405,6 +412,13 @@ class Editor_Assets {
 				'icons' => file_exists( $icons_path ) ? include $icons_path : [],
 			]
 		);
+		wp_localize_script(
+			'kadence-blocks-js',
+			'kadence_blocks_params_kbcustomicons',
+			[
+				'icons' => file_exists( $icons_kbcustom_path ) ? include $icons_kbcustom_path : [],
+			]
+		);
 		$fast_load_patterns = class_exists( 'GFForms' ) ? false : true;
 		if ( apply_filters( 'kadence_blocks_preload_design_library', $fast_load_patterns ) ) {
 			$design_library_controller_upload = new \Kadence_Blocks_Prebuilt_Library_REST_Controller();
@@ -412,7 +426,8 @@ class Editor_Assets {
 				'kadence-blocks-js',
 				'kadence_blocks_params_library',
 				[
-					'library_sections' => apply_filters( 'kadence_blocks_preload_design_library_data', $design_library_controller_upload->get_local_library_data() ),
+					'library_sections'      => apply_filters( 'kadence_blocks_preload_design_library_data', $design_library_controller_upload->get_local_library_data( 'info' ) ),
+					'library_sections_html' => apply_filters( 'kadence_blocks_preload_design_library_html', $design_library_controller_upload->get_local_library_data( 'html' ) ),
 				]
 			);
 			wp_localize_script(

@@ -385,7 +385,9 @@
 			if (!element?.className) {
 				return false;
 			}
-			if (element.className.split(' ').indexOf(classname) >= 0) return element.id;
+			if (element.className.split(' ').indexOf(classname) >= 0) {
+				return element.id;
+			}
 			return element.parentNode && window.kadenceForm.checkParentClass(element.parentNode, classname);
 		},
 		verifySource(form) {
@@ -397,6 +399,22 @@
 				const theID = window.kadenceForm.checkParentClass(form.parentNode, 'widget_block');
 				if (theID) {
 					input.value = theID;
+				}
+			}
+		},
+		addAriaRequired(form) {
+			const inputs = form.querySelectorAll('input, select, textarea');
+
+			if (!inputs.length) {
+				return;
+			}
+
+			for (let i = 0; i < inputs.length; i++) {
+				const input = inputs[i];
+				const isRequired = input.dataset?.required;
+				const isHidden = input.getAttribute('type') == 'hidden';
+				if (isRequired && !isHidden) {
+					input.setAttribute('aria-required', 'true');
 				}
 			}
 		},
@@ -412,6 +430,7 @@
 			};
 			for (let n = 0; n < forms.length; n++) {
 				window.kadenceForm.verifySource(forms[n]);
+				window.kadenceForm.addAriaRequired(forms[n]);
 				forms[n].addEventListener('submit', click_function(forms[n]));
 			}
 		},

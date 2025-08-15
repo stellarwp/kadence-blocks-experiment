@@ -30,6 +30,7 @@ import {
 	ToolbarGroup,
 	ToolbarButton,
 	SelectControl,
+	RangeControl,
 } from '@wordpress/components';
 import { headerBlockIcon } from '@kadence/icons';
 import {
@@ -202,6 +203,7 @@ export function EditInner(props) {
 		backdropFilterType: meta?._kad_header_pro_backdropFilterType,
 		backdropFilterSize: meta?._kad_header_pro_backdropFilterSize,
 		backdropFilterString: meta?._kad_header_pro_backdropFilterString,
+		mobileBreakpoint: meta?._kad_header_mobileBreakpoint,
 	};
 
 	const {
@@ -291,6 +293,7 @@ export function EditInner(props) {
 		disableTransparentOverrides,
 		backdropFilterType,
 		backdropFilterSize,
+		mobileBreakpoint,
 	} = metaAttributes;
 
 	const setMetaAttribute = (value, key) => {
@@ -813,13 +816,22 @@ export function EditInner(props) {
 									borderRadiusUnit === 'em' || borderRadiusUnit === 'rem'
 										? 24
 										: borderRadiusUnit === 'px'
-										? 500
-										: 100
+											? 500
+											: 100
 								}
 								step={borderRadiusUnit === 'em' || borderRadiusUnit === 'rem' ? 0.1 : 1}
 								min={0}
 								isBorderRadius={true}
 								allowEmpty={true}
+								reset={() => {
+									if (previewDevice === 'Tablet') {
+										setMetaAttribute([0, 0, 0, 0], 'borderRadiusTablet');
+									} else if (previewDevice === 'Mobile') {
+										setMetaAttribute([0, 0, 0, 0], 'borderRadiusMobile');
+									} else {
+										setMetaAttribute([0, 0, 0, 0], 'borderRadius');
+									}
+								}}
 							/>
 						</KadencePanelBody>
 
@@ -946,8 +958,8 @@ export function EditInner(props) {
 													borderRadiusTransparentUnit === 'rem'
 														? 24
 														: borderRadiusTransparentUnit === 'px'
-														? 500
-														: 100
+															? 500
+															: 100
 												}
 												step={
 													borderRadiusTransparentUnit === 'em' ||
@@ -958,6 +970,15 @@ export function EditInner(props) {
 												min={0}
 												isBorderRadius={true}
 												allowEmpty={true}
+												reset={() => {
+													if (previewDevice === 'Tablet') {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusTransparentTablet');
+													} else if (previewDevice === 'Mobile') {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusTransparentMobile');
+													} else {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusTransparent');
+													}
+												}}
 											/>
 										</>
 									}
@@ -1002,8 +1023,8 @@ export function EditInner(props) {
 													borderRadiusTransparentHoverUnit === 'rem'
 														? 24
 														: borderRadiusTransparentHoverUnit === 'px'
-														? 500
-														: 100
+															? 500
+															: 100
 												}
 												step={
 													borderRadiusTransparentHoverUnit === 'em' ||
@@ -1014,6 +1035,21 @@ export function EditInner(props) {
 												min={0}
 												isBorderRadius={true}
 												allowEmpty={true}
+												reset={() => {
+													if (previewDevice === 'Tablet') {
+														setMetaAttribute(
+															[0, 0, 0, 0],
+															'borderRadiusTransparentHoverTablet'
+														);
+													} else if (previewDevice === 'Mobile') {
+														setMetaAttribute(
+															[0, 0, 0, 0],
+															'borderRadiusTransparentHoverMobile'
+														);
+													} else {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusTransparentHover');
+													}
+												}}
 											/>
 										</>
 									}
@@ -1063,8 +1099,8 @@ export function EditInner(props) {
 													borderRadiusStickyUnit === 'em' || borderRadiusStickyUnit === 'rem'
 														? 24
 														: borderRadiusStickyUnit === 'px'
-														? 500
-														: 100
+															? 500
+															: 100
 												}
 												step={
 													borderRadiusStickyUnit === 'em' || borderRadiusStickyUnit === 'rem'
@@ -1074,6 +1110,15 @@ export function EditInner(props) {
 												min={0}
 												isBorderRadius={true}
 												allowEmpty={true}
+												reset={() => {
+													if (previewDevice === 'Tablet') {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusStickyTablet');
+													} else if (previewDevice === 'Mobile') {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusStickyMobile');
+													} else {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusSticky');
+													}
+												}}
 											/>
 										</>
 									}
@@ -1116,8 +1161,8 @@ export function EditInner(props) {
 													borderRadiusStickyHoverUnit === 'rem'
 														? 24
 														: borderRadiusStickyHoverUnit === 'px'
-														? 500
-														: 100
+															? 500
+															: 100
 												}
 												step={
 													borderRadiusStickyHoverUnit === 'em' ||
@@ -1128,6 +1173,15 @@ export function EditInner(props) {
 												min={0}
 												isBorderRadius={true}
 												allowEmpty={true}
+												reset={() => {
+													if (previewDevice === 'Tablet') {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusStickyHoverTablet');
+													} else if (previewDevice === 'Mobile') {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusStickyHoverMobile');
+													} else {
+														setMetaAttribute([0, 0, 0, 0], 'borderRadiusStickyHover');
+													}
+												}}
 											/>
 										</>
 									}
@@ -1253,8 +1307,8 @@ export function EditInner(props) {
 									paddingUnit === 'em' || paddingUnit === 'rem'
 										? 24
 										: paddingUnit === 'px'
-										? 200
-										: 100
+											? 200
+											: 100
 								}
 								step={paddingUnit === 'em' || paddingUnit === 'rem' ? 0.1 : 1}
 								unit={paddingUnit}
@@ -1387,6 +1441,21 @@ export function EditInner(props) {
 									setMetaAttribute(['', '', ''], 'width');
 								}}
 								units={['px', '%', 'vw']}
+							/>
+							<RangeControl
+								label={__('Screen size to switch to mobile header', 'kadence-blocks')}
+								value={mobileBreakpoint === 0 ? null : mobileBreakpoint}
+								onChange={(value) => {
+									setMetaAttribute(value, 'mobileBreakpoint');
+								}}
+								step={1}
+								min={1}
+								max={2000}
+								reset={true}
+								help={__(
+									"Note: this ONLY affects when the header changes to it's mobile content. It DOES NOT affect responsive breakpoints for any other blocks or settings.",
+									'kadence-blocks'
+								)}
 							/>
 						</KadencePanelBody>
 					</>

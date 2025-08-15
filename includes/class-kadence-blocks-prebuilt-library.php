@@ -515,14 +515,21 @@ class Kadence_Blocks_Prebuilt_Library {
 		if ( ! $get_data ) {
 			// Send JSON Error response to the AJAX call.
 			wp_send_json( esc_html__( 'No Connection data', 'kadence-blocks' ) );
+		} elseif ( isset( $get_data['error'] ) && $get_data['error'] ) {
+			wp_send_json( ( ! empty( $get_data['message'] ) ? $get_data['message'] : esc_html__( 'No Connection data available', 'kadence-blocks' ) ) );
 		} else {
 			// Sanitize the connection data.
-			$temp_data             = json_decode( $get_data, true );
+			$temp_data = json_decode( $get_data, true );
+			if ( ! is_array( $temp_data ) ) {
+				wp_send_json( $temp_data );
+			}
 			$final_data            = [];
 			$final_data['name']    = ! empty( $temp_data['name'] ) ? sanitize_text_field( $temp_data['name'] ) : '';
 			$final_data['slug']    = ! empty( $temp_data['slug'] ) ? sanitize_text_field( $temp_data['slug'] ) : '';
 			$final_data['refresh'] = ! empty( $temp_data['refresh'] ) ? sanitize_text_field( $temp_data['refresh'] ) : '';
 			$final_data['expires'] = ! empty( $temp_data['expires'] ) ? sanitize_text_field( $temp_data['expires'] ) : '';
+			$final_data['pages']     = ! empty( $temp_data['pages'] ) ? sanitize_text_field( $temp_data['pages'] ) : '';
+			
 			if ( ! empty( $final_data['name'] ) ) {
 				wp_send_json( $final_data );
 			}
@@ -561,17 +568,15 @@ class Kadence_Blocks_Prebuilt_Library {
 		);
 		// Early exit if there was an error.
 		if ( is_wp_error( $response ) ) {
-			wp_send_json( esc_html__( 'No Connection data available: is_wp_error', 'kadence-blocks' ) );
-			return '';
+			// Return the error.
+			return [ 'error' => true, 'message' => $response->get_error_message() ];
 		}
-
 		// Get the CSS from our response.
 		$contents = wp_remote_retrieve_body( $response );
 
 		// Early exit if there was an error.
 		if ( is_wp_error( $contents ) ) {
-			wp_send_json( esc_html__( 'No Connection data available: is_wp_error', 'kadence-blocks' ) );
-			return;
+			return [ 'error' => true, 'message' => $contents->get_error_message() ];
 		}
 
 		return $contents;
@@ -809,7 +814,7 @@ class Kadence_Blocks_Prebuilt_Library {
 	/**
 	 * Download and Replace images
 	 *
-	 * @param  string $content the import post content.
+	 * @param string $content the import post content.
 	 */
 	public function process_image_content( $content = '', $image_library = '' ) {
 		// error_log( print_r( $image_library, true ) );
@@ -896,7 +901,7 @@ class Kadence_Blocks_Prebuilt_Library {
 	/**
 	 * Download and Replace images
 	 *
-	 * @param  string $content the import post content.
+	 * @param string $content the import post content.
 	 */
 	public function process_pattern_content( $content = '' ) {
 		// Find all urls.
@@ -947,7 +952,7 @@ class Kadence_Blocks_Prebuilt_Library {
 	/**
 	 * Download and Replace images
 	 *
-	 * @param  string $content the import post content.
+	 * @param string $content the import post content.
 	 */
 	public function process_content( $content = '', $import_library = '', $import_type = '', $import_id = '', $import_style = '' ) {
 		$content = $this->process_individual_import( $content, $import_library, $import_type, $import_id, $import_style );

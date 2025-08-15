@@ -3,11 +3,12 @@
  *
  * CSS for Backend.
  */
- @import './splide.scss';
+ @use './splide' as splide;
  .block-editor-block-list__block[data-type="kadence/advancedgallery"] {
     margin-bottom: 0;
     margin-top: 0;
 	flex: 1;
+	 overflow: hidden;
 }
 .kt-blocks-carousel-thumbnails.splide:not( .is-overflow ) .splide__slide:last-child {
 	margin: 0 !important;
@@ -297,7 +298,7 @@
 					width: 100%;
 					transition: all .3s ease-in-out;
 					&.kadence-blocks-gallery-intrinsic {
-						height: 0;
+						height: 100%;
 						position: relative;
 						img {
 							position: absolute;
@@ -591,6 +592,175 @@
 	max-width: 100%;
 }
 
+// mosaic
+.kb-gallery-main-contain.kb-gallery-type-mosaic {
+	.grid-pattern-container {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-auto-rows: 200px; // Fixed row height
+		grid-gap: 10px;
+		width: 100%;
+
+		// Updated class name here
+		.kadence-blocks-gallery-item {
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			height: 100%;
+
+			// Default grid item sizing for mobile (767px and below)
+			@media (max-width: 767px) {
+				&.grid-item-wide,
+				&.grid-item-large,
+				&.grid-item-tall,
+				&.grid-item-small,
+				&.last {
+					grid-column: span 4;
+					grid-row: span 2;
+				}
+
+				// Extra styles for the last images to prevent white spacing
+				&.only-one,
+				&.only-two,
+				&.only-three,
+				&.only-four,
+				&.only-five,
+				&.only-six,
+				&.only-seven {
+					grid-column: span 4;
+					grid-row: span 2;
+				}
+			}
+
+			@media (min-width: 768px) {
+
+				// Grid item styles
+				&.grid-item-wide {
+					grid-column: span 2;
+					grid-row: span 1;
+				}
+
+				&.grid-item-large {
+					grid-column: span 2;
+					grid-row: span 2;
+				}
+
+				&.grid-item-tall {
+					grid-column: span 1;
+					grid-row: span 2;
+				}
+
+				&.grid-item-small {
+					grid-column: span 1;
+					grid-row: span 1;
+				}
+
+				// Extra styles for the last images to prevent white spacing
+				&.only-one {
+					grid-column: span 4;
+					grid-row: span 2;
+				}
+				&.only-two {
+					grid-row: span 1;
+				}
+				&.only-three {
+					grid-column: span 2;
+					grid-row: span 1;
+				}
+				&.only-four {
+					grid-row: span 1;
+				}
+				&.only-five {
+					grid-column: span 3;
+					grid-row: span 1;
+				}
+				&.only-six {
+					grid-row: span 1;
+				}
+				&.only-seven {
+					grid-row: span 2;
+				}
+			}
+			// All nested elements need 100% height
+			.kadence-blocks-gallery-item-inner,
+			.kb-gallery-figure,
+			.kb-gal-image-radius,
+			.kb-gallery-image-contain,
+			.kadence-blocks-gallery-intrinsic {
+				height: 100%;
+				width: 100%;
+				display: block;
+			}
+
+			// Figure needs proper box sizing and margin removal
+			.kb-gallery-figure {
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			// Button styling
+			.kb-gallery-image-contain {
+				padding: 0;
+				background: none;
+				border: none;
+				cursor: pointer;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					display: block;
+				}
+			}
+
+			// Controls positioning for UI elements
+			.kadence-blocks-library-gallery-item__move-menu,
+			.kadence-blocks-library-gallery-item__inline-menu {
+				position: absolute;
+				z-index: 20;
+			}
+
+			// Prevents the intrinsic aspect ratio from affecting layout
+			.kadence-blocks-gallery-intrinsic {
+				position: relative;
+
+				&::before {
+					content: none !important;
+				}
+			}
+
+			// Ensure custom link options are visible in mosaic gallery
+			.kb-gallery-custom-options {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				z-index: 30;
+				background: #fff;
+				border-top: 4px solid var(--wp-admin-theme-color, #00669b);
+			}
+		}
+	}
+}
+
+.grid-pattern-gallery.kb-gallery-caption-style-below .grid-pattern-container .kadence-blocks-gallery-item {
+	display: flex;
+	flex-direction: column;
+
+	figure.kb-gallery-figure {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+}
+
+
+//.kt-blocks-carousel .splide .splide__arrow--prev svg {
+//	transform: scaleX(-1)
+//}
+//
+
+
 // .wp-block-kadence-advancedgallery {
 // 	// Fix Slider Overflow Issue.
 // 	.kt-blocks-carousel {
@@ -626,3 +796,50 @@
 // 		max-width: calc(100vw - 20px - 280px - 36px);
 // 	}
 // }
+
+// Pause Button Editor Styles
+.wp-block-kadence-advancedgallery {
+	.kt-blocks-carousel:hover .kb-gallery-pause-button {
+		opacity: 0.75;
+	}
+	
+	.kb-gallery-pause-button {
+		position: absolute;
+		bottom: 40px;
+		right: 10px;
+		background: var(--splide-nav-background, rgba(0, 0, 0, 0.8));
+		color: var(--splide-nav-color, #fff);
+		border: var(--splide-nav-border, 2px solid transparent);
+		border-radius: 4px;
+		padding: 8px 12px;
+		cursor: pointer;
+		font-size: 14px;
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0.25;
+		transition: opacity 0.4s ease-in-out;
+		
+		&:hover {
+			opacity: 1;
+		}
+		
+		svg {
+			width: 24px;
+			height: 24px;
+			display: block;
+		}
+		
+		.kb-gallery-pause-icon,
+		.kb-gallery-play-icon {
+			fill: currentColor;
+			line-height: 0;
+		}
+	}
+}
+
+// Add margin-right to pause button in thumbnail slider mode (editor)
+.kb-gallery-main-contain.kb-gallery-type-thumbslider .kb-gallery-pause-button {
+	margin-right: 25px;
+}

@@ -58,8 +58,7 @@ import {
 	getFontSizeOptionOutput,
 	getBorderStyle,
 	isRTL,
-	getPostOrFseId,
-	getUniqueId,
+	uniqueIdHelper,
 } from '@kadence/helpers';
 
 /**
@@ -151,6 +150,7 @@ function KadenceTestimonials(props) {
 		columnGap,
 		autoPlay,
 		autoSpeed,
+		showPauseButton,
 		transSpeed,
 		slidesScroll,
 		arrowStyle,
@@ -232,23 +232,10 @@ function KadenceTestimonials(props) {
 	const carouselRef = useRef(null);
 	const paddingMouseOver = mouseOverVisualizer();
 
-	const { addUniqueID } = useDispatch('kadenceblocks/data');
-	const { isUniqueID, isUniqueBlock, previewDevice, parentData } = useSelect(
+	const { previewDevice } = useSelect(
 		(select) => {
 			return {
-				isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
-				isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-				parentData: {
-					rootBlock: select('core/block-editor').getBlock(
-						select('core/block-editor').getBlockHierarchyRootClientId(clientId)
-					),
-					postId: select('core/editor')?.getCurrentPostId() ? select('core/editor')?.getCurrentPostId() : '',
-					reusableParent: select('core/block-editor').getBlockAttributes(
-						select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0]
-					),
-					editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
-				},
 			};
 		},
 		[clientId]
@@ -304,16 +291,6 @@ function KadenceTestimonials(props) {
 
 	useEffect(() => {
 		setBlockDefaults(metadata.name, attributes);
-
-		const postOrFseId = getPostOrFseId(props, parentData);
-		const uniqueId = getUniqueId(uniqueID, clientId, isUniqueID, isUniqueBlock, postOrFseId);
-		if (uniqueId !== uniqueID) {
-			attributes.uniqueID = uniqueId;
-			setAttributes({ uniqueID: uniqueId });
-			addUniqueID(uniqueId, clientId);
-		} else {
-			addUniqueID(uniqueID, clientId);
-		}
 
 		// Update from old gutter settings.
 		if (columnGap !== '') {
@@ -611,6 +588,8 @@ function KadenceTestimonials(props) {
 			saveRatingStyles({ margin: ['', '', '', ''] });
 		}
 	}, []);
+
+	uniqueIdHelper(props);
 
 	const innerBlockLength = testimonialBlock?.innerBlocks ? testimonialBlock.innerBlocks.length : 0;
 
@@ -1321,63 +1300,63 @@ function KadenceTestimonials(props) {
                         ${
 							displayShadow
 								? 'box-shadow: ' +
-								  shadow[0].hOffset +
-								  'px ' +
-								  shadow[0].vOffset +
-								  'px ' +
-								  shadow[0].blur +
-								  'px ' +
-								  shadow[0].spread +
-								  'px ' +
-								  KadenceColorOutput(
+									shadow[0].hOffset +
+									'px ' +
+									shadow[0].vOffset +
+									'px ' +
+									shadow[0].blur +
+									'px ' +
+									shadow[0].spread +
+									'px ' +
+									KadenceColorOutput(
 										undefined !== shadow[0].color && '' !== shadow[0].color
 											? shadow[0].color
 											: '#000000',
 										shadow[0].opacity ? shadow[0].opacity : 0.2
-								  ) +
-								  ';'
+									) +
+									';'
 								: ''
 						}
                         ${
 							containerBackground
 								? 'background: ' +
-								  KadenceColorOutput(
+									KadenceColorOutput(
 										containerBackground,
 										undefined !== containerBackgroundOpacity ? containerBackgroundOpacity : 1
-								  ) +
-								  ';'
+									) +
+									';'
 								: ''
 						}
                         ${
 							previewContainerRadiusTop
 								? 'border-top-left-radius:' +
-								  previewContainerRadiusTop +
-								  containerBorderRadiusUnit +
-								  ';'
+									previewContainerRadiusTop +
+									containerBorderRadiusUnit +
+									';'
 								: ''
 						}
                         ${
 							previewContainerRadiusRight
 								? 'border-top-right-radius:' +
-								  previewContainerRadiusRight +
-								  containerBorderRadiusUnit +
-								  ';'
+									previewContainerRadiusRight +
+									containerBorderRadiusUnit +
+									';'
 								: ''
 						}
                         ${
 							previewContainerRadiusBottom
 								? 'border-bottom-right-radius:' +
-								  previewContainerRadiusBottom +
-								  containerBorderRadiusUnit +
-								  ';'
+									previewContainerRadiusBottom +
+									containerBorderRadiusUnit +
+									';'
 								: ''
 						}
                         ${
 							previewContainerRadiusLeft
 								? 'border-bottom-left-radius:' +
-								  previewContainerRadiusLeft +
-								  containerBorderRadiusUnit +
-								  ';'
+									previewContainerRadiusLeft +
+									containerBorderRadiusUnit +
+									';'
 								: ''
 						}
                         ${previewContainerBorderTop ? 'border-top: ' + previewContainerBorderTop + ';' : ''}
@@ -1387,41 +1366,41 @@ function KadenceTestimonials(props) {
                         ${
 							previewContainerPaddingTop
 								? 'padding-top: ' +
-								  getSpacingOptionOutput(
+									getSpacingOptionOutput(
 										previewContainerPaddingTop,
 										containerPaddingType ? containerPaddingType : 'px'
-								  ) +
-								  ';'
+									) +
+									';'
 								: ''
 						}
                         ${
 							previewContainerPaddingRight
 								? 'padding-right: ' +
-								  getSpacingOptionOutput(
+									getSpacingOptionOutput(
 										previewContainerPaddingRight,
 										containerPaddingType ? containerPaddingType : 'px'
-								  ) +
-								  ';'
+									) +
+									';'
 								: ''
 						}
                         ${
 							previewContainerPaddingBottom
 								? 'padding-bottom: ' +
-								  getSpacingOptionOutput(
+									getSpacingOptionOutput(
 										previewContainerPaddingBottom,
 										containerPaddingType ? containerPaddingType : 'px'
-								  ) +
-								  ';'
+									) +
+									';'
 								: ''
 						}
                         ${
 							previewContainerPaddingLeft
 								? 'padding-left: ' +
-								  getSpacingOptionOutput(
+									getSpacingOptionOutput(
 										previewContainerPaddingLeft,
 										containerPaddingType ? containerPaddingType : 'px'
-								  ) +
-								  ';'
+									) +
+									';'
 								: ''
 						}
                         ${
@@ -1439,63 +1418,63 @@ function KadenceTestimonials(props) {
 						${
 							previewWrapperPaddingTop
 								? 'padding-top: ' +
-								  getSpacingOptionOutput(previewWrapperPaddingTop, wrapperPaddingType) +
-								  ';'
+									getSpacingOptionOutput(previewWrapperPaddingTop, wrapperPaddingType) +
+									';'
 								: shadowCarousel
-								? 'padding-top: .5rem;'
-								: ''
+									? 'padding-top: .5rem;'
+									: ''
 						}
 						${
 							previewWrapperPaddingBottom
 								? 'padding-bottom: ' +
-								  getSpacingOptionOutput(previewWrapperPaddingBottom, wrapperPaddingType) +
-								  ';'
+									getSpacingOptionOutput(previewWrapperPaddingBottom, wrapperPaddingType) +
+									';'
 								: shadowCarousel
-								? 'padding-bottom: .5rem;'
-								: ''
+									? 'padding-bottom: .5rem;'
+									: ''
 						}
                     }
 					.kt-blocks-testimonials-wrap${uniqueID} {
 						${
 							previewWrapperPaddingRight
 								? 'padding-right: ' +
-								  getSpacingOptionOutput(previewWrapperPaddingRight, wrapperPaddingType) +
-								  ';'
+									getSpacingOptionOutput(previewWrapperPaddingRight, wrapperPaddingType) +
+									';'
 								: ''
 						}
 						${
 							previewWrapperPaddingLeft
 								? 'padding-left: ' +
-								  getSpacingOptionOutput(previewWrapperPaddingLeft, wrapperPaddingType) +
-								  ';'
+									getSpacingOptionOutput(previewWrapperPaddingLeft, wrapperPaddingType) +
+									';'
 								: ''
 						}
                         ${
 							previewWrapperMarginTop
 								? 'margin-top: ' +
-								  getSpacingOptionOutput(previewWrapperMarginTop, wrapperMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewWrapperMarginTop, wrapperMarginUnit) +
+									';'
 								: ''
 						}
 						${
 							previewWrapperMarginRight
 								? 'margin-right: ' +
-								  getSpacingOptionOutput(previewWrapperMarginRight, wrapperMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewWrapperMarginRight, wrapperMarginUnit) +
+									';'
 								: ''
 						}
 						${
 							previewWrapperMarginBottom
 								? 'margin-bottom: ' +
-								  getSpacingOptionOutput(previewWrapperMarginBottom, wrapperMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewWrapperMarginBottom, wrapperMarginUnit) +
+									';'
 								: ''
 						}
 						${
 							previewWrapperMarginLeft
 								? 'margin-left: ' +
-								  getSpacingOptionOutput(previewWrapperMarginLeft, wrapperMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewWrapperMarginLeft, wrapperMarginUnit) +
+									';'
 								: ''
 						}
                     }
@@ -1509,8 +1488,8 @@ function KadenceTestimonials(props) {
 								containerVAlign === 'middle'
 									? 'center'
 									: containerVAlign === 'top'
-									? 'flex-start'
-									: 'flex-end'
+										? 'flex-start'
+										: 'flex-end'
 							};
                         }`
 							: ''
@@ -1539,44 +1518,44 @@ function KadenceTestimonials(props) {
 						${
 							previewTitlePaddingTop
 								? 'padding-top: ' +
-								  getSpacingOptionOutput(previewTitlePaddingTop, titlePaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewTitlePaddingTop, titlePaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewTitlePaddingRight
 								? 'padding-right: ' +
-								  getSpacingOptionOutput(previewTitlePaddingRight, titlePaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewTitlePaddingRight, titlePaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewTitlePaddingBottom
 								? 'padding-bottom: ' +
-								  getSpacingOptionOutput(previewTitlePaddingBottom, titlePaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewTitlePaddingBottom, titlePaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewTitlePaddingLeft
 								? 'padding-left: ' +
-								  getSpacingOptionOutput(previewTitlePaddingLeft, titlePaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewTitlePaddingLeft, titlePaddingUnit) +
+									';'
 								: ''
 						}
 						${previewTitleMarginTop ? 'margin-top: ' + getSpacingOptionOutput(previewTitleMarginTop, titleMarginUnit) + ';' : ''}
 						${
 							previewTitleMarginRight
 								? 'margin-right: ' +
-								  getSpacingOptionOutput(previewTitleMarginRight, titleMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewTitleMarginRight, titleMarginUnit) +
+									';'
 								: ''
 						}
 						${
 							previewTitleMarginBottom
 								? 'margin-bottom: ' +
-								  getSpacingOptionOutput(previewTitleMarginBottom, titleMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewTitleMarginBottom, titleMarginUnit) +
+									';'
 								: ''
 						}
 						${previewTitleMarginLeft ? 'margin-left: ' + getSpacingOptionOutput(previewTitleMarginLeft, titleMarginUnit) + ';' : ''}
@@ -1594,8 +1573,8 @@ function KadenceTestimonials(props) {
                         ${
 							previewContentFont
 								? 'font-size: ' +
-								  getFontSizeOptionOutput(previewContentFont, previewContentFontSizeType) +
-								  ';'
+									getFontSizeOptionOutput(previewContentFont, previewContentFontSizeType) +
+									';'
 								: ''
 						}
                         ${
@@ -1620,16 +1599,16 @@ function KadenceTestimonials(props) {
                         ${
 							previewOccupationFont
 								? 'font-size: ' +
-								  getFontSizeOptionOutput(previewOccupationFont, previewOccupationFontSizeType) +
-								  ';'
+									getFontSizeOptionOutput(previewOccupationFont, previewOccupationFontSizeType) +
+									';'
 								: ''
 						}
                         ${
 							previewOccupationLineHeight
 								? 'line-height: ' +
-								  previewOccupationLineHeight +
-								  previewOccupationLineHeightLineType +
-								  ';'
+									previewOccupationLineHeight +
+									previewOccupationLineHeightLineType +
+									';'
 								: ''
 						}
                         ${
@@ -1656,13 +1635,13 @@ function KadenceTestimonials(props) {
                         ${
 							mediaStyles[0].background
 								? 'background-color: ' +
-								  KadenceColorOutput(
+									KadenceColorOutput(
 										mediaStyles[0].background,
 										undefined !== mediaStyles[0].backgroundOpacity
 											? mediaStyles[0].backgroundOpacity
 											: 1
-								  ) +
-								  ';'
+									) +
+									';'
 								: ''
 						}
 						${previewMediaBorderTop ? 'border-top: ' + previewMediaBorderTop + ';' : ''}
@@ -1677,69 +1656,69 @@ function KadenceTestimonials(props) {
 						${
 							'' !== previewMediaBorderRadiusRight
 								? 'border-top-right-radius: ' +
-								  previewMediaBorderRadiusRight +
-								  mediaBorderRadiusUnit +
-								  ';'
+									previewMediaBorderRadiusRight +
+									mediaBorderRadiusUnit +
+									';'
 								: ''
 						}
 						${
 							'' !== previewMediaBorderRadiusBottom
 								? 'border-bottom-right-radius: ' +
-								  previewMediaBorderRadiusBottom +
-								  mediaBorderRadiusUnit +
-								  ';'
+									previewMediaBorderRadiusBottom +
+									mediaBorderRadiusUnit +
+									';'
 								: ''
 						}
 						${
 							'' !== previewMediaBorderRadiusLeft
 								? 'border-bottom-left-radius: ' +
-								  previewMediaBorderRadiusLeft +
-								  mediaBorderRadiusUnit +
-								  ';'
+									previewMediaBorderRadiusLeft +
+									mediaBorderRadiusUnit +
+									';'
 								: ''
 						}
 						${previewMediaMarginTop ? 'margin-top: ' + getSpacingOptionOutput(previewMediaMarginTop, mediaMarginUnit) + ';' : ''}
 						${
 							previewMediaMarginRight
 								? 'margin-right: ' +
-								  getSpacingOptionOutput(previewMediaMarginRight, mediaMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewMediaMarginRight, mediaMarginUnit) +
+									';'
 								: ''
 						}
 						${
 							previewMediaMarginBottom
 								? 'margin-bottom: ' +
-								  getSpacingOptionOutput(previewMediaMarginBottom, mediaMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewMediaMarginBottom, mediaMarginUnit) +
+									';'
 								: ''
 						}
 						${previewMediaMarginLeft ? 'margin-left: ' + getSpacingOptionOutput(previewMediaMarginLeft, mediaMarginUnit) + ';' : ''}
 						${
 							previewMediaPaddingTop
 								? 'padding-top: ' +
-								  getSpacingOptionOutput(previewMediaPaddingTop, mediaPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewMediaPaddingTop, mediaPaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewMediaPaddingRight
 								? 'padding-right: ' +
-								  getSpacingOptionOutput(previewMediaPaddingRight, mediaPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewMediaPaddingRight, mediaPaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewMediaPaddingBottom
 								? 'padding-bottom: ' +
-								  getSpacingOptionOutput(previewMediaPaddingBottom, mediaPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewMediaPaddingBottom, mediaPaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewMediaPaddingLeft
 								? 'padding-left: ' +
-								  getSpacingOptionOutput(previewMediaPaddingLeft, mediaPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewMediaPaddingLeft, mediaPaddingUnit) +
+									';'
 								: ''
 						}
                     }
@@ -1779,8 +1758,8 @@ function KadenceTestimonials(props) {
 						${
 							previewIconMarginBottom
 								? 'margin-bottom: ' +
-								  getSpacingOptionOutput(previewIconMarginBottom, iconMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewIconMarginBottom, iconMarginUnit) +
+									';'
 								: ''
 						}
 						${previewIconMarginLeft ? 'margin-left: ' + getSpacingOptionOutput(previewIconMarginLeft, iconMarginUnit) + ';' : ''}
@@ -1800,47 +1779,47 @@ function KadenceTestimonials(props) {
 						${
 							previewIconBorderRadiusRight
 								? 'border-top-right-radius: ' +
-								  previewIconBorderRadiusRight +
-								  iconBorderRadiusUnit +
-								  ';'
+									previewIconBorderRadiusRight +
+									iconBorderRadiusUnit +
+									';'
 								: ''
 						}
 						${
 							previewIconBorderRadiusBottom
 								? 'border-bottom-right-radius: ' +
-								  previewIconBorderRadiusBottom +
-								  iconBorderRadiusUnit +
-								  ';'
+									previewIconBorderRadiusBottom +
+									iconBorderRadiusUnit +
+									';'
 								: ''
 						}
 						${
 							previewIconBorderRadiusLeft
 								? 'border-bottom-left-radius: ' +
-								  previewIconBorderRadiusLeft +
-								  iconBorderRadiusUnit +
-								  ';'
+									previewIconBorderRadiusLeft +
+									iconBorderRadiusUnit +
+									';'
 								: ''
 						}
 						${previewIconPaddingTop ? 'padding-top: ' + getSpacingOptionOutput(previewIconPaddingTop, iconPaddingUnit) + ';' : ''}
 						${
 							previewIconPaddingRight
 								? 'padding-right: ' +
-								  getSpacingOptionOutput(previewIconPaddingRight, iconPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewIconPaddingRight, iconPaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewIconPaddingBottom
 								? 'padding-bottom: ' +
-								  getSpacingOptionOutput(previewIconPaddingBottom, iconPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewIconPaddingBottom, iconPaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewIconPaddingLeft
 								? 'padding-left: ' +
-								  getSpacingOptionOutput(previewIconPaddingLeft, iconPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewIconPaddingLeft, iconPaddingUnit) +
+									';'
 								: ''
 						}
 					}
@@ -1851,50 +1830,50 @@ function KadenceTestimonials(props) {
 						${
 							previewRatingMarginRight
 								? 'margin-right: ' +
-								  getSpacingOptionOutput(previewRatingMarginRight, ratingMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewRatingMarginRight, ratingMarginUnit) +
+									';'
 								: ''
 						}
 						${
 							previewRatingMarginBottom
 								? 'margin-bottom: ' +
-								  getSpacingOptionOutput(previewRatingMarginBottom, ratingMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewRatingMarginBottom, ratingMarginUnit) +
+									';'
 								: ''
 						}
 						${
 							previewRatingMarginLeft
 								? 'margin-left: ' +
-								  getSpacingOptionOutput(previewRatingMarginLeft, ratingMarginUnit) +
-								  ';'
+									getSpacingOptionOutput(previewRatingMarginLeft, ratingMarginUnit) +
+									';'
 								: ''
 						}
 						${
 							previewRatingPaddingTop
 								? 'padding-top: ' +
-								  getSpacingOptionOutput(previewRatingPaddingTop, ratingPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewRatingPaddingTop, ratingPaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewRatingPaddingRight
 								? 'padding-right: ' +
-								  getSpacingOptionOutput(previewRatingPaddingRight, ratingPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewRatingPaddingRight, ratingPaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewRatingPaddingBottom
 								? 'padding-bottom: ' +
-								  getSpacingOptionOutput(previewRatingPaddingBottom, ratingPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewRatingPaddingBottom, ratingPaddingUnit) +
+									';'
 								: ''
 						}
 						${
 							previewRatingPaddingLeft
 								? 'padding-left: ' +
-								  getSpacingOptionOutput(previewRatingPaddingLeft, ratingPaddingUnit) +
-								  ';'
+									getSpacingOptionOutput(previewRatingPaddingLeft, ratingPaddingUnit) +
+									';'
 								: ''
 						}
 					}
@@ -2135,7 +2114,7 @@ function KadenceTestimonials(props) {
 				{style === 'bubble' || style === 'inlineimage'
 					? `.kt-blocks-testimonials-wrap${uniqueID} .kt-testimonial-text-wrap:after { margin-top: ${
 							has(borderStyle, [0, 'bottom', 2]) ? borderStyle[0].bottom[2] : '1'
-					  }${has(borderStyle, [0, 'unit']) ? borderStyle[0].unit : 'px'}; }`
+						}${has(borderStyle, [0, 'unit']) ? borderStyle[0].unit : 'px'}; }`
 					: ''}
 				{style === 'bubble' || style === 'inlineimage'
 					? `.kt-blocks-testimonials-wrap${uniqueID} .kt-testimonial-text-wrap:after { border-top-color: ${
@@ -2143,12 +2122,12 @@ function KadenceTestimonials(props) {
 								? KadenceColorOutput(
 										borderStyle[0].bottom[0],
 										undefined !== containerBorderOpacity ? containerBorderOpacity : 1
-								  )
+									)
 								: KadenceColorOutput(
 										'#eeeeee',
 										undefined !== containerBorderOpacity ? containerBorderOpacity : 1
-								  )
-					  } }`
+									)
+						} }`
 					: ''}
 				{layout === 'grid' &&
 					`.kt-testimonial-grid-wrap .block-editor-inner-blocks .block-editor-block-list__layout {
@@ -2305,14 +2284,27 @@ function KadenceTestimonials(props) {
 													onChange={(value) => setAttributes({ autoPlay: value })}
 												/>
 												{autoPlay && (
-													<RangeControl
-														label={__('Autoplay Speed', 'kadence-blocks')}
-														value={autoSpeed}
-														onChange={(value) => setAttributes({ autoSpeed: value })}
-														min={0}
-														max={15000}
-														step={10}
-													/>
+													<>
+														<RangeControl
+															label={__('Autoplay Speed', 'kadence-blocks')}
+															value={autoSpeed}
+															onChange={(value) => setAttributes({ autoSpeed: value })}
+															min={0}
+															max={15000}
+															step={10}
+														/>
+														<ToggleControl
+															label={__('Show Pause Button', 'kadence-blocks')}
+															checked={showPauseButton}
+															onChange={(value) =>
+																setAttributes({ showPauseButton: value })
+															}
+															help={__(
+																'Display a pause/play button in the bottom right corner.',
+																'kadence-blocks'
+															)}
+														/>
+													</>
 												)}
 												<RangeControl
 													label={__('Carousel Slide Transition Speed', 'kadence-blocks')}
@@ -3612,6 +3604,37 @@ function KadenceTestimonials(props) {
 							hasTrack={false}
 						>
 							<SplideTrack {...innerBlocksProps}></SplideTrack>
+							{autoPlay && showPauseButton && (
+								<button
+									className="kb-gallery-pause-button splide__toggle"
+									type="button"
+									aria-label={__('Toggle autoplay', 'kadence-blocks')}
+								>
+									<span className="kb-gallery-pause-icon splide__toggle__pause">
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<rect x="6" y="4" width="4" height="16" fill="currentColor" />
+											<rect x="14" y="4" width="4" height="16" fill="currentColor" />
+										</svg>
+									</span>
+									<span className="kb-gallery-play-icon splide__toggle__play">
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path d="M8 5v14l11-7z" fill="currentColor" />
+										</svg>
+									</span>
+								</button>
+							)}
 						</Splide>
 					)}
 					{layout && layout === 'grid' && (
