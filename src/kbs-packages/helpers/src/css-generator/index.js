@@ -19,7 +19,7 @@ class CSSGenerator {
 	constructor(selector = '', props = {}, metadata = {}) {
 		this.rules = new Map();
 		this.currentSelector = selector;
-		this.props = props;
+		this.props = this.propagateVariantPresets(props, metadata);
 		this.metadata = metadata;
 
 		const simpleGenerator = new SimpleGenerator(this);
@@ -52,6 +52,101 @@ class CSSGenerator {
 		};
 	}
 
+	/**
+	 * Deep merge helper that only adds missing values
+	 * Existing values in target take priority
+	 */
+	deepMergeWithPriority(target, source) {
+		if (!source || typeof source !== 'object') {
+			return target;
+		}
+		
+		const result = { ...target };
+		
+		Object.keys(source).forEach(key => {
+			if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+				// If target doesn't have this key at all, add the entire source value
+				if (!result[key]) {
+					result[key] = source[key];
+				} else if (typeof result[key] === 'object' && !Array.isArray(result[key])) {
+					// Both are objects, recurse
+					result[key] = this.deepMergeWithPriority(result[key], source[key]);
+				}
+				// If target has a value that's not an object, keep it (user override)
+			} else {
+				// For primitive values and arrays, only set if target doesn't have a value
+				if (result[key] === undefined || result[key] === null || result[key] === '') {
+					result[key] = source[key];
+				}
+			}
+		});
+		
+		return result;
+	}
+
+	/**
+	 * Propagate variant presets to component attributes
+	 * This ensures that when a variant defines values for components,
+	 * those values are applied if the component doesn't already have them
+	 * 
+	 * @param {Object} props - The original props
+	 * @param {Object} metadata - The block metadata
+	 * @returns {Object} - Modified props with propagated values
+	 */
+	propagateVariantPresets(props, metadata) {
+		// Early return if no metadata or attributes
+		if (!metadata?.attributes || !props?.attributes) {
+			return props;
+		}
+
+		// Create a copy of props to avoid mutations
+		const modifiedProps = { ...props };
+		const modifiedAttributes = { ...props.attributes };
+
+		// Look for bundle preset attributes (variants)
+		Object.entries(metadata.attributes).forEach(([attributeName, attributeMeta]) => {
+			if (attributeMeta?.bundlePreset) {
+				// Get the variant value
+				const variantValue = props.attributes?.[attributeName] || attributeMeta?.initial;
+				
+				if (variantValue) {
+					const bundlePresetComponent = attributeMeta?.component;
+					
+					// Check if we can access the global styles store
+					if (select && select('kadenceblocks/global-styles')) {
+						// Get the variant's preset data
+						const variantData = select('kadenceblocks/global-styles').getResolvedStyleData(
+							props.globalStylesIds || [],
+							bundlePresetComponent,
+							'presets.' + variantValue
+						);
+						
+						// If the variant has attributes, merge them
+						if (variantData?.attributes) {
+							Object.entries(variantData.attributes).forEach(([componentName, componentValue]) => {
+								// Ensure the component attribute exists
+								if (!modifiedAttributes[componentName]) {
+									// If the attribute doesn't exist at all, add the entire value
+									modifiedAttributes[componentName] = componentValue;
+								} else {
+									// Deep merge, preserving existing user values
+									modifiedAttributes[componentName] = this.deepMergeWithPriority(
+										modifiedAttributes[componentName],
+										componentValue
+									);
+								}
+							});
+						}
+					}
+				}
+			}
+		});
+
+		// Return the modified props
+		modifiedProps.attributes = modifiedAttributes;
+		return modifiedProps;
+	}
+
 	build() {
 		if (this.metadata?.attributes) {
 			Object.entries(this.metadata.attributes).forEach(([attributeName, value]) => {
@@ -60,56 +155,6 @@ class CSSGenerator {
 						this.addComponent(attributeName, value, this.props, this.metadata);
 					} else {
 						this.addAttribute(attributeName, value, this.props);
-					}
-				}
-			});
-
-			// Second pass: Process bundle presets
-			Object.entries(this.metadata.attributes).forEach(([attributeName, value]) => {
-				if (value?.bundlePreset && !value.renderCSS) {
-					// Get the bundle preset value (e.g., "primary", "secondary", etc.)
-					const bundlePresetValue = this.props.attributes?.[attributeName] || value?.initial;
-
-					if (bundlePresetValue) {
-						// Get the resolved preset data from global styles
-						const bundlePresetComponent = value?.component;
-						const rawPresetData = select('kadenceblocks/global-styles').getResolvedStyleData(
-							this.props.globalStylesIds || [],
-							bundlePresetComponent,
-							'presets.' + bundlePresetValue
-						);
-
-						// If we have preset data, process each attribute it contains
-						if (rawPresetData?.attributes) {
-							Object.entries(rawPresetData.attributes).forEach(
-								([presetAttributeName, presetAttributeValue]) => {
-									// Check if this attribute exists in the metadata and should render CSS
-									const presetAttributeMeta = this.metadata.attributes?.[presetAttributeName];
-									if (presetAttributeMeta && presetAttributeMeta.renderCSS !== false) {
-										// Create a modified props with the preset values
-										const modifiedProps = {
-											...this.props,
-											attributes: {
-												...this.props.attributes,
-												[presetAttributeName]: presetAttributeValue,
-											},
-										};
-
-										// Process the attribute
-										if (presetAttributeMeta?.component) {
-											this.addComponent(
-												presetAttributeName,
-												presetAttributeMeta,
-												modifiedProps,
-												this.metadata
-											);
-										} else {
-											this.addAttribute(presetAttributeName, presetAttributeMeta, modifiedProps);
-										}
-									}
-								}
-							);
-						}
 					}
 				}
 			});
