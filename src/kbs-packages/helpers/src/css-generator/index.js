@@ -60,10 +60,10 @@ class CSSGenerator {
 		if (!source || typeof source !== 'object') {
 			return target;
 		}
-		
+
 		const result = { ...target };
-		
-		Object.keys(source).forEach(key => {
+
+		Object.keys(source).forEach((key) => {
 			if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
 				// If target doesn't have this key at all, add the entire source value
 				if (!result[key]) {
@@ -80,7 +80,7 @@ class CSSGenerator {
 				}
 			}
 		});
-		
+
 		return result;
 	}
 
@@ -88,7 +88,7 @@ class CSSGenerator {
 	 * Propagate variant presets to component attributes
 	 * This ensures that when a variant defines values for components,
 	 * those values are applied if the component doesn't already have them
-	 * 
+	 *
 	 * @param {Object} props - The original props
 	 * @param {Object} metadata - The block metadata
 	 * @returns {Object} - Modified props with propagated values
@@ -108,10 +108,10 @@ class CSSGenerator {
 			if (attributeMeta?.bundlePreset) {
 				// Get the variant value
 				const variantValue = props.attributes?.[attributeName] || attributeMeta?.initial;
-				
+
 				if (variantValue) {
 					const bundlePresetComponent = attributeMeta?.component;
-					
+
 					// Check if we can access the global styles store
 					if (select && select('kadenceblocks/global-styles')) {
 						// Get the variant's preset data
@@ -120,7 +120,7 @@ class CSSGenerator {
 							bundlePresetComponent,
 							'presets.' + variantValue
 						);
-						
+
 						// If the variant has attributes, merge them
 						if (variantData?.attributes) {
 							Object.entries(variantData.attributes).forEach(([componentName, componentValue]) => {
