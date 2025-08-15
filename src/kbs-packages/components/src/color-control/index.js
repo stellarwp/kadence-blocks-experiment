@@ -45,8 +45,10 @@ export default function ColorControl({
 	label,
 	hasDeviceControls = false,
 	isAdvanced = false,
+	setIsAdvanced = () => {},
 	advancedControls = [],
 	isCustom = false,
+	setIsCustom = () => {},
 	hasCustomControls = false,
 	previewDevice = 'Desktop',
 	forStyleBook = false,
@@ -79,7 +81,7 @@ export default function ColorControl({
 		getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, typeToUse, globalStylesIds);
 
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
@@ -127,18 +129,18 @@ export default function ColorControl({
 						inherited: inheritedToUse?.inheritedValue ? inheritedToUse.inheritedValue : '',
 						colors: globalColors,
 						gradients: globalGradients,
-						hasToggleLabel: hasToggleLabel,
+						hasToggleLabel,
 					})}
 					renderContent={ColorDropdown({
 						colors: globalColors,
 						currentValue: currentValueToUse,
 						inherited: inheritedToUse?.inheritedValue ? inheritedToUse.inheritedValue : '',
-						onChange: onChange,
-						previewDevice: previewDevice,
+						onChange,
+						previewDevice,
 						type: typeToUse,
-						hasGradient: hasGradient,
-						hasMix: hasMix,
-						globalStylesCss: globalStylesCss,
+						hasGradient,
+						hasMix,
+						globalStylesCss,
 					})}
 				/>
 			</div>

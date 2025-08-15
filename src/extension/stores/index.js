@@ -38,12 +38,10 @@ const actions = {
 			type: 'SET_PREVIEW_DEVICE_TYPE_FOR_CORE',
 			deviceType,
 		};
-		if (!setForCore) {
-			return {
-				type: 'SET_PREVIEW_DEVICE_TYPE',
-				deviceType,
-			};
-		}
+		return {
+			type: 'SET_PREVIEW_DEVICE_TYPE',
+			deviceType,
+		};
 	},
 	*setHeaderVisualBuilderOpenId(clientId = null) {
 		return {
@@ -327,8 +325,12 @@ const controls = {
 };
 
 const getPreviewDeviceType = createRegistrySelector((select) => (state) => {
-	const editor = select('core/editor');
+	// In widgets editor, return the state's preview device
+	if (typeof pagenow !== 'undefined' && pagenow === 'widgets') {
+		return state.previewDevice;
+	}
 
+	const editor = select('core/editor');
 	if (editor && editor?.getDeviceType) {
 		return editor.getDeviceType();
 	}
@@ -616,19 +618,15 @@ const store = createReduxStore('kadenceblocks/data', {
 				if (googleFonts.hasOwnProperty(fontFamily)) {
 					isUniqueGoogleFont = false;
 				}
-			} else {
+			} else if (googleFonts.hasOwnProperty(fontFamily)) {
 				// Since we need to update to add new weights or styles we need to check if the font family exists and if the weights and styles are the same.
-				if (googleFonts.hasOwnProperty(fontFamily)) {
-					if (!fontData?.weight) {
-						isUniqueGoogleFont = false;
-					} else {
-						if (
-							googleFonts[fontFamily]?.weights &&
-							googleFonts[fontFamily].weights.includes(fontData?.weight)
-						) {
-							isUniqueGoogleFont = false;
-						}
-					}
+				if (!fontData?.weight) {
+					isUniqueGoogleFont = false;
+				} else if (
+					googleFonts[fontFamily]?.weights &&
+					googleFonts[fontFamily].weights.includes(fontData?.weight)
+				) {
+					isUniqueGoogleFont = false;
 				}
 			}
 			return isUniqueGoogleFont;

@@ -46,20 +46,19 @@ function RangeUIControl({
 		const specialMinMax = getMinMaxForTypeAndUnit(type, existingUnit);
 		if (specialMinMax) {
 			return specialMinMax;
-		} else {
-			switch (existingUnit) {
-				case 'px':
-					return [0, 1200];
-				case '%':
-				case 'vh':
-				case 'vw':
-					return [0, 100];
-				case 'em':
-				case 'rem':
-					return [0, 10];
-				default:
-					return [0, 100];
-			}
+		}
+		switch (existingUnit) {
+			case 'px':
+				return [0, 1200];
+			case '%':
+			case 'vh':
+			case 'vw':
+				return [0, 100];
+			case 'em':
+			case 'rem':
+				return [0, 10];
+			default:
+				return [0, 100];
 		}
 	}, [value]);
 

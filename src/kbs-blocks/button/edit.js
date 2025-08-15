@@ -23,7 +23,7 @@ import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useMemo, useRef } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
-import { RichText, useBlockProps, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
+import { RichText, useBlockProps, BlockControls, AlignmentToolbar, createBlock } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -110,8 +110,8 @@ export default function ButtonEdit(props) {
 		[`has-text-align-${textAlign}`]: textAlign,
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
-		['kbs-button-has-icon']: hasIcon,
-		['icon-reveal']: hasIcon && hasIconReveal,
+		'kbs-button-has-icon': hasIcon,
+		'icon-reveal': hasIcon && hasIconReveal,
 	});
 
 	const blockProps = useBlockProps({
@@ -171,7 +171,7 @@ export default function ButtonEdit(props) {
 			allowedFormats={richTextFormats}
 			onMerge={mergeBlocks}
 			onSplit={(value) => {
-				if (!value && !isDefaultEditorBlock) {
+				if (!value) {
 					return createBlock('core/paragraph');
 				}
 				return createBlock('kadence/advancedheading', {

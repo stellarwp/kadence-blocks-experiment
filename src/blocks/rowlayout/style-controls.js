@@ -26,6 +26,7 @@ import {
 	ColorGroup,
 	ResponsiveBorderControl,
 	BoxShadowControl,
+	DynamicTextInputControl,
 } from '@kadence/components';
 import { showSettings } from '@kadence/helpers';
 
@@ -47,7 +48,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * Build the row edit
  */
-function StyleControls({ clientId, attributes, setAttributes, isSelected, context }) {
+function StyleControls(props) {
+	const { clientId, attributes, setAttributes, isSelected, context } = props;
 	const {
 		uniqueID,
 		columns,
@@ -1014,14 +1016,31 @@ function StyleControls({ clientId, attributes, setAttributes, isSelected, contex
 						backgroundSliderSettings[0] &&
 						undefined !== backgroundSliderSettings[0].autoPlay &&
 						backgroundSliderSettings[0].autoPlay && (
-							<RangeControl
-								label={__('Autoplay Speed', 'kadence-blocks')}
-								value={backgroundSliderSettings[0].speed}
-								onChange={(value) => saveSliderSettings({ speed: value })}
-								min={500}
-								max={15000}
-								step={10}
-							/>
+							<>
+								<RangeControl
+									label={__('Autoplay Speed', 'kadence-blocks')}
+									value={backgroundSliderSettings[0].speed}
+									onChange={(value) => saveSliderSettings({ speed: value })}
+									min={500}
+									max={15000}
+									step={10}
+								/>
+								<ToggleControl
+									label={__('Show Pause Button', 'kadence-blocks')}
+									checked={
+										backgroundSliderSettings &&
+										backgroundSliderSettings[0] &&
+										undefined !== backgroundSliderSettings[0].showPauseButton
+											? backgroundSliderSettings[0].showPauseButton
+											: false
+									}
+									onChange={(value) => saveSliderSettings({ showPauseButton: value })}
+									help={__(
+										'Display a pause/play button in the bottom right corner.',
+										'kadence-blocks'
+									)}
+								/>
+							</>
 						)}
 					<SelectControl
 						label={__('Transition Style', 'kadence-blocks')}
@@ -1185,7 +1204,7 @@ function StyleControls({ clientId, attributes, setAttributes, isSelected, contex
 									hasBackgroundVideoContent && backgroundVideo[0].local ? true : false
 								}
 							/>
-							<TextControl
+							<DynamicTextInputControl
 								label={__('HTML5 Video File URL', 'kadence-blocks')}
 								value={
 									hasBackgroundVideoContent && backgroundVideo[0].local
@@ -1193,6 +1212,9 @@ function StyleControls({ clientId, attributes, setAttributes, isSelected, contex
 										: ''
 								}
 								onChange={(value) => saveVideoSettings({ local: value })}
+								dynamicAttribute={'backgroundVideo:0:local'}
+								allowClear={true}
+								{...props}
 							/>
 						</Fragment>
 					)}

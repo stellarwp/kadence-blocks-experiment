@@ -119,8 +119,8 @@ export default function KadenceIconPicker({
 	}, [ kadence_blocks_params.icon_names, icons, customSvgs ] );
 
 	const iconOptions = useMemo( () => {
-		return applyFilters( 'kadence.icon_options', { ...kadence_blocks_params_ico.icons, ...kadence_blocks_params_fa.icons } )
-	}, [ kadence_blocks_params_ico.icons, kadence_blocks_params_fa.icons, customSvgs ] )
+		return applyFilters( 'kadence.icon_options', { ...kadence_blocks_params_ico.icons, ...kadence_blocks_params_fa.icons, ...kadence_blocks_params_kbcustomicons.icons } )
+	}, [ kadence_blocks_params_ico.icons, kadence_blocks_params_fa.icons, kadence_blocks_params_kbcustomicons.icons, customSvgs ] )
 	const iconFilterOptions = useMemo( () => {
 		let options = Object.keys( iconNames ).map( ( label, index ) => {
 			return { value: index, label: label }
@@ -171,7 +171,7 @@ export default function KadenceIconPicker({
 
 	return (
 		<div className={'kadence-icon-picker'}>
-			<SvgAddModal isOpen={isOpen} setIsOpen={setIsOpen} callback={addCallback} />
+			<SvgAddModal isOpen={isOpen} setIsOpen={setIsOpen} callback={addCallback} proVersion={proVersion} />
 			<SvgDeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} id={deleteId} callback={deleteCallback}/>
 			<div className={`kadence-icon-picker-selection kadence-icon-picker-theme-${theme ? theme : 'default'}${className ? ' ' + className : ''}`}>
 				{label && (
@@ -285,6 +285,7 @@ export default function KadenceIconPicker({
 																		<Icon icon={closeSmall} size={20}/>
 																	</div> ) }
 																	<button
+																		title={ iconKey }
 																		className={'kadence-icon-picker-link'}
 																		key={results[ groupKey ].label + iconKey}
 																		onClick={() => {
@@ -299,6 +300,7 @@ export default function KadenceIconPicker({
 														} else {
 															return (
 																<button
+																	title={ iconKey }
 																	className={'kadence-icon-picker-link'}
 																	key={results[ groupKey ].label + iconKey}
 																	onClick={() => {

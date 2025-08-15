@@ -14,12 +14,12 @@ import {
 	Typography,
 	SelectGlobalStyles,
 	BlockComponentControls,
+	FlexBoxControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
  */
 import { getPreviewValue } from '@kadence/kbsHelpers';
-import { FlexBoxControl } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**

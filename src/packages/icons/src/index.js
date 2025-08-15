@@ -62,6 +62,7 @@ export { default as check } from './check';
 export { default as chatBubble } from './chat-bubble';
 export { default as eye } from './eye';
 export { default as tooltip } from './tooltip';
+export { default as proIcon } from './pro';
 
 // Block Icons
 export { default as restaurantMenuIcon } from './block-icons/restaurant-menu';
@@ -85,6 +86,7 @@ export { default as infoboxIcon } from './block-icons/infobox';
 export { default as lottieIcon } from './block-icons/lottie';
 export { default as tableOfContentsIcon } from './block-icons/table-of-contents/icon';
 export { default as logoBlockIcon } from './block-icons/logo';
+export { default as vectorBlockIcon } from './block-icons/vector';
 
 // Accordion Block
 export { default as accord1Icon } from './block-icons/accordion-block/accord-1';
@@ -152,6 +154,7 @@ export { default as galleryMasonryIcon } from './block-icons/advanced-gallery/ga
 export { default as gallerySliderIcon } from './block-icons/advanced-gallery/gal-slider';
 export { default as galleryTilesIcon } from './block-icons/advanced-gallery/gal-tiles';
 export { default as galleryThumbSliderIcon } from './thumbs-slider';
+export { default as galleryMosaicIcon } from './block-icons/advanced-gallery/gal-mosaic';
 
 // Table of contents
 export { default as noneIcon } from './block-icons/table-of-contents/none';
@@ -230,9 +233,9 @@ export { default as semiCircleBar } from './block-icons/progress-bar/semi-circle
 export { default as lineMask } from './block-icons/progress-bar/line-mask-layout';
 
 // Table Block
-export { default as tableBlockIcon } from './block-icons/table/table'
-export { default as tableRowBlockIcon } from './block-icons/table/table-row'
-export { default as tableDataBlockIcon } from './block-icons/table/table-data'
+export { default as tableBlockIcon } from './block-icons/table/table';
+export { default as tableRowBlockIcon } from './block-icons/table/table-row';
+export { default as tableDataBlockIcon } from './block-icons/table/table-data';
 
 // Arrows
 export { default as ArrowUp } from './arrow-up';
@@ -258,3 +261,12 @@ export { default as headerSectionBlockIcon } from './block-icons/header-section'
 export { default as headerRowBlockIcon } from './block-icons/header-row';
 export { default as headerColumnBlockIcon } from './block-icons/header-column';
 export { default as searchBlockIcon } from './block-icons/search';
+
+// Text Orientation
+export { default as horizontalTextOrientationIcon } from './text-orientation/horizontal';
+export { default as stackedTextOrientationIcon } from './text-orientation/stacked-vertical';
+export { default as sidewaysDownTextOrientationIcon } from './text-orientation/sideways-down';
+export { default as sidewaysUpTextOrientationIcon } from './text-orientation/sideways-up';
+
+// Shadow Presets
+export { default as shadowPresetNone } from './shadow-presets/no-shadow';

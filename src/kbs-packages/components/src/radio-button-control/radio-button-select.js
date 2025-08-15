@@ -7,10 +7,15 @@
  * Internal block libraries
  */
 import { __ } from '@wordpress/i18n';
-import { useContext } from '@wordpress/element';
-import { getDeviceValue, getInheritedDeviceValue, GlobalStylesContext } from '@kadence/kbsHelpers';
-import { handleAttributeChange, isAdvancedOption, isCustomOption } from '@kadence/kbsHelpers';
-import { useEffect, useState } from '@wordpress/element';
+import { useContext, useEffect, useState } from '@wordpress/element';
+import {
+	getDeviceValue,
+	getInheritedDeviceValue,
+	GlobalStylesContext,
+	handleAttributeChange,
+	isAdvancedOption,
+	isCustomOption,
+} from '@kadence/kbsHelpers';
 import { getRadioConfig } from './controls-config';
 import TitleBar from '../title-bar';
 
@@ -51,7 +56,7 @@ export default function RadioButtonSelect({
 	const radioConfig = type ? type : radioType;
 	const { UIComponent, controls, advancedControls } = getRadioConfig(radioConfig, previewDirection);
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}

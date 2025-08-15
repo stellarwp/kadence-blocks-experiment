@@ -10,17 +10,21 @@ export default function getGradientOptions() {
 		return select('kadenceblocks/global-styles').getGlobalMappings();
 	}, []);
 	const toReturn = useMemo(() => {
-		if (!globalMappings?.['gradients'] || Object.keys(globalMappings?.['gradients']).length === 0) {
+		if (!globalMappings?.gradients || Object.keys(globalMappings?.gradients).length === 0) {
 			return [];
 		}
 		// Merge and place theme colors at the end of the object
-		const allGradients = { ...globalMappings['gradients'] };
+		const allGradients = { ...globalMappings.gradients };
 		// Sort the colors put theme colors at the end by moving items with a number as the key to the end of the object.
 		const sortedKeys = Object.keys(allGradients).sort((a, b) => {
 			const aIsNumber = !isNaN(parseInt(a));
 			const bIsNumber = !isNaN(parseInt(b));
-			if (aIsNumber && !bIsNumber) return 1;
-			if (!aIsNumber && bIsNumber) return -1;
+			if (aIsNumber && !bIsNumber) {
+				return 1;
+			}
+			if (!aIsNumber && bIsNumber) {
+				return -1;
+			}
 			return 0;
 		});
 		return sortedKeys.map(function (key, index) {

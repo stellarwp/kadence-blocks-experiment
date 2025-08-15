@@ -42,7 +42,6 @@ function IconRender(props) {
 	if (iconTooltipDash) {
 		iconClasses.push('kbs-icon-tooltip-dash');
 	}
-	const iconClassNameString = iconClasses.join(' ');
 
 	const { icons, areIconsLoaded } = useSelect((select) => {
 		const rawIcons = select('kadenceblocks/data').getIcons();
@@ -65,6 +64,8 @@ function IconRender(props) {
 	if (!iconName) {
 		return null;
 	}
+
+	const iconClassNameString = iconClasses.join(' ');
 
 	if (!areIconsLoaded || !icons || !icons[iconName]) {
 		return <Spinner />;

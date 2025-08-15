@@ -107,7 +107,7 @@ class Button extends Abstract_Block {
 		$initial_tag  = $this->get_initial_attribute( $block_instance, 'htmlTag', 'div' );
 		$html_tag     = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
 		$wrapper_classes      = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
-		$wrapper_classes = array_merge( $wrapper_classes, $this->get_global_style_classes( $attributes ) );
+		$wrapper_classes = array_merge( $wrapper_classes, $this->get_global_style_class( $attributes ) );
 		$content_classes = [];
 
 		$link_value = self::get_resolved_value( 'link', $attributes, 'none', $this->get_attribute_meta( $block_instance, 'link' ), 'url', [] );

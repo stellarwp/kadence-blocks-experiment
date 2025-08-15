@@ -61,7 +61,7 @@ export const useFontOptions = () => {
 		}
 	}, [loaded, fetchFonts]);
 
-	let options = [];
+	const options = [];
 
 	// If not loaded yet, return standard fonts at minimum
 	if (!loaded) {
@@ -299,7 +299,7 @@ export function getFontStylesAndWeights(fontFamily) {
 				type: 'static',
 				weights: [],
 				styles: [],
-				combined: combined,
+				combined,
 			};
 		}
 	}
@@ -377,15 +377,14 @@ export function getFontStylesAndWeights(fontFamily) {
 					label: style === 'regular' ? __('Regular', 'kadence-blocks') : style,
 				})),
 			};
-		} else {
-			return {
-				fontsLoaded: true,
-				type: 'static',
-				weights: [],
-				styles: [],
-				combined: standardCombined,
-			};
 		}
+		return {
+			fontsLoaded: true,
+			type: 'static',
+			weights: [],
+			styles: [],
+			combined: standardCombined,
+		};
 	}
 
 	// Check Google fonts

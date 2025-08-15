@@ -6,6 +6,7 @@
 namespace KadenceWP\KadenceBlocks\Frontend;
 
 use KadenceWP\KadenceBlocks\Container;
+use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -115,66 +116,56 @@ class Font_Engine {
         $fonts = [];
 
         foreach( $attributes_meta as $key => $meta ) {
-            if( empty( $meta['renderCSS'] ) || empty( $meta['property'] ) ) {
+            if( empty( $meta['renderCSS'] ) ) {
                 continue;
             }
-            
-            if( $meta['property'] === 'typography' && !empty( $attributes[ $meta['property'] ] ) ) {
-                $font_attributes[] = $attributes[ $meta['property'] ];
+            // Support both component-based and property-based schema
+            $is_typography_component = ( isset( $meta['component'] ) && $meta['component'] === 'typography' );
+            $is_typography_property  = ( isset( $meta['property'] ) && $meta['property'] === 'typography' );
+
+            if( ( $is_typography_component || $is_typography_property ) && !empty( $attributes[ $key ] ) ) {
+                $font_attributes[] = $attributes[ $key ];
             }
         }
-		foreach ( $font_attributes as $group ) {
-			// Get font families for each device size
-			$dt_font = $group['dt']['fontFamily'] ?? null;
-			$td_font = $group['td']['fontFamily'] ?? $dt_font; // Fallback to desktop
-			$mb_font = $group['mb']['fontFamily'] ?? $td_font ?? $dt_font; // Fallback to tablet or desktop
 
-			// Get weights for each device size
-			$dt_weight = $group['dt']['fontWeight'] ?? '400';
-			$td_weight = $group['td']['fontWeight'] ?? '400';
-			$mb_weight = $group['mb']['fontWeight'] ?? '400';
+        // Get dynamic device options from the same source used in the editor
+        $device_options = Editor_Assets::get_responsive_device_options();
+        $device_keys    = array_map( function( $opt ) { return $opt['key']; }, $device_options );
 
-			// Process desktop font and weight
-			if ( $dt_font && $this->is_google_font( $dt_font ) ) {
-				$key = str_replace( ' ', '+', $dt_font );
-				if ( ! isset( $fonts[ $key ] ) ) {
-					$fonts[ $key ] = [
-						'fontfamily'   => $dt_font,
-						'fontvariants' => [ $dt_weight ],
-					];
-				} else {
-					$fonts[ $key ]['fontvariants'][] = $dt_weight;
-					$fonts[ $key ]['fontvariants'] = array_unique( $fonts[ $key ]['fontvariants'] );
-				}
-			}
+        foreach ( $font_attributes as $group ) {
+            $last_font   = null;
+            $last_weight = '400';
 
-			// Process tablet font and weight
-			if ( $td_font && $this->is_google_font( $td_font ) ) {
-				$key = str_replace( ' ', '+', $td_font );
-				if ( ! isset( $fonts[ $key ] ) ) {
-					$fonts[ $key ] = [
-						'fontfamily'   => $td_font,
-						'fontvariants' => [ $td_weight ],
-					];
-				} else {
-					$fonts[ $key ]['fontvariants'][] = $td_weight;
-					$fonts[ $key ]['fontvariants'] = array_unique( $fonts[ $key ]['fontvariants'] );
-				}
-			}
+            // Walk devices in the configured order; use previous device as fallback
+            $per_device = [];
+            foreach ( $device_keys as $device_key ) {
+                $font   = isset( $group[ $device_key ]['fontFamily'] ) ? $group[ $device_key ]['fontFamily'] : $last_font;
+                $weight = isset( $group[ $device_key ]['fontWeight'] ) ? $group[ $device_key ]['fontWeight'] : '400';
 
-			// Process mobile font and weight
-			if ( $mb_font && $this->is_google_font( $mb_font ) ) {
-				$key = str_replace( ' ', '+', $mb_font );
-				if ( ! isset( $fonts[ $key ] ) ) {
-					$fonts[ $key ] = [
-						'fontfamily'   => $mb_font,
-						'fontvariants' => [ $mb_weight ],
-					];
-				} else {
-					$fonts[ $key ]['fontvariants'][] = $mb_weight;
-					$fonts[ $key ]['fontvariants'] = array_unique( $fonts[ $key ]['fontvariants'] );
-				}
-			}
+                $per_device[] = [ 'font' => $font, 'weight' => $weight ];
+                if ( $font ) {
+                    $last_font = $font;
+                }
+                $last_weight = $weight ?: $last_weight;
+            }
+
+            // Process collected per-device fonts/weights
+            foreach ( $per_device as $entry ) {
+                $font = $entry['font'];
+                $weight = $entry['weight'];
+                if ( $font && $this->is_google_font( $font ) ) {
+                    $key = str_replace( ' ', '+', $font );
+                    if ( ! isset( $fonts[ $key ] ) ) {
+                        $fonts[ $key ] = [
+                            'fontfamily'   => $font,
+                            'fontvariants' => [ $weight ],
+                        ];
+                    } else {
+                        $fonts[ $key ]['fontvariants'][] = $weight;
+                        $fonts[ $key ]['fontvariants'] = array_unique( $fonts[ $key ]['fontvariants'] );
+                    }
+                }
+            }
 		}
 
 		if ( ! empty( $fonts ) ) {

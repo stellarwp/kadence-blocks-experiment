@@ -12,12 +12,12 @@ import * as selectors from './selectors';
 
 const STORE_NAME = 'kadence/prebuilt-library';
 
-const store = createReduxStore( STORE_NAME, {
+const store = createReduxStore(STORE_NAME, {
 	reducer,
 	actions,
 	selectors,
-} );
+});
 
-register( store );
+register(store);
 
 export { STORE_NAME };

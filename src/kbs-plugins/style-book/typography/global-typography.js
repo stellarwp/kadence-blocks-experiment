@@ -172,7 +172,7 @@ export default function GlobalTypography(props) {
 				</div>
 				<div className="kbs-control-inner kbs-typography-mapping-grid">
 					{globalTypography.map((item, index) => {
-						let fontFamily = getStylebookSettingValue(
+						const fontFamily = getStylebookSettingValue(
 							{ typography: tempTypography?.[item.value]?.attributes },
 							{ typography: baseTypography?.[item.value]?.attributes },
 							'typography',
@@ -278,12 +278,12 @@ export default function GlobalTypography(props) {
 								<div
 									className="kbs-typography-control-preview"
 									style={{
-										fontFamily: fontFamily,
-										fontWeight: fontWeight,
+										fontFamily,
+										fontWeight,
 										letterSpacing: getLetterSpacingOutput(fontLetterSpacing),
 										fontSize: getFontSizeOutput(fontSize),
 										lineHeight: getLineHeightOutput(fontLineHeight),
-										fontStyle: fontStyle,
+										fontStyle,
 										color: getColorOutput(fontColor),
 										textTransform: fontTextTransform,
 										backgroundColor: getColorOutput(backgroundColor),

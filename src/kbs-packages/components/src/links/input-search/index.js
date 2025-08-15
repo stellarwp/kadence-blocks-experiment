@@ -12,7 +12,7 @@ import { createRef, useState } from '@wordpress/element';
 import { safeDecodeURI, filterURLForDisplay } from '@wordpress/url';
 import { applyFilters } from '@wordpress/hooks';
 import { UP, DOWN, ENTER, TAB } from '@wordpress/keycodes';
-import { BaseControl, Button, Spinner, ExternalLink } from '@wordpress/components';
+import { BaseControl, Button, Spinner, ExternalLink, Icon } from '@wordpress/components';
 import DynamicLinkControl from '../dynamic-link-control';
 import TextHighlight from '../text-highlight';
 import fetchSearchResults from '../get-post-search-results';
@@ -204,9 +204,9 @@ export default function InputSearch(props) {
 			className: 'kb-search-selection-input',
 			type: 'text',
 			onChange: internalOnChange,
-			onFocus: onFocus,
+			onFocus,
 			placeholder,
-			onKeyDown: onKeyDown,
+			onKeyDown,
 			role: 'combobox',
 			'aria-label': __('URL Input or Search', 'kadence-blocks'),
 			'aria-expanded': showSuggestions,

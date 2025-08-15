@@ -32,10 +32,9 @@ import {
 	KadenceColorOutput,
 	mouseOverVisualizer,
 	getSpacingOptionOutput,
-	getUniqueId,
+	uniqueIdHelper,
 	setBlockDefaults,
 	getFontSizeOptionOutput,
-	getPostOrWidgetId,
 	getPostOrFseId,
 } from '@kadence/helpers';
 
@@ -165,17 +164,15 @@ function KadenceForm(props) {
 		hAlignFormFeilds,
 	} = attributes;
 
-	const { addUniqueID } = useDispatch('kadenceblocks/data');
-	const { isUniqueID, isUniqueBlock, previewDevice, parentData } = useSelect(
+	const { previewDevice, parentData } = useSelect(
 		(select) => {
 			const abTestBlock = select('core/block-editor').getBlockAttributes(
 				select('core/block-editor')
 					.getBlockParentsByBlockName(clientId, 'kadence-insights/ab-test')
 					.slice(-1)[0]
 			);
+
 			return {
-				isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
-				isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
 				parentData: {
 					rootBlock: select('core/block-editor').getBlock(
@@ -188,7 +185,7 @@ function KadenceForm(props) {
 								select('core/block-editor')
 									.getBlockParentsByBlockName(clientId, 'core/block')
 									.slice(-1)[0]
-						  ),
+							),
 					editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
 				},
 			};
@@ -198,21 +195,17 @@ function KadenceForm(props) {
 
 	useEffect(() => {
 		setBlockDefaults('kadence/form', attributes);
+
 		const postOrFseId = getPostOrFseId(props, parentData);
 		if (postID.toString() !== postOrFseId.toString()) {
 			setAttributes({
 				postID: postOrFseId.toString(),
 			});
 		}
-		const uniqueId = getUniqueId(uniqueID, clientId, isUniqueID, isUniqueBlock, postOrFseId);
-		if (uniqueId !== uniqueID) {
-			attributes.uniqueID = uniqueId;
-			setAttributes({ uniqueID: uniqueId });
-			addUniqueID(uniqueId, clientId);
-		} else {
-			addUniqueID(uniqueID, clientId);
-		}
 	}, []);
+
+	uniqueIdHelper(props);
+
 	useEffect(() => {
 		setActionOptions(applyFilters('kadence.actionOptions', actionOptionsList));
 
@@ -343,6 +336,7 @@ function KadenceForm(props) {
 	const [siteKey, setSiteKey] = useState('');
 	const [secretKey, setSecretKey] = useState('');
 	const [recaptchaLanguage, setRecaptchaLanguage] = useState('');
+	const formProStyleControls = null;
 
 	const [isSavedKey, setIsSavedKey] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
@@ -985,7 +979,7 @@ function KadenceForm(props) {
 				: KadenceColorOutput(
 						submit[0].background,
 						submit[0].backgroundOpacity !== undefined ? submit[0].backgroundOpacity : 1
-				  );
+					);
 		btnGrad2 =
 			undefined !== submit[0].gradient && undefined !== submit[0].gradient[0] && '' !== submit[0].gradient[0]
 				? KadenceColorOutput(
@@ -993,13 +987,13 @@ function KadenceForm(props) {
 						undefined !== submit[0].gradient && submit[0].gradient[1] !== undefined
 							? submit[0].gradient[1]
 							: 1
-				  )
+					)
 				: KadenceColorOutput(
 						'#999999',
 						undefined !== submit[0].gradient && submit[0].gradient[1] !== undefined
 							? submit[0].gradient[1]
 							: 1
-				  );
+					);
 		if (undefined !== submit[0].gradient && 'radial' === submit[0].gradient[4]) {
 			btnBG = `radial-gradient(at ${
 				undefined === submit[0].gradient[6] ? 'center center' : submit[0].gradient[6]
@@ -1022,7 +1016,7 @@ function KadenceForm(props) {
 				: KadenceColorOutput(
 						submit[0].background,
 						submit[0].backgroundOpacity !== undefined ? submit[0].backgroundOpacity : 1
-				  );
+					);
 	}
 	let inputBG;
 	let inputGrad;
@@ -1034,17 +1028,17 @@ function KadenceForm(props) {
 				: KadenceColorOutput(
 						style[0].background,
 						style[0].backgroundOpacity !== undefined ? style[0].backgroundOpacity : 1
-				  );
+					);
 		inputGrad2 =
 			undefined !== style[0].gradient && undefined !== style[0].gradient[0] && '' !== style[0].gradient[0]
 				? KadenceColorOutput(
 						style[0].gradient[0],
 						undefined !== style[0].gradient && style[0].gradient[1] !== undefined ? style[0].gradient[1] : 1
-				  )
+					)
 				: KadenceColorOutput(
 						'#999999',
 						undefined !== style[0].gradient && style[0].gradient[1] !== undefined ? style[0].gradient[1] : 1
-				  );
+					);
 		if (undefined !== style[0].gradient && 'radial' === style[0].gradient[4]) {
 			inputBG = `radial-gradient(at ${
 				undefined === style[0].gradient[6] ? 'center center' : style[0].gradient[6]
@@ -1067,7 +1061,7 @@ function KadenceForm(props) {
 				: KadenceColorOutput(
 						style[0].background,
 						style[0].backgroundOpacity !== undefined ? style[0].backgroundOpacity : 1
-				  );
+					);
 	}
 	const removeOptionItem = (previousIndex, fieldIndex) => {
 		const amount = Math.abs(fields[fieldIndex].options.length);
@@ -1606,7 +1600,7 @@ function KadenceForm(props) {
 										: KadenceColorOutput(
 												style[0].border,
 												style[0].borderOpacity !== undefined ? style[0].borderOpacity : 1
-										  ),
+											),
 							}}
 						/>
 						<label
@@ -1758,7 +1752,7 @@ function KadenceForm(props) {
 											: KadenceColorOutput(
 													style[0].border,
 													style[0].borderOpacity !== undefined ? style[0].borderOpacity : 1
-											  ),
+												),
 									boxShadow:
 										undefined !== style[0].boxShadow &&
 										undefined !== style[0].boxShadow[0] &&
@@ -1766,20 +1760,20 @@ function KadenceForm(props) {
 											? (undefined !== style[0].boxShadow[7] && style[0].boxShadow[7]
 													? 'inset '
 													: '') +
-											  (undefined !== style[0].boxShadow[3] ? style[0].boxShadow[3] : 1) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[4] ? style[0].boxShadow[4] : 1) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[5] ? style[0].boxShadow[5] : 2) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[6] ? style[0].boxShadow[6] : 0) +
-											  'px ' +
-											  KadenceColorOutput(
+												(undefined !== style[0].boxShadow[3] ? style[0].boxShadow[3] : 1) +
+												'px ' +
+												(undefined !== style[0].boxShadow[4] ? style[0].boxShadow[4] : 1) +
+												'px ' +
+												(undefined !== style[0].boxShadow[5] ? style[0].boxShadow[5] : 2) +
+												'px ' +
+												(undefined !== style[0].boxShadow[6] ? style[0].boxShadow[6] : 0) +
+												'px ' +
+												KadenceColorOutput(
 													undefined !== style[0].boxShadow[1]
 														? style[0].boxShadow[1]
 														: '#000000',
 													undefined !== style[0].boxShadow[2] ? style[0].boxShadow[2] : 1
-											  )
+												)
 											: undefined,
 								}}
 							/>
@@ -1823,7 +1817,7 @@ function KadenceForm(props) {
 											: KadenceColorOutput(
 													style[0].border,
 													style[0].borderOpacity !== undefined ? style[0].borderOpacity : 1
-											  ),
+												),
 									boxShadow:
 										undefined !== style[0].boxShadow &&
 										undefined !== style[0].boxShadow[0] &&
@@ -1831,20 +1825,20 @@ function KadenceForm(props) {
 											? (undefined !== style[0].boxShadow[7] && style[0].boxShadow[7]
 													? 'inset '
 													: '') +
-											  (undefined !== style[0].boxShadow[3] ? style[0].boxShadow[3] : 1) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[4] ? style[0].boxShadow[4] : 1) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[5] ? style[0].boxShadow[5] : 2) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[6] ? style[0].boxShadow[6] : 0) +
-											  'px ' +
-											  KadenceColorOutput(
+												(undefined !== style[0].boxShadow[3] ? style[0].boxShadow[3] : 1) +
+												'px ' +
+												(undefined !== style[0].boxShadow[4] ? style[0].boxShadow[4] : 1) +
+												'px ' +
+												(undefined !== style[0].boxShadow[5] ? style[0].boxShadow[5] : 2) +
+												'px ' +
+												(undefined !== style[0].boxShadow[6] ? style[0].boxShadow[6] : 0) +
+												'px ' +
+												KadenceColorOutput(
 													undefined !== style[0].boxShadow[1]
 														? style[0].boxShadow[1]
 														: '#000000',
 													undefined !== style[0].boxShadow[2] ? style[0].boxShadow[2] : 1
-											  )
+												)
 											: undefined,
 								}}
 							>
@@ -1917,7 +1911,7 @@ function KadenceForm(props) {
 																style[0].borderOpacity !== undefined
 																	? style[0].borderOpacity
 																	: 1
-														  ),
+															),
 											}}
 										/>
 										<label htmlFor={`kb_field_${index}[]${n}`}>
@@ -1967,7 +1961,7 @@ function KadenceForm(props) {
 																style[0].borderOpacity !== undefined
 																	? style[0].borderOpacity
 																	: 1
-														  ),
+															),
 											}}
 										/>
 										<label htmlFor={`kb_field_${index}[]${n}`}>
@@ -2037,7 +2031,7 @@ function KadenceForm(props) {
 											: KadenceColorOutput(
 													style[0].border,
 													style[0].borderOpacity !== undefined ? style[0].borderOpacity : 1
-											  ),
+												),
 									boxShadow:
 										undefined !== style[0].boxShadow &&
 										undefined !== style[0].boxShadow[0] &&
@@ -2045,20 +2039,20 @@ function KadenceForm(props) {
 											? (undefined !== style[0].boxShadow[7] && style[0].boxShadow[7]
 													? 'inset '
 													: '') +
-											  (undefined !== style[0].boxShadow[3] ? style[0].boxShadow[3] : 1) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[4] ? style[0].boxShadow[4] : 1) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[5] ? style[0].boxShadow[5] : 2) +
-											  'px ' +
-											  (undefined !== style[0].boxShadow[6] ? style[0].boxShadow[6] : 0) +
-											  'px ' +
-											  KadenceColorOutput(
+												(undefined !== style[0].boxShadow[3] ? style[0].boxShadow[3] : 1) +
+												'px ' +
+												(undefined !== style[0].boxShadow[4] ? style[0].boxShadow[4] : 1) +
+												'px ' +
+												(undefined !== style[0].boxShadow[5] ? style[0].boxShadow[5] : 2) +
+												'px ' +
+												(undefined !== style[0].boxShadow[6] ? style[0].boxShadow[6] : 0) +
+												'px ' +
+												KadenceColorOutput(
 													undefined !== style[0].boxShadow[1]
 														? style[0].boxShadow[1]
 														: '#000000',
 													undefined !== style[0].boxShadow[2] ? style[0].boxShadow[2] : 1
-											  )
+												)
 											: undefined,
 								}}
 							/>
@@ -2134,7 +2128,7 @@ function KadenceForm(props) {
 														style[0].borderOpacity !== undefined
 															? style[0].borderOpacity
 															: 1
-												  ),
+													),
 										boxShadow:
 											undefined !== style[0].boxShadow &&
 											undefined !== style[0].boxShadow[0] &&
@@ -2142,20 +2136,20 @@ function KadenceForm(props) {
 												? (undefined !== style[0].boxShadow[7] && style[0].boxShadow[7]
 														? 'inset '
 														: '') +
-												  (undefined !== style[0].boxShadow[3] ? style[0].boxShadow[3] : 1) +
-												  'px ' +
-												  (undefined !== style[0].boxShadow[4] ? style[0].boxShadow[4] : 1) +
-												  'px ' +
-												  (undefined !== style[0].boxShadow[5] ? style[0].boxShadow[5] : 2) +
-												  'px ' +
-												  (undefined !== style[0].boxShadow[6] ? style[0].boxShadow[6] : 0) +
-												  'px ' +
-												  KadenceColorOutput(
+													(undefined !== style[0].boxShadow[3] ? style[0].boxShadow[3] : 1) +
+													'px ' +
+													(undefined !== style[0].boxShadow[4] ? style[0].boxShadow[4] : 1) +
+													'px ' +
+													(undefined !== style[0].boxShadow[5] ? style[0].boxShadow[5] : 2) +
+													'px ' +
+													(undefined !== style[0].boxShadow[6] ? style[0].boxShadow[6] : 0) +
+													'px ' +
+													KadenceColorOutput(
 														undefined !== style[0].boxShadow[1]
 															? style[0].boxShadow[1]
 															: '#000000',
 														undefined !== style[0].boxShadow[2] ? style[0].boxShadow[2] : 1
-												  )
+													)
 												: undefined,
 									}}
 								/>
@@ -2250,21 +2244,21 @@ function KadenceForm(props) {
 					? KadenceColorOutput(
 							'#ffffff',
 							style[0].backgroundActiveOpacity !== undefined ? style[0].backgroundActiveOpacity : 1
-					  )
+						)
 					: KadenceColorOutput(
 							style[0].backgroundActive,
 							style[0].backgroundActiveOpacity !== undefined ? style[0].backgroundActiveOpacity : 1
-					  );
+						);
 			inputGradA2 =
 				undefined === style[0].gradientActive[0]
 					? KadenceColorOutput(
 							'#777777',
 							style[0].gradientActive[1] !== undefined ? style[0].gradientActive[1] : 1
-					  )
+						)
 					: KadenceColorOutput(
 							style[0].gradientActive[0],
 							style[0].gradientActive[1] !== undefined ? style[0].gradientActive[1] : 1
-					  );
+						);
 			if ('radial' === style[0].gradientActive[4]) {
 				inputBGA = `radial-gradient(at ${
 					undefined === style[0].gradientActive[6] ? 'center center' : style[0].gradientActive[6]
@@ -2294,18 +2288,18 @@ function KadenceForm(props) {
 				undefined !== style[0].boxShadowActive[0] &&
 				style[0].boxShadowActive[0]
 					? (undefined !== style[0].boxShadowActive[7] && style[0].boxShadowActive[7] ? 'inset ' : '') +
-					  (undefined !== style[0].boxShadowActive[3] ? style[0].boxShadowActive[3] : 1) +
-					  'px ' +
-					  (undefined !== style[0].boxShadowActive[4] ? style[0].boxShadowActive[4] : 1) +
-					  'px ' +
-					  (undefined !== style[0].boxShadowActive[5] ? style[0].boxShadowActive[5] : 2) +
-					  'px ' +
-					  (undefined !== style[0].boxShadowActive[6] ? style[0].boxShadowActive[6] : 0) +
-					  'px ' +
-					  KadenceColorOutput(
+						(undefined !== style[0].boxShadowActive[3] ? style[0].boxShadowActive[3] : 1) +
+						'px ' +
+						(undefined !== style[0].boxShadowActive[4] ? style[0].boxShadowActive[4] : 1) +
+						'px ' +
+						(undefined !== style[0].boxShadowActive[5] ? style[0].boxShadowActive[5] : 2) +
+						'px ' +
+						(undefined !== style[0].boxShadowActive[6] ? style[0].boxShadowActive[6] : 0) +
+						'px ' +
+						KadenceColorOutput(
 							undefined !== style[0].boxShadowActive[1] ? style[0].boxShadowActive[1] : '#000000',
 							undefined !== style[0].boxShadowActive[2] ? style[0].boxShadowActive[2] : 1
-					  )
+						)
 					: undefined
 			}`;
 		}
@@ -2319,21 +2313,21 @@ function KadenceForm(props) {
 					? KadenceColorOutput(
 							'#ffffff',
 							submit[0].backgroundHoverOpacity !== undefined ? submit[0].backgroundHoverOpacity : 1
-					  )
+						)
 					: KadenceColorOutput(
 							submit[0].backgroundHover,
 							submit[0].backgroundHoverOpacity !== undefined ? submit[0].backgroundHoverOpacity : 1
-					  );
+						);
 			btnHGrad2 =
 				undefined === submit[0].gradientHover[0]
 					? KadenceColorOutput(
 							'#777777',
 							submit[0].gradientHover[1] !== undefined ? submit[0].gradientHover[1] : 1
-					  )
+						)
 					: KadenceColorOutput(
 							submit[0].gradientHover[0],
 							submit[0].gradientHover[1] !== undefined ? submit[0].gradientHover[1] : 1
-					  );
+						);
 			if ('radial' === submit[0].gradientHover[4]) {
 				btnHBG = `radial-gradient(at ${
 					undefined === submit[0].gradientHover[6] ? 'center center' : submit[0].gradientHover[6]
@@ -2365,18 +2359,18 @@ function KadenceForm(props) {
 				undefined !== submit[0].boxShadowHover[0] &&
 				submit[0].boxShadowHover[0]
 					? (undefined !== submit[0].boxShadowHover[7] && submit[0].boxShadowHover[7] ? 'inset ' : '') +
-					  (undefined !== submit[0].boxShadowHover[3] ? submit[0].boxShadowHover[3] : 1) +
-					  'px ' +
-					  (undefined !== submit[0].boxShadowHover[4] ? submit[0].boxShadowHover[4] : 1) +
-					  'px ' +
-					  (undefined !== submit[0].boxShadowHover[5] ? submit[0].boxShadowHover[5] : 2) +
-					  'px ' +
-					  (undefined !== submit[0].boxShadowHover[6] ? submit[0].boxShadowHover[6] : 0) +
-					  'px ' +
-					  KadenceColorOutput(
+						(undefined !== submit[0].boxShadowHover[3] ? submit[0].boxShadowHover[3] : 1) +
+						'px ' +
+						(undefined !== submit[0].boxShadowHover[4] ? submit[0].boxShadowHover[4] : 1) +
+						'px ' +
+						(undefined !== submit[0].boxShadowHover[5] ? submit[0].boxShadowHover[5] : 2) +
+						'px ' +
+						(undefined !== submit[0].boxShadowHover[6] ? submit[0].boxShadowHover[6] : 0) +
+						'px ' +
+						KadenceColorOutput(
 							undefined !== submit[0].boxShadowHover[1] ? submit[0].boxShadowHover[1] : '#000000',
 							undefined !== submit[0].boxShadowHover[2] ? submit[0].boxShadowHover[2] : 1
-					  )
+						)
 					: undefined
 			}`;
 			btnBox2 = 'none';
@@ -2394,18 +2388,18 @@ function KadenceForm(props) {
 				undefined !== submit[0].boxShadowHover[0] &&
 				submit[0].boxShadowHover[0]
 					? (undefined !== submit[0].boxShadowHover[7] && submit[0].boxShadowHover[7] ? 'inset ' : '') +
-					  (undefined !== submit[0].boxShadowHover[3] ? submit[0].boxShadowHover[3] : 1) +
-					  'px ' +
-					  (undefined !== submit[0].boxShadowHover[4] ? submit[0].boxShadowHover[4] : 1) +
-					  'px ' +
-					  (undefined !== submit[0].boxShadowHover[5] ? submit[0].boxShadowHover[5] : 2) +
-					  'px ' +
-					  (undefined !== submit[0].boxShadowHover[6] ? submit[0].boxShadowHover[6] : 0) +
-					  'px ' +
-					  KadenceColorOutput(
+						(undefined !== submit[0].boxShadowHover[3] ? submit[0].boxShadowHover[3] : 1) +
+						'px ' +
+						(undefined !== submit[0].boxShadowHover[4] ? submit[0].boxShadowHover[4] : 1) +
+						'px ' +
+						(undefined !== submit[0].boxShadowHover[5] ? submit[0].boxShadowHover[5] : 2) +
+						'px ' +
+						(undefined !== submit[0].boxShadowHover[6] ? submit[0].boxShadowHover[6] : 0) +
+						'px ' +
+						KadenceColorOutput(
 							undefined !== submit[0].boxShadowHover[1] ? submit[0].boxShadowHover[1] : '#000000',
 							undefined !== submit[0].boxShadowHover[2] ? submit[0].boxShadowHover[2] : 1
-					  )
+						)
 					: undefined
 			}`;
 			btnRad = undefined !== submit[0].borderRadius ? submit[0].borderRadius : undefined;
@@ -2867,6 +2861,8 @@ function KadenceForm(props) {
 								saveMap={(value, i) => saveFluentCRMMap(value, i)}
 							/>
 						)}
+
+						{applyFilters('kadence.formGeneralControls', formProStyleControls, props)}
 					</>
 				)}
 
@@ -5345,7 +5341,7 @@ function KadenceForm(props) {
 										: KadenceColorOutput(
 												submit[0].border,
 												submit[0].borderOpacity !== undefined ? submit[0].borderOpacity : 1
-										  ),
+											),
 								width:
 									undefined !== submit[0].widthType &&
 									'fixed' === submit[0].widthType &&
@@ -5392,20 +5388,20 @@ function KadenceForm(props) {
 										? (undefined !== submit[0].boxShadow[7] && submit[0].boxShadow[7]
 												? 'inset '
 												: '') +
-										  (undefined !== submit[0].boxShadow[3] ? submit[0].boxShadow[3] : 1) +
-										  'px ' +
-										  (undefined !== submit[0].boxShadow[4] ? submit[0].boxShadow[4] : 1) +
-										  'px ' +
-										  (undefined !== submit[0].boxShadow[5] ? submit[0].boxShadow[5] : 2) +
-										  'px ' +
-										  (undefined !== submit[0].boxShadow[6] ? submit[0].boxShadow[6] : 0) +
-										  'px ' +
-										  KadenceColorOutput(
+											(undefined !== submit[0].boxShadow[3] ? submit[0].boxShadow[3] : 1) +
+											'px ' +
+											(undefined !== submit[0].boxShadow[4] ? submit[0].boxShadow[4] : 1) +
+											'px ' +
+											(undefined !== submit[0].boxShadow[5] ? submit[0].boxShadow[5] : 2) +
+											'px ' +
+											(undefined !== submit[0].boxShadow[6] ? submit[0].boxShadow[6] : 0) +
+											'px ' +
+											KadenceColorOutput(
 												undefined !== submit[0].boxShadow[1]
 													? submit[0].boxShadow[1]
 													: '#000000',
 												undefined !== submit[0].boxShadow[2] ? submit[0].boxShadow[2] : 1
-										  )
+											)
 										: undefined,
 								marginTop: previewSubmitMarginTop + previewSubmitMarginType,
 								marginRight: previewSubmitMarginRight + previewSubmitMarginType,

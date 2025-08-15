@@ -45,7 +45,7 @@ export default function AnglePickerControl(props) {
 	const onChangeToUse = onChange ?? defaultOnChange;
 
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
@@ -54,7 +54,9 @@ export default function AnglePickerControl(props) {
 
 	// Parse the angle value - handle both numeric and string values
 	const parseAngleValue = (value) => {
-		if (!value) return 0;
+		if (!value) {
+			return 0;
+		}
 		if (typeof value === 'string' && value.endsWith('deg')) {
 			return parseFloat(value) || 0;
 		}

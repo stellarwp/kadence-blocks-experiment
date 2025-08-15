@@ -136,7 +136,7 @@ const PatternLibraryContentPatternsList = ({
 					>
 						{isLoading && (
 							<div className="kbs-pattern-library-loading">
-								{__('Loading more patterns...', 'kadence-blocks')}
+								{__('Loading more patterns…', 'kadence-blocks')}
 							</div>
 						)}
 					</div>

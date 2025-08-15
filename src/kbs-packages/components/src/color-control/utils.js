@@ -19,29 +19,29 @@ export const getColorLabel = (value, colors, gradients = []) => {
 	if (value) {
 		if (colors) {
 			if (value.startsWith('palette')) {
-				const color = colors.find(({ slug }) => slug === value);
-				if (color?.name) {
-					return color.name;
+				const paletteColor = colors.find(({ slug }) => slug === value);
+				if (paletteColor?.name) {
+					return paletteColor.name;
 				}
 			} else if (value.startsWith('var(')) {
-				const color = colors.find(({ slug }) => slug === value);
-				if (color?.name) {
-					return color.name;
-				} else {
-					const color = colors.find(({ slug }) => getColorOutput(slug) === value);
-					if (color?.name) {
-						return color.name;
-					} else if (gradients.length > 0) {
-						const gradient = gradients.find(({ slug }) => 'var(--kbs-gradients-' + slug + ')' === value);
-						if (gradient?.name) {
-							return gradient.name;
-						}
+				const varColor = colors.find(({ slug }) => slug === value);
+				if (varColor?.name) {
+					return varColor.name;
+				}
+				const foundColor = colors.find(({ slug }) => getColorOutput(slug) === value);
+				if (foundColor?.name) {
+					return foundColor.name;
+				}
+				if (gradients.length > 0) {
+					const gradient = gradients.find(({ slug }) => 'var(--kbs-gradients-' + slug + ')' === value);
+					if (gradient?.name) {
+						return gradient.name;
 					}
 				}
 			}
-			const color = colors.find(({ color }) => color === value);
-			if (color?.name) {
-				return color.name;
+			const exactColor = colors.find(({ color }) => color === value);
+			if (exactColor?.name) {
+				return exactColor.name;
 			}
 		}
 		if (value.startsWith('linear-gradient')) {

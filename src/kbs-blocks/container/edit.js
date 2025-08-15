@@ -101,7 +101,7 @@ export default function ContainerEdit(props) {
 	const classes = classnames('kbs-container', globalClasses, {
 		[className]: className,
 		[`kbs-container-${uniqueID}`]: uniqueID,
-		['kbs-only-appender']: !hasInnerBlocks,
+		'kbs-only-appender': !hasInnerBlocks,
 	});
 	const blockProps = useBlockProps({
 		className: classes,

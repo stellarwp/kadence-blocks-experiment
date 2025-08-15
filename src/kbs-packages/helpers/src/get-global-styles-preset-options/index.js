@@ -3,7 +3,7 @@
  */
 export default function getGlobalStylesPresetOptions(globalStyles, globalStyle, component) {
 	const presetsObject = globalStyles?.[globalStyle]?.components?.[component]?.presets;
-	var toReturn = [];
+	const toReturn = [];
 
 	if (presetsObject && Object.keys(presetsObject).length) {
 		Object.keys(presetsObject).forEach(function (key, index) {

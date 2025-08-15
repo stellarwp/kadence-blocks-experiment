@@ -112,11 +112,10 @@ const percentToLightness = (percent) => {
 	if (percent <= 100) {
 		// Darken: multiply (0% = black, 100% = original)
 		return `l * ${(percent / 100).toFixed(2)}`;
-	} else {
-		// Lighten: add to approach white (100% = original, 200% = white)
-		const addValue = ((percent - 100) / 100).toFixed(2);
-		return `l + ${addValue} * (1 - l)`;
 	}
+	// Lighten: add to approach white (100% = original, 200% = white)
+	const addValue = ((percent - 100) / 100).toFixed(2);
+	return `l + ${addValue} * (1 - l)`;
 };
 const percentToChroma = (percent) => (percent / 100).toFixed(2);
 
@@ -166,7 +165,9 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 
 	// Calculate the current color for live previews (OKLch mode)
 	const currentOKLchColor = useMemo(() => {
-		if (!currentBaseColor) return '';
+		if (!currentBaseColor) {
+			return '';
+		}
 
 		const l = lightness !== '' ? lightness : inheritedLightness !== '' ? inheritedLightness : 100;
 		const c = chroma !== '' ? chroma : inheritedChroma !== '' ? inheritedChroma : 100;
@@ -188,7 +189,9 @@ const ColorUnifiedMix = ({ onChange, value, globalClasses, isHover, inherited, g
 
 	// Handle mode change
 	const handleModeChange = (newMode) => {
-		if (newMode === mode) return;
+		if (newMode === mode) {
+			return;
+		}
 
 		// Use the tracked base color for conversion
 		const baseColorToUse = currentBaseColor || '#000000';

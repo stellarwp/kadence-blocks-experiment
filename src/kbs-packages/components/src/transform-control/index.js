@@ -58,9 +58,9 @@ export default function TransformControl(props) {
 	};
 
 	const onReset = () => {
-		let resetValue = '';
-		onChange( resetValue, 'all' );
-	}
+		const resetValue = '';
+		onChange(resetValue, 'all');
+	};
 	const onChange = (value, device) => {
 		const currentAttributeName = isHover ? `${attributeName}Hover` : attributeName;
 		handleAttributeChange(

@@ -89,7 +89,7 @@ export default function Styles(props) {
 		},
 	};
 
-	var attributes = {
+	let attributes = {
 		[selectedComponent]:
 			styleBookLocalGlobalStyles?.[currentGlobalStyleId]?.components?.[selectedComponent]?.presets?.[
 				currentPreset
@@ -127,7 +127,7 @@ export default function Styles(props) {
 				'heading-6',
 				'text-body',
 			];
-			var i = 0;
+			let i = 0;
 			componentsToRender.forEach((componentToRender) => {
 				attributes = {
 					[componentToRender]:

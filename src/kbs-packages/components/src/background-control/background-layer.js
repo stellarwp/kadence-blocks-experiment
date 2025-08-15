@@ -230,14 +230,12 @@ function renderBackgroundToggle(layer, isInherited, colors, previewDevice, onCha
 					return getBackdropLabel(backdropFilter);
 				case 'mask':
 					if (maskType === 'divider') {
-						return (
-							getDividerOptions()['horizontal'].find(({ value }) => value === divider)?.label || divider
-						);
+						return getDividerOptions().horizontal.find(({ value }) => value === divider)?.label || divider;
 					}
 					if (maskType === 'pattern') {
 						return getPatternOptions().find(({ value }) => value === pattern)?.label || pattern;
 					}
-					return getMaskOptions()['normal'].find(({ value }) => value === mask)?.label || mask;
+					return getMaskOptions().normal.find(({ value }) => value === mask)?.label || mask;
 				default:
 					return '';
 			}
@@ -555,30 +553,29 @@ function BackgroundDropdownContent({
 									globalStylesCss={globalStylesCss}
 								/>
 							);
-						} else {
-							return (
-								<>
-									<ColorSelector
-										handleColorChange={(value) => {
-											if (isHover) {
-												handleCustomOnChange(value, previewDevice, 'hoverColor');
-											} else {
-												handleCustomOnChange(value, previewDevice, 'color');
-											}
-										}}
-										colors={colors}
-										currentValue={isHover ? hoverColor : color}
-										inherited={isHover ? { inheritedValue: color } : ''}
-										hasMix={true}
-										globalClasses={globalClasses}
-										isHover={isHover}
-										onToggleHover={() => setIsHover(!isHover)}
-										hasHoverControls={true}
-										globalStylesCss={globalStylesCss}
-									/>
-								</>
-							);
 						}
+						return (
+							<>
+								<ColorSelector
+									handleColorChange={(value) => {
+										if (isHover) {
+											handleCustomOnChange(value, previewDevice, 'hoverColor');
+										} else {
+											handleCustomOnChange(value, previewDevice, 'color');
+										}
+									}}
+									colors={colors}
+									currentValue={isHover ? hoverColor : color}
+									inherited={isHover ? { inheritedValue: color } : ''}
+									hasMix={true}
+									globalClasses={globalClasses}
+									isHover={isHover}
+									onToggleHover={() => setIsHover(!isHover)}
+									hasHoverControls={true}
+									globalStylesCss={globalStylesCss}
+								/>
+							</>
+						);
 					}
 				}}
 			</TabPanel>
@@ -673,7 +670,7 @@ export default function BackgroundLayer({
 	const gradients = getGradientOptions();
 	const isDisableCustomColors = !customColors ? true : false;
 	const onChange = (value, device, type) => {
-		let useAttributes = attributes;
+		const useAttributes = attributes;
 		if (isInherited) {
 			if (inherited?.inheritedValue) {
 				if (!useAttributes?.[attributeName]) {

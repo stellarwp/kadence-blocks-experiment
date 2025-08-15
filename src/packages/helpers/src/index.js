@@ -16,7 +16,7 @@ export { default as getUnitIcon } from './get-unit-icon';
 export { default as typographyStyle } from './typography-style';
 export { default as linkedOrIndividual } from './is-linked-or-individual';
 export { default as setBlockDefaults } from './set-block-defaults';
-export { default as getUniqueId } from './get-unique-id';
+export { default as uniqueIdHelper } from './get-unique-id';
 export { default as getTransferableAttributes } from './get-transferable-attributes';
 export { default as getInQueryBlock } from './get-in-query-block';
 export { default as setDynamicState } from './set-dynamic-state';
@@ -46,3 +46,5 @@ export { default as useElementHeight } from './use-element-height';
 export { default as KadenceBlocksCSS } from './css';
 export { blockExists } from './block-exists';
 export { allowOneBlockOfType } from './allow-one-block-of-type';
+
+export { default as hasKadenceCustomCss } from './has-kadence-custom-css';

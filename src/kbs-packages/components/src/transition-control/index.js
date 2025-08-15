@@ -13,7 +13,7 @@ import RadioButtonControl from '../radio-button-control';
 
 /**
  * Transition Control Component
- * 
+ *
  * @param {Object} props
  * @param {Object} props.attributes - Block attributes
  * @param {Function} props.setAttributes - Function to update attributes
@@ -40,7 +40,6 @@ export default function TransitionControl({
 	const handleReset = () => {
 		setAttributes({ [attributeName]: undefined });
 	};
-
 
 	return (
 		<ToolsPanelBody
@@ -82,7 +81,6 @@ export default function TransitionControl({
 				type={'transitionTimingFunction'}
 				globalStylesIds={globalStylesIds}
 			/>
-
 		</ToolsPanelBody>
 	);
 }

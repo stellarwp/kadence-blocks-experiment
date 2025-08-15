@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 
-import { ResizableBox } from '@wordpress/components';
+import { ResizableBox, Icon } from '@wordpress/components';
 import { useState, useReducer, useMemo, useEffect, useRef, useCallback } from '@wordpress/element';
-import { Icon } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 /**
  * Internal block libraries
@@ -279,7 +278,7 @@ function OutputResizer(props) {
 		(newAttributes) => {
 			console.log('onSetAttributes', newAttributes, inheritedTop, inheritedBottom);
 			if (
-				newAttributes['padding']?.preset &&
+				newAttributes.padding?.preset &&
 				(inheritedTop?.inheritedType === 'preset' || inheritedBottom?.inheritedType === 'preset')
 			) {
 				const inherited = getInheritedValue('padding', attributes, 'none', meta, 'desktop', globalStylesIds);
@@ -300,14 +299,14 @@ function OutputResizer(props) {
 					globalStylesIds
 				);
 
-				newAttributes['padding']['desktop'] = inherited?.inheritedValue
-					? { ...inherited?.inheritedValue, ...newAttributes['padding']['desktop'] }
-					: newAttributes['padding']['desktop'];
-				newAttributes['padding']['tablet'] = inheritedTablet?.inheritedValue
-					? { ...inheritedTablet?.inheritedValue, ...newAttributes['padding']['tablet'] }
-					: newAttributes['padding']['tablet'];
-				newAttributes['padding']['mobile'] = inheritedMobile?.inheritedValue;
-				delete newAttributes['padding']?.preset;
+				newAttributes.padding.desktop = inherited?.inheritedValue
+					? { ...inherited?.inheritedValue, ...newAttributes.padding.desktop }
+					: newAttributes.padding.desktop;
+				newAttributes.padding.tablet = inheritedTablet?.inheritedValue
+					? { ...inheritedTablet?.inheritedValue, ...newAttributes.padding.tablet }
+					: newAttributes.padding.tablet;
+				newAttributes.padding.mobile = inheritedMobile?.inheritedValue;
+				delete newAttributes.padding?.preset;
 			}
 			setAttributes(newAttributes);
 		},
@@ -394,33 +393,31 @@ function OutputResizer(props) {
 					setPaddingLeftLabel(name);
 					setPaddingTopLabel(name);
 				}
-			} else {
-				if (edge === 'Bottom') {
-					if (paddingBottomLabel !== name) {
-						setPaddingBottomLabel(name);
-					}
-				} else if (edge === 'Right') {
-					if (paddingRightLabel !== name) {
-						setPaddingRightLabel(name);
-					}
-				} else if (edge === 'Left') {
-					if (paddingLeftLabel !== name) {
-						setPaddingLeftLabel(name);
-					}
-				} else if (edge === 'Top') {
-					if (paddingTopLabel !== name) {
-						setPaddingTopLabel(name);
-					}
+			} else if (edge === 'Bottom') {
+				if (paddingBottomLabel !== name) {
+					setPaddingBottomLabel(name);
+				}
+			} else if (edge === 'Right') {
+				if (paddingRightLabel !== name) {
+					setPaddingRightLabel(name);
+				}
+			} else if (edge === 'Left') {
+				if (paddingLeftLabel !== name) {
+					setPaddingLeftLabel(name);
+				}
+			} else if (edge === 'Top') {
+				if (paddingTopLabel !== name) {
+					setPaddingTopLabel(name);
 				}
 			}
 
 			// Apply padding directly to block element during resize
 			if (blockElement) {
 				if (isResizingAll) {
-					blockElement.style['paddingTop'] = `${newPixelSize}px`;
-					blockElement.style['paddingLeft'] = `${newPixelSize}px`;
-					blockElement.style['paddingRight'] = `${newPixelSize}px`;
-					blockElement.style['paddingBottom'] = `${newPixelSize}px`;
+					blockElement.style.paddingTop = `${newPixelSize}px`;
+					blockElement.style.paddingLeft = `${newPixelSize}px`;
+					blockElement.style.paddingRight = `${newPixelSize}px`;
+					blockElement.style.paddingBottom = `${newPixelSize}px`;
 				} else {
 					blockElement.style[`padding${edge}`] = `${newPixelSize}px`;
 				}
@@ -469,33 +466,31 @@ function OutputResizer(props) {
 					setPaddingLeftLabel(name);
 					setPaddingRightLabel(name);
 					setPaddingBottomLabel(name);
-				} else {
-					if (isResizing === 'Top') {
-						if (paddingTopLabel !== name) {
-							setPaddingTopLabel(name);
-						}
-					} else if (isResizing === 'Left') {
-						if (paddingLeftLabel !== name) {
-							setPaddingLeftLabel(name);
-						}
-					} else if (isResizing === 'Right') {
-						if (paddingRightLabel !== name) {
-							setPaddingRightLabel(name);
-						}
-					} else if (isResizing === 'Bottom') {
-						if (paddingBottomLabel !== name) {
-							setPaddingBottomLabel(name);
-						}
+				} else if (isResizing === 'Top') {
+					if (paddingTopLabel !== name) {
+						setPaddingTopLabel(name);
+					}
+				} else if (isResizing === 'Left') {
+					if (paddingLeftLabel !== name) {
+						setPaddingLeftLabel(name);
+					}
+				} else if (isResizing === 'Right') {
+					if (paddingRightLabel !== name) {
+						setPaddingRightLabel(name);
+					}
+				} else if (isResizing === 'Bottom') {
+					if (paddingBottomLabel !== name) {
+						setPaddingBottomLabel(name);
 					}
 				}
 			}
 
 			// Clear the inline padding style when done resizing
 			if (blockElement) {
-				blockElement.style['paddingTop'] = '';
-				blockElement.style['paddingLeft'] = '';
-				blockElement.style['paddingRight'] = '';
-				blockElement.style['paddingBottom'] = '';
+				blockElement.style.paddingTop = '';
+				blockElement.style.paddingLeft = '';
+				blockElement.style.paddingRight = '';
+				blockElement.style.paddingBottom = '';
 			}
 			setPaddingBottomLabel(null);
 			setPaddingRightLabel(null);

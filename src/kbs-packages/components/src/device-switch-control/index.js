@@ -35,10 +35,7 @@ export default function DeviceSwitchControl({ compact = false }) {
 	}, []);
 
 	const devices = useMemo(() => {
-		if (
-			window?.kbs_params?.responsive_device_options &&
-			window?.kbs_params?.responsive_device_options.length > 0
-		) {
+		if (window?.kbs_params?.responsive_device_options && window?.kbs_params?.responsive_device_options.length > 0) {
 			return window?.kbs_params?.responsive_device_options.map((device) => ({
 				...device,
 				icon:

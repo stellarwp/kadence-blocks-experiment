@@ -4,14 +4,12 @@
  *
  * @param rawValue     The raw value as a string (may or may not contain the unit)
  * @param allowedUnits Units to derive from.
- * @return The extracted quantity and unit. The quantity can be `undefined` in case the raw value
+ * @return {string} The extracted quantity and unit. The quantity can be `undefined` in case the raw value
  * could not be parsed to a number correctly. The unit can be `undefined` in case the unit parsed
  * from the raw value could not be matched against the list of allowed units.
  */
 export function parseUnitTypeFromRawValue(rawValue, allowedUnits) {
 	let trimmedValue;
-	// create a simple array from allowedUnits, exclude empty values
-	const allowedUnitsArray = allowedUnits.filter((unit) => unit.value !== '').map((unit) => unit.value);
 	if (typeof rawValue !== 'undefined' || rawValue === null) {
 		trimmedValue = `${rawValue}`.trim();
 	}
@@ -19,6 +17,8 @@ export function parseUnitTypeFromRawValue(rawValue, allowedUnits) {
 	if (trimmedValue === '') {
 		return 'default';
 	}
+	// create a simple array from allowedUnits, exclude empty values
+	const allowedUnitsArray = allowedUnits.filter((unit) => unit.value !== '').map((unit) => unit.value);
 	const unitMatch = trimmedValue?.match(/[\d.\-\+]*\s*(.*)/);
 	const matchedUnit = unitMatch?.[1]?.toLowerCase();
 	let unitToReturn;
@@ -40,14 +40,14 @@ export function parseUnitTypeFromRawValue(rawValue, allowedUnits) {
  */
 export function getUnitFromRawValue(rawValue, allowedUnits) {
 	let trimmedValue;
-	// create a simple array from allowedUnits, exclude empty values
-	const allowedUnitsArray = allowedUnits.filter((unit) => unit.value !== '').map((unit) => unit.value);
 
 	if (typeof rawValue !== 'undefined' && rawValue !== null) {
 		trimmedValue = `${rawValue}`.trim();
 	} else {
 		return undefined;
 	}
+	// create a simple array from allowedUnits, exclude empty values
+	const allowedUnitsArray = allowedUnits.filter((unit) => unit.value !== '').map((unit) => unit.value);
 
 	// if trimmedValue is empty, return undefined
 	if (trimmedValue === '') {

@@ -21,7 +21,7 @@ import metadata from './block.json';
 /**
  * Import helpers
  */
-import { getUniqueId, getFontSizeOptionOutput, getPostOrFseId, getPreviewSize } from '@kadence/helpers';
+import { uniqueIdHelper, getFontSizeOptionOutput, getPreviewSize } from '@kadence/helpers';
 
 /**
  * Internal block libraries
@@ -104,29 +104,17 @@ function KadencePosts(props) {
 		titleFont,
 		excerptCustomLength,
 		excerptLength,
+		customKadenceArchiveColors,
 	} = attributes;
 
 	const [latestPosts, setLatestPosts] = useState({});
 	const [loaded, setLoaded] = useState(false);
 	const [activeTab, setActiveTab] = useState('content');
 
-	const { addUniqueID } = useDispatch('kadenceblocks/data');
-	const { isUniqueID, isUniqueBlock, previewDevice, parentData } = useSelect(
+	const { previewDevice } = useSelect(
 		(select) => {
 			return {
-				isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
-				isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-				parentData: {
-					rootBlock: select('core/block-editor').getBlock(
-						select('core/block-editor').getBlockHierarchyRootClientId(clientId)
-					),
-					postId: select('core/editor')?.getCurrentPostId() ? select('core/editor')?.getCurrentPostId() : '',
-					reusableParent: select('core/block-editor').getBlockAttributes(
-						select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0]
-					),
-					editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
-				},
 			};
 		},
 		[clientId]
@@ -175,17 +163,9 @@ function KadencePosts(props) {
 	};
 	const debouncedGetTaxonomyTerms = debounce(getTaxonomyTerms, 200);
 
-	useEffect(() => {
-		const postOrFseId = getPostOrFseId(props, parentData);
-		const uniqueId = getUniqueId(uniqueID, clientId, isUniqueID, isUniqueBlock, postOrFseId);
-		if (uniqueId !== uniqueID) {
-			attributes.uniqueID = uniqueId;
-			setAttributes({ uniqueID: uniqueId });
-			addUniqueID(uniqueId, clientId);
-		} else {
-			addUniqueID(uniqueID, clientId);
-		}
+	uniqueIdHelper(props);
 
+	useEffect(() => {
 		getPosts();
 
 		if (taxType) {
@@ -737,6 +717,16 @@ function KadencePosts(props) {
 								/>
 								{aboveCategories && (
 									<>
+										{kadence_blocks_params?.isKadenceT === '1' && (
+											<ToggleControl
+												label={__('Enable Custom Kadence Archive Colors', 'kadence-blocks')}
+												checked={customKadenceArchiveColors}
+												onChange={(value) =>
+													setAttributes({ customKadenceArchiveColors: value })
+												}
+											/>
+										)}
+
 										<SelectControl
 											label={__('Category Style', 'kadence-blocks')}
 											options={[
@@ -1039,31 +1029,68 @@ function KadencePosts(props) {
 						{postType === 'post' && aboveCategories && post.category_info && (
 							<div className="entry-taxonomies">
 								<span className={`category-links term-links category-style-${categoriesStyle}`}>
-									{post.category_info.map((category, index, arr) => {
-										if (arr.length - 1 === index || categoriesStyle === 'pill') {
+									{post.category_info &&
+										post.category_info.map((category, index, arr) => {
+											const slug = category.slug || '';
+											const styleProperty =
+												categoriesStyle === 'pill' ? 'background-color' : 'color';
+
+											const categoryStyle = {};
+											if (kadence_blocks_params?.isKadenceT === '1') {
+												categoryStyle[styleProperty] =
+													post.kt_archive_item_category_color?.color ?? '';
+											}
+											if (customKadenceArchiveColors && category.archive_category_color) {
+												categoryStyle[styleProperty] = category.archive_category_color;
+											}
+
 											return (
-												<a
-													key={category.id}
-													className="kb-posts-block-category-link"
-													href={'#category'}
-												>
-													{category.name}
-												</a>
+												<Fragment key={category.id || index}>
+													<a
+														className={`kb-posts-block-category-link category-link-${slug}`}
+														href={category.link || '#'}
+														style={categoryStyle}
+														onMouseEnter={(e) => {
+															if (
+																customKadenceArchiveColors &&
+																category.archive_category_hover_color
+															) {
+																e.currentTarget.style[styleProperty] =
+																	category.archive_category_hover_color;
+															} else {
+																e.currentTarget.style[styleProperty] =
+																	post.kt_archive_item_category_color?.hover ?? '';
+															}
+														}}
+														onMouseLeave={(e) => {
+															if (
+																customKadenceArchiveColors &&
+																category.archive_category_color
+															) {
+																e.currentTarget.style[styleProperty] =
+																	category.archive_category_color;
+															} else {
+																e.currentTarget.style[styleProperty] =
+																	post.kt_archive_item_category_color?.color ?? '';
+															}
+														}}
+													>
+														{category.name}
+													</a>
+
+													{index < arr.length - 1 && categoriesStyle !== 'pill' && (
+														<span
+															style={{
+																color: post.kt_archive_item_category_color?.color ?? '',
+															}}
+														>
+															{' '}
+															{aboveSymbol}{' '}
+														</span>
+													)}
+												</Fragment>
 											);
-										}
-										return (
-											<Fragment key={category.id}>
-												<a
-													key={category.id}
-													className="kb-posts-block-category-link"
-													href={'#category'}
-												>
-													{category.name}
-												</a>
-												<span> {aboveSymbol} </span>
-											</Fragment>
-										);
-									})}
+										})}
 								</span>
 							</div>
 						)}

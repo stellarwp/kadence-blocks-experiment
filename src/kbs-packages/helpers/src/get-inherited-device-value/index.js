@@ -103,14 +103,12 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 						};
 					}
 				}
-			} else {
-				if (initialValue?.layers) {
-					return {
-						inheritedValue: initialValue?.layers,
-						inheritedSource: 'initial',
-						inheritedType: 'initial',
-					};
-				}
+			} else if (initialValue?.layers) {
+				return {
+					inheritedValue: initialValue?.layers,
+					inheritedSource: 'initial',
+					inheritedType: 'initial',
+				};
 			}
 		}
 	} else {

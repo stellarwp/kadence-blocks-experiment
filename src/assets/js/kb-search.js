@@ -8,7 +8,6 @@
 		initSearch() {
 			window.kadenceSearchBlock.cache = document.querySelectorAll('.kb-search-modal-container');
 			if (!window.kadenceSearchBlock.cache.length) {
-				console.log('No search block found');
 				return;
 			}
 
@@ -21,12 +20,12 @@
 				const modalDiv = rootElement.querySelector('.kb-search-modal');
 				const closeModalButton = rootElement.querySelector('.kb-search-modal .kb-search-close-btn');
 				const searchInput = rootElement.querySelector('.kb-search-input');
+				const iconSubmitButton = rootElement.querySelector('.kb-search-modal .kb-search-icon-submit');
 
 				// Initialize listener
 				if (openModalButton) {
 					const showModalButton = function (e) {
 						e.preventDefault();
-						console.log('showModalButton');
 						modalDiv.classList.add('active');
 						openModalButton.setAttribute('aria-hidden', 'true');
 						closeModalButton.removeAttribute('aria-hidden');
@@ -35,7 +34,6 @@
 					};
 					const hideModalButton = function (e) {
 						e.preventDefault();
-						console.log('hideModalButton');
 						modalDiv.classList.remove('active');
 						openModalButton.removeAttribute('aria-hidden');
 						closeModalButton.setAttribute('aria-hidden', 'true');
@@ -52,6 +50,13 @@
 							hideModalButton(e);
 						}
 					});
+
+					// Prevent modal from closing when icon submit is clicked.
+					if (iconSubmitButton) {
+						iconSubmitButton.addEventListener('click', function (event) {
+							event.stopPropagation();
+						});
+					}
 
 					document.addEventListener('keydown', function (e) {
 						if (e.key === 'Escape' && modalDiv.classList.contains('active')) {

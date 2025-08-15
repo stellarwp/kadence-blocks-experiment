@@ -56,8 +56,6 @@ export default function registerGoogleFonts(props, metadata) {
 			});
 		}
 	}, [clientId, attributes]);
-
-	return;
 }
 /**
  * Creates or keeps a uniqueId for a block depending on it's status.
@@ -128,6 +126,4 @@ export function uniqueIdHelper(props) {
 		// This just logs the block in the store and it doesn't need to be updated.
 		addUniqueID(attributes?.uniqueID, clientId);
 	}, [clientId]);
-
-	return;
 }

@@ -18,7 +18,9 @@ import { useFontWeightOptions, useFontOptions, getInheritedDeviceValue, getDevic
  * @return {Object|null} The found option or null
  */
 export const findOptionByValue = (value, type, options) => {
-	if (!value || !options?.length) return null;
+	if (!value || !options?.length) {
+		return null;
+	}
 
 	if (type === 'fontFamily') {
 		return options.flatMap((group) => group.options).find((option) => option.value === value);
@@ -68,14 +70,14 @@ export const useSelectOptions = ({
 	forStyleBook,
 }) => {
 	let isLoadingOptions = false;
-	let loadingMessage = __('Loading options...', 'kadence-blocks');
+	let loadingMessage = __('Loading options…', 'kadence-blocks');
 	let options = [];
 
 	switch (type) {
 		case 'fontFamily': {
 			const { fontOptions, isLoadingFonts } = useFontOptions();
 			isLoadingOptions = isLoadingFonts;
-			loadingMessage = __('Loading fonts...', 'kadence-blocks');
+			loadingMessage = __('Loading fonts…', 'kadence-blocks');
 			options = fontOptions;
 			break;
 		}

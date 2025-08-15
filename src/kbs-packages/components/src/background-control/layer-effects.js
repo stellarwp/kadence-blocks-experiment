@@ -64,7 +64,7 @@ export default function LayerEffects({
 			['image', 'imageId', 'position', 'size', 'repeat', 'attachment']
 		);
 	};
-	let showColor = layer?.type !== 'color' ? true : false;
+	const showColor = layer?.type !== 'color' ? true : false;
 	return (
 		<div className={`kbs-background-layer-effects-control`}>
 			<ToolsPanelBody

@@ -105,7 +105,7 @@ export default function SpaceControl({
 		globalStylesIds
 	);
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
@@ -116,7 +116,7 @@ export default function SpaceControl({
 		(newAttributes) => {
 			console.log('onSetAttributes', newAttributes, inheritedTop, inheritedBottom);
 			if (
-				newAttributes['padding']?.preset &&
+				newAttributes.padding?.preset &&
 				(inheritedTop?.inheritedType === 'preset' || inheritedBottom?.inheritedType === 'preset')
 			) {
 				const inherited = getInheritedValue(
@@ -144,14 +144,14 @@ export default function SpaceControl({
 					globalStylesIds
 				);
 
-				newAttributes['padding']['desktop'] = inherited?.inheritedValue
-					? { ...inherited?.inheritedValue, ...newAttributes['padding']['desktop'] }
-					: newAttributes['padding']['desktop'];
-				newAttributes['padding']['tablet'] = inheritedTablet?.inheritedValue
-					? { ...inheritedTablet?.inheritedValue, ...newAttributes['padding']['tablet'] }
-					: newAttributes['padding']['tablet'];
-				newAttributes['padding']['mobile'] = inheritedMobile?.inheritedValue;
-				delete newAttributes['padding']?.preset;
+				newAttributes.padding.desktop = inherited?.inheritedValue
+					? { ...inherited?.inheritedValue, ...newAttributes.padding.desktop }
+					: newAttributes.padding.desktop;
+				newAttributes.padding.tablet = inheritedTablet?.inheritedValue
+					? { ...inheritedTablet?.inheritedValue, ...newAttributes.padding.tablet }
+					: newAttributes.padding.tablet;
+				newAttributes.padding.mobile = inheritedMobile?.inheritedValue;
+				delete newAttributes.padding?.preset;
 			}
 			setAttributes(newAttributes);
 		},

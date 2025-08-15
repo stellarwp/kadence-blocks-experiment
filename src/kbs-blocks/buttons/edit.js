@@ -82,7 +82,7 @@ export default function ButtonsEdit(props) {
 	const classes = classnames('kbs-buttons', globalClasses, {
 		[className]: className,
 		[`kbs-buttons-${uniqueID}`]: uniqueID,
-		['kbs-only-appender']: !hasInnerBlocks,
+		'kbs-only-appender': !hasInnerBlocks,
 	});
 	const blockProps = useBlockProps({
 		className: classes,
@@ -97,10 +97,10 @@ export default function ButtonsEdit(props) {
 		orientation: 'horizontal',
 		templateLock: false,
 		templateInsertUpdatesSelection: true,
-		defaultBlock: defaultBlock,
+		defaultBlock,
 		directInsert: true,
-		allowedBlocks: allowedBlocks,
-		template: template,
+		allowedBlocks,
+		template,
 	});
 
 	const getAddNewAttributes = () => {

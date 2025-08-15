@@ -60,116 +60,115 @@ export default function VideoSelector(props) {
 		}
 	};
 	const hasVideo = videoURL;
-		
+
 	return (
 		<div className="kbs-video-selector-inner kbs-video-control">
 			{!hasVideo && (
-					<MediaPlaceholder
-						labels={''}
-						selectIcon={plusCircleFilled}
-						selectLabel={__('Select Video', 'kadence-blocks')}
-						onSelect={(video) => {
-							onVideoSelect(video, previewDevice);
-						}}
-						onSelectURL={(newURL) => onVideoSelect({ url: newURL }, previewDevice)}
-						accept="video/*"
-						className={'kbs-video-upload-placeholder'}
-						allowedTypes={'video'}
-						disableMediaButtons={false}
-						dynamicControl={
-							dynamicAttribute && kbs_params.dynamic_enabled ? (
-								<DynamicVideoControl
-									customOnChange={onChange}
-									dynamicAttributes={dynamicVideo}
-									{...props}
-								/>
-							) : undefined
-						}
-					/>
-				)}
-				{hasVideo && (
-					<>
-						{dynamicAttribute && kbs_params.dynamic_enabled && dynamicVideo?.enable ? (
-							<div className="kb-dynamic-video-sidebar-top">
-								<DynamicVideoControl
-									startOpen={dynamicVideo?.field ? false : true}
-									customOnChange={onChange}
-									dynamicAttributes={dynamicVideo}
-									{...props}
-								/>
-							</div>
-						) : (
-							<div className="kbs-video-edit-wrap">
-								<MediaUpload
-									onSelect={(video) => onVideoSelect(video, previewDevice)}
-									type="video"
-									value={videoID ? videoID : ''}
-									render={({ open }) => (
-										<Button
-											className={'kbs-upload-edit-btn'}
-											variant="secondary"
-											onClick={open}
-											icon={video}
-										>
-											{__('Edit Video', 'kadence-blocks')}
-										</Button>
-									)}
-								/>
-								{hasPosterControls && !hasVideoSettingsControls && (
-									<ImageButtonSelector
-										label={__('Video Poster', 'kadence-blocks')}
-										type={posterAttribute}
-										onChange={onChange}
-										previewDevice={previewDevice}
-										dynamicAttribute={'dynamic' + posterAttribute}
-										hasSizeControls={true}
-										hasClearControls={false}
-										imageURL={posterURL}
-										imageID={posterID}
-									/>
-								)}
-								{hasVideoSettingsControls && (
-									<VideoSettingsSelector
-										label={__('Video Settings', 'kadence-blocks')}
-										previewDevice={previewDevice}
-										onChange={onChange}
-										dynamicAttribute={'dynamic' + posterAttribute}
-										hasSizeControls={true}
-										hasClearControls={false}
-										posterURL={posterURL}
-										posterID={posterID}
-										muteVideo={muteVideo}
-										loopVideo={loopVideo}
-										muteAttribute={muteAttribute}
-										loopAttribute={loopAttribute}
-										posterAttribute={posterAttribute}
-										showMuteButtonAttribute={showMuteButtonAttribute}
-										showPlayButtonAttribute={showPlayButtonAttribute}
-										showMuteButton={showMuteButton}
-										showPlayButton={showPlayButton}
-									/>
-								)}
-								{hasClearControls && (
+				<MediaPlaceholder
+					labels={''}
+					selectIcon={plusCircleFilled}
+					selectLabel={__('Select Video', 'kadence-blocks')}
+					onSelect={(video) => {
+						onVideoSelect(video, previewDevice);
+					}}
+					onSelectURL={(newURL) => onVideoSelect({ url: newURL }, previewDevice)}
+					accept="video/*"
+					className={'kbs-video-upload-placeholder'}
+					allowedTypes={'video'}
+					disableMediaButtons={false}
+					dynamicControl={
+						dynamicAttribute && kbs_params.dynamic_enabled ? (
+							<DynamicVideoControl
+								customOnChange={onChange}
+								dynamicAttributes={dynamicVideo}
+								{...props}
+							/>
+						) : undefined
+					}
+				/>
+			)}
+			{hasVideo && (
+				<>
+					{dynamicAttribute && kbs_params.dynamic_enabled && dynamicVideo?.enable ? (
+						<div className="kb-dynamic-video-sidebar-top">
+							<DynamicVideoControl
+								startOpen={dynamicVideo?.field ? false : true}
+								customOnChange={onChange}
+								dynamicAttributes={dynamicVideo}
+								{...props}
+							/>
+						</div>
+					) : (
+						<div className="kbs-video-edit-wrap">
+							<MediaUpload
+								onSelect={(video) => onVideoSelect(video, previewDevice)}
+								type="video"
+								value={videoID ? videoID : ''}
+								render={({ open }) => (
 									<Button
-										icon={closeSmall}
-										label={__('Remove Video', 'kadence-blocks')}
-										className={'kbs-upload-remove-btn'}
+										className={'kbs-upload-edit-btn'}
 										variant="secondary"
-										onClick={() => onRemoveVideo(previewDevice)}
-									/>
+										onClick={open}
+										icon={video}
+									>
+										{__('Edit Video', 'kadence-blocks')}
+									</Button>
 								)}
-								{dynamicAttribute && kbs_params.dynamic_enabled && (
-									<DynamicVideoControl
-										customOnChange={onChange}
-										dynamicAttributes={dynamicVideo}
-										{...props}
-									/>
-								)}
-							</div>
-						)}
-					</>
-				)}
-
+							/>
+							{hasPosterControls && !hasVideoSettingsControls && (
+								<ImageButtonSelector
+									label={__('Video Poster', 'kadence-blocks')}
+									type={posterAttribute}
+									onChange={onChange}
+									previewDevice={previewDevice}
+									dynamicAttribute={'dynamic' + posterAttribute}
+									hasSizeControls={true}
+									hasClearControls={false}
+									imageURL={posterURL}
+									imageID={posterID}
+								/>
+							)}
+							{hasVideoSettingsControls && (
+								<VideoSettingsSelector
+									label={__('Video Settings', 'kadence-blocks')}
+									previewDevice={previewDevice}
+									onChange={onChange}
+									dynamicAttribute={'dynamic' + posterAttribute}
+									hasSizeControls={true}
+									hasClearControls={false}
+									posterURL={posterURL}
+									posterID={posterID}
+									muteVideo={muteVideo}
+									loopVideo={loopVideo}
+									muteAttribute={muteAttribute}
+									loopAttribute={loopAttribute}
+									posterAttribute={posterAttribute}
+									showMuteButtonAttribute={showMuteButtonAttribute}
+									showPlayButtonAttribute={showPlayButtonAttribute}
+									showMuteButton={showMuteButton}
+									showPlayButton={showPlayButton}
+								/>
+							)}
+							{hasClearControls && (
+								<Button
+									icon={closeSmall}
+									label={__('Remove Video', 'kadence-blocks')}
+									className={'kbs-upload-remove-btn'}
+									variant="secondary"
+									onClick={() => onRemoveVideo(previewDevice)}
+								/>
+							)}
+							{dynamicAttribute && kbs_params.dynamic_enabled && (
+								<DynamicVideoControl
+									customOnChange={onChange}
+									dynamicAttributes={dynamicVideo}
+									{...props}
+								/>
+							)}
+						</div>
+					)}
+				</>
+			)}
 		</div>
 	);
 }

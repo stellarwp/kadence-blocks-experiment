@@ -6,10 +6,9 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Component } from '@wordpress/element';
+import { Component, useState } from '@wordpress/element';
 import { ToggleControl, TextControl, SelectControl } from '@wordpress/components';
 import { LEFT, RIGHT, UP, DOWN, BACKSPACE, ENTER } from '@wordpress/keycodes';
-import { useState } from '@wordpress/element';
 /**
  * Import Css
  */
@@ -139,7 +138,7 @@ export default function LinkControl(props) {
 			<InputSearch
 				{...props}
 				url={linkObj?.url || ''}
-				onChange={(url) => onChange({ ...linkObj, url: url })}
+				onChange={(url) => onChange({ ...linkObj, url })}
 				attributes={attributes}
 				dynamicAttribute={dynamicAttribute}
 				additionalControls={additionalControls}

@@ -32,8 +32,10 @@ class Provider extends Service_Provider {
 		$this->container->singleton( CSS_Engine::class, CSS_Engine::class );
 		$this->container->singleton( Font_Engine::class, Font_Engine::class );
 		$this->container->singleton( Svg_Render::class, Svg_Render::class );
+		$this->container->singleton( Global_Style_Variables::class, Global_Style_Variables::class );
+		$this->container->singleton( CSS_Variable_Detector::class, CSS_Variable_Detector::class );
 		add_action( 'wp_enqueue_scripts', $this->container->callback( Assets::class, 'post_blocks_css' ), 19 );
 		add_action( 'wp_enqueue_scripts', $this->container->callback( CSS_Engine::class, 'frontend_block_css' ), 180 );
-		add_action( 'template_redirect', $this->container->callback( CSS_Engine::class, 'setup_global_styles' ), 20 );
+		add_action( 'wp_head', $this->container->callback( Global_Style_Variables::class, 'output_style_usage' ), 999 );
 	}
 }

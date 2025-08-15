@@ -74,7 +74,7 @@ export const calculatePreferredValue = (min, max, minViewport = 500, maxViewport
 
 	// Calculate the base rem value (closer to minimum)
 	const baseRem = minInRem + (maxInRem - minInRem) * 0.25;
-	
+
 	// Calculate viewport unit to scale from min to max
 	const viewportRange = maxViewport - minViewport;
 	const sizeRange = maxInRem - minInRem;
@@ -90,7 +90,7 @@ export const calculatePreferredValue = (min, max, minViewport = 500, maxViewport
 /**
  * Calculate preferred value with custom viewport widths using precise calc formula
  * @param {string} min - Minimum value (e.g., "14px")
- * @param {string} max - Maximum value (e.g., "24px") 
+ * @param {string} max - Maximum value (e.g., "24px")
  * @param {number} minViewport - Minimum viewport width
  * @param {number} maxViewport - Maximum viewport width
  * @returns {string} - Calculated preferred value as calc expression
@@ -108,7 +108,7 @@ export const calculatePreferredValueWithViewports = (min, max, minViewport, maxV
 	let minInRem = minParsed.value;
 	let maxInRem = maxParsed.value;
 	let unit = minParsed.unit;
-	
+
 	// Convert px to rem for calculation (but keep original unit in output)
 	const outputUnit = minParsed.unit;
 	if (minParsed.unit === 'px') {
@@ -116,34 +116,34 @@ export const calculatePreferredValueWithViewports = (min, max, minViewport, maxV
 		maxInRem = maxParsed.value / 16;
 		unit = 'rem';
 	}
-	
+
 	// For rem-based calculations, use the precise formula
 	// The formula: preferred = a + b*vw where:
 	// b = 1600 * (F2 - F1) / (W2 - W1)
 	// a = F1 - (b/1600) * W1
 	// This ensures at W1: a + b*(W1/100) = F1 and at W2: a + b*(W2/100) = F2
-	
+
 	if (unit === 'rem' || unit === 'em') {
-		const slope = 1600 * (maxInRem - minInRem) / (maxViewport - minViewport);
+		const slope = (1600 * (maxInRem - minInRem)) / (maxViewport - minViewport);
 		const intercept = minInRem - (slope / 1600) * minViewport;
-		
+
 		// Round to 4 decimal places for precision
 		const roundedIntercept = Math.round(intercept * 10000) / 10000;
 		const roundedSlope = Math.round(slope * 10000) / 10000;
-		
+
 		// Return clean expression without calc()
 		return `${roundedIntercept}${unit} + ${roundedSlope}vw`;
 	}
-	
+
 	// For other units (%, vw), use a simpler approach
 	const minValue = minParsed.value;
 	const maxValue = maxParsed.value;
-	const slope = (maxValue - minValue) / (maxViewport - minViewport) * 100;
-	const intercept = minValue - (slope * minViewport / 100);
-	
+	const slope = ((maxValue - minValue) / (maxViewport - minViewport)) * 100;
+	const intercept = minValue - (slope * minViewport) / 100;
+
 	const roundedIntercept = Math.round(intercept * 10000) / 10000;
 	const roundedSlope = Math.round(slope * 10000) / 10000;
-	
+
 	return `${roundedIntercept}${unit} + ${roundedSlope}vw`;
 };
 
@@ -166,7 +166,7 @@ export const generateClampValue = (mobile, desktop, mobileViewport, desktopViewp
 	} else {
 		preferred = calculatePreferredValue(mobile, desktop);
 	}
-	
+
 	return `clamp(${mobile}, ${preferred}, ${desktop})`;
 };
 
@@ -191,8 +191,8 @@ export const parseViewportsFromPreferred = (preferred) => {
 
 	// Try to match the calc pattern with viewport values
 	// Pattern: calc(...px + (...px) * ((100vw - XXXpx) / YYY))
-	const match = preferred.match(/\(100vw\s*-\s*(\d+)px\)\s*\/\s*(\d+)/); 
-	
+	const match = preferred.match(/\(100vw\s*-\s*(\d+)px\)\s*\/\s*(\d+)/);
+
 	if (match) {
 		const minViewport = parseInt(match[1]);
 		const divisor = parseInt(match[2]);
@@ -212,23 +212,23 @@ export const parseViewportsFromPreferred = (preferred) => {
  */
 export const getClampOrSimpleValues = (value) => {
 	if (!value) {
-		return { 
-			mobile: '', 
+		return {
+			mobile: '',
 			desktop: '',
 			mobileViewport: 500,
-			desktopViewport: 1200
+			desktopViewport: 1200,
 		};
 	}
 
 	const clampParsed = parseClampValue(value);
-	
+
 	if (clampParsed) {
 		const viewports = parseViewportsFromPreferred(clampParsed.preferred);
 		return {
 			mobile: clampParsed.min,
 			desktop: clampParsed.max,
 			mobileViewport: viewports.minViewport,
-			desktopViewport: viewports.maxViewport
+			desktopViewport: viewports.maxViewport,
 		};
 	}
 
@@ -237,6 +237,6 @@ export const getClampOrSimpleValues = (value) => {
 		mobile: value,
 		desktop: value,
 		mobileViewport: 500,
-		desktopViewport: 1200
+		desktopViewport: 1200,
 	};
 };

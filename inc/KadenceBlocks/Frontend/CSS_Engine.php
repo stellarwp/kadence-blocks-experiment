@@ -6,9 +6,19 @@
 namespace KadenceWP\KadenceBlocks\Frontend;
 
 use KadenceWP\KadenceBlocks\Container;
-use KadenceWP\KadenceBlocks\Frontend\Global_Style_Css;
+use KadenceWP\KadenceBlocks\Frontend\Global_Style_Variables;
 use KadenceWP\KadenceBlocks\Blocks\Editor_Assets;
 use KadenceWP\KadenceBlocks\Settings\Global_Style;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Typography_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Background_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Simple_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Border_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Shadow_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Icon_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Transform_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Transition_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Text_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Utils\Component_Value_Resolver;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -39,13 +49,13 @@ class CSS_Engine {
 	 * @var array
 	 */
 	public static $custom_styles = array();
-
+	
 	/**
-	 * Global styles css
+	 * Debug output to include
 	 *
-	 * @var object
+	 * @var array
 	 */
-	protected $global_styles_css = null;
+	protected $debug_styles = array();
 
 	/**
 	 * The css group id.
@@ -169,7 +179,7 @@ class CSS_Engine {
 	 *
 	 * @var array
 	 */
-	protected $device_options = null;
+	public $device_options = null;
 
 	/**
 	 * The device slugs
@@ -205,6 +215,17 @@ class CSS_Engine {
 		'xl' => 'var(--kbs-font-size-xl, 3rem)',
 		'xxl' => 'var(--kbs-font-size-xxl, 4rem)',
 		'3xl' => 'var(--kbs-font-size-3xl, 5rem)',
+	);
+	/**
+	 * Border radius variables used in string based border radius values.
+	 */
+	protected $border_radius_sizes = array(
+		'sm' => 'var(--global-kb-border-radius-sm, 5px)',
+		'md' => 'var(--global-kb-border-radius-md, 15px)',
+		'lg' => 'var(--global-kb-border-radius-lg, 30px)',
+		'xl' => 'var(--global-kb-border-radius-xl, 50px)',
+		'xxl' => 'var(--global-kb-border-radius-xxl, 100px)',
+		'3xl' => 'var(--global-kb-border-radius-3xl, 200px)',
 	);
 	/**
 	 * Line height variables used in string based line heights.
@@ -249,11 +270,41 @@ class CSS_Engine {
 		'lg' => 'var(--global-kb-gap-lg, 4rem)',
 	);
 	/**
+	 * Content width variables used in dimension values.
+	 */
+	protected $content_width_sizes = array(
+		'full' => 'var(--kbs-contentwidth-full, 100%)',
+		'wide' => 'var(--kbs-contentwidth-wide, 800px)',
+		'medium' => 'var(--kbs-contentwidth-medium, 550px)',
+		'narrow' => 'var(--kbs-contentwidth-narrow, 300px)',
+	);
+	/**
 	 * Global styles.
 	 *
 	 * @var array
 	 */
 	protected $global_styles = null;
+
+	/**
+	 * Global styles CSS instance.
+	 *
+	 * @var Global_Style_Variables
+	 */
+	protected $global_styles_css;
+
+	/**
+	 * Component generators
+	 *
+	 * @var array
+	 */
+	protected $generators = array();
+
+	/**
+	 * Current attributes being processed
+	 *
+	 * @var array
+	 */
+	protected $current_attributes = array();
 
 	/**
 	 * constructor
@@ -278,16 +329,57 @@ class CSS_Engine {
 		if( null === $this->global_styles ) {
             $this->global_styles = $this->get_global_styles();
         }
+
 		// Set up the global styles css engine in the global styles css engine.
-		$this->global_styles_css = new Global_Style_Css( $this, $this->device_options );
+		$this->global_styles_css = new Global_Style_Variables( $this, $this->device_options );
+		
+		// Initialize component generators
+		$this->init_generators();
 	}
 
 	/**
+	 * Initialize component generators
+	 */
+	protected function init_generators() {
+		// Create single instance of Simple_Generator for multiple component types
+		$simple_generator = new Simple_Generator( $this );
+		
+		$this->generators = array(
+			// Complex generators with custom logic
+			'typography'      => new Typography_Generator( $this ),
+			'background'      => new Background_Generator( $this ),
+			'border'          => new Border_Generator( $this ),
+			'boxShadow'       => new Shadow_Generator( $this ),
+			'textShadow'      => new Shadow_Generator( $this ),
+			'icon'            => new Icon_Generator( $this ),
+			'transform'       => new Transform_Generator( $this ),
+			'transition'      => new Transition_Generator( $this ),
+			'textAlign'       => new Text_Generator( $this ),
+			'linkStyle'       => new Text_Generator( $this ),
+			'textOrientation' => new Text_Generator( $this ),
+			
+			// Simple generators using the single instance
+			'color'           => $simple_generator,
+			'padding'         => $simple_generator,
+			'margin'          => $simple_generator,
+			'flexBox'         => $simple_generator,
+			
+			// Dimension generators using simple generator
+			'maxWidth'        => $simple_generator,
+			'maxHeight'       => $simple_generator,
+			'minWidth'        => $simple_generator,
+			'minHeight'       => $simple_generator,
+			'width'           => $simple_generator,
+			'height'          => $simple_generator,
+		);
+	}
+	
+	/**
 	 * Setup global styles.
 	 */
-	public function setup_global_styles() {
+	public function set_global_styles() {
 		// Generate global styles CSS for all mappings.
-		$this->global_styles_css->generate_css();
+		$this->global_styles = '';
 	}
 	/**
 	 * Get global styles.
@@ -307,20 +399,11 @@ class CSS_Engine {
 	public function frontend_block_css() {
 		if ( ! empty( self::$styles ) ) {
 			self::$head_styles = self::$styles;
-			$output = '';
-			foreach ( self::$styles as $key => $value ) {
-				// Remove the comments if we want to change how the global mappings are loaded.
-				// if ( strpos( $key, 'global-styles' ) !== false ) {
-				// 	continue;
-				// }
-				$output .= $value;
-			}
-			$custom_output = '';
-			if ( ! empty( self::$custom_styles ) && is_array( self::$custom_styles ) ) {
-				foreach ( self::$custom_styles as $c_key => $c_value ) {
-					$custom_output .= $c_value;
-				}
-			}
+			// Concatenate outputs in one pass
+			$output = implode( '', array_values( self::$styles ) );
+			$custom_output = ! empty( self::$custom_styles ) && is_array( self::$custom_styles )
+				? implode( '', array_values( self::$custom_styles ) )
+				: '';
 			if ( ! empty( $output ) ) {
 				wp_register_style( 'kbs_css', false );
 				wp_enqueue_style( 'kbs_css' );
@@ -599,13 +682,17 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function add_property( $property, $value = null, $check_empty = null ) {
-		if ( null === $value ) {
+        if ( null === $value ) {
 			return $this;
 		}
 		if ( null !== $check_empty && empty( $value ) ) {
 			return $this;
 		}
-		$value = wp_strip_all_tags( $value );
+        // Guard against non-string values to avoid warnings
+        if ( is_array( $value ) || is_object( $value ) ) {
+            return $this;
+        }
+        $value = wp_strip_all_tags( (string) $value );
 		if ( in_array( $property, $this->_special_properties_list ) ) {
 			$this->add_special_rules( $property, $value );
 		} else {
@@ -830,16 +917,11 @@ class CSS_Engine {
 	 * @return array
 	 */
 	public function get_global_styles_ids( $attributes, $block_instance ) {
-		$parent_global_styles_ids = [];
-		if ( is_object( $block_instance ) && !empty( $block_instance->context['kbs/parentGlobalStyles'] ) && is_array( $block_instance->context['kbs/parentGlobalStyles'] ) ) {
-			$parent_global_styles_ids = $block_instance->context['kbs/parentGlobalStyles'];
-		}
-		$current_global_styles_ids = [];
 		if ( !empty( $attributes['globalStyleIds'] ) && is_array( $attributes['globalStyleIds'] ) ) {
-			$current_global_styles_ids = $attributes['globalStyleIds'];
+			return array_merge( $attributes['globalStyleIds'], [ 'kbs-base' ] );
 		}
-		$global_styles_ids = array_merge( $parent_global_styles_ids, $current_global_styles_ids, [ 'kbs-base' ] );
-		return $global_styles_ids;
+
+		return [ 'kbs-base' ];
 	}
 	/**
 	 * Add global style css.
@@ -1065,6 +1147,20 @@ class CSS_Engine {
 					return $letter_spacing_value;
 				}
 				return $value;
+			case 'borderTopLeftRadius':
+			case 'borderTopRightRadius':
+			case 'borderBottomRightRadius':
+			case 'borderBottomLeftRadius':
+			case 'borderTopLeftRadiusHover':
+			case 'borderTopRightRadiusHover':
+			case 'borderBottomRightRadiusHover':
+			case 'borderBottomLeftRadiusHover':
+				// Check if it's a variable border radius value
+				$border_radius_value = $this->get_variable_border_radius_value( $value );
+				if ( $border_radius_value ) {
+					return $border_radius_value;
+				}
+				return $value;
 			default:
 				return $value;
 		}
@@ -1082,35 +1178,16 @@ class CSS_Engine {
 		}
 		$use_variable_name = ( isset( $attributes_meta['nonInheritable'] ) && $attributes_meta['nonInheritable'] ) ? false : true;
 		$selector_prefix = ( isset( $attributes_meta['selector'] ) ) ? $attributes_meta['selector'] : '';
-		$component_name = ( isset( $attributes_meta['component'] ) ) ? $attributes_meta['component'] : '';
 		$attribute_name = preg_replace('/([a-z])([A-Z])/', '$1-$2', $attribute_name);
 		$attribute_name = strtolower($attribute_name);
 		if ( $use_variable_name ) {
 			return $selector_prefix . $attribute_name;
 		}
-		$attribute_name = $this->map_attribute_for_component( $attribute_name, $component_name );
+		// Non-inheritable direct CSS property: do minimal special mapping
+		if ( isset( $attributes_meta['component'] ) && 'background' === $attributes_meta['component'] && 'color' === $attribute_name ) {
+			return 'background-color';
+		}
 		return $attribute_name;
-	}
-	/**
-	 * Map the attribute for the component.
-	 *
-	 * @param string $attribute_name The name of the attribute.
-	 * @param string $component_name The name of the component.
-	 * @return string
-	 */
-	public function map_attribute_for_component( $attribute_name, $component_name ) {
-		if ( empty( $component_name ) ) {
-			return $attribute_name;
-		}
-		switch ( $component_name ) {
-			case 'background':
-				if ( 'color' === $attribute_name ) {
-					return 'background-color';
-				}
-				return $attribute_name;
-			default:
-				return $attribute_name;
-		}
 	}
 	/**
 	 * Add the component array to the css output.
@@ -1184,22 +1261,95 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function add_component( $key, $attributes, $attributes_meta = [], $block_instance = null, $global_styles_ids = [] ) {
-		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
-		if ( empty( $merged_attribute ) || !isset( $attributes[$key] ) ) {
+        // Store current attributes for generators to access
+        $this->current_attributes = $attributes;
+		
+		$component_type = isset( $attributes_meta['component'] ) ? $attributes_meta['component'] : '';
+		
+		// Check if debugging is enabled for this component
+		if ( ! empty( $attributes_meta['debug'] ) && $attributes_meta['debug'] === true ) {
+			$this->output_component_debug( $key, $component_type, $merged_attributes, $attributes_meta, $global_styles_ids );
+		}
+		
+		// Check if we have a generator for this component type
+		if ( ! empty( $component_type ) && isset( $this->generators[ $component_type ] ) ) {
+			// Prepare metadata in the expected format
+			$metadata = array();
+			if ( $block_instance && isset( $block_instance->block_type ) ) {
+				// Convert WP_Block_Type object to array format
+				if ( isset( $block_instance->block_type->attributes ) ) {
+					$metadata['attributes'] = $block_instance->block_type->attributes;
+				}
+				if ( isset( $block_instance->block_type->name ) ) {
+					$metadata['name'] = $block_instance->block_type->name;
+				}
+			}
+			
+			// Special handling for components with layers (like background)
+			if ( ! empty( $attributes_meta['hasLayers'] ) ) {
+				// For layered components, call the generator directly without value resolution
+				// The generator will handle layer processing internally
+				
+				// Call the generator directly - it will handle devices internally
+				$this->generators[ $component_type ]->generate( $key, $attributes_meta, array(), $block_instance );
+				
+				// Reset media state back to desktop (default)
+				$this->set_media_state( 'desktop' );
+				
+				return $this;
+			}
+			
+			// Standard component processing with value resolution
+			// Iterate through all devices to generate responsive CSS
+			foreach ( $this->device_options as $device_option ) {
+				$device_key = isset( $device_option['key'] ) ? $device_option['key'] : '';
+				if ( ! $device_key ) {
+					continue;
+				}
+				
+				// Set the media state for this device
+				$this->set_media_state( $device_key );
+				
+				// Resolve values for this specific device
+                $resolved_values = Component_Value_Resolver::resolve_component_values(
+					$key,
+                    $attributes,
+					$device_key, // Device being processed
+					$metadata,
+					$global_styles_ids,
+					$component_type,
+					$this
+				);
+				
+				// Only generate CSS if there are resolved values for this device
+				if ( ! empty( $resolved_values ) ) {
+					// Check if this is a hover attribute and use state handling
+					$is_hover = substr( $key, -5 ) === 'Hover';
+					if ( $is_hover ) {
+						$this->add_selector_state( ':hover' );
+					}
+					// Generate CSS using the appropriate component generator
+					$this->generators[ $component_type ]->generate( $key, $attributes_meta, $resolved_values, $block_instance );
+					if ( $is_hover ) {
+						// Flush hover state rules and clear states
+						$this->reset_selector_states();
+					}
+				}
+			}
+			
+			// Reset media state back to desktop (default)
+			$this->set_media_state( 'desktop' );
+			
 			return $this;
 		}
-		// Handle layered components (background, shadows)
-		if ( isset( $attributes_meta['hasLayers'] ) && $attributes_meta['hasLayers'] ) {
-			$this->process_layered_component( $key, $attributes, $attributes_meta, $block_instance, $global_styles_ids );
-			return $this;
-		}
-		// Handle component preset.
-		if ( !empty( $merged_attribute['preset'] ) ) {
-			$this->process_component_preset( $merged_attribute['preset'], $attributes_meta, $block_instance, $global_styles_ids );
+		
+        // If no generator found, use fallback implementation for simple components
+        $merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
+        if ( empty( $merged_attribute ) || !isset( $attributes[$key] ) ) {
 			return $this;
 		}
 
-		$this->add_component_array( $merged_attribute, $attributes_meta, $block_instance, $global_styles_ids );			
+        $this->add_component_array( $merged_attribute, $attributes_meta, $block_instance, $global_styles_ids );            
 
 		return $this;
 	}
@@ -1225,28 +1375,6 @@ class CSS_Engine {
 	}
 
 	/**
-	 * Process preset layers.
-	 *
-	 * @param string $layers_preset The preset layers.
-	 * @param array $attributes_meta The attribute metadata.
-	 * @param array $attributes The attributes array.
-	 * @param WP_Block $block_instance The block instance.
-	 * @param array $global_styles_ids Global style IDs.
-	 * @return $this
-	 */
-	public function process_preset_layers( $layers_preset, $attributes_meta, $attributes, $block_instance, $global_styles_ids ) {
-		$preset_data = $this->get_preset_data( $layers_preset, $attributes_meta['component'], $global_styles_ids );
-		if ( empty( $preset_data ) ) {
-			return;
-		}
-		$layers = !empty( $preset_data['attributes']['layers'] ) ? $preset_data['attributes']['layers'] : [];
-		// Reverse the layers so we process the first layer last.
-		$reversed_layers = array_reverse( $layers );
-		foreach ( $reversed_layers as $index => $layer ) {
-			$this->process_background_layer( $layer, $index, $attributes_meta, $attributes, $block_instance, $global_styles_ids );
-		}
-	}
-	/**
 	 * Process component preset.
 	 *
 	 * @param string $preset_key The preset key.
@@ -1263,6 +1391,42 @@ class CSS_Engine {
 		$this->add_component_array( $preset_data['attributes'], $attributes_meta, $block_instance, $global_styles_ids );
 
 	}
+	
+	/**
+	 * Merge preset data with direct component values
+	 * Direct values take precedence over preset values
+	 *
+	 * @param array $preset_data The preset data.
+	 * @param array $direct_values The direct component values.
+	 * @return array Merged component data.
+	 */
+	public function merge_preset_with_direct( $preset_data, $direct_values ) {
+		$merged = $preset_data;
+		
+		// Remove the preset key from direct values to avoid infinite loop
+		unset( $direct_values['preset'] );
+		
+		// Merge each device's values
+		foreach ( $direct_values as $key => $value ) {
+			if ( in_array( $key, array( 'desktop', 'tablet', 'mobile' ) ) && is_array( $value ) ) {
+				// Device-specific values
+				if ( ! isset( $merged[ $key ] ) ) {
+					$merged[ $key ] = array();
+				}
+				// Direct values override preset values
+				$merged[ $key ] = array_merge( 
+					isset( $merged[ $key ] ) ? $merged[ $key ] : array(), 
+					$value 
+				);
+			} else {
+				// Non-device-specific values
+				$merged[ $key ] = $value;
+			}
+		}
+		
+		return $merged;
+	}
+	
 	/**
 	 * Get the device value from the layer.
 	 *
@@ -1295,309 +1459,6 @@ class CSS_Engine {
 			}
 		}
 		return false;
-	}
-	/**
-	 * Process background layer.
-	 *
-	 * @param array $layer The layer data.
-	 * @param int $index The index of the layer.
-	 * @param array $attributes_meta The attribute metadata.
-	 * @param array $attributes The attributes array.
-	 * @param WP_Block $block_instance The block instance.
-	 * @param array $global_styles_ids Global style IDs.
-	 * @return $this
-	 */
-	public function process_background_layer( $layer, $index, $attributes_meta, $attributes, $block_instance, $global_styles_ids ) {
-		if( empty( $layer ) || !is_array( $layer ) ) {
-			return;
-		}
-		$current_selector = $this->_selector;
-		$temp_selector = $current_selector;
-		$meta_class_prefix = isset( $attributes_meta['classPrefix'] ) ? $attributes_meta['classPrefix'] : 'kbs-bg-style-';
-		// Background type can't change per device so we just get the desktop value.
-		$background_type = $this->get_layer_device_value( $layer, 'type', 'desktop' ) ?: 'color';
-		$has_effects = false;
-		$has_forced_layer_type = false;
-		if ( $index === 0 ) {
-			if ( $this->has_layer_value( $layer, 'opacity', '100%' ) || $this->has_layer_value( $layer, 'opacityHover', '100%' ) || $this->has_layer_value( $layer, 'blendMode', 'normal' ) || $this->has_layer_value( $layer, 'blendModeHover', 'normal' ) || apply_filters( 'kbs_always_use_bg_layers', false ) ) {
-				$has_effects = true;
-			}
-			if ( $background_type === 'video' || $background_type === 'mask' ) {
-				$has_forced_layer_type = true;
-			}
-		}
-
-		if ( $index === 0 && !$has_forced_layer_type && ! $has_effects ) {
-			$temp_selector = $current_selector;
-			$this->set_selector( $current_selector );
-		} else {
-			$temp_selector = $current_selector . ' > .' . $meta_class_prefix . $index;
-			$this->set_selector( $temp_selector );
-		}
-		// Loop through the layers devices and add the properties to the css output.
-		foreach ( $layer as $device_name => $device_attributes ) {
-			if( isset( $this->_device_media_queries[ $device_name ] ) && is_array( $this->_device_media_queries[ $device_name ] ) ) {
-				if ( !empty( $device_attributes ) && is_array( $device_attributes ) ) {
-					$this->set_media_state( $device_name );
-					if ( !empty( $device_attributes['opacity'] ) ) {
-						$this->add_property( 'opacity', $device_attributes['opacity'] );
-					}
-					if ( !empty( $device_attributes['blendMode'] ) ) {
-						$this->add_property( 'mix-blend-mode', $device_attributes['blendMode'] );
-					}
-					switch ( $background_type ) {
-						case 'color':
-							if ( !empty( $device_attributes['color'] ) ) {
-								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['color'] ) );
-							}
-							break;
-						case 'image':
-							if ( !empty( $device_attributes['color'] ) ) {
-								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['color'] ) );
-							}
-							if (!empty( $device_attributes['image'] ) ) {
-								$this->add_property( 'background-image', 'url(' . $device_attributes['image'] . ')' );
-							}
-							if ( !empty( $device_attributes['position'] ) ) {
-								$this->add_property( 'background-position', $device_attributes['position'] );
-							}
-							if ( !empty( $device_attributes['size'] ) ) {
-								$this->add_property( 'background-size', $device_attributes['size'] );
-							}
-							if ( !empty( $device_attributes['repeat'] ) ) {
-								$this->add_property( 'background-repeat', $device_attributes['repeat'] );
-							}
-							if ( !empty( $device_attributes['attachment'] ) ) {
-								$this->add_property( 'background-attachment', $device_attributes['attachment'] === 'parallax' ? 'fixed' : $device_attributes['attachment'] );
-							}
-							break;
-						case 'gradient':
-							if ( !empty( $device_attributes['color'] ) ) {
-								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['color'] ) );
-							}
-							if ( !empty( $device_attributes['gradient'] ) ) {
-								$this->add_property( 'background-image', $device_attributes['gradient'] );
-							}
-							break;
-						case 'mask':
-							$mask_type = $this->get_layer_device_value( $layer, 'maskType', $device_name ) ?: 'mask';
-							if ( !empty( $device_attributes['color'] ) ) {
-								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['color'] ) );
-								$this->add_property( '--kbs-mask-bg', $this->sanitize_color( $device_attributes['color'] ) );
-							}
-							if ( !empty( $device_attributes['maskColor'] ) ) {
-								$this->add_property( '--kbs-mask-color', $this->sanitize_color( $device_attributes['maskColor'] ) );
-							}
-							switch ( $mask_type ) {
-								case 'pattern':
-									$this->add_property( 'mask-image', 'url("data:image/svg+xml, ' . $device_attributes['mask'] . '")' );
-									break;
-								case 'divider':
-									$this->add_property( 'mask-image', 'url("data:image/svg+xml, ' . $device_attributes['mask'] . '")' );
-									break;
-								default:
-									$mask_slug = !empty( $device_attributes['mask'] ) ? $device_attributes['mask'] : '';
-									if ( !empty( $mask_slug ) ) {
-										$this->set_selector( $current_selector . ' > .' . $meta_class_prefix . $index . ' .kbs-pattern-mask-svg' );
-										$mask_inverted = !empty( $device_attributes['maskInverted'] ) ? $device_attributes['maskInverted'] : '';
-										$mask_size = !empty( $device_attributes['maskSize'] ) ? $device_attributes['maskSize'] : '';
-										$mask_ratio = $mask_size === 'stretch' ? 'none' : 'xMidYMid meet';
-										$mask_subset = $mask_inverted === 'enabled' ? 'inverted' : 'normal';
-										$mask_data = $this->get_mask_data( $mask_slug, $mask_subset );
-										if ( !empty( $mask_data['path'] ) ) {
-											if ( !empty( $device_attributes['maskColor'] ) ) {
-												$this->add_property( 'background', $this->sanitize_color( $device_attributes['maskColor'] ) );
-											} else if ( $device_name === 'desktop' ) {
-												$this->add_property( 'background', 'var(--kbs-colors-palette3)' );
-											}
-											$this->add_property( 'mask-image', 'url("data:image/svg+xml, ' . rawurlencode( '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="'. esc_attr( $mask_ratio ) . '" viewBox="0 0 1920 1200" fill="black"><path d="'. esc_attr( $mask_data['path'] ) . '" /></svg>' ) . '")' );
-											$this->add_property( 'mask-repeat', 'no-repeat' );
-											if ( $mask_size === 'contain' ) {
-												$this->add_property( 'mask-size', 'contain' );
-											} else {
-												$this->add_property( 'mask-size', 'cover' );
-											}
-										}
-									}
-									$position_x = 'center';
-									$position_y = 'center';
-									if ( !empty( $device_attributes['alignX'] ) ) {
-										if ( $device_attributes['alignX'] === 'min' ) {
-											$position_x = 'left';
-										} else if ( $device_attributes['alignX'] === 'max' ) {
-											$position_x = 'right';
-										}
-									}
-									if ( !empty( $device_attributes['alignY'] ) ) {
-										if ( $device_attributes['alignY'] === 'min' ) {
-											$position_y = 'top';
-										} else if ( $device_attributes['alignY'] === 'max' ) {
-											$position_y = 'bottom';
-										}
-									}
-									$this->add_property( 'mask-position', $position_x . ' ' . $position_y );
-									$flip_x = !empty( $device_attributes['flipX'] ) ? $device_attributes['flipX'] : '';
-									$flip_y = !empty( $device_attributes['flipY'] ) ? $device_attributes['flipY'] : '';
-									if ( $flip_x === 'enabled' || $flip_y === 'enabled' ) {
-										$this->add_property( 'transform', 'scaleX(' . ( $flip_x === 'enabled' ? '-1' : '1' ) . ') scaleY(' . ( $flip_y === 'enabled' ? '-1' : '1' ) . ')' );
-									}
-									break;
-							}
-							$this->set_selector( $temp_selector );
-							break;
-
-				// if (maskType === 'divider') {
-				// 	const backgroundDivider = getLayerDeviceValue('divider', layer, props.previewDevice);
-				// 	const dividerWidth = getLayerDeviceValue('dividerWidth', layer, props.previewDevice);
-				// 	const dividerHeight = getLayerDeviceValue('dividerHeight', layer, props.previewDevice);
-				// 	const dividerPosition = getLayerDeviceValue('dividerPosition', layer, props.previewDevice);
-				// 	const dividerSide =
-				// 		dividerPosition === 'left' || dividerPosition === 'right' ? 'vertical' : 'horizontal';
-				// 	if (dividerWidth) {
-				// 		this.add({ '--kbs-divider-width': dividerWidth });
-				// 	}
-				// 	if (dividerHeight) {
-				// 		this.add({ '--kbs-divider-height': dividerHeight });
-				// 	}
-				// 	if (backgroundDivider) {
-				// 		const dividerObject =
-				// 			getDividerOptions()[dividerSide].find(({ value }) => value === backgroundDivider) || {};
-				// 		if (dividerObject) {
-				// 			if (dividerObject?.['svg']) {
-				// 				this.setSelector(tempSelector + ' .kbs-divider-svg-wrapper .kbs-divider-svg');
-				// 				if (maskColor) {
-				// 					this.add({ background: getColorOutput(maskColor) });
-				// 				} else {
-				// 					this.add({ background: getColorOutput('palette3') });
-				// 				}
-				// 				this.add({
-				// 					'mask-image': `url("data:image/svg+xml, ${encodeURIComponent(dividerObject['svg'])}")`,
-				// 				});
-				// 				this.add({ 'mask-repeat': 'no-repeat' });
-				// 				this.setSelector(tempSelector);
-				// 			}
-				// 		}
-				// 	}
-				// }
-				// if (maskType === 'pattern') {
-				// 	const backgroundPattern = getLayerDeviceValue('pattern', layer, props.previewDevice);
-				// 	if (backgroundPattern) {
-				// 		const patternSize = getLayerDeviceValue('patternSize', layer, props.previewDevice);
-				// 		const patternPosition =
-				// 			getLayerDeviceValue('patternPosition', layer, props.previewDevice) || 'top left';
-				// 		if (patternSize) {
-				// 			this.add({ '--kbs-pattern-size': patternSize });
-				// 		} else {
-				// 			this.add({ '--kbs-pattern-size': '20' });
-				// 		}
-				// 		const pattern = getPatternOptions().find((pattern) => pattern.value === backgroundPattern);
-				// 		if (pattern) {
-				// 			if (pattern?.['svg']) {
-				// 				this.setSelector(tempSelector + ' .kbs-pattern-svg');
-				// 				if (maskColor) {
-				// 					this.add({ background: getColorOutput(maskColor) });
-				// 				} else {
-				// 					this.add({ background: getColorOutput('palette3') });
-				// 				}
-				// 				this.add({
-				// 					'mask-image': `url("data:image/svg+xml, ${encodeURIComponent(pattern['svg'])}")`,
-				// 				});
-				// 				this.add({ 'mask-repeat': 'repeat' });
-				// 				const currentPatternSize = pattern?.['size'];
-				// 				this.add({
-				// 					'mask-size':
-				// 						'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))',
-				// 				});
-				// 				this.add({ 'mask-position': patternPosition });
-				// 				this.setSelector(tempSelector);
-				// 			}
-				// 		}
-				// 	}
-				// }
-							break;	
-						/* TODO: I need to add all the other background types here. */
-					}
-					// Handle hover states
-					if ( $index === 0 && !$has_forced_layer_type && ! $has_effects ) {
-						$this->set_selector( $current_selector . ':hover' );
-					} else {
-						$this->set_selector( $current_selector . ':hover > .' . $meta_class_prefix . $index );
-					}
-					
-					if ( !empty( $device_attributes['opacityHover'] ) ) {
-						$this->add_property( 'opacity', $device_attributes['opacityHover'] );
-					}
-					if ( !empty( $device_attributes['blendModeHover'] ) ) {
-						$this->add_property( 'mix-blend-mode', $device_attributes['blendModeHover'] );
-					}
-					
-					// Process hover states based on type
-					switch ( $background_type ) {
-						case 'color':
-						case 'image':
-						case 'video':
-						case 'gradient':
-							if ( !empty( $device_attributes['colorHover'] ) ) {
-								$this->add_property( 'background-color', $this->sanitize_color( $device_attributes['colorHover'] ) );
-							}
-							break;
-							
-						case 'backdrop':
-							if ( !empty( $device_attributes['backdropFilterHover'] ) ) {
-								if ( $device_attributes['backdropFilterHover'] === 'none' ) {
-									$this->add_property( 'backdrop-filter', 'none' );
-								} else {
-									$hover_unit = $device_attributes['backdropFilterHover'] === 'blur' ? 'px' : ( $device_attributes['backdropFilterHover'] === 'hue-rotate' ? 'deg' : '%' );
-									$backdrop_size = $this->get_layer_device_value( 'backdropSize', $layer, $device_name ) ?: '1';
-									$hover_backdrop_size = $this->get_layer_device_value( 'backdropSizeHover', $layer, $device_name );
-									if ( ! $hover_backdrop_size && $hover_backdrop_size !== 0 ) {
-										$hover_backdrop_size = $backdrop_size;
-									}								
-									$this->add_property( 'backdrop-filter', $device_attributes['backdropFilterHover'] . '(' . $hover_backdrop_size . $hover_unit . ')' );
-								}
-							}
-							break;
-					}
-					
-				}
-			}
-		}
-		// Reset the selector to the original selector.
-		$this->set_selector( $current_selector );
-		// Reset the media state to desktop.
-		$this->set_media_state( 'desktop' );
-		return $this;
-	}
-
-	/**
-	 * Process layered component (backgrounds, shadows).
-	 *
-	 * @param string $attribute_name The attribute name.
-	 * @param array $attributes The attributes array.
-	 * @param array $attributes_meta The attribute metadata.
-	 * @param WP_Block $block_instance The block instance.
-	 * @param array $global_styles_ids Global style IDs.
-	 * @return $this
-	 */
-	protected function process_layered_component( $attribute_name, $attributes, $attributes_meta = [], $block_instance = null, $global_styles_ids = [] ) {
-		$layers_preset = !empty( $attributes[ $attribute_name ]['preset'] ) ? $attributes[ $attribute_name ]['preset'] : '';
-		
-		if ( !empty( $layers_preset ) ) {
-			$this->process_preset_layers( $layers_preset, $attributes_meta, $attributes, $block_instance, $global_styles_ids );
-			return $this;
-		}
-		
-		// Get layers
-		$layers_data = !empty( $attributes[ $attribute_name ]['layers'] ) ? $attributes[ $attribute_name ]['layers'] : [];
-		if ( $attributes_meta['component'] === 'background' ) {
-			// Process background layers in reverse order
-			$reversed_layers = array_reverse( $layers_data );
-			foreach ( $reversed_layers as $index => $layer ) {
-				$this->process_background_layer( $layer, $index, $attributes_meta, $attributes, $block_instance, $global_styles_ids );
-			}
-		}	
-
-		return $this;
 	}
 
 	/**
@@ -1830,6 +1691,14 @@ class CSS_Engine {
 			}
 			self::$custom_styles[ $this->_style_id ] = $this->_css_string;
 		}
+		
+		// Add debug output if available
+		$debug_output = '';
+		if ( ! empty( $this->debug_styles ) ) {
+			$debug_output = implode( '', $this->debug_styles );
+			$this->debug_styles = array(); // Clear debug styles after outputting
+		}
+		
 		$this->clear();
 		return self::$styles[ $this->_style_id ] . ( isset( self::$custom_styles[ $this->_style_id ] ) ? self::$custom_styles[ $this->_style_id ] : '' );
 	}
@@ -1943,6 +1812,26 @@ class CSS_Engine {
 	 *
 	 * @return bool
 	 */
+	public function is_variable_border_radius_value( $value ) {
+		return is_string( $value ) && isset( $this->border_radius_sizes[ $value ] );
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	public function get_variable_border_radius_value( $value ) {
+		if ( $this->is_variable_border_radius_value( $value ) ) {
+			return $this->border_radius_sizes[ $value ];
+		}
+
+		return false;
+	}
+	/**
+	 * @param $value
+	 *
+	 * @return bool
+	 */
 	public function is_variable_icon_size_value( $value ) {
 		return is_string( $value ) && isset( $this->icon_sizes[ $value ] );
 	}
@@ -1989,6 +1878,27 @@ class CSS_Engine {
 		$this->spacing_sizes = $sizes;
 	}
 	/**
+	 * Check if value is a variable content width value
+	 *
+	 * @param mixed $value The value to check.
+	 * @return bool
+	 */
+	public function is_variable_content_width_value( $value ) {
+		return is_string( $value ) && isset( $this->content_width_sizes[ $value ] );
+	}
+	/**
+	 * Get variable content width value
+	 *
+	 * @param mixed $value The value to get.
+	 * @return string The processed value.
+	 */
+	public function get_variable_content_width_value( $value ) {
+		if ( $this->is_variable_content_width_value( $value ) ) {
+			return $this->content_width_sizes[ $value ];
+		}
+		return $value;
+	}
+	/**
 	 * Encodes the string.
 	 *
 	 * @param string $str
@@ -2000,81 +1910,83 @@ class CSS_Engine {
 	}
 
 	/**
-	 * Returns the mask data.
+	 * Get the current selector being used
 	 *
-	 * @param string $mask_slug
-	 * @param string $mask_subset
+	 * @return string
+	 */
+	public function get_current_selector() {
+		return $this->_selector;
+	}
+	
+	/**
+	 * Get the current attributes being processed
+	 *
 	 * @return array
 	 */
-	public function get_mask_data( $mask_slug, $mask_subset ) {
-
-		$masks = [
-			'normal' => [
-				'kbs-mask-panels-1' => [
-					'label' => __('Panels 1', 'kadence-blocks'),
-					'value' => 'kbs-mask-panels-1',
-					'path' => 'M1661.42,0l-1661.42,0l0,1200l461.418,0l1200,-1200Zm258.582,337.987l-862.013,862.013l-172.305,0l1034.32,-1034.32l0,172.305Zm0,600.056l-261.957,261.957l-175.792,0l437.749,-437.749l0,175.792Z',
-				],
-				'kbs-mask-panels-2' => [
-					'label' => __('Panels 2', 'kadence-blocks'),
-					'value' => 'kbs-mask-panels-2',
-					'path' => 'M1920,68.988l0,-68.988l-1920,0l0,1200l788.988,0l1131.01,-1131.01Zm0,869.055l-261.957,261.957l-152.737,0l414.694,-414.694l0,152.737Zm0,-435.58l-697.537,697.537l-150.632,0l848.169,-848.169l0,150.632Z',
-				],
-				'kbs-mask-panels-3' => [
-					'label' => __('Panels 3', 'kadence-blocks'),
-					'value' => 'kbs-mask-panels-3',
-					'path' => 'M1072.83,0l-1072.83,0l0,1200l751.286,0l321.539,-1200Zm314.653,1200l-111.811,0l321.539,-1200l111.811,0l-321.539,1200Zm-318.866,0l-110.27,0l321.539,-1200l110.27,0l-321.539,1200Zm847.461,-1200l-321.539,1200l325.466,0l0,-1200l-3.927,0Z',
-				],
-				'kbs-mask-panels-4' => [
-					'label' => __('Panels 4', 'kadence-blocks'),
-					'value' => 'kbs-mask-panels-4',
-					'path' => 'M1122.29,0l-1122.29,0l0,1200l800.754,0l321.539,-1200Zm-218.921,1200l-50.855,0l321.539,-1200l50.855,0l-321.539,1200Zm196.562,0l-93.034,0l321.539,-1200l93.034,0l-321.539,1200Zm412.398,0l-205.343,0l321.539,-1200l205.343,0l-321.539,1200Z',
-				],
-				'kbs-mask-shape-1' => [
-					'label' => __('Shape 1', 'kadence-blocks'),
-					'value' => 'kbs-mask-shape-1',
-					'path' => 'M872.129,0l-872.129,0l0,1200l1920,0l0,-198.91l-275.551,116.977c-139.204,59.096 -300.198,-5.942 -359.293,-145.146l-413.027,-972.921Z',
-				],
-				'kbs-mask-shape-2' => [
-					'label' => __('Shape 2', 'kadence-blocks'),
-					'value' => 'kbs-mask-shape-2',
-					'path' => 'M1438.9,0l-1438.9,0l0,1200l900.699,0l-137.148,-137.148c-106.935,-106.934 -106.935,-280.569 -0,-387.503l675.349,-675.349Z',
-				],
-			],
-			'inverted' => [
-				'kbs-mask-panels-1' => [
-					'label' => __('Panels 1', 'kadence-blocks'),
-					'value' => 'kbs-mask-panels-1',
-					'path' => 'M1920,165.684l0,-165.684l-258.582,0l-1200,1200l424.266,0l1034.32,-1034.32Zm0,172.305l0,424.264l-437.747,437.747l-424.264,0l862.011,-862.011Zm0,862.011l-261.955,0l261.955,-261.955l0,261.955Z',
-				],
-				'kbs-mask-panels-2' => [
-					'label' => __('Panels 2', 'kadence-blocks'),
-					'value' => 'kbs-mask-panels-2',
-					'path' => 'M1920,0l0,1200l-261.957,0l261.957,-261.957l0,-152.737l-414.694,414.694l-282.843,0l697.537,-697.537l0,-150.632l-848.169,848.169l-282.843,0l1131.01,-1131.01l0,-68.988Z',
-				],
-				'kbs-mask-panels-3' => [
-					'label' => __('Panels 3', 'kadence-blocks'),
-					'value' => 'kbs-mask-panels-3',
-					'path' => 'M1594.54,1200l-207.056,0l321.539,-1200l207.056,0l-321.539,1200Zm-318.867,0l-207.055,0l321.539,-1200l207.055,0l-321.539,1200Zm-317.325,0l321.539,-1200l-207.061,0l-321.539,1200l207.061,0Z',
-				],
-				'kbs-mask-panels-4' => [
-					'label' => __('Panels 4', 'kadence-blocks'),
-					'value' => 'kbs-mask-panels-4',
-					'path' => 'M1920,0l0,1200l-407.671,0l321.539,-1200l86.132,0Zm-613.014,1200l-207.055,0l321.539,-1200l207.055,0l-321.539,1200Zm-300.089,0l-103.528,0l321.539,-1200l103.528,0l-321.539,1200Zm-154.383,0l321.539,-1200l-51.76,0l-321.539,1200l51.76,0Z',
-				],
-				'kbs-mask-shape-1' => [
-					'label' => __('Shape 1', 'kadence-blocks'),
-					'value' => 'kbs-mask-shape-1',
-					'path' => 'M872.129,0l413.027,972.921c59.095,139.204 220.089,204.242 359.293,145.146l275.551,-116.977l0,198.91l0,-1200l-1047.87,0Z',
-				],
-				'kbs-mask-shape-2' => [
-					'label' => __('Shape 2', 'kadence-blocks'),
-					'value' => 'kbs-mask-shape-2',
-					'path' => 'M1438.9,0l-675.349,675.349c-106.935,106.934 -106.935,280.569 -0,387.503l137.148,137.148l1019.3,0l0,-1200l-481.1,0Z',
-				],
-			],
-		];
-		return isset( $masks[$mask_subset][$mask_slug] ) ? $masks[$mask_subset][$mask_slug] : [];
+	public function get_current_attributes() {
+		return $this->current_attributes;
+	}
+	
+	/**
+	 * Output debug information for a component
+	 *
+	 * @param string $key The attribute key
+	 * @param string $component_type The component type
+	 * @param array $attributes The merged attributes
+	 * @param array $attributes_meta The attribute metadata
+	 * @param array $global_styles_ids The global style IDs
+	 * @return void
+	 */
+	protected function output_component_debug( $key, $component_type, $attributes, $attributes_meta, $global_styles_ids ) {
+		$debug_data = array(
+			'attribute_key' => $key,
+			'component_type' => $component_type,
+			'selector' => $this->_selector,
+			'media_state' => $this->_media_state,
+			'attributes' => isset( $attributes[ $key ] ) ? $attributes[ $key ] : null,
+			'metadata' => $attributes_meta,
+			'global_styles_ids' => $global_styles_ids,
+		);
+		
+		// Check if WP_DEBUG is enabled
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_DISPLAY' ) && WP_DEBUG_DISPLAY ) {
+			// Output styled debug block in the content
+			$this->debug_styles[] = $this->format_debug_output_styled( $debug_data );
+		} else {
+			// Output as HTML comment
+			$this->debug_styles[] = $this->format_debug_output_comment( $debug_data );
+		}
+	}
+	
+	/**
+	 * Format debug output as styled HTML
+	 *
+	 * @param array $debug_data The debug data
+	 * @return string
+	 */
+	protected function format_debug_output_styled( $debug_data ) {
+		$output = '<div class="kbs-component-debug" style="background:#f0f0f0;border:2px solid #333;padding:10px;margin:10px 0;font-family:monospace;font-size:12px;">';
+		$output .= '<h4 style="margin:0 0 10px;color:#c00;">🐛 Component Debug: ' . esc_html( $debug_data['component_type'] ) . '</h4>';
+		$output .= '<pre style="background:#fff;padding:8px;overflow:auto;border:1px solid #ddd;">';
+		$output .= esc_html( json_encode( $debug_data, JSON_PRETTY_PRINT ) );
+		$output .= '</pre>';
+		$output .= '</div>';
+		return $output;
+	}
+	
+	/**
+	 * Format debug output as HTML comment
+	 *
+	 * @param array $debug_data The debug data
+	 * @return string
+	 */
+	protected function format_debug_output_comment( $debug_data ) {
+		$output = "\n<!-- KBS Component Debug:\n";
+		$output .= "Component: " . $debug_data['component_type'] . "\n";
+		$output .= "Attribute: " . $debug_data['attribute_key'] . "\n";
+		$output .= "Data: " . json_encode( $debug_data, JSON_PRETTY_PRINT ) . "\n";
+		$output .= "-->\n";
+		return $output;
 	}
 
 }

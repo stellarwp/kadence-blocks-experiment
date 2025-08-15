@@ -76,7 +76,7 @@ const PatternLibraryContent = ({
 									icon={update}
 									onClick={() => (!isLoading ? getLibraryContent(subTab, true) : null)}
 								>
-									{__(' Sync with Cloud', 'kadence-blocks')}
+									{__('Sync with Cloud', 'kadence-blocks')}
 								</Button>
 							</div>
 						</div>

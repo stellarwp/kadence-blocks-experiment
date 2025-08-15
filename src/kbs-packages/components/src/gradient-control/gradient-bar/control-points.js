@@ -593,20 +593,16 @@ function InsertPoint({
 										onChange(addControlPoint(controlPoints, insertPosition, value));
 									}
 									setAlreadyInsertedPoint(true);
+								} else if (value.startsWith('palette')) {
+									onChange(
+										updateControlPointColorByPosition(
+											controlPoints,
+											insertPosition,
+											'var(--kbs-colors-' + value + ')'
+										)
+									);
 								} else {
-									if (value.startsWith('palette')) {
-										onChange(
-											updateControlPointColorByPosition(
-												controlPoints,
-												insertPosition,
-												'var(--kbs-colors-' + value + ')'
-											)
-										);
-									} else {
-										onChange(
-											updateControlPointColorByPosition(controlPoints, insertPosition, value)
-										);
-									}
+									onChange(updateControlPointColorByPosition(controlPoints, insertPosition, value));
 								}
 							}}
 							globalStylesCss={globalStylesCss}

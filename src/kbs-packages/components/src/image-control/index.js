@@ -32,8 +32,10 @@ export default function ImageControl(props) {
 		label,
 		hasDeviceControls = false,
 		isAdvanced = false,
+		setIsAdvanced = () => {},
 		advancedControls = [],
 		isCustom = false,
+		setIsCustom = () => {},
 		hasCustomControls = false,
 		previewDevice = 'Desktop',
 		forStyleBook = false,
@@ -47,7 +49,7 @@ export default function ImageControl(props) {
 	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, '', globalStylesIds);
 	const imageID = inherited?.inheritedValue?.[idAttribute];
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
