@@ -82,7 +82,7 @@ function RenderMask(props) {
 function BackgroundLayerRender({ index, layer, metaClassPrefix, previewDevice }) {
 	const type = getLayerInheritedDeviceValue('type', layer, previewDevice) || 'color';
 	const anyBackgroundOpacity = getLayerInheritedDeviceValue('opacity', layer, 'Mobile');
-	
+
 	if (index === 0 && type !== 'video' && type !== 'mask' && '' === anyBackgroundOpacity) {
 		return null;
 	}

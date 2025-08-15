@@ -8,7 +8,14 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useContext, useEffect, useState } from '@wordpress/element';
-import { getDeviceValue, getInheritedDeviceValue, GlobalStylesContext, handleAttributeChange, isAdvancedOption, isCustomOption } from '@kadence/kbsHelpers';
+import {
+	getDeviceValue,
+	getInheritedDeviceValue,
+	GlobalStylesContext,
+	handleAttributeChange,
+	isAdvancedOption,
+	isCustomOption,
+} from '@kadence/kbsHelpers';
 import { getRadioConfig } from './controls-config';
 import TitleBar from '../title-bar';
 
