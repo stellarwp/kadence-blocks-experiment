@@ -208,10 +208,13 @@ abstract class Base_Generator {
 		$selector = $this->get_selector( $key, $meta );
 		$property = $this->get_css_property( $key, $meta );
 		
-		$current_selector_backup = $this->get_current_selector();
-		$this->set_selector( $selector );
-		$this->add_property( $property, $css_value );
-		$this->set_selector( $current_selector_backup );
+        $current_selector_backup = $this->get_current_selector();
+        $this->set_selector( $selector );
+        // Avoid passing arrays/objects to add_property
+        if ( ! is_array( $css_value ) && ! is_object( $css_value ) ) {
+            $this->add_property( $property, $css_value );
+        }
+        $this->set_selector( $current_selector_backup );
 	}
 	
 	/**

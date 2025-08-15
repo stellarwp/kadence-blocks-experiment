@@ -109,7 +109,11 @@ class Simple_Generator extends Base_Generator {
 	 * @return string The processed color value.
 	 */
 	protected function get_color_output( $value ) {
-		return $this->css_engine->sanitize_color( $value );
+        // If value originates from a preset, keep as-is so typography preset var fallback works upstream
+        if ( is_string( $value ) && strpos( $value, 'var(--kbs-' ) === 0 ) {
+            return $value;
+        }
+        return $this->css_engine->sanitize_color( $value );
 	}
 	
 	/**

@@ -204,27 +204,47 @@ class Component_Value_Resolver {
 			}
 		}
 		
-		// Priority 3: Preset value
-		$preset_value = self::get_preset_value( $attribute_name, $attributes, $device, $metadata, $key, $global_styles_ids, $css_engine );
-		if ( $preset_value !== null ) {
-			return array(
-				'value'     => $preset_value,
-				'source'    => 'preset',
-				'inherited' => true,
-				'inheritedType' => 'preset',
-			);
-		}
+        // Priority 3: Preset value
+        $preset_value = self::get_preset_value( $attribute_name, $attributes, $device, $metadata, $key, $global_styles_ids, $css_engine );
+        if ( $preset_value !== null ) {
+            // Capture the preset key used on this attribute for downstream variable naming
+            $preset_key = ! empty( $attributes[ $attribute_name ]['preset'] ) ? $attributes[ $attribute_name ]['preset'] : null;
+            return array(
+                'value'     => $preset_value,
+                'source'    => 'preset',
+                'inherited' => true,
+                'inheritedType' => 'preset',
+                'presetKey' => $preset_key,
+            );
+        }
 		
 		// Priority 4: Bundle preset value
-		$bundle_preset_value = self::get_bundle_preset_value( $attribute_name, $attributes, $device, $metadata, $key, $global_styles_ids, $css_engine );
-		if ( $bundle_preset_value !== null ) {
-			return array(
-				'value'     => $bundle_preset_value,
-				'source'    => 'bundle-preset',
-				'inherited' => true,
-				'inheritedType' => 'preset',
-			);
-		}
+        $bundle_preset_value = self::get_bundle_preset_value( $attribute_name, $attributes, $device, $metadata, $key, $global_styles_ids, $css_engine );
+        if ( $bundle_preset_value !== null ) {
+            // Discover bundle preset key for variable naming
+            $bundle_preset_key = null;
+            if ( ! empty( $metadata['attributes'] ) ) {
+                foreach ( $metadata['attributes'] as $attr_key => $attr_meta ) {
+                    if ( ! empty( $attr_meta['bundlePreset'] ) && $attr_meta['bundlePreset'] === true ) {
+                        if ( isset( $attributes[ $attr_key ] ) ) {
+                            $bundle_preset_key = $attributes[ $attr_key ];
+                        } elseif ( isset( $attr_meta['initial'] ) ) {
+                            $bundle_preset_key = $attr_meta['initial'];
+                        }
+                        if ( $bundle_preset_key ) {
+                            break;
+                        }
+                    }
+                }
+            }
+            return array(
+                'value'     => $bundle_preset_value,
+                'source'    => 'bundle-preset',
+                'inherited' => true,
+                'inheritedType' => 'preset',
+                'presetKey' => $bundle_preset_key,
+            );
+        }
 		
 		// Priority 5: Initial value from metadata
 		$initial_value = self::get_initial_value( $attribute_name, $device, $metadata, $key );
