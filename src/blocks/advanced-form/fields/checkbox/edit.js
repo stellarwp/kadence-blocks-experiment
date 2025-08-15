@@ -25,7 +25,8 @@ import { DuplicateField, FieldBlockAppender, FieldName, getUniqueFieldId } from 
 import { times, filter } from 'lodash';
 import { plus } from '@wordpress/icons';
 
-function FieldCheckbox({ attributes, setAttributes, isSelected, clientId, context, name }) {
+function FieldCheckbox(props) {
+	const { attributes, setAttributes, isSelected, clientId, context, name } = props;
 	const {
 		uniqueID,
 		required,
@@ -120,23 +121,19 @@ function FieldCheckbox({ attributes, setAttributes, isSelected, clientId, contex
 		updateOption(index, { selected: !options[index].selected });
 	};
 
-	function onOptionMoveUp(oldIndex) {
-		return () => {
-			if (oldIndex === 0) {
-				return;
-			}
-			onOptionMove(oldIndex, oldIndex - 1);
-		};
-	}
+	const onOptionMoveUp = (oldIndex) => {
+		if (oldIndex === 0) {
+			return;
+		}
+		onOptionMove(oldIndex, oldIndex - 1);
+	};
 
-	function onOptionMoveDown(oldIndex) {
-		return () => {
-			if (oldIndex === options.length - 1) {
-				return;
-			}
-			onOptionMove(oldIndex, oldIndex + 1);
-		};
-	}
+	const onOptionMoveDown = (oldIndex) => {
+		if (oldIndex === options.length - 1) {
+			return;
+		}
+		onOptionMove(oldIndex, oldIndex + 1);
+	};
 
 	function onOptionMove(oldIndex, newIndex) {
 		if (!options) {
@@ -149,6 +146,7 @@ function FieldCheckbox({ attributes, setAttributes, isSelected, clientId, contex
 		options.splice(oldIndex, 1, tmpValue);
 
 		setAttributes({ options });
+		setRerender(Math.random());
 	}
 
 	const removeOptionItem = (previousIndex) => {
@@ -222,7 +220,7 @@ function FieldCheckbox({ attributes, setAttributes, isSelected, clientId, contex
 											<div className="kadence-blocks-list-item__control-menu">
 												<Button
 													icon="arrow-up"
-													onClick={n === 0 ? undefined : onOptionMoveUp(n)}
+													onClick={() => (n === 0 ? undefined : onOptionMoveUp(n))}
 													className="kadence-blocks-list-item__move-up"
 													label={__('Move Item Up', 'kadence-blocks')}
 													aria-disabled={n === 0}
@@ -230,7 +228,9 @@ function FieldCheckbox({ attributes, setAttributes, isSelected, clientId, contex
 												/>
 												<Button
 													icon="arrow-down"
-													onClick={n + 1 === options.length ? undefined : onOptionMoveDown(n)}
+													onClick={() =>
+														n + 1 === options.length ? undefined : onOptionMoveDown(n)
+													}
 													className="kadence-blocks-list-item__move-down"
 													label={__('Move Item Down', 'kadence-blocks')}
 													aria-disabled={n + 1 === options.length}

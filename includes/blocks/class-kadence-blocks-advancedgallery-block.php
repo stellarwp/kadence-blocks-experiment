@@ -374,7 +374,9 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 		}
 		$css->set_media_state( 'desktop' );
 
-		if ( isset( $attributes['displayShadow'] ) && ! empty( $attributes['displayShadow'] ) && true === $attributes['displayShadow'] ) {
+		if ( isset( $attributes['displayShadow'] ) && ! empty( $attributes['displayShadow'] ) && true === $attributes['displayShadow'] &&
+			( (isset( $attributes['type'] ) && $attributes['type'] !== 'mosaic') || ! isset( $attributes['type'] ) )
+		) {
 			$css->set_selector('.wp-block-kadence-advancedgallery.kb-gallery-wrap-id-' . $unique_id );
 			$css->add_property('overflow', 'visible' );
 
@@ -424,6 +426,166 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 				}
 			}
 		}
+		$gallery_type = ! empty( $attributes['type'] ) ? $attributes['type'] : 'masonry';
+
+		// Add CSS for the grid-pattern-container class.
+		if ( 'mosaic' === $gallery_type ) {
+			$css->set_selector('.kb-gallery-wrap-id-' . $unique_id . ' .kb-gallery-ul.kb-gallery-type-mosaic .grid-pattern-container');
+			$css->render_responsive_range(
+				$attributes,
+				'mosaicRowHeight',
+				'grid-auto-rows',
+				'mosaicRowHeightUnit',
+			);
+			$css->render_responsive_range(
+				$attributes,
+				'gutter',
+				'grid-gap',
+				'gutterUnit',
+			);
+			$css->render_responsive_range(
+				$attributes,
+				'gutter',
+				'gap',
+				'gutterUnit',
+			);
+		}
+
+		// Overflow for carousel
+		if ( 'carousel' === $gallery_type && ( isset( $attributes['overflow'] ) && $attributes['overflow'] ) ) {
+			$css->set_selector('.kb-gallery-wrap-id-' . $unique_id . '.wp-block-kadence-advancedgallery');
+			$css->add_property('overflow', 'visible' );
+			$css->set_selector('.kb-gallery-wrap-id-' . $unique_id . '.wp-block-kadence-advancedgallery .kt-blocks-carousel');
+			$css->add_property('overflow', 'visible' );
+			$css->set_selector('.kb-gallery-wrap-id-' . $unique_id . '.wp-block-kadence-advancedgallery .kt-blocks-carousel .splide__track');
+			$css->add_property('overflow', 'visible' );
+			$css->set_selector('.kb-gallery-wrap-id-' . $unique_id . '.wp-block-kadence-advancedgallery .kt-blocks-carousel .splide__pagination');
+			$css->add_property('overflow', 'hidden' );
+		}
+
+		if ( 'carousel' === $gallery_type || 'fluidcarousel' === $gallery_type || 'slider' === $gallery_type ) {
+			$css->set_selector('.kb-gallery-wrap-id-' . $unique_id . '.wp-block-kadence-advancedgallery');
+			$css->add_property('overflow', 'visible' );
+			$css->set_selector('.kb-gallery-wrap-id-' . $unique_id . '.wp-block-kadence-advancedgallery .kt-blocks-carousel');
+			$css->add_property('overflow', 'visible' );
+			if ( 'fluidcarousel' === $gallery_type ) {
+				$css->add_property('max-width', '100%' );
+			}
+		}
+
+		// Pro Arrow Settings
+		if ( ! empty( $attributes['arrowSize'][0] ) ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__arrow' );
+			$css->add_property( 'font-size', $css->get_font_size( $attributes['arrowSize'][0], ( ! empty( $attributes['arrowSizeUnit'] ) ? $attributes['arrowSizeUnit'] : 'px' ) ) );
+		}
+		if ( ! empty( $attributes['arrowSize'][1] ) ) {
+			$css->set_media_state( 'tablet' );
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__arrow' );
+			$css->add_property( 'font-size', $css->get_font_size( $attributes['arrowSize'][1], ( ! empty( $attributes['arrowSizeUnit'] ) ? $attributes['arrowSizeUnit'] : 'px' ) ) );
+		}
+		if ( ! empty( $attributes['arrowSize'][2] ) ) {
+			$css->set_media_state( 'mobile' );
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__arrow' );
+			$css->add_property( 'font-size', $css->get_font_size( $attributes['arrowSize'][2], ( ! empty( $attributes['arrowSizeUnit'] ) ? $attributes['arrowSizeUnit'] : 'px' ) ) );
+		}
+		if ( ! empty( $attributes['arrowPosition'] ) && 'center' !== $attributes['arrowPosition'] && 'outside-top' !== $attributes['arrowPosition'] && 'outside-bottom' !== $attributes['arrowPosition'] ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__arrows' );
+		} else {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__arrow' );
+		}
+		$css->render_measure_output( $attributes, 'arrowMargin', 'margin', array( 'unit_key' => 'arrowMarginUnit' ) );
+
+		$is_carousel = ( isset( $attributes['type'] ) && ( 'carousel' === $attributes['type'] || 'fluidcarousel' === $attributes['type']  || 'slider' === $attributes['type'] || 'thumbslider' === $attributes['type'] ) );
+		// Arrow Custom Color
+		if ( ! empty( $attributes['arrowCustomColor'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow' );
+			$css->add_property( 'color', $css->render_color( $attributes['arrowCustomColor'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomColorHover'] ) && $is_carousel ) {	
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow:hover' );
+			$css->add_property( 'color', $css->render_color( $attributes['arrowCustomColorHover'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomColorActive'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow:active' );
+			$css->add_property( 'color', $css->render_color( $attributes['arrowCustomColorActive'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomColorBackground'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow' );
+			$css->add_property( 'background-color', $css->render_color( $attributes['arrowCustomColorBackground'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomColorBackgroundHover'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow:hover' );
+			$css->add_property( 'background-color', $css->render_color( $attributes['arrowCustomColorBackgroundHover'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomColorBackgroundActive'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow:active' );
+			$css->add_property( 'background-color', $css->render_color( $attributes['arrowCustomColorBackgroundActive'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomColorBorder'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow' );
+			$css->add_property( 'border-color', $css->render_color( $attributes['arrowCustomColorBorder'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomColorBorderHover'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow:hover' );
+			$css->add_property( 'border-color', $css->render_color( $attributes['arrowCustomColorBorderHover'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomColorBorderActive'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow:active' );
+			$css->add_property( 'border-color', $css->render_color( $attributes['arrowCustomColorBorderActive'] ) );
+		}
+
+		if ( ! empty( $attributes['arrowCustomBorderWidth'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide .splide__arrow' );
+			$css->add_property( 'border-width', $attributes['arrowCustomBorderWidth'] . 'px' );
+		}
+
+		// Dot Custom Color
+		if ( ! empty( $attributes['dotCustomColor'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__pagination__page' );
+			$css->add_property( 'background-color', $css->render_color( $attributes['dotCustomColor'] ) );
+		}
+
+		if ( ! empty( $attributes['dotCustomColorHover'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__pagination__page:hover' );
+			$css->add_property( 'background-color', $css->render_color( $attributes['dotCustomColorHover'] ) );
+		}
+
+		if ( ! empty( $attributes['dotCustomColorActive'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__pagination__page:active' );
+			$css->add_property( 'background-color', $css->render_color( $attributes['dotCustomColorActive'] ) );
+		}
+
+		if ( ! empty( $attributes['dotCustomColorBorder'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__pagination__page' );
+			$css->add_property( 'border-color', $css->render_color( $attributes['dotCustomColorBorder'] ) );
+		}
+		
+		if ( ! empty( $attributes['dotCustomColorBorderHover'] ) && $is_carousel ) {
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__pagination__page:hover' );
+			$css->add_property( 'border-color', $css->render_color( $attributes['dotCustomColorBorderHover'] ) );
+		}
+
+		if ( ! empty( $attributes['dotCustomColorBorderActive'] ) && $is_carousel ) {	
+			$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__pagination__page:active' );
+			$css->add_property( 'border-color', $css->render_color( $attributes['dotCustomColorBorderActive'] ) );
+		}
+
+		$css->set_selector( '.kb-gallery-id-' . $unique_id . ' .splide__pagination__page' );
+		if ( ! empty( $attributes['dotCustomBorderWidth'] ) && $is_carousel ) {
+			$css->add_property( 'border-width', $attributes['dotCustomBorderWidth'] . 'px' );
+			$css->add_property( 'border-style', 'solid' );
+		} elseif ( ( !empty( $attributes['dotCustomColorBorder'] ) || !empty( $attributes['dotCustomColorBorderHover'] ) || !empty( $attributes['dotCustomColorBorderActive'] ) ) && $is_carousel ) {
+			$css->add_property( 'border-width', '2px' );
+			$css->add_property( 'border-style', 'solid');
+		}
 
 		return $css->css_output();
 	}
@@ -449,6 +611,7 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 			$image_filter = ( ! empty( $attributes['imageFilter'] ) ? $attributes['imageFilter'] : 'none' );
 			$dot_style    = ( ! empty( $attributes['dotStyle'] ) ? $attributes['dotStyle'] : 'dark' );
 			$arrow_style  = ( ! empty( $attributes['arrowStyle'] ) ? $attributes['arrowStyle'] : 'dark' );
+			$arrow_position     = ! empty( $attributes['arrowPosition'] ) ? $attributes['arrowPosition'] : 'center';
 			$link_to      = ( ! empty( $attributes['linkTo'] ) ? $attributes['linkTo'] : 'none' );
 			$lightbox     = ( ! empty( $attributes['lightbox'] ) ? $attributes['lightbox'] : 'none' );
 			$lightbox_cap = ( ! empty( $attributes['lightboxCaption'] ) && $attributes['lightboxCaption'] ? true : false );
@@ -506,7 +669,8 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 				case 'carousel':
 					$content .= '<div class="' . esc_attr( implode( ' ', $gallery_classes ) ) . '" data-image-filter="' . esc_attr( $image_filter ) . '" data-lightbox-caption="' . ( $lightbox_cap ? 'true' : 'false' ) . '">';
 					$content .= '<div class="kt-blocks-carousel kt-carousel-container-dotstyle-' . esc_attr( $dot_style ) . '">';
-					$content .= '<div class="kt-blocks-carousel-init kb-gallery-carousel kt-carousel-arrowstyle-' . esc_attr( $arrow_style ) . ' kt-carousel-dotstyle-' . esc_attr( $dot_style ) . '" data-columns-xxl="' . esc_attr( $columns_xxl ) . '" data-columns-xl="' . esc_attr( $columns_xl ) . '" data-columns-md="' . esc_attr( $columns_md ) . '" data-columns-sm="' . esc_attr( $columns_sm ) . '" data-columns-xs="' . esc_attr( $columns_xs ) . '" data-columns-ss="' . esc_attr( $columns_ss ) . '" data-slider-anim-speed="' . esc_attr( $trans_speed ) . '" data-slider-scroll="' . esc_attr( $slides_sc ) . '" data-slider-arrows="' . esc_attr( 'none' === $arrow_style ? 'false' : 'true' ) . '" data-slider-dots="' . esc_attr( 'none' === $dot_style ? 'false' : 'true' ) . '" data-slider-hover-pause="false" data-slider-auto="' . esc_attr( $autoplay ) . '" data-slider-speed="' . esc_attr( $auto_speed ) . '" data-slider-gap="' . esc_attr( $gap . $gap_unit ) . '" data-slider-gap-tablet="' . esc_attr( $tablet_gap . $gap_unit ) . '" data-slider-gap-mobile="' . esc_attr( $mobile_gap . $gap_unit ) . '">';
+					$content .= '<div class="kt-blocks-carousel-init kb-gallery-carousel kt-carousel-arrowstyle-' . esc_attr( $arrow_style ) . ' kt-carousel-dotstyle-' . esc_attr( $dot_style ) . ' kb-slider-group-' . esc_attr( 'center' !== $arrow_position && 'outside-top' !== $arrow_position && 'outside-bottom' !== $arrow_position ? 'arrows' : 'arrow' ) . ' kb-slider-arrow-position-' . esc_attr( $arrow_position ) . '" data-columns-xxl="' . esc_attr( $columns_xxl ) . '" data-columns-xl="' . esc_attr( $columns_xl ) . '" data-columns-md="' . esc_attr( $columns_md ) . '" data-columns-sm="' . esc_attr( $columns_sm ) . '" data-columns-xs="' . esc_attr( $columns_xs ) . '" data-columns-ss="' . esc_attr( $columns_ss ) . '" data-slider-anim-speed="' . esc_attr( $trans_speed ) . '" data-slider-scroll="' . esc_attr( $slides_sc ) . '" data-slider-arrows="' . esc_attr( 'none' === $arrow_style ? 'false' : 'true' ) . '" data-slider-dots="' . esc_attr( 'none' === $dot_style ? 'false' : 'true' ) . '" data-slider-hover-pause="false" data-slider-auto="' . esc_attr( $autoplay ) . '" data-slider-speed="' . esc_attr( $auto_speed ) . '" data-slider-gap="' . esc_attr( $gap . $gap_unit ) . '" data-slider-gap-tablet="' . esc_attr( $tablet_gap . $gap_unit ) . '" data-slider-gap-mobile="' . esc_attr( $mobile_gap . $gap_unit ) . '" aria-label="' . esc_attr( __( 'Photo Gallery Carousel', 'kadence-blocks' ) ) . '">';
+
 					foreach ( $images as $key => $image ) {
 						$content .= '<div class="kb-slide-item kb-gallery-carousel-item">';
 						$content .= $this->render_gallery_images( $image, $attributes );
@@ -519,7 +683,7 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 				case 'fluidcarousel':
 					$content .= '<div class="' . esc_attr( implode( ' ', $gallery_classes ) ) . '" data-image-filter="' . esc_attr( $image_filter ) . '" data-lightbox-caption="' . ( $lightbox_cap ? 'true' : 'false' ) . '">';
 					$content .= '<div class="kt-blocks-carousel kt-carousel-container-dotstyle-' . esc_attr( $dot_style ) . '">';
-					$content .= '<div class="kt-blocks-carousel-init kb-blocks-fluid-carousel kt-carousel-arrowstyle-' . esc_attr( $arrow_style ) . ' kt-carousel-dotstyle-' . esc_attr( $dot_style ) . ( $car_align ? '' : ' kb-carousel-mode-align-left' ) . '" data-slider-anim-speed="' . esc_attr( $trans_speed ) . '" data-slider-scroll="1" data-slider-arrows="' . esc_attr( 'none' === $arrow_style ? 'false' : 'true' ) . '" data-slider-dots="' . esc_attr( 'none' === $dot_style ? 'false' : 'true' ) . '" data-slider-hover-pause="false" data-slider-auto="' . esc_attr( $autoplay ) . '" data-slider-speed="' . esc_attr( $auto_speed ) . '" data-slider-type="fluidcarousel" data-slider-center-mode="' . esc_attr( ( $car_align ? 'true' : 'false' ) ) . '" data-slider-gap="' . esc_attr( $gap . $gap_unit ) . '" data-slider-gap-tablet="' . esc_attr( $tablet_gap . $gap_unit ) . '" data-slider-gap-mobile="' . esc_attr( $mobile_gap . $gap_unit ) . '">';
+					$content .= '<div class="kt-blocks-carousel-init kb-blocks-fluid-carousel kt-carousel-arrowstyle-' . esc_attr( $arrow_style ) . ' kt-carousel-dotstyle-' . esc_attr( $dot_style ) . ( $car_align ? '' : ' kb-carousel-mode-align-left' ) . ' kb-slider-group-' . esc_attr( 'center' !== $arrow_position && 'outside-top' !== $arrow_position && 'outside-bottom' !== $arrow_position ? 'arrows' : 'arrow' ) . ' kb-slider-arrow-position-' . esc_attr( $arrow_position ) . '" data-slider-anim-speed="' . esc_attr( $trans_speed ) . '" data-slider-scroll="1" data-slider-arrows="' . esc_attr( 'none' === $arrow_style ? 'false' : 'true' ) . '" data-slider-dots="' . esc_attr( 'none' === $dot_style ? 'false' : 'true' ) . '" data-slider-hover-pause="false" data-slider-auto="' . esc_attr( $autoplay ) . '" data-slider-speed="' . esc_attr( $auto_speed ) . '" data-slider-type="fluidcarousel" data-slider-center-mode="' . esc_attr( ( $car_align ? 'true' : 'false' ) ) . '" data-slider-gap="' . esc_attr( $gap . $gap_unit ) . '" data-slider-gap-tablet="' . esc_attr( $tablet_gap . $gap_unit ) . '" data-slider-gap-mobile="' . esc_attr( $mobile_gap . $gap_unit ) . '">';
 					foreach ( $images as $key => $image ) {
 						$content .= '<div class="kb-slide-item kb-gallery-carousel-item">';
 						$content .= $this->render_gallery_images( $image, $attributes );
@@ -532,7 +696,7 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 				case 'slider':
 					$content .= '<div class="' . esc_attr( implode( ' ', $gallery_classes ) ) . '" data-image-filter="' . esc_attr( $image_filter ) . '" data-lightbox-caption="' . ( $lightbox_cap ? 'true' : 'false' ) . '">';
 					$content .= '<div class="kt-blocks-carousel kt-carousel-container-dotstyle-' . esc_attr( $dot_style ) . '">';
-					$content .= '<div class="kt-blocks-carousel-init kb-blocks-slider kt-carousel-arrowstyle-' . esc_attr( $arrow_style ) . ' kt-carousel-dotstyle-' . esc_attr( $dot_style ) . '" data-slider-anim-speed="' . esc_attr( $trans_speed ) . '" data-slider-scroll="1" data-slider-arrows="' . esc_attr( 'none' === $arrow_style ? 'false' : 'true' ) . '" data-slider-fade="' . ( $slider_fade ? 'true' : 'false' ) . '" data-slider-dots="' . esc_attr( 'none' === $dot_style ? 'false' : 'true' ) . '"data-slider-type="slider"  data-slider-hover-pause="false" data-slider-auto="' . esc_attr( $autoplay ) . '" data-slider-speed="' . esc_attr( $auto_speed ) . '">';
+					$content .= '<div class="kt-blocks-carousel-init kb-blocks-slider kt-carousel-arrowstyle-' . esc_attr( $arrow_style ) . ' kt-carousel-dotstyle-' . esc_attr( $dot_style ) . ' kb-slider-group-' . esc_attr( 'center' !== $arrow_position && 'outside-top' !== $arrow_position && 'outside-bottom' !== $arrow_position ? 'arrows' : 'arrow' ) . ' kb-slider-arrow-position-' . esc_attr( $arrow_position ) . '" data-slider-anim-speed="' . esc_attr( $trans_speed ) . '" data-slider-scroll="1" data-slider-arrows="' . esc_attr( 'none' === $arrow_style ? 'false' : 'true' ) . '" data-slider-fade="' . ( $slider_fade ? 'true' : 'false' ) . '" data-slider-dots="' . esc_attr( 'none' === $dot_style ? 'false' : 'true' ) . '"data-slider-type="slider"  data-slider-hover-pause="false" data-slider-auto="' . esc_attr( $autoplay ) . '" data-slider-speed="' . esc_attr( $auto_speed ) . '">';
 					foreach ( $images as $key => $image ) {
 						$content .= '<div class="kb-slide-item kb-gallery-slide-item">';
 						$content .= $this->render_gallery_images( $image, $attributes );
@@ -545,7 +709,7 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 				case 'thumbslider':
 					$content .= '<div class="' . esc_attr( implode( ' ', $gallery_classes ) ) . '" data-image-filter="' . esc_attr( $image_filter ) . '" data-lightbox-caption="' . ( $lightbox_cap ? 'true' : 'false' ) . '">';
 					$content .= '<div class="kt-blocks-carousel kt-carousel-container-dotstyle-' . esc_attr( $dot_style ) . '">';
-					$content .= '<div id="kb-slider-' . esc_attr( $unique_id ) . '" class="kt-blocks-carousel-init kb-blocks-slider kt-carousel-arrowstyle-' . esc_attr( $arrow_style ) . ' kt-carousel-dotstyle-' . esc_attr( $dot_style ) . '" data-columns-xxl="' . esc_attr( $tcolumns_xxl ) . '" data-columns-xl="' . esc_attr( $tcolumns_xl ) . '" data-columns-md="' . esc_attr( $tcolumns_md ) . '" data-columns-sm="' . esc_attr( $tcolumns_sm ) . '" data-columns-xs="' . esc_attr( $tcolumns_xs ) . '" data-columns-ss="' . esc_attr( $tcolumns_ss ) . '" data-slider-anim-speed="' . esc_attr( $trans_speed ) . '" data-slider-scroll="1" data-slider-arrows="' . esc_attr( 'none' === $arrow_style ? 'false' : 'true' ) . '" data-slider-fade="' . ( $slider_fade ? 'true' : 'false' ) . '" data-slider-dots="false" data-slider-hover-pause="false" data-slider-type="thumbnail" data-slider-nav="kb-thumb-slider-' . esc_attr( $unique_id ) . '"  data-slider-auto="' . esc_attr( $autoplay ) . '" data-slider-speed="' . esc_attr( $auto_speed ) . '" data-slider-gap="' . esc_attr( $gap . $gap_unit ) . '" data-slider-gap-tablet="' . esc_attr( $tablet_gap . $gap_unit ) . '" data-slider-gap-mobile="' . esc_attr( $mobile_gap . $gap_unit ) . '">';
+					$content .= '<div id="kb-slider-' . esc_attr( $unique_id ) . '" class="kt-blocks-carousel-init kb-blocks-slider kt-carousel-arrowstyle-' . esc_attr( $arrow_style ) . ' kt-carousel-dotstyle-' . esc_attr( $dot_style ) . ' kb-slider-group-' . esc_attr( 'center' !== $arrow_position && 'outside-top' !== $arrow_position && 'outside-bottom' !== $arrow_position ? 'arrows' : 'arrow' ) . ' kb-slider-arrow-position-' . esc_attr( $arrow_position ) . '" data-columns-xxl="' . esc_attr( $tcolumns_xxl ) . '" data-columns-xl="' . esc_attr( $tcolumns_xl ) . '" data-columns-md="' . esc_attr( $tcolumns_md ) . '" data-columns-sm="' . esc_attr( $tcolumns_sm ) . '" data-columns-xs="' . esc_attr( $tcolumns_xs ) . '" data-columns-ss="' . esc_attr( $tcolumns_ss ) . '" data-slider-anim-speed="' . esc_attr( $trans_speed ) . '" data-slider-scroll="1" data-slider-arrows="' . esc_attr( 'none' === $arrow_style ? 'false' : 'true' ) . '" data-slider-fade="' . ( $slider_fade ? 'true' : 'false' ) . '" data-slider-dots="false" data-slider-hover-pause="false" data-slider-type="thumbnail" data-slider-nav="kb-thumb-slider-' . esc_attr( $unique_id ) . '"  data-slider-auto="' . esc_attr( $autoplay ) . '" data-slider-speed="' . esc_attr( $auto_speed ) . '" data-slider-gap="' . esc_attr( $gap . $gap_unit ) . '" data-slider-gap-tablet="' . esc_attr( $tablet_gap . $gap_unit ) . '" data-slider-gap-mobile="' . esc_attr( $mobile_gap . $gap_unit ) . '">';
 					foreach ( $images as $key => $image ) {
 						$content .= '<div class="kb-slide-item kb-gallery-carousel-item">';
 						$content .= $this->render_gallery_images( $image, $attributes );
@@ -568,6 +732,63 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 						$content .= $this->render_gallery_images( $image, $attributes );
 					}
 					$content .= '</ul>';
+					break;
+				case 'mosaic':
+					$content .= '<div class="' . esc_attr( implode( ' ', $gallery_classes ) ) . '" data-image-filter="' . esc_attr( $image_filter ) . '" data-lightbox-caption="' . ( $lightbox_cap ? 'true' : 'false' ) . '"kb-mosaic-gallery grid-pattern-gallery">';
+					$content .= '<div class="grid-pattern-container">';
+
+					$grouped_images = array_chunk($images, 8);
+
+					foreach ($grouped_images as $group) {
+						foreach ($group as $image_index => $image) {
+							// Determine which grid item pattern to use (patterns repeat every 8 images)
+							$pattern_index = $image_index % 8;
+
+							$grid_class = '';
+							$is_last_image = $image_index === count($group) - 1;
+							$next_to_last_image = $image_index === count($group) - 2;
+
+							switch ($pattern_index) {
+								case 0: // First image: 1 row, 2 columns
+									$grid_class = $is_last_image ? 'grid-item-wide only-one' : 'grid-item-wide';
+									break;
+								case 1: // Second image: 2 columns, 2 rows
+									$grid_class = 'grid-item-large';
+									$grid_class .= $is_last_image ? ' only-two' : '';
+									break;
+								case 2: // Third image: 2 rows, 1 column
+									$grid_class = 'grid-item-tall';
+									$grid_class .= $is_last_image ? ' only-three' : '';
+									$grid_class .= $next_to_last_image ? ' only-four' : '';
+									break;
+								case 3: // Fourth image: 1 row, 1 column
+									$grid_class = 'grid-item-small';
+									break;
+								case 4: // Fifth image: 2 columns, 2 rows
+									$grid_class = 'grid-item-large';
+									$grid_class .= $is_last_image ? ' only-five' : '';
+									$grid_class .= $next_to_last_image ? ' only-six' : '';
+									break;
+								case 5: // Sixth image: 1 row, 1 column
+									$grid_class = $next_to_last_image ? 'grid-item-small only-seven' : 'grid-item-small';
+									break;
+								case 6: // Seventh image: 1 row, 1 column
+								case 7: // Eighth image: 1 row, 1 column
+									$grid_class = 'grid-item-small';
+									break;
+								default:
+									$grid_class = 'grid-item-small';
+							}
+
+							$content .= '<div class="kadence-blocks-gallery-item ' . esc_attr($grid_class) . '">';
+							$content .= $this->render_gallery_images($image, $attributes);
+							$content .= '</div>';
+						}
+					}
+
+					$content .= '</div>';
+					$content .= '</div>';
+
 					break;
 				default:
 					$content .= '<ul class="' . esc_attr( implode( ' ', $gallery_classes ) ) . '" data-image-filter="' . esc_attr( $image_filter ) . '" data-item-selector=".kadence-blocks-gallery-item" data-lightbox-caption="' . ( $lightbox_cap ? 'true' : 'false' ) . '" data-columns-xxl="' . esc_attr( $columns_xxl ) . '" data-columns-xl="' . esc_attr( $columns_xl ) . '" data-columns-md="' . esc_attr( $columns_md ) . '" data-columns-sm="' . esc_attr( $columns_sm ) . '" data-columns-xs="' . esc_attr( $columns_xs ) . '" data-columns-ss="' . esc_attr( $columns_ss ) . '">';
@@ -704,8 +925,8 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 						'before'       => $attributes['kadenceDynamic']['link']['before'],
 						'after'        => null,
 						'fallback'     => false,
-						'relate'       => ( isset( $blockattr['kadenceDynamic']['link']['relate'] ) ? $blockattr['kadenceDynamic']['link']['relate'] : '' ),
-						'relcustom'    => ( isset( $blockattr['kadenceDynamic']['link']['relcustom'] ) ? $blockattr['kadenceDynamic']['link']['relcustom'] : '' ),
+						'relate'       => ( isset( $attributes['kadenceDynamic']['link']['relate'] ) ? $attributes['kadenceDynamic']['link']['relate'] : '' ),
+						'relcustom'    => ( isset( $attributes['kadenceDynamic']['link']['relcustom'] ) ? $attributes['kadenceDynamic']['link']['relcustom'] : '' ),
 					);
 					if ( class_exists( 'Kadence_Blocks_Pro_Dynamic_Content' ) ) {
 						$dynamic_content_class = Kadence_Blocks_Pro_Dynamic_Content::get_instance();
@@ -744,9 +965,16 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 		if ( ! empty( $image_ratio ) && ( 'grid' === $type || 'carousel' === $type || 'slider' === $type || 'thumbslider' === $type ) ) {
 			$image_contain_classes[] = 'kb-has-image-ratio-' . $image_ratio;
 		}
-		$item_tag = ( ( 'carousel' === $type || 'slider' === $type || 'thumbslider' === $type || 'fluidcarousel' === $type ) ? 'div' : 'li' );
+		$item_tag = ( ( 'carousel' === $type || 'slider' === $type || 'thumbslider' === $type || 'fluidcarousel' === $type || 'mosaic' === $type ) ? 'div' : 'li' );
 		$fig_tag = ( empty( $href ) && 'below' === $caption_style ? 'figcaption' : 'div' );
 		$figcap = '<' . $fig_tag . ' class="kadence-blocks-gallery-item__caption">' . ( ! empty( $caption ) && is_string( $caption ) ? wp_kses_post( $caption ) : '' ) . '</' . $fig_tag . '>';
+
+		//links in the main gallery caption can mess with lightbox function, strip them out.
+		//they're okay in the lighbox though
+		if( $link_to === 'media' && $lightbox === 'magnific' && ! empty( $figcap ) && is_string( $figcap ) ) {
+			$figcap = preg_replace('#<a.*?>(.*?)</a>#i', '\1', $figcap);
+		}
+
 		$image_classes = array( 'wp-image-' . $image_id );
 		if ( 'carousel' === $type || 'slider' === $type || 'thumbslider' === $type || 'fluidcarousel' === $type ) {
 			$image_classes[] = 'skip-lazy';
@@ -764,7 +992,11 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 		}
 		$output = '<' . $item_tag . ' class="kadence-blocks-gallery-item">';
 		$output .= '<div class="kadence-blocks-gallery-item-inner">';
-		$output .= '<figure class="' . esc_attr( implode( ' ', $fig_classes ) ). '" ' . ( ! empty( $padding_bottom ) && 'below' === $caption_style ? 'style="max-width:' . $image['width'] . 'px;"' : '' ) . '">';
+		$figure_style = '';
+		if ( ! empty( $padding_bottom ) && 'below' === $caption_style ) {
+			$figure_style = ' style="max-width:' . $image['width'] . 'px;"';
+		}
+		$output .= '<figure class="' . esc_attr( implode( ' ', $fig_classes ) ) . '"' . $figure_style . '>';
 		if ( ! empty( $href ) ) {
 			$safe_caption = '';
 			if( $link_to === 'media' && $lightbox === 'magnific' && $lightbox_cap && ! empty( $caption ) && is_string( $caption ) ) {
@@ -778,7 +1010,11 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 			}
 			$output .= '<a href="' . esc_url( $href ) . '"' . ( !empty( $safe_caption ) ? ' data-description="' . esc_attr( $safe_caption ) . '"' : '' ) . '' . ( $link_to === 'media' && $lightbox === 'magnific' && ! empty( $image_alt ) && is_string( $image_alt ) ? ' data-alt="' . esc_attr( $image_alt ) . '"' : '' ) . ' class="kb-gallery-item-link" ' . ( ( $link_to === 'custom' && '_blank' === $link_target ) || ( $link_to === 'media' && $lightbox === 'new_tab' ) ? 'target="_blank"' : '' ) . ' ' . ( ( $link_to === 'custom' && ! empty( $rel_attr ) ) || ( $link_to === 'media' && ! empty( $rel_attr ) ) ? 'rel="' . esc_attr( $rel_attr ) . '"' : '' ) . '>';
 		}
-		$output .= '<div class="kb-gal-image-radius"' . ( ! empty( $padding_bottom ) ? ' style="max-width:' . esc_attr( $image['width'] ) . 'px;"' : '' ) . '>';
+		$image_radius_style = '';
+		if ( ! empty( $padding_bottom ) ) {
+			$image_radius_style = ' style="max-width:' . esc_attr( $image['width'] ) . 'px;"';
+		}
+		$output .= '<div class="kb-gal-image-radius"' . $image_radius_style . '>';
 		$output .= $img;
 		if ( $show_caption && ! empty( $caption ) && is_string( $caption ) && 'below' !== $caption_style ) {
 			$output .= $figcap;
@@ -821,7 +1057,11 @@ class Kadence_Blocks_Advancedgallery_Block extends Kadence_Blocks_Abstract_Block
 		$output = '<div class="kadence-blocks-gallery-thumb-item">';
 		$output .= '<div class="kadence-blocks-gallery-thumb-item-inner">';
 		$output .= '<figure class="' . esc_attr( implode( ' ', $fig_classes ) ) . '">';
-		$output .= '<div class="kb-gal-image-radius" ' . ( ! empty( $padding_bottom ) ? 'style="max-width:' . $image['width'] . 'px;"' : '' ) . '>';
+		$thumb_image_radius_style = '';
+		if ( ! empty( $padding_bottom ) ) {
+			$thumb_image_radius_style = ' style="max-width:' . $image['width'] . 'px;"';
+		}
+		$output .= '<div class="kb-gal-image-radius"' . $thumb_image_radius_style . '>';
 		$output .= $img;
 		$output .= '</div>';
 		$output .= '</figure>';

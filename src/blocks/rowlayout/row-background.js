@@ -131,6 +131,7 @@ function RowBackground({ attributes, previewDevice, backgroundClasses, children,
 		borderRadiusOverflow,
 		displayBoxShadow,
 		boxShadow,
+		kadenceDynamic,
 	} = attributes;
 	const previewMarginTop = getPreviewSize(
 		previewDevice,
@@ -472,21 +473,22 @@ function RowBackground({ attributes, previewDevice, backgroundClasses, children,
 				undefined !== boxShadow[0] &&
 				undefined !== boxShadow[0].color
 					? (undefined !== boxShadow[0].inset && boxShadow[0].inset ? 'inset ' : '') +
-					  (undefined !== boxShadow[0].hOffset ? boxShadow[0].hOffset : 0) +
-					  'px ' +
-					  (undefined !== boxShadow[0].vOffset ? boxShadow[0].vOffset : 0) +
-					  'px ' +
-					  (undefined !== boxShadow[0].blur ? boxShadow[0].blur : 14) +
-					  'px ' +
-					  (undefined !== boxShadow[0].spread ? boxShadow[0].spread : 0) +
-					  'px ' +
-					  KadenceColorOutput(
+						(undefined !== boxShadow[0].hOffset ? boxShadow[0].hOffset : 0) +
+						'px ' +
+						(undefined !== boxShadow[0].vOffset ? boxShadow[0].vOffset : 0) +
+						'px ' +
+						(undefined !== boxShadow[0].blur ? boxShadow[0].blur : 14) +
+						'px ' +
+						(undefined !== boxShadow[0].spread ? boxShadow[0].spread : 0) +
+						'px ' +
+						KadenceColorOutput(
 							undefined !== boxShadow[0].color ? boxShadow[0].color : '#000000',
 							undefined !== boxShadow[0].opacity ? boxShadow[0].opacity : 0.2
-					  )
+						)
 					: undefined,
 		},
 		'data-align': 'full' === align || 'wide' === align || 'center' === align ? align : undefined,
+		draggable: false,
 	});
 	return (
 		<>
@@ -582,12 +584,17 @@ function RowBackground({ attributes, previewDevice, backgroundClasses, children,
 								className="kb-blocks-bg-video"
 								playsinline=""
 								loop=""
-								src={
-									undefined !== backgroundVideo &&
-									undefined !== backgroundVideo[0] &&
-									undefined !== backgroundVideo[0].local
-										? backgroundVideo[0].local
+								poster={
+									kadenceDynamic?.['backgroundVideo:0:local']?.enable
+										? '/wp-content/plugins/kadence-blocks/includes/assets/images/placeholder/gray.png'
 										: undefined
+								}
+								src={
+									kadenceDynamic?.['backgroundVideo:0:local']?.enable
+										? undefined
+										: backgroundVideo?.[0]?.local
+											? backgroundVideo[0].local
+											: undefined
 								}
 							></video>
 						)}

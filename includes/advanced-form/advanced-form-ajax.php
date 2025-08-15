@@ -103,6 +103,18 @@ class KB_Ajax_Advanced_Form {
 
 			$form_args = apply_filters( 'kadence_blocks_advanced_form_form_args', $form_args, $processed_fields, $post_id );
 
+			$submission_rejected = apply_filters( 'kadence_blocks_advanced_form_submission_reject', false, $form_args, $processed_fields, $post_id );
+			if ( $submission_rejected ) {
+				$rejection_message = apply_filters(
+					'kadence_blocks_advanced_form_submission_reject_message',
+					__( 'Submission rejected.', 'kadence-blocks' ),
+					$form_args,
+					$processed_fields,
+					$post_id
+				);
+				$this->process_bail( $rejection_message, $rejection_message );
+			}
+
 			do_action( 'kadence_blocks_advanced_form_submission', $form_args, $processed_fields, $post_id );
 
 			$submission_results = $this->after_submit_actions( $form_args, $processed_fields, $post_id );
@@ -188,7 +200,7 @@ class KB_Ajax_Advanced_Form {
 	public function after_submit_actions( $form_args, $processed_fields, $post_id ) {
 
 		$submission_results = array( 'success' => true );
-		$actions = isset( $form_args['attributes']['actions'] ) ? $form_args['attributes']['actions'] : array( 'email' );
+		$actions = apply_filters( 'kadence_blocks_advanced_form_actions', isset( $form_args['attributes']['actions'] ) ? $form_args['attributes']['actions'] : array( 'email' ), $form_args, $processed_fields, $post_id );
 
 		$submit_actions = new Kadence_Blocks_Advanced_Form_Submit_Actions( $form_args, $processed_fields, $post_id );
 
@@ -541,6 +553,16 @@ class KB_Ajax_Advanced_Form {
 			),
 			'documents' => $document_type,
 			'document' => $document_type,
+			'design' => array( // New "design" category
+				'ai'    => 'application/postscript',                    // Adobe Illustrator
+				'ait'   => 'application/postscript',                    // Adobe Illustrator Template
+				'eps'   => 'application/postscript',                    // Encapsulated PostScript
+				'psd'   => 'image/vnd.adobe.photoshop',                 // Adobe Photoshop
+				'psb'   => 'image/vnd.adobe.photoshop',                 // Adobe Photoshop Large Document Format
+				'xcf'   => 'image/x-xcf',                               // GIMP File
+				'svg'   => 'image/svg+xml',                             // Scalable Vector Graphics
+				'svgz'  => 'image/svg+xml',                             // Gzipped Scalable Vector Graphics
+			),
 			'archive' => array(
 				'zip'  => 'application/zip',
 			),

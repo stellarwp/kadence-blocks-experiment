@@ -345,7 +345,7 @@
 		visitedMessages = new Set();
 	}
 	function warnWhen(condition, message) {
-		if (condition && !visitedMessages.has(message)) {
+		if (false && condition && !visitedMessages.has(message)) {
 			var _console;
 
 			visitedMessages.add(message);
@@ -2763,6 +2763,14 @@
 						const content = reference.getAttribute('data-kb-tooltip-content');
 						return window.kadenceTippy.strip_tags(content);
 					},
+					onCreate: (instance) => {
+						if (
+							instance?.reference?.role == null &&
+							!window.kadenceTippy.isInteractiveElement(instance.reference)
+						) {
+							instance.reference.role = 'note';
+						}
+					},
 				});
 				const idElements = document.querySelectorAll('[data-tooltip-id]:not([href])');
 
@@ -2778,8 +2786,37 @@
 						const toolContent = document.getElementById(id);
 						return toolContent ? window.kadenceTippy.strip_tags(toolContent.innerHTML) : '';
 					},
+					onCreate: (instance) => {
+						if (
+							instance?.reference?.role == null &&
+							!window.kadenceTippy.isInteractiveElement(instance.reference)
+						) {
+							instance.reference.role = 'note';
+						}
+					},
 				});
 			}
+		},
+		isInteractiveElement(element) {
+			const { nodeName } = element;
+
+			if (['BUTTON', 'DETAILS', 'EMBED', 'IFRAME', 'KEYGEN', 'LABEL', 'SELECT', 'TEXTAREA'].includes(nodeName)) {
+				return true;
+			}
+
+			if (nodeName === 'A' && element.hasAttribute('href')) {
+				return true;
+			}
+
+			if (['AUDIO', 'VIDEO'].includes(nodeName) && element.hasAttribute('controls')) {
+				return true;
+			}
+
+			if (['IMG', 'OBJECT'].includes(nodeName) && element.hasAttribute('usemap')) {
+				return true;
+			}
+
+			return false;
 		},
 	};
 	if ('loading' === document.readyState) {

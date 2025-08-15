@@ -75,9 +75,10 @@ class Kadence_Blocks_Progress_Bar_Block extends Kadence_Blocks_Abstract_Block {
 
 		$css->set_style_id( 'kb-' . $this->block_name . $unique_style_id );
 
-		$css->set_selector( '.kb-progress-bar-container' . $unique_id );
-
+		$css->set_selector( '.kb-progress-bar-container' . $unique_id . ',  .kt-inside-inner-col > .aligncenter.kb-progress-bar-container' . $unique_id );
 		$css->render_responsive_size( $attributes, [ 'containerMaxWidth', 'tabletContainerMaxWidth', 'mobileContainerMaxWidth' ], 'width', 'containerMaxWidthUnits' );
+
+		$css->set_selector( '.kb-progress-bar-container' . $unique_id );
 		$css->render_measure_output( $attributes, 'margin', 'margin' );
 
 		if ( ! isset( $attributes['barType'] ) || ( isset( $attributes['barType'] ) && 'line' === $attributes['barType'] ) ) {
@@ -236,22 +237,21 @@ class Kadence_Blocks_Progress_Bar_Block extends Kadence_Blocks_Abstract_Block {
 			! empty( $attributes['progressWidthMobile'] ) ? $attributes['progressWidthMobile'] : ( ! empty( $attributes['progressWidthTablet'] ) ? $attributes['progressWidthTablet'] : ( ! empty( $attributes['progressWidth'] ) ? $attributes['progressWidth'] : 2 ) ),
 		];
 
-		$content = '<div class="kb-progress-bar-container kb-progress-bar-container' . $unique_id . ' kb-progress-bar-type-' . $attributes['barType'] . ' ' . ( ! empty( $attributes['align'] ) ? 'align' . $attributes['align'] : '' ) . '">';
+		$content = '<div class="kb-progress-bar-container kb-progress-bar-container' . $unique_id . ' kb-progress-bar-init kb-progress-bar-type-' . $attributes['barType'] . ' ' . ( ! empty( $attributes['align'] ) ? 'align' . $attributes['align'] : '' ) . '">';
 
 		$content .= $this->get_label( $attributes, 'above' );
 
 		$progress_args = [
 			'class' => 'kb-progress-bar kb-progress-bar-' . esc_attr( $unique_id ),
 		];
-		if ( ! empty( $attributes['label'] ) && ( ! isset( $attributes['displayLabel'] ) || ( isset( $attributes['displayLabel'] ) && $attributes['displayLabel'] !== false ) ) ) {
-			$progress_args['aria-labelledby'] = 'kt-progress-label' . esc_attr( $unique_id );
-		}
 		$mask = ! empty( $attributes['maskSvg'] ) ? $attributes['maskSvg'] : 'star';
 		if ( ! empty( $attributes['ariaLabel'] ) ) {
 			$progress_args['aria-label'] = $attributes['ariaLabel'];
+			$progress_args['role'] = 'note';
 		} elseif ( ! empty( $attributes['barType'] ) && $attributes['barType'] === 'line-mask' && 'star' === $mask ) {
 			// translators: %1$s is the current progress amount, %2$s is the max progress amount.
 			$progress_args['aria-label'] = sprintf( __( '%1$s out of %2$s Stars', 'kadence-blocks' ), $progress_amount, $progress_max );
+			$progress_args['role'] = 'note';
 		}
 		$progress_div_attributes = [];
 		foreach ( $progress_args as $key => $value ) {

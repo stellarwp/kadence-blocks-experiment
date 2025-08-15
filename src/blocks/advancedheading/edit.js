@@ -38,9 +38,16 @@ import {
 	DynamicTextControl,
 	DynamicInlineReplaceControl,
 	GradientControl,
+	ResponsiveKadenceRadioButtons,
 } from '@kadence/components';
 
-import { dynamicIcon } from '@kadence/icons';
+import {
+	dynamicIcon,
+	horizontalTextOrientationIcon,
+	stackedTextOrientationIcon,
+	sidewaysDownTextOrientationIcon,
+	sidewaysUpTextOrientationIcon,
+} from '@kadence/icons';
 
 import {
 	KadenceColorOutput,
@@ -51,10 +58,9 @@ import {
 	getFontSizeOptionOutput,
 	getBorderStyle,
 	getBorderColor,
-	getUniqueId,
+	uniqueIdHelper,
 	getInQueryBlock,
 	setBlockDefaults,
-	getPostOrFseId,
 } from '@kadence/helpers';
 
 /**
@@ -64,6 +70,7 @@ import './formats/markformat';
 import './formats/typed-text';
 import './formats/tooltips';
 import AIText from './ai-text/ai-text.js';
+import './formats/screen-reader-text';
 
 import Typed from 'typed.js';
 
@@ -75,7 +82,7 @@ import metadata from './block.json';
 /**
  * Internal block libraries
  */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
 import {
@@ -124,6 +131,9 @@ function KadenceAdvancedHeading(props) {
 		textShadow,
 		textShadowTablet,
 		textShadowMobile,
+		textOrientation,
+		tabletTextOrientation,
+		mobileTextOrientation,
 		mobileAlign,
 		tabletAlign,
 		size,
@@ -208,6 +218,8 @@ function KadenceAdvancedHeading(props) {
 		mobileMarkBorderStyles,
 		maxWidthType,
 		maxWidth,
+		maxHeightType,
+		maxHeight,
 		beforeIcon,
 		afterIcon,
 		icon,
@@ -248,28 +260,79 @@ function KadenceAdvancedHeading(props) {
 	const [activeTab, setActiveTab] = useState('style');
 	const [contentRef, setContentRef] = useState();
 
-	const { addUniqueID } = useDispatch('kadenceblocks/data');
-	const { isUniqueID, isUniqueBlock, previewDevice, parentData, allowedFormats } = useSelect(
+	const { previewDevice, allowedFormats } = useSelect(
 		(select) => {
 			return {
-				isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
-				isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-				parentData: {
-					rootBlock: select('core/block-editor').getBlock(
-						select('core/block-editor').getBlockHierarchyRootClientId(clientId)
-					),
-					postId: select('core/editor')?.getCurrentPostId() ? select('core/editor')?.getCurrentPostId() : '',
-					reusableParent: select('core/block-editor').getBlockAttributes(
-						select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0]
-					),
-					editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
-				},
 				allowedFormats: select('core/rich-text').getFormatTypes(),
 			};
 		},
 		[clientId]
 	);
+
+	const { replaceBlocks, insertBlocks } = useDispatch('core/block-editor');
+	const handlePaste = (event) => {
+		const pastedText = event.clipboardData.getData('text/plain');
+
+		const containsBlocks = pastedText && (pastedText.includes('<!-- wp:') || pastedText.includes('wp-block-'));
+
+		if (containsBlocks) {
+			const rawBlocks = wp.blocks.rawHandler({ HTML: pastedText });
+
+			if (!content || content === '') {
+				replaceBlocks(clientId, rawBlocks);
+			} else {
+				const { getBlockIndex, getBlockRootClientId } = wp.data.select('core/block-editor');
+				const currentBlockIndex = getBlockIndex(clientId);
+				const parentBlockClientId = getBlockRootClientId(clientId);
+
+				insertBlocks(rawBlocks, currentBlockIndex + 1, parentBlockClientId);
+			}
+			event.preventDefault();
+		} else if (pastedText && isDefaultEditorBlock) {
+			const paragraphs = pastedText.split(/\n\s*\n/).flatMap((paragraph) => paragraph.split(/\r\s*/));
+
+			const newBlocks = paragraphs
+				.map((paragraph) => {
+					const trimmedParagraph = paragraph.trim();
+					if (!trimmedParagraph) {
+						return null;
+					}
+
+					const newAttributes = attributes;
+					delete newAttributes.uniqueID;
+
+					return wp.blocks.createBlock('kadence/advancedheading', {
+						...newAttributes,
+						content: trimmedParagraph,
+					});
+				})
+				.filter(Boolean);
+
+			if (newBlocks.length > 0 && isDefaultEditorBlock) {
+				if (!content || content === '') {
+					replaceBlocks(clientId, newBlocks);
+				} else {
+					// Append the content of the first new block to the existing content.
+					const firstPastedBlock = newBlocks[0];
+					setAttributes({
+						content: content + firstPastedBlock.attributes.content,
+					});
+
+					// Insert new blocks below for the remaining paragraphs, if there are any.
+					const remainingPastedBlocks = newBlocks.slice(1);
+					if (remainingPastedBlocks.length > 0) {
+						const { getBlockIndex, getBlockRootClientId } = wp.data.select('core/block-editor');
+						const currentBlockIndex = getBlockIndex(clientId);
+						const parentBlockClientId = getBlockRootClientId(clientId);
+
+						insertBlocks(remainingPastedBlocks, currentBlockIndex + 1, parentBlockClientId);
+					}
+				}
+				event.preventDefault();
+			}
+		}
+	};
 
 	const paddingMouseOver = mouseOverVisualizer();
 	const marginMouseOver = mouseOverVisualizer();
@@ -277,18 +340,10 @@ function KadenceAdvancedHeading(props) {
 	const isDefaultEditorBlock =
 		undefined !== config.adv_text_is_default_editor_block && config.adv_text_is_default_editor_block;
 
+	uniqueIdHelper(props);
+
 	useEffect(() => {
 		setBlockDefaults('kadence/advancedheading', attributes);
-
-		const postOrFseId = getPostOrFseId(props, parentData);
-		const uniqueId = getUniqueId(uniqueID, clientId, isUniqueID, isUniqueBlock, postOrFseId);
-		if (uniqueId !== uniqueID) {
-			attributes.uniqueID = uniqueId;
-			setAttributes({ uniqueID: uniqueId });
-			addUniqueID(uniqueId, clientId);
-		} else {
-			addUniqueID(uniqueID, clientId);
-		}
 
 		setAttributes({ inQueryBlock: getInQueryBlock(context, inQueryBlock) });
 
@@ -335,7 +390,7 @@ function KadenceAdvancedHeading(props) {
 								left: ['', '', ''],
 								unit: 'px',
 							},
-					  ]
+						]
 			)
 		);
 		let updateBorderStyle = false;
@@ -384,7 +439,8 @@ function KadenceAdvancedHeading(props) {
 					default: [
 						{
 							enable: false,
-							color: 'rgba(0, 0, 0, 0.2)',
+							color: '#000000',
+							opacity: 0.2,
 							blur: 1,
 							hOffset: 1,
 							vOffset: 1,
@@ -453,6 +509,7 @@ function KadenceAdvancedHeading(props) {
 			'core/superscript',
 			'core/superscript',
 			'toolset/inline-field',
+			'kadence/screen-reader-text',
 		],
 		'kadence/advancedheading'
 	);
@@ -549,9 +606,19 @@ function KadenceAdvancedHeading(props) {
 	);
 	const previewColorTextShadow = getPreviewSize(
 		previewDevice,
-		undefined !== textShadow?.[0]?.color ? textShadow[0].color : 'rgba(0, 0, 0, 0.2)',
+		undefined !== textShadow?.[0]?.color ? textShadow[0].color : '#000000',
 		undefined !== textShadowTablet?.[0]?.color ? textShadowTablet[0].color : '',
 		undefined !== textShadowMobile?.[0]?.color ? textShadowMobile[0].color : ''
+	);
+	function isRGBA(color) {
+		const rgbaRegex = /rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d*\.?\d+)\s*\)/;
+		return rgbaRegex.test(color);
+	}
+	const previewTextShadowOpacity = getPreviewSize(
+		previewDevice,
+		undefined !== textShadow?.[0]?.opacity ? textShadow[0].opacity : 1,
+		undefined !== textShadowTablet?.[0]?.opacity ? textShadowTablet[0].opacity : '',
+		undefined !== textShadowMobile?.[0]?.opacity ? textShadowMobile[0].opacity : ''
 	);
 	const previewHOffset = getPreviewSize(
 		previewDevice,
@@ -662,6 +729,13 @@ function KadenceAdvancedHeading(props) {
 		maxWidth && maxWidth[2] ? maxWidth[2] : ''
 	);
 
+	const previewMaxHeight = getPreviewSize(
+		previewDevice,
+		maxHeight && maxHeight[0] ? maxHeight[0] : '',
+		maxHeight && maxHeight[1] ? maxHeight[1] : '',
+		maxHeight && maxHeight[2] ? maxHeight[2] : ''
+	);
+
 	const previewMarkBorderTopStyle = getBorderStyle(
 		previewDevice,
 		'top',
@@ -760,6 +834,12 @@ function KadenceAdvancedHeading(props) {
 		undefined !== markBorderRadius ? markBorderRadius[3] : '',
 		undefined !== tabletMarkBorderRadius ? tabletMarkBorderRadius[3] : '',
 		undefined !== mobileMarkBorderRadius ? mobileMarkBorderRadius[3] : ''
+	);
+	const previewTextOrientation = getPreviewSize(
+		previewDevice,
+		undefined !== textOrientation ? textOrientation : '',
+		undefined !== tabletTextOrientation ? tabletTextOrientation : '',
+		undefined !== mobileTextOrientation ? mobileTextOrientation : ''
 	);
 	const markBorderRadiusUnitPreview = undefined !== markBorderRadiusUnit ? markBorderRadiusUnit : 'px';
 	let backgroundIgnoreClass = backgroundColorClass ? false : true;
@@ -910,7 +990,7 @@ function KadenceAdvancedHeading(props) {
 								? getFontSizeOptionOutput(
 										previewIconSize,
 										undefined !== iconSizeUnit ? iconSizeUnit : 'px'
-								  )
+									)
 								: undefined,
 							color: '' !== iconColor ? KadenceColorOutput(iconColor) : undefined,
 							paddingTop: previewIconPaddingTop
@@ -1008,12 +1088,25 @@ function KadenceAdvancedHeading(props) {
 						textTransform: textTransform ? textTransform : undefined,
 						fontFamily: typography ? renderTypography : '',
 						textShadow: enableTextShadow
-							? `${previewHOffset}px ${previewVOffset}px ${previewBlur}px ${KadenceColorOutput(
-									previewColorTextShadow
-							  )}`
+							? `${previewHOffset}px ${previewVOffset}px ${previewBlur}px ${
+									isRGBA(previewColorTextShadow)
+										? previewColorTextShadow // If rgba, use the color as is
+										: KadenceColorOutput(previewColorTextShadow, previewTextShadowOpacity) // Otherwise, apply opacity
+								}`
 							: undefined,
+
+						writingMode:
+							previewTextOrientation === 'stacked' || previewTextOrientation === 'sideways-down'
+								? 'vertical-lr'
+								: previewTextOrientation === 'sideways-up'
+									? 'sideways-lr'
+									: '',
+						textOrientation: previewTextOrientation === 'stacked' ? 'upright' : '',
+						maxHeight: textOrientation !== 'horizontal' && textOrientation !== '' ? previewMaxHeight : '',
 					}}
 					placeholder={__('Write something…', 'kadence-blocks')}
+					isSelected={isSelected}
+					onPaste={handlePaste}
 				/>
 			)}
 			{isDynamicReplaced && (
@@ -1125,12 +1218,11 @@ function KadenceAdvancedHeading(props) {
 			};
 		}
 	}, [isSelected]);
-
 	return (
 		<div {...blockProps}>
 			<style>
 				{`.kt-adv-heading${uniqueID} mark.kt-highlight, .kt-adv-heading${uniqueID} .rich-text:focus mark.kt-highlight[data-rich-text-format-boundary] {
-						color: ${!enableMarkGradient ? KadenceColorOutput(markColor) : undefined};
+						color: ${!enableMarkGradient ? KadenceColorOutput(markColor) : 'transparent'};
 						background: ${markBG && !enableMarkGradient ? markBGString : 'transparent'};
 						background-image: ${enableMarkGradient ? markGradient : enableMarkBackgroundGradient ? markBackgroundGradient : 'none'};
 						-webkit-background-clip: ${enableMarkGradient ? 'text' : enableTextGradient ? 'initial !important' : undefined};
@@ -1160,40 +1252,40 @@ function KadenceAdvancedHeading(props) {
 						${
 							'' !== previewMarkBorderRadiusTop
 								? 'border-top-left-radius:' +
-								  previewMarkBorderRadiusTop +
-								  markBorderRadiusUnitPreview +
-								  ';'
+									previewMarkBorderRadiusTop +
+									markBorderRadiusUnitPreview +
+									';'
 								: ''
 						}
 						${
 							'' !== previewMarkBorderRadiusRight
 								? 'border-top-right-radius:' +
-								  previewMarkBorderRadiusRight +
-								  markBorderRadiusUnitPreview +
-								  ';'
+									previewMarkBorderRadiusRight +
+									markBorderRadiusUnitPreview +
+									';'
 								: ''
 						}
 						${
 							'' !== previewMarkBorderRadiusBottom
 								? 'border-bottom-right-radius:' +
-								  previewMarkBorderRadiusBottom +
-								  markBorderRadiusUnitPreview +
-								  ';'
+									previewMarkBorderRadiusBottom +
+									markBorderRadiusUnitPreview +
+									';'
 								: ''
 						}
 						${
 							'' !== previewMarkBorderRadiusLeft
 								? 'border-bottom-left-radius:' +
-								  previewMarkBorderRadiusLeft +
-								  markBorderRadiusUnitPreview +
-								  ';'
+									previewMarkBorderRadiusLeft +
+									markBorderRadiusUnitPreview +
+									';'
 								: ''
 						}
 					}`}
 				{previewMaxWidth
 					? `.editor-styles-wrapper *:not(.kadence-inner-column-direction-horizontal) > .wp-block-kadence-advancedheading .kt-adv-heading${uniqueID}, .editor-styles-wrapper .kadence-inner-column-direction-horizontal > .wp-block-kadence-advancedheading[data-block="${clientId}"] { max-width:${
 							previewMaxWidth + (maxWidthType ? maxWidthType : 'px')
-					  } !important; }`
+						} !important; }`
 					: ''}
 				{previewMaxWidth && previewAlign === 'center'
 					? `.editor-styles-wrapper *:not(.kadence-inner-column-direction-horizontal) > .wp-block-kadence-advancedheading .kt-adv-heading${uniqueID}, .editor-styles-wrapper .kadence-inner-column-direction-horizontal > .wp-block-kadence-advancedheading[data-block="${clientId}"] { margin-left: auto; margin-right:auto; }`
@@ -1753,7 +1845,11 @@ function KadenceAdvancedHeading(props) {
 										label={__('Text Shadow', 'kadence-blocks')}
 										enable={enableTextShadow}
 										color={previewColorTextShadow}
-										colorDefault={'rgba(0, 0, 0, 0.2)'}
+										colorDefault={'#000000'}
+										onArrayChange={(color, opacity) => {
+											saveShadow({ color, opacity });
+										}}
+										opacity={previewTextShadowOpacity}
 										hOffset={previewHOffset}
 										vOffset={previewVOffset}
 										blur={previewBlur}
@@ -1762,6 +1858,9 @@ function KadenceAdvancedHeading(props) {
 										}}
 										onColorChange={(value) => {
 											saveShadow({ color: value });
+										}}
+										onOpacityChange={(value) => {
+											saveShadow({ opacity: value });
 										}}
 										onHOffsetChange={(value) => {
 											saveShadow({ hOffset: value });
@@ -1772,6 +1871,127 @@ function KadenceAdvancedHeading(props) {
 										onBlurChange={(value) => {
 											saveShadow({ blur: value });
 										}}
+									/>
+								)}
+							</KadencePanelBody>
+							<KadencePanelBody
+								title={__('Text Orientation', 'kadence-blocks')}
+								initialOpen={false}
+								panelName={'kb-adv-heading-text-orientation'}
+							>
+								<ResponsiveKadenceRadioButtons
+									label={__('Orientation', 'kadence-blocks')}
+									help={
+										'horizontal' !== previewTextOrientation ? (
+											<p
+												dangerouslySetInnerHTML={{
+													__html: sprintf(
+														/* translators: The %s is for the writing-mode CSS property */
+														__(
+															'The text orientation feature uses the %s CSS property. While it works in most modern browsers, it may not be supported in some older browsers.',
+															'kadence-blocks'
+														),
+														'<code>writing-mode</code>'
+													),
+												}}
+											/>
+										) : (
+											''
+										)
+									}
+									value={previewTextOrientation}
+									tabletValue={previewTextOrientation}
+									mobileValue={previewTextOrientation}
+									className={'kb-text-orientation'}
+									options={[
+										{
+											value: 'horizontal',
+											tooltip: __('Horizontal', 'kadence-blocks'),
+											icon: horizontalTextOrientationIcon,
+										},
+										{
+											value: 'stacked',
+											tooltip: __('Stacked Vertically', 'kadence-blocks'),
+											icon: stackedTextOrientationIcon,
+										},
+										{
+											value: 'sideways-down',
+											tooltip: __('Sideways Down', 'kadence-blocks'),
+											icon: sidewaysDownTextOrientationIcon,
+										},
+										{
+											value: 'sideways-up',
+											tooltip: __('Sideways Up', 'kadence-blocks'),
+											icon: sidewaysUpTextOrientationIcon,
+										},
+									]}
+									onChange={(value) => setAttributes({ textOrientation: value })}
+									onChangeTablet={(value) => setAttributes({ tabletTextOrientation: value })}
+									onChangeMobile={(value) => setAttributes({ mobileTextOrientation: value })}
+								/>
+								{textOrientation !== 'horizontal' && textOrientation !== '' && (
+									<ResponsiveRangeControls
+										reset={() => {
+											setAttributes({
+												maxHeight: ['', '', ''],
+												maxHeightType: 'px',
+											});
+										}}
+										label={__('Max Height', 'kadence-blocks')}
+										value={previewMaxHeight}
+										onChange={(value) => {
+											setAttributes({
+												maxHeight: [
+													value,
+													undefined !== maxHeight && undefined !== maxHeight[1]
+														? maxHeight[1]
+														: '',
+													undefined !== maxHeight && undefined !== maxHeight[2]
+														? maxHeight[2]
+														: '',
+												],
+											});
+										}}
+										tabletValue={
+											undefined !== maxHeight && undefined !== maxHeight[1] ? maxHeight[1] : ''
+										}
+										onChangeTablet={(value) => {
+											setAttributes({
+												maxHeight: [
+													undefined !== maxHeight && undefined !== maxHeight[0]
+														? maxHeight[0]
+														: '',
+													value,
+													undefined !== maxHeight && undefined !== maxHeight[2]
+														? maxHeight[2]
+														: '',
+												],
+											});
+										}}
+										mobileValue={
+											undefined !== maxHeight && undefined !== maxHeight[2] ? maxHeight[2] : ''
+										}
+										onChangeMobile={(value) => {
+											setAttributes({
+												maxHeight: [
+													undefined !== maxHeight && undefined !== maxHeight[0]
+														? maxHeight[0]
+														: '',
+													undefined !== maxHeight && undefined !== maxHeight[1]
+														? maxHeight[1]
+														: '',
+													value,
+												],
+											});
+										}}
+										min={0}
+										max={maxHeightType === 'px' ? 2000 : 100}
+										step={1}
+										unit={maxHeightType ? maxHeightType : 'px'}
+										onUnit={(value) => {
+											setAttributes({ maxHeightType: value });
+										}}
+										units={['px', '%', 'vw']}
 									/>
 								)}
 							</KadencePanelBody>

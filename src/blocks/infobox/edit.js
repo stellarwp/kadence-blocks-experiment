@@ -64,10 +64,9 @@ import {
 	ConvertColor,
 	getBorderStyle,
 	setBlockDefaults,
-	getUniqueId,
+	uniqueIdHelper,
 	getInQueryBlock,
 	getFontSizeOptionOutput,
-	getPostOrFseId,
 } from '@kadence/helpers';
 
 /**
@@ -210,39 +209,18 @@ function KadenceInfoBox(props) {
 
 	const paddingMouseOver = mouseOverVisualizer();
 	const marginMouseOver = mouseOverVisualizer();
-	const { addUniqueID } = useDispatch('kadenceblocks/data');
-	const { isUniqueID, isUniqueBlock, previewDevice, parentData } = useSelect(
+	const { previewDevice } = useSelect(
 		(select) => {
 			return {
-				isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
-				isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-				parentData: {
-					rootBlock: select('core/block-editor').getBlock(
-						select('core/block-editor').getBlockHierarchyRootClientId(clientId)
-					),
-					postId: select('core/editor')?.getCurrentPostId() ? select('core/editor')?.getCurrentPostId() : '',
-					reusableParent: select('core/block-editor').getBlockAttributes(
-						select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0]
-					),
-					editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
-				},
 			};
 		},
 		[clientId]
 	);
+	uniqueIdHelper(props);
+
 	useEffect(() => {
 		setBlockDefaults('kadence/infobox', attributes);
-
-		const postOrFseId = getPostOrFseId(props, parentData);
-		const uniqueId = getUniqueId(uniqueID, clientId, isUniqueID, isUniqueBlock, postOrFseId);
-		if (uniqueId !== uniqueID) {
-			attributes.uniqueID = uniqueId;
-			setAttributes({ uniqueID: uniqueId });
-			addUniqueID(uniqueId, clientId);
-		} else {
-			addUniqueID(uniqueID, clientId);
-		}
 
 		setAttributes({ inQueryBlock: getInQueryBlock(context, inQueryBlock) });
 		if (!kbVersion || kbVersion < 2) {
@@ -302,7 +280,7 @@ function KadenceInfoBox(props) {
 								left: ['', '', ''],
 								unit: 'px',
 							},
-					  ]
+						]
 			)
 		);
 		let updateBorderStyle = false;
@@ -354,7 +332,7 @@ function KadenceInfoBox(props) {
 								left: ['', '', ''],
 								unit: 'px',
 							},
-					  ]
+						]
 			)
 		);
 		if ('' !== containerHoverBorder) {
@@ -1548,7 +1526,7 @@ function KadenceInfoBox(props) {
 						subset: '',
 						loadGoogle: true,
 					},
-			  ];
+				];
 		const newNumberUpdate = newMediaNumber.map((item, index) => {
 			if (0 === index) {
 				item = { ...item, ...value };
@@ -1819,7 +1797,7 @@ function KadenceInfoBox(props) {
 			{previewMaxWidth
 				? `.kadence-inner-column-direction-horizontal > .kb-info-box-wrap${uniqueID} {max-width:${
 						previewMaxWidth + previewMaxWidthUnit
-				  } !important;}
+					} !important;}
 				  .kadence-inner-column-direction-horizontal > .kb-info-box-wrap${uniqueID} > .kt-blocks-info-box-link-wrap {max-width:none !important;}`
 				: ''}
 			{fullHeight
@@ -1828,35 +1806,37 @@ function KadenceInfoBox(props) {
 			{mediaIcon[0].hoverColor
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-info-svg-icon, .kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-number { color: ${KadenceColorOutput(
 						mediaIcon[0].hoverColor
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{mediaStyle[0].borderRadius && mediaStyle[0].padding.some((number) => number > 0)
-				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media .kadence-info-box-image-intrisic img, .kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media .block-editor-media-placeholder { border-radius: ${mediaStyle[0].borderRadius}px !important; }`
+				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media .kadence-info-box-image-intrisic img, .kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media .block-editor-media-placeholder { border-radius: ${
+						mediaStyle[0].borderRadius
+					}${mediaStyle[0].borderRadiusUnit ?? 'px'} !important; }`
 				: ''}
 			{titleHoverColor
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-title { color: ${KadenceColorOutput(
 						titleHoverColor
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{textHoverColor
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-text { color: ${KadenceColorOutput(
 						textHoverColor
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{learnMoreStyles[0].colorHover
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-learnmore { color: ${KadenceColorOutput(
 						learnMoreStyles[0].colorHover
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{learnMoreStyles[0].borderHover
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-learnmore { border-color: ${KadenceColorOutput(
 						learnMoreStyles[0].borderHover
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{learnMoreStyles[0].backgroundHover
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-learnmore { background-color: ${KadenceColorOutput(
 						learnMoreStyles[0].backgroundHover
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{previewBorderHoverTopStyle
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover { border-top:${previewBorderHoverTopStyle} !important; }`
@@ -1873,27 +1853,27 @@ function KadenceInfoBox(props) {
 			{'' !== previewHoverRadiusTop
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover { border-top-left-radius:${
 						previewHoverRadiusTop + (borderHoverRadiusUnit ? borderHoverRadiusUnit : 'px')
-				  } !important; }`
+					} !important; }`
 				: ''}
 			{'' !== previewHoverRadiusRight
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover { border-top-right-radius:${
 						previewHoverRadiusRight + (borderHoverRadiusUnit ? borderHoverRadiusUnit : 'px')
-				  } !important; }`
+					} !important; }`
 				: ''}
 			{'' !== previewHoverRadiusBottom
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover { border-bottom-right-radius:${
 						previewHoverRadiusBottom + (borderHoverRadiusUnit ? borderHoverRadiusUnit : 'px')
-				  } !important; }`
+					} !important; }`
 				: ''}
 			{'' !== previewHoverRadiusLeft
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover { border-bottom-left-radius:${
 						previewHoverRadiusLeft + (borderHoverRadiusUnit ? borderHoverRadiusUnit : 'px')
-				  } !important; }`
+					} !important; }`
 				: ''}
 			{containerHoverBackground
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover { background:${KadenceColorOutput(
 						containerHoverBackground
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{displayShadow
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover { box-shadow:
@@ -1902,17 +1882,17 @@ function KadenceInfoBox(props) {
 					} ${previewHOffsetHover}px ${previewVOffsetHover}px ${previewBlurHover}px ${KadenceColorOutput(
 						previewShadowHover,
 						previewOpacityHover
-				  )} !important; }`
+					)} !important; }`
 				: undefined}
 			{mediaStyle[0].hoverBackground
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media { background: ${KadenceColorOutput(
 						mediaStyle[0].hoverBackground
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{mediaStyle[0].hoverBorder && 'icon' === mediaType && 'drawborder' !== mediaIcon[0].hoverAnimation
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media { border-color: ${KadenceColorOutput(
 						mediaStyle[0].hoverBorder
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{mediaStyle[0].hoverBorder &&
 			'number' === mediaType &&
@@ -1920,12 +1900,12 @@ function KadenceInfoBox(props) {
 			'drawborder' !== mediaNumber[0].hoverAnimation
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media { border-color: ${KadenceColorOutput(
 						mediaStyle[0].hoverBorder
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{mediaStyle[0].hoverBorder && 'image' === mediaType && true !== mediaImagedraw
 				? `.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media { border-color: ${KadenceColorOutput(
 						mediaStyle[0].hoverBorder
-				  )} !important; }`
+					)} !important; }`
 				: ''}
 			{'icon' === mediaType &&
 				'drawborder' === mediaIcon[0].hoverAnimation &&
@@ -1933,22 +1913,22 @@ function KadenceInfoBox(props) {
 					mediaStyle[0].borderWidth[0]
 				}px ${KadenceColorOutput(mediaStyle[0].border)}; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:before, .kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:after { border-radius: ${
-					mediaStyle[0].borderRadius
-				}px; }
+						mediaStyle[0].borderRadius
+					}px; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:before { border-width: ${
-					mediaStyle[0].borderWidth[0]
-				}px; }
+						mediaStyle[0].borderWidth[0]
+					}px; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:after { border-width: 0; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media:before { border-top-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)} ; border-right-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)}; border-bottom-color: ${KadenceColorOutput(mediaStyle[0].hoverBorder)} }
+						mediaStyle[0].hoverBorder
+					)} ; border-right-color: ${KadenceColorOutput(
+						mediaStyle[0].hoverBorder
+					)}; border-bottom-color: ${KadenceColorOutput(mediaStyle[0].hoverBorder)} }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media:after{ border-right-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)}; border-right-width: ${mediaStyle[0].borderWidth[0]}px; border-bottom-width: ${
-					mediaStyle[0].borderWidth[0]
-				}px; border-top-width: ${mediaStyle[0].borderWidth[0]}px; }`}
+						mediaStyle[0].hoverBorder
+					)}; border-right-width: ${mediaStyle[0].borderWidth[0]}px; border-bottom-width: ${
+						mediaStyle[0].borderWidth[0]
+					}px; border-top-width: ${mediaStyle[0].borderWidth[0]}px; }`}
 			{'number' === mediaType &&
 				mediaNumber &&
 				mediaNumber[0] &&
@@ -1958,44 +1938,44 @@ function KadenceInfoBox(props) {
 					mediaStyle[0].borderWidth[0]
 				}px ${mediaStyle[0].border}; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:before, .kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:after { border-radius: ${
-					mediaStyle[0].borderRadius
-				}px; }
+						mediaStyle[0].borderRadius
+					}px; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:before { border-width: ${
-					mediaStyle[0].borderWidth[0]
-				}px; }
+						mediaStyle[0].borderWidth[0]
+					}px; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:after { border-width: 0; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media:before { border-top-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)} ; border-right-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)}; border-bottom-color: ${KadenceColorOutput(mediaStyle[0].hoverBorder)} }
+						mediaStyle[0].hoverBorder
+					)} ; border-right-color: ${KadenceColorOutput(
+						mediaStyle[0].hoverBorder
+					)}; border-bottom-color: ${KadenceColorOutput(mediaStyle[0].hoverBorder)} }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media:after{ border-right-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)}; border-right-width: ${mediaStyle[0].borderWidth[0]}px; border-bottom-width: ${
-					mediaStyle[0].borderWidth[0]
-				}px; border-top-width: ${mediaStyle[0].borderWidth[0]}px; }`}
+						mediaStyle[0].hoverBorder
+					)}; border-right-width: ${mediaStyle[0].borderWidth[0]}px; border-bottom-width: ${
+						mediaStyle[0].borderWidth[0]
+					}px; border-top-width: ${mediaStyle[0].borderWidth[0]}px; }`}
 			{'image' === mediaType &&
 				true === mediaImagedraw &&
 				`.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media { border-width:0 !important; box-shadow: inset 0 0 0 ${
 					mediaStyle[0].borderWidth[0]
 				}px ${mediaStyle[0].border}; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:before, .kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:after { border-radius: ${
-					mediaStyle[0].borderRadius
-				}px; }
+						mediaStyle[0].borderRadius
+					}px; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:before { border-width: ${
-					mediaStyle[0].borderWidth[0]
-				}px; }
+						mediaStyle[0].borderWidth[0]
+					}px; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap .kt-blocks-info-box-media:after { border-width: 0; }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media:before { border-top-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)} ; border-right-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)}; border-bottom-color: ${KadenceColorOutput(mediaStyle[0].hoverBorder)} }
+						mediaStyle[0].hoverBorder
+					)} ; border-right-color: ${KadenceColorOutput(
+						mediaStyle[0].hoverBorder
+					)}; border-bottom-color: ${KadenceColorOutput(mediaStyle[0].hoverBorder)} }
 					.kb-info-box-wrap${uniqueID} .kt-blocks-info-box-link-wrap:hover .kt-blocks-info-box-media:after{ border-right-color: ${KadenceColorOutput(
-					mediaStyle[0].hoverBorder
-				)}; border-right-width: ${mediaStyle[0].borderWidth[0]}px; border-bottom-width: ${
-					mediaStyle[0].borderWidth[0]
-				}px; border-top-width: ${mediaStyle[0].borderWidth[0]}px; }`}
+						mediaStyle[0].hoverBorder
+					)}; border-right-width: ${mediaStyle[0].borderWidth[0]}px; border-bottom-width: ${
+						mediaStyle[0].borderWidth[0]
+					}px; border-top-width: ${mediaStyle[0].borderWidth[0]}px; }`}
 		</style>
 	);
 	let imageRatioPadding = isNaN(mediaImage[0].height)
@@ -2088,7 +2068,7 @@ function KadenceInfoBox(props) {
 		</>
 	);
 
-	const nonTransAttrs = ['link', 'linkTitle', 'title', 'contentText', 'mediaType'];
+	const nonTransAttrs = ['link', 'linkTitle', 'title', 'contentText', 'mediaType', 'learnMore'];
 
 	const blockProps = useBlockProps({
 		className: classnames(className, {
@@ -2370,6 +2350,7 @@ function KadenceInfoBox(props) {
 																onInsetChange={(value) => {
 																	saveHoverShadow({ inset: value });
 																}}
+																onApplyShadowPreset={(value) => saveHoverShadow(value)}
 																reset={true}
 															/>
 														)}
@@ -2480,6 +2461,7 @@ function KadenceInfoBox(props) {
 																onInsetChange={(value) => {
 																	saveShadow({ inset: value });
 																}}
+																onApplyShadowPreset={(value) => saveShadow(value)}
 																reset={true}
 															/>
 														)}
@@ -2758,18 +2740,38 @@ function KadenceInfoBox(props) {
 												onChange={(value) => saveMediaStyle({ borderWidth: value })}
 												onControl={(value) => setMediaBorderControl(value)}
 												min={0}
-												max={40}
+												max={
+													mediaStyle[0]?.borderWidthUnit === 'px' ||
+													mediaStyle[0]?.borderWidthUnit === 'undefined'
+														? 40
+														: 12
+												}
 												step={1}
-												reset={() => saveMediaStyle({ borderWidth: [0, 0, 0, 0] })}
+												reset={() =>
+													saveMediaStyle({ borderWidth: [0, 0, 0, 0], borderWidthUnit: 'px' })
+												}
+												showUnit={true}
+												unit={mediaStyle[0].borderWidthUnit ?? 'px'}
+												onUnit={(value) => saveMediaStyle({ borderWidthUnit: value })}
 											/>
 											<RangeControl
-												label={__('Image Border Radius (px)', 'kadence-blocks')}
+												label={__('Image Border Radius', 'kadence-blocks')}
 												value={mediaStyle[0].borderRadius}
 												onChange={(value) => saveMediaStyle({ borderRadius: value })}
 												step={1}
 												min={0}
-												max={200}
-												reset={() => saveMediaStyle({ borderRadius: 0 })}
+												max={
+													mediaStyle[0]?.borderRadiusUnit === 'px' ||
+													mediaStyle[0]?.borderRadiusUnit === 'undefined'
+														? 200
+														: 12
+												}
+												reset={() =>
+													saveMediaStyle({ borderRadius: 0, borderRadiusUnit: 'px' })
+												}
+												showUnit={true}
+												unit={mediaStyle[0].borderRadiusUnit ?? 'px'}
+												onUnit={(value) => saveMediaStyle({ borderRadiusUnit: value })}
 											/>
 											<TabPanel
 												className="kt-inspect-tabs kt-hover-tabs"
@@ -2949,7 +2951,7 @@ function KadenceInfoBox(props) {
 													value={mediaIcon[0].width}
 													defaultValue={2}
 													onChange={(value) => saveMediaIcon({ width: value })}
-													step={0.5}
+													step={0.1}
 													min={0.5}
 													max={4}
 													reset={true}
@@ -2962,19 +2964,39 @@ function KadenceInfoBox(props) {
 												onChange={(value) => saveMediaStyle({ borderWidth: value })}
 												onControl={(value) => setMediaBorderControl(value)}
 												min={0}
-												max={40}
+												max={
+													mediaStyle[0]?.borderWidthUnit === 'px' ||
+													mediaStyle[0]?.borderWidthUnit === 'undefined'
+														? 40
+														: 12
+												}
 												step={1}
-												reset={() => saveMediaStyle({ borderWidth: [0, 0, 0, 0] })}
+												reset={() =>
+													saveMediaStyle({ borderWidth: [0, 0, 0, 0], borderWidthUnit: 'px' })
+												}
+												showUnit={true}
+												unit={mediaStyle[0].borderWidthUnit ?? 'px'}
+												onUnit={(value) => saveMediaStyle({ borderWidthUnit: value })}
 											/>
 											<RangeControl
-												label={__('Icon Border Radius (px)', 'kadence-blocks')}
+												label={__('Icon Border Radius', 'kadence-blocks')}
 												value={mediaStyle[0].borderRadius}
 												defaultValue={0}
 												onChange={(value) => saveMediaStyle({ borderRadius: value })}
 												step={1}
 												min={0}
-												max={200}
-												reset={true}
+												max={
+													mediaStyle[0]?.borderRadiusUnit === 'px' ||
+													mediaStyle[0]?.borderRadiusUnit === 'undefined'
+														? 200
+														: 12
+												}
+												reset={() =>
+													saveMediaStyle({ borderRadius: 0, borderRadiusUnit: 'px' })
+												}
+												showUnit={true}
+												unit={mediaStyle[0].borderRadiusUnit ?? 'px'}
+												onUnit={(value) => saveMediaStyle({ borderRadiusUnit: value })}
 											/>
 											<SelectControl
 												label={__('Icon Hover Animation', 'kadence-blocks')}
@@ -3138,10 +3160,14 @@ function KadenceInfoBox(props) {
 												onChange={(value) => saveMediaIcon({ size: value })}
 												onChangeTablet={(value) => saveMediaIcon({ tabletSize: value })}
 												onChangeMobile={(value) => saveMediaIcon({ mobileSize: value })}
-												min={5}
-												max={250}
+												min={['em', 'rem'].includes(mediaIcon[0].unit) ? 1 : 5}
+												max={['em', 'rem'].includes(mediaIcon[0].unit) ? 12 : 250}
 												step={1}
 												reset={true}
+												showUnit={true}
+												onUnit={(value) => saveMediaIcon({ unit: value })}
+												units={['px', 'em', 'rem']}
+												unit={mediaIcon[0].unit ? mediaIcon[0].unit : 'px'}
 											/>
 											<TypographyControls
 												fontGroup={'body'}
@@ -3182,18 +3208,41 @@ function KadenceInfoBox(props) {
 												onChange={(value) => saveMediaStyle({ borderWidth: value })}
 												onControl={(value) => setMediaBorderControl(value)}
 												min={0}
-												max={40}
+												max={
+													mediaStyle[0]?.borderWidthUnit === 'px' ||
+													mediaStyle[0]?.borderWidthUnit === 'undefined'
+														? 40
+														: 12
+												}
 												step={1}
-												reset={() => saveMediaStyle({ borderWidth: [0, 0, 0, 0] })}
+												reset={() =>
+													saveMediaStyle({ borderWidth: [0, 0, 0, 0], borderWidthUnit: 'px' })
+												}
+												showUnit={true}
+												unit={mediaStyle[0].borderWidthUnit ?? 'px'}
+												onUnit={(value) => saveMediaStyle({ borderWidthUnit: value })}
 											/>
 											<RangeControl
-												label={__('Number Border Radius (px)', 'kadence-blocks')}
+												label={__('Number Border Radius', 'kadence-blocks')}
 												value={mediaStyle[0].borderRadius}
 												onChange={(value) => saveMediaStyle({ borderRadius: value })}
 												step={1}
 												min={0}
-												max={200}
-												reset={() => saveMediaStyle({ borderRadius: [0, 15, 0, 15] })}
+												max={
+													mediaStyle[0]?.borderRadiusUnit === 'px' ||
+													mediaStyle[0]?.borderRadiusUnit === 'undefined'
+														? 200
+														: 12
+												}
+												reset={() =>
+													saveMediaStyle({
+														borderRadius: [0, 15, 0, 15],
+														borderRadiusUnit: 'px',
+													})
+												}
+												showUnit={true}
+												unit={mediaStyle[0].borderRadiusUnit ?? 'px'}
+												onUnit={(value) => saveMediaStyle({ borderRadiusUnit: value })}
 											/>
 											<SelectControl
 												label={__('Number Hover Animation', 'kadence-blocks')}
@@ -4033,10 +4082,10 @@ function KadenceInfoBox(props) {
 					boxShadow: displayShadow
 						? `${
 								previewInset ? 'inset' : ''
-						  } ${previewHOffset}px ${previewVOffset}px ${previewBlur}px ${KadenceColorOutput(
+							} ${previewHOffset}px ${previewVOffset}px ${previewBlur}px ${KadenceColorOutput(
 								previewShadow,
 								previewOpacity
-						  )}`
+							)}`
 						: undefined,
 					background: containerBackground ? KadenceColorOutput(containerBackground) : undefined,
 					borderTop: previewBorderTopStyle ? previewBorderTopStyle : undefined,
@@ -4097,13 +4146,13 @@ function KadenceInfoBox(props) {
 						style={{
 							margin: mediaStyle[0].margin
 								? mediaStyle[0].margin[0] +
-								  (mediaStyle[0].marginUnit ? mediaStyle[0].marginUnit + ' ' : 'px ') +
-								  mediaStyle[0].margin[1] +
-								  (mediaStyle[0].marginUnit ? mediaStyle[0].marginUnit + ' ' : 'px ') +
-								  mediaStyle[0].margin[2] +
-								  (mediaStyle[0].marginUnit ? mediaStyle[0].marginUnit + ' ' : 'px ') +
-								  mediaStyle[0].margin[3] +
-								  (mediaStyle[0].marginUnit ? mediaStyle[0].marginUnit : 'px')
+									(mediaStyle[0].marginUnit ? mediaStyle[0].marginUnit + ' ' : 'px ') +
+									mediaStyle[0].margin[1] +
+									(mediaStyle[0].marginUnit ? mediaStyle[0].marginUnit + ' ' : 'px ') +
+									mediaStyle[0].margin[2] +
+									(mediaStyle[0].marginUnit ? mediaStyle[0].marginUnit + ' ' : 'px ') +
+									mediaStyle[0].margin[3] +
+									(mediaStyle[0].marginUnit ? mediaStyle[0].marginUnit : 'px')
 								: '',
 						}}
 					>
@@ -4116,26 +4165,29 @@ function KadenceInfoBox(props) {
 							style={{
 								borderColor: KadenceColorOutput(mediaStyle[0].border),
 								backgroundColor: KadenceColorOutput(mediaStyle[0].background),
-								borderRadius: mediaStyle[0].borderRadius + 'px',
+								borderRadius: mediaStyle[0].borderRadius + (mediaStyle[0].borderRadiusUnit ?? 'px'),
 								borderWidth: mediaStyle[0].borderWidth
 									? mediaStyle[0].borderWidth[0] +
-									  'px ' +
-									  mediaStyle[0].borderWidth[1] +
-									  'px ' +
-									  mediaStyle[0].borderWidth[2] +
-									  'px ' +
-									  mediaStyle[0].borderWidth[3] +
-									  'px'
+										(mediaStyle[0].borderWidthUnit ?? 'px') +
+										' ' +
+										mediaStyle[0].borderWidth[1] +
+										(mediaStyle[0].borderWidthUnit ?? 'px') +
+										' ' +
+										mediaStyle[0].borderWidth[2] +
+										(mediaStyle[0].borderWidthUnit ?? 'px') +
+										' ' +
+										mediaStyle[0].borderWidth[3] +
+										(mediaStyle[0].borderWidthUnit ?? 'px')
 									: '',
 								padding: mediaStyle[0].padding
 									? mediaStyle[0].padding[0] +
-									  (mediaStyle[0].paddingUnit ? mediaStyle[0].paddingUnit + ' ' : 'px ') +
-									  mediaStyle[0].padding[1] +
-									  (mediaStyle[0].paddingUnit ? mediaStyle[0].paddingUnit + ' ' : 'px ') +
-									  mediaStyle[0].padding[2] +
-									  (mediaStyle[0].paddingUnit ? mediaStyle[0].paddingUnit + ' ' : 'px ') +
-									  mediaStyle[0].padding[3] +
-									  (mediaStyle[0].paddingUnit ? mediaStyle[0].paddingUnit : 'px')
+										(mediaStyle[0].paddingUnit ? mediaStyle[0].paddingUnit + ' ' : 'px ') +
+										mediaStyle[0].padding[1] +
+										(mediaStyle[0].paddingUnit ? mediaStyle[0].paddingUnit + ' ' : 'px ') +
+										mediaStyle[0].padding[2] +
+										(mediaStyle[0].paddingUnit ? mediaStyle[0].paddingUnit + ' ' : 'px ') +
+										mediaStyle[0].padding[3] +
+										(mediaStyle[0].paddingUnit ? mediaStyle[0].paddingUnit : 'px')
 									: '',
 							}}
 						>
@@ -4232,7 +4284,7 @@ function KadenceInfoBox(props) {
 								>
 									<div
 										className={'kadence-info-box-icon-inner-container'}
-										style={{ fontSize: previewMediaIconSize + mediaIcon[0].unit }}
+										style={{ fontSize: previewMediaIconSize + (mediaIcon[0].unit ?? 'px') }}
 									>
 										<IconRender
 											className={`kt-info-svg-icon kt-info-svg-icon-${mediaIcon[0].icon}`}
@@ -4305,13 +4357,13 @@ function KadenceInfoBox(props) {
 															'core/italic',
 															'core/link',
 															'toolset/inline-field',
-													  ])
+														])
 													: applyFilters('kadence.whitelist_richtext_formats', [
 															'kadence/insert-dynamic',
 															'core/bold',
 															'core/italic',
 															'toolset/inline-field',
-													  ])
+														])
 											}
 											tagName={'div'}
 											placeholder={'1'}
@@ -4338,13 +4390,13 @@ function KadenceInfoBox(props) {
 											'core/italic',
 											'core/link',
 											'toolset/inline-field',
-									  ])
+										])
 									: applyFilters('kadence.whitelist_richtext_formats', [
 											'kadence/insert-dynamic',
 											'core/bold',
 											'core/italic',
 											'toolset/inline-field',
-									  ])
+										])
 							}
 							tagName={titleTagName}
 							placeholder={__('Title', 'kadence-blocks')}
@@ -4361,23 +4413,23 @@ function KadenceInfoBox(props) {
 								fontFamily: titleFont[0].family ? titleFont[0].family : '',
 								padding: titleFont[0].padding
 									? titleFont[0].padding[0] +
-									  'px ' +
-									  titleFont[0].padding[1] +
-									  'px ' +
-									  titleFont[0].padding[2] +
-									  'px ' +
-									  titleFont[0].padding[3] +
-									  'px'
+										'px ' +
+										titleFont[0].padding[1] +
+										'px ' +
+										titleFont[0].padding[2] +
+										'px ' +
+										titleFont[0].padding[3] +
+										'px'
 									: '',
 								margin: titleFont[0].margin
 									? titleFont[0].margin[0] +
-									  'px ' +
-									  titleFont[0].margin[1] +
-									  'px ' +
-									  titleFont[0].margin[2] +
-									  'px ' +
-									  titleFont[0].margin[3] +
-									  'px'
+										'px ' +
+										titleFont[0].margin[1] +
+										'px ' +
+										titleFont[0].margin[2] +
+										'px ' +
+										titleFont[0].margin[3] +
+										'px'
 									: '',
 								minHeight: previewTitleMinHeight + (titleMinHeightUnit ? titleMinHeightUnit : 'px'),
 							}}
@@ -4396,13 +4448,13 @@ function KadenceInfoBox(props) {
 											'core/italic',
 											'core/link',
 											'toolset/inline-field',
-									  ])
+										])
 									: applyFilters('kadence.whitelist_richtext_formats', [
 											'kadence/insert-dynamic',
 											'core/bold',
 											'core/italic',
 											'toolset/inline-field',
-									  ])
+										])
 							}
 							tagName={'p'}
 							placeholder={__(
@@ -4426,24 +4478,24 @@ function KadenceInfoBox(props) {
 								padding:
 									undefined !== textSpacing && undefined !== textSpacing[0] && textSpacing[0].padding
 										? textSpacing[0].padding[0] +
-										  'px ' +
-										  textSpacing[0].padding[1] +
-										  'px ' +
-										  textSpacing[0].padding[2] +
-										  'px ' +
-										  textSpacing[0].padding[3] +
-										  'px'
+											'px ' +
+											textSpacing[0].padding[1] +
+											'px ' +
+											textSpacing[0].padding[2] +
+											'px ' +
+											textSpacing[0].padding[3] +
+											'px'
 										: '',
 								margin:
 									undefined !== textSpacing && undefined !== textSpacing[0] && textSpacing[0].margin
 										? textSpacing[0].margin[0] +
-										  'px ' +
-										  textSpacing[0].margin[1] +
-										  'px ' +
-										  textSpacing[0].margin[2] +
-										  'px ' +
-										  textSpacing[0].margin[3] +
-										  'px'
+											'px ' +
+											textSpacing[0].margin[1] +
+											'px ' +
+											textSpacing[0].margin[2] +
+											'px ' +
+											textSpacing[0].margin[3] +
+											'px'
 										: '',
 								minHeight: previewTextMinHeight + (textMinHeightUnit ? textMinHeightUnit : 'px'),
 							}}
@@ -4486,13 +4538,13 @@ function KadenceInfoBox(props) {
 									fontFamily: learnMoreStyles[0].family ? learnMoreStyles[0].family : '',
 									borderWidth: learnMoreStyles[0].borderWidth
 										? learnMoreStyles[0].borderWidth[0] +
-										  'px ' +
-										  learnMoreStyles[0].borderWidth[1] +
-										  'px ' +
-										  learnMoreStyles[0].borderWidth[2] +
-										  'px ' +
-										  learnMoreStyles[0].borderWidth[3] +
-										  'px'
+											'px ' +
+											learnMoreStyles[0].borderWidth[1] +
+											'px ' +
+											learnMoreStyles[0].borderWidth[2] +
+											'px ' +
+											learnMoreStyles[0].borderWidth[3] +
+											'px'
 										: '',
 									paddingTop:
 										undefined !== learnMoreStyles?.[0]?.padding?.[0] &&

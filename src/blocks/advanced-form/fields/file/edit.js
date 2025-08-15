@@ -29,7 +29,8 @@ import { getUniqueId, getPreviewSize } from '@kadence/helpers';
 import classNames from 'classnames';
 import { DuplicateField, FieldBlockAppender, FieldName, getUniqueFieldId } from '../../components';
 
-function FieldFile({ attributes, setAttributes, isSelected, clientId, context, name }) {
+function FieldFile(props) {
+	const { attributes, setAttributes, isSelected, clientId, context, name } = props;
 	const {
 		uniqueID,
 		required,
@@ -206,9 +207,7 @@ function FieldFile({ attributes, setAttributes, isSelected, clientId, context, n
 									options={getSizeOptions()}
 									max={wpMaxUploadSizeMb}
 									help={
-										__('WordPress max upload size: ', 'kadence-blocks') +
-										' ' +
-										wpMaxUploadSizePretty
+										__('WordPress max upload size:', 'kadence-blocks') + ' ' + wpMaxUploadSizePretty
 									}
 								/>
 
@@ -246,7 +245,12 @@ function FieldFile({ attributes, setAttributes, isSelected, clientId, context, n
 									checked={allowedTypes.includes('document')}
 									onChange={(value) => toggleAllowedTypes('document')}
 								/>
-
+								<CheckboxControl
+									label={__('Design', 'kadence-blocks')}
+									help="ai, ait, eps, psd, psb, xcf, svg, svgz"
+									checked={allowedTypes.includes('design')}
+									onChange={(value) => toggleAllowedTypes('design')}
+								/>
 								<CheckboxControl
 									label={__('Zip Archive', 'kadence-blocks')}
 									checked={allowedTypes.includes('archive')}

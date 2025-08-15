@@ -29,8 +29,7 @@ import {
 	getFontSizeOptionOutput,
 	getBorderStyle,
 	setBlockDefaults,
-	getUniqueId,
-	getPostOrFseId,
+	uniqueIdHelper,
 } from '@kadence/helpers';
 import {
 	PopColorControl,
@@ -80,6 +79,9 @@ import {
 	TextControl,
 	ToolbarButton,
 	ToolbarGroup,
+	MenuGroup,
+	MenuItem,
+	ToolbarDropdownMenu,
 } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { plusCircle } from '@wordpress/icons';
@@ -218,27 +220,6 @@ function KadenceTabs(props) {
 	const [showPreset, setShowPreset] = useState(false);
 	const [activeTab, setActiveTab] = useState('general');
 
-	const { addUniqueID } = useDispatch('kadenceblocks/data');
-	const { isUniqueID, isUniqueBlock, parentData } = useSelect(
-		(select) => {
-			return {
-				isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
-				isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
-				parentData: {
-					rootBlock: select('core/block-editor').getBlock(
-						select('core/block-editor').getBlockHierarchyRootClientId(clientId)
-					),
-					postId: select('core/editor')?.getCurrentPostId() ? select('core/editor')?.getCurrentPostId() : '',
-					reusableParent: select('core/block-editor').getBlockAttributes(
-						select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0]
-					),
-					editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
-				},
-			};
-		},
-		[clientId]
-	);
-
 	useEffect(() => {
 		if (!uniqueID) {
 			const blockConfigObject = kadence_blocks_params.configuration
@@ -270,17 +251,9 @@ function KadenceTabs(props) {
 				contentBorder: ['', '', '', ''],
 			});
 		}
-
-		const postOrFseId = getPostOrFseId(props, parentData);
-		const uniqueId = getUniqueId(uniqueID, clientId, isUniqueID, isUniqueBlock, postOrFseId);
-		if (uniqueId !== uniqueID) {
-			attributes.uniqueID = uniqueId;
-			setAttributes({ uniqueID: uniqueId });
-			addUniqueID(uniqueId, clientId);
-		} else {
-			addUniqueID(uniqueID, clientId);
-		}
 	}, []);
+
+	uniqueIdHelper(props);
 
 	const previewInnerPaddingTop = getPreviewSize(
 		previewDevice,
@@ -904,7 +877,7 @@ function KadenceTabs(props) {
 							margin: [0, 0, 0, 0],
 							marginControl: 'linked',
 						},
-				  ];
+					];
 		return (
 			<Fragment>
 				<li
@@ -924,8 +897,8 @@ function KadenceTabs(props) {
 							(isLast && 'vtabs' !== layout) || ('tabs' === layout && widthType === 'percent')
 								? '0px'
 								: '' !== previewTitleMarginRight
-								? getSpacingOptionOutput(previewTitleMarginRight, previewTitleMarginUnit)
-								: '',
+									? getSpacingOptionOutput(previewTitleMarginRight, previewTitleMarginUnit)
+									: '',
 						marginBottom:
 							'' !== previewTitleMarginBottom
 								? getSpacingOptionOutput(previewTitleMarginBottom, previewTitleMarginUnit)
@@ -934,8 +907,8 @@ function KadenceTabs(props) {
 							'tabs' === layout && widthType === 'percent'
 								? '0px'
 								: '' !== previewTitleMarginLeft
-								? getSpacingOptionOutput(previewTitleMarginLeft, previewTitleMarginUnit)
-								: '',
+									? getSpacingOptionOutput(previewTitleMarginLeft, previewTitleMarginUnit)
+									: '',
 					}}
 				>
 					<div
@@ -1070,23 +1043,23 @@ function KadenceTabs(props) {
 										fontFamily: subFont[0].family ? subFont[0].family : '',
 										padding: subFont[0].padding
 											? subFont[0].padding[0] +
-											  'px ' +
-											  subFont[0].padding[1] +
-											  'px ' +
-											  subFont[0].padding[2] +
-											  'px ' +
-											  subFont[0].padding[3] +
-											  'px'
+												'px ' +
+												subFont[0].padding[1] +
+												'px ' +
+												subFont[0].padding[2] +
+												'px ' +
+												subFont[0].padding[3] +
+												'px'
 											: '',
 										margin: subFont[0].margin
 											? subFont[0].margin[0] +
-											  'px ' +
-											  subFont[0].margin[1] +
-											  'px ' +
-											  subFont[0].margin[2] +
-											  'px ' +
-											  subFont[0].margin[3] +
-											  'px'
+												'px ' +
+												subFont[0].margin[1] +
+												'px ' +
+												subFont[0].margin[2] +
+												'px ' +
+												subFont[0].margin[3] +
+												'px'
 											: '',
 									}}
 									keepPlaceholderOnFocus
@@ -1111,8 +1084,8 @@ function KadenceTabs(props) {
 									className="kadence-blocks-tab-item__move-back"
 									label={
 										'vtabs' === layout
-											? __('Move Item Up', 'kadence-blocks')
-											: __('Move Item Back', 'kadence-blocks')
+											? __('Move Tab Up', 'kadence-blocks')
+											: __('Move Tab Back', 'kadence-blocks')
 									}
 									aria-disabled={index === 0}
 									disabled={index === 0}
@@ -1125,8 +1098,8 @@ function KadenceTabs(props) {
 									className="kadence-blocks-tab-item__move-forward"
 									label={
 										'vtabs' === layout
-											? __('Move Item Down', 'kadence-blocks')
-											: __('Move Item Forward', 'kadence-blocks')
+											? __('Move Tab Down', 'kadence-blocks')
+											: __('Move Tab Forward', 'kadence-blocks')
 									}
 									aria-disabled={index + 1 === tabCount}
 									disabled={index + 1 === tabCount}
@@ -1156,7 +1129,7 @@ function KadenceTabs(props) {
 										resetOrder();
 									}}
 									className="kadence-blocks-tab-item__remove"
-									label={__('Remove Item', 'kadence-blocks')}
+									label={__('Remove Tab', 'kadence-blocks')}
 									disabled={!currentTab === index + 1}
 								/>
 							)}
@@ -1438,6 +1411,67 @@ function KadenceTabs(props) {
 						label={__('Add Tab', 'kadence-blocks')}
 						showTooltip={true}
 					/>
+					{tabCount > 1 && (
+						<ToolbarDropdownMenu icon="move" label={__('Move Tabs', 'kadence-blocks')}>
+							{({ onClose }) => (
+								<MenuGroup>
+									{/* Move Tab Back/Up */}
+									{currentTab !== 1 && (
+										<MenuItem
+											icon={'vtabs' === layout ? 'arrow-up' : 'arrow-left'}
+											onClick={currentTab === 1 ? undefined : onMoveBack(currentTab - 1)}
+										>
+											{'vtabs' === layout
+												? __('Move Tab Up', 'kadence-blocks')
+												: __('Move Tab Back', 'kadence-blocks')}
+										</MenuItem>
+									)}
+									{/* Move Tab Forward/Down */}
+									{currentTab !== tabCount && (
+										<MenuItem
+											icon={'vtabs' === layout ? 'arrow-down' : 'arrow-right'}
+											onClick={
+												currentTab === tabCount ? undefined : onMoveForward(currentTab - 1)
+											}
+										>
+											{'vtabs' === layout
+												? __('Move Tab Down', 'kadence-blocks')
+												: __('Move Tab Forward', 'kadence-blocks')}
+										</MenuItem>
+									)}
+									{/* Remove Tab */}
+									{tabCount > 1 && (
+										<MenuItem
+											icon="no-alt"
+											onClick={() => {
+												const currentItems = filter(titles, (item, i) => currentTab !== i);
+												const newCount = tabCount - 1;
+												let newStartTab;
+												if (startTab === currentTab + 1) {
+													newStartTab = '';
+												} else if (startTab > currentTab + 1) {
+													newStartTab = startTab - 1;
+												} else {
+													newStartTab = startTab;
+												}
+												removeTab(currentTab);
+												setAttributes({
+													titles: currentItems,
+													tabCount: newCount,
+													currentTab: currentTab === 0 ? 1 : currentTab,
+													startTab: newStartTab,
+												});
+												resetOrder();
+												onClose();
+											}}
+										>
+											{__('Remove Tab', 'kadence-blocks')}
+										</MenuItem>
+									)}
+								</MenuGroup>
+							)}
+						</ToolbarDropdownMenu>
+					)}
 				</ToolbarGroup>
 			</BlockControls>
 			{showSettings('allSettings', 'kadence/tabs') && (

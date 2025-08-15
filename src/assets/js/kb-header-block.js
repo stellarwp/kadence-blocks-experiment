@@ -115,6 +115,11 @@ class KBHeader {
 	shrinkStartHeight = 0;
 
 	/**
+	 * mobileBreakpoint.
+	 */
+	mobileBreakpoint = 0;
+
+	/**
 	 * currentTopPosition.
 	 */
 	currentTopPosition = 0;
@@ -177,6 +182,7 @@ class KBHeader {
 		this.shrinkMainHeightTablet = this.root.dataset?.shrinkMainHeightTablet;
 		this.shrinkMainHeightMobile = this.root.dataset?.shrinkMainHeightMobile;
 		this.revealScrollUp = this.root.dataset?.revealScrollUp === '1';
+		this.mobileBreakpoint = this.root.dataset?.mobileBreakpoint;
 		this._state = 'CREATED';
 
 		// if (this.transparent && this.autoTransparentSpacing) {
@@ -184,6 +190,9 @@ class KBHeader {
 		// }
 		if (this.sticky || this.stickyTablet || this.stickyMobile) {
 			this.initStickyHeader();
+		}
+		if (this.mobileBreakpoint && this.mobileBreakpoint !== 0) {
+			this.initMobileBreakpoint();
 		}
 
 		var event = new Event('MOUNTED', {
@@ -216,6 +225,37 @@ class KBHeader {
 	// getHeight() {
 	// 	return this.root.querySelector('div').clientHeight;
 	// }
+
+	/**
+	 * Initiate the script to stick the header.
+	 * http://www.mattmorgante.com/technology/sticky-navigation-bar-javascript
+	 */
+	initMobileBreakpoint() {
+		const self = this;
+
+		if (this.mobileBreakpoint && this.mobileBreakpoint !== 0) {
+			window.addEventListener('resize', this.updateMobileBreakpoint.bind(this), false);
+			window.addEventListener('hashchange', this.updateMobileBreakpoint.bind(this), false);
+			window.addEventListener('scroll', this.updateMobileBreakpoint.bind(this), false);
+			window.addEventListener('load', this.updateMobileBreakpoint.bind(this), false);
+			window.addEventListener('orientationchange', this.updateMobileBreakpoint.bind(this));
+		}
+	}
+
+	updateMobileBreakpoint() {
+		const self = this;
+
+		this.setActiveSize();
+
+		// If we have a mobile breakpoint, hide the desktop or tablet header depending on the current active size
+		if (this.activeSize == 'desktop') {
+			this.root.querySelector('.wp-block-kadence-header-tablet').style.display = 'none';
+			this.root.querySelector('.wp-block-kadence-header-desktop').style.display = 'block';
+		} else {
+			this.root.querySelector('.wp-block-kadence-header-desktop').style.display = 'none';
+			this.root.querySelector('.wp-block-kadence-header-tablet').style.display = 'block';
+		}
+	}
 
 	/**
 	 * Initiate the script to stick the header.
@@ -266,7 +306,11 @@ class KBHeader {
 	}
 
 	setActiveSize() {
-		if (parseInt(kadenceHeaderConfig.breakPoints.desktop) < window.innerWidth) {
+		const desktopBreakpointToUse =
+			this.mobileBreakpoint && this.mobileBreakpoint !== 0
+				? this.mobileBreakpoint
+				: kadenceHeaderConfig.breakPoints.desktop;
+		if (parseInt(desktopBreakpointToUse) < window.innerWidth) {
 			this.activeSize = 'desktop';
 		} else if (parseInt(kadenceHeaderConfig.breakPoints.tablet) < window.innerWidth) {
 			this.activeSize = 'tablet';
@@ -467,8 +511,8 @@ class KBHeader {
 				this.activeSize === 'mobile'
 					? this.shrinkMainHeightMobile
 					: this.activeSize === 'tablet'
-					? this.shrinkMainHeightTablet
-					: this.shrinkMainHeight;
+						? this.shrinkMainHeightTablet
+						: this.shrinkMainHeight;
 			if (shrinkHeight) {
 				// Set totalOffsetDelay
 				// var totalOffsetDelay = Math.floor(this.activeOffsetTop - offsetTop);
@@ -482,7 +526,7 @@ class KBHeader {
 				// 	}
 				// }
 				const shrinkLogos = this.activeHeaderContainer.querySelectorAll(
-					'.kb-img, .wp-block-kadence-identity img'
+					'.kb-img, .wp-block-kadence-identity img, .wp-block-image img'
 				);
 				const shrinkHeader = this.activeHeaderContainer.querySelector(
 					'.wp-block-kadence-header-row-center .kadence-header-row-inner'
