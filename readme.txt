@@ -173,6 +173,46 @@ Please report security bugs found in the source code of the Kadence Blocks plugi
 Please report security bugs found in the Kadence Blocks plugin's source code through the Patchstack Vulnerability Disclosure Program https://patchstack.com/database/vdp/kadence-blocks. The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Changelog ==
+
+= 3.5.17 =
+Release Date: 14th August 2025
+* Add: Option to reveal icons for buttons on hover.
+* Add: Mosaic gallery support for pro features. 
+* Add: Custom option for autofill value on advanced form input fields.
+* Add: Pause button option for sliders with autoplay
+* Update: Slides in sliders are now semantic list items
+* Update: Grouped testimonials are now semantic list items
+* Update: Remove "aria-hidden="true"" in post title in Post Loop block
+* Update: Screen reader announces success in Form block
+* Update: Make error messages persistent on Form block
+* Update: Improve error notices for screen readers (in ADV form)
+* Update: Improve error notice announcements for screen readers (in ADV form)
+* Update: Carousel arrows improved contrast ratios
+* Update: Improved accessibility of star rating in testimonial block
+* Update: Testimonial quote is now a semantic blockquote
+* Update: Improved accessability for post block labels
+* Update: Improve slide functionality at high zoom levels.
+* Fix: Icon color in search block.
+* Fix: Testimonial content changed to a blockquote element for accessibility.
+* Fix: Countdown block logic for daily and weekly repeating.
+* Fix: Search block - Wrong text domain
+* Fix: bad class name in heading block
+* Fix: Row Layout Block Tablet/Mobile Spacing Issue
+* Fix: Nested Navigation Block does not work properly in Dashboard > Kadence > Navigations
+* Fix: Countdown Block repeater date is wrong in some sitiuations
+* Fix: Icon color issue in search block
+* Fix: Freeze submenu preview setting for hover to open
+
+= 3.5.16 =
+Release Date: 28th July 2025
+* Fix: Classic form blocks created after 3.5.13 not handling submissions
+
+= 3.5.15 =
+Release Date: 23rd July 2025
+* Fix: Mosaic gallery custom link in editor. 
+* Fix: Block defaults not applying to new blocks.
+* Fix: Add link support to advanced text block in some templates.
+
 = 3.5.14 =
 Release Date: 15th July 2025
 * Fix: Issue editing kadence blocks in widget areas

@@ -134,11 +134,11 @@ export function Edit(props) {
 		[clientId]
 	);
 
-	uniqueIdHelper(props);
-
 	useEffect(() => {
 		setBlockDefaults('kadence/search', attributes);
 	}, []);
+
+	uniqueIdHelper(props);
 
 	const [activeTab, setActiveTab] = useState('general');
 	const [isShowingModal, setIsShowingModal] = useState(false);
@@ -215,7 +215,7 @@ export function Edit(props) {
 				{inputIcon && (
 					<>
 						<IconRender
-							className={`kb-search-icon kt-svg-icon kt-svg-icon-${inputIcon}`}
+							className={`kb-search-icon kt-svg-icon kt-svg-icon-${inputIcon} kb-search-icon-submit`}
 							name={inputIcon}
 							strokeWidth={'fe' === inputIcon.substring(0, 2) ? inputIconLineWidth : undefined}
 							style={{

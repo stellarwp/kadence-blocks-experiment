@@ -340,6 +340,7 @@ export default function GalleryEdit(props) {
 		dotCustomColorBorderHover,
 		dotCustomColorBorderActive,
 		dotCustomBorderWidth,
+		showPauseButton,
 	} = attributes;
 	const mainRef = useRef(null);
 	const thumbsRef = useRef();
@@ -358,7 +359,6 @@ export default function GalleryEdit(props) {
 			mainRef.current.sync(thumbsRef.current.splide);
 		}
 	}, [mainRef.current, thumbsRef.current]);
-	uniqueIdHelper(props);
 
 	useEffect(() => {
 		setBlockDefaults('kadence/advancedgallery', attributes);
@@ -401,6 +401,9 @@ export default function GalleryEdit(props) {
 			setAttributes({ kbVersion: 2 });
 		}
 	}, []);
+
+	uniqueIdHelper(props);
+
 	const previewPaddingUnit = undefined !== paddingUnit ? paddingUnit : 'px';
 	const previewMarginUnit = undefined !== marginUnit ? marginUnit : 'px';
 	const previewMarginTop = getPreviewSize(
@@ -1611,14 +1614,27 @@ export default function GalleryEdit(props) {
 													onChange={(value) => setAttributes({ autoPlay: value })}
 												/>
 												{autoPlay && (
-													<RangeControl
-														label={__('Autoplay Speed', 'kadence-blocks')}
-														value={autoSpeed}
-														onChange={(value) => setAttributes({ autoSpeed: value })}
-														min={0}
-														max={15000}
-														step={10}
-													/>
+													<>
+														<RangeControl
+															label={__('Autoplay Speed', 'kadence-blocks')}
+															value={autoSpeed}
+															onChange={(value) => setAttributes({ autoSpeed: value })}
+															min={0}
+															max={15000}
+															step={10}
+														/>
+														<ToggleControl
+															label={__('Show Pause Button', 'kadence-blocks')}
+															checked={showPauseButton}
+															onChange={(value) =>
+																setAttributes({ showPauseButton: value })
+															}
+															help={__(
+																'Display a pause/play button in the bottom right corner.',
+																'kadence-blocks'
+															)}
+														/>
+													</>
 												)}
 												{(type === 'thumbslider' || type === 'slider') && (
 													<SelectControl
@@ -2362,6 +2378,47 @@ export default function GalleryEdit(props) {
 			notices={hasImages ? undefined : noticeUI}
 		/>
 	);
+	// Helper function to get pause button styles based on arrow style
+	const getPauseButtonStyles = () => {
+		if (arrowStyle === 'custom') {
+			return {
+				position: 'absolute',
+				bottom: '10px',
+				right: '10px',
+				background: arrowCustomColorBackground
+					? KadenceColorOutput(arrowCustomColorBackground)
+					: 'rgba(0, 0, 0, 0.5)',
+				color: arrowCustomColor ? KadenceColorOutput(arrowCustomColor) : 'white',
+				border: arrowCustomBorderWidth ? `${arrowCustomBorderWidth}px solid` : 'none',
+				borderColor: arrowCustomColorBorder ? KadenceColorOutput(arrowCustomColorBorder) : 'transparent',
+				borderRadius: '4px',
+				padding: '8px 12px',
+				cursor: 'pointer',
+				fontSize: '14px',
+				zIndex: 10,
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+			};
+		}
+		return {
+			position: 'absolute',
+			bottom: '10px',
+			right: '10px',
+			background: 'rgba(0, 0, 0, 0.5)',
+			color: 'white',
+			border: 'none',
+			borderRadius: '4px',
+			padding: '8px 12px',
+			cursor: 'pointer',
+			fontSize: '14px',
+			zIndex: 10,
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+		};
+	};
+
 	const buildCSS = (
 		<style>
 			{`
@@ -2529,6 +2586,24 @@ export default function GalleryEdit(props) {
 								${arrowCustomColorBackgroundActive ? `background-color: ${KadenceColorOutput(arrowCustomColorBackgroundActive)};` : ''}
 								${arrowCustomColorBorderActive ? `border-color: ${KadenceColorOutput(arrowCustomColorBorderActive)};` : ''}
 								${arrowCustomBorderWidth ? `border-width: ${arrowCustomBorderWidth}px;` : ''}
+							}
+							.wp-block-kadence-advancedgallery .kb-gallery-id-${uniqueID} .kb-gallery-pause-button {
+								${arrowCustomColor ? `color: ${KadenceColorOutput(arrowCustomColor)};` : ''}
+								${arrowCustomColorBackground ? `background-color: ${KadenceColorOutput(arrowCustomColorBackground)};` : ''}
+								${arrowCustomColorBorder ? `border-color: ${KadenceColorOutput(arrowCustomColorBorder)};` : ''}
+								${arrowCustomBorderWidth ? `border-width: ${arrowCustomBorderWidth}px; border-style: solid;` : ''}
+							}
+							.wp-block-kadence-advancedgallery .kb-gallery-id-${uniqueID} .kb-gallery-pause-button:hover {
+								${arrowCustomColorHover ? `color: ${KadenceColorOutput(arrowCustomColorHover)};` : ''}
+								${arrowCustomColorBackgroundHover ? `background-color: ${KadenceColorOutput(arrowCustomColorBackgroundHover)};` : ''}
+								${arrowCustomColorBorderHover ? `border-color: ${KadenceColorOutput(arrowCustomColorBorderHover)};` : ''}
+								${arrowCustomBorderWidth ? `border-width: ${arrowCustomBorderWidth}px; border-style: solid;` : ''}
+							}
+							.wp-block-kadence-advancedgallery .kb-gallery-id-${uniqueID} .kb-gallery-pause-button:active {
+								${arrowCustomColorActive ? `color: ${KadenceColorOutput(arrowCustomColorActive)};` : ''}
+								${arrowCustomColorBackgroundActive ? `background-color: ${KadenceColorOutput(arrowCustomColorBackgroundActive)};` : ''}
+								${arrowCustomColorBorderActive ? `border-color: ${KadenceColorOutput(arrowCustomColorBorderActive)};` : ''}
+								${arrowCustomBorderWidth ? `border-width: ${arrowCustomBorderWidth}px; border-style: solid;` : ''}
 							}
 							`
 							: ''
@@ -2713,6 +2788,26 @@ export default function GalleryEdit(props) {
 								);
 							})}
 					</div>
+					{autoPlay && showPauseButton && (
+						<button
+							className="kb-gallery-pause-button"
+							style={getPauseButtonStyles()}
+							onClick={(e) => e.preventDefault()}
+							aria-label={__('Pause carousel', 'kadence-blocks')}
+						>
+							<svg
+								className="kb-gallery-pause-icon"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<rect x="6" y="4" width="4" height="16" fill="currentColor" />
+								<rect x="14" y="4" width="4" height="16" fill="currentColor" />
+							</svg>
+						</button>
+					)}
 				</div>
 			)}
 			{type && type === 'slider' && (
@@ -2747,6 +2842,26 @@ export default function GalleryEdit(props) {
 								);
 							})}
 					</div>
+					{autoPlay && showPauseButton && (
+						<button
+							className="kb-gallery-pause-button"
+							style={getPauseButtonStyles()}
+							onClick={(e) => e.preventDefault()}
+							aria-label={__('Pause carousel', 'kadence-blocks')}
+						>
+							<svg
+								className="kb-gallery-pause-icon"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<rect x="6" y="4" width="4" height="16" fill="currentColor" />
+								<rect x="14" y="4" width="4" height="16" fill="currentColor" />
+							</svg>
+						</button>
+					)}
 				</div>
 			)}
 			{type && type === 'thumbslider' && (
@@ -2805,6 +2920,26 @@ export default function GalleryEdit(props) {
 								);
 							})}
 					</div>
+					{autoPlay && showPauseButton && (
+						<button
+							className="kb-gallery-pause-button"
+							style={getPauseButtonStyles()}
+							onClick={(e) => e.preventDefault()}
+							aria-label={__('Pause carousel', 'kadence-blocks')}
+						>
+							<svg
+								className="kb-gallery-pause-icon"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<rect x="6" y="4" width="4" height="16" fill="currentColor" />
+								<rect x="14" y="4" width="4" height="16" fill="currentColor" />
+							</svg>
+						</button>
+					)}
 				</div>
 			)}
 			{type && type === 'carousel' && (
@@ -2839,6 +2974,26 @@ export default function GalleryEdit(props) {
 							})}
 						</Splide>
 					</div>
+					{autoPlay && showPauseButton && (
+						<button
+							className="kb-gallery-pause-button"
+							style={getPauseButtonStyles()}
+							onClick={(e) => e.preventDefault()}
+							aria-label={__('Pause carousel', 'kadence-blocks')}
+						>
+							<svg
+								className="kb-gallery-pause-icon"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<rect x="6" y="4" width="4" height="16" fill="currentColor" />
+								<rect x="14" y="4" width="4" height="16" fill="currentColor" />
+							</svg>
+						</button>
+					)}
 				</div>
 			)}
 			{type &&

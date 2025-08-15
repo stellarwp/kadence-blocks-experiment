@@ -293,14 +293,14 @@ function KadenceAdvancedHeading(props) {
 			const paragraphs = pastedText.split(/\n\s*\n/).flatMap((paragraph) => paragraph.split(/\r\s*/));
 
 			const newBlocks = paragraphs
-				.map((paragraph) => {
+				.map((paragraph, thisIndex) => {
 					const trimmedParagraph = paragraph.trim();
 					if (!trimmedParagraph) {
 						return null;
 					}
 
-					const newAttributes = attributes;
-					delete newAttributes.uniqueID;
+					const newAttributes = { ...attributes };
+					newAttributes.uniqueID = attributes.uniqueID + '_' + thisIndex;
 
 					return wp.blocks.createBlock('kadence/advancedheading', {
 						...newAttributes,
@@ -339,8 +339,6 @@ function KadenceAdvancedHeading(props) {
 	const config = get(kadence_blocks_params, 'globalSettings') ? JSON.parse(kadence_blocks_params.globalSettings) : {};
 	const isDefaultEditorBlock =
 		undefined !== config.adv_text_is_default_editor_block && config.adv_text_is_default_editor_block;
-
-	uniqueIdHelper(props);
 
 	useEffect(() => {
 		setBlockDefaults('kadence/advancedheading', attributes);
@@ -430,6 +428,8 @@ function KadenceAdvancedHeading(props) {
 		}
 	}, []);
 
+	uniqueIdHelper(props);
+
 	let newItems;
 	const saveShadow = (value) => {
 		if (value.enable === 'reset') {
@@ -503,6 +503,7 @@ function KadenceAdvancedHeading(props) {
 		[
 			'core/bold',
 			'core/italic',
+			'core/link',
 			'kadence/mark',
 			'kadence/typed',
 			'core/strikethrough',
