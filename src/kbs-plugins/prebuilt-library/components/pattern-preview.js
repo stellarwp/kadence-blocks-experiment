@@ -109,7 +109,9 @@ function ScaledPatternShadowPreview({
 
 	// Optimize style loading check with useCallback
 	const checkStylesLoaded = useCallback(() => {
-		if (!shadowRef.current?.shadowRoot) return;
+		if (!shadowRef.current?.shadowRoot) {
+			return;
+		}
 
 		const styles = shadowRef.current.shadowRoot.querySelectorAll('style, link[rel="stylesheet"]');
 		let loadedCount = 0;

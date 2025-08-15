@@ -42,10 +42,10 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 			return;
 		}
 		const mainColor = colord(customPalette.mainColor);
-		let darkenA = 0.2;
-		let darkenB = 0.1;
-		let lightenA = 0.3;
-		let lightenB = 0.4;
+		const darkenA = 0.2;
+		const darkenB = 0.1;
+		const lightenA = 0.3;
+		const lightenB = 0.4;
 		let isReadable = '';
 		if (customPalette.isLight && !colord(customPalette.mainColor).isReadable()) {
 			isReadable = __(
@@ -60,7 +60,7 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 			);
 		}
 		let accentColor2 = customPalette.mainColor;
-		let complementColor = mainColor.harmonies('complementary')[1].toHex();
+		const complementColor = mainColor.harmonies('complementary')[1].toHex();
 		let contrastColor1 = mainColor.darken(darkenA).mix('#222222', 0.8).toHex();
 		let contrastColor2 = mainColor.darken(darkenA).mix('#353535', 0.8).toHex();
 		let contrastColor3 = mainColor.darken(darkenB).mix('#454545', 0.8).toHex();
@@ -138,12 +138,10 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 					// } else {
 					// 	backgroundColor3 = colord(mainColor).lighten(0.6).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
 					// }
+				} else if (mainColor.isLight()) {
+					backgroundColor3 = colord(mainColor).lighten(0.3).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
 				} else {
-					if (mainColor.isLight()) {
-						backgroundColor3 = colord(mainColor).lighten(0.3).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
-					} else {
-						backgroundColor3 = colord(mainColor).lighten(0.6).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
-					}
+					backgroundColor3 = colord(mainColor).lighten(0.6).mix('#fcfcfc', 0.9).saturate(0.25).toHex();
 				}
 			}
 		}
@@ -225,7 +223,7 @@ export default function GlobalPaletteCreator({ onToggle, setStyleBookColorPalett
 		}
 		const newPalette = {
 			...customPalette,
-			btnColor: btnColor,
+			btnColor,
 			colors: [
 				customPalette.mainColor,
 				accentColor2,

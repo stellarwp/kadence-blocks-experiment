@@ -69,7 +69,7 @@ export class BaseComponentGenerator {
 		if (meta?.debug === true) {
 			this.outputGeneratorDebug(meta, resolvedValues);
 		}
-		
+
 		Object.entries(resolvedValues).forEach(([key, resolvedValue]) => {
 			if (shouldRenderValue(resolvedValue, meta)) {
 				const cssValue = outputFunction ? outputFunction(resolvedValue.value) : resolvedValue.value;
@@ -79,7 +79,7 @@ export class BaseComponentGenerator {
 			}
 		});
 	}
-	
+
 	/**
 	 * Output debug information for a component generator
 	 * @param {Object} meta - Component metadata
@@ -115,47 +115,77 @@ export class BaseComponentGenerator {
 	 * @param {Object} meta - Component metadata
 	 * @returns {string} - The CSS property name
 	 */
-    getCssProperty(key, meta) {
-        // 1) Normalize hover suffix handling (strip only for mapping; selector handles :hover)
-        const baseKey = key.endsWith('Hover') ? key.slice(0, -5) : key;
+	getCssProperty(key, meta) {
+		// 1) Normalize hover suffix handling (strip only for mapping; selector handles :hover)
+		const baseKey = key.endsWith('Hover') ? key.slice(0, -5) : key;
 
-        // 2) Explicit exceptional cases that cannot be kebab-cased directly
-        const specialCases = new Set([
-            'iconSize', 'iconLineWidth', 'origin', 'image', 'size', 'position', 'repeat', 'attachment', 'gradient', 'transitionEase'
-        ]);
+		// 2) Explicit exceptional cases that cannot be kebab-cased directly
+		const specialCases = new Set([
+			'iconSize',
+			'iconLineWidth',
+			'origin',
+			'image',
+			'size',
+			'position',
+			'repeat',
+			'attachment',
+			'gradient',
+			'transitionEase',
+		]);
 
-        let property;
-        if (specialCases.has(baseKey)) {
-            // Minimal mapping without a large table
-            switch (baseKey) {
-                case 'iconSize': property = 'font-size'; break;
-                case 'iconLineWidth': property = 'stroke-width'; break;
-                case 'origin': property = 'transform-origin'; break;
-                case 'image': property = 'background-image'; break;
-                case 'size': property = 'background-size'; break;
-                case 'position': property = 'background-position'; break;
-                case 'repeat': property = 'background-repeat'; break;
-                case 'attachment': property = 'background-attachment'; break;
-                case 'gradient': property = 'background-image'; break;
-                case 'transitionEase': property = 'transition-timing-function'; break;
-                default: property = kebabCase(baseKey);
-            }
-        } else {
-            property = kebabCase(baseKey);
-        }
+		let property;
+		if (specialCases.has(baseKey)) {
+			// Minimal mapping without a large table
+			switch (baseKey) {
+				case 'iconSize':
+					property = 'font-size';
+					break;
+				case 'iconLineWidth':
+					property = 'stroke-width';
+					break;
+				case 'origin':
+					property = 'transform-origin';
+					break;
+				case 'image':
+					property = 'background-image';
+					break;
+				case 'size':
+					property = 'background-size';
+					break;
+				case 'position':
+					property = 'background-position';
+					break;
+				case 'repeat':
+					property = 'background-repeat';
+					break;
+				case 'attachment':
+					property = 'background-attachment';
+					break;
+				case 'gradient':
+					property = 'background-image';
+					break;
+				case 'transitionEase':
+					property = 'transition-timing-function';
+					break;
+				default:
+					property = kebabCase(baseKey);
+			}
+		} else {
+			property = kebabCase(baseKey);
+		}
 
-        // If nonInheritable is true, output direct CSS property
-        if (meta?.nonInheritable === true) {
-            return property;
-        }
+		// If nonInheritable is true, output direct CSS property
+		if (meta?.nonInheritable === true) {
+			return property;
+		}
 
-        // Otherwise, handle CSS variables with varPrefix
-        if (meta?.varPrefix) {
-            return meta.varPrefix + property + (meta?.varSuffix || '');
-        }
+		// Otherwise, handle CSS variables with varPrefix
+		if (meta?.varPrefix) {
+			return meta.varPrefix + property + (meta?.varSuffix || '');
+		}
 
-        return property;
-    }
+		return property;
+	}
 
 	/**
 	 * Get the CSS selector for a component property

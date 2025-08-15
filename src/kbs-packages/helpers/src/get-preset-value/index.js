@@ -49,20 +49,18 @@ export default function getPresetValue(
 			if (rawPresetData.attributes?.[type]) {
 				return { value: rawPresetData.attributes?.[type], source: 'preset' };
 			}
+		} else if (null !== layerKey) {
+			const attributeValue = rawPresetData.attributes?.layers?.[layerKey]?.[device?.toLowerCase()]?.[type];
+			if (attributeValue !== undefined && attributeValue !== null && attributeValue !== '') {
+				return { value: attributeValue, source: 'preset' };
+			}
 		} else {
-			if (null !== layerKey) {
-				const attributeValue = rawPresetData.attributes?.layers?.[layerKey]?.[device?.toLowerCase()]?.[type];
-				if (attributeValue !== undefined && attributeValue !== null && attributeValue !== '') {
-					return { value: attributeValue, source: 'preset' };
-				}
-			} else {
-				// Find the attribute value within the preset data for the specific device and type
-				const attributeValue = rawPresetData.attributes?.[device?.toLowerCase()]?.[type];
+			// Find the attribute value within the preset data for the specific device and type
+			const attributeValue = rawPresetData.attributes?.[device?.toLowerCase()]?.[type];
 
-				if (attributeValue !== undefined && attributeValue !== null && attributeValue !== '') {
-					// Return the found value and indicate the source as 'preset'
-					return { value: attributeValue, source: 'preset' };
-				}
+			if (attributeValue !== undefined && attributeValue !== null && attributeValue !== '') {
+				// Return the found value and indicate the source as 'preset'
+				return { value: attributeValue, source: 'preset' };
 			}
 		}
 	}

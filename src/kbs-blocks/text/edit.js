@@ -136,8 +136,8 @@ export default function TextEdit(props) {
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
 		[`kbs-text-content`]: !shouldWrapContent,
-		['kbs-text-has-icon']: hasIcon,
-		['icon-reveal']: hasIcon && hasIconReveal,
+		'kbs-text-has-icon': hasIcon,
+		'icon-reveal': hasIcon && hasIconReveal,
 	});
 
 	const blockProps = useBlockProps({

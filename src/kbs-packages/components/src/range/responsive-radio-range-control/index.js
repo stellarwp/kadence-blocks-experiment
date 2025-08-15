@@ -8,10 +8,7 @@ import { __ } from '@wordpress/i18n';
  */
 import RadioRangeControl from '../radio-range-control';
 import TitleBar from '../../title-bar';
-import {
-	getResolvedValue,
-	handleAttributeChange,
-} from '@kadence/kbsHelpers';
+import { getResolvedValue, handleAttributeChange } from '@kadence/kbsHelpers';
 import './editor.scss';
 import { fontSizeOptions, letterCaseOptions } from './constants';
 import InheritanceIndicator from '../../inheritance-indicator';
@@ -77,7 +74,7 @@ export default function ResponsiveRadioRangeControls({
 			setAttributes,
 			customOnChange,
 			type,
-			meta?.['attributes']?.[attributeName]
+			meta?.attributes?.[attributeName]
 		);
 	};
 
@@ -85,23 +82,23 @@ export default function ResponsiveRadioRangeControls({
 		<div className="components-base-control kbs-responsive-radio-range-control" key={attributeName + previewDevice}>
 			{label && <TitleBar label={label} hasDeviceControls={true} reset={reset} onReset={onReset} />}
 			<div className="kbs-responsive-radio-range-inner">
-                <RadioRangeControl
-                    value={directValue}
-                    inheritedValue={inheritedValue}
-                    appliedValue={appliedValue}
-                    onChange={(value) => onChange(value, previewDevice)}
-                    options={controlOptions}
-                    defaultValue={defaultValue}
-                    min={min}
-                    max={max}
-                    step={step}
-                    unit={unit}
-                    showUnit={showUnit}
-                    units={units}
-                    disableCustomSizes={disableCustomSizes}
-                />
+				<RadioRangeControl
+					value={directValue}
+					inheritedValue={inheritedValue}
+					appliedValue={appliedValue}
+					onChange={(value) => onChange(value, previewDevice)}
+					options={controlOptions}
+					defaultValue={defaultValue}
+					min={min}
+					max={max}
+					step={step}
+					unit={unit}
+					showUnit={showUnit}
+					units={units}
+					disableCustomSizes={disableCustomSizes}
+				/>
 				<InheritanceIndicator inheritedSource={inheritedSource} inheritedType={inheritedType} />
 			</div>
 		</div>
 	);
-} 
+}

@@ -623,13 +623,11 @@ const store = createReduxStore('kadenceblocks/data', {
 				if (googleFonts.hasOwnProperty(fontFamily)) {
 					if (!fontData?.weight) {
 						isUniqueGoogleFont = false;
-					} else {
-						if (
-							googleFonts[fontFamily]?.weights &&
-							googleFonts[fontFamily].weights.includes(fontData?.weight)
-						) {
-							isUniqueGoogleFont = false;
-						}
+					} else if (
+						googleFonts[fontFamily]?.weights &&
+						googleFonts[fontFamily].weights.includes(fontData?.weight)
+					) {
+						isUniqueGoogleFont = false;
 					}
 				}
 			}

@@ -79,9 +79,8 @@ export default function BorderStyleControl({
 			return createBorderStyleValue(value, style, width);
 		} else if (type === 'style') {
 			return createBorderStyleValue(color, value, width);
-		} else {
-			return createBorderStyleValue(color, style, value);
 		}
+		return createBorderStyleValue(color, style, value);
 	};
 
 	const createBorderStyleValue = (color, style, width) => {
@@ -201,9 +200,8 @@ export default function BorderStyleControl({
 			return color;
 		} else if (type === 'style') {
 			return style;
-		} else {
-			return width;
 		}
+		return width;
 	};
 
 	const getInheritedValueForSideAndType = (sideIndex, type) => {
@@ -213,9 +211,8 @@ export default function BorderStyleControl({
 			return color;
 		} else if (type === 'style') {
 			return style;
-		} else {
-			return width;
 		}
+		return width;
 	};
 
 	const getKeysForAllSides = () => {

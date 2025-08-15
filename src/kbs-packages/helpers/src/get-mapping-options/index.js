@@ -3,7 +3,7 @@ import { useSelect } from '@wordpress/data';
  * Get an options array from the global styles preset object.
  */
 export default function getMappingOptions(component) {
-	var toReturn = [];
+	const toReturn = [];
 
 	const globalMappings = useSelect((select) => {
 		return select('kadenceblocks/global-styles').getGlobalMappings();

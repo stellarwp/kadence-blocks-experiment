@@ -153,11 +153,10 @@ const actions = {
 		//if we don't have any local global styles yet, use the global styles from the server.
 		if (styleBookLocalGlobalStyles) {
 			return styleBookLocalGlobalStyles;
-		} else {
-			const globalStyles = yield actions.fetchGlobalStyles();
-			yield actions.setStyleBookLocalGlobalStyles(globalStyles);
-			return globalStyles;
 		}
+		const globalStyles = yield actions.fetchGlobalStyles();
+		yield actions.setStyleBookLocalGlobalStyles(globalStyles);
+		return globalStyles;
 	},
 	*setStyleBookLocalGlobalStyles(styleBookLocalGlobalStyles) {
 		return {
@@ -243,7 +242,7 @@ const actions = {
 			const result = yield {
 				type: 'API_FETCH',
 				request: {
-					path: path,
+					path,
 					method: 'POST',
 					data: { data: styleBookLocalGlobalStyles },
 				},
@@ -305,7 +304,7 @@ const actions = {
 			const result = yield {
 				type: 'API_FETCH',
 				request: {
-					path: path,
+					path,
 					method: 'POST',
 					data: {
 						data: styleBookLocalGlobalStyles[currentGlobalStyleId],
@@ -376,8 +375,7 @@ const getMemoizedMergedStyles = memize(performStyleMerge);
 // Memoized function to get style book component preset
 const getMemoizedStyleBookComponentPreset = memize((styleBookLocalGlobalStyles, styleId, componentId, presetId) => {
 	if (styleBookLocalGlobalStyles) {
-		const presetToReturn =
-			styleBookLocalGlobalStyles?.[styleId]?.['components']?.[componentId]?.['presets']?.[presetId];
+		const presetToReturn = styleBookLocalGlobalStyles?.[styleId]?.components?.[componentId]?.presets?.[presetId];
 		if (presetToReturn) {
 			return presetToReturn;
 		}
@@ -685,8 +683,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		},
 		getStyleBookComponentPresetsByStyleId(state, styleId, componentId) {
 			if (state.styleBookLocalGlobalStyles) {
-				const presetToReturn =
-					state.styleBookLocalGlobalStyles?.[styleId]?.['components']?.[componentId]?.['presets'];
+				const presetToReturn = state.styleBookLocalGlobalStyles?.[styleId]?.components?.[componentId]?.presets;
 				if (presetToReturn) {
 					return presetToReturn;
 				}
@@ -695,8 +692,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		},
 		getGlobalStylesComponentPresetByStyleId(state, styleId, componentId, presetId) {
 			if (state.globalStyles) {
-				const presetToReturn =
-					state.globalStyles?.[styleId]?.['components']?.[componentId]?.['presets']?.[presetId];
+				const presetToReturn = state.globalStyles?.[styleId]?.components?.[componentId]?.presets?.[presetId];
 				if (presetToReturn) {
 					return presetToReturn;
 				}
@@ -705,7 +701,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		},
 		getGlobalStylesComponentPresetsByStyleId(state, styleId, componentId) {
 			if (state.globalStyles) {
-				const presetToReturn = state.globalStyles?.[styleId]?.['components']?.[componentId]?.['presets'];
+				const presetToReturn = state.globalStyles?.[styleId]?.components?.[componentId]?.presets;
 				if (presetToReturn) {
 					return presetToReturn;
 				}
@@ -753,7 +749,7 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 		getResolvedStyleData(state, styleIds, componentName, attributeName) {
 			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIds);
 			// Safely access component styles from the merged styles
-			let componentStyles = mergedStyles?.components?.[componentName];
+			const componentStyles = mergedStyles?.components?.[componentName];
 			if (!componentStyles) {
 				return undefined; // Component not found in merged styles
 			}

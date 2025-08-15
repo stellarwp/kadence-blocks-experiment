@@ -41,7 +41,7 @@ export class TransformGenerator extends BaseComponentGenerator {
 		if (scale?.value) {
 			const x = parseFloat(scale.value.x || '100') / 100;
 			const y = parseFloat(scale.value.y || '100') / 100;
-			
+
 			if (x !== 1 || y !== 1) {
 				transformStrings.push(`scale(${x}, ${y})`);
 			}
@@ -61,7 +61,7 @@ export class TransformGenerator extends BaseComponentGenerator {
 			// Create a pseudo resolved value for the transform property
 			const transformValue = {
 				value: transformStrings.join(' '),
-				source: 'direct'
+				source: 'direct',
 			};
 			// Pass the key with Hover suffix if the attribute name has it
 			// This allows base generator's getSelector to handle hover state
@@ -77,7 +77,7 @@ export class TransformGenerator extends BaseComponentGenerator {
 				// Use applyProperty for consistent hover handling
 				const originValue = {
 					value: `${x} ${y}`,
-					source: 'direct'
+					source: 'direct',
 				};
 				// Pass the key with Hover suffix if needed
 				const originKey = attributeName.endsWith('Hover') ? 'originHover' : 'origin';

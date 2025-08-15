@@ -18,17 +18,21 @@ export default function getColorOptions() {
 		return additionalThemeColors;
 	}, [colors]);
 	const toReturn = useMemo(() => {
-		if (!globalMappings?.['colors'] || Object.keys(globalMappings?.['colors']).length === 0) {
+		if (!globalMappings?.colors || Object.keys(globalMappings?.colors).length === 0) {
 			return themeColors;
 		}
 		// Merge and place theme colors at the end of the object
-		const allColors = { ...globalMappings['colors'], ...themeColors };
+		const allColors = { ...globalMappings.colors, ...themeColors };
 		// Sort the colors put theme colors at the end by moving items with a number as the key to the end of the object.
 		const sortedKeys = Object.keys(allColors).sort((a, b) => {
 			const aIsNumber = !isNaN(parseInt(a));
 			const bIsNumber = !isNaN(parseInt(b));
-			if (aIsNumber && !bIsNumber) return 1;
-			if (!aIsNumber && bIsNumber) return -1;
+			if (aIsNumber && !bIsNumber) {
+				return 1;
+			}
+			if (!aIsNumber && bIsNumber) {
+				return -1;
+			}
 			return 0;
 		});
 		return sortedKeys.map(function (key, index) {

@@ -35,7 +35,7 @@ export default function SelectBasicControlSelect(props) {
 		inherited,
 	} = props;
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}

@@ -21,7 +21,6 @@ import {
  */
 import { useMemo } from '@wordpress/element';
 
-
 function RadioToggleGroupHueRangeUI({
 	value,
 	onChange,
@@ -52,14 +51,16 @@ function RadioToggleGroupHueRangeUI({
 		}
 		return placeholder;
 	}, [inherited, placeholder]);
-	
+
 	// Calculate hue-shifted color for preview using base color
 	const getHueShiftedColor = (hueShift) => {
 		const colorToUse = baseColor || color;
-		if (!colorToUse) return '';
+		if (!colorToUse) {
+			return '';
+		}
 		return `oklch(from ${colorToUse} l c calc(h + ${hueShift}) / 100%)`;
 	};
-	
+
 	return (
 		<div className="kbs-radio-button-control__toggle-group-input kbs-radio-button-control__toggle-group-input-hue-range">
 			{controls.length > 0 && !isCustom && (
@@ -83,11 +84,11 @@ function RadioToggleGroupHueRangeUI({
 							showTooltip={true}
 							value={key}
 						>
-							<ColorIndicator 
-								colorValue={getHueShiftedColor(key)} 
-								className="kbs-hue-color-indicator"
-							/>
-							<span className="kbs-hue-degree-label">{key > 0 ? '+' : ''}{key}°</span>
+							<ColorIndicator colorValue={getHueShiftedColor(key)} className="kbs-hue-color-indicator" />
+							<span className="kbs-hue-degree-label">
+								{key > 0 ? '+' : ''}
+								{key}°
+							</span>
 						</ToggleGroupControlOption>
 					))}
 				</ToggleGroupControl>

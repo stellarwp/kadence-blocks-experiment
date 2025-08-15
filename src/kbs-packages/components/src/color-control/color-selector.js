@@ -121,15 +121,10 @@ const ColorSelector = ({
 									globalStylesCss={globalStylesCss}
 								/>
 							);
-						} else {
-							return (
-								<ColorStorybook
-									colors={colors}
-									currentValue={currentValue}
-									onChange={handleColorChange}
-								/>
-							);
 						}
+						return (
+							<ColorStorybook colors={colors} currentValue={currentValue} onChange={handleColorChange} />
+						);
 					}
 				}}
 			</TabPanel>

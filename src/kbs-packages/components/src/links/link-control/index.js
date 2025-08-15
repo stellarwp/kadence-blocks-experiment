@@ -139,7 +139,7 @@ export default function LinkControl(props) {
 			<InputSearch
 				{...props}
 				url={linkObj?.url || ''}
-				onChange={(url) => onChange({ ...linkObj, url: url })}
+				onChange={(url) => onChange({ ...linkObj, url })}
 				attributes={attributes}
 				dynamicAttribute={dynamicAttribute}
 				additionalControls={additionalControls}

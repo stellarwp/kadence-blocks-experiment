@@ -95,14 +95,7 @@ export function resolveComponentValues(attributeName, attributes, device, metada
 
 	// Process each sub-attribute with simplified resolution
 	componentKeys.forEach((key) => {
-		const resolved = resolveSingleValue(
-			attributeName,
-			attributes,
-			device,
-			metadata,
-			key,
-			globalStylesIds
-		);
+		const resolved = resolveSingleValue(attributeName, attributes, device, metadata, key, globalStylesIds);
 
 		if (resolved) {
 			resolvedValues[key] = resolved;
@@ -134,15 +127,15 @@ function resolveSingleValue(attributeName, attributes, device, metadata, key, gl
 			inherited: false,
 		};
 	}
-	
+
 	// Special handling for border radius stored as array (check after individual keys)
 	if (attributeName === 'border' && key.includes('Radius')) {
 		const isHover = key.includes('Hover');
 		const arrayKey = isHover ? 'borderRadiusHover' : 'borderRadius';
-		
+
 		// Check if borderRadius is stored as an array at the attribute level
 		const borderRadiusArray = getDeviceValue(attributeName, attributes, device, arrayKey);
-		
+
 		if (Array.isArray(borderRadiusArray)) {
 			let cornerValue;
 			// Map individual corner keys to array indices
@@ -155,7 +148,7 @@ function resolveSingleValue(attributeName, attributes, device, metadata, key, gl
 			} else if (key === 'borderBottomLeftRadius' || key === 'borderBottomLeftRadiusHover') {
 				cornerValue = borderRadiusArray[3];
 			}
-			
+
 			if (cornerValue !== undefined && cornerValue !== null && cornerValue !== '') {
 				return {
 					value: cornerValue,
@@ -210,7 +203,7 @@ function resolveSingleValue(attributeName, attributes, device, metadata, key, gl
 		key,
 		globalStylesIds
 	);
-	
+
 	if (bundlePresetValue !== undefined && bundlePresetValue !== null && bundlePresetValue !== '') {
 		return {
 			value: bundlePresetValue,
@@ -251,7 +244,7 @@ function getParentDeviceValue(attributeName, attributes, device, key) {
 	};
 
 	const parentDevices = deviceHierarchy[device] || [];
-	
+
 	// First check for individual key values in parent devices
 	for (const parentDevice of parentDevices) {
 		const parentValue = getDeviceValue(attributeName, attributes, parentDevice, key);
@@ -259,15 +252,15 @@ function getParentDeviceValue(attributeName, attributes, device, key) {
 			return parentValue;
 		}
 	}
-	
+
 	// Special handling for border radius arrays (only check if individual keys not found)
 	if (attributeName === 'border' && key.includes('Radius')) {
 		const isHover = key.includes('Hover');
 		const arrayKey = isHover ? 'borderRadiusHover' : 'borderRadius';
-		
+
 		for (const parentDevice of parentDevices) {
 			const borderRadiusArray = getDeviceValue(attributeName, attributes, parentDevice, arrayKey);
-			
+
 			if (Array.isArray(borderRadiusArray)) {
 				let cornerValue;
 				// Map individual corner keys to array indices
@@ -280,7 +273,7 @@ function getParentDeviceValue(attributeName, attributes, device, key) {
 				} else if (key === 'borderBottomLeftRadius' || key === 'borderBottomLeftRadiusHover') {
 					cornerValue = borderRadiusArray[3];
 				}
-				
+
 				if (cornerValue !== undefined && cornerValue !== null && cornerValue !== '') {
 					return cornerValue;
 				}
@@ -324,7 +317,9 @@ function getInitialValue(attributeName, device, metadata, key) {
  * Check if a resolved value should be rendered based on inheritance rules
  */
 export function shouldRenderValue(resolvedValue, meta) {
-	if (!resolvedValue) return false;
+	if (!resolvedValue) {
+		return false;
+	}
 
 	const { value, source, inherited } = resolvedValue;
 

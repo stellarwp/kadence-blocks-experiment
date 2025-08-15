@@ -7,10 +7,7 @@
 /**
  * Kadence Components.
  */
-import {
-	ToolsPanelBody,
-	SelectGlobalStyles,
-} from '@kadence/kbsComponents';
+import { ToolsPanelBody, SelectGlobalStyles } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
  */

@@ -29,7 +29,7 @@ registerBlockType('kbs/text', {
 	},
 	example: {
 		attributes: {
-			content: __('Sample text content...', 'kadence-blocks'),
+			content: __('Sample text content…', 'kadence-blocks'),
 		},
 	},
 });

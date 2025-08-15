@@ -25,7 +25,7 @@ function BackgroundPresetCSSStyles(props) {
 				css.processBackgroundLayer(layer, index, attributeMeta, props, meta)
 			);
 		}
-		let output = css.generate();
+		const output = css.generate();
 		return output;
 	}, [attributes?.layers, previewDevice, preset?.value, uniqueID]);
 	return <style>{cssOutput}</style>;

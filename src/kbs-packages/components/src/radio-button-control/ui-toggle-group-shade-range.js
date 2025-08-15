@@ -22,7 +22,6 @@ import {
 import { useMemo } from '@wordpress/element';
 import { lightIcon, darkIcon, fullColorIcon, transparentIcon } from '../constants/icons';
 
-
 function RadioToggleGroupShadeRangeUI({
 	value,
 	onChange,
@@ -154,10 +153,9 @@ function RadioToggleGroupShadeRangeUI({
 									} else if (shadeType === 'alpha') {
 										// For OKLch alpha (percentage)
 										return `oklch(from ${color} l c h / ${key}%)`;
-									} else {
-										// Default color-mix behavior
-										return `color-mix(in oklch, ${color}, ${shadeType === 'shade' ? (parseInt(key) < 0 ? 'black' : 'white') : mixColor} ${Math.abs(key)}%)`;
 									}
+									// Default color-mix behavior
+									return `color-mix(in oklch, ${color}, ${shadeType === 'shade' ? (parseInt(key) < 0 ? 'black' : 'white') : mixColor} ${Math.abs(key)}%)`;
 								})(),
 							}}
 						/>

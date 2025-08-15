@@ -1,6 +1,6 @@
 /**
  * Global Styles Context
- * 
+ *
  * This context is used to pass global styles information down the component tree
  */
 
@@ -10,4 +10,4 @@ import { createContext } from '@wordpress/element';
 const GlobalStylesContext = createContext([]);
 
 // Export the context
-export { GlobalStylesContext }; 
+export { GlobalStylesContext };

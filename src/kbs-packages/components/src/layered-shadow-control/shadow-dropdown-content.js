@@ -24,7 +24,7 @@ function ShadowDropdownContent({ layer, onChange, previewDevice, globalStylesCss
 	let y = getLayerDeviceValue('y', layer, previewDevice);
 	let blur = getLayerDeviceValue('blur', layer, previewDevice);
 	let spread = getLayerDeviceValue('spread', layer, previewDevice);
-	let inset = getLayerDeviceValue('inset', layer, previewDevice);
+	const inset = getLayerDeviceValue('inset', layer, previewDevice);
 
 	const shadowDefaults = type == 'boxShadow' ? SHADOW_STYLES_DEFAULTS : TEXT_SHADOW_STYLES_DEFAULTS;
 

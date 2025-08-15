@@ -7,11 +7,7 @@
 /**
  * Kadence Components.
  */
-import {
-	SizingControl,
-	SpacingControl,
-	SharedInspectorAdvanced,
-} from '@kadence/kbsComponents';
+import { SizingControl, SpacingControl, SharedInspectorAdvanced } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**

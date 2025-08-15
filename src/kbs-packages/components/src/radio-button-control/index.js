@@ -79,7 +79,7 @@ export default function RadioButtonControl({
 	};
 	const onChangeToUse = onChange ? onChange : defaultOnChange;
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}

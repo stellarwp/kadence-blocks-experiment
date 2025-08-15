@@ -20,7 +20,7 @@ export class ShadowGenerator extends BaseComponentGenerator {
 		if (meta?.debug === true) {
 			this.outputGeneratorDebug(meta, resolvedValues);
 		}
-		
+
 		// Shadows use layers
 		if (meta?.hasLayers) {
 			this.generateLayeredShadows(attributeName, meta);
@@ -86,7 +86,7 @@ export class ShadowGenerator extends BaseComponentGenerator {
 		shadowX = shadowX || shadowX === 0 ? shadowX : shadowDefaults.x.var;
 		shadowY = shadowY || shadowY === 0 ? shadowY : shadowDefaults.y.var;
 		shadowBlur = shadowBlur || shadowBlur === 0 ? shadowBlur : shadowDefaults.blur.var;
-		
+
 		if (isBoxShadow) {
 			shadowSpread = shadowSpread || shadowSpread === 0 ? shadowSpread : shadowDefaults.spread.var;
 		}
@@ -117,7 +117,7 @@ export class ShadowGenerator extends BaseComponentGenerator {
 		const property = this.getCssProperty(attributeName || meta.component, meta);
 		// Use attributeName for selector to properly handle hover states
 		const selector = this.getSelector(attributeName || meta.component, meta);
-		
+
 		const currentSelectorBackup = this.currentSelector;
 		this.setSelector(selector);
 		this.add({ [property]: shadowValue });
@@ -141,8 +141,11 @@ export class ShadowGenerator extends BaseComponentGenerator {
 		// Normalize suffix for mapping only
 		const baseKey = key.endsWith('Hover') ? key.slice(0, -5) : key;
 		let mappedKey = baseKey;
-		if (baseKey === 'boxShadow') mappedKey = 'box-shadow';
-		else if (baseKey === 'textShadow') mappedKey = 'text-shadow';
+		if (baseKey === 'boxShadow') {
+			mappedKey = 'box-shadow';
+		} else if (baseKey === 'textShadow') {
+			mappedKey = 'text-shadow';
+		}
 
 		// Respect nonInheritable
 		if (meta?.nonInheritable === true) {

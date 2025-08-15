@@ -22,10 +22,10 @@ export default function InheritanceIndicator({ inheritedSource, inheritedType })
 	const [detailedData, setDetailedData] = useState(null);
 	const [anchorRef, setAnchorRef] = useState(null);
 	const timerRef = useRef(null);
-	
+
 	// Determine icon color based on the inheritance source
 	let iconColor = 'rgba(0, 0, 0, 0.6)';
-	
+
 	if (inheritedType === 'preset') {
 		iconColor = 'rgba(8, 115, 230, 1)';
 	} else if (inheritedType === 'none') {
@@ -38,38 +38,38 @@ export default function InheritanceIndicator({ inheritedSource, inheritedType })
 			source: inheritedSource,
 		};
 	}, [inheritedType, inheritedSource]);
-	
+
 	const handleMouseEnter = () => {
 		if (timerRef.current) {
 			clearTimeout(timerRef.current);
 		}
 
-        if (!detailedData) {
-            setDetailedData(fetchdData());
-        }
-		
+		if (!detailedData) {
+			setDetailedData(fetchdData());
+		}
+
 		// Delay showing the popover
 		timerRef.current = setTimeout(() => {
 			setIsHovering(true);
 		}, 250);
 	};
-	
+
 	const handleMouseLeave = () => {
 		if (timerRef.current) {
 			clearTimeout(timerRef.current);
 			timerRef.current = null;
 		}
-		
+
 		setIsHovering(false);
 	};
-	
+
 	if (!inheritedSource || inheritedType === 'none') {
 		return null;
 	}
 
 	return (
 		<div className="kbs-inheritance-indicator">
-			<div 
+			<div
 				className="kbs-inheritance-icon"
 				ref={setAnchorRef}
 				onMouseEnter={handleMouseEnter}
@@ -78,18 +78,18 @@ export default function InheritanceIndicator({ inheritedSource, inheritedType })
 					display: 'inline-flex',
 					alignItems: 'center',
 					marginRight: '5px',
-					cursor: 'pointer'
+					cursor: 'pointer',
 				}}
 			>
-				<Icon 
-					icon={info} 
-					size={16} 
-					style={{ 
+				<Icon
+					icon={info}
+					size={16}
+					style={{
 						fill: iconColor,
-						color: iconColor
-					}} 
+						color: iconColor,
+					}}
 				/>
-				
+
 				{isHovering && detailedData && (
 					<Popover
 						position="top center"
@@ -110,9 +110,7 @@ export default function InheritanceIndicator({ inheritedSource, inheritedType })
 					</Popover>
 				)}
 			</div>
-			<span className="kbs-inheritance-source">
-				{inheritedSource}
-			</span>
+			<span className="kbs-inheritance-source">{inheritedSource}</span>
 		</div>
 	);
-} 
+}

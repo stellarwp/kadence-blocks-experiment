@@ -92,7 +92,7 @@ function KadenceConfig() {
 			? newGlobalStyleName.toLowerCase().replaceAll(' ', '-')
 			: uniqueId('global-style-');
 		const name = newGlobalStyleName ? newGlobalStyleName : newGlobalStyleId;
-		updateStyleBookLocalGlobalStyle(newGlobalStyleId, { name: name, styleId: newGlobalStyleId });
+		updateStyleBookLocalGlobalStyle(newGlobalStyleId, { name, styleId: newGlobalStyleId });
 		setStyleBookAttributes({ globalStyleIds: [newGlobalStyleId] });
 		setNewGlobalStyleName('');
 		setNeedsSave(true);
@@ -102,7 +102,7 @@ function KadenceConfig() {
 			? newPresetName.toLowerCase().replaceAll(' ', '-')
 			: uniqueId('global-style-');
 		const name = newPresetName ? newPresetName : newPresetId;
-		setStyleBookComponentPresetByStyleId(currentGlobalStyleId, selectedComponent, newPresetId, { name: name });
+		setStyleBookComponentPresetByStyleId(currentGlobalStyleId, selectedComponent, newPresetId, { name });
 		setStyleBookAttributes({
 			components: { [selectedComponent]: { selectedPreset: newPresetId } },
 		});
@@ -146,8 +146,8 @@ function KadenceConfig() {
 	// console.log('top', currentGlobalStyleId, currentPreset, styleBookLocalGlobalStyles);
 
 	const renderSidebarControls = () => {
-		var controlContent = null;
-		var controlContentUpper = null;
+		let controlContent = null;
+		const controlContentUpper = null;
 		const canResetAll = true;
 		const onResetAll = () => {
 			console.log('reset all');
@@ -694,7 +694,9 @@ function KadenceConfig() {
 						<PanelBody>
 							<Button
 								onClick={() => {
-									if (isKadenceStyleBookOpened) resetStyleBookUI();
+									if (isKadenceStyleBookOpened) {
+										resetStyleBookUI();
+									}
 									setIsKadenceStyleBookOpened(!isKadenceStyleBookOpened);
 								}}
 								variant="secondary"

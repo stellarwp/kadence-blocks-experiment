@@ -106,7 +106,7 @@ export default function BackgroundPresets(props) {
 						onClick={() => {
 							setSelectedComponent('background');
 							setStyleBookAttributes({
-								components: { ['background']: { selectedPreset: option.value } },
+								components: { background: { selectedPreset: option.value } },
 							});
 						}}
 					>

@@ -86,8 +86,8 @@ export default function FontWeight({
 			onReset(device);
 			return;
 		}
-		let newFontWeight = value.replace('italic', '');
-		let newFontStyle = value.includes('italic') ? 'italic' : '';
+		const newFontWeight = value.replace('italic', '');
+		const newFontStyle = value.includes('italic') ? 'italic' : '';
 		handleMultipleAttributeChange(
 			[newFontWeight, newFontStyle],
 			device,
@@ -109,7 +109,7 @@ export default function FontWeight({
 			{/* Loading Font / Font Weights */}
 			{!fontWeightOptions.fontsLoaded && (
 				<div className="components-base-control kadence-blocks-typography-loading">
-					{__('Loading Fonts...', 'kadence-blocks')}
+					{__('Loading Fonts…', 'kadence-blocks')}
 				</div>
 			)}
 

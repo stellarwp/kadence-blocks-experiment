@@ -59,12 +59,12 @@ export class BorderGenerator extends BaseComponentGenerator {
 		if (isBorderStyle) {
 			// Handle border style values
 			const { color, style, width } = parseBorderStyle(value);
-			
+
 			// Don't render if width is empty or default
 			if (width === '' || width === BORDER_STYLES_DEFAULTS.width.var) {
 				return '';
 			}
-			
+
 			return value;
 		}
 
@@ -82,5 +82,4 @@ export class BorderGenerator extends BaseComponentGenerator {
 		// Delegate to processValue for consistency
 		return this.processValue(key, value, {});
 	}
-
 }

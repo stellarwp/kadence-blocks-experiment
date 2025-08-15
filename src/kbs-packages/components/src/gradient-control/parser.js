@@ -5,28 +5,28 @@ var GradientParser = GradientParser || {};
 
 GradientParser.stringify = (function () {
 	var visitor = {
-		'visit_linear-gradient': function (node) {
+		'visit_linear-gradient'(node) {
 			return visitor.visit_gradient(node);
 		},
 
-		'visit_conic-gradient': function (node) {
+		'visit_conic-gradient'(node) {
 			return visitor.visit_gradient(node);
 		},
 
-		'visit_repeating-linear-gradient': function (node) {
+		'visit_repeating-linear-gradient'(node) {
 			return visitor.visit_gradient(node);
 		},
 
-		'visit_radial-gradient': function (node) {
+		'visit_radial-gradient'(node) {
 			return visitor.visit_gradient(node);
 		},
 
-		'visit_repeating-radial-gradient': function (node) {
+		'visit_repeating-radial-gradient'(node) {
 			return visitor.visit_gradient(node);
 		},
 
-		visit_gradient: function (node) {
-			var orientation = visitor.visit(node.orientation);
+		visit_gradient(node) {
+			let orientation = visitor.visit(node.orientation);
 			if (orientation) {
 				orientation += ', ';
 			}
@@ -34,8 +34,8 @@ GradientParser.stringify = (function () {
 			return node.type + '(' + orientation + visitor.visit(node.colorStops) + ')';
 		},
 
-		visit_shape: function (node) {
-			var result = node.value,
+		visit_shape(node) {
+			let result = node.value,
 				at = visitor.visit(node.at),
 				style = visitor.visit(node.style);
 
@@ -50,8 +50,8 @@ GradientParser.stringify = (function () {
 			return result;
 		},
 
-		'visit_default-radial': function (node) {
-			var result = '',
+		'visit_default-radial'(node) {
+			let result = '',
 				at = visitor.visit(node.at);
 
 			if (at) {
@@ -60,8 +60,8 @@ GradientParser.stringify = (function () {
 			return result;
 		},
 
-		'visit_extent-keyword': function (node) {
-			var result = node.value,
+		'visit_extent-keyword'(node) {
+			let result = node.value,
 				at = visitor.visit(node.at);
 
 			if (at) {
@@ -71,44 +71,44 @@ GradientParser.stringify = (function () {
 			return result;
 		},
 
-		'visit_position-keyword': function (node) {
+		'visit_position-keyword'(node) {
 			return node.value;
 		},
 
-		visit_position: function (node) {
+		visit_position(node) {
 			return visitor.visit(node.value.x) + ' ' + visitor.visit(node.value.y);
 		},
 
-		'visit_%': function (node) {
+		'visit_%'(node) {
 			return node.value + '%';
 		},
 
-		visit_em: function (node) {
+		visit_em(node) {
 			return node.value + 'em';
 		},
 
-		visit_px: function (node) {
+		visit_px(node) {
 			return node.value + 'px';
 		},
 
-		visit_literal: function (node) {
+		visit_literal(node) {
 			return visitor.visit_color(node.value, node);
 		},
 
-		visit_hex: function (node) {
+		visit_hex(node) {
 			return visitor.visit_color('#' + node.value, node);
 		},
 
-		visit_rgb: function (node) {
+		visit_rgb(node) {
 			return visitor.visit_color('rgb(' + node.value.join(', ') + ')', node);
 		},
 
-		visit_rgba: function (node) {
+		visit_rgba(node) {
 			return visitor.visit_color('rgba(' + node.value.join(', ') + ')', node);
 		},
 
-		visit_color: function (resultColor, node) {
-			var result = resultColor,
+		visit_color(resultColor, node) {
+			let result = resultColor,
 				length = visitor.visit(node.length);
 
 			if (length) {
@@ -117,20 +117,20 @@ GradientParser.stringify = (function () {
 			return result;
 		},
 
-		visit_angular: function (node) {
+		visit_angular(node) {
 			return node.value + 'deg';
 		},
 
-		visit_from_angular: function (node) {
+		visit_from_angular(node) {
 			return 'from ' + node.value + 'deg';
 		},
 
-		visit_directional: function (node) {
+		visit_directional(node) {
 			return 'to ' + node.value;
 		},
 
-		visit_array: function (elements) {
-			var result = '',
+		visit_array(elements) {
+			let result = '',
 				size = elements.length;
 
 			elements.forEach(function (element, i) {
@@ -143,21 +143,20 @@ GradientParser.stringify = (function () {
 			return result;
 		},
 
-		visit: function (element) {
+		visit(element) {
 			if (!element) {
 				return '';
 			}
-			var result = '';
+			const result = '';
 
 			if (element instanceof Array) {
 				return visitor.visit_array(element, result);
 			} else if (element.type) {
-				var nodeVisitor = visitor['visit_' + element.type];
+				const nodeVisitor = visitor['visit_' + element.type];
 				if (nodeVisitor) {
 					return nodeVisitor(element);
-				} else {
-					throw Error('Missing visitor visit_' + element.type);
 				}
+				throw Error('Missing visitor visit_' + element.type);
 			} else {
 				throw Error('Invalid node.');
 			}
@@ -176,7 +175,7 @@ GradientParser.stringify = (function () {
 var GradientParser = GradientParser || {};
 
 GradientParser.parse = (function () {
-	var tokens = {
+	const tokens = {
 		linearGradient: /^(\-(webkit|o|ms|moz)\-)?(linear\-gradient)/i,
 		conicGradient: /^(\-(webkit|o|ms|moz)\-)?(conic\-gradient)/i,
 		repeatingLinearGradient: /^(\-(webkit|o|ms|moz)\-)?(repeating\-linear\-gradient)/i,
@@ -202,16 +201,16 @@ GradientParser.parse = (function () {
 		variable: /var\(([a-zA-Z-0-9_#,\s]+)\)/,
 	};
 
-	var input = '';
+	let input = '';
 
 	function error(msg) {
-		var err = new Error(input + ': ' + msg);
+		const err = new Error(input + ': ' + msg);
 		err.source = input;
 		throw err;
 	}
 
 	function getAST() {
-		var ast = matchListDefinitions();
+		const ast = matchListDefinitions();
 
 		if (input.length > 0) {
 			error('Invalid input not EOF');
@@ -236,7 +235,7 @@ GradientParser.parse = (function () {
 
 	function matchGradient(gradientType, pattern, orientationMatcher) {
 		return matchCall(pattern, function (captures) {
-			var orientation = orientationMatcher();
+			const orientation = orientationMatcher();
 			if (orientation) {
 				if (!scan(tokens.comma)) {
 					error('Missing comma before color stops');
@@ -245,21 +244,21 @@ GradientParser.parse = (function () {
 
 			return {
 				type: gradientType,
-				orientation: orientation,
+				orientation,
 				colorStops: matchListing(matchColorStop),
 			};
 		});
 	}
 
 	function matchCall(pattern, callback) {
-		var captures = scan(pattern);
+		const captures = scan(pattern);
 
 		if (captures) {
 			if (!scan(tokens.startCall)) {
 				error('Missing (');
 			}
 
-			var result = callback(captures);
+			const result = callback(captures);
 			if (!scan(tokens.endCall)) {
 				error('Missing )');
 			}
@@ -272,7 +271,7 @@ GradientParser.parse = (function () {
 	}
 
 	function matchConicOrientation() {
-		var fromAngle = match('from_angular', tokens.fromAngleValue, 1);
+		let fromAngle = match('from_angular', tokens.fromAngleValue, 1);
 		if (!fromAngle) {
 			fromAngle = {
 				type: 'from_angular',
@@ -293,7 +292,7 @@ GradientParser.parse = (function () {
 		return match('angular', tokens.angleValue, 1);
 	}
 	function matchListRadialOrientations() {
-		var radialOrientations,
+		let radialOrientations,
 			radialOrientation = matchRadialOrientation(),
 			lookaheadCache;
 		if (radialOrientation) {
@@ -315,20 +314,20 @@ GradientParser.parse = (function () {
 	}
 
 	function matchRadialOrientation() {
-		var radialType = matchCircle() || matchEllipse();
+		let radialType = matchCircle() || matchEllipse();
 
 		if (radialType) {
 			radialType.at = matchAtPosition();
 		} else {
-			var extent = matchExtentKeyword();
+			const extent = matchExtentKeyword();
 			if (extent) {
 				radialType = extent;
-				var positionAt = matchAtPosition();
+				const positionAt = matchAtPosition();
 				if (positionAt) {
 					radialType.at = positionAt;
 				}
 			} else {
-				var defaultPosition = matchPositioning();
+				const defaultPosition = matchPositioning();
 				if (defaultPosition) {
 					radialType = {
 						type: 'default-radial',
@@ -342,7 +341,7 @@ GradientParser.parse = (function () {
 	}
 
 	function matchCircle() {
-		var circle = match('shape', /^(circle)/i, 0);
+		const circle = match('shape', /^(circle)/i, 0);
 
 		if (circle) {
 			circle.style = matchLength() || matchExtentKeyword();
@@ -352,7 +351,7 @@ GradientParser.parse = (function () {
 	}
 
 	function matchEllipse() {
-		var ellipse = match('shape', /^(ellipse)/i, 0);
+		const ellipse = match('shape', /^(ellipse)/i, 0);
 
 		if (ellipse) {
 			ellipse.style = matchDistance() || matchExtentKeyword();
@@ -367,7 +366,7 @@ GradientParser.parse = (function () {
 
 	function matchAtPosition() {
 		if (match('position', /^at/, 0)) {
-			var positioning = matchPositioning();
+			const positioning = matchPositioning();
 
 			if (!positioning) {
 				error('Missing positioning value');
@@ -378,7 +377,7 @@ GradientParser.parse = (function () {
 	}
 
 	function matchPositioning() {
-		var location = matchCoordinates();
+		const location = matchCoordinates();
 
 		if (location.x || location.y) {
 			return {
@@ -396,7 +395,7 @@ GradientParser.parse = (function () {
 	}
 
 	function matchListing(matcher) {
-		var captures = matcher(),
+		let captures = matcher(),
 			result = [];
 
 		if (captures) {
@@ -415,7 +414,7 @@ GradientParser.parse = (function () {
 	}
 
 	function matchColorStop() {
-		var color = matchColor();
+		const color = matchColor();
 
 		if (!color) {
 			error('Expected color definition');
@@ -475,17 +474,17 @@ GradientParser.parse = (function () {
 	}
 
 	function match(type, pattern, captureIndex) {
-		var captures = scan(pattern);
+		const captures = scan(pattern);
 		if (captures) {
 			return {
-				type: type,
+				type,
 				value: captures[captureIndex],
 			};
 		}
 	}
 
 	function scan(regexp) {
-		var captures, blankCaptures;
+		let captures, blankCaptures;
 
 		blankCaptures = /^[\n\r\t\s]+/.exec(input);
 		if (blankCaptures) {
