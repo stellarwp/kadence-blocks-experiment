@@ -162,57 +162,76 @@ class Global_Style_Variables {
                         if ( empty( $component_data['presets'] ) || ! is_array( $component_data['presets'] ) ) {
                             continue;
                         }
+                        
+                        // Get component keys dynamically based on component type
+                        $component_keys = \KadenceWP\KadenceBlocks\Frontend\Utils\Component_Value_Resolver::get_component_keys( $component_name );
+                        
                         foreach ( $component_data['presets'] as $preset_key => $preset_data ) {
                             if ( empty( $preset_data['attributes'] ) || ! is_array( $preset_data['attributes'] ) ) {
                                 continue;
                             }
+                            
                             // Determine attributes for desktop device as base
                             $attrs = isset( $preset_data['attributes']['desktop'] ) && is_array( $preset_data['attributes']['desktop'] )
                                 ? $preset_data['attributes']['desktop'] : ( is_array( $preset_data['attributes'] ) ? $preset_data['attributes'] : array() );
-                            // Supported typography keys to expose
-                            $map = array(
-                                'fontSize' => 'font-size',
-                                'lineHeight' => 'line-height',
-                                'letterSpacing' => 'letter-spacing',
-                                'fontFamily' => 'font-family',
-                                'fontWeight' => 'font-weight',
-                                'fontStyle' => 'font-style',
-                                'textTransform' => 'text-transform',
-                                'color' => 'color',
-                                'backgroundColor' => 'background-color',
-                            );
+                            
                             $token = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', $preset_key ) );
-                            foreach ( $map as $attr_key => $css_prop ) {
+                            
+                            // Process each component key dynamically
+                            foreach ( $component_keys as $attr_key ) {
+                                // Skip hover/active states for now (could be enhanced later)
+                                if ( strpos( $attr_key, 'Hover' ) !== false || strpos( $attr_key, 'Active' ) !== false ) {
+                                    continue;
+                                }
+                                
                                 if ( ! isset( $attrs[ $attr_key ] ) || $attrs[ $attr_key ] === '' ) {
                                     continue;
                                 }
+                                
                                 $val = $attrs[ $attr_key ];
-                                // Normalize to string values the CSS engine understands
-                                if ( $attr_key === 'fontSize' && is_string( $val ) ) {
-                                    $converted = $this->css->get_variable_font_size_value( $val );
-                                    if ( $converted ) {
-                                        $val = $converted;
+                                
+                                // Process value through appropriate CSS engine methods based on property type
+                                if ( is_string( $val ) ) {
+                                    // Font size processing
+                                    if ( $attr_key === 'fontSize' ) {
+                                        $converted = $this->css->get_variable_font_size_value( $val );
+                                        if ( $converted ) {
+                                            $val = $converted;
+                                        }
                                     }
-                                } elseif ( $attr_key === 'lineHeight' && is_string( $val ) ) {
-                                    $converted = $this->css->get_variable_line_height_value( $val );
-                                    if ( $converted ) {
-                                        $val = $converted;
+                                    // Line height processing
+                                    elseif ( $attr_key === 'lineHeight' ) {
+                                        $converted = $this->css->get_variable_line_height_value( $val );
+                                        if ( $converted ) {
+                                            $val = $converted;
+                                        }
                                     }
-                                } elseif ( $attr_key === 'letterSpacing' && is_string( $val ) ) {
-                                    $converted = $this->css->get_variable_letter_spacing_value( $val );
-                                    if ( $converted ) {
-                                        $val = $converted;
+                                    // Letter spacing processing
+                                    elseif ( $attr_key === 'letterSpacing' ) {
+                                        $converted = $this->css->get_variable_letter_spacing_value( $val );
+                                        if ( $converted ) {
+                                            $val = $converted;
+                                        }
                                     }
-                                } elseif ( ($attr_key === 'color' || $attr_key === 'backgroundColor') && is_string( $val ) ) {
-                                    // Convert palette tokens to CSS variables
-                                    $val = $this->css->sanitize_color( $val );
+                                    // Color processing
+                                    elseif ( strpos( $attr_key, 'color' ) !== false || strpos( $attr_key, 'Color' ) !== false ) {
+                                        $val = $this->css->sanitize_color( $val );
+                                    }
+                                    // Spacing values (padding, margin, etc.)
+                                    elseif ( preg_match( '/(padding|margin|gap|width|height|size|radius)/i', $attr_key ) ) {
+                                        $converted = $this->css->get_variable_spacing_value( $val );
+                                        if ( $converted ) {
+                                            $val = $converted;
+                                        }
+                                    }
                                 }
-
+                                
                                 // Skip non-string values to avoid warnings
                                 if ( is_array( $val ) || is_object( $val ) ) {
                                     continue;
                                 }
-
+                                
+                                // Generate variable name using kebab-case conversion
                                 $var_name = sprintf( '--kbs-%s-%s', strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', $attr_key ) ), $token );
                                 $this->css->add_property( $var_name, $val );
                             }
