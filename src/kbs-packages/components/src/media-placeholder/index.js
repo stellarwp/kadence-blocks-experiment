@@ -155,7 +155,7 @@ const MediaPlaceholder = (props) => {
 	const renderPlaceholder = useCallback(
 		(content, onClick) => {
 			let instructions = labels.instructions;
-			let title = labels.title;
+			const title = labels.title;
 
 			if (!mediaUpload && !onSelectURL) {
 				instructions = __('To edit this block, you need permission to upload media.', 'kadence-blocks');

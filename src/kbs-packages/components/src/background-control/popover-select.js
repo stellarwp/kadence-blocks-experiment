@@ -39,13 +39,13 @@ export function InlinePatternRender({ pattern, className, patternSize, patternCo
 	if (patternSize) {
 		style['--kbs-pattern-size'] = patternSize;
 	}
-	if (pattern?.['svg']) {
-		style['background'] = patternColor ? getColorOutput(patternColor) : getColorOutput('palette3');
-		style['maskImage'] = `url("data:image/svg+xml, ${encodeURIComponent(pattern['svg'])}")`;
-		style['maskRepeat'] = 'repeat';
-		const currentPatternSize = pattern?.['size'];
-		style['maskSize'] = 'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))';
-		style['maskPosition'] = '0 0';
+	if (pattern?.svg) {
+		style.background = patternColor ? getColorOutput(patternColor) : getColorOutput('palette3');
+		style.maskImage = `url("data:image/svg+xml, ${encodeURIComponent(pattern.svg)}")`;
+		style.maskRepeat = 'repeat';
+		const currentPatternSize = pattern?.size;
+		style.maskSize = 'calc( (1px * ' + currentPatternSize + ') * (var(--kbs-pattern-size) / 20))';
+		style.maskPosition = '0 0';
 	}
 	return (
 		<div className={clsx('kbs-popover-background-select-control-style kbs-pattern-svg', className)} style={style} />
@@ -64,30 +64,29 @@ export function InlineMaskRender({
 }) {
 	const style = {};
 	if (maskColor) {
-		style['background'] = getColorOutput(maskColor);
+		style.background = getColorOutput(maskColor);
 	} else {
-		style['background'] = getColorOutput('palette3');
+		style.background = getColorOutput('palette3');
 	}
 	if (maskFlipX === 'enabled') {
-		style['transform'] = `scaleX(-1)`;
+		style.transform = `scaleX(-1)`;
 	}
 	if (maskFlipY === 'enabled') {
-		if (style?.['transform']) {
-			style['transform'] += ` scaleY(-1)`;
+		if (style?.transform) {
+			style.transform += ` scaleY(-1)`;
 		} else {
-			style['transform'] = `scaleY(-1)`;
+			style.transform = `scaleY(-1)`;
 		}
 	}
 
 	if (mask?.path) {
 		const ratio = maskSize === 'stretch' ? 'none' : 'xMidYMid meet';
-		style['maskImage'] =
-			`url("data:image/svg+xml, ${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="' + ratio + '" viewBox="0 0 1920 1200" fill="black"><path d="' + mask.path + '" /></svg>')}")`;
-		style['maskRepeat'] = 'no-repeat';
+		style.maskImage = `url("data:image/svg+xml, ${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="' + ratio + '" viewBox="0 0 1920 1200" fill="black"><path d="' + mask.path + '" /></svg>')}")`;
+		style.maskRepeat = 'no-repeat';
 		if (maskSize == 'contain') {
-			style['maskSize'] = 'contain';
+			style.maskSize = 'contain';
 		} else {
-			style['maskSize'] = 'cover';
+			style.maskSize = 'cover';
 		}
 		let positionY = 'center';
 		let positionX = 'center';
@@ -101,7 +100,7 @@ export function InlineMaskRender({
 		} else if ('max' === maskAlignY) {
 			positionY = 'bottom';
 		}
-		style['maskPosition'] = positionX + ' ' + positionY;
+		style.maskPosition = positionX + ' ' + positionY;
 	}
 	return (
 		<div
@@ -127,10 +126,10 @@ export function InlineDividerRender({
 	if (dividerHeight) {
 		style['--kbs-divider-height'] = dividerHeight;
 	}
-	if (divider?.['svg']) {
-		style['background'] = dividerColor ? getColorOutput(dividerColor) : getColorOutput('palette3');
-		style['maskImage'] = `url("data:image/svg+xml, ${encodeURIComponent(divider['svg'])}")`;
-		style['maskRepeat'] = 'no-repeat';
+	if (divider?.svg) {
+		style.background = dividerColor ? getColorOutput(dividerColor) : getColorOutput('palette3');
+		style.maskImage = `url("data:image/svg+xml, ${encodeURIComponent(divider.svg)}")`;
+		style.maskRepeat = 'no-repeat';
 	}
 	return (
 		<div
@@ -162,7 +161,7 @@ export function PopoverDividerRender({
 }) {
 	const style = {};
 	if (dividerColor) {
-		style['color'] = getColorOutput(dividerColor);
+		style.color = getColorOutput(dividerColor);
 	}
 	if (dividerWidth) {
 		style['--kbs-divider-width'] = dividerWidth;
@@ -399,7 +398,7 @@ export default function PopoverSelect({
 	};
 
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
@@ -422,31 +421,31 @@ export default function PopoverSelect({
 					})}
 					contentClassName={classes}
 					renderToggle={PopoverToggle({
-						value: value,
-						patterns: patterns,
-						sidePatterns: sidePatterns,
-						maskPosition: maskPosition,
-						type: type,
-						inherited: inherited,
-						patternColor: patternColor,
-						patternBackground: patternBackground,
-						patternSize: patternSize,
-						dividerWidth: dividerWidth,
-						dividerHeight: dividerHeight,
-						layer: layer,
-						maskInverted: maskInverted,
+						value,
+						patterns,
+						sidePatterns,
+						maskPosition,
+						type,
+						inherited,
+						patternColor,
+						patternBackground,
+						patternSize,
+						dividerWidth,
+						dividerHeight,
+						layer,
+						maskInverted,
 					})}
 					renderContent={PopoverDropdown({
-						patterns: patterns,
-						sidePatterns: sidePatterns,
-						maskPosition: maskPosition,
-						value: value,
-						onChange: onChange,
-						previewDevice: previewDevice,
-						type: type,
-						patternColor: patternColor,
-						patternBackground: patternBackground,
-						patternSize: patternSize,
+						patterns,
+						sidePatterns,
+						maskPosition,
+						value,
+						onChange,
+						previewDevice,
+						type,
+						patternColor,
+						patternBackground,
+						patternSize,
 					})}
 				/>
 			</div>

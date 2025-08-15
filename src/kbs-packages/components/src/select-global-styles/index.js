@@ -71,7 +71,9 @@ export const SortableMultiSelect = ({ value, onChange, ...rest }) => {
 
 	/* When the drag ends, swap the chips in the array */
 	const handleDragEnd = ({ active, over }) => {
-		if (!over || active.id === over.id) return;
+		if (!over || active.id === over.id) {
+			return;
+		}
 		const oldIndex = ids.indexOf(active.id);
 		const newIndex = ids.indexOf(over.id);
 		onChange(arrayMove(value, oldIndex, newIndex));

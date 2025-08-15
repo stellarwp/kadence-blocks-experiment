@@ -76,5 +76,4 @@ export class TypographyGenerator extends BaseComponentGenerator {
 				return getSizingOutput(value);
 		}
 	}
-
 }

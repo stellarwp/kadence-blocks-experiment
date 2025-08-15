@@ -97,18 +97,18 @@ export default function SelectControl({
 				if (value === undefined) {
 					updatedAttributes = {
 						[type]: undefined,
-						['fontSource']: undefined,
-						['fontVariable']: undefined,
-						['fontWeight']: undefined,
-						['fontStyle']: undefined,
+						fontSource: undefined,
+						fontVariable: undefined,
+						fontWeight: undefined,
+						fontStyle: undefined,
 					};
 					break;
 				}
 				if (directValue === value) {
 					updatedAttributes = {
 						[type]: value,
-						['fontSource']: selectedOption.source,
-						['fontVariable']: selectedOption?.isVariable ? selectedOption?.isVariable : undefined,
+						fontSource: selectedOption.source,
+						fontVariable: selectedOption?.isVariable ? selectedOption?.isVariable : undefined,
 					};
 					break;
 				}
@@ -119,10 +119,10 @@ export default function SelectControl({
 					.find((option) => option.value === value);
 				updatedAttributes = {
 					[type]: value,
-					['fontSource']: selectedOption.source,
-					['fontVariable']: selectedOption?.isVariable ? selectedOption?.isVariable : undefined,
-					['fontWeight']: undefined,
-					['fontStyle']: undefined,
+					fontSource: selectedOption.source,
+					fontVariable: selectedOption?.isVariable ? selectedOption?.isVariable : undefined,
+					fontWeight: undefined,
+					fontStyle: undefined,
 				};
 
 				break;

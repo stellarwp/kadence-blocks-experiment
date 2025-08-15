@@ -110,8 +110,8 @@ export default function ButtonEdit(props) {
 		[`has-text-align-${textAlign}`]: textAlign,
 		[`has-gradient`]: hasGradient,
 		[`has-gradient-highlight`]: hasGradientHighlight,
-		['kbs-button-has-icon']: hasIcon,
-		['icon-reveal']: hasIcon && hasIconReveal,
+		'kbs-button-has-icon': hasIcon,
+		'icon-reveal': hasIcon && hasIconReveal,
 	});
 
 	const blockProps = useBlockProps({

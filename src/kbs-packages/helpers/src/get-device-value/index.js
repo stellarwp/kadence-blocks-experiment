@@ -5,7 +5,7 @@ import { COMPONENTS } from '../constants';
  */
 export default function getDeviceValue(attributeName, attributes, device, type = null, layerKey = null) {
 	const deviceSlug = getDeviceAttributeSlug(device);
-	let deviceValue = '';
+	const deviceValue = '';
 	if (!attributeName) {
 		return deviceValue;
 	}

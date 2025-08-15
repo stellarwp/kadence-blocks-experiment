@@ -39,7 +39,7 @@ export default function UnitControl({
 	isHover = false,
 }) {
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}

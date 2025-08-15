@@ -43,7 +43,7 @@ export default function uniqueIdHelper(props) {
 		setAttributes({ uniqueID: newUniqueID });
 		addUniqueID(newUniqueID, clientId);
 	};
-	
+
 	const getBlockPostId = (parentData) => {
 		const { postId, reusableParent, rootBlock, editedPostId } = parentData;
 		let blockPostId = getPostOrWidgetId(props, postId, reusableParent, 0);
@@ -60,7 +60,7 @@ export default function uniqueIdHelper(props) {
 	};
 
 	// Set uniqueID immediately if not defined
-	if (!attributes?.uniqueID ) {
+	if (!attributes?.uniqueID) {
 		const blockPostId = getBlockPostId(parentData);
 		const blockPostIdPrefix = blockPostId ? blockPostId + '_' : '';
 		const newUniqueID = blockPostIdPrefix + clientId.substr(2, 9);
@@ -86,6 +86,4 @@ export default function uniqueIdHelper(props) {
 		// This just logs the block in the store and it doesn't need to be updated.
 		addUniqueID(attributes?.uniqueID, clientId);
 	}, [clientId]);
-
-	return;
 }

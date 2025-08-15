@@ -23,7 +23,7 @@ class CSSGenerator {
 		this.metadata = metadata;
 
 		const simpleGenerator = new SimpleGenerator(this);
-		
+
 		this.generators = {
 			typography: new TypographyGenerator(this),
 			flexBox: simpleGenerator,
@@ -38,14 +38,14 @@ class CSSGenerator {
 			textAlign: new TextGenerator(this),
 			linkStyle: new TextGenerator(this),
 			textOrientation: new TextGenerator(this),
-			
+
 			maxWidth: simpleGenerator,
 			maxHeight: simpleGenerator,
 			minWidth: simpleGenerator,
 			minHeight: simpleGenerator,
 			width: simpleGenerator,
 			height: simpleGenerator,
-			
+
 			color: simpleGenerator,
 			padding: simpleGenerator,
 			margin: simpleGenerator,
@@ -63,13 +63,13 @@ class CSSGenerator {
 					}
 				}
 			});
-			
+
 			// Second pass: Process bundle presets
 			Object.entries(this.metadata.attributes).forEach(([attributeName, value]) => {
 				if (value?.bundlePreset && !value.renderCSS) {
 					// Get the bundle preset value (e.g., "primary", "secondary", etc.)
 					const bundlePresetValue = this.props.attributes?.[attributeName] || value?.initial;
-					
+
 					if (bundlePresetValue) {
 						// Get the resolved preset data from global styles
 						const bundlePresetComponent = value?.component;
@@ -78,30 +78,37 @@ class CSSGenerator {
 							bundlePresetComponent,
 							'presets.' + bundlePresetValue
 						);
-						
+
 						// If we have preset data, process each attribute it contains
 						if (rawPresetData?.attributes) {
-							Object.entries(rawPresetData.attributes).forEach(([presetAttributeName, presetAttributeValue]) => {
-								// Check if this attribute exists in the metadata and should render CSS
-								const presetAttributeMeta = this.metadata.attributes?.[presetAttributeName];
-								if (presetAttributeMeta && presetAttributeMeta.renderCSS !== false) {
-									// Create a modified props with the preset values
-									const modifiedProps = {
-										...this.props,
-										attributes: {
-											...this.props.attributes,
-											[presetAttributeName]: presetAttributeValue
+							Object.entries(rawPresetData.attributes).forEach(
+								([presetAttributeName, presetAttributeValue]) => {
+									// Check if this attribute exists in the metadata and should render CSS
+									const presetAttributeMeta = this.metadata.attributes?.[presetAttributeName];
+									if (presetAttributeMeta && presetAttributeMeta.renderCSS !== false) {
+										// Create a modified props with the preset values
+										const modifiedProps = {
+											...this.props,
+											attributes: {
+												...this.props.attributes,
+												[presetAttributeName]: presetAttributeValue,
+											},
+										};
+
+										// Process the attribute
+										if (presetAttributeMeta?.component) {
+											this.addComponent(
+												presetAttributeName,
+												presetAttributeMeta,
+												modifiedProps,
+												this.metadata
+											);
+										} else {
+											this.addAttribute(presetAttributeName, presetAttributeMeta, modifiedProps);
 										}
-									};
-									
-									// Process the attribute
-									if (presetAttributeMeta?.component) {
-										this.addComponent(presetAttributeName, presetAttributeMeta, modifiedProps, this.metadata);
-									} else {
-										this.addAttribute(presetAttributeName, presetAttributeMeta, modifiedProps);
 									}
 								}
-							});
+							);
 						}
 					}
 				}
@@ -159,7 +166,7 @@ class CSSGenerator {
 		}
 
 		const componentType = meta.component;
-		
+
 		// Check if debugging is enabled for this component
 		if (meta?.debug === true) {
 			this.outputComponentDebug(attributeName, componentType, props, meta, metadata);
@@ -197,22 +204,21 @@ class CSSGenerator {
 		// Store original props and metadata
 		const originalProps = this.props;
 		const originalMetadata = this.metadata;
-		
+
 		// Update the CSSGenerator's props and metadata
 		// This will be picked up by the BackgroundGenerator through its getters
 		this.props = props || this.props;
 		this.metadata = meta || this.metadata;
-		
+
 		// Call the background generator's processBackgroundLayer method
 		this.generators.background.processBackgroundLayer(layer, index, attributeMeta);
-		
+
 		// Restore original props and metadata
 		this.props = originalProps;
 		this.metadata = originalMetadata;
-		
+
 		return this;
 	}
-
 
 	/**
 	 * Render the property as a string
@@ -297,7 +303,7 @@ class CSSGenerator {
 		ruleString += '}\n';
 		return ruleString;
 	}
-	
+
 	/**
 	 * Output debug information for a component
 	 * @param {string} attributeName - The attribute name
@@ -315,9 +321,9 @@ class CSSGenerator {
 			metadata: meta,
 			previewDevice: props.previewDevice || 'desktop',
 			globalStylesIds: props.globalStylesIds || [],
-			blockMetadata: metadata?.name || 'unknown'
+			blockMetadata: metadata?.name || 'unknown',
 		};
-		
+
 		// Console log with styled output
 		console.group(
 			`%c🐛 KBS Component Debug: ${componentType}`,

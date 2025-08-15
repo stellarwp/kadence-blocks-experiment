@@ -19,7 +19,7 @@ function ShadowPresetCSSStyles(props) {
 		const selector = `.preset-${uniqueID}-${preset.value}` + (type === 'textShadow' ? ' span' : '');
 		const css = new cssGenerator(selector);
 		css.addComponent(attributeName, attributeMeta, props, meta);
-		let output = css.generate();
+		const output = css.generate();
 		return output;
 	}, [attributes?.layers, previewDevice, preset?.value, uniqueID, type]);
 	return <style>{cssOutput}</style>;

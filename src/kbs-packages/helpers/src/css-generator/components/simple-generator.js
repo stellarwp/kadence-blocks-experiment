@@ -13,15 +13,15 @@ export class SimpleGenerator extends BaseComponentGenerator {
 	static outputFunctions = {
 		// Color components
 		color: getColorOutput,
-		
+
 		// Spacing components
 		padding: getSpacingOutput,
 		margin: getSpacingOutput,
-		
+
 		// FlexBox gap properties
 		rowGap: getSpacingOutput,
 		columnGap: getSpacingOutput,
-		
+
 		// Dimension components
 		maxWidth: getContentWidthOutput,
 		maxHeight: getContentWidthOutput,
@@ -64,7 +64,7 @@ export class SimpleGenerator extends BaseComponentGenerator {
 		} else {
 			// Standard simple component handling
 			const outputFn = SimpleGenerator.outputFunctions[meta.component];
-			
+
 			if (!outputFn) {
 				// Fall back to no processing (for transition and other pass-through components)
 				this.generateSimple(resolvedValues, meta);

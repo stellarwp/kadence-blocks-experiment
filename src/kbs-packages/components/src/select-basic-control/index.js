@@ -49,7 +49,7 @@ export default function SelectBasicControl(props) {
 	const onChangeToUse = onChange ?? defaultOnChange;
 
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}

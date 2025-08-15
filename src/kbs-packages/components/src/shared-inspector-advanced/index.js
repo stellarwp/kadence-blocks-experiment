@@ -12,7 +12,7 @@ import TransitionControl from '../transition-control';
 /**
  * Shared Inspector Advanced Component
  * Contains shared controls for the bottom of inspector-advanced panels
- * 
+ *
  * @param {Object} props
  * @param {Object} props.attributes - Block attributes
  * @param {Function} props.setAttributes - Function to update attributes
@@ -28,7 +28,6 @@ export default function SharedInspectorAdvanced({
 	globalStylesIds,
 	metadata,
 }) {
-
 	const supportTransformControl = metadata?.attributes?.transform !== undefined;
 	const supportsTransitionControl = metadata?.attributes?.transition !== undefined;
 

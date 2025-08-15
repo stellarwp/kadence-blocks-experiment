@@ -19,37 +19,39 @@ const getColorMixValues = (value) => {
 	if (!value || typeof value !== 'string') {
 		return ['', '', ''];
 	}
-	
+
 	// Handle color-mix format
 	if (value.startsWith('color-mix')) {
 		// Improved regex to handle nested parentheses and various color formats
 		// Matches: color-mix(in oklch, color1, color2 percentage%)
 		const regex = /color-mix\(\s*in\s+oklch\s*,\s*([^,]+(?:\([^)]*\)[^,]*)?)\s*,\s*(.+)\s+(\d+(?:\.\d+)?%)\s*\)/;
 		const match = value.match(regex);
-		
+
 		if (match) {
 			const firstColor = match[1].trim();
 			const secondColor = match[2].trim();
 			const percentage = match[3];
-			
+
 			return [firstColor, secondColor, percentage];
 		}
 		// If no match, return default values
 		return ['', MIX_BLACK, '0%'];
 	}
-	
+
 	// Handle gradient formats - these should not be converted to color-mix
-	if (value.startsWith('linear-gradient') || 
-	    value.startsWith('radial-gradient') || 
-	    value.startsWith('conic-gradient')) {
+	if (
+		value.startsWith('linear-gradient') ||
+		value.startsWith('radial-gradient') ||
+		value.startsWith('conic-gradient')
+	) {
 		return ['', MIX_BLACK, '0%'];
 	}
-	
+
 	// Handle oklch format - don't convert to color-mix
 	if (value.startsWith('oklch')) {
 		return ['', MIX_BLACK, '0%'];
 	}
-	
+
 	// Handle regular color values
 	return [getColorOutput(value), MIX_BLACK, '0%'];
 };
@@ -127,30 +129,27 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 										`color-mix(in oklch, ${color ? color : inheritedColor}, ${inheritedTypeValue} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
 									);
 								}
-							} else {
-								if (value === 'shade') {
-									if (!isShade) {
-										onChange(
-											`color-mix(in oklch, ${color ? color : inheritedColor}, ${MIX_BLACK} ${mix ? mix : inheritedMix ? inheritedMix : '10%'})`
-										);
-									}
-								} else if (value === 'mix') {
-									if (!isMix) {
-										const tempColor =
-											type === MIX_BLACK ? '#000000' : '#ffffff';
-										onChange(
-											`color-mix(in oklch, ${color ? color : inheritedColor}, ${tempColor} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
-										);
-									}
-								} else if (value === 'transparent') {
+							} else if (value === 'shade') {
+								if (!isShade) {
 									onChange(
-										`color-mix(in oklch, ${color ? color : inheritedColor}, ${MIX_TRANSPARENT} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
-									);
-								} else {
-									onChange(
-										`color-mix(in oklch, ${color ? color : inheritedColor}, ${value} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+										`color-mix(in oklch, ${color ? color : inheritedColor}, ${MIX_BLACK} ${mix ? mix : inheritedMix ? inheritedMix : '10%'})`
 									);
 								}
+							} else if (value === 'mix') {
+								if (!isMix) {
+									const tempColor = type === MIX_BLACK ? '#000000' : '#ffffff';
+									onChange(
+										`color-mix(in oklch, ${color ? color : inheritedColor}, ${tempColor} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+									);
+								}
+							} else if (value === 'transparent') {
+								onChange(
+									`color-mix(in oklch, ${color ? color : inheritedColor}, ${MIX_TRANSPARENT} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+								);
+							} else {
+								onChange(
+									`color-mix(in oklch, ${color ? color : inheritedColor}, ${value} ${mix ? mix : inheritedMix ? inheritedMix : '50%'})`
+								);
 							}
 						}}
 					/>
@@ -173,10 +172,7 @@ const ColorMix = ({ onChange, value, globalClasses, isHover, inherited, globalSt
 									// the value is the percentage of the shade convert to a number
 									const tempValue = parseInt(value);
 									// If negative value the type is black, if positive value the type is white
-									const tempType =
-										tempValue < 0
-											? MIX_BLACK
-											: MIX_WHITE;
+									const tempType = tempValue < 0 ? MIX_BLACK : MIX_WHITE;
 									onChange(
 										`color-mix(in oklch, ${color ? color : inheritedColor}, ${tempType} ${Math.abs(tempValue)}%)`
 									);

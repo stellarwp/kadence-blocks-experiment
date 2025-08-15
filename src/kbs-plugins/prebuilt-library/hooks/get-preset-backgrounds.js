@@ -115,7 +115,7 @@ export const getPresetBackgrounds = () => {
 	const [backgrounds, setBackgrounds] = useState({});
 	const presetsOptions = getPresetOptions('background');
 	useEffect(() => {
-		let tempBackgrounds = {};
+		const tempBackgrounds = {};
 
 		PATTERN_STYLES.map((item) => {
 			tempBackgrounds[item.value] = getSingleStylePresetBackgrounds(item.value, presetsOptions);

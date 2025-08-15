@@ -1,4 +1,3 @@
-
 import { map } from 'lodash';
 
 import { BLOCK_COMPONENTS } from '../constants';
@@ -15,14 +14,8 @@ export default function BlockComponentControls(props) {
 			{map(componentsToRender, (componentStr) => {
 				const Component = BLOCK_COMPONENTS?.[componentStr].component;
 				const label = BLOCK_COMPONENTS?.[componentStr].label;
-				
-				return ( 
-					<Component
-						label={label}
-						attributeName={ componentStr }
-						{...props}
-					/> 
-				);
+
+				return <Component label={label} attributeName={componentStr} {...props} />;
 			})}
 		</div>
 	);

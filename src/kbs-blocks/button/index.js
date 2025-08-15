@@ -35,7 +35,7 @@ registerBlockType('kbs/button', {
 	},
 	example: {
 		attributes: {
-			content: __('Sample button content...', 'kadence-blocks'),
+			content: __('Sample button content…', 'kadence-blocks'),
 		},
 	},
 });

@@ -118,8 +118,12 @@ export class TextGenerator extends BaseComponentGenerator {
 	 * Process text orientation value
 	 */
 	processTextOrientationValue(value) {
-		if (value === 'stacked') return 'upright';
-		if (value === 'sideways-down' || value === 'sideways-up') return 'sideways';
+		if (value === 'stacked') {
+			return 'upright';
+		}
+		if (value === 'sideways-down' || value === 'sideways-up') {
+			return 'sideways';
+		}
 		return '';
 	}
 
@@ -127,8 +131,12 @@ export class TextGenerator extends BaseComponentGenerator {
 	 * Process writing mode value
 	 */
 	processWritingModeValue(value) {
-		if (value === 'stacked' || value === 'sideways-down') return 'vertical-lr';
-		if (value === 'sideways-up') return 'sideways-lr';
+		if (value === 'stacked' || value === 'sideways-down') {
+			return 'vertical-lr';
+		}
+		if (value === 'sideways-up') {
+			return 'sideways-lr';
+		}
 		return '';
 	}
 }

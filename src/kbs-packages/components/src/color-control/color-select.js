@@ -67,7 +67,7 @@ export default function ColorSelect({
 	const isDisableCustomColors = !customColors ? true : false;
 
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
@@ -96,22 +96,22 @@ export default function ColorSelect({
 						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
 						colors: globalColors,
 						gradients: globalGradients,
-						hasToggleLabel: hasToggleLabel,
-						useGlobalPalette: useGlobalPalette,
+						hasToggleLabel,
+						useGlobalPalette,
 					})}
 					renderContent={ColorDropdown({
 						colors: globalColors,
 						currentValue: value,
 						inherited: inherited?.inheritedValue ? inherited.inheritedValue : '',
-						onChange: onChange,
-						previewDevice: previewDevice,
-						type: type,
-						hasGradient: hasGradient,
-						hasMix: hasMix,
-						globalStylesCss: globalStylesCss,
-						hasPalette: hasPalette,
-						hasGradientPalette: hasGradientPalette,
-						hasCustomColors: hasCustomColors,
+						onChange,
+						previewDevice,
+						type,
+						hasGradient,
+						hasMix,
+						globalStylesCss,
+						hasPalette,
+						hasGradientPalette,
+						hasCustomColors,
 					})}
 				/>
 			</div>

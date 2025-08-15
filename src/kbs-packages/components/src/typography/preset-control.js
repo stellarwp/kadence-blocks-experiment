@@ -284,20 +284,20 @@ export default function TypographyPresetControl({
 					className="kbs-typography-preset-select-control__dropdown"
 					contentClassName={classes}
 					renderToggle={PresetToggle({
-						currentValue: currentValue,
+						currentValue,
 						inherited: '',
-						presets: presets,
+						presets,
 						hasToggleLabel: true,
 						useGlobalPalette: false,
 					})}
 					renderContent={PresetDropdown({
-						presets: presets,
-						currentValue: currentValue,
+						presets,
+						currentValue,
 						inherited: '',
-						onChange: onChange,
-						previewDevice: previewDevice,
-						globalStylesCss: globalStylesCss,
-						globalStylesIds: globalStylesIds,
+						onChange,
+						previewDevice,
+						globalStylesCss,
+						globalStylesIds,
 					})}
 				/>
 			</div>

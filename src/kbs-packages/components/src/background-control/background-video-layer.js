@@ -47,11 +47,31 @@ import TitleBar from '../title-bar';
 import VideoSelector from '../video-control/video-selector';
 import VideoSettingsSelector from '../video-control/video-settings-selector';
 
-export default function BackgroundVideoLayer({ previewDevice = 'desktop', layer, onChange, hasYouTube = false, hasVimeo = false }) {
+export default function BackgroundVideoLayer({
+	previewDevice = 'desktop',
+	layer,
+	onChange,
+	hasYouTube = false,
+	hasVimeo = false,
+}) {
 	const hasVideo = layer?.video;
 	const onReset = () => {
 		onChange(
-			[undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+			[
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+			],
 			'Desktop' === previewDevice ? 'all' : previewDevice,
 			[
 				'video',
@@ -73,7 +93,7 @@ export default function BackgroundVideoLayer({ previewDevice = 'desktop', layer,
 	const onYoutubeReset = () => {
 		onChange([undefined], previewDevice, ['youtube']);
 	};
-	let focalPointSize = layer?.objectFit || 'cover';
+	const focalPointSize = layer?.objectFit || 'cover';
 	const localVideo = (
 		<>
 			<TitleBar
@@ -137,8 +157,11 @@ export default function BackgroundVideoLayer({ previewDevice = 'desktop', layer,
 	const youtubeVideo = (
 		<>
 			<div className="kbs-block-notice">
-					{__('Warning: Embedded videos are not ideal for background content. Consider self hosting instead.', 'kadence-blocks')}
-				</div>
+				{__(
+					'Warning: Embedded videos are not ideal for background content. Consider self hosting instead.',
+					'kadence-blocks'
+				)}
+			</div>
 			<TitleBar
 				label={__('YouTube Video ID', 'kadence-blocks')}
 				reset={true}
@@ -155,7 +178,10 @@ export default function BackgroundVideoLayer({ previewDevice = 'desktop', layer,
 						label={''}
 						value={layer?.youtube}
 						onChange={(value) => onChange(value, previewDevice, 'youtube')}
-						help={__('Enter the YouTube video ID. For example, if the URL is https://www.youtube.com/watch?v=dQw4w9WgXcQ, the ID is dQw4w9WgXcQ.', 'kadence-blocks')}
+						help={__(
+							'Enter the YouTube video ID. For example, if the URL is https://www.youtube.com/watch?v=dQw4w9WgXcQ, the ID is dQw4w9WgXcQ.',
+							'kadence-blocks'
+						)}
 						suffix={
 							<VideoSettingsSelector
 								label={__('Video Settings', 'kadence-blocks')}

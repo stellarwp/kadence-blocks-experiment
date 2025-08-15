@@ -21,8 +21,8 @@ const DEFAULT_STATE = {
 	},
 };
 
-const reducer = ( state = DEFAULT_STATE, action ) => {
-	switch ( action.type ) {
+const reducer = (state = DEFAULT_STATE, action) => {
+	switch (action.type) {
 		case 'SET_AI_CONTEXT':
 			return {
 				...state,
@@ -34,7 +34,7 @@ const reducer = ( state = DEFAULT_STATE, action ) => {
 				...state,
 				aiContext: {
 					...state.aiContext,
-					[ action.field ]: action.value,
+					[action.field]: action.value,
 				},
 			};
 

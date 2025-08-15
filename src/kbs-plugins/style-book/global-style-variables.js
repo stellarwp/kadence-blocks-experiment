@@ -197,14 +197,13 @@ export const GlobalStyleVariableOutput = () => {
 						id: fontFamily.replace(/ /g, '-').toLowerCase() + '-' + weight,
 					};
 				});
-			} else {
-				return [
-					{
-						url: `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontFamily)}&display=swap`,
-						id: fontFamily.replace(/ /g, '-').toLowerCase(),
-					},
-				];
 			}
+			return [
+				{
+					url: `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontFamily)}&display=swap`,
+					id: fontFamily.replace(/ /g, '-').toLowerCase(),
+				},
+			];
 		});
 
 		return fontUrls;

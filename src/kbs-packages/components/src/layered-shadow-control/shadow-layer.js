@@ -50,7 +50,7 @@ function renderShadowToggle(layer, isInherited, previewDevice, type) {
 						? SHADOW_STYLES_DEFAULTS.color.value
 						: TEXT_SHADOW_STYLES_DEFAULTS.color.value;
 			return {
-				color: color,
+				color,
 			};
 		}, [layer, previewDevice]);
 		const displayValue = isEmptyLayer ? '' : type == 'boxShadow' ? 'Box Shadow' : 'Text Shadow';
@@ -166,7 +166,7 @@ export default function ShadowLayer({
 	const gradients = getGradientOptions();
 	const isDisableCustomColors = !customColors ? true : false;
 	const onChange = (value, device, type) => {
-		let useAttributes = attributes;
+		const useAttributes = attributes;
 		if (isInherited) {
 			if (inherited?.inheritedValue) {
 				if (!useAttributes?.[attributeName]) {

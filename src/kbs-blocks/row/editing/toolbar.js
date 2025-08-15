@@ -13,16 +13,12 @@ import { debounce } from 'lodash';
 /**
  * Kadence Components.
  */
-import {
-	CopyPasteAttributes,
-} from '@kadence/components';
+import { CopyPasteAttributes } from '@kadence/components';
 
 /**
  * Kadence Helpers.
  */
-import {
-	getPreviewSize,
-} from '@kadence/helpers';
+import { getPreviewSize } from '@kadence/helpers';
 
 import metadata from '../block.json';
 /**
@@ -45,13 +41,7 @@ import { ToggleControl, SelectControl, ToolbarGroup, ExternalLink } from '@wordp
  */
 export default function SectionToolbar(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className } = props;
-	const {
-		direction,
-		verticalAlignment,
-		verticalAlignmentTablet,
-		verticalAlignmentMobile,
-		align,
-	} = attributes;
+	const { direction, verticalAlignment, verticalAlignmentTablet, verticalAlignmentMobile, align } = attributes;
 	const { previewDevice } = useSelect(
 		(select) => {
 			return {
@@ -63,8 +53,7 @@ export default function SectionToolbar(props) {
 
 	const { inRowBlock } = useSelect(
 		(select) => {
-			const {  getBlockRootClientId, getBlocksByClientId } =
-				select(blockEditorStore);
+			const { getBlockRootClientId, getBlocksByClientId } = select(blockEditorStore);
 			const rootID = getBlockRootClientId(clientId);
 			let inRowBlock = false;
 			if (rootID) {
@@ -84,7 +73,6 @@ export default function SectionToolbar(props) {
 		[clientId]
 	);
 
-
 	const previewVerticalAlign = getPreviewSize(
 		previewDevice,
 		verticalAlignment ? verticalAlignment : '',
@@ -101,13 +89,11 @@ export default function SectionToolbar(props) {
 
 	const nonTransAttrs = ['images', 'imagesDynamic'];
 
-
 	const actualVerticalAlign = previewVerticalAlign
 		? previewVerticalAlign
 		: previewDirection === 'horizontal' || previewDirection === 'horizontal-reverse'
-		? 'middle'
-		: 'top';
-
+			? 'middle'
+			: 'top';
 
 	return (
 		<BlockControls>

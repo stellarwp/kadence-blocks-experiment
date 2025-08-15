@@ -47,7 +47,7 @@ export default function ImageControl(props) {
 	const inherited = getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, '', globalStylesIds);
 	const videoID = inherited?.inheritedValue?.[idAttribute];
 	const onReset = () => {
-		let resetValue = undefined;
+		let resetValue;
 		if (defaultValue) {
 			resetValue = defaultValue;
 		}
