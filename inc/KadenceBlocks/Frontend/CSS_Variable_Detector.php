@@ -135,6 +135,13 @@ class CSS_Variable_Detector {
 				
 				$preset_vars = self::get_preset_variables( $preset_key, $component, $attributes['globalStyleIds'] ?? [] );
 				$variables = array_merge( $variables, $preset_vars );
+
+                // Add per-preset variable names that blocks may reference, so they get emitted
+                $token = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', $preset_key ) );
+                $keys = array( 'font-size', 'line-height', 'letter-spacing', 'font-family', 'font-weight', 'font-style', 'text-transform', 'color', 'background-color' );
+                foreach ( $keys as $k ) {
+                    $variables[] = '--kbs-' . $k . '-' . $token;
+                }
 			}
 		}
 

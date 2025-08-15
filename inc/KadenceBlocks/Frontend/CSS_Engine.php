@@ -682,13 +682,17 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function add_property( $property, $value = null, $check_empty = null ) {
-		if ( null === $value ) {
+        if ( null === $value ) {
 			return $this;
 		}
 		if ( null !== $check_empty && empty( $value ) ) {
 			return $this;
 		}
-		$value = wp_strip_all_tags( $value );
+        // Guard against non-string values to avoid warnings
+        if ( is_array( $value ) || is_object( $value ) ) {
+            return $this;
+        }
+        $value = wp_strip_all_tags( (string) $value );
 		if ( in_array( $property, $this->_special_properties_list ) ) {
 			$this->add_special_rules( $property, $value );
 		} else {
@@ -1257,21 +1261,8 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function add_component( $key, $attributes, $attributes_meta = [], $block_instance = null, $global_styles_ids = [] ) {
-		// Store current attributes for generators to access
-		$this->current_attributes = $attributes;
-		
-		// Check for preset and merge with direct values
-		$merged_attributes = $attributes;
-		if ( isset( $attributes[ $key ] ) && isset( $attributes[ $key ]['preset'] ) && ! empty( $attributes[ $key ]['preset'] ) ) {
-			// Get preset data
-			$preset_data = $this->get_preset_data( $attributes[ $key ]['preset'], $attributes_meta['component'], $global_styles_ids );
-			
-			if ( ! empty( $preset_data['attributes'] ) ) {
-				// Merge preset data with direct values (direct values override preset)
-				$merged_component = $this->merge_preset_with_direct( $preset_data['attributes'], $attributes[ $key ] );
-				$merged_attributes[ $key ] = $merged_component;
-			}
-		}
+        // Store current attributes for generators to access
+        $this->current_attributes = $attributes;
 		
 		$component_type = isset( $attributes_meta['component'] ) ? $attributes_meta['component'] : '';
 		
@@ -1320,9 +1311,9 @@ class CSS_Engine {
 				$this->set_media_state( $device_key );
 				
 				// Resolve values for this specific device
-				$resolved_values = Component_Value_Resolver::resolve_component_values(
+                $resolved_values = Component_Value_Resolver::resolve_component_values(
 					$key,
-					$merged_attributes,
+                    $attributes,
 					$device_key, // Device being processed
 					$metadata,
 					$global_styles_ids,
@@ -1352,14 +1343,13 @@ class CSS_Engine {
 			return $this;
 		}
 		
-		// If no generator found, use fallback implementation for simple components
-		// Use merged_attributes which already has preset data merged in
-		$merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $merged_attributes[ $key ] ) ? $merged_attributes[ $key ] : [] ) );
-		if ( empty( $merged_attribute ) || !isset( $merged_attributes[$key] ) ) {
+        // If no generator found, use fallback implementation for simple components
+        $merged_attribute = $this->merge_initial_attribute( $attributes_meta, ( isset( $attributes[ $key ] ) ? $attributes[ $key ] : [] ) );
+        if ( empty( $merged_attribute ) || !isset( $attributes[$key] ) ) {
 			return $this;
 		}
 
-		$this->add_component_array( $merged_attribute, $attributes_meta, $block_instance, $global_styles_ids );			
+        $this->add_component_array( $merged_attribute, $attributes_meta, $block_instance, $global_styles_ids );            
 
 		return $this;
 	}
