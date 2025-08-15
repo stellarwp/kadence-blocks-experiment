@@ -1,12 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect, useMemo } from '@wordpress/element';
-import { Typography } from '@kadence/kbsComponents';
+import { Typography, BLOCK_COMPONENTS, ToolsPanelBody } from '@kadence/kbsComponents';
 import { getGlobalStylesCSSOutput, getPresetOptions } from '@kadence/kbsHelpers';
 
 import './editor.scss';
-
-import { BLOCK_COMPONENTS, ToolsPanelBody } from '@kadence/kbsComponents';
 
 /**
  * Build the component preset

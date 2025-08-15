@@ -4,8 +4,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { PATTERN_STYLES } from '../utils/constants';
-import { cssGenerator } from '@kadence/kbsHelpers';
-import { getPresetOptions } from '@kadence/kbsHelpers';
+import { cssGenerator, getPresetOptions } from '@kadence/kbsHelpers';
 
 const getSingleStylePresetBackgrounds = (globalStyleId, presetsOptions) => {
 	const meta = {

@@ -4,8 +4,7 @@
 import { useEffect, useState, useMemo } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { PATTERN_STYLES } from '../utils/constants';
-import { cssGenerator } from '@kadence/kbsHelpers';
-import { getGlobalStylesCSSOutput } from '@kadence/kbsHelpers';
+import { cssGenerator, getGlobalStylesCSSOutput } from '@kadence/kbsHelpers';
 
 /**
  * Custom hook to fetch and manage template data
