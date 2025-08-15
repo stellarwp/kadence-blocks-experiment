@@ -80,17 +80,18 @@ function RenderMask(props) {
 }
 
 function BackgroundLayerRender({ index, layer, metaClassPrefix, previewDevice }) {
+	const type = getLayerInheritedDeviceValue('type', layer, previewDevice) || 'color';
+	const anyBackgroundOpacity = getLayerInheritedDeviceValue('opacity', layer, 'Mobile');
+	
+	if (index === 0 && type !== 'video' && type !== 'mask' && '' === anyBackgroundOpacity) {
+		return null;
+	}
+
 	const video = getLayerInheritedDeviceValue('video', layer, previewDevice);
 	const videoType = getLayerInheritedDeviceValue('videoType', layer, previewDevice) || 'local';
 	const youtube = getLayerInheritedDeviceValue('youtube', layer, previewDevice);
 	const vimeo = getLayerInheritedDeviceValue('vimeo', layer, previewDevice);
 	const videoPoster = getLayerInheritedDeviceValue('image', layer, previewDevice);
-	const type = getLayerInheritedDeviceValue('type', layer, previewDevice) || 'color';
-
-	const anyBackgroundOpacity = getLayerInheritedDeviceValue('opacity', layer, 'Mobile');
-	if (index === 0 && type !== 'video' && type !== 'mask' && '' === anyBackgroundOpacity) {
-		return null;
-	}
 	return (
 		<div key={index} className={`kbs-bg-layer ${metaClassPrefix}${index} bg-type-${type}`}>
 			{type === 'video' && (

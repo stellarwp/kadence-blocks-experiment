@@ -1,12 +1,11 @@
-import { Popover, TextControl, PanelBody, SelectControl, Icon } from '@wordpress/components';
+import { Popover, TextControl, PanelBody, SelectControl, Icon, Spinner } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { debounce, get } from 'lodash';
 import { applyFilters } from '@wordpress/hooks';
 import { useState, useMemo, useEffect, useCallback } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { plus } from '@wordpress/icons';
+import { plus, chevronDown, closeSmall } from '@wordpress/icons';
 import './editor.scss';
-import { chevronDown, closeSmall } from '@wordpress/icons';
 import { useInView } from 'react-intersection-observer';
 
 import { getDeviceValue, handleAttributeChange } from '@kadence/kbsHelpers';

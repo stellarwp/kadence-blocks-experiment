@@ -4,7 +4,7 @@
 var GradientParser = GradientParser || {};
 
 GradientParser.stringify = (function () {
-	var visitor = {
+	const visitor = {
 		'visit_linear-gradient'(node) {
 			return visitor.visit_gradient(node);
 		},
@@ -35,9 +35,9 @@ GradientParser.stringify = (function () {
 		},
 
 		visit_shape(node) {
-			let result = node.value,
-				at = visitor.visit(node.at),
-				style = visitor.visit(node.style);
+			let result = node.value;
+			const at = visitor.visit(node.at);
+			const style = visitor.visit(node.style);
 
 			if (style) {
 				result += ' ' + style;
@@ -108,8 +108,8 @@ GradientParser.stringify = (function () {
 		},
 
 		visit_color(resultColor, node) {
-			let result = resultColor,
-				length = visitor.visit(node.length);
+			let result = resultColor;
+			const length = visitor.visit(node.length);
 
 			if (length) {
 				result += ' ' + length;
@@ -130,8 +130,8 @@ GradientParser.stringify = (function () {
 		},
 
 		visit_array(elements) {
-			let result = '',
-				size = elements.length;
+			let result = '';
+			const size = elements.length;
 
 			elements.forEach(function (element, i) {
 				result += visitor.visit(element);
@@ -395,8 +395,8 @@ GradientParser.parse = (function () {
 	}
 
 	function matchListing(matcher) {
-		let captures = matcher(),
-			result = [];
+		let captures = matcher();
+		const result = [];
 
 		if (captures) {
 			result.push(captures);
@@ -484,13 +484,11 @@ GradientParser.parse = (function () {
 	}
 
 	function scan(regexp) {
-		let captures, blankCaptures;
-
-		blankCaptures = /^[\n\r\t\s]+/.exec(input);
+		const blankCaptures = /^[\n\r\t\s]+/.exec(input);
 		if (blankCaptures) {
 			consume(blankCaptures[0].length);
 		}
-		captures = regexp.exec(input);
+		const captures = regexp.exec(input);
 		if (captures) {
 			consume(captures[0].length);
 		}

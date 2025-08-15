@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 
-import { ResizableBox } from '@wordpress/components';
+import { ResizableBox, Icon } from '@wordpress/components';
 import { useState, useReducer, useMemo, useEffect, useRef, useCallback } from '@wordpress/element';
-import { Icon } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 /**
  * Internal block libraries

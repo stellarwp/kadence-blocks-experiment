@@ -4,11 +4,10 @@
 import clsx from 'clsx';
 import { Icon, Dropdown, DropdownContentWrapper, Button, HStack, FlexItem } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
+import { useSelect, select } from '@wordpress/data';
 import { showSettings } from '@kadence/helpers';
 import { get } from 'lodash';
 import { __ } from '@wordpress/i18n';
-import { select } from '@wordpress/data';
 import { useRef, useEffect } from '@wordpress/element';
 import { shadow as shadowIcon, check, reset } from '@wordpress/icons';
 import { useSelectOptions } from '../select-control/helpers';

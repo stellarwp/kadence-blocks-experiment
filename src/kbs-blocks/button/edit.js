@@ -23,7 +23,7 @@ import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useMemo, useRef } from '@wordpress/element';
 import { useMergeRefs } from '@wordpress/compose';
-import { RichText, useBlockProps, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
+import { RichText, useBlockProps, BlockControls, AlignmentToolbar, createBlock } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 

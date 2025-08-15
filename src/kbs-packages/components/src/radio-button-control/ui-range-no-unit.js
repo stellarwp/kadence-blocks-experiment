@@ -28,6 +28,10 @@ function RangeUIControlNoUnit({
 	step = null,
 	inherited,
 }) {
+	const [minValue, maxValue] = useMemo(() => {
+		return [0, 100];
+	}, []);
+
 	const unitControlOnChange = (value) => {
 		onChange(value);
 	};

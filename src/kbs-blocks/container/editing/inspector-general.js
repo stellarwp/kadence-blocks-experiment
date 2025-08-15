@@ -7,11 +7,7 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, SelectGlobalStyles } from '@kadence/kbsComponents';
-/**
- * Kadence Helpers.
- */
-import { FlexBoxControl } from '@kadence/kbsComponents';
+import { ToolsPanelBody, SelectGlobalStyles, FlexBoxControl } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
