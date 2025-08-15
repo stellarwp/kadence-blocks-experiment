@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
+import { speak } from '@wordpress/a11y';
 import { useState, useEffect, useRef, useMemo } from '@wordpress/element';
 import {
 	PanelBody,

@@ -28,7 +28,9 @@ export const typographyIcon = (
 );
 
 const getStylebookSettingValue = (tempAttributes, baseAttributes, attributeName, device, type) => {
+	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
 	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
+	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
 	const currentDeviceIndex = deviceOptions.findIndex(
 		(option) =>
 			option.key?.toLowerCase() === device?.toLowerCase() || option.name?.toLowerCase() === device?.toLowerCase()

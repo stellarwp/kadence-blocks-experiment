@@ -10,8 +10,8 @@ import { __, isRTL } from '@wordpress/i18n';
 /**
  * External dependencies
  */
-import Select, { components, MultiValueProps, Props as RSProps, OnChangeValue } from 'react-select';
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+import Select, { components } from 'react-select';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { arrowRight } from '@wordpress/icons';
