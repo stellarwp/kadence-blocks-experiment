@@ -74,6 +74,7 @@ export default function PresetControl({
 	definedPresets = [],
 	view = 'default',
 	isBundlePreset = false,
+	useRadioToggle = false,
 	globalStylesIds,
 }) {
 	const attributeMeta = metaData?.attributes?.[attributeName];
@@ -89,6 +90,25 @@ export default function PresetControl({
 
 	const resolved = getResolvedValue(attributeName, attributes, 'none', metaData, '', globalStylesIds);
 	const { inheritedValue, inheritedSource, inheritedType, directValue } = resolved;
+	// Filter presetOptions to have key instead of value and label instead of name
+	const radioToggleOptions =
+		useRadioToggle && !hasRadioToggle
+			? presetOptions.map((option) => ({
+					key: option.value,
+					title: option.label,
+					name: option.label,
+				}))
+			: presetOptions;
+	console.log('presetOptions', presetOptions);
+	console.log('radioToggleOptions', radioToggleOptions);
+	const { inheritedValue, inheritedSource, inheritedType } = getInheritedValue(
+		attributeName,
+		attributes,
+		'none',
+		metaData,
+		'',
+		globalStylesIds
+	);
 	const currentValue = isBundlePreset ? inheritedValue : inheritedValue?.preset;
 	const currentDirectValue = isBundlePreset ? directValue : directValue?.preset;
 
@@ -222,7 +242,7 @@ export default function PresetControl({
 					</div>
 				</Popover>
 			)}
-			{hasRadioToggle && (
+			{(hasRadioToggle || useRadioToggle) && (
 				<div className="kbs-radio-control">
 					<div ref={setRadioToggleAnchor} className="kbs-control-inner kbs-radio-toggle-control-inner">
 						<RadioToggleGroupButtonUI
@@ -235,13 +255,13 @@ export default function PresetControl({
 								setPopoverPlacement('top-start');
 								onChange(value);
 							}}
-							controls={presetOptions}
 							isPreset={true}
+							controls={radioToggleOptions}
 						/>
 					</div>
 				</div>
 			)}
-			{!hasRadioToggle && (
+			{!hasRadioToggle && !useRadioToggle && (
 				<div className="kbs-control-inner kbs-radio-preset-control-inner">
 					{presetOptions.map((option) => (
 						<Button

@@ -47,6 +47,7 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 					isBundlePreset={true}
+					useRadioToggle={true}
 				/>
 				<PresetControl
 					label={__('Size', 'kadence-blocks')}
@@ -58,6 +59,7 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 					isBundlePreset={true}
+					useRadioToggle={true}
 				/>
 				<RadioButtonControl
 					label={__('Width', 'kadence-blocks')}
