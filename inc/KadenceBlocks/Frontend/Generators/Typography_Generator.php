@@ -54,28 +54,10 @@ class Typography_Generator extends Base_Generator {
         $source    = isset( $resolved_value['source'] ) ? $resolved_value['source'] : '';
         $preset_key = isset( $resolved_value['presetKey'] ) ? $resolved_value['presetKey'] : null;
 
-        // When value originates from a preset, render via a CSS variable tied to that preset
-        if ( $preset_key ) {
-            $property = $this->get_css_property( $key, $meta );
-            $token    = strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', $preset_key ) );
-            $var_name = '--kbs-' . $this->camel_to_kebab( $key ) . '-' . $token;
-            $processed_fallback = $this->process_typography_value( $key, $raw_value );
-            $fallback = ! empty( $processed_fallback ) ? $processed_fallback : $raw_value;
-
-            // Use var(--kbs-<prop>-<preset>, <fallback>) so the active global style scope can override preset values
-            $this->add_property( $property, sprintf( 'var(%s, %s)', $var_name, $fallback ) );
-            return;
-        }
+        // Base_Generator::apply_property now handles preset outputs via var() universally.
 
         $css_value = $this->process_typography_value( $key, $raw_value );
-        // If color produced a palette var but the source is a preset, prefer preset var approach
-        if ( $preset_key && is_string( $css_value ) && strpos( $css_value, 'var(--kbs-colors-' ) === 0 && ($key === 'color' || $key === 'backgroundColor') ) {
-            $property = $this->get_css_property( $key, $meta );
-            $token    = strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', $preset_key ) );
-            $var_name = '--kbs-' . $this->camel_to_kebab( $key ) . '-' . $token;
-            $this->add_property( $property, sprintf( 'var(%s, %s)', $var_name, $css_value ) );
-            return;
-        }
+        // Preset case covered by base class
         if ( empty( $css_value ) ) {
             return;
         }
