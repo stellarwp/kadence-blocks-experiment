@@ -96,18 +96,10 @@ class Global_Style_Variables {
     }
 
     public function output_style_usage() {
-        if ( empty( $this->all_used_variables ) ) {
-			return '';
-		}
-
 		if ( null === $this->global_styles ) {
 			$this->global_styles = $this->fetch_global_styles();
 		}
-
-		if ( empty( $this->global_styles ) ) {
-			return '';
-		}
-
+		
 		$this->css->set_style_id( 'kbs-global-styles' );
 
 		// Ensure base variables are emitted on :root when any variables are used
@@ -130,6 +122,25 @@ class Global_Style_Variables {
         $base_style_item  = isset( $this->global_styles['kbs-base'] )
             ? new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] )
             : null;
+
+        // Always emit ALL kbs-base color variables to :root, regardless of usage
+        if ( $base_style_item ) {
+            $base_mappings = $base_style_item->get_mappings();
+            if ( isset( $base_mappings['colors'] ) && is_array( $base_mappings['colors'] ) ) {
+                $this->css->set_selector( ':root' );
+                foreach ( $base_mappings['colors'] as $token => $token_data ) {
+                    $value = isset( $token_data['value'] ) ? $token_data['value'] : null;
+                    if ( $value === null || $value === '' ) {
+                        continue;
+                    }
+                    if ( is_string( $value ) && strpos( $value, 'var(--global-palette' ) !== false ) {
+                        $value = $this->resolve_global_palette_references( $value, $base_style_item );
+                    }
+                    $var_name = self::get_mapping_variable_name( 'colors', (string) $token );
+                    $this->css->add_property( $var_name, $value );
+                }
+            }
+        }
 
         // For each global style class key
         foreach ( $this->global_style_map as $class_name => $global_styles ) {
