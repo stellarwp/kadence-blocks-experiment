@@ -63,6 +63,7 @@ class Core {
 		Log\Provider::class,
 		Storage\Provider::class,
 		Uplink\Provider::class,
+		Telemetry\Provider::class,
 		Health\Provider::class,
 		Cache\Provider::class,
 		Backend\Provider::class,

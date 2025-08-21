@@ -48,11 +48,11 @@ class Kadence_Blocks_Header_CPT_Controller {
 		// Add a post display state for the current header (if choosen in theme).
 		add_filter( 'display_post_states', array( $this, 'add_display_post_states' ), 10, 2 );
 
-		if( is_admin() && class_exists( 'Kadence_Blocks_Duplicate_Post' ) ) {
-			new Kadence_Blocks_Duplicate_Post( $this->post_type );
+		if( is_admin() && class_exists( 'KadenceWP\KadenceBlocks\Backend\Duplicate_Post' ) ) {
+			new \KadenceWP\KadenceBlocks\Backend\Duplicate_Post( $this->post_type );
 		}
-		if( is_admin() && class_exists( 'Kadence_Blocks_Cpt_Import_Export' ) ) {
-			new Kadence_Blocks_Cpt_Import_Export( $this->post_type );
+		if( is_admin() ) {
+			new \KadenceWP\KadenceBlocks\Backend\CPT_Import_Export( $this->post_type );
 		}
 	}
 	/**

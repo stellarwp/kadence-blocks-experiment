@@ -22,22 +22,32 @@ define( 'KADENCE_BLOCKS_PATH', realpath( plugin_dir_path( __FILE__ ) ) . DIRECTO
 define( 'KADENCE_BLOCKS_URL', plugin_dir_url( __FILE__ ) );
 define( 'KADENCE_BLOCKS_VERSION', '4.0.0' );
 
+/**
+ * Feature flag constants for version switching.
+ * Users can define these in their wp-config.php file to control which version(s) are enabled.
+ */
+if ( ! defined( 'KADENCE_BLOCKS_V3_ENABLED' ) ) {
+	define( 'KADENCE_BLOCKS_V3_ENABLED', false );
+}
+// Load autoloaders
 require_once plugin_dir_path( __FILE__ ) . 'vendor/vendor-prefixed/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
-require_once plugin_dir_path( __FILE__ ) . '/inc/functions/helper-functions.php';
+
+// Import 3.0 dependencie
+use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Container\ContainerAdapter;
+
+// Both 3.0 and 4.0 use the newer App class
 require_once plugin_dir_path( __FILE__ ) . '/inc/functions/app.php';
 
-
-// Get the plugin's singleton instance.
-
-
+// Initialize the container
 add_action(
-	'plugins_loaded',
-	static function (): void {
-		$core = kbs_plugin();
+    'plugins_loaded',
+    static function (): void {
+        // Get the Core instance
+        $core = kbs_plugin();
 		$core->init();
-	},
-	1
+    },
+    0
 );
 
 /**
@@ -49,170 +59,99 @@ function kadence_blocks_activate(): void {
 register_activation_hook( __FILE__, 'kadence_blocks_activate' );
 
 /**
- * Load Plugin.
+ * Load 3.0 Plugin.
  */
-function kadence_blocks_init(): void {
-	$container = kbs_container();
+function kadence_blocks_init_v3(): void {	
+    // Use the unified V4 container under all circumstances (even for v3 boot).
+    $shared_container = kbs_container();
+    // Adapt the shared DI52 container to the Prophecy container interface for v3 compatibility.
+    $adapter = new ContainerAdapter( $shared_container->container() );
 
-	// require_once KADENCE_BLOCKS_PATH . 'includes/init.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/form-ajax.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/helper-functions.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-editor-assets.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-schema-updater.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-prebuilt-library.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-google-fonts.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-helper.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-css.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-frontend.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-table-of-contents.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-duplicate-post.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-cpt-import-export.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-abstract-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/init.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/form-ajax.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/helper-functions.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-editor-assets.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-schema-updater.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-prebuilt-library.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-google-fonts.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-helper.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-css.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-frontend.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-table-of-contents.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-abstract-block.php';
 
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-row-layout-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-column-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-accordion-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advancedgallery-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advancedbtn-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-singlebtn-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advanced-heading-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-countdown-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-countup-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-form-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-googlemaps-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-icon-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-single-icon-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-icon-list-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-single-icon-list-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-infobox-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-image-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-lottie-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-identity-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-posts-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-progress-bar-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-search-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-show-more-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-spacer-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-data-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-row-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-of-contents-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-tabs-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-testimonials-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-testimonial-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-navigation-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-navigation-link-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-header-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-videopopup-block.php';
-
-
-	// require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-settings.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-posts-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-prebuilt-library-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-mailerlite-form-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-fluentcrm-form-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-lottieanimation-get-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-lottieanimation-post-rest-api.php';
-	// // Advanced Form.
-	// require_once KADENCE_BLOCKS_PATH . 'includes/advanced-form/advanced-form-init.php';
-	// // Navigation
-	// require_once KADENCE_BLOCKS_PATH . 'includes/navigation/class-kadence-navigation-cpt.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/navigation/class-kadence-navigation-rest.php';
-	// // Header
-	// require_once KADENCE_BLOCKS_PATH . 'includes/header/class-kadence-header-cpt.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/header/class-kadence-header-rest.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-container-desktop-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-container-tablet-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-section-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-row-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-column-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-off-canvas-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-off-canvas-trigger-block.php';
-
-	// // SVG render.
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-svg.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-local-gfonts.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-image-picker-rest.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-image-picker.php';
-
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-row-layout-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-column-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-accordion-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advancedgallery-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advancedbtn-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-singlebtn-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advanced-heading-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-countdown-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-countup-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-form-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-googlemaps-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-icon-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-single-icon-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-icon-list-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-single-icon-list-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-infobox-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-image-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-lottie-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-identity-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-posts-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-progress-bar-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-search-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-show-more-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-spacer-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-data-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-row-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-of-contents-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-tabs-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-testimonials-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-testimonial-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-navigation-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-navigation-link-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-header-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-videopopup-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-vector-block.php';
 	
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-row-layout-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-column-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-accordion-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advancedgallery-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advancedbtn-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-singlebtn-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-advanced-heading-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-countdown-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-countup-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-form-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-googlemaps-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-icon-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-single-icon-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-icon-list-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-single-icon-list-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-infobox-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-image-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-lottie-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-identity-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-posts-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-progress-bar-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-search-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-show-more-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-spacer-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-data-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-row-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-table-of-contents-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-tabs-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-testimonials-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-testimonial-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-navigation-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-navigation-link-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-header-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-videopopup-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-vector-block.php';
-	
-	// require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-settings.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-posts-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-prebuilt-library-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-mailerlite-form-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-fluentcrm-form-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-lottieanimation-get-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-lottieanimation-post-rest-api.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-vector-post-rest-api.php';
-	// // Advanced Form.
-	// require_once KADENCE_BLOCKS_PATH . 'includes/advanced-form/advanced-form-init.php';
-	// // Navigation
-	// require_once KADENCE_BLOCKS_PATH . 'includes/navigation/class-kadence-navigation-cpt.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/navigation/class-kadence-navigation-rest.php';
-	// // Header
-	// require_once KADENCE_BLOCKS_PATH . 'includes/header/class-kadence-header-cpt.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/header/class-kadence-header-rest.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-container-desktop-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-container-tablet-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-section-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-row-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-column-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-off-canvas-block.php';
-	// require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-off-canvas-trigger-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-posts-rest-api.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-prebuilt-library-rest-api.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-mailerlite-form-rest-api.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-fluentcrm-form-rest-api.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-lottieanimation-get-rest-api.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-lottieanimation-post-rest-api.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-vector-post-rest-api.php';
+	// Advanced Form.
+	require_once KADENCE_BLOCKS_PATH . 'includes/advanced-form/advanced-form-init.php';
+	// Navigation
+	require_once KADENCE_BLOCKS_PATH . 'includes/navigation/class-kadence-navigation-cpt.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/navigation/class-kadence-navigation-rest.php';
+	// Header
+	require_once KADENCE_BLOCKS_PATH . 'includes/header/class-kadence-header-cpt.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/header/class-kadence-header-rest.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-container-desktop-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-container-tablet-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-section-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-row-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-header-column-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-off-canvas-block.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/header/class-kadence-blocks-off-canvas-trigger-block.php';
 
+	// SVG render.
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-svg.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-local-gfonts.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-image-picker-rest.php';
+	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-image-picker.php';
 
-	// /**
-	// * Site Health.
-	// */
-	// require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-site-health.php';
-
-	/**
-	 * AI-specific usage tracking. Only track if AI is opted in by user.
-	 */
-	// require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-ai-events.php';
-	// $ai_events = new Kadence_Blocks_AI_Events();
-	// $ai_events->register();
-
-	do_action( 'kadence_blocks_uplink_loaded' );
 }
-// add_action( 'plugins_loaded', 'kadence_blocks_init', 2 );
+
+// Initialize 3.0 version if enabled
+if ( KADENCE_BLOCKS_V3_ENABLED ) {
+	add_action( 'plugins_loaded', 'kadence_blocks_init_v3', 2 );
+}
 
 /**
  * Load the plugin textdomain
@@ -220,4 +159,4 @@ function kadence_blocks_init(): void {
 function kadence_blocks_lang(): void {
 	load_plugin_textdomain( 'kadence-blocks', false, basename( __DIR__ ) . '/languages' );
 }
-// add_action( 'init', 'kadence_blocks_lang' );
+add_action( 'init', 'kadence_blocks_lang' );
