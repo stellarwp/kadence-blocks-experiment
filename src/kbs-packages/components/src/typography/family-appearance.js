@@ -11,7 +11,6 @@ export default function FamilyAppearance({
 	globalStylesIds,
 	customOnChange,
 	forStyleBook,
-	forPresetControl,
 }) {
 	return (
 		<div className="components-base-control">

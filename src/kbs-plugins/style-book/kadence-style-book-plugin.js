@@ -24,8 +24,10 @@ import { KadencePanelBody } from '@kadence/components';
 import * as BlockIcons from '@kadence/icons';
 
 import ComponentPresetControl from './component-preset-control';
+import ComponentPresetBundledControl from './component-preset-control/bundled-controls';
 import ComponentMappingControl from './component-mapping-control';
 import BackgroundPresets from './presets/background-presets';
+import ButtonPresets from './presets/button-presets';
 import GlobalColors from './colors/global-colors';
 import GlobalTypography from './typography/global-typography';
 import Preview from './preview';
@@ -151,7 +153,7 @@ function KadenceConfig() {
 		const controlContentUpper = null;
 		const canResetAll = true;
 		const onResetAll = () => {
-			console.log('reset all');
+			console.log('reset all currently does not work');
 		};
 		const classes = clsx('components-panel__body-title kbs-style-book-control-title');
 		const controlContentGlobal = (
@@ -309,6 +311,17 @@ function KadenceConfig() {
 				</>
 			);
 		}
+		if (selectedComponent == 'buttonVariant') {
+			controlContent = (
+				<>
+					<ComponentPresetBundledControl
+						globalStyleId={currentGlobalStyleId}
+						preset={currentPreset}
+						property={'buttonVariant'}
+					/>
+				</>
+			);
+		}
 		if (selectedComponent == 'background' && currentPreset) {
 			controlContent = (
 				<ComponentPresetControl
@@ -340,130 +353,6 @@ function KadenceConfig() {
 			</div>
 		);
 	};
-
-	const typographyComponentPreviewContent = (
-		<div className="kbs-style-book-component-preview-container">
-			<h2 className={'kbs-style-book-preview-heading'}>{__('Typography', 'kadence-blocks')}</h2>
-			<div className="kbs-style-book-component-preview">
-				<div className="kbs-flex-horizontal kbs-flex-gap-lg">
-					<div className={'kbs-column'}>
-						<div
-							className={'kbs-style-book-preview-element kbs-heading-main-preview'}
-							onClick={() => {
-								setSelectedComponent('typography');
-								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'heading' } },
-								});
-							}}
-							role="button"
-						>
-							<h1 aria-hidden="true">{__('Headings', 'kadence-blocks')}</h1>
-							<h2>
-								{__(
-									'A a B b C c D d E e F f G g H h I i J j K k L l M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z',
-									'kadence-blocks'
-								)}
-							</h2>
-						</div>
-						<div
-							className={'kbs-style-book-preview-element kbs-heading-1-preview'}
-							onClick={() => {
-								setSelectedComponent('typography');
-								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'heading-1' } },
-								});
-							}}
-							role="button"
-						>
-							<h1 aria-hidden="true">{__('Heading 1', 'kadence-blocks')}</h1>
-						</div>
-						<div
-							className={'kbs-style-book-preview-element kbs-heading-2-preview'}
-							onClick={() => {
-								setSelectedComponent('typography');
-								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'heading-2' } },
-								});
-							}}
-							role="button"
-						>
-							<h2 aria-hidden="true">{__('Heading 2', 'kadence-blocks')}</h2>
-						</div>
-						<div
-							className={'kbs-style-book-preview-element kbs-heading-3-preview'}
-							onClick={() => {
-								setSelectedComponent('typography');
-								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'heading-3' } },
-								});
-							}}
-							role="button"
-						>
-							<h3 aria-hidden="true">{__('Heading 3', 'kadence-blocks')}</h3>
-						</div>
-						<div
-							className={'kbs-style-book-preview-element kbs-heading-4-preview'}
-							onClick={() => {
-								setSelectedComponent('typography');
-								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'heading-4' } },
-								});
-							}}
-							role="button"
-						>
-							<h4 aria-hidden="true">{__('Heading 4', 'kadence-blocks')}</h4>
-						</div>
-						<div
-							className={'kbs-style-book-preview-element kbs-heading-5-preview'}
-							onClick={() => {
-								setSelectedComponent('typography');
-								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'heading-5' } },
-								});
-							}}
-							role="button"
-						>
-							<h5 aria-hidden="true">{__('Heading 5', 'kadence-blocks')}</h5>
-						</div>
-						<div
-							className={'kbs-style-book-preview-element kbs-heading-6-preview'}
-							onClick={() => {
-								setSelectedComponent('typography');
-								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'heading-6' } },
-								});
-							}}
-							role="button"
-						>
-							<h6 aria-hidden="true">{__('Heading 6', 'kadence-blocks')}</h6>
-						</div>
-					</div>
-					<div className={'kbs-column'}>
-						<div
-							className={'kbs-style-book-preview-element kbs-body-preview'}
-							onClick={() => {
-								setSelectedComponent('typography');
-								setStyleBookAttributes({
-									components: { typography: { selectedPreset: 'text-body' } },
-								});
-							}}
-							role="button"
-						>
-							<p aria-hidden="true">
-								{__('This is what your body text will look like.', 'kadence-blocks')}
-							</p>
-							<p aria-hidden="true">
-								{__(
-									'When you hear a true story, there is a part of you that responds to it regardless of art, regardless of evidence. Let it be the most obvious fabrication and you will still believe whatever truth is in it, because you can not deny truth no matter how shabbily it is dressed.',
-									'kadence-blocks'
-								)}
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
 
 	useEffect(() => {
 		if (divRef.current) {
@@ -603,6 +492,20 @@ function KadenceConfig() {
 						)}
 						{selectedTab == 'design-system' && (
 							<div className="kbs-style-book-design-system">
+								<ButtonPresets
+									setStyleBookAttributes={(props) => {
+										setStyleBookAttributes(props);
+										setNeedsSave(true);
+									}}
+									setSelectedComponent={setSelectedComponent}
+									globalStyleId={currentGlobalStyleId}
+									currentPreset={currentPreset}
+									previewDevice={previewDevice}
+									globalStylesCss={globalStylesCss}
+									startNewPreset={startNewPreset}
+									newPresetName={newPresetName}
+									setNewPresetName={setNewPresetName}
+								/>
 								<BackgroundPresets
 									setStyleBookAttributes={(props) => {
 										setStyleBookAttributes(props);

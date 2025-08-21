@@ -99,16 +99,7 @@ export default function PresetControl({
 					name: option.label,
 				}))
 			: presetOptions;
-	console.log('presetOptions', presetOptions);
-	console.log('radioToggleOptions', radioToggleOptions);
-	const { inheritedValue, inheritedSource, inheritedType } = getInheritedValue(
-		attributeName,
-		attributes,
-		'none',
-		metaData,
-		'',
-		globalStylesIds
-	);
+
 	const currentValue = isBundlePreset ? inheritedValue : inheritedValue?.preset;
 	const currentDirectValue = isBundlePreset ? directValue : directValue?.preset;
 
@@ -255,7 +246,7 @@ export default function PresetControl({
 								setPopoverPlacement('top-start');
 								onChange(value);
 							}}
-							isPreset={true}
+							isPreset={isBundlePreset ? false : true}
 							controls={radioToggleOptions}
 						/>
 					</div>

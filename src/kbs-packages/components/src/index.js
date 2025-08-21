@@ -35,6 +35,8 @@ export { default as SpacingControl } from './spacing-control';
 export { default as SpaceControl } from './space-control';
 export { default as Notice } from './notice';
 export { default as InlinePaddingResizer } from './inline-padding-resizer';
+export { default as ButtonSettings } from './button-settings';
+export { default as ButtonPresetRender } from './button-settings/preset-render';
 // export { default as PopColorControl } from './pop-color-control';
 // export { default as ResponsivePopColorControl } from './responsive-pop-color-control';
 // export { default as SinglePopColorControl } from './single-pop-color-control';

@@ -13,7 +13,6 @@ export default function FlexBoxControl({
 	globalStylesIds,
 	customOnChange,
 	forStyleBook,
-	forPresetControl,
 }) {
 	const [currentView, setCurrentView] = useState('normal');
 	const onSelectView = (view) => {

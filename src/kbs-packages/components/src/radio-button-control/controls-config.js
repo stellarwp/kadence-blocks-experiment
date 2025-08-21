@@ -304,18 +304,23 @@ export const getRadioConfig = (radioType, previewDirection) => {
 
 export const getBorderRadiusControls = () => [
 	{
-		title: __('Slight', 'kadence-blocks'),
-		name: __('Slight', 'kadence-blocks'),
+		title: __('None', 'kadence-blocks'),
+		name: __('None', 'kadence-blocks'),
+		key: '0',
+	},
+	{
+		title: __('Small', 'kadence-blocks'),
+		name: __('SM', 'kadence-blocks'),
 		key: 'sm',
 	},
 	{
 		title: __('Medium', 'kadence-blocks'),
-		name: __('Medium', 'kadence-blocks'),
+		name: __('MD', 'kadence-blocks'),
 		key: 'md',
 	},
 	{
-		title: __('Heavy', 'kadence-blocks'),
-		name: __('Heavy', 'kadence-blocks'),
+		title: __('Large', 'kadence-blocks'),
+		name: __('LG', 'kadence-blocks'),
 		key: 'lg',
 	},
 ];

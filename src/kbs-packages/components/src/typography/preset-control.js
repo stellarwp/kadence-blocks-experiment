@@ -22,9 +22,6 @@ import {
 /**
  * Internal Dependencies
  */
-import ToolsPanelBody from '../tools-panel-body';
-import RadioButtonControl from '../radio-button-control';
-import RadioToggleGroupButtonUI from '../radio-button-control/ui-toggle-group';
 import TitleBar from '../title-bar';
 import './editor.scss';
 
@@ -231,18 +228,7 @@ export default function TypographyPresetControl({
 	}
 	// Fetch available presets
 	const presets = getPresetOptions(presetType);
-	// Get the first three presets in a custom array
-	const presetOptions = definedPresets.length > 0 ? definedPresets : presets.slice(0, previewAmount);
-	const hasRadioToggle = definedPresets.length > 0 ? true : false;
 	const currentValue = attributes?.[attributeName]?.preset;
-
-	const [isPopover, setIsPopover] = useState(false);
-	const [showConfirmPopover, setShowConfirmPopover] = useState(false);
-	const [pendingPreset, setPendingPreset] = useState(null);
-	const [confirmAnchor, setConfirmAnchor] = useState(null);
-	const [popoverAnchor, setPopoverAnchor] = useState(null);
-	const [radioToggleAnchor, setRadioToggleAnchor] = useState(null);
-	const [popoverPlacement, setPopoverPlacement] = useState('top-start');
 	const divRef = useRef(null);
 	useEffect(() => {
 		if (divRef.current) {
@@ -252,7 +238,7 @@ export default function TypographyPresetControl({
 				divRef.current.removeAttribute('style');
 			}
 		}
-	}, [globalStylesCss, isPopover, divRef?.current]);
+	}, [globalStylesCss, divRef?.current]);
 	const onChange = (value) => {
 		if (attributes?.[attributeName]?.preset === value) {
 			return;
@@ -301,77 +287,6 @@ export default function TypographyPresetControl({
 					})}
 				/>
 			</div>
-			{/* {isPopover && popoverAnchor && (
-				<Popover
-					anchor={popoverAnchor}
-					noArrow={true}
-					placement="left-start"
-					shift={true}
-					offset={10}
-					onClose={() => {
-						setIsPopover(false);
-					}}
-					className="kbs-preset-popover__dropdown-content kbs-radio-preset-control"
-				>
-					<TitleBar label={label} reset={false} />
-					<div ref={divRef} className={`kbs-control-inner kbs-radio-preset-control-inner`}>
-						{presets.map((option) => (
-							<Button
-								key={option.value}
-								label={option.label}
-								isPressed={option.value === currentValue}
-								className={`kbs-radio-preset-control-button`}
-								onClick={(event) => {
-									onChange(option.value);
-								}}
-							>
-								{option.label}
-							</Button>
-						))}
-					</div>
-					<div className="kbs-preset-popover__dropdown-content-close">
-						<Button __next40pxDefaultSize onClick={() => setIsPopover(false)}>
-							<Icon icon={closeIcon} size={24} />
-						</Button>
-					</div>
-				</Popover>
-			)}
-			{hasRadioToggle && (
-				<div className="kbs-radio-control">
-					<div ref={setRadioToggleAnchor} className="kbs-control-inner kbs-radio-toggle-control-inner">
-						<RadioToggleGroupButtonUI
-							label={label}
-							value={currentValue}
-							onChange={(value) => {
-								const target = radioToggleAnchor.querySelector(`[data-value="${value}"]`);
-								setConfirmAnchor(target ? target : radioToggleAnchor);
-								setPopoverPlacement('top-start');
-								onChange(value);
-							}}
-							controls={presetOptions}
-						/>
-					</div>
-				</div>
-			)}
-			{!hasRadioToggle && (
-				<div className="kbs-control-inner kbs-radio-preset-control-inner">
-					{presetOptions.map((option) => (
-						<Button
-							key={option.value}
-							label={option.label}
-							isPressed={option.value === currentValue}
-							className={`kbs-radio-preset-control-button`}
-							onClick={(event) => {
-								setConfirmAnchor(event.currentTarget);
-								setPopoverPlacement('top-start');
-								onChange(option.value);
-							}}
-						>
-							{option.label}
-						</Button>
-					))}
-				</div>
-			)} */}
 		</div>
 	);
 }

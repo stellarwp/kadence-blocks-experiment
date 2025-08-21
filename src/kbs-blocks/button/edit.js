@@ -68,18 +68,6 @@ export default function ButtonEdit(props) {
 
 	uniqueIdHelper(props);
 
-	const colorValue = getResolvedValue('color', attributes, previewDevice, metadata, 'color', globalStylesIds);
-	const previewColorValue = getColorOutput(colorValue?.appliedValue);
-	const colorHighlightValue = getResolvedValue(
-		'colorHighlight',
-		attributes,
-		'desktop',
-		metadata,
-		'color',
-		globalStylesIds
-	);
-	const previewColorHighlightValue = getColorOutput(colorHighlightValue?.appliedValue);
-
 	const previewTag = 'span';
 
 	const iconAnyValue = useMemo(
@@ -97,10 +85,6 @@ export default function ButtonEdit(props) {
 
 	const previewIconPlacement = iconPlacementAnyValue?.appliedValue;
 
-	//look for gradient text marker in the color value
-	const hasGradient = previewColorValue?.includes('gradient(');
-	const hasGradientHighlight = previewColorHighlightValue?.includes('gradient(');
-
 	const hasIcon = iconAnyValue?.appliedValue ? true : false;
 	const hasIconReveal = iconRevealAnyValue?.appliedValue ? true : false;
 
@@ -108,8 +92,6 @@ export default function ButtonEdit(props) {
 		[className]: className,
 		[`kbs-button-${uniqueID}`]: uniqueID,
 		[`has-text-align-${textAlign}`]: textAlign,
-		[`has-gradient`]: hasGradient,
-		[`has-gradient-highlight`]: hasGradientHighlight,
 		'kbs-button-has-icon': hasIcon,
 		'icon-reveal': hasIcon && hasIconReveal,
 	});
@@ -192,8 +174,6 @@ export default function ButtonEdit(props) {
 				{...props}
 				previewDevice={previewDevice}
 				globalStylesIds={globalStylesIds}
-				hasGradient={hasGradient}
-				hasGradientHighlight={hasGradientHighlight}
 				blockElementRef={myElementRef}
 			/>
 			<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
