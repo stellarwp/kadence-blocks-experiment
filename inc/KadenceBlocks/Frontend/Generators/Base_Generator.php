@@ -195,27 +195,49 @@ abstract class Base_Generator {
 	 * @param array  $meta Component metadata.
 	 * @return void
 	 */
-	protected function apply_property( $key, $resolved_value, $meta ) {
-		if ( ! $this->should_render_value( $resolved_value, $meta ) ) {
-			return;
-		}
-		
-		$css_value = $this->process_value( $key, $resolved_value['value'], $meta );
-		if ( empty( $css_value ) ) {
-			return;
-		}
-		
-		$selector = $this->get_selector( $key, $meta );
-		$property = $this->get_css_property( $key, $meta );
-		
+    protected function apply_property( $key, $resolved_value, $meta ) {
+        if ( ! $this->should_render_value( $resolved_value, $meta ) ) {
+            return;
+        }
+
+        $raw_value = isset( $resolved_value['value'] ) ? $resolved_value['value'] : '';
+        $preset_key = isset( $resolved_value['presetKey'] ) ? $resolved_value['presetKey'] : null;
+
+        // Compute processed fallback value first
+        $processed_value = $this->process_value( $key, $raw_value, $meta );
+        if ( $processed_value === null || $processed_value === '' ) {
+            return;
+        }
+
+        $selector = $this->get_selector( $key, $meta );
+
+        // If value originates from a preset, output var() referencing the preset-scoped variable
+        // so inheritance follows ancestor .kbs-global-style-* classes (even for nonInheritable components)
+        if ( $preset_key ) {
+            // Use the actual CSS property name (ignore varPrefix/varSuffix mapping here)
+            $property = $this->get_mapped_css_property( $key );
+            $token    = strtolower( preg_replace( '/([^a-z0-9]+)/i', '-', $preset_key ) );
+            $var_name = '--kbs-' . $this->camel_to_kebab( $key ) . '-' . $token;
+            $value    = sprintf( 'var(%s, %s)', $var_name, $processed_value );
+
+            $current_selector_backup = $this->get_current_selector();
+            $this->set_selector( $selector );
+            if ( ! is_array( $value ) && ! is_object( $value ) ) {
+                $this->add_property( $property, $value );
+            }
+            $this->set_selector( $current_selector_backup );
+            return;
+        }
+
+        // Default behavior for direct/parent/explicit values
+        $property = $this->get_css_property( $key, $meta );
         $current_selector_backup = $this->get_current_selector();
         $this->set_selector( $selector );
-        // Avoid passing arrays/objects to add_property
-        if ( ! is_array( $css_value ) && ! is_object( $css_value ) ) {
-            $this->add_property( $property, $css_value );
+        if ( ! is_array( $processed_value ) && ! is_object( $processed_value ) ) {
+            $this->add_property( $property, $processed_value );
         }
         $this->set_selector( $current_selector_backup );
-	}
+    }
 	
 	/**
 	 * Process CSS value based on component type
@@ -238,7 +260,7 @@ abstract class Base_Generator {
 	 * @param array $meta Component metadata.
 	 * @return bool
 	 */
-	protected function should_render_value( $resolved_value, $meta ) {
+    protected function should_render_value( $resolved_value, $meta ) {
 		if ( empty( $resolved_value ) ) {
 			return false;
 		}
@@ -252,15 +274,10 @@ abstract class Base_Generator {
 			return true;
 		}
 		
-		// For non-inheritable properties, render preset values
-		if ( ! empty( $meta['nonInheritable'] ) && ( $source === 'preset' || $source === 'preset-parent' ) ) {
-			return true;
-		}
-		
-		// Don't render inherited preset values (they're handled by class names)
-		if ( $inherited && ( $source === 'preset' || $source === 'preset-parent' ) && empty( $meta['nonInheritable'] ) ) {
-			return false;
-		}
+        // Always render preset-derived values (we output via var(--kbs-...-<preset>, fallback))
+        if ( in_array( $source, array( 'preset', 'bundle-preset', 'preset-parent' ), true ) ) {
+            return ! empty( $value );
+        }
 		
 		return ! empty( $value );
 	}

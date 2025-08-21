@@ -982,6 +982,101 @@ class CSS_Engine {
 			}
 		}
 	}
+	
+	/**
+	 * Deep merge helper that only adds missing values
+	 * Existing values in target take priority
+	 * 
+	 * @param array $target The target array
+	 * @param array $source The source array to merge from
+	 * @return array The merged array
+	 */
+	private function deep_merge_with_priority( $target, $source ) {
+		if ( ! is_array( $source ) ) {
+			return $target;
+		}
+		
+		if ( ! is_array( $target ) ) {
+			$target = array();
+		}
+		
+		foreach ( $source as $key => $value ) {
+			if ( is_array( $value ) && ! isset( $value[0] ) ) {
+				// This is an associative array (not indexed), recurse
+				if ( ! isset( $target[ $key ] ) ) {
+					// Target doesn't have this key, add the entire source value
+					$target[ $key ] = $value;
+				} elseif ( is_array( $target[ $key ] ) && ! isset( $target[ $key ][0] ) ) {
+					// Both are associative arrays, recurse
+					$target[ $key ] = $this->deep_merge_with_priority( $target[ $key ], $value );
+				}
+				// If target has a value that's not an array, keep it (user override)
+			} else {
+				// For primitive values and indexed arrays, only set if target doesn't have a value
+				if ( ! isset( $target[ $key ] ) || $target[ $key ] === null || $target[ $key ] === '' ) {
+					$target[ $key ] = $value;
+				}
+			}
+		}
+		
+		return $target;
+	}
+
+	/**
+	 * Propagate variant presets to component attributes
+	 * This ensures that when a variant defines values for components,
+	 * those values are applied if the component doesn't already have them
+	 * 
+	 * @param array $attributes The block attributes
+	 * @param WP_Block $block_instance The block instance
+	 * @return array Modified attributes with propagated values
+	 */
+	private function propagate_variant_presets( $attributes, $block_instance ) {
+		// Early return if no block instance or attributes
+		if ( ! $block_instance || ! isset( $block_instance->block_type->attributes ) || empty( $attributes ) ) {
+			return $attributes;
+		}
+		
+		// Get global styles IDs
+		$global_styles_ids = $this->get_global_styles_ids( $attributes, $block_instance );
+		
+		// Look for bundle preset attributes (variants) in the block metadata
+		foreach ( $block_instance->block_type->attributes as $attribute_name => $attribute_meta ) {
+			// Check if this is a bundle preset attribute
+			if ( ! empty( $attribute_meta['bundlePreset'] ) ) {
+				// Get the variant value
+				$variant_value = isset( $attributes[ $attribute_name ] ) ? $attributes[ $attribute_name ] : 
+				                ( isset( $attribute_meta['initial'] ) ? $attribute_meta['initial'] : null );
+				
+				if ( $variant_value && ! empty( $attribute_meta['component'] ) ) {
+					$bundle_preset_component = $attribute_meta['component'];
+					
+					// Get the variant's preset data
+					$variant_data = $this->get_preset_data( $variant_value, $bundle_preset_component, $global_styles_ids );
+					
+					// If the variant has attributes, merge them
+					if ( ! empty( $variant_data['attributes'] ) ) {
+						foreach ( $variant_data['attributes'] as $component_name => $component_value ) {
+							// Ensure the component attribute exists
+							if ( ! isset( $attributes[ $component_name ] ) ) {
+								// If the attribute doesn't exist at all, add the entire value
+								$attributes[ $component_name ] = $component_value;
+							} else {
+								// Deep merge, preserving existing user values
+								$attributes[ $component_name ] = $this->deep_merge_with_priority(
+									$attributes[ $component_name ],
+									$component_value
+								);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return $attributes;
+	}
+	
 	/**
 	 * Add properties to the css output based on the attributes.
 	 *
@@ -991,6 +1086,9 @@ class CSS_Engine {
 	 * @return $this
 	 */
 	public function add_attributes( $attributes, $block_instance ) {
+		// Propagate variant presets first
+		$attributes = $this->propagate_variant_presets( $attributes, $block_instance );
+		
 		$global_styles_ids = $this->get_global_styles_ids( $attributes, $block_instance );
 		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
 			foreach ( $block_instance->block_type->attributes as $key => $attribute ) {
