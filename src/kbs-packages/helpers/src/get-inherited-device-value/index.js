@@ -136,18 +136,17 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 				inheritedSource: 'initial',
 				inheritedType: 'initial',
 			};
-		} else {
-			// Check initial values for current and parent devices
-			for (let i = currentDeviceIndex; i >= 0; i--) {
-				const deviceOption = deviceOptions[i];
-				const deviceKey = deviceOption.key || deviceOption.name;
-				if (initialValue?.[deviceKey]?.[type]) {
-					return {
-						inheritedValue: initialValue?.[deviceKey]?.[type],
-						inheritedSource: 'initial',
-						inheritedType: 'initial',
-					};
-				}
+		}
+		// Check initial values for current and parent devices
+		for (let i = currentDeviceIndex; i >= 0; i--) {
+			const deviceOption = deviceOptions[i];
+			const deviceKey = deviceOption.key || deviceOption.name;
+			if (initialValue?.[deviceKey]?.[type]) {
+				return {
+					inheritedValue: initialValue?.[deviceKey]?.[type],
+					inheritedSource: 'initial',
+					inheritedType: 'initial',
+				};
 			}
 		}
 	}
