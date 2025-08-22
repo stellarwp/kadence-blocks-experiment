@@ -29,7 +29,7 @@
 	padding-right: var(--kbs-button-padding-right);
 	padding-bottom: var(--kbs-button-padding-bottom);
 	padding-left: var(--kbs-button-padding-left);
-
+	transition: all 0.2s ease;
 	min-width: 0;
 
 	// Alignment classes
@@ -78,33 +78,6 @@
 		&:hover {
 			text-decoration: var(--kbs-button-link-text-decoration-hover, var(--kbs-button-link-text-decoration));
 			color: var(--kbs-button-link-color-hover, var(--button-text-link-color));
-		}
-	}
-
-	.kbs-highlight {
-		font-family: var(--kbs-button-highlight-font-family);
-		font-weight: var(--kbs-button-highlight-font-weight);
-		font-size: var(--kbs-button-highlight-font-size);
-		line-height: var(--kbs-button-highlight-line-height);
-		letter-spacing: var(--kbs-button-highlight-letter-spacing);
-		text-transform: var(--kbs-button-highlight-text-transform);
-		font-style: var(--kbs-button-highlight-font-style);
-		color: var(--kbs-button-highlight-color, var(--kbs-colors-palette-warning));
-		background: var(--kbs-button-highlight-background-color);
-		border-top-left-radius: var(--kbs-button-highlight-border-top-left-radius);
-		border-top-right-radius: var(--kbs-button-highlight-border-top-right-radius);
-		border-bottom-right-radius: var(--kbs-button-highlight-border-bottom-right-radius);
-		border-bottom-left-radius: var(--kbs-button-highlight-border-bottom-left-radius);
-		border-top: var(--kbs-button-highlight-border-top);
-		border-left: var(--kbs-button-highlight-border-left);
-		border-right: var(--kbs-button-highlight-border-right);
-		border-bottom: var(--kbs-button-highlight-border-bottom);
-
-		&:hover {
-			border-top: var(--kbs-button-highlight-border-top-hover, var(--kbs-button-highlight-border-top));
-			border-left: var(--kbs-button-highlight-border-left-hover, var(--kbs-button-highlight-border-left));
-			border-right: var(--kbs-button-highlight-border-right-hover, var(--kbs-button-highlight-border-right));
-			border-bottom: var(--kbs-button-highlight-border-bottom-hover, var(--kbs-button-highlight-border-bottom));
 		}
 	}
 
@@ -183,7 +156,10 @@
 		border-bottom: var(--kbs-button-border-bottom-hover, var(--kbs-button-border-bottom));
 
 		.kt-svg-icon-wrap {
-			transform: var(--kbs-button-icon-transform, var(--kbs-button-icon-rotation-hover, var(--kbs-button-icon-rotation)));
+			transform: var(
+				--kbs-button-icon-transform,
+				var(--kbs-button-icon-rotation-hover, var(--kbs-button-icon-rotation))
+			);
 		}
 	}
 

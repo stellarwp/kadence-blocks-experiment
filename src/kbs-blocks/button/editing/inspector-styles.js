@@ -19,6 +19,7 @@ import {
 	IconControl,
 	TabsControl,
 	ToggleControl,
+	ButtonSettings,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -38,7 +39,17 @@ export default function InspectorStyles(props) {
 
 	return (
 		<>
-			<ToolsPanelBody
+			<ButtonSettings
+				title={__('Button Settings', 'kadence-blocks')}
+				globalStylesCss={globalStylesCss}
+				globalStylesIds={globalStylesIds}
+				previewDevice={previewDevice}
+				forStyleBook={false}
+				attributes={attributes}
+				setAttributes={setAttributes}
+				meta={metadata}
+			/>
+			{/* <ToolsPanelBody
 				title={__('Button Settings', 'kadence-blocks')}
 				panelName={'button-settings'}
 				initialOpen={true}
@@ -153,7 +164,7 @@ export default function InspectorStyles(props) {
 						</>
 					)}
 				</TabsControl>
-			</ToolsPanelBody>
+			</ToolsPanelBody> */}
 			<ToolsPanelBody
 				title={__('Typography Settings', 'kadence-blocks')}
 				panelName={'text-typography'}
