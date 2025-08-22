@@ -70,11 +70,18 @@ class Background_Generator extends Base_Generator {
 		}
 		
 		if ( ! empty( $layers ) && is_array( $layers ) ) {
+			//before we start processing layers, add the selector suffix to the current base selector
+			$base_selector = $this->get_current_selector();
+			$this->set_selector( $base_selector . ( isset( $meta['selectorSuffix'] ) ? $meta['selectorSuffix'] : '' ) );
+			
 			// Reverse layers for proper stacking order
 			$reversed_layers = array_reverse( $layers );
 			foreach ( $reversed_layers as $index => $layer ) {
 				$this->process_background_layer( $layer, $index, $meta, $attributes, $block_instance, $global_styles_ids );
 			}
+
+			//reset the selector to the original base selector
+			$this->set_selector( $base_selector );
 		}
 	}
 	

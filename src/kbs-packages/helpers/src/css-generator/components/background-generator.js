@@ -44,7 +44,7 @@ export class BackgroundGenerator extends BaseComponentGenerator {
 
 		//before we start processing layers, add the selector suffix to the current base selector
 		const baseSelector = this.currentSelector;
-		this.setSelector(this.currentSelector + meta?.selectorSuffix);
+		this.setSelector(this.currentSelector + (meta?.selectorSuffix ? meta?.selectorSuffix : ''));
 
 		if (reverseLayers.length > 0) {
 			reverseLayers.forEach((layer, index) => {

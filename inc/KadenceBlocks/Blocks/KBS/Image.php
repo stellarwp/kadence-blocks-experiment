@@ -141,8 +141,10 @@ class Image extends Abstract_Block {
 		$content .= $img_content;
 		$content .= $has_ratio || $has_overlay ? '</div>' : '';
 
+		$bg_html = $this->get_background_html( 'foreground', $attributes, $block_instance );
+
 		if ( $has_image ) {
-			return sprintf( '<figure %1$s>%2$s</figure>', $wrapper_attributes, $content );
+			return sprintf( '<figure %1$s><div class="kbs-image-foreground">%3$s</div>%2$s</figure>', $wrapper_attributes, $content, $bg_html );
 		}
 
 		return '';

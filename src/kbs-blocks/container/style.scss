@@ -4,6 +4,8 @@
  * CSS for both Frontend+Backend.
  */
 
+@import "../mixins.scss";
+
 .kbs-container {
 	position: relative;
 	display: flex;
@@ -48,26 +50,7 @@
 		// border-right: var(--kbs-cont-border-right-hover, var(--kbs-cont-border-right));
 		// border-bottom: var(--kbs-cont-border-bottom-hover, var(--kbs-cont-border-bottom));
 	}
-	.kbs-bg-layer {
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		background-color: transparent;
-		background-size: cover;
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-attachment: scroll;
-		overflow: hidden;
-		transition: all 0.3s ease-in-out;
-
-		.kbs-pattern-mask-svg {
-			position: absolute;
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
-		}
-	}
 }
+
+//TODO this should be loaded in a more global way. Any block that has a background should have this included.
+@include kbs-bg-layer;

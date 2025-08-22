@@ -4,7 +4,10 @@
  * CSS for both Frontend+Backend.
  */
 
+@import "../mixins.scss";
+
 .kbs-image {
+	position: relative;
 	overflow: auto;
 
 	border-top-left-radius: var(--kbs-cont-border-top-left-radius);
@@ -82,3 +85,5 @@
 		max-width: min(var(--wp--style--global--content-size, 645px), var(--kbs-image-max-width));
 	}
 }
+
+@include kbs-bg-layer;
