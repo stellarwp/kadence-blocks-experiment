@@ -13,9 +13,6 @@ const BUILD_VERSION = process.env.KADENCE_BUILD_VERSION || 'all';
 
 // Blocks 3.0
 const v3Entries = {
-	icons: './src/packages/icons/src/index.js',
-	components: './src/packages/components/src/index.js',
-	helpers: './src/packages/helpers/src/index.js',
 	'blocks-navigation': './src/blocks/navigation/index.js',
 	'blocks-navigation-link': './src/blocks/navigation-link/index.js',
 	'blocks-header': './src/blocks/header/index.js',
@@ -70,6 +67,9 @@ const v4Entries = {
 };
 
 const sharedEntries = {
+	icons: './src/packages/icons/src/index.js',
+	components: './src/packages/components/src/index.js',
+	helpers: './src/packages/helpers/src/index.js',
 	'extension-kadence-base': './src/extension/kadence-base/index.js',
 	'extension-stores': './src/extension/stores/index.js',
 	'extension-block-css': './src/extension/block-css/index.js',
