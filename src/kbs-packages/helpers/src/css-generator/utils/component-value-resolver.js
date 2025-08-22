@@ -89,7 +89,7 @@ function getComponentKeys(componentType) {
  * @returns {Object} Merged values for all component sub-attributes
  */
 export function resolveComponentValues(attributeName, attributes, device, metadata, globalStylesIds, componentType) {
-	const componentKeys = getComponentKeys(componentType);
+	const componentKeys = getComponentKeys(componentType) ?? [componentType];
 	const resolvedValues = {};
 
 	// Process each sub-attribute with simplified resolution
@@ -171,7 +171,17 @@ function resolveSingleValue(attributeName, attributes, device, metadata, key, gl
 		}
 	}
 
-	// Priority 3: Preset value (check for standard presets first)
+	// Priority 3: Direct value from no device
+	const noDeviceValue = getDeviceValue(attributeName, attributes, 'none', key);
+	if (noDeviceValue !== undefined && noDeviceValue !== null && noDeviceValue !== '') {
+		return {
+			value: noDeviceValue,
+			source: 'direct',
+			inherited: false,
+		};
+	}
+
+	// Priority 4: Preset value (check for standard presets first)
 	// We only check preset if the attribute has a preset defined
 	if (attributes[attributeName]?.preset) {
 		const { inheritedValue, inheritedSource, inheritedType } = getInheritedDeviceValue(
@@ -194,7 +204,7 @@ function resolveSingleValue(attributeName, attributes, device, metadata, key, gl
 	}
 
 	// Handled up front now by propagateVariantPresets
-	// Priority 4: Bundle preset value
+	// Priority 5: Bundle preset value
 	// const { value: bundlePresetValue, source: bundlePresetSource } = getBundlePresetValue(
 	// 	attributeName,
 	// 	attributes,
@@ -213,7 +223,7 @@ function resolveSingleValue(attributeName, attributes, device, metadata, key, gl
 	// 	};
 	// }
 
-	// Priority 5: Initial value from metadata
+	// Priority 6: Initial value from metadata
 	const initialValue = getInitialValue(attributeName, device, metadata, key);
 	if (initialValue !== undefined && initialValue !== null) {
 		return {

@@ -194,6 +194,9 @@ export default function BackgroundControl({
 	forStyleBook = false,
 	forPresetControl,
 	globalStylesCss,
+	allowedTabs,
+	layerControlLabel,
+	presetControlLabel,
 }) {
 	const [currentView, setCurrentView] = useState('normal');
 	const onSelectView = (view) => {
@@ -286,7 +289,7 @@ export default function BackgroundControl({
 		>
 			{!forPresetControl && (
 				<BackgroundPresetControl
-					label={__('Background Presets', 'kadence-blocks')}
+					label={presetControlLabel || __('Background Presets', 'kadence-blocks')}
 					type={'background'}
 					attributes={attributes}
 					setAttributes={setAttributes}
@@ -300,7 +303,7 @@ export default function BackgroundControl({
 			)}
 			<>
 				<LayerTitleBar
-					label={__('Background', 'kadence-blocks')}
+					label={layerControlLabel || __('Background', 'kadence-blocks')}
 					reset={true}
 					onReset={onLayerReset}
 					onTogglePlus={onTogglePlus}
@@ -331,6 +334,7 @@ export default function BackgroundControl({
 										globalStylesCss={globalStylesCss}
 										isInherited={inherited.inheritedSource !== 'direct'}
 										inherited={inherited}
+										allowedTabs={allowedTabs}
 									/>
 								))
 							) : (

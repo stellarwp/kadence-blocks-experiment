@@ -41,11 +41,19 @@ export class BackgroundGenerator extends BaseComponentGenerator {
 		);
 
 		const reverseLayers = Array.isArray(layers?.inheritedValue) ? [...layers.inheritedValue].reverse() : [];
+
+		//before we start processing layers, add the selector suffix to the current base selector
+		const baseSelector = this.currentSelector;
+		this.setSelector(this.currentSelector + meta?.selectorSuffix);
+
 		if (reverseLayers.length > 0) {
 			reverseLayers.forEach((layer, index) => {
 				this.processBackgroundLayer(layer, index, meta);
 			});
 		}
+
+		//reset the selector to the original base selector
+		this.setSelector(baseSelector);
 	}
 
 	/**

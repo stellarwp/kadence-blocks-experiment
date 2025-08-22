@@ -3,6 +3,7 @@
  */
 import { useState, useCallback } from '@wordpress/element';
 import { FocalPointPicker as CoreFocalPointPicker } from '@wordpress/components';
+import { handleAttributeChange } from '@kadence/kbsHelpers';
 import './editor.scss';
 /**
  * Focal Point control
@@ -14,8 +15,27 @@ import './editor.scss';
  * @returns {JSX.Element} The focal point picker component.
  */
 export default function FocalPointPicker(props) {
-	const { url, value, onChange, backgroundSize = 'cover', style, ...rest } = props;
+	const {
+		url,
+		value,
+		onChange,
+		backgroundSize = 'cover',
+		style,
+		attributeName,
+		attributes,
+		setAttributes,
+		previewDevice,
+		type = 'position',
+		meta,
+		...rest
+	} = props;
 	const [position, setPosition] = useState(null);
+
+	const defaultOnChange = (value) => {
+		handleAttributeChange(value, previewDevice, attributeName, attributes, setAttributes, onChange, type, meta);
+	};
+
+	const onChangeToUse = onChange ?? defaultOnChange;
 
 	const convertPosition = useCallback((position) => {
 		if (!position) {
@@ -69,10 +89,10 @@ export default function FocalPointPicker(props) {
 
 			if (newPosition && newPosition.x !== undefined && newPosition.x !== '') {
 				const focalPoint = `${newPosition.x * 100}% ${newPosition.y * 100}%`;
-				onChange(focalPoint);
+				onChangeToUse(focalPoint);
 			}
 		},
-		[onChange]
+		[onChangeToUse]
 	);
 
 	const imagePosition = position ?? convertPosition(value);

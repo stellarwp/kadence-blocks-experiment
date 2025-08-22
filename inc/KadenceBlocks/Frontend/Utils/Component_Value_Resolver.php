@@ -113,7 +113,7 @@ class Component_Value_Resolver {
 			$metadata = array();
 		}
 		
-		$component_keys = self::get_component_keys( $component_type );
+		$component_keys = self::get_component_keys( $component_type ) ?? array( $component_type );
 		$resolved_values = array();
 		
 		// Process each sub-attribute with simplified resolution
@@ -203,8 +203,18 @@ class Component_Value_Resolver {
 				);
 			}
 		}
+
+		// Priority 3: Direct value from no device
+		$no_device_value = self::get_device_value( $attribute_name, $attributes, 'none', $key );
+		if ( $no_device_value !== null && $no_device_value !== '' ) {
+			return array(
+				'value'     => $no_device_value,
+				'source'    => 'direct',
+				'inherited' => false,
+			);
+		}
 		
-        // Priority 3: Preset value
+        // Priority 4: Preset value
         $preset_value = self::get_preset_value( $attribute_name, $attributes, $device, $metadata, $key, $global_styles_ids, $css_engine );
         if ( $preset_value !== null ) {
             // Capture the preset key used on this attribute for downstream variable naming
@@ -218,7 +228,7 @@ class Component_Value_Resolver {
             );
         }
 		
-		// Priority 4: Bundle preset value
+		// Priority 5: Bundle preset value
         $bundle_preset_value = self::get_bundle_preset_value( $attribute_name, $attributes, $device, $metadata, $key, $global_styles_ids, $css_engine );
         if ( $bundle_preset_value !== null ) {
             // Discover bundle preset key for variable naming
@@ -246,7 +256,7 @@ class Component_Value_Resolver {
             );
         }
 		
-		// Priority 5: Initial value from metadata
+		// Priority 6: Initial value from metadata
 		$initial_value = self::get_initial_value( $attribute_name, $device, $metadata, $key );
 		if ( $initial_value !== null ) {
 			return array(

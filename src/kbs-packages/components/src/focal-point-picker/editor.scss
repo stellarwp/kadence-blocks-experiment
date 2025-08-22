@@ -21,6 +21,9 @@
 		}
 	}
 	.components-focal-point-picker {
+		min-height: 170px;
+		width: 100%;
+
 		&::after {
 			box-shadow: inset 0px 0px 0px 1px var(--kb-border-subtle-color, #d9e7ec);
 		}

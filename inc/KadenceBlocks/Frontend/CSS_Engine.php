@@ -371,6 +371,8 @@ class CSS_Engine {
 			'minHeight'       => $simple_generator,
 			'width'           => $simple_generator,
 			'height'          => $simple_generator,
+
+			'simple'          => $simple_generator,
 		);
 	}
 	
@@ -1368,9 +1370,11 @@ class CSS_Engine {
 		if ( ! empty( $attributes_meta['debug'] ) && $attributes_meta['debug'] === true ) {
 			$this->output_component_debug( $key, $component_type, $merged_attributes, $attributes_meta, $global_styles_ids );
 		}
+
+		$generator = isset($this->generators[ $component_type ]) ? $this->generators[ $component_type ] : $this->generators['simple'];
 		
 		// Check if we have a generator for this component type
-		if ( ! empty( $component_type ) && isset( $this->generators[ $component_type ] ) ) {
+		if ( ! empty( $component_type ) && $generator ) {
 			// Prepare metadata in the expected format
 			$metadata = array();
 			if ( $block_instance && isset( $block_instance->block_type ) ) {
@@ -1389,7 +1393,7 @@ class CSS_Engine {
 				// The generator will handle layer processing internally
 				
 				// Call the generator directly - it will handle devices internally
-				$this->generators[ $component_type ]->generate( $key, $attributes_meta, array(), $block_instance );
+				$generator->generate( $key, $attributes_meta, array(), $block_instance );
 				
 				// Reset media state back to desktop (default)
 				$this->set_media_state( 'desktop' );
@@ -1427,7 +1431,7 @@ class CSS_Engine {
 						$this->add_selector_state( ':hover' );
 					}
 					// Generate CSS using the appropriate component generator
-					$this->generators[ $component_type ]->generate( $key, $attributes_meta, $resolved_values, $block_instance );
+					$generator->generate( $key, $attributes_meta, $resolved_values, $block_instance );
 					if ( $is_hover ) {
 						// Flush hover state rules and clear states
 						$this->reset_selector_states();

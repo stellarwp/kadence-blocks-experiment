@@ -49,6 +49,8 @@ class CSSGenerator {
 			color: simpleGenerator,
 			padding: simpleGenerator,
 			margin: simpleGenerator,
+
+			simple: simpleGenerator,
 		};
 	}
 
@@ -215,7 +217,9 @@ class CSSGenerator {
 			this.outputComponentDebug(attributeName, componentType, props, meta, metadata);
 		}
 
-		if (this.generators[componentType]) {
+		const generator = this.generators[componentType] ?? this.generators['simple'];
+
+		if (generator) {
 			// Resolve all values for the component at once
 			const resolvedValues = resolveComponentValues(
 				attributeName,
@@ -226,7 +230,7 @@ class CSSGenerator {
 				componentType
 			);
 
-			this.generators[componentType].generate(attributeName, meta, resolvedValues);
+			generator.generate(attributeName, meta, resolvedValues);
 			return this;
 		}
 
@@ -346,6 +350,7 @@ class CSSGenerator {
 			attributeName,
 			componentType,
 			selector: this.currentSelector,
+			selectorSuffix: meta?.selectorSuffix || '',
 			attributes: props.attributes?.[attributeName] || null,
 			metadata: meta,
 			previewDevice: props.previewDevice || 'desktop',
@@ -360,6 +365,7 @@ class CSSGenerator {
 		);
 		console.log('%cAttribute:', 'font-weight: bold;', attributeName);
 		console.log('%cSelector:', 'font-weight: bold;', this.currentSelector);
+		console.log('%cSelector Suffix:', 'font-weight: bold;', debugData.selectorSuffix);
 		console.log('%cPreview Device:', 'font-weight: bold;', debugData.previewDevice);
 		console.log('%cAttribute Data:', 'font-weight: bold;', debugData.attributes);
 		console.log('%cMetadata:', 'font-weight: bold;', debugData.metadata);

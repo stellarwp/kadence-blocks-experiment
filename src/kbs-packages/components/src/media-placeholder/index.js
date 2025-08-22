@@ -72,9 +72,10 @@ const MediaPlaceholder = (props) => {
 	const [src, setSrc] = useState('');
 	const [isURLInputVisible, setIsURLInputVisible] = useState(false);
 	const [popoverAnchor, setPopoverAnchor] = useState(null);
-	useEffect(() => {
-		setSrc(get(value, ['src'], ''));
-	}, [value]);
+
+	// useEffect(() => {;
+	// 	setSrc(get(value, ['src'], ''));
+	// }, [value]);
 
 	const onlyAllowsImages = useCallback(() => {
 		if (!allowedTypes) {
@@ -85,8 +86,8 @@ const MediaPlaceholder = (props) => {
 		});
 	}, [allowedTypes]);
 
-	const onChangeSrc = useCallback((event) => {
-		setSrc(event.target.value);
+	const onChangeSrc = useCallback((value) => {
+		setSrc(value);
 	}, []);
 
 	const onSubmitSrc = useCallback(

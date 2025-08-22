@@ -65,3 +65,8 @@ export { default as SharedInspectorAdvanced } from './shared-inspector-advanced'
 
 export { default as TextAlignToolbar } from './text-align-toolbar';
 export { default as HeadingLevelIcon } from './heading-level-icon';
+
+export { default as FocalPointPicker } from './focal-point-picker';
+export { default as MediaPlaceholder } from './media-placeholder';
+
+export { default as RangeControl } from './range/range-control';

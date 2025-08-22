@@ -1223,6 +1223,9 @@ class Abstract_Block {
 		if ( ! empty( $link['target'] ) ) {
 			$html .= ' target="' . esc_attr( $link['target'] ) . '"';
 		}
+		if ( ! empty( $link['label'] ) ) {
+			$html .= ' aria-label="' . esc_attr( $link['label'] ) . '"';
+		}
 		if ( ! empty( $rel ) ) {
 			$html .= ' rel="' . esc_attr( $rel ) . '"';
 		}
@@ -1234,4 +1237,11 @@ class Abstract_Block {
 		return $html;
 	}
 	// END DEVICE VALUE FUNCTIONS (PORTED FROM KBS-HELPERS 7/15/25).
+
+	public static function get_wrapper_attributes( $attributes_array ) {
+		$attributes_array = array_map( function( $key, $value ) {
+			return sprintf( '%s="%s"', esc_attr( $key ), esc_attr( $value ) );
+		}, array_keys( $attributes_array ), $attributes_array );
+		return implode( ' ', $attributes_array );
+	}
 }

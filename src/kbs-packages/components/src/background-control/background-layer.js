@@ -426,6 +426,7 @@ function BackgroundDropdownContent({
 	setIsHover,
 	onToggle,
 	isOpen,
+	allowedTabs,
 }) {
 	const handleCustomOnChange = (value, device, type) => {
 		onChange(value, device, type);
@@ -471,6 +472,11 @@ function BackgroundDropdownContent({
 			title: __('Backdrop Filter', 'kadence-blocks'),
 		},
 	];
+	let tabToUse = defaultTabs;
+
+	if (Array.isArray(allowedTabs) && allowedTabs.length) {
+		tabToUse = defaultTabs.filter((tab) => allowedTabs.includes(tab.name));
+	}
 	const divRef = useRef(null);
 	useEffect(() => {
 		if (divRef.current) {
@@ -492,7 +498,7 @@ function BackgroundDropdownContent({
 					}
 				}}
 				initialTabName={type ? type : 'color'}
-				tabs={defaultTabs}
+				tabs={tabToUse}
 			>
 				{(tab) => {
 					if (tab.name) {
@@ -608,7 +614,8 @@ function renderBackgroundDropdown(
 	layerKey,
 	containerRef,
 	globalStylesCss,
-	useHover = false
+	useHover = false,
+	allowedTabs = []
 ) {
 	const [isHover, setIsHover] = useState(false);
 	return ({ onToggle, isOpen }) => {
@@ -627,6 +634,7 @@ function renderBackgroundDropdown(
 				setIsHover={setIsHover}
 				onToggle={onToggle}
 				isOpen={isOpen}
+				allowedTabs={allowedTabs}
 			/>
 		);
 	};
@@ -654,6 +662,7 @@ export default function BackgroundLayer({
 	layer,
 	isInherited = false,
 	inherited = {},
+	allowedTabs,
 }) {
 	const popoverProps = {
 		//placement: 'left-start',
@@ -682,7 +691,6 @@ export default function BackgroundLayer({
 				useAttributes[attributeName].layers = JSON.parse(JSON.stringify(inherited.inheritedValue));
 			}
 		}
-		console.log('onChange', value, device, type, layerKey);
 		handleLayerAttributeChange(
 			value,
 			device,
@@ -728,7 +736,9 @@ export default function BackgroundLayer({
 					globalClasses,
 					layerKey,
 					containerRef,
-					globalStylesCss
+					globalStylesCss,
+					false,
+					allowedTabs
 				)}
 			/>
 		</div>

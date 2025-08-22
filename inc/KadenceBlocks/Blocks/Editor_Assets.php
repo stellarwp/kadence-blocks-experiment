@@ -108,6 +108,7 @@ class Editor_Assets {
 			'row',
 			'text',
 			'buttons',
+			'image',
 		];
 		foreach ( $blocks as $block ) {
 			$meta   = kbs_get_asset_file( sprintf( 'dist/kbs-%s', $block ) );
