@@ -7,7 +7,7 @@ import domReady from '@wordpress/dom-ready';
 
 // Utils
 import './plugins/editor-width.js';
-import './plugins/prebuilt-library/toolbar-library';
+// import './plugins/prebuilt-library/toolbar-library';
 import './plugins/block-rename/block-rename.js';
 
 if (typeof kt_blocks_default_size !== 'undefined') {
