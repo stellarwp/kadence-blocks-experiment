@@ -29,6 +29,8 @@ class Provider extends Service_Provider {
 			Kadence_Blocks::class // Empty class because a class is required.
 		);
 		
+		do_action( 'kadence_blocks_uplink_loaded' );
+		
 		$this->register_multisite_configuration();
 		add_action( 'plugins_loaded', $this->container->callback( $this, 'register_configuration' ), 20 );
 	}

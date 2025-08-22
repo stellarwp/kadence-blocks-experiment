@@ -63,7 +63,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"KadenceWP\\KadenceBlocks\\": "inc/KadenceBlocks"
+			"KadenceWP\\KadenceBlocks\\": "inc/KadenceBlocks/"
 		}
 	},
 	"autoload-dev": {

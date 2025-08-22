@@ -3,7 +3,7 @@
  *
  * CSS for Frontend.
  */
-@import '../../assets/css/variables';
+@use '../../assets/css/variables' as *;
 .kb-gallery-ul * {
 	box-sizing: border-box;
 }

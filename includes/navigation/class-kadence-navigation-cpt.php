@@ -36,11 +36,11 @@ class Kadence_Blocks_Navigation_CPT_Controller {
 		add_filter( 'kadence_post_layout', array( $this, 'navigation_single_layout' ), 99 );
 		add_action( 'enqueue_block_assets', array( $this, 'script_enqueue' ) );
 
-		if( is_admin() && class_exists( 'Kadence_Blocks_Duplicate_Post' ) ) {
-			new Kadence_Blocks_Duplicate_Post( $this->post_type );
+		if( is_admin() && class_exists( 'KadenceWP\KadenceBlocks\Backend\Duplicate_Post' ) ) {
+			new \KadenceWP\KadenceBlocks\Backend\Duplicate_Post( $this->post_type );
 		}
-		if( is_admin() && class_exists( 'Kadence_Blocks_Cpt_Import_Export' ) ) {
-			new Kadence_Blocks_Cpt_Import_Export( $this->post_type );
+		if( is_admin() ) {
+			new \KadenceWP\KadenceBlocks\Backend\CPT_Import_Export( $this->post_type );
 		}
 	}
 	/**

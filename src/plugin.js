@@ -6,7 +6,6 @@ import { get } from 'lodash';
 import domReady from '@wordpress/dom-ready';
 
 // Utils
-import './plugins/kadence-control.js';
 import './plugins/editor-width.js';
 import './plugins/prebuilt-library/toolbar-library';
 import './plugins/block-rename/block-rename.js';

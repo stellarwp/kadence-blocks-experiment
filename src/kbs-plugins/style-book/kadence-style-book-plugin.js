@@ -34,14 +34,14 @@ import Preview from './preview';
 import Styles from './editing/styles';
 
 import { uniqueId } from 'lodash';
+import V3Controls from './v3-controls';
 
 /**
  * Build the row edit
  */
 function KadenceConfig() {
-	const [controlName, setControlName] = useState(
-		applyFilters('kadence.block_sidebar_control_name', __('Style Book Controls', 'kadence-blocks'))
-	);
+	const v3Enabled = typeof kadence_blocks_params !== 'undefined' ? kadence_blocks_params?.v3Enabled : false;
+	const [controlName, setControlName] = useState( __('Style Book Controls', 'kadence-blocks')	);
 	const [controlIcon, setControlIcon] = useState(
 		applyFilters('kadence.block_sidebar_control_icon', BlockIcons.kadenceNewIcon)
 	);
@@ -595,22 +595,25 @@ function KadenceConfig() {
 			<PluginSidebar isPinnable={true} name="kbs-style-book-controls" title={controlName}>
 				<div ref={divRef} className="kbs-style-book-controls-container">
 					{!isKadenceStyleBookOpened && (
-						<PanelBody>
-							<Button
-								onClick={() => {
-									if (isKadenceStyleBookOpened) {
-										resetStyleBookUI();
-									}
-									setIsKadenceStyleBookOpened(!isKadenceStyleBookOpened);
-								}}
-								variant="secondary"
-								isPressed={isKadenceStyleBookOpened}
-							>
-								{isKadenceStyleBookOpened
-									? __('Close Style Book', 'kadence-blocks')
-									: __('Open Style Book', 'kadence-blocks')}
-							</Button>
-						</PanelBody>
+						<>
+							<PanelBody>
+								<Button
+									onClick={() => {
+										if (isKadenceStyleBookOpened) {
+											resetStyleBookUI();
+										}
+										setIsKadenceStyleBookOpened(!isKadenceStyleBookOpened);
+									}}
+									variant="secondary"
+									isPressed={isKadenceStyleBookOpened}
+								>
+									{isKadenceStyleBookOpened
+										? __('Close Style Book', 'kadence-blocks')
+										: __('Open Style Book', 'kadence-blocks')}
+								</Button>
+							</PanelBody>
+							{v3Enabled && <V3Controls />}
+						</>
 					)}
 					{isKadenceStyleBookOpened && renderSidebarControls()}
 				</div>
