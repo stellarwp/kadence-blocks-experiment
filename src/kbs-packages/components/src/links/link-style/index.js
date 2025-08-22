@@ -12,7 +12,6 @@ export default function LinkStyle({
 	globalStylesIds,
 	customOnChange,
 	forStyleBook,
-	forPresetControl,
 }) {
 	const [currentView, setCurrentView] = useState('normal');
 	const onSelectView = (view) => {
@@ -21,22 +20,6 @@ export default function LinkStyle({
 
 	return (
 		<>
-			{/* {!forPresetControl && (
-				<SelectControl
-					label={__('Preset', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={attributeName}
-					meta={meta}
-					previewDevice={'none'}
-					type={'preset'}
-					globalStylesIds={globalStylesIds}
-					customOnChange={customOnChange}
-					forStyleBook={forStyleBook}
-					hasDeviceControls={false}
-				/>
-			)} */}
-
 			<RadioButtonControl
 				label={__('Style', 'kadence-blocks')}
 				attributes={attributes}

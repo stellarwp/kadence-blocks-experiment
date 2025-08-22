@@ -170,7 +170,7 @@ export default function LayeredShadowControl({
 	globalStylesIds,
 	customOnChange,
 	forStyleBook = false,
-	forPresetControl,
+	hasPresetControl = true,
 	globalStylesCss,
 	type = 'boxShadow',
 }) {
@@ -255,7 +255,7 @@ export default function LayeredShadowControl({
 	});
 	return (
 		<div className={classes}>
-			{!forPresetControl && (
+			{hasPresetControl && (
 				<ShadowPresetControl
 					label={
 						type == 'boxShadow'

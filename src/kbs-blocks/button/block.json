@@ -27,9 +27,6 @@
 			"default": "",
 			"__experimentalRole": "content"
 		},
-		"preset": {
-			"type": "array"
-		},
 		"textAlign": {
 			"renderCSS": true,
 			"component": "textAlign",
@@ -69,13 +66,6 @@
 			"type": "object"
 		},
 		"link": {
-			"type": "object"
-		},
-		"linkStyle": {
-			"renderCSS": true,
-			"component": "linkStyle",
-			"varPrefix": "--kbs-button-link-",
-			"initial": {},
 			"type": "object"
 		},
 		"background": {
@@ -129,51 +119,6 @@
 			"varPrefix": "--kbs-button-",
 			"classPrefix": "kbs-button-border-"
 		},
-		"colorHighlight": {
-			"renderCSS": true,
-			"component": "color",
-			"type": "object",
-			"varPrefix": "--kbs-button-highlight-",
-			"classPrefix": "kbs-button-color-highlight-"
-		},
-		"backgroundColorHighlight": {
-			"renderCSS": true,
-			"component": "color",
-			"type": "object",
-			"varPrefix": "--kbs-button-highlight-background-",
-			"classPrefix": "kbs-button-background-highlight-"
-		},
-		"borderHighlight": {
-			"renderCSS": true,
-			"component": "border",
-			"type": "object",
-			"varPrefix": "--kbs-button-highlight-",
-			"classPrefix": "kbs-button-border-highlight-"
-		},
-		"typographyHighlight": {
-			"renderCSS": true,
-			"component": "typography",
-			"initial": {},
-			"type": "object",
-			"varPrefix": "--kbs-button-highlight-",
-			"selectorSuffix": " mark"
-		},
-		"paddingHighlight": {
-			"type": "object",
-			"renderCSS": true,
-			"component": "padding",
-			"nonInheritable": true,
-			"varPrefix": "--kbs-button-highlight-",
-			"selectorSuffix": " mark"
-		},
-		"colorLink": {
-			"renderCSS": true,
-			"component": "color",
-			"type": "object",
-			"varPrefix": "--kbs-button-link-",
-			"classPrefix": "kbs-button-color-link-",
-			"selectorSuffix": " a"
-		},
 		"boxShadow": {
 			"renderCSS": true,
 			"component": "boxShadow",
@@ -190,20 +135,6 @@
 			"varSuffix": "-hover",
 			"classPrefix": "kbs-button-shadow-hover-",
 			"hasLayers": true
-		},
-		"textOrientation": {
-			"renderCSS": true,
-			"component": "textOrientation",
-			"nonInheritable": true,
-			"type": "object",
-			"varPrefix": "--kbs-button-"
-		},
-		"maxHeight": {
-			"renderCSS": true,
-			"component": "maxHeight",
-			"nonInheritable": true,
-			"type": "object",
-			"varPrefix": "--kbs-button-"
 		},
 		"width": {
 			"renderCSS": true,

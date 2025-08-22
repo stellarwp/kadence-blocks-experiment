@@ -17,8 +17,6 @@ import {
 	getDeviceValue,
 } from '@kadence/kbsHelpers';
 
-//import GlobalPaletteCreator from './global-palette-creator';
-
 import './editor.scss';
 
 export const typographyIcon = (
@@ -80,17 +78,9 @@ export default function GlobalTypography(props) {
 		setSelectedComponent,
 		globalStyleId,
 		currentPreset,
-		currentColor,
 		previewDevice,
-		startNewPreset,
-		newPresetName,
-		setNewPresetName,
-		colorsSubTab,
-		setColorsSubTab,
 		isFontPairingCreatorOpen,
 		setIsFontPairingCreatorOpen,
-		customPalette,
-		setCustomPalette,
 	} = props;
 
 	const { styleBookLocalGlobalStyles } = useSelect((select) => {
@@ -99,20 +89,11 @@ export default function GlobalTypography(props) {
 		};
 	});
 
-	const { setStyleBookComponentMappingByStyleId } = useDispatch('kadenceblocks/global-styles');
-
 	const tempTypography = styleBookLocalGlobalStyles?.[globalStyleId]?.components?.typography?.presets || [];
 	const baseTypography = styleBookLocalGlobalStyles?.['kbs-base']?.components?.typography?.presets || [];
 	//console.log(tempTypography);
 	const globalTypography = getPresetOptions('typography');
-	// const setStyleBookColor = (colorKey, colorValue) => {
-	// 	setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', colorKey, colorValue);
-	// 	setNeedsSave(true);
-	// };
-	// const setStyleBookGradient = (gradientKey, gradientValue) => {
-	// 	setStyleBookComponentMappingByStyleId(globalStyleId, 'gradients', gradientKey, gradientValue);
-	// 	setNeedsSave(true);
-	// };
+
 	// const setStyleBookColorPalette = (colorPalette) => {
 	// 	setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette1', colorPalette.colors?.[0]);
 	// 	setStyleBookComponentMappingByStyleId(globalStyleId, 'colors', 'palette2', colorPalette.colors?.[1]);
@@ -138,7 +119,8 @@ export default function GlobalTypography(props) {
 						</div>
 					</div>
 					<div className="kbs-popover-add-global-style">
-						<Button
+						{/* TODO: Add back in when we have a way to edit the typography pairing */}
+						{/* <Button
 							icon={typographyIcon}
 							ref={setPopoverAnchor}
 							className="kbs-advanced-controls-button kbs-custom-popover-toggle"
@@ -150,7 +132,7 @@ export default function GlobalTypography(props) {
 							aria-expanded={isFontPairingCreatorOpen}
 							iconSize={18}
 							text={__('Edit Typography Pairing', 'kadence-blocks')}
-						/>
+						/> */}
 					</div>
 					{isFontPairingCreatorOpen && popoverAnchor && (
 						<Popover

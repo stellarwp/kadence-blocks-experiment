@@ -87,8 +87,26 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 		}
 	}
 
+	//check for bundle preset value
+	const { value: bundlePresetValue, source: bundlePresetSource } = getBundlePresetValue(
+		attributeName,
+		attributes,
+		device,
+		meta,
+		type,
+		globalStylesIds
+	);
+	if (bundlePresetValue) {
+		return {
+			inheritedValue: bundlePresetValue,
+			inheritanceType: 'preset',
+			inheritedSource: bundlePresetSource,
+			inheritedType: 'preset',
+		};
+	}
+
+	// Check initial values for current and parent devices
 	if (attributeMeta?.hasLayers) {
-		// Check initial values for current and parent devices
 		for (let i = currentDeviceIndex; i >= 0; i--) {
 			const deviceOption = deviceOptions[i];
 			const deviceKey = deviceOption.key || deviceOption.name;
@@ -112,6 +130,13 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 			}
 		}
 	} else {
+		if ('none' === device && initialValue) {
+			return {
+				inheritedValue: initialValue,
+				inheritedSource: 'initial',
+				inheritedType: 'initial',
+			};
+		}
 		// Check initial values for current and parent devices
 		for (let i = currentDeviceIndex; i >= 0; i--) {
 			const deviceOption = deviceOptions[i];
@@ -124,24 +149,6 @@ export default function getInheritedDeviceValue(attributeName, attributes, devic
 				};
 			}
 		}
-	}
-
-	//check for bundle preset value
-	const { value: bundlePresetValue, source: bundlePresetSource } = getBundlePresetValue(
-		attributeName,
-		attributes,
-		device,
-		meta,
-		type,
-		globalStylesIds
-	);
-	if (bundlePresetValue) {
-		return {
-			inheritedValue: bundlePresetValue,
-			inheritanceType: 'preset',
-			inheritedSource: bundlePresetSource,
-			inheritedType: 'preset',
-		};
 	}
 
 	// Return empty values if nothing found

@@ -42,6 +42,7 @@ export default function IconControl(props) {
 			/>
 			{hasPlacement && (
 				<SelectBasicControl
+					label={__('Placement', 'kadence-blocks')}
 					attributeName={attributeName}
 					attributes={attributes}
 					setAttributes={setAttributes}
