@@ -1,18 +1,22 @@
 <?php
 /**
- * Class Kadence_Blocks_Duplicate_Post
+ * Class Duplicate_Post
  *
- * @package Kadence Blocks
+ * @package KadenceWP\KadenceBlocks\Backend
  */
+
+namespace KadenceWP\KadenceBlocks\Backend;
+
+use WP_Post;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Kadence_Blocks_Duplicate_Post.
+ * Duplicate_Post.
  */
-class Kadence_Blocks_Duplicate_Post {
+class Duplicate_Post {
 	/**
 	 * Slug.
 	 *

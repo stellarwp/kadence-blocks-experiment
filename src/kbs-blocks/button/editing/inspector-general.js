@@ -23,7 +23,23 @@ export default function InspectorGeneral(props) {
 		props;
 
 	const { link } = attributes;
-
+	const buttonSizePresets = [
+		{
+			name: 'SM',
+			title: __('Small', 'kadence-blocks'),
+			key: 'sm',
+		},
+		{
+			name: 'Normal',
+			title: __('Default', 'kadence-blocks'),
+			key: 'md',
+		},
+		{
+			name: 'LG',
+			title: __('Large', 'kadence-blocks'),
+			key: 'lg',
+		},
+	];
 	return (
 		<>
 			<ToolsPanelBody panelName={'button-variants'} initialOpen={true}>
@@ -47,8 +63,9 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 					isBundlePreset={true}
+					useRadioToggle={true}
 				/>
-				<PresetControl
+				{/* <PresetControl
 					label={__('Size', 'kadence-blocks')}
 					type={'buttonSize'}
 					attributes={attributes}
@@ -58,7 +75,9 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 					isBundlePreset={true}
-				/>
+					useRadioToggle={true}
+					definedPresets={buttonSizePresets}
+				/> */}
 				<RadioButtonControl
 					label={__('Width', 'kadence-blocks')}
 					attributes={attributes}

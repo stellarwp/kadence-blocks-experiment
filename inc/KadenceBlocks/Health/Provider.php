@@ -36,5 +36,8 @@ class Provider extends Service_Provider {
 			'admin_notices',
 			$this->container->callback( Required_Function_Verifier::class, 'verify_functions' )
 		);
+
+		// Initialize Site Health integration.
+		Site_Health::init();
 	}
 }

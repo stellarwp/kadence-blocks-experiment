@@ -8,7 +8,6 @@ export default function getPresetOptions(component) {
 	const globalPresets = useSelect((select) => {
 		return select('kadenceblocks/global-styles').getGlobalPresets();
 	}, []);
-
 	if (globalPresets?.[component] && Object.keys(globalPresets?.[component]).length) {
 		Object.keys(globalPresets?.[component]).forEach(function (key, index) {
 			toReturn.push({

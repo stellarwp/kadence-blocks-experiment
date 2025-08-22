@@ -192,7 +192,7 @@ export default function BackgroundControl({
 	globalStylesIds,
 	customOnChange,
 	forStyleBook = false,
-	forPresetControl,
+	hasPresetControl = true,
 	globalStylesCss,
 	allowedTabs,
 	layerControlLabel,
@@ -287,7 +287,7 @@ export default function BackgroundControl({
 			currentView={currentView}
 			hasViewControls={true}
 		>
-			{!forPresetControl && (
+			{hasPresetControl && (
 				<BackgroundPresetControl
 					label={presetControlLabel || __('Background Presets', 'kadence-blocks')}
 					type={'background'}

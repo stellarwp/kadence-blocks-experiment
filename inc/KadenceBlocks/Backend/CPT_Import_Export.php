@@ -1,17 +1,26 @@
 <?php
-
 /**
- * Class Kadence_Blocks_Import_Export
+ * Class CPT_Import_Export
  *
  * Creates a zip file for Kadence Custom Post Types.
  * Will include all related sub custom post types and post meta.
+ * 
+ * @package KadenceWP\KadenceBlocks\Backend
  */
+
+namespace KadenceWP\KadenceBlocks\Backend;
+
+use Exception;
+use ZipArchive;
 
 if (!defined('ABSPATH')) {
 	exit;
 }
 
-class Kadence_Blocks_Cpt_Import_Export
+/**
+ * Handles import/export functionality for custom post types.
+ */
+class CPT_Import_Export
 {
 	/**
 	 * Post type slug

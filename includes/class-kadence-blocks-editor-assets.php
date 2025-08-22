@@ -330,6 +330,7 @@ class Editor_Assets {
 				'site_name'              => sanitize_title( get_bloginfo( 'name' ) ),
 				'pSlug'                  => apply_filters( 'kadence-blocks-auth-slug', 'kadence-blocks' ),
 				'pVersion'               => KADENCE_BLOCKS_VERSION,
+				'v3Enabled'              => KADENCE_BLOCKS_V3_ENABLED,
 				'sidebar_size'           => $sidebar_size,
 				'nosidebar_size'         => $nosidebar_size,
 				'default_size'           => $jssize,
@@ -416,7 +417,7 @@ class Editor_Assets {
 			'kadence-blocks-js',
 			'kadence_blocks_params_kbcustomicons',
 			[
-				'icons' => file_exists( $icons_kbcustom_path ) ? include $icons_kbcustom_path : [],
+				'icons' => isset( $icons_kbcustom_path ) && file_exists( $icons_kbcustom_path ) ? include $icons_kbcustom_path : [],
 			]
 		);
 		$fast_load_patterns = class_exists( 'GFForms' ) ? false : true;

@@ -58,7 +58,6 @@ export default function RadioButtonControl({
 	let inheritedValue = inherited
 		? inherited
 		: getInheritedDeviceValue(attributeName, attributes, previewDevice, meta, type, globalStylesIds);
-
 	// If type ends with "Hover" and no inherited value found, check the non-hover type
 	if (type && type.endsWith('Hover') && (!inheritedValue || !inheritedValue.inheritedValue)) {
 		const normalType = type.replace(/Hover$/, '');

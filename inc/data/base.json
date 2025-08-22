@@ -496,21 +496,27 @@
 					"attributes": {
 						"color": {
 							"desktop": {
-								"color": "palette9"
+								"color": "#ffffff",
+								"colorHover": "#ffffff"
 							}
 						},
 						"backgroundColor": {
 							"desktop": {
-								"color": "palette1"
+								"color": "palette1",
+								"colorHover": "palette2"
 							}
 						},
 						"border": {
 							"desktop": {
 								"borderRadius": ["md", "md", "md", "md"],
-								"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-								"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-								"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-								"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)"
+								"borderTop": "1px solid var(--kbs-colors-palette1)",
+								"borderLeft": "1px solid var(--kbs-colors-palette1)",
+								"borderRight": "1px solid var(--kbs-colors-palette1)",
+								"borderBottom": "1px solid var(--kbs-colors-palette1)",
+								"borderTopHover": "1px solid var(--kbs-colors-palette2)",
+								"borderLeftHover": "1px solid var(--kbs-colors-palette2)",
+								"borderRightHover": "1px solid var(--kbs-colors-palette2)",
+								"borderBottomHover": "1px solid var(--kbs-colors-palette2)"
 							}
 						},
 						"padding": {
@@ -519,6 +525,11 @@
 								"paddingRight": "sm",
 								"paddingBottom": "xs",
 								"paddingLeft": "sm"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "base"
 							}
 						}
 					}
@@ -606,26 +617,6 @@
 						}
 					}
 				},
-				"md": {
-					"label": "MD",
-					"description": "A medium button size preset",
-					"locked": true,
-					"attributes": {
-						"padding": {
-							"desktop": {
-								"paddingTop": "xs",
-								"paddingRight": "sm",
-								"paddingBottom": "xs",
-								"paddingLeft": "sm"
-							}
-						},
-						"typography": {
-							"desktop": {
-								"fontSize": "md"
-							}
-						}
-					}
-				},
 				"lg": {
 					"label": "LG",
 					"description": "A large button size preset",
@@ -642,26 +633,6 @@
 						"typography": {
 							"desktop": {
 								"fontSize": "lg"
-							}
-						}
-					}
-				},
-				"xl": {
-					"label": "XL",
-					"description": "An extra large button size preset",
-					"locked": true,
-					"attributes": {
-						"padding": {
-							"desktop": {
-								"paddingTop": "sm",
-								"paddingRight": "md",
-								"paddingBottom": "sm",
-								"paddingLeft": "md"
-							}
-						},
-						"typography": {
-							"desktop": {
-								"fontSize": "xl"
 							}
 						}
 					}
@@ -721,7 +692,7 @@
 	"mappings": {
 		"fontSize": {
 			"sm": { "value": "clamp(0.8rem, 0.7286rem + 0.2286vw, 0.9rem)", "label": "Small", "name": "SM" },
-			"base": { "value": "clamp(1rem, 0.8214rem + 0.5714vw, 1.25rem)", "label": "Base", "name": "Base" },
+			"base": { "value": "clamp(1rem, 0.9071rem + 0.2971vw, 1.13rem)", "label": "Base", "name": "Base" },
 			"md": { "value": "clamp(1.25rem, 1.1429rem + 0.3429vw, 1.4rem)", "label": "Medium", "name": "MD" },
 			"lg": { "value": "clamp(2rem, 1.7143rem + 0.9143vw, 2.4rem)", "label": "Large", "name": "LG" },
 			"xl": { "value": "clamp(3rem, 2.5714rem + 1.3714vw, 3.6rem)", "label": "X Large", "name": "XL" },

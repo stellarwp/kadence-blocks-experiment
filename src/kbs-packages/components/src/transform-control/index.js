@@ -175,7 +175,7 @@ export default function TransformControl(props) {
 			title={label}
 			panelName={panelName}
 			componentName={componentName}
-			initialOpen={true}
+			initialOpen={false}
 			hasHoverControls={hasHoverControls}
 			isHover={isHover}
 			onToggleHover={onToggleHover}

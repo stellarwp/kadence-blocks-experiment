@@ -14,7 +14,6 @@ export default function FlexChildControl({
 	globalStylesIds,
 	customOnChange,
 	forStyleBook,
-	forPresetControl,
 	initialOpen = false,
 }) {
 	const [currentView, setCurrentView] = useState('normal');

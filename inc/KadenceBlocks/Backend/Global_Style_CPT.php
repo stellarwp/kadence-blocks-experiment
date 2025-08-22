@@ -40,9 +40,7 @@ class Global_Style_CPT {
 		// Register the meta settings for from post.
 		add_action( 'init', array( $this, 'register_meta' ), 20 );
 		if ( is_admin() ) {
-			if( class_exists( 'Kadence_Blocks_Cpt_Import_Export' ) ) {
-				new Kadence_Blocks_Cpt_Import_Export( self::SLUG );
-			}
+			new CPT_Import_Export( self::SLUG );
 		}
 	}
 

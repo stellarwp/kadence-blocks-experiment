@@ -32,17 +32,8 @@ import { useState } from '@wordpress/element';
  * Build the section edit.
  */
 export default function InspectorStyles(props) {
-	const {
-		attributes,
-		setAttributes,
-		previewDevice,
-		globalStylesIds,
-		globalStylesCss,
-		hasGradient,
-		hasGradientHighlight,
-		blockElementRef,
-		clientId,
-	} = props;
+	const { attributes, setAttributes, previewDevice, globalStylesIds, globalStylesCss, blockElementRef, clientId } =
+		props;
 	const [isHover, setIsHover] = useState(false);
 
 	return (
@@ -70,31 +61,21 @@ export default function InspectorStyles(props) {
 								previewDevice={previewDevice}
 								attributeName={'color'}
 								globalStylesIds={globalStylesIds}
+								hasGradient={false}
+								hasMix={true}
+							/>
+							<ColorControl
+								label={__('Background Color', 'kadence-blocks')}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								meta={metadata}
+								previewDevice={previewDevice}
+								attributeName={'backgroundColor'}
+								type={'color'}
+								globalStylesIds={globalStylesIds}
 								hasGradient={true}
 								hasMix={true}
 							/>
-							{!hasGradient && (
-								<ColorControl
-									label={__('Background Color', 'kadence-blocks')}
-									attributes={attributes}
-									setAttributes={setAttributes}
-									meta={metadata}
-									previewDevice={previewDevice}
-									attributeName={'backgroundColor'}
-									type={'color'}
-									globalStylesIds={globalStylesIds}
-									hasGradient={true}
-									hasMix={true}
-								/>
-							)}
-							{hasGradient && (
-								<Notice>
-									{__(
-										'Background color will be ignored while a gradient color is applied.',
-										'kadence-blocks'
-									)}
-								</Notice>
-							)}
 							<BorderControl
 								attributes={attributes}
 								attributeName={'border'}
@@ -131,31 +112,21 @@ export default function InspectorStyles(props) {
 								attributeName={'color'}
 								type={'colorHover'}
 								globalStylesIds={globalStylesIds}
+								hasGradient={false}
+								hasMix={true}
+							/>
+							<ColorControl
+								label={__('Background Color', 'kadence-blocks')}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								meta={metadata}
+								previewDevice={previewDevice}
+								attributeName={'backgroundColor'}
+								type={'colorHover'}
+								globalStylesIds={globalStylesIds}
 								hasGradient={true}
 								hasMix={true}
 							/>
-							{!hasGradient && (
-								<ColorControl
-									label={__('Background Color', 'kadence-blocks')}
-									attributes={attributes}
-									setAttributes={setAttributes}
-									meta={metadata}
-									previewDevice={previewDevice}
-									attributeName={'backgroundColor'}
-									type={'colorHover'}
-									globalStylesIds={globalStylesIds}
-									hasGradient={true}
-									hasMix={true}
-								/>
-							)}
-							{hasGradient && (
-								<Notice>
-									{__(
-										'Background color will be ignored while a gradient color is applied.',
-										'kadence-blocks'
-									)}
-								</Notice>
-							)}
 							<BorderControl
 								attributes={attributes}
 								attributeName={'border'}
@@ -200,32 +171,6 @@ export default function InspectorStyles(props) {
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
-				title={__('Text Orientation', 'kadence-blocks')}
-				panelName={'text-orientation'}
-				componentName={'text-orientation-control'}
-				initialOpen={false}
-			>
-				<RadioButtonControl
-					label={__('Text Orientation', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={'textOrientation'}
-					type={'textOrientation'}
-					meta={metadata}
-					previewDevice={previewDevice}
-				/>
-				<RadioButtonControl
-					label={__('Max Height', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={'maxHeight'}
-					radioType={'maxHeight'}
-					type={'maxHeight'}
-					meta={metadata}
-					previewDevice={previewDevice}
-				/>
-			</ToolsPanelBody>
-			<ToolsPanelBody
 				title={__('Icon Settings', 'kadence-blocks')}
 				panelName={'icon-settings'}
 				componentName={'icon-control'}
@@ -255,71 +200,29 @@ export default function InspectorStyles(props) {
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody
-				title={__('Advanced Highlight Settings', 'kadence-blocks')}
-				panelName={'text-advanced-highlight'}
-				componentName={'advanced-highlight-control'}
+				title={__('Text Orientation', 'kadence-blocks')}
+				panelName={'text-orientation'}
+				componentName={'text-orientation-control'}
 				initialOpen={false}
 			>
-				<Typography
-					label={__('HighlightTypography', 'kadence-blocks')}
+				<RadioButtonControl
+					label={__('Text Orientation', 'kadence-blocks')}
 					attributes={attributes}
 					setAttributes={setAttributes}
+					attributeName={'textOrientation'}
+					type={'textOrientation'}
 					meta={metadata}
 					previewDevice={previewDevice}
-					attributeName={'typographyHighlight'}
-					globalStylesIds={globalStylesIds}
 				/>
-				<ColorControl
-					label={__('Highlight Color', 'kadence-blocks')}
+				<RadioButtonControl
+					label={__('Max Height', 'kadence-blocks')}
 					attributes={attributes}
 					setAttributes={setAttributes}
+					attributeName={'maxHeight'}
+					radioType={'maxHeight'}
+					type={'maxHeight'}
 					meta={metadata}
 					previewDevice={previewDevice}
-					attributeName={'colorHighlight'}
-					globalStylesIds={globalStylesIds}
-					hasGradient={true}
-					hasMix={true}
-				/>
-				{!hasGradientHighlight && (
-					<ColorControl
-						label={__('Highlight Background Color', 'kadence-blocks')}
-						attributes={attributes}
-						setAttributes={setAttributes}
-						meta={metadata}
-						previewDevice={previewDevice}
-						attributeName={'backgroundColorHighlight'}
-						globalStylesIds={globalStylesIds}
-						hasGradient={true}
-						hasMix={true}
-					/>
-				)}
-				{hasGradientHighlight && (
-					<Notice>
-						{__('Background color will be ignored while a gradient color is applied.', 'kadence-blocks')}
-					</Notice>
-				)}
-				<BorderControl
-					attributes={attributes}
-					attributeName={'borderHighlight'}
-					setAttributes={setAttributes}
-					previewDevice={previewDevice}
-					meta={metadata}
-					globalStylesIds={globalStylesIds}
-					labelBorderRadius={__('Highlight Border Radius', 'kadence-blocks')}
-					label={__('Highlight Border', 'kadence-blocks')}
-					hasPresetControl={true}
-				/>
-
-				<SpaceControl
-					label={__('Highlight Padding', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={'paddingHighlight'}
-					type={'padding'}
-					previewDevice={previewDevice}
-					hasPresetControl={false}
-					metaData={metadata}
-					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>
 		</>

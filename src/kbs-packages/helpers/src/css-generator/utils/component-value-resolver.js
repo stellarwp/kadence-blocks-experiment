@@ -253,7 +253,8 @@ function getParentDeviceValue(attributeName, attributes, device, key) {
 		desktop: [],
 	};
 
-	const parentDevices = deviceHierarchy[device] || [];
+	const deviceKey = String(device || 'desktop').toLowerCase();
+	const parentDevices = deviceHierarchy[deviceKey] || [];
 
 	// First check for individual key values in parent devices
 	for (const parentDevice of parentDevices) {
@@ -311,8 +312,9 @@ function getInitialValue(attributeName, device, metadata, key) {
 	const initial = metadata.attributes[attributeName].initial;
 
 	// Check device-specific initial value
-	if (initial[device]?.[key] !== undefined) {
-		return initial[device][key];
+	const deviceKey = String(device || 'desktop').toLowerCase();
+	if (initial[deviceKey]?.[key] !== undefined) {
+		return initial[deviceKey][key];
 	}
 
 	// Check non-responsive initial value

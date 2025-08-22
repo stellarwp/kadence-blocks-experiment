@@ -195,6 +195,15 @@ const actions = {
 			presetAttrs,
 		};
 	},
+	*setStyleBookComponentBundledPresetAttributesByStyleId(styleId, componentId, presetId, presetAttrs) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_BUNDLED_PRESET_ATTRIBUTES_BY_STYLE_ID',
+			styleId,
+			componentId,
+			presetId,
+			presetAttrs,
+		};
+	},
 	*setStyleBookComponentMappingsByStyleId(styleId, componentId, mappings) {
 		return {
 			type: 'SET_STYLE_BOOK_COMPONENT_MAPPINGS_BY_STYLE_ID',
@@ -318,6 +327,7 @@ const actions = {
 				if (result?.data?.postID) {
 					styleBookLocalGlobalStyles[currentGlobalStyleId].postId = result.data.postID;
 				}
+				console.log('styleBookLocalGlobalStyles', styleBookLocalGlobalStyles);
 				yield actions.setGlobalStyles(styleBookLocalGlobalStyles);
 				const globalPresets = yield actions.getGlobalPresets(styleBookLocalGlobalStyles);
 				yield actions.setGlobalPresets(globalPresets);
@@ -534,6 +544,56 @@ const store = createReduxStore('kadenceblocks/global-styles', {
 						presetObjectToSet2,
 					]),
 					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, presetObjectToSet2]),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_BUNDLED_PRESET_ATTRIBUTES_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.presetId,
+				// action.presetAttrs,
+				const presetBundledVal = {
+					attributes: action.presetAttrs,
+				};
+
+				const presetBundledObjectToSet = {
+					[action.styleId]: {
+						components: {
+							[action.componentId]: {
+								presets: {
+									[action.presetId]: presetBundledVal,
+								},
+							},
+						},
+					},
+				};
+				// // In order to allow resets to work we have to clear the state.styleBookLocalGlobalStylesChanges.styleID.components.componentID.presets.presetID
+				const styleBookLocalGlobalStylesChanges = state.styleBookLocalGlobalStylesChanges;
+				if (
+					styleBookLocalGlobalStylesChanges?.[action.styleId]?.components?.[action.componentId]?.presets?.[
+						action.presetId
+					]?.attributes
+				) {
+					delete styleBookLocalGlobalStylesChanges[action.styleId].components[action.componentId].presets[
+						action.presetId
+					].attributes;
+				}
+				// // In order to allow resets to work we have to clear the state.styleBookLocalGlobalStylesChanges.styleID.components.componentID.presets.presetID
+				const styleBookLocalGlobalStyles = state.styleBookLocalGlobalStyles;
+				if (
+					styleBookLocalGlobalStyles?.[action.styleId]?.components?.[action.componentId]?.presets?.[
+						action.presetId
+					]?.attributes
+				) {
+					delete styleBookLocalGlobalStyles[action.styleId].components[action.componentId].presets[
+						action.presetId
+					].attributes;
+				}
+				return {
+					...state,
+					styleBookLocalGlobalStylesChanges: deepMerge([
+						styleBookLocalGlobalStylesChanges,
+						presetBundledObjectToSet,
+					]),
+					styleBookLocalGlobalStyles: deepMerge([styleBookLocalGlobalStyles, presetBundledObjectToSet]),
 				};
 			case 'SET_STYLE_BOOK_COMPONENT_MAPPINGS_BY_STYLE_ID':
 				// action.styleId,
