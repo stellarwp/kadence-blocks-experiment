@@ -1380,7 +1380,12 @@ class CSS_Engine {
 		if ( ! empty( $component_type ) && isset( $this->generators[ $component_type ] ) ) {
 			// Prepare metadata in the expected format
 			$metadata = array();
-			if ( $block_instance && isset( $block_instance->block_type ) ) {
+			if ( isset( $block_instance->attributes ) ) {
+				$metadata['attributes'] = $block_instance->attributes;
+				if ( isset( $block_instance->name ) ) {
+					$metadata['name'] = $block_instance->name;
+				}
+			} else if ( $block_instance && isset( $block_instance->block_type ) ) {
 				// Convert WP_Block_Type object to array format
 				if ( isset( $block_instance->block_type->attributes ) ) {
 					$metadata['attributes'] = $block_instance->block_type->attributes;
@@ -1425,7 +1430,6 @@ class CSS_Engine {
 					$component_type,
 					$this
 				);
-				
 				// Only generate CSS if there are resolved values for this device
 				if ( ! empty( $resolved_values ) ) {
 					// Check if this is a hover attribute and use state handling
