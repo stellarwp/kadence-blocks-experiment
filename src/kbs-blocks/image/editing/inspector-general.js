@@ -58,12 +58,12 @@ export default function InspectorGeneral(props) {
 		'objectPosition',
 		globalStylesIds
 	);
-	const useRatioAnyResolvedValue = getResolvedValue(
-		'useRatio',
+	const aspectRatioAnyResolvedValue = getResolvedValue(
+		'aspectRatio',
 		attributes,
 		'any',
 		metadata,
-		'useRatio',
+		'aspectRatio',
 		globalStylesIds
 	);
 	const altDynamicAnyResolvedValue = getResolvedValue(
@@ -105,63 +105,58 @@ export default function InspectorGeneral(props) {
 					hasSizeControls={true}
 					hasClearControls={false}
 				/>
-				<ToggleControl
-					label={__('Use fixed ratio instead of image ratio', 'kadence-blocks')}
-					titleBar={false}
-					attributeName={'useRatio'}
+				<SelectBasicControl
+					label={__('Aspect Ratio', 'kadence-blocks')}
+					attributeName={'aspectRatio'}
 					attributes={attributes}
 					setAttributes={setAttributes}
 					meta={metadata}
-					type={'useRatio'}
+					type={'aspectRatio'}
+					options={[
+						{
+							label: __('Default', 'kadence-blocks'),
+							value: '',
+						},
+						{
+							label: __('Landscape 4:3', 'kadence-blocks'),
+							value: '4/3',
+						},
+						{
+							label: __('Landscape 3:2', 'kadence-blocks'),
+							value: '3/2',
+						},
+						{
+							label: __('Landscape 16:9', 'kadence-blocks'),
+							value: '16/9',
+						},
+						{
+							label: __('Landscape 2:1', 'kadence-blocks'),
+							value: '2/1',
+						},
+						{
+							label: __('Landscape 3:1', 'kadence-blocks'),
+							value: '3/1',
+						},
+						{
+							label: __('Landscape 4:1', 'kadence-blocks'),
+							value: '4/1',
+						},
+						{
+							label: __('Portrait 3:4', 'kadence-blocks'),
+							value: '3/4',
+						},
+						{
+							label: __('Portrait 2:3', 'kadence-blocks'),
+							value: '2/3',
+						},
+						{
+							label: __('Square 1:1', 'kadence-blocks'),
+							value: '1/1',
+						},
+					]}
 				/>
-				{useRatioAnyResolvedValue.appliedValue && (
+				{aspectRatioAnyResolvedValue.appliedValue && (
 					<>
-						<SelectBasicControl
-							label={__('Size Ratio', 'kadence-blocks')}
-							attributeName={'ratio'}
-							attributes={attributes}
-							setAttributes={setAttributes}
-							meta={metadata}
-							type={'ratio'}
-							options={[
-								{
-									label: __('Landscape 4:3', 'kadence-blocks'),
-									value: 'land43',
-								},
-								{
-									label: __('Landscape 3:2', 'kadence-blocks'),
-									value: 'land32',
-								},
-								{
-									label: __('Landscape 16:9', 'kadence-blocks'),
-									value: 'land169',
-								},
-								{
-									label: __('Landscape 2:1', 'kadence-blocks'),
-									value: 'land21',
-								},
-								{
-									label: __('Landscape 3:1', 'kadence-blocks'),
-									value: 'land31',
-								},
-								{
-									label: __('Landscape 4:1', 'kadence-blocks'),
-									value: 'land41',
-								},
-								{
-									label: __('Portrait 3:4', 'kadence-blocks'),
-									value: 'port34',
-								},
-								{
-									label: __('Portrait 2:3', 'kadence-blocks'),
-									value: 'port23',
-								},
-								{
-									label: __('Square 1:1', 'kadence-blocks'),
-									value: 'square',
-								},
-							]}
-						/>
 						<FocalPointPicker
 							className="kbs-focal-point-picker kbs-image-control__focal-point-picker"
 							url={imageResolvedValue?.appliedValue}

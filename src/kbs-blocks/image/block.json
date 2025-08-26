@@ -37,16 +37,6 @@
 			"varPrefix": "--kbs-cont-",
 			"selectorSuffix": "%selector%"
 		},
-		"foreground": {
-			"renderCSS": true,
-			"component": "background",
-			"nonInheritable": true,
-			"type": "object",
-			"varPrefix": "--kbs-cont-",
-			"classPrefix": "kbs-cont-bg-",
-			"hasLayers": true,
-			"selectorSuffix": " .kbs-image-foreground"
-		},
 		"boxShadow": {
 			"renderCSS": true,
 			"component": "boxShadow",
@@ -62,7 +52,8 @@
 			"nonInheritable": true,
 			"type": "object",
 			"varPrefix": "--kbs-cont-",
-			"classPrefix": "kbs-cont-border-"
+			"classPrefix": "kbs-cont-border-",
+			"selectorSuffix": " .kbs-image-img"
 		},
 		"variant": {
 			"renderCSS": false,
@@ -123,6 +114,13 @@
 			"nonInheritable": true,
 			"type": "object"
 		},
+		"mask": {
+			"renderCSS": true,
+			"component": "mask",
+			"nonInheritable": true,
+			"type": "object",
+			"selectorSuffix": " .kbs-image-img"
+		},
 		"objectPosition": {
 			"renderCSS": true,
 			"component": "objectPosition",
@@ -132,18 +130,14 @@
 			"classPrefix": "kbs-image-",
 			"selectorSuffix": " .kbs-image-img"
 		},
-		"useRatio": {
-			"renderCSS": false,
-			"nonInheritable": true,
-			"type": "object"
-		},
-		"ratio": {
-			"renderCSS": false,
-			"component": "ratio",
+		"aspectRatio": {
+			"renderCSS": true,
+			"component": "aspectRatio",
 			"nonInheritable": true,
 			"type": "object",
 			"varPrefix": "--kbs-image-",
-			"classPrefix": "kbs-image-"
+			"classPrefix": "kbs-image-",
+			"selectorSuffix": " .kbs-image-img"
 		},
 		"maxWidth": {
 			"renderCSS": true,

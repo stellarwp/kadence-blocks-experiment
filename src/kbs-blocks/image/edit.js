@@ -70,17 +70,17 @@ export default function ImageEdit(props) {
 
 	const imageResolvedValue = getResolvedValue('image', attributes, 'none', metadata, 'image', globalStylesIds);
 	const imageIdResolvedValue = getResolvedValue('image', attributes, 'none', metadata, 'imageId', globalStylesIds);
-	const useRatioAnyResolvedValue = getResolvedValue(
-		'useRatio',
+	const aspectRatioAnyResolvedValue = getResolvedValue(
+		'aspectRatio',
 		attributes,
 		'any',
 		metadata,
-		'useRatio',
+		'aspectRatio',
 		globalStylesIds
 	);
 	const ratioAnyResolvedValue = getResolvedValue('ratio', attributes, 'any', metadata, 'ratio', globalStylesIds);
 	const hasImage = imageResolvedValue?.appliedValue;
-	const hasRatio = useRatioAnyResolvedValue?.appliedValue;
+	const hasRatio = aspectRatioAnyResolvedValue?.appliedValue;
 
 	const globalStylesCss = getGlobalStylesCSSOutput(globalStylesIds);
 	const globalClasses = useMemo(() => {
@@ -143,21 +143,7 @@ export default function ImageEdit(props) {
 					/>
 				</div>
 			)}
-			{hasImage && (
-				<figure {...blockProps}>
-					<div className="kbs-image-foreground">
-						<BackgroundStyles
-							previewDevice={previewDevice}
-							meta={metadata}
-							globalStylesIds={globalStylesIds}
-							backgroundAttribute="foreground"
-							{...props}
-						/>
-					</div>
-					{(hasRatio || useOverlay) && <div className={wrapperClasses}>{imgHTML}</div>}
-					{!hasRatio && !useOverlay && { imgHTML }}
-				</figure>
-			)}
+			{hasImage && <figure {...blockProps}>{imgHTML}</figure>}
 		</GlobalStylesContext.Provider>
 	);
 }

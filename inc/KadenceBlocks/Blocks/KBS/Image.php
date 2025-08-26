@@ -80,30 +80,15 @@ class Image extends Abstract_Block {
 		$title_any_value = self::get_resolved_value( 'title', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'title' ), 'title', [] );
 		$dynamic_alt_any_value = self::get_resolved_value( 'alt', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'alt' ), 'dynamicAlt', [] );
 		$has_dynamic_alt = ! empty( $dynamic_alt_any_value['appliedValue'] ) ? true : false;
-		$use_ratio_any_value = self::get_resolved_value( 'useRatio', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'useRatio' ), 'useRatio', [] );
-		$has_ratio = ! empty( $use_ratio_any_value['appliedValue'] ) ? true : false;
-		$ratio_any_value = self::get_resolved_value( 'ratio', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'ratio' ), 'ratio', [] );
-		$ratio_value = $ratio_any_value['appliedValue'] ? : 'land43';
+		$aspect_ratio_any_value = self::get_resolved_value( 'aspectRatio', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'aspectRatio' ), 'aspectRatio', [] );
+		$has_ratio = ! empty( $aspect_ratio_any_value['appliedValue'] ) ? true : false;
 		$link_value = self::get_resolved_value( 'link', $attributes, 'none', $this->get_attribute_meta( $block_instance, 'link' ), 'url', [] );
 		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
 
 		// Image wrapper attributes.
-		$img_wrapper_classes = [
-			'kbs-image-wrapper',
-		];
 		if ( $has_ratio ) {
 			$classes[] = 'kbs-image-has-ratio';
-			$img_wrapper_classes[] = 'kbs-image-ratio-' . $ratio_value;
 		}
-		if ( $has_overlay ) {
-			$img_wrapper_classes[] = 'kbs-image-has-overlay';
-		}
-
-		$img_wrapper_args = [
-			'class' => implode( ' ', $img_wrapper_classes ),
-		];
-
-		$img_wrapper_attributes = self::get_wrapper_attributes( $img_wrapper_args );
 
 		// Image attributes.
 		$alt = $alt_any_value['appliedValue'] ? : '';
@@ -133,18 +118,16 @@ class Image extends Abstract_Block {
 		$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 
 		// html output.
-		$content = $has_ratio || $has_overlay ? '<div ' . $img_wrapper_attributes . '>' : '';
 		$img_content = '<img ' . $img_attributes . ' />';
 		if ( $has_link ) {
 			$img_content = self::get_link_html( $attributes['link'], $img_content );
 		}
 		$content .= $img_content;
-		$content .= $has_ratio || $has_overlay ? '</div>' : '';
 
-		$bg_html = $this->get_background_html( 'foreground', $attributes, $block_instance );
+		// $bg_html = $this->get_background_html( 'foreground', $attributes, $block_instance );
 
 		if ( $has_image ) {
-			return sprintf( '<figure %1$s><div class="kbs-image-foreground">%3$s</div>%2$s</figure>', $wrapper_attributes, $content, $bg_html );
+			return sprintf( '<figure %1$s>%2$s</figure>', $wrapper_attributes, $content );
 		}
 
 		return '';

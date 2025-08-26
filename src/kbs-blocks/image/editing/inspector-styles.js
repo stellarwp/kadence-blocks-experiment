@@ -19,12 +19,13 @@ import {
 	BackgroundControl,
 	LayeredShadowControl,
 	BorderControl,
+	ImageControl,
+	SelectBasicControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
  */
-import { getPreviewValue } from '@kadence/kbsHelpers';
-import { KadencePanelBody } from '@kadence/components';
+import { getResolvedValue } from '@kadence/kbsHelpers';
 
 import metadata from '../block.json';
 /**
@@ -47,21 +48,10 @@ export default function InspectorStyles(props) {
 		globalStylesIds,
 		globalStylesCss,
 	} = props;
+	const maskShapeAnyResolvedValue = getResolvedValue('mask', attributes, 'any', metadata, 'shape', globalStylesIds);
+	const maskUrlAnyResolvedValue = getResolvedValue('mask', attributes, 'any', metadata, 'url', globalStylesIds);
 	return (
 		<>
-			<BackgroundControl
-				title={__('Foreground', 'kadence-blocks')}
-				layerControlLabel={__('Foreground', 'kadence-blocks')}
-				presetControlLabel={__('Foreground Presets', 'kadence-blocks')}
-				attributeName={'foreground'}
-				attributes={attributes}
-				setAttributes={setAttributes}
-				metaData={metadata}
-				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
-				globalStylesCss={globalStylesCss}
-				allowedTabs={['gradient', 'backdrop', 'mask', 'color']}
-			/>
 			<ToolsPanelBody
 				title={__('Border Controls', 'kadence-blocks')}
 				panelName={'border-controls'}
@@ -94,6 +84,68 @@ export default function InspectorStyles(props) {
 					globalStylesCss={globalStylesCss}
 					type={'boxShadow'}
 				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody title={__('Mask', 'kadence-blocks')} panelName={'mask-controls'} initialOpen={false}>
+				<SelectBasicControl
+					label={__('Mask Shape', 'kadence-blocks')}
+					attributeName={'mask'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					type={'shape'}
+					options={[
+						{
+							label: __('None', 'kadence-blocks'),
+							value: '',
+						},
+						{
+							label: __('Circle', 'kadence-blocks'),
+							value: 'circle',
+						},
+						{
+							label: __('Diamond', 'kadence-blocks'),
+							value: 'diamond',
+						},
+						{
+							label: __('Hexagon', 'kadence-blocks'),
+							value: 'hexagon',
+						},
+						{
+							label: __('Rounded', 'kadence-blocks'),
+							value: 'rounded',
+						},
+						{
+							label: __('Blob 1', 'kadence-blocks'),
+							value: 'blob1',
+						},
+						{
+							label: __('Blob 2', 'kadence-blocks'),
+							value: 'blob2',
+						},
+						{
+							label: __('Blob 3', 'kadence-blocks'),
+							value: 'blob3',
+						},
+						{
+							label: __('Custom', 'kadence-blocks'),
+							value: 'custom',
+						},
+					]}
+				/>
+				{maskShapeAnyResolvedValue.appliedValue === 'custom' && (
+					<ImageControl
+						label={''}
+						attributes={attributes}
+						attributeName={'mask'}
+						type={'image'}
+						setAttributes={setAttributes}
+						meta={metadata}
+						previewDevice={'Desktop'}
+						globalStylesIds={globalStylesIds}
+						hasSizeControls={false}
+						hasClearControls={false}
+					/>
+				)}
 			</ToolsPanelBody>
 		</>
 	);

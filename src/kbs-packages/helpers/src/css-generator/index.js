@@ -11,6 +11,7 @@ import { BackgroundGenerator } from './components/background-generator';
 import { ShadowGenerator } from './components/shadow-generator';
 import { IconGenerator } from './components/icon-generator';
 import { TextGenerator } from './components/text-generator';
+import { MaskGenerator } from './components/mask-generator';
 
 /**
  * CSS Generator class for building CSS strings
@@ -38,6 +39,7 @@ class CSSGenerator {
 			textAlign: new TextGenerator(this),
 			linkStyle: new TextGenerator(this),
 			textOrientation: new TextGenerator(this),
+			mask: new MaskGenerator(this),
 
 			maxWidth: simpleGenerator,
 			maxHeight: simpleGenerator,

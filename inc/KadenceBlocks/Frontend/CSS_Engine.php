@@ -18,6 +18,7 @@ use KadenceWP\KadenceBlocks\Frontend\Generators\Icon_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Transform_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Transition_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Generators\Text_Generator;
+use KadenceWP\KadenceBlocks\Frontend\Generators\Mask_Generator;
 use KadenceWP\KadenceBlocks\Frontend\Utils\Component_Value_Resolver;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -357,6 +358,7 @@ class CSS_Engine {
 			'textAlign'       => new Text_Generator( $this ),
 			'linkStyle'       => new Text_Generator( $this ),
 			'textOrientation' => new Text_Generator( $this ),
+			'mask'            => new Mask_Generator( $this ),
 			
 			// Simple generators using the single instance
 			'color'           => $simple_generator,

@@ -72,6 +72,7 @@ function getComponentKeys(componentType) {
 		width: ['width'],
 		transition: ['transitionProperty', 'transitionDuration', 'transitionTimingFunction'],
 		transform: ['scale', 'translate', 'rotate', 'skew', 'origin'],
+		mask: ['shape', 'image'],
 	};
 
 	return componentKeysMap[componentType] || [componentType];
