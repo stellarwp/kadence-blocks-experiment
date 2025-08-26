@@ -81,11 +81,11 @@ const sharedEntries = {
 let entries = { ...sharedEntries };
 
 if (BUILD_VERSION === 'v4') {
-	console.log('Building Kadence Blocks v4.0 only...');
+	// console.log('Building Kadence Blocks v4.0 only...');
 	entries = { ...entries, ...v4Entries };
 } else {
 	// Default: build both v3 and v4
-	console.log('Building both Kadence Blocks v3.0 and v4.0...');
+	// console.log('Building both Kadence Blocks v3.0 and v4.0...');
 	entries = { ...entries, ...v3Entries, ...v4Entries };
 }
 
