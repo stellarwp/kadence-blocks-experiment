@@ -78,8 +78,7 @@
 			"varPrefix": "--kbs-text-",
 			"initial": {},
 			"type": "object",
-			"nonInheritable": true,
-			"selectorSuffix": " .kbs-text-content, %selector%.kbs-text-content"
+			"nonInheritable": true
 		},
 		"color": {
 			"renderCSS": true,

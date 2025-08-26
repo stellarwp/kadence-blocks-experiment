@@ -23,6 +23,9 @@
 	border-left: var(--kbs-text-border-left);
 	border-right: var(--kbs-text-border-right);
 	border-bottom: var(--kbs-text-border-bottom);
+	.kbs-text-content {
+		margin:0;
+	}
 
 	a {
 		// text-decoration: var(--kbs-text-link-text-decoration);
@@ -92,6 +95,7 @@
 	}
 
 	.kt-svg-icon-wrap {
+		display: inline-flex;
 		transition:
 			transform 0.3s ease-in-out,
 			width 0.3s ease-in-out,
