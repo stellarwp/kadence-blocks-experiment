@@ -129,8 +129,8 @@ class Abstract_Block {
 	 * @param Font_Engine $font_engine The Font engine instance.
 	 */
 	public function __construct( CSS_Engine $css_engine, Font_Engine $font_engine, Global_Style_Variables $global_style_variables ) {
-		$this->css_engine  = $css_engine;
-		$this->font_engine = $font_engine;
+		$this->css_engine             = $css_engine;
+		$this->font_engine            = $font_engine;
 		$this->global_style_variables = $global_style_variables;
 	}
 
@@ -295,7 +295,7 @@ class Abstract_Block {
 					$block_instance 
 				);
 
-				if ( ! $this->css_engine->has_styles( 'kb-' . $this->block_name . $unique_id ) && apply_filters( 'kadence_blocks_render_head_css', true, $this->block_name, $attributes ) ) {
+				if ( ! $this->css_engine->has_styles( 'kbs-' . $this->block_name . $unique_id ) && apply_filters( 'kadence_blocks_render_head_css', true, $this->block_name, $attributes ) ) {
 					// Filter attributes for easier dynamic css.
 					$attributes = apply_filters( 'kadence_blocks_' . $this->block_name . '_render_block_attributes', $attributes );
 					$this->build_css( $attributes, $this->css_engine, $unique_id, $unique_id, $block_instance );
@@ -350,16 +350,16 @@ class Abstract_Block {
 		$this->global_style_variables->track_global_style_uses( $block_instance );
 
 		// If filter didn't run in header (which would have enqueued the specific css id ) then filter attributes for easier dynamic css.
-		$attributes = apply_filters( 'kadence_blocks_' . str_replace( '-', '_', $this->block_name ) . '_render_block_attributes', $attributes, $block_instance );
+		$attributes      = apply_filters( 'kadence_blocks_' . str_replace( '-', '_', $this->block_name ) . '_render_block_attributes', $attributes, $block_instance );
 		$unique_style_id = apply_filters( 'kadence_blocks_build_render_unique_id', $unique_id, $this->block_name, $attributes );
 
 		$content = $this->build_html( $attributes, $unique_id, $content, $block_instance );
-		if ( ! $this->css_engine->has_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
+		if ( ! $this->css_engine->has_styles( 'kbs-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
 			$css = $this->build_css( $attributes, $this->css_engine, $unique_id, $unique_style_id, $block_instance );
 			if ( ! empty( $css ) && ! wp_is_block_theme() ) {
 				$this->do_inline_styles( $content, $unique_style_id, $css );
 			}
-		} elseif ( ! wp_is_block_theme() && ! $this->css_engine->has_header_styles( 'kb-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
+		} elseif ( ! wp_is_block_theme() && ! $this->css_engine->has_header_styles( 'kbs-' . $this->block_name . $unique_style_id ) && ! is_feed() && apply_filters( 'kadence_blocks_render_inline_css', true, $this->block_name, $unique_id ) ) {
 			// Some plugins run render block without outputing the content, this makes it so css can be rebuilt.
 			$css = $this->build_css( $attributes, $this->css_engine, $unique_id, $unique_style_id, $block_instance );
 			if ( ! empty( $css ) ) {
@@ -375,7 +375,7 @@ class Abstract_Block {
 	 *
 	 * @param array $attributes the blocks attributes.
 	 */
-	private function get_unique_id ( $attributes ) {
+	private function get_unique_id( $attributes ) {
 		if ( in_array( $this->block_name, $this->is_cpt_block ) ) {
 			$unique_id = ! empty( $attributes['id'] ) ? strval( $attributes['id'] ) . '-cpt-id' : '';
 			if ( empty( $unique_id ) ) {
@@ -732,7 +732,7 @@ class Abstract_Block {
 					}
 				}
 				if ( 'mask' === $bg_type ) {
-					$mask_type = ! empty( $layer['desktop']['maskType'] ) ? $layer['desktop']['maskType'] : 'mask';
+					$mask_type        = ! empty( $layer['desktop']['maskType'] ) ? $layer['desktop']['maskType'] : 'mask';
 					$divider_position = ! empty( $layer['desktop']['dividerPosition'] ) ? $layer['desktop']['dividerPosition'] : 'bottom';
 					switch ( $mask_type ) {
 						case 'pattern':
@@ -859,7 +859,7 @@ class Abstract_Block {
 	 * @return string The device value.
 	 */
 	public static function get_device_value( $attribute_name, $attributes, $device, $type = null, $layer_key = null ) {
-		$device_slug = self::get_device_attribute_slug( $device );
+		$device_slug  = self::get_device_attribute_slug( $device );
 		$device_value = '';
 		
 		if ( ! $attribute_name ) {
@@ -892,7 +892,7 @@ class Abstract_Block {
 				$device_options = self::get_responsive_device_options();
 				foreach ( $device_options as $device_option ) {
 					$device_key = $device_option['key'];
-					$value = $attributes[ $attribute_name ][ $device_key ][ $type ] ?? '';
+					$value      = $attributes[ $attribute_name ][ $device_key ][ $type ] ?? '';
 					if ( $value ) {
 						return $value;
 					}
@@ -922,8 +922,8 @@ class Abstract_Block {
 	public static function get_preset_value( $attribute_name, $attributes, $device, $type, $layer_key = null, $global_styles_ids = [], $base_preset_key = null, $meta = null ) {
 		// Determine the preset key to use: either the base key or the one from attributes.
 		$preset_key_to_use = $base_preset_key ?? ( $attributes[ $attribute_name ]['preset'] ?? null );
-		$attribute_meta = $meta['attributes'][ $attribute_name ] ?? [];
-		$component_type = $attribute_meta['component'] ?? $attribute_name;
+		$attribute_meta    = $meta['attributes'][ $attribute_name ] ?? [];
+		$component_type    = $attribute_meta['component'] ?? $attribute_name;
 
 		// If no preset key could be determined, exit early.
 		if ( ! $preset_key_to_use ) {
@@ -953,22 +953,29 @@ class Abstract_Block {
 						if ( isset( $raw_preset_data['attributes'] ) ) {
 							if ( 'none' === $device ) {
 								if ( isset( $raw_preset_data['attributes'][ $type ] ) ) {
-									return [ 'value' => $raw_preset_data['attributes'][ $type ], 'source' => 'preset' ];
+									return [
+										'value'  => $raw_preset_data['attributes'][ $type ],
+										'source' => 'preset',
+									];
+								}
+							} elseif ( null !== $layer_key ) {
+									$attribute_value = $raw_preset_data['attributes']['layers'][ $layer_key ][ strtolower( $device ) ][ $type ] ?? null;
+								if ( $attribute_value !== null && $attribute_value !== '' ) {
+									return [
+										'value'  => $attribute_value,
+										'source' => 'preset',
+									];
 								}
 							} else {
-								if ( null !== $layer_key ) {
-									$attribute_value = isset( $raw_preset_data['attributes']['layers'][ $layer_key ][ strtolower( $device ) ][ $type ] ) ? $raw_preset_data['attributes']['layers'][ $layer_key ][ strtolower( $device ) ][ $type ] : null;
-									if ( $attribute_value !== null && $attribute_value !== '' ) {
-										return [ 'value' => $attribute_value, 'source' => 'preset' ];
-									}
-								} else {
-									// Find the attribute value within the preset data for the specific device and type.
-									$attribute_value = isset( $raw_preset_data['attributes'][ strtolower( $device ) ][ $type ] ) ? $raw_preset_data['attributes'][ strtolower( $device ) ][ $type ] : null;
+								// Find the attribute value within the preset data for the specific device and type.
+								$attribute_value = $raw_preset_data['attributes'][ strtolower( $device ) ][ $type ] ?? null;
 
-									if ( $attribute_value !== null && $attribute_value !== '' ) {
-										// Return the found value and indicate the source as 'preset'.
-										return [ 'value' => $attribute_value, 'source' => 'preset' ];
-									}
+								if ( $attribute_value !== null && $attribute_value !== '' ) {
+									// Return the found value and indicate the source as 'preset'.
+									return [
+										'value'  => $attribute_value,
+										'source' => 'preset',
+									];
 								}
 							}
 						}
@@ -978,24 +985,27 @@ class Abstract_Block {
 		}
 
 		// If no value was found, return null.
-		return [ 'value' => null, 'source' => null ];
+		return [
+			'value'  => null,
+			'source' => null,
+		];
 	}
 
 	/**
 	 * Get the inherited device value for a device, following the inheritance chain.
 	 *
-	 * @param string   $attribute_name The attribute name.
-	 * @param array    $attributes The block attributes.
-	 * @param string   $device The device name.
-	 * @param array    $meta The meta object.
-	 * @param string   $type The type of value to get.
-	 * @param array    $global_styles_ids Array of global style IDs.
+	 * @param string $attribute_name The attribute name.
+	 * @param array  $attributes The block attributes.
+	 * @param string $device The device name.
+	 * @param array  $meta The meta object.
+	 * @param string $type The type of value to get.
+	 * @param array  $global_styles_ids Array of global style IDs.
 	 * @return array An array containing inheritedValue, inheritedSource, and inheritedType.
 	 */
 	public static function get_inherited_device_value( $attribute_name, $attributes, $device, $meta, $type, $global_styles_ids ) {
 		$device_options = self::get_responsive_device_options();
-		$attribute_meta = isset( $meta['attributes'][ $attribute_name ] ) ? $meta['attributes'][ $attribute_name ] : [];
-		$initial_value = isset( $attribute_meta['initial'] ) ? $attribute_meta['initial'] : null;
+		$attribute_meta = $meta['attributes'][ $attribute_name ] ?? [];
+		$initial_value  = $attribute_meta['initial'] ?? null;
 
 		$current_device_index = -1;
 		foreach ( $device_options as $index => $option ) {
@@ -1008,17 +1018,25 @@ class Abstract_Block {
 		// Check if there's a direct value on the block (highest priority).
 		$direct_value = self::get_device_value( $attribute_name, $attributes, $device, $type );
 		if ( $direct_value ) {
-			return [ 'inheritedValue' => $direct_value, 'inheritedSource' => 'direct', 'inheritedType' => 'direct' ];
+			return [
+				'inheritedValue'  => $direct_value,
+				'inheritedSource' => 'direct',
+				'inheritedType'   => 'direct',
+			];
 		}
 
 		// Check direct value from parent device.
 		for ( $i = $current_device_index - 1; $i >= 0; $i-- ) {
-			$parent_device = $device_options[ $i ];
+			$parent_device      = $device_options[ $i ];
 			$parent_device_name = $parent_device['key'] ?? $parent_device['name'] ?? '';
 
 			$parent_value = self::get_device_value( $attribute_name, $attributes, $parent_device_name, $type );
 			if ( $parent_value ) {
-				return [ 'inheritedValue' => $parent_value, 'inheritedSource' => 'parent', 'inheritedType' => 'parent' ];
+				return [
+					'inheritedValue'  => $parent_value,
+					'inheritedSource' => 'parent',
+					'inheritedType'   => 'parent',
+				];
 			}
 		}
 
@@ -1026,26 +1044,26 @@ class Abstract_Block {
 		$preset_result = self::get_preset_value( $attribute_name, $attributes, $device, $type, null, $global_styles_ids, null, $meta );
 		if ( $preset_result['value'] ) {
 			return [
-				'inheritedValue' => $preset_result['value'],
+				'inheritedValue'  => $preset_result['value'],
 				'inheritanceType' => 'preset',
 				'inheritedSource' => $preset_result['source'],
-				'inheritedType' => 'preset',
+				'inheritedType'   => 'preset',
 			];
 		}
 
 		// Check preset value from parent device.
 		for ( $i = $current_device_index - 1; $i >= 0; $i-- ) {
-			$parent_device = $device_options[ $i ];
+			$parent_device      = $device_options[ $i ];
 			$parent_device_name = $parent_device['key'];
 
 			$parent_preset_result = self::get_preset_value( $attribute_name, $attributes, $parent_device_name, $type, null, $global_styles_ids, null, $meta );
 
 			if ( $parent_preset_result['value'] ) {
 				return [
-					'inheritedValue' => $parent_preset_result['value'],
+					'inheritedValue'  => $parent_preset_result['value'],
 					'inheritanceType' => 'preset-parent',
 					'inheritedSource' => $parent_preset_result['source'],
-					'inheritedType' => 'preset',
+					'inheritedType'   => 'preset',
 				];
 			}
 		}
@@ -1054,7 +1072,7 @@ class Abstract_Block {
 			// Check initial values for current and parent devices.
 			for ( $i = $current_device_index; $i >= 0; $i-- ) {
 				$device_option = $device_options[ $i ];
-				$device_key = $device_option['key'] ?? $device_option['name'];
+				$device_key    = $device_option['key'] ?? $device_option['name'];
 				if ( $type ) {
 					$type_parts = explode( ':', $type );
 					if ( count( $type_parts ) === 2 ) {
@@ -1062,50 +1080,52 @@ class Abstract_Block {
 						$item_type = $type_parts[1];
 						if ( isset( $initial_value['layers'][ $index_key ][ $device_key ][ $item_type ] ) ) {
 							return [
-								'inheritedValue' => $initial_value['layers'][ $index_key ][ $device_key ][ $item_type ],
+								'inheritedValue'  => $initial_value['layers'][ $index_key ][ $device_key ][ $item_type ],
 								'inheritedSource' => 'initial',
-								'inheritedType' => 'initial',
+								'inheritedType'   => 'initial',
 							];
 						}
 					}
-				} else {
-					if ( isset( $initial_value['layers'] ) ) {
+				} elseif ( isset( $initial_value['layers'] ) ) {
 						return [
-							'inheritedValue' => $initial_value['layers'],
+							'inheritedValue'  => $initial_value['layers'],
 							'inheritedSource' => 'initial',
-							'inheritedType' => 'initial',
+							'inheritedType'   => 'initial',
 						];
-					}
 				}
 			}
 		} else {
 			// Check initial values for current and parent devices.
 			for ( $i = $current_device_index; $i >= 0; $i-- ) {
 				$device_option = $device_options[ $i ];
-				$device_key = $device_option['key'] ?? $device_option['name'];
+				$device_key    = $device_option['key'] ?? $device_option['name'];
 				if ( isset( $initial_value[ $device_key ][ $type ] ) ) {
 					return [
-						'inheritedValue' => $initial_value[ $device_key ][ $type ],
+						'inheritedValue'  => $initial_value[ $device_key ][ $type ],
 						'inheritedSource' => 'initial',
-						'inheritedType' => 'initial',
+						'inheritedType'   => 'initial',
 					];
 				}
 			}
 		}
 
 		// Return empty values if nothing found.
-		return [ 'inheritedValue' => '', 'inheritedSource' => 'none', 'inheritedType' => 'none' ];
+		return [
+			'inheritedValue'  => '',
+			'inheritedSource' => 'none',
+			'inheritedType'   => 'none',
+		];
 	}
 
 	/**
 	 * Resolves both the direct device-specific value and the inherited value for an attribute.
 	 *
-	 * @param string   $attribute_name The name of the attribute.
-	 * @param array    $attributes The block's attributes.
-	 * @param string   $device The current preview device ('desktop', 'tablet', 'mobile').
-	 * @param array    $meta The block's metadata.
-	 * @param string   $type The attribute type (e.g., 'fontFamily', 'integer').
-	 * @param array    $global_styles_ids Array of global style IDs.
+	 * @param string $attribute_name The name of the attribute.
+	 * @param array  $attributes The block's attributes.
+	 * @param string $device The current preview device ('desktop', 'tablet', 'mobile').
+	 * @param array  $meta The block's metadata.
+	 * @param string $type The attribute type (e.g., 'fontFamily', 'integer').
+	 * @param array  $global_styles_ids Array of global style IDs.
 	 * @return array An object containing directValue, inheritedValue, inheritedSource, isInherited, and appliedValue.
 	 */
 	public static function get_resolved_value( $attribute_name, $attributes, $device, $meta, $type, $global_styles_ids ) {
@@ -1114,18 +1134,18 @@ class Abstract_Block {
 
 		// Get the inherited value and its source.
 		$inherited_result = self::get_inherited_device_value( $attribute_name, $attributes, $device, $meta, $type, $global_styles_ids );
-		$inherited_value = $inherited_result['inheritedValue'];
+		$inherited_value  = $inherited_result['inheritedValue'];
 		$inherited_source = $inherited_result['inheritedSource'];
-		$inherited_type = $inherited_result['inheritedType'];
-		$is_inherited = $direct_value === '';
+		$inherited_type   = $inherited_result['inheritedType'];
+		$is_inherited     = $direct_value === '';
 
 		return [
-			'directValue' => $direct_value, // The value set directly for the current device.
-			'inheritedValue' => $inherited_value, // The value inherited from a parent device.
+			'directValue'     => $direct_value, // The value set directly for the current device.
+			'inheritedValue'  => $inherited_value, // The value inherited from a parent device.
 			'inheritedSource' => $inherited_source, // The name of the source (base styles, dark mode global style, etc.).
-			'inheritedType' => $inherited_type, // The type of inheritance ('direct', 'parent', 'preset').
-			'isInherited' => $is_inherited, // Whether the current value is inherited.
-			'appliedValue' => $is_inherited ? $inherited_value : $direct_value, // The value to be applied to the element.
+			'inheritedType'   => $inherited_type, // The type of inheritance ('direct', 'parent', 'preset').
+			'isInherited'     => $is_inherited, // Whether the current value is inherited.
+			'appliedValue'    => $is_inherited ? $inherited_value : $direct_value, // The value to be applied to the element.
 		];
 	}
 
@@ -1196,7 +1216,7 @@ class Abstract_Block {
 		$rel = '';
 		if ( ! empty( $link['linkTarget'] ) ) {
 			$link['target'] = '_blank';
-			$rel .= 'noreferrer noopener';
+			$rel           .= 'noreferrer noopener';
 		}
 		if ( ! empty( $link['linkNoFollow'] ) ) {
 			if ( ! empty( $rel ) ) {
