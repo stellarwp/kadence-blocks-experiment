@@ -81,33 +81,10 @@ export class MaskGenerator extends BaseComponentGenerator {
 			return null;
 		}
 
-		// Construct the URL to the mask image
-		// The path should be relative to the plugin's assets directory
-		const maskImageUrl = `url("${this.getMaskImageUrl(maskImageFile)}")`;
+		// Create the mask image URL directly
+		const maskImageUrl = `${window.kbs_params.svgMaskPath}/${maskImageFile}`;
 
-		return maskImageUrl;
-	}
-
-	/**
-	 * Get the URL for a mask image file
-	 * @param {string} maskImageFile - The mask image filename
-	 * @returns {string} - The URL to the mask image
-	 */
-	getMaskImageUrl(maskImageFile) {
-		// Construct the path to the mask image in the assets directory
-		// This assumes the plugin's assets are accessible via a URL path
-		const pluginUrl = this.getPluginUrl();
-		return `${pluginUrl}/src/assets/images/masks/${maskImageFile}`;
-	}
-
-	/**
-	 * Get the plugin URL for constructing asset paths
-	 * @returns {string} - The plugin URL
-	 */
-	getPluginUrl() {
-		// This should be provided by the main CSS generator or passed as metadata
-		// For now, we'll use a fallback that can be overridden
-		return this.metadata?.pluginUrl || '/wp-content/plugins/kadence-blocks-experiment';
+		return `url("${maskImageUrl}")`;
 	}
 
 	/**

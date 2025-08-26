@@ -106,33 +106,10 @@ class Mask_Generator extends Base_Generator {
 			return null;
 		}
 		
-		// Construct the URL to the mask image
-		$mask_image_url = $this->get_mask_image_url( $mask_image_file );
+		// Create the mask image URL directly
+		$mask_image_url = KADENCE_BLOCKS_URL . '/includes/assets/images/masks/' . $mask_image_file;
 		
 		return 'url("' . esc_url( $mask_image_url ) . '")';
-	}
-	
-	/**
-	 * Get the URL for a mask image file
-	 *
-	 * @param string $mask_image_file The mask image filename.
-	 * @return string The URL to the mask image.
-	 */
-	protected function get_mask_image_url( $mask_image_file ) {
-		// Construct the path to the mask image in the assets directory
-		$plugin_url = $this->get_plugin_url();
-		return $plugin_url . '/src/assets/images/masks/' . $mask_image_file;
-	}
-	
-	/**
-	 * Get the plugin URL for constructing asset paths
-	 *
-	 * @return string The plugin URL.
-	 */
-	protected function get_plugin_url() {
-		// This should be provided by the main CSS generator or passed as metadata
-		// For now, we'll use a fallback that can be overridden
-		return defined( 'KBS_URL' ) ? KBS_URL : '/wp-content/plugins/kadence-blocks-experiment';
 	}
 	
 	/**
