@@ -191,18 +191,19 @@ class Component_Value_Resolver {
 			);
 		}
 		
+		// We don't need parent values on the frontend. Standard CSS inheritance handles this.
 		// Priority 2: Parent device value (responsive inheritance)
-		if ( $device !== 'desktop' ) {
-			$parent_value = self::get_parent_device_value( $attribute_name, $attributes, $device, $key );
-			if ( $parent_value !== null ) {
-				return array(
-					'value'     => $parent_value,
-					'source'    => 'parent',
-					'inherited' => true,
-					'inheritedType' => 'responsive',
-				);
-			}
-		}
+		// if ( $device !== 'desktop' ) {
+		// 	$parent_value = self::get_parent_device_value( $attribute_name, $attributes, $device, $key );
+		// 	if ( $parent_value !== null ) {
+		// 		return array(
+		// 			'value'     => $parent_value,
+		// 			'source'    => 'parent',
+		// 			'inherited' => true,
+		// 			'inheritedType' => 'responsive',
+		// 		);
+		// 	}
+		// }
 		
         // Priority 3: Preset value
         $preset_value = self::get_preset_value( $attribute_name, $attributes, $device, $metadata, $key, $global_styles_ids, $css_engine );
@@ -383,16 +384,17 @@ class Component_Value_Resolver {
 				return $preset_value;
 			}
 			
+			// We don't need parent values on the frontend. Standard CSS inheritance handles this.
 			// Then check parent devices for preset
-			if ( $device !== 'desktop' ) {
-				$device_hierarchy = self::get_device_hierarchy( $device );
-				foreach ( $device_hierarchy as $parent_device ) {
-					$preset_parent_value = self::get_device_value( '', $preset_data['attributes'], $parent_device, $key );
-					if ( $preset_parent_value !== null ) {
-						return $preset_parent_value;
-					}
-				}
-			}
+			// if ( $device !== 'desktop' ) {
+			// 	$device_hierarchy = self::get_device_hierarchy( $device );
+			// 	foreach ( $device_hierarchy as $parent_device ) {
+			// 		$preset_parent_value = self::get_device_value( '', $preset_data['attributes'], $parent_device, $key );
+			// 		if ( $preset_parent_value !== null ) {
+			// 			return $preset_parent_value;
+			// 		}
+			// 	}
+			// }
 		}
 		
 		return null;
@@ -462,28 +464,29 @@ class Component_Value_Resolver {
 								return $corner_value;
 							}
 						}
+						// We don't need parent values on the frontend. Standard CSS inheritance handles this.
 						// Then check parent devices
-						if ( $device !== 'desktop' ) {
-							$device_hierarchy = self::get_device_hierarchy( $device );
-							foreach ( $device_hierarchy as $parent_device ) {
-								$border_radius_array = self::get_device_value( $attribute_name, $preset_data['attributes'], $parent_device, $array_key );
-								if ( is_array( $border_radius_array ) ) {
-									$corner_value = null;
-									if ( $key === 'borderTopLeftRadius' || $key === 'borderTopLeftRadiusHover' ) {
-										$corner_value = isset( $border_radius_array[0] ) ? $border_radius_array[0] : null;
-									} elseif ( $key === 'borderTopRightRadius' || $key === 'borderTopRightRadiusHover' ) {
-										$corner_value = isset( $border_radius_array[1] ) ? $border_radius_array[1] : null;
-									} elseif ( $key === 'borderBottomRightRadius' || $key === 'borderBottomRightRadiusHover' ) {
-										$corner_value = isset( $border_radius_array[2] ) ? $border_radius_array[2] : null;
-									} elseif ( $key === 'borderBottomLeftRadius' || $key === 'borderBottomLeftRadiusHover' ) {
-										$corner_value = isset( $border_radius_array[3] ) ? $border_radius_array[3] : null;
-									}
-									if ( $corner_value !== null && $corner_value !== '' ) {
-										return $corner_value;
-									}
-								}
-							}
-						}
+						// if ( $device !== 'desktop' ) {
+						// 	$device_hierarchy = self::get_device_hierarchy( $device );
+						// 	foreach ( $device_hierarchy as $parent_device ) {
+						// 		$border_radius_array = self::get_device_value( $attribute_name, $preset_data['attributes'], $parent_device, $array_key );
+						// 		if ( is_array( $border_radius_array ) ) {
+						// 			$corner_value = null;
+						// 			if ( $key === 'borderTopLeftRadius' || $key === 'borderTopLeftRadiusHover' ) {
+						// 				$corner_value = isset( $border_radius_array[0] ) ? $border_radius_array[0] : null;
+						// 			} elseif ( $key === 'borderTopRightRadius' || $key === 'borderTopRightRadiusHover' ) {
+						// 				$corner_value = isset( $border_radius_array[1] ) ? $border_radius_array[1] : null;
+						// 			} elseif ( $key === 'borderBottomRightRadius' || $key === 'borderBottomRightRadiusHover' ) {
+						// 				$corner_value = isset( $border_radius_array[2] ) ? $border_radius_array[2] : null;
+						// 			} elseif ( $key === 'borderBottomLeftRadius' || $key === 'borderBottomLeftRadiusHover' ) {
+						// 				$corner_value = isset( $border_radius_array[3] ) ? $border_radius_array[3] : null;
+						// 			}
+						// 			if ( $corner_value !== null && $corner_value !== '' ) {
+						// 				return $corner_value;
+						// 			}
+						// 		}
+						// 	}
+						// }
 					}
 
 					// Standard path: check direct key in preset attributes
@@ -491,15 +494,16 @@ class Component_Value_Resolver {
 					if ( $preset_value !== null ) {
 						return $preset_value;
 					}
-					if ( $device !== 'desktop' ) {
-						$device_hierarchy = self::get_device_hierarchy( $device );
-						foreach ( $device_hierarchy as $parent_device ) {
-							$preset_parent_value = self::get_device_value( $attribute_name, $preset_data['attributes'], $parent_device, $key );
-							if ( $preset_parent_value !== null ) {
-								return $preset_parent_value;
-							}
-						}
-					}
+					// We don't need parent values on the frontend. Standard CSS inheritance handles this.
+					// if ( $device !== 'desktop' ) {
+					// 	$device_hierarchy = self::get_device_hierarchy( $device );
+					// 	foreach ( $device_hierarchy as $parent_device ) {
+					// 		$preset_parent_value = self::get_device_value( $attribute_name, $preset_data['attributes'], $parent_device, $key );
+					// 		if ( $preset_parent_value !== null ) {
+					// 			return $preset_parent_value;
+					// 		}
+					// 	}
+					// }
 				}
 			}
 		}
