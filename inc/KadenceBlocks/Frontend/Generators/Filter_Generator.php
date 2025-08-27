@@ -25,6 +25,22 @@ class Filter_Generator extends Base_Generator {
 	protected $component_type = 'filter';
 	
 	/**
+	 * Map of filter slugs to their CSS filter strings
+	 *
+	 * @var array
+	 */
+	protected static $filter_map = array(
+		'none'              => '',
+		'sepia'             => 'sepia(0.5)',
+		'grayscale'         => 'grayscale(1)',
+		'saturation'        => 'saturate(1.6)',
+		'earlybird'         => 'contrast(0.9) sepia(0.2)',
+		'mayfair'           => 'contrast(1.1) saturate(1.1)',
+		'toaster'           => 'contrast(1.5) brightness(0.9)',
+		'vintage'           => 'sepia(0.2) brightness(1.1) contrast(1.3)',
+	);
+	
+	/**
 	 * Generate CSS for filter component
 	 *
 	 * @param string   $attribute_name The attribute name.
@@ -89,12 +105,17 @@ class Filter_Generator extends Base_Generator {
 	/**
 	 * Process simple filter value
 	 *
-	 * @param string $value The simple filter value.
+	 * @param string $value The simple filter slug.
 	 * @return string|null The processed CSS value or null if invalid.
 	 */
 	protected function process_simple_filter_value( $value ) {
-		// If value is already a string and not empty, return as-is
+		// If value is already a string and not empty, look it up in the filter map
 		if ( is_string( $value ) && ! empty( trim( $value ) ) ) {
+			$filter_string = isset( self::$filter_map[ $value ] ) ? self::$filter_map[ $value ] : null;
+			if ( $filter_string !== null ) {
+				return $filter_string;
+			}
+			// If not found in map, return the value as-is (for backward compatibility)
 			return $value;
 		}
 		

@@ -79,8 +79,20 @@ export default function ImageEdit(props) {
 		globalStylesIds
 	);
 	const ratioAnyResolvedValue = getResolvedValue('ratio', attributes, 'any', metadata, 'ratio', globalStylesIds);
+	const filterSimpleAnyResolvedValue = getResolvedValue(
+		'filter',
+		attributes,
+		'any',
+		metadata,
+		'simple',
+		globalStylesIds
+	);
+
+	const filterSimple = filterSimpleAnyResolvedValue?.appliedValue;
 	const hasImage = imageResolvedValue?.appliedValue;
 	const hasRatio = aspectRatioAnyResolvedValue?.appliedValue;
+	const hasOverlay = false;
+	const hasWrapper = filterSimple || hasOverlay;
 
 	const globalStylesCss = getGlobalStylesCSSOutput(globalStylesIds);
 	const globalClasses = useMemo(() => {
@@ -97,18 +109,18 @@ export default function ImageEdit(props) {
 		[`kbs-image-${uniqueID}`]: uniqueID,
 		'kbs-image-has-image': hasImage,
 		'kbs-image-has-ratio': hasRatio,
+		'kbs-image-has-overlay': hasOverlay,
+		'kbs-image-has-wrapper': hasWrapper,
 	});
 	const blockProps = useBlockProps({
 		className: classes,
 	});
-	const useOverlay = false;
+
+	const wrapperClasses = classnames('kbs-image-wrapper', {
+		[`kbs-filter-${filterSimple}`]: filterSimple,
+	});
 
 	const imgHTML = <img className="kbs-image-img" src={imageResolvedValue?.appliedValue} />;
-	const wrapperClasses = classnames('kbs-image-wrapper', {
-		[`kbs-image-ratio-${ratioAnyResolvedValue?.appliedValue ? ratioAnyResolvedValue?.appliedValue : 'land43'}`]:
-			hasRatio,
-		'kbs-image-has-overlay': useOverlay,
-	});
 
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
@@ -143,7 +155,12 @@ export default function ImageEdit(props) {
 					/>
 				</div>
 			)}
-			{hasImage && <figure {...blockProps}>{imgHTML}</figure>}
+			{hasImage && (
+				<figure {...blockProps}>
+					{hasWrapper && <div className={wrapperClasses}>{imgHTML}</div>}
+					{!hasWrapper && imgHTML}
+				</figure>
+			)}
 		</GlobalStylesContext.Provider>
 	);
 }

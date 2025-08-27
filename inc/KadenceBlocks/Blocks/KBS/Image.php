@@ -84,10 +84,17 @@ class Image extends Abstract_Block {
 		$has_ratio = ! empty( $aspect_ratio_any_value['appliedValue'] ) ? true : false;
 		$link_value = self::get_resolved_value( 'link', $attributes, 'none', $this->get_attribute_meta( $block_instance, 'link' ), 'url', [] );
 		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
+		$filter_simple_any_value = self::get_resolved_value( 'filter', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'filter' ), 'simple', [] );
+		$filter_simple = ! empty( $filter_simple_any_value['appliedValue'] ) ? $filter_simple_any_value['appliedValue'] : '';
+		$has_overlay = false;
+		$has_wrapper = $has_overlay || ! empty( $filter_simple );
 
 		// Image wrapper attributes.
 		if ( $has_ratio ) {
 			$classes[] = 'kbs-image-has-ratio';
+		}
+		if ( $has_wrapper ) {
+			$classes[] = 'kbs-image-has-wrapper';
 		}
 
 		// Image attributes.
@@ -105,6 +112,18 @@ class Image extends Abstract_Block {
 		];
 
 		$img_attributes = self::get_wrapper_attributes( $img_args );
+
+
+		$image_wrapper_classes = [
+			'kbs-image-wrapper',
+		];
+		if ( ! empty( $filter_simple ) ) {
+			$image_wrapper_classes[] = 'kbs-filter-' . $filter_simple;
+		}
+		$image_wrapper_args = [
+			'class' => implode( ' ', $image_wrapper_classes ),
+		];
+		$image_wrapper_attributes = self::get_wrapper_attributes( $image_wrapper_args );
 
 		// Wrapper attributes.
 		$wrapper_args = [
@@ -127,6 +146,9 @@ class Image extends Abstract_Block {
 		// $bg_html = $this->get_background_html( 'foreground', $attributes, $block_instance );
 
 		if ( $has_image ) {
+			if ( $has_wrapper ) {
+				return sprintf( '<figure %1$s><div %2$s>%3$s</div></figure>', $wrapper_attributes, $image_wrapper_attributes, $content );
+			}
 			return sprintf( '<figure %1$s>%2$s</figure>', $wrapper_attributes, $content );
 		}
 

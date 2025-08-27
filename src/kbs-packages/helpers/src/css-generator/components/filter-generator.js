@@ -7,6 +7,19 @@ import { shouldRenderValue } from '../utils/component-value-resolver';
  */
 export class FilterGenerator extends BaseComponentGenerator {
 	/**
+	 * Map of filter slugs to their CSS filter strings
+	 */
+	static filterMap = {
+		none: '',
+		sepia: 'sepia(0.5)',
+		grayscale: 'grayscale(1)',
+		saturation: 'saturate(1.6)',
+		earlybird: 'contrast(0.9) sepia(0.2)',
+		mayfair: 'contrast(1.1) saturate(1.1)',
+		toaster: 'contrast(1.5) brightness(0.9)',
+		vintage: 'sepia(0.2) brightness(1.1) contrast(1.3)',
+	};
+	/**
 	 * Generate CSS for filter component
 	 * @param {string} attributeName - The attribute name
 	 * @param {Object} meta - Component metadata
@@ -62,12 +75,17 @@ export class FilterGenerator extends BaseComponentGenerator {
 
 	/**
 	 * Process simple filter value
-	 * @param {string} value - The simple filter value
+	 * @param {string} value - The simple filter slug
 	 * @returns {string|null} - The processed CSS value or null if invalid
 	 */
 	processSimpleFilterValue(value) {
-		// If value is already a string and not empty, return as-is
+		// If value is already a string and not empty, look it up in the filter map
 		if (typeof value === 'string' && value.trim()) {
+			const filterString = FilterGenerator.filterMap[value];
+			if (filterString !== undefined) {
+				return filterString;
+			}
+			// If not found in map, return the value as-is (for backward compatibility)
 			return value;
 		}
 

@@ -6,19 +6,39 @@
 
 @import "../mixins.scss";
 
+@mixin wrapper-styles {
+	overflow: auto;
+	mask-size: auto;
+	mask-repeat: no-repeat;
+	mask-position: center;
+
+	border-top-left-radius: var(--kbs-image-border-top-left-radius);
+	border-top-right-radius: var(--kbs-image-border-top-right-radius);
+	border-bottom-right-radius: var(--kbs-image-border-bottom-right-radius);
+	border-bottom-left-radius: var(--kbs-image-border-bottom-left-radius);
+	border-top: var(--kbs-image-border-top);
+	border-right: var(--kbs-image-border-right);
+	border-bottom: var(--kbs-image-border-bottom);
+	border-left: var(--kbs-image-border-left);
+
+	mask-image: var(--kbs-image-mask-image);
+	box-shadow: var(--kbs-image-box-shadow);
+}
+
 .kbs-image {
 	.kbs-image-img {
 		display: block;
-		overflow: auto;
-		mask-size: auto;
-		mask-repeat: no-repeat;
-		mask-position: center;
 
-		border-top-left-radius: var(--kbs-cont-border-top-left-radius);
-		border-top-right-radius: var(--kbs-cont-border-top-right-radius);
-		border-bottom-right-radius: var(--kbs-cont-border-bottom-right-radius);
-		border-bottom-left-radius: var(--kbs-cont-border-bottom-left-radius);
 		max-width: var(--kbs-image-max-width, 100%);
+		filter: var(--kbs-image-filter);
+
+		//padding?
+		//margin?
+	}
+
+	// If there's a wrapper, apply certain styles to the wrapper instead of directly on the img
+	&:not(.kbs-image-has-wrapper) .kbs-image-img {
+		@include wrapper-styles;
 	}
 
 	&.kbs-image-has-ratio {
@@ -27,9 +47,13 @@
 		}
 	}
 
-	//fix for wp's max width nonsense
-	&.wp-block-kbs-image.wp-block-kbs-image {
+	.kbs-image-wrapper {
+		position: relative;
+		width: fit-content;
+
+		@include wrapper-styles;
 	}
 }
 
 @include kbs-bg-layer;
+@include kbs-filters;

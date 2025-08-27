@@ -68,7 +68,7 @@ class Mask_Generator extends Base_Generator {
 		if ( $shape_value && $this->should_render_value( $shape_value, $meta ) ) {
 			$css_value = $this->process_mask_value( $shape_value['value'], $resolved_values, $meta );
 			if ( ! empty( $css_value ) ) {
-				$this->apply_property( 'shape', array_merge( $shape_value, array( 'value' => $css_value ) ), $meta );
+				$this->apply_property( 'mask-image', array_merge( $shape_value, array( 'value' => $css_value ) ), $meta );
 			}
 		}
 	}
@@ -110,19 +110,6 @@ class Mask_Generator extends Base_Generator {
 		$mask_image_url = KADENCE_BLOCKS_URL . '/includes/assets/images/masks/' . $mask_image_file;
 		
 		return 'url("' . esc_url( $mask_image_url ) . '")';
-	}
-	
-	/**
-	 * Override the CSS property name to always use mask-image
-	 *
-	 * @param string $key The attribute key.
-	 * @param array  $meta Component metadata.
-	 * @return string The CSS property name.
-	 */
-	protected function get_css_property( $key, $meta ) {
-		// For mask generator, we always want to output mask-image
-		// Both shape and image properties should output mask-image
-		return 'mask-image';
 	}
 	
 	/**

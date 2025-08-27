@@ -27,32 +27,32 @@
 			"renderCSS": true,
 			"component": "padding",
 			"nonInheritable": true,
-			"varPrefix": "--kbs-cont-"
+			"varPrefix": "--kbs-image-"
 		},
 		"margin": {
 			"type": "object",
 			"renderCSS": true,
 			"component": "margin",
 			"nonInheritable": true,
-			"varPrefix": "--kbs-cont-",
+			"varPrefix": "--kbs-image-",
 			"selectorSuffix": "%selector%"
 		},
 		"boxShadow": {
 			"renderCSS": true,
 			"component": "boxShadow",
-			"nonInheritable": true,
+			"nonInheritable": false,
 			"type": "object",
-			"varPrefix": "--kbs-cont-",
-			"classPrefix": "kbs-cont-shadow-",
+			"varPrefix": "--kbs-image-",
+			"classPrefix": "kbs-image-shadow-",
 			"hasLayers": true
 		},
 		"border": {
 			"renderCSS": true,
 			"component": "border",
-			"nonInheritable": true,
+			"nonInheritable": false,
 			"type": "object",
-			"varPrefix": "--kbs-cont-",
-			"classPrefix": "kbs-cont-border-",
+			"varPrefix": "--kbs-image-",
+			"classPrefix": "kbs-image-border-",
 			"selectorSuffix": " .kbs-image-img"
 		},
 		"variant": {
@@ -65,7 +65,7 @@
 		"minHeight": {
 			"renderCSS": true,
 			"component": "minHeight",
-			"varPrefix": "--kbs-cont-",
+			"varPrefix": "--kbs-image-",
 			"nonInheritable": true,
 			"initial": {},
 			"type": "object"
@@ -73,7 +73,7 @@
 		"typography": {
 			"renderCSS": true,
 			"component": "typography",
-			"varPrefix": "--kbs-cont-",
+			"varPrefix": "--kbs-image-",
 			"tag": "h1",
 			"initial": {},
 			"type": "object"
@@ -110,22 +110,22 @@
 		},
 		"image": {
 			"renderCSS": false,
-			"component": "image",
-			"nonInheritable": true,
 			"type": "object"
 		},
 		"mask": {
 			"renderCSS": true,
 			"component": "mask",
-			"nonInheritable": true,
+			"nonInheritable": false,
 			"type": "object",
+			"varPrefix": "--kbs-image-",
 			"selectorSuffix": " .kbs-image-img"
 		},
 		"filter": {
 			"renderCSS": true,
 			"component": "filter",
-			"nonInheritable": true,
+			"nonInheritable": false,
 			"type": "object",
+			"varPrefix": "--kbs-image-",
 			"selectorSuffix": " .kbs-image-img"
 		},
 		"objectPosition": {

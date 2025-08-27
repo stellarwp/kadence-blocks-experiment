@@ -112,11 +112,31 @@ export default function InspectorStyles(props) {
 						},
 						{
 							label: __('Sepia', 'kadence-blocks'),
-							value: 'sepia(0.5)',
+							value: 'sepia',
 						},
 						{
 							label: __('Greyscale', 'kadence-blocks'),
-							value: 'grayscale(1)',
+							value: 'grayscale',
+						},
+						{
+							label: __('Saturation', 'kadence-blocks'),
+							value: 'saturation',
+						},
+						{
+							label: __('Early Bird', 'kadence-blocks'),
+							value: 'earlybird',
+						},
+						{
+							label: __('Mayfair', 'kadence-blocks'),
+							value: 'mayfair',
+						},
+						{
+							label: __('Toaster', 'kadence-blocks'),
+							value: 'toaster',
+						},
+						{
+							label: __('Vintage', 'kadence-blocks'),
+							value: 'vintage',
 						},
 					]}
 				/>

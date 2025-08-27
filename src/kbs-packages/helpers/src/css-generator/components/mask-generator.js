@@ -39,12 +39,11 @@ export class MaskGenerator extends BaseComponentGenerator {
 			this.outputGeneratorDebug(meta, resolvedValues);
 		}
 
-		// Handle shape-based masks
 		const shapeValue = resolvedValues.shape;
 		if (shapeValue && shouldRenderValue(shapeValue, meta)) {
 			const cssValue = this.processMaskValue(shapeValue.value, resolvedValues, meta);
 			if (cssValue) {
-				this.applyProperty('shape', { ...shapeValue, value: cssValue }, meta);
+				this.applyProperty('mask-image', { ...shapeValue, value: cssValue }, meta);
 			}
 		}
 	}
@@ -85,17 +84,5 @@ export class MaskGenerator extends BaseComponentGenerator {
 		const maskImageUrl = `${window.kbs_params.svgMaskPath}/${maskImageFile}`;
 
 		return `url("${maskImageUrl}")`;
-	}
-
-	/**
-	 * Override the CSS property name to always use mask-image
-	 * @param {string} key - The attribute key
-	 * @param {Object} meta - Component metadata
-	 * @returns {string} - The CSS property name
-	 */
-	getCssProperty(key, meta) {
-		// For mask generator, we always want to output mask-image
-		// Both shape and url properties should output mask-image
-		return 'mask-image';
 	}
 }
