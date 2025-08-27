@@ -11,9 +11,15 @@ import './editor.scss';
  * ShadowPreview component
  * Displays a preview box with the shadow effect based on the passed parameters
  */
-function ShadowPreview({ color, x, y, blur, spread, inset, type = 'boxShadow' }) {
+function ShadowPreview({ color, x, y, blur, spread, inset, type = 'boxShadow', shadowString, isSingular = false }) {
 	// Generate the shadow CSS value
 	const shadowValue = useMemo(() => {
+		// If isSingular is true and we have a shadowString, use it directly
+		if (isSingular && shadowString) {
+			return shadowString;
+		}
+
+		// Otherwise, build the shadow value from individual parameters
 		const insetValue = inset && type === 'boxShadow' ? 'inset ' : '';
 		const xValue = x || '0px';
 		const yValue = y || '0px';
@@ -22,7 +28,7 @@ function ShadowPreview({ color, x, y, blur, spread, inset, type = 'boxShadow' })
 		const colorValue = getColorOutput(color) || 'rgba(0, 0, 0, 0.2)';
 
 		return `${insetValue}${xValue} ${yValue} ${blurValue} ${spreadValue} ${colorValue}`;
-	}, [color, x, y, blur, spread, inset]);
+	}, [color, x, y, blur, spread, inset, shadowString, isSingular]);
 
 	// Generate the preview box styles
 	const previewStyles = useMemo(() => {

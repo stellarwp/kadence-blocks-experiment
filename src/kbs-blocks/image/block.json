@@ -121,6 +121,13 @@
 			"type": "object",
 			"selectorSuffix": " .kbs-image-img"
 		},
+		"filter": {
+			"renderCSS": true,
+			"component": "filter",
+			"nonInheritable": true,
+			"type": "object",
+			"selectorSuffix": " .kbs-image-img"
+		},
 		"objectPosition": {
 			"renderCSS": true,
 			"component": "objectPosition",

@@ -9,25 +9,74 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { getLayerDeviceValue, SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from '@kadence/kbsHelpers';
+import {
+	getLayerDeviceValue,
+	SHADOW_STYLES_DEFAULTS,
+	TEXT_SHADOW_STYLES_DEFAULTS,
+	parseShadowStyle,
+	createShadowStyleString,
+} from '@kadence/kbsHelpers';
 import ColorControl from '../color-control';
 import UnitControl from '../unit-control';
 import RadioButtonControl from '../radio-button-control';
 import ShadowPreview from '../shadow-preview';
 
-function ShadowDropdownContent({ layer, onChange, previewDevice, globalStylesCss, onToggle, type = 'boxShadow' }) {
-	const handleCustomOnChange = (value, device, type) => {
-		onChange(value, device, type);
-	};
-	let color = getLayerDeviceValue('color', layer, previewDevice);
-	let x = getLayerDeviceValue('x', layer, previewDevice);
-	let y = getLayerDeviceValue('y', layer, previewDevice);
-	let blur = getLayerDeviceValue('blur', layer, previewDevice);
-	let spread = getLayerDeviceValue('spread', layer, previewDevice);
-	const inset = getLayerDeviceValue('inset', layer, previewDevice);
-
+function ShadowDropdownContent({
+	layer,
+	onChange,
+	previewDevice,
+	globalStylesCss,
+	onToggle,
+	type = 'boxShadow',
+	isSingular = false,
+}) {
+	// Initialize variables
+	let color, x, y, blur, spread, inset;
+	let handleCustomOnChange;
 	const shadowDefaults = type == 'boxShadow' ? SHADOW_STYLES_DEFAULTS : TEXT_SHADOW_STYLES_DEFAULTS;
 
+	// If isSingular is true, we need to handle shadow string generation and parsing
+	if (isSingular) {
+		// Get the current shadow string value from the layer
+		const currentShadowString = layer || '';
+
+		// Parse the shadow string into component parts
+		const shadowParts = parseShadowStyle(currentShadowString, type);
+
+		// Extract individual values for the controls
+		color = shadowParts.color;
+		x = shadowParts.x;
+		y = shadowParts.y;
+		blur = shadowParts.blur;
+		spread = shadowParts.spread;
+		inset = shadowParts.inset;
+
+		handleCustomOnChange = (value, device, param) => {
+			// Update the specific part in the shadow parts
+			const updatedParts = { ...shadowParts };
+			updatedParts[param] = value;
+
+			// Generate the new shadow string
+			const newShadowString = createShadowStyleString(updatedParts, type);
+
+			// Pass the shadow string to the onChange handler
+			onChange(newShadowString, device, type);
+		};
+	} else {
+		// Original behavior for non-singular shadows
+		color = getLayerDeviceValue('color', layer, previewDevice);
+		x = getLayerDeviceValue('x', layer, previewDevice);
+		y = getLayerDeviceValue('y', layer, previewDevice);
+		blur = getLayerDeviceValue('blur', layer, previewDevice);
+		spread = getLayerDeviceValue('spread', layer, previewDevice);
+		inset = getLayerDeviceValue('inset', layer, previewDevice);
+
+		handleCustomOnChange = (value, device, param) => {
+			onChange(value, device, param);
+		};
+	}
+
+	// Use default values if not set
 	color = color ? color : shadowDefaults.color.value;
 	x = x ? x : shadowDefaults.x.value;
 	y = y ? y : shadowDefaults.y.value;
@@ -47,7 +96,17 @@ function ShadowDropdownContent({ layer, onChange, previewDevice, globalStylesCss
 	}, [globalStylesCss, divRef?.current]);
 	return (
 		<div ref={divRef} className={'kbs-shadow-layer-control__dropdown-content-inner kbs-color-control'}>
-			<ShadowPreview color={color} x={x} y={y} blur={blur} spread={spread} inset={inset} type={type} />
+			<ShadowPreview
+				color={color}
+				x={x}
+				y={y}
+				blur={blur}
+				spread={spread}
+				inset={inset}
+				type={type}
+				shadowString={isSingular ? layer : undefined}
+				isSingular={isSingular}
+			/>
 			<ColorControl
 				// attributes={attributes}
 				// setAttributes={setAttributes}

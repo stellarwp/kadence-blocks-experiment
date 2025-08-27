@@ -21,6 +21,7 @@ import {
 	BorderControl,
 	ImageControl,
 	SelectBasicControl,
+	ShadowControl,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -83,6 +84,41 @@ export default function InspectorStyles(props) {
 					globalStylesIds={globalStylesIds}
 					globalStylesCss={globalStylesCss}
 					type={'boxShadow'}
+				/>
+				<ShadowControl
+					label={__('Drop Shadow', 'kadence-blocks')}
+					attributeName={'filter'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					metaData={metadata}
+					previewDevice={previewDevice}
+					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
+					type={'dropShadow'}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody title={__('Filter', 'kadence-blocks')} panelName={'filter-controls'} initialOpen={false}>
+				<SelectBasicControl
+					label={__('Filter', 'kadence-blocks')}
+					attributeName={'filter'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					type={'simple'}
+					options={[
+						{
+							label: __('None', 'kadence-blocks'),
+							value: '',
+						},
+						{
+							label: __('Sepia', 'kadence-blocks'),
+							value: 'sepia(0.5)',
+						},
+						{
+							label: __('Greyscale', 'kadence-blocks'),
+							value: 'grayscale(1)',
+						},
+					]}
 				/>
 			</ToolsPanelBody>
 			<ToolsPanelBody title={__('Mask', 'kadence-blocks')} panelName={'mask-controls'} initialOpen={false}>

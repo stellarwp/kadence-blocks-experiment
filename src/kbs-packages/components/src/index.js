@@ -58,7 +58,8 @@ export { default as TabsControl } from './tabs-control';
 export { default as SelectBasicControl } from './select-basic-control';
 
 export { default as SingleBorderStyleControl } from './border-control/single-border-style-control';
-export { default as LayeredShadowControl } from './layered-shadow-control';
+export { default as LayeredShadowControl } from './shadow-control/layered-shadow-control';
+export { default as ShadowControl } from './shadow-control';
 export { default as CopyPasteAttributes } from './copy-paste-attributes';
 
 export { default as TransformControl } from './transform-control';

@@ -73,6 +73,7 @@ function getComponentKeys(componentType) {
 		transition: ['transitionProperty', 'transitionDuration', 'transitionTimingFunction'],
 		transform: ['scale', 'translate', 'rotate', 'skew', 'origin'],
 		mask: ['shape', 'image'],
+		filter: ['dropShadow', 'simple'],
 	};
 
 	return componentKeysMap[componentType] || [componentType];

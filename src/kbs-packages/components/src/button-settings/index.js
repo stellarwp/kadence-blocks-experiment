@@ -9,7 +9,7 @@ import { useState } from '@wordpress/element';
  */
 import ColorControl from '../color-control';
 import BorderControl from '../border-control';
-import LayeredShadowControl from '../layered-shadow-control';
+import LayeredShadowControl from '../shadow-control/layered-shadow-control';
 import TabsControl from '../tabs-control';
 import ToolsPanelBody from '../tools-panel-body';
 

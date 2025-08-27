@@ -300,6 +300,12 @@
 			}
 		}
 	}
+
+	&.single-shadow-control {
+		.kbs-shadow-layer-control {
+			max-width: initial;
+		}
+	}
 }
 
 .kbs-confirm-popover .components-popover__content {

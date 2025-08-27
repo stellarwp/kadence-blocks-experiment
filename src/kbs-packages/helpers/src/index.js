@@ -36,6 +36,7 @@ export { default as getGlobalStylesCSSOutput } from './get-global-styles-css';
 export { default as getMappingVariableName } from './get-mapping-variable-name';
 export { default as mouseOverVisualizer } from './mouse-over-visualizer';
 export { default as parseBorderStyle } from './parse-border-style';
+export { default as parseShadowStyle, createShadowStyleString } from './parse-shadow-style';
 export { default as getSpacingOutput } from './get-spacing-output';
 export { default as isSettingEnabled } from './is-setting-enabled';
 export { default as SafeParseJSON } from './safe-parse-json';
