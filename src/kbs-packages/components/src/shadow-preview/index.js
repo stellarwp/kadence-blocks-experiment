@@ -39,12 +39,14 @@ function ShadowPreview({ color, x, y, blur, spread, inset, type = 'boxShadow', s
 			styles.boxShadow = shadowValue;
 		} else if (type === 'textShadow') {
 			styles.textShadow = shadowValue;
+		} else if (type === 'dropShadow') {
+			styles.filter = shadowValue;
 		}
 
 		return styles;
 	}, [shadowValue, type, color]);
 
-	const typeClassString = type === 'boxShadow' ? 'kbs-shadow-preview-box' : 'kbs-shadow-preview-text';
+	const typeClassString = type === 'textShadow' ? 'kbs-shadow-preview-text' : 'kbs-shadow-preview-box';
 
 	return (
 		<div className={`kbs-shadow-preview-container ${typeClassString}`}>
