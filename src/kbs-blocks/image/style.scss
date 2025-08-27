@@ -23,6 +23,7 @@
 
 	mask-image: var(--kbs-image-mask-image);
 	box-shadow: var(--kbs-image-box-shadow);
+	filter: var(--kbs-image-filter);
 }
 
 .kbs-image {
@@ -30,7 +31,6 @@
 		display: block;
 
 		max-width: var(--kbs-image-max-width, 100%);
-		filter: var(--kbs-image-filter);
 
 		//padding?
 		//margin?
