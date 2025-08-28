@@ -157,9 +157,9 @@ class Shadow_Generator extends Base_Generator {
 				if ( ! empty( $shadow_value ) ) {
 					// We have a shadow value, output it
 					$this->add_property( $property, $shadow_value );
-				} elseif ( ! $is_hover ) {
+				} elseif ( ! $is_hover && $device_key === 'desktop' && $property !== 'text-shadow' ) {
 					// For non-hover attributes, always output a variable (even if empty)
-					// This ensures the base shadow variable exists
+					// This ensures the base shadow variable exists, exclude if the property is text-shadow and not a variable.
 					$this->add_property( $property, 'initial' );
 				}
 				// For hover attributes with no value, don't output anything

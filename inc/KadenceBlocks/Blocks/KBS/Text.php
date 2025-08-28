@@ -158,13 +158,14 @@ class Text extends Abstract_Block {
 
 		if ( $should_wrap_content ) {
 			if ( $html_tag !== 'span' ) {
+				$content = trim( $content );
 				// Remove opening tag from the beginning and add span tag.
 				$opening_tag_length = strlen( '<' . $html_tag );
-				$content = '<span' . substr( $content, $opening_tag_length + 1 );
+				$content = '<span' . substr( $content, $opening_tag_length );
 				
 				// Remove closing tag from the end and add span closing tag.
 				$closing_tag_length = strlen( '</' . $html_tag . '>' );
-				$content = substr( $content, 0, -($closing_tag_length + 1) ) . '</span>';
+				$content = substr( $content, 0, -($closing_tag_length) ) . '</span>';
 			}
 		}
 
