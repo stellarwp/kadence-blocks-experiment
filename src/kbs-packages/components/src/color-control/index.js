@@ -64,10 +64,35 @@ export default function ColorControl({
 	inherited,
 }) {
 	const [isHover, setIsHover] = useState(false);
+
+	/**
+	 * Very weird issue where the uiwjs/react-color picker we're using is considered
+	 * outside the popover and closes the whole popover whenever the custom color picker is clicked on.
+	 * This takeover of the 'open' property and a custom close oustide function fixes it.
+	 * It also introduces a new issue where the popover is not closed if you click outside after having only interacted with the custom picker.
+	 * I'm sure this kind of takeover introduces all sorts of other issues as well.
+	 * Even so, this is much preferred over the custom color picker closing everytime you click it.
+	 */
+	const onToggle = (isOpen) => {
+		setIsOpen(isOpen);
+	};
+	const [isOpen, setIsOpen] = useState(false);
+	function closeIfFocusOutside(event) {
+		if (event.target.closest('.kbs-color-select-tabs')) {
+			return;
+		} else {
+			close();
+		}
+	}
+	function close() {
+		setIsOpen(false);
+	}
+
 	const popoverProps = {
 		placement: 'left-start',
 		//offset: 36,
 		shift: true,
+		onFocusOutside: closeIfFocusOutside,
 	};
 	const [customColors] = useSettings('color.custom');
 	const globalColors = getColorOptions();
@@ -142,6 +167,8 @@ export default function ColorControl({
 						hasMix,
 						globalStylesCss,
 					})}
+					onToggle={onToggle}
+					open={isOpen}
 				/>
 			</div>
 		</div>

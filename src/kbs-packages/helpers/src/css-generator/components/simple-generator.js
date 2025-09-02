@@ -13,6 +13,7 @@ export class SimpleGenerator extends BaseComponentGenerator {
 	static outputFunctions = {
 		// Color components
 		color: getColorOutput,
+		backgroundColor: getColorOutput,
 
 		// Spacing components
 		padding: getSpacingOutput,
