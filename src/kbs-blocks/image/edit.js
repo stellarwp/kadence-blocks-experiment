@@ -136,6 +136,7 @@ export default function ImageEdit(props) {
 	const hasRatio = aspectRatioAnyResolvedValue?.appliedValue;
 	const hasOverlay = false;
 	const hasWrapper = filterSimple || hasOverlay;
+	const hasCaption = (!RichText.isEmpty(caption) || isSelected) && captionEnableValue;
 
 	const onToggleCaption = (value = undefined) => {
 		handleAttributeChange(
@@ -230,7 +231,7 @@ export default function ImageEdit(props) {
 					<figure {...blockProps}>
 						{hasWrapper && <div className={wrapperClasses}>{imgHTML}</div>}
 						{!hasWrapper && imgHTML}
-						{(!RichText.isEmpty(caption) || isSelected) && captionEnableValue && (
+						{hasCaption && (
 							<RichText
 								ref={captionRef}
 								tagName="figcaption"

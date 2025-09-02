@@ -55,8 +55,6 @@
 	}
 
 	.kbs-image-caption {
-		max-width: var(--kbs-image-max-width, 100%);
-
 		font-family: var(--kbs-image-font-family);
 		font-weight: var(--kbs-image-font-weight);
 		font-size: var(--kbs-image-font-size);
@@ -67,6 +65,20 @@
 		color: var(--kbs-image-color);
 		background: var(--kbs-image-background-color);
 	}
+}
+
+//Wrangle the width of the caption to the width of the image via grid styling
+:not([data-align]) > .kbs-image:not([data-align]):not(.has-warning):not(.kbs-image-has-ratio):has(figcaption) {
+	display: grid;
+	grid-template-columns: [image] minmax(0, max-content) [placeholder] auto;
+}
+:not([data-align]) > .kbs-image:not([data-align]):not(.has-warning):not(.kbs-image-has-ratio) > figcaption {
+	grid-column: image;
+	display: table-caption;
+	caption-side: bottom;
+}
+:not([data-align]) > .kbs-image:not([data-align]) .components-placeholder {
+	grid-column: placeholder;
 }
 
 @include kbs-bg-layer;
