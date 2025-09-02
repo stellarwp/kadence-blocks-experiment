@@ -79,7 +79,6 @@ export default function ColorControl({
 	const [isOpen, setIsOpen] = useState(false);
 	function closeIfFocusOutside(event) {
 		if (event.target.closest('.kbs-color-select-tabs')) {
-			return;
 		} else {
 			close();
 		}
