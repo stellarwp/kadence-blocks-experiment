@@ -23,6 +23,9 @@
 	border-left: var(--kbs-text-border-left);
 	border-right: var(--kbs-text-border-right);
 	border-bottom: var(--kbs-text-border-bottom);
+	.kbs-text-content {
+		margin:0;
+	}
 
 	a {
 		// text-decoration: var(--kbs-text-link-text-decoration);
@@ -92,13 +95,13 @@
 	}
 
 	.kt-svg-icon-wrap {
+		display: inline-flex;
 		transition:
 			transform 0.3s ease-in-out,
 			width 0.3s ease-in-out,
 			opacity 0.3s ease-in-out;
 
 		color: var(--kbs-text-icon-color);
-		stroke-width: var(--kbs-text-icon-icon-line-width);
 		width: var(--kbs-text-icon-font-size, 1em);
 		height: var(--kbs-text-icon-font-size, 1em);
 		font-size: var(--kbs-text-icon-font-size, 1em);
@@ -108,9 +111,15 @@
 		padding-bottom: var(--kbs-text-icon-padding-bottom, 0);
 		transform: var(--kbs-text-icon-transform, var(--kbs-text-icon-rotation));
 
+		svg {
+				stroke-width: var(--kbs-text-icon-stroke-width);
+		
+				&:hover {
+					stroke-width: var(--kbs-text-icon-icon-line-width-hover, var(--kbs-text-icon-stroke-width));
+				}
+			}
 		&:hover {
 			color: var(--kbs-text-icon-color-hover, var(--kbs-text-icon-color));
-			stroke-width: var(--kbs-text-icon-icon-line-width-hover, var(--kbs-text-icon-icon-line-width));
 			width: var(--kbs-text-icon-font-size-hover, var(--kbs-text-icon-font-size, 1em));
 			height: var(--kbs-text-icon-font-size-hover, var(--kbs-text-icon-font-size, 1em));
 			padding-left: var(--kbs-text-icon-padding-hover-left, var(--kbs-text-icon-padding-left));

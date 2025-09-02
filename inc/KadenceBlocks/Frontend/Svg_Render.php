@@ -133,7 +133,7 @@ class Svg_Render {
 			$wrapper_attributes .= ' ' . $key . '="' . $value . '"';
 		}
 		
-		return sprintf( '<div%s>%s</div>', $wrapper_attributes, $svg );
+		return sprintf( '<span%s>%s</span>', $wrapper_attributes, $svg );
 	}
 
 	/**

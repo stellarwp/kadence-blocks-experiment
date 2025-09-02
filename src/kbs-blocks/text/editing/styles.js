@@ -16,7 +16,7 @@ export default function Styles(props) {
 	const mergedGlobalStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(globalStylesIds);
 
 	const cssOutput = useMemo(() => {
-		const selector = `.kbs-text-${attributes?.uniqueID || 'unknown'}`;
+		const selector = `.kbs-text.wp-block-kbs-text.kbs-text-${attributes?.uniqueID || 'unknown'}`;
 		const css = new cssGenerator(selector, props, metadata);
 
 		let output = css.generate();

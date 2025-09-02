@@ -149,7 +149,12 @@ function PresetDropdownContent({
 						<Button
 							key={index}
 							onClick={() => {
-								onChange(item.value);
+								if (item.value === currentValue) {
+									onChange(undefined);
+								} else {
+									onChange(item.value);
+								}
+								onToggle();
 							}}
 							isPressed={item.value === currentValue}
 							className="kbs-typography-control-btn"

@@ -337,6 +337,7 @@ class CSS_Engine {
 		
 		// Initialize component generators
 		$this->init_generators();
+
 	}
 
 	/**
@@ -875,7 +876,9 @@ class CSS_Engine {
 	 * @return array
 	 */
 	public function get_attribute_meta( $block_instance, $attribute_name ) {
-		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes[ $attribute_name ] ) ) {
+		if ( is_object( $block_instance ) && isset( $block_instance->attributes[ $attribute_name ] ) ) {
+			return $block_instance->attributes[ $attribute_name ];
+		} elseif ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes[ $attribute_name ] ) ) {
 			return $block_instance->block_type->attributes[ $attribute_name ];
 		}
 		return [];
@@ -1094,10 +1097,15 @@ class CSS_Engine {
 	public function add_attributes( $attributes, $block_instance ) {
 		// Propagate variant presets first
 		$attributes = $this->propagate_variant_presets( $attributes, $block_instance );
-		
+
 		$global_styles_ids = $this->get_global_styles_ids( $attributes, $block_instance );
-		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
-			foreach ( $block_instance->block_type->attributes as $key => $attribute ) {
+		if ( is_object( $block_instance ) && isset( $block_instance->attributes ) ) {
+			$block_instance_attributes = $block_instance->attributes;
+		} elseif ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
+			$block_instance_attributes = $block_instance->block_type->attributes;
+		}
+		if ( ! empty( $block_instance_attributes ) && is_array( $block_instance_attributes ) ) {
+			foreach ( $block_instance_attributes as $key => $attribute ) {
 				$attributes_meta = $this->get_attribute_meta( $block_instance, $key );
 				// Only process global style ids if there is more then one global style id that way priority is correct otherwise we rely on the class to handle the global styles css.
 				// This only relates to the mappings part of the global styles.
@@ -1119,7 +1127,6 @@ class CSS_Engine {
 				if ( ! isset( $attributes_meta['property'] ) ) {
 					continue;
 				}
-
 				$this->add_attribute( $key, $attributes, $attributes_meta, $block_instance, $global_styles_ids );
 			}
 		}
@@ -1381,7 +1388,12 @@ class CSS_Engine {
 		if ( ! empty( $component_type ) && $generator ) {
 			// Prepare metadata in the expected format
 			$metadata = array();
-			if ( $block_instance && isset( $block_instance->block_type ) ) {
+			if ( isset( $block_instance->attributes ) ) {
+				$metadata['attributes'] = $block_instance->attributes;
+				if ( isset( $block_instance->name ) ) {
+					$metadata['name'] = $block_instance->name;
+				}
+			} else if ( $block_instance && isset( $block_instance->block_type ) ) {
 				// Convert WP_Block_Type object to array format
 				if ( isset( $block_instance->block_type->attributes ) ) {
 					$metadata['attributes'] = $block_instance->block_type->attributes;
@@ -1426,7 +1438,6 @@ class CSS_Engine {
 					$component_type,
 					$this
 				);
-				
 				// Only generate CSS if there are resolved values for this device
 				if ( ! empty( $resolved_values ) ) {
 					// Check if this is a hover attribute and use state handling
@@ -1806,7 +1817,11 @@ class CSS_Engine {
 		}
 		
 		$this->clear();
-		return self::$styles[ $this->_style_id ] . ( isset( self::$custom_styles[ $this->_style_id ] ) ? self::$custom_styles[ $this->_style_id ] : '' );
+		$return = self::$styles[ $this->_style_id ];
+		if ( isset( self::$custom_styles[ $this->_style_id ] ) ) {
+			$return .= self::$custom_styles[ $this->_style_id ];
+		}
+		return $return;
 	}
 	/**
 	 * Generates the gap output.

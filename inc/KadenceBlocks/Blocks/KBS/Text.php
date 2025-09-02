@@ -42,7 +42,7 @@ class Text extends Abstract_Block {
 	 *
 	 * @var string[]
 	 */
-	protected $allowed_html_tags = [ 'div', 'p', 'span' ];
+	protected $allowed_html_tags = [ 'div', 'p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
 	
 	/**
 	 * Block determines in scripts need to be loaded for block.
@@ -64,7 +64,8 @@ class Text extends Abstract_Block {
 	 */
 	public function build_css( $attributes, $css, $unique_id, $unique_style_id, $block_instance ) {
 		$css->set_style_id( 'kbs-' . $this->block_name . $unique_style_id );
-		$root_selector = '.' . $this->root_selector_class . $unique_id;
+		// The specificity is important here to ensure the styles are applied to the correct element.
+		$root_selector = '.kbs-text.wp-block-kbs-text.' . $this->root_selector_class . $unique_id;
 
 		$css->set_selector( $root_selector );
 
@@ -92,11 +93,11 @@ class Text extends Abstract_Block {
 	 * @return string
 	 */
 	public function build_html( $attributes, $unique_id, $content, $block_instance ) {
-		//Since we don't know in attributes if this block needs scripts, we need to check the content here
-		$has_typed_text = strpos( $content, 'kt-typed-text' ) !== false;
-		$has_tooltip = strpos( $content, 'kb-tooltips' ) !== false;
+		// Since we don't know in attributes if this block needs scripts, we need to check the content here
+		$has_typed_text                 = strpos( $content, 'kt-typed-text' ) !== false;
+		$has_tooltip                    = strpos( $content, 'kb-tooltips' ) !== false;
 		$icon_tooltip_content_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'icon' ), 'tooltipContent', [] );
-		$has_icon_tooltip = ! empty( $icon_tooltip_content_any_value['appliedValue'] );
+		$has_icon_tooltip               = ! empty( $icon_tooltip_content_any_value['appliedValue'] );
 		if ( $has_typed_text ) {
 			$this->enqueue_script( 'kbs-' . $this->block_name );
 		}
@@ -104,24 +105,24 @@ class Text extends Abstract_Block {
 			$this->enqueue_script( 'kadence-blocks-tippy' );
 		}
 
-		$initial_tag  = $this->get_initial_attribute( $block_instance, 'htmlTag', 'div' );
-		$html_tag     = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
-		$wrapper_classes      = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
+		$initial_tag     = $this->get_initial_attribute( $block_instance, 'htmlTag', 'div' );
+		$html_tag        = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
+		$wrapper_classes = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
 		$wrapper_classes = array_merge( $wrapper_classes, $this->get_global_style_class( $attributes ) );
 		$content_classes = [];
 
-		$link_value = self::get_resolved_value( 'link', $attributes, 'none', $this->get_attribute_meta( $block_instance, 'link' ), 'url', [] );
-		$icon_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'icon' ), 'icon', [] );
-		$max_width_any_value = self::get_resolved_value( 'maxWidth', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'maxWidth' ), 'maxWidth', [] );
-		$color_any_value = self::get_resolved_value( 'color', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'color' ), 'color', [] );
+		$link_value               = self::get_resolved_value( 'link', $attributes, 'none', $this->get_attribute_meta( $block_instance, 'link' ), 'url', [] );
+		$icon_any_value           = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'icon' ), 'icon', [] );
+		$max_width_any_value      = self::get_resolved_value( 'maxWidth', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'maxWidth' ), 'maxWidth', [] );
+		$color_any_value          = self::get_resolved_value( 'color', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'color' ), 'color', [] );
 		$icon_placement_any_value = self::get_resolved_value( 'icon', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconPlacement' ), 'placement', [] );
-		$icon_reveal_any_value = self::get_resolved_value( 'iconReveal', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconReveal' ), 'iconReveal', [] );
+		$icon_reveal_any_value    = self::get_resolved_value( 'iconReveal', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'iconReveal' ), 'iconReveal', [] );
 
-		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
-		$has_max_width = ! empty( $max_width_any_value['appliedValue'] ) ? true : false;
-		$has_icon = ! empty( $icon_any_value['appliedValue'] ) ? true : false;
+		$has_link        = ! empty( $link_value['appliedValue'] ) ? true : false;
+		$has_max_width   = ! empty( $max_width_any_value['appliedValue'] ) ? true : false;
+		$has_icon        = ! empty( $icon_any_value['appliedValue'] ) ? true : false;
 		$has_icon_reveal = ! empty( $icon_reveal_any_value['appliedValue'] ) ? true : false;
-		$has_gradient = ! empty( $color_any_value['appliedValue'] ) && strpos( $color_any_value['appliedValue'], 'gradient(' ) !== false;
+		$has_gradient    = ! empty( $color_any_value['appliedValue'] ) && strpos( $color_any_value['appliedValue'], 'gradient(' ) !== false;
 
 		$should_wrap_content = $has_link || $has_max_width || $has_icon || $has_gradient || $has_typed_text;
 
@@ -136,11 +137,11 @@ class Text extends Abstract_Block {
 			$wrapper_classes[] = 'icon-reveal';
 		}
 
-		$content_classes[] = 'kbs-text-content';
+		$content_classes[]    = 'kbs-text-content';
 		$content_class_string = 'class="' . esc_attr( implode( ' ', $content_classes ) ) . '"';
 
 
-		if ( !$should_wrap_content ) {
+		if ( ! $should_wrap_content ) {
 			$wrapper_classes = array_merge( $wrapper_classes, $content_classes );
 		}
 		
@@ -155,7 +156,21 @@ class Text extends Abstract_Block {
 		$wrapper_args       = apply_filters( 'kbs_wrapper_args', $wrapper_args, $attributes, $this->block_name, $unique_id, $block_instance );
 		$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 
-		$icon_html = Svg_Render::render_icon( $attributes, 'icon', 'kbs-text-' );
+		if ( $should_wrap_content ) {
+			if ( $html_tag !== 'span' ) {
+				$content = trim( $content );
+				// Remove opening tag from the beginning and add span tag.
+				$opening_tag_length = strlen( '<' . $html_tag );
+				$content = '<span' . substr( $content, $opening_tag_length );
+				
+				// Remove closing tag from the end and add span closing tag.
+				$closing_tag_length = strlen( '</' . $html_tag . '>' );
+				$content = substr( $content, 0, -($closing_tag_length) ) . '</span>';
+			}
+		}
+
+
+		$icon_html      = Svg_Render::render_icon( $attributes, 'icon', 'kbs-text-' );
 		$icon_placement = $icon_placement_any_value['appliedValue'];
 		if ( $icon_placement === 'right' ) {
 			$content = $content . $icon_html;
@@ -164,12 +179,12 @@ class Text extends Abstract_Block {
 		}
 
 		if ( $has_link ) {
-			$content = self::get_link_html( $attributes['link'], $content);
+			$content = self::get_link_html( $attributes['link'], $content );
 		}
 
 		if ( $should_wrap_content ) {
-			$content = str_replace( 'class="kbs-text-content"', $content_class_string,  $content );
-			return sprintf( '<div %1$s>%2$s</div>', $wrapper_attributes, $content );
+			$content = str_replace( 'class="kbs-text-content"', $content_class_string, $content );
+			return sprintf( '<%1$s %2$s>%3$s</%1$s>', $html_tag, $wrapper_attributes, $content );
 		} else {
 			$content = str_replace( 'class="kbs-text-content"', $wrapper_attributes, $content );
 			return $content;

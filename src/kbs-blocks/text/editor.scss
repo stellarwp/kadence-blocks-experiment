@@ -7,16 +7,14 @@
 @use "./style.scss";
 
 // Remove WP margin added to all blocks.
-.wp-block-kbs-text {
+html :where(.wp-block-kbs-text) {
 	margin-top: 0;
 	margin-bottom: 0;
 	box-sizing: border-box;
-
 	* {
 		box-sizing: border-box;
 	}
 }
-
 .kbs-text {
 	a {
 		cursor: text;

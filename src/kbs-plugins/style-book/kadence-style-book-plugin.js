@@ -41,7 +41,7 @@ import V3Controls from './v3-controls';
  */
 function KadenceConfig() {
 	const v3Enabled = typeof kadence_blocks_params !== 'undefined' ? kadence_blocks_params?.v3Enabled : false;
-	const [controlName, setControlName] = useState( __('Style Book Controls', 'kadence-blocks')	);
+	const [controlName, setControlName] = useState(__('Style Book Controls', 'kadence-blocks'));
 	const [controlIcon, setControlIcon] = useState(
 		applyFilters('kadence.block_sidebar_control_icon', BlockIcons.kadenceNewIcon)
 	);

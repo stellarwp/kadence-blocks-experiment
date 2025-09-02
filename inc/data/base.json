@@ -509,14 +509,14 @@
 						"border": {
 							"desktop": {
 								"borderRadius": ["md", "md", "md", "md"],
-								"borderTop": "1px solid var(--kbs-colors-palette1)",
-								"borderLeft": "1px solid var(--kbs-colors-palette1)",
-								"borderRight": "1px solid var(--kbs-colors-palette1)",
-								"borderBottom": "1px solid var(--kbs-colors-palette1)",
-								"borderTopHover": "1px solid var(--kbs-colors-palette2)",
-								"borderLeftHover": "1px solid var(--kbs-colors-palette2)",
-								"borderRightHover": "1px solid var(--kbs-colors-palette2)",
-								"borderBottomHover": "1px solid var(--kbs-colors-palette2)"
+								"borderTop": "1px solid transparent",
+								"borderLeft": "1px solid transparent",
+								"borderRight": "1px solid transparent",
+								"borderBottom": "1px solid transparent",
+								"borderTopHover": "1px solid transparent",
+								"borderLeftHover": "1px solid transparent",
+								"borderRightHover": "1px solid transparent",
+								"borderBottomHover": "1px solid transparent"
 							}
 						},
 						"padding": {
@@ -529,7 +529,7 @@
 						},
 						"typography": {
 							"desktop": {
-								"fontSize": "base"
+								"fontSize": "sm"
 							}
 						}
 					}
@@ -541,21 +541,27 @@
 					"attributes": {
 						"color": {
 							"desktop": {
-								"color": "palette1"
+								"color": "palette1",
+								"colorHover": "#ffffff"
 							}
 						},
 						"backgroundColor": {
 							"desktop": {
-								"color": "palette9"
+								"color": "transparent",
+								"colorHover": "palette1"
 							}
 						},
 						"border": {
 							"desktop": {
 								"borderRadius": ["md", "md", "md", "md"],
-								"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-								"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-								"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-								"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)"
+								"borderTop": "1px solid var(--kbs-colors-palette1)",
+								"borderLeft": "1px solid var(--kbs-colors-palette1)",
+								"borderRight": "1px solid var(--kbs-colors-palette1)",
+								"borderBottom": "1px solid var(--kbs-colors-palette1)",
+								"borderTopHover": "1px solid var(--kbs-colors-palette1)",
+								"borderLeftHover": "1px solid var(--kbs-colors-palette1)",
+								"borderRightHover": "1px solid var(--kbs-colors-palette1)",
+								"borderBottomHover": "1px solid var(--kbs-colors-palette1)"
 							}
 						},
 						"padding": {
@@ -564,6 +570,11 @@
 								"paddingRight": "sm",
 								"paddingBottom": "xs",
 								"paddingLeft": "sm"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "sm"
 							}
 						}
 					}
@@ -575,20 +586,40 @@
 					"attributes": {
 						"color": {
 							"desktop": {
-								"color": "palette9"
+								"color": "palette9",
+								"colorHover": "palette9"
 							}
 						},
 						"backgroundColor": {
 							"desktop": {
-								"color": "palette3"
+								"color": "palette3",
+								"colorHover": "palette4"
+							}
+						},
+						"border": {
+							"desktop": {
+								"borderRadius": ["md", "md", "md", "md"],
+								"borderTop": "1px solid transparent",
+								"borderLeft": "1px solid transparent",
+								"borderRight": "1px solid transparent",
+								"borderBottom": "1px solid transparent",
+								"borderTopHover": "1px solid transparent",
+								"borderLeftHover": "1px solid transparent",
+								"borderRightHover": "1px solid transparent",
+								"borderBottomHover": "1px solid transparent"
 							}
 						},
 						"padding": {
 							"desktop": {
-								"paddingTop": "xxs",
-								"paddingRight": "xs",
-								"paddingBottom": "xxs",
-								"paddingLeft": "xs"
+								"paddingTop": "xs",
+								"paddingRight": "sm",
+								"paddingBottom": "xs",
+								"paddingLeft": "sm"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "sm"
 							}
 						}
 					}
