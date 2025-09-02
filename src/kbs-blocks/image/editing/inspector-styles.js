@@ -97,7 +97,22 @@ export default function InspectorStyles(props) {
 					type={'dropShadow'}
 				/>
 			</ToolsPanelBody>
-			<ToolsPanelBody title={__('Filter', 'kadence-blocks')} panelName={'filter-controls'} initialOpen={false}>
+			<ToolsPanelBody title={__('Caption', 'kadence-blocks')} panelName={'caption-controls'} initialOpen={false}>
+				<Typography
+					label={__('CaptionsTypography', 'kadence-blocks')}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					meta={metadata}
+					previewDevice={previewDevice}
+					attributeName={'captionTypography'}
+					hasColor={true}
+					hasBackgroundColor={true}
+					supportsGradient={true}
+					globalStylesIds={globalStylesIds}
+					globalStylesCss={globalStylesCss}
+				/>
+			</ToolsPanelBody>
+			{/* <ToolsPanelBody title={__('Filter', 'kadence-blocks')} panelName={'filter-controls'} initialOpen={false}>
 				<SelectBasicControl
 					label={__('Filter', 'kadence-blocks')}
 					attributeName={'filter'}
@@ -202,7 +217,7 @@ export default function InspectorStyles(props) {
 						hasClearControls={false}
 					/>
 				)}
-			</ToolsPanelBody>
+			</ToolsPanelBody> */}
 		</>
 	);
 }

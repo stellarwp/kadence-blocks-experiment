@@ -20,26 +20,32 @@ import {
 	getGlobalStylesCSSOutput,
 	getResolvedValue,
 	handleMultipleAttributeChange,
+	handleAttributeChange,
 } from '@kadence/kbsHelpers';
 import { BackgroundStyles, MediaPlaceholder } from '@kadence/kbsComponents';
 import metadata from './block.json';
 import Inspector from './editing/inspector';
 import Styles from './editing/styles';
-import { plusCircleFilled } from '@wordpress/icons';
 /**
  * Import WordPress
  */
 import { __ } from '@wordpress/i18n';
 
 import { useSelect, select } from '@wordpress/data';
-import { useEffect, useMemo, useRef } from '@wordpress/element';
-import { useBlockProps } from '@wordpress/block-editor';
+import { useEffect, useMemo, useRef, useState, useCallback } from '@wordpress/element';
+import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { caption as captionIcon } from '@wordpress/icons';
+import { ToolbarButton, plusCircleFilled } from '@wordpress/components';
+import { usePrevious } from '@wordpress/compose';
+import { RichText } from '@wordpress/block-editor';
+import { createBlock } from '@wordpress/blocks';
+
 /**
  * Build the section edit.
  */
 export default function ImageEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId, className } = props;
-	const { uniqueID, globalStyleIds } = attributes;
+	const { uniqueID, globalStyleIds, caption } = attributes;
 	const myElementRef = useRef(null);
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
@@ -52,6 +58,25 @@ export default function ImageEdit(props) {
 		[clientId]
 	);
 	uniqueIdHelper(props);
+
+	const prevCaption = usePrevious(caption);
+	// We need to show the caption when changes come from
+	// history navigation(undo/redo).
+	useEffect(() => {
+		if (caption && !prevCaption) {
+			onToggleCaption(true);
+		}
+	}, [caption, prevCaption]);
+
+	// Focus the caption when we click to add one.
+	const captionRef = useCallback(
+		(node) => {
+			if (node && !caption) {
+				node.focus();
+			}
+		},
+		[caption]
+	);
 
 	const onImageSelect = (value, device = 'none') => {
 		handleMultipleAttributeChange(
@@ -87,12 +112,43 @@ export default function ImageEdit(props) {
 		'simple',
 		globalStylesIds
 	);
+	const captionEnableAnyResolvedValue = getResolvedValue(
+		'caption',
+		attributes,
+		'any',
+		metadata,
+		'enable',
+		globalStylesIds
+	);
+	const captionEnableValue = captionEnableAnyResolvedValue?.appliedValue;
+	const captionAnyResolvedValue = getResolvedValue(
+		'caption',
+		attributes,
+		'any',
+		metadata,
+		'caption',
+		globalStylesIds
+	);
+	const captionValue = captionAnyResolvedValue?.appliedValue;
 
 	const filterSimple = filterSimpleAnyResolvedValue?.appliedValue;
 	const hasImage = imageResolvedValue?.appliedValue;
 	const hasRatio = aspectRatioAnyResolvedValue?.appliedValue;
 	const hasOverlay = false;
 	const hasWrapper = filterSimple || hasOverlay;
+
+	const onToggleCaption = (value = undefined) => {
+		handleAttributeChange(
+			value ? value : captionEnableValue ? false : true,
+			'desktop',
+			'caption',
+			attributes,
+			setAttributes,
+			undefined,
+			'enable',
+			metadata
+		);
+	};
 
 	const globalStylesCss = getGlobalStylesCSSOutput(globalStylesIds);
 	const globalClasses = useMemo(() => {
@@ -156,10 +212,51 @@ export default function ImageEdit(props) {
 				</div>
 			)}
 			{hasImage && (
-				<figure {...blockProps}>
-					{hasWrapper && <div className={wrapperClasses}>{imgHTML}</div>}
-					{!hasWrapper && imgHTML}
-				</figure>
+				<>
+					<BlockControls group="block">
+						<ToolbarButton
+							onClick={() => {
+								onToggleCaption();
+							}}
+							icon={captionIcon}
+							isPressed={captionEnableValue}
+							label={
+								captionEnableValue
+									? __('Remove caption', 'kadence-blocks')
+									: __('Add caption', 'kadence-blocks')
+							}
+						/>
+					</BlockControls>
+					<figure {...blockProps}>
+						{hasWrapper && <div className={wrapperClasses}>{imgHTML}</div>}
+						{!hasWrapper && imgHTML}
+						{(!RichText.isEmpty(caption) || isSelected) && captionEnableValue && (
+							<RichText
+								ref={captionRef}
+								tagName="figcaption"
+								aria-label={__('Image caption text', 'kadence-blocks')}
+								placeholder={__('Add caption', 'kadence-blocks')}
+								value={captionValue}
+								onChange={(value) =>
+									handleAttributeChange(
+										value,
+										'desktop',
+										'caption',
+										attributes,
+										setAttributes,
+										undefined,
+										'caption',
+										metadata
+									)
+								}
+								className="kbs-image-caption"
+								inlineToolbar
+								allowedFormats={['core/bold', 'core/italic', 'core/link']}
+								__unstableOnSplitAtEnd={() => insertBlocksAfter(createBlock('core/paragraph'))}
+							/>
+						)}
+					</figure>
+				</>
 			)}
 		</GlobalStylesContext.Provider>
 	);

@@ -42,9 +42,6 @@ function ShadowIndicator({ value, className, colorValue }) {
 }
 
 function renderShadowToggle(layer, isInherited, previewDevice, type) {
-	if (type === 'dropShadow') {
-		console.log('dropShadow layer', layer);
-	}
 	const isEmptyLayer = Object.keys(layer).length === 0;
 	const hasShadowString = typeof layer === 'string' && layer;
 
@@ -54,7 +51,6 @@ function renderShadowToggle(layer, isInherited, previewDevice, type) {
 			if (hasShadowString) {
 				// Parse the shadow string to get the color
 				const shadowParts = parseShadowStyle(layer, type);
-				console.log('shadowParts', shadowParts);
 				return {
 					color: shadowParts.color || '',
 				};
@@ -94,9 +90,6 @@ function renderShadowToggle(layer, isInherited, previewDevice, type) {
 			}),
 			'aria-expanded': isOpen,
 		};
-		if (type === 'dropShadow') {
-			console.log('dropShadow', color);
-		}
 		return (
 			<>
 				<Button __next40pxDefaultSize {...toggleProps}>

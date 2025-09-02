@@ -86,6 +86,9 @@ class Image extends Abstract_Block {
 		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
 		$filter_simple_any_value = self::get_resolved_value( 'filter', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'filter' ), 'simple', [] );
 		$filter_simple = ! empty( $filter_simple_any_value['appliedValue'] ) ? $filter_simple_any_value['appliedValue'] : '';
+		$caption_any_value = self::get_resolved_value( 'caption', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'caption' ), 'caption', [] );
+		$caption_enable_any_value = self::get_resolved_value( 'caption', $attributes, 'any', $this->get_attribute_meta( $block_instance, 'caption' ), 'enable', [] );
+		$has_caption = ! empty( $caption_any_value['appliedValue'] ) && $caption_enable_any_value['appliedValue'] ? true : false;
 		$has_overlay = false;
 		$has_wrapper = $has_overlay || ! empty( $filter_simple );
 
@@ -143,13 +146,18 @@ class Image extends Abstract_Block {
 		}
 		$content .= $img_content;
 
+		$caption_content = '';
+		if ( $has_caption ) {
+			$caption_content = '<figcaption class="kbs-image-caption">' . wp_kses_post( $caption_any_value['appliedValue'] ) . '</figcaption>';
+		}
+
 		// $bg_html = $this->get_background_html( 'foreground', $attributes, $block_instance );
 
 		if ( $has_image ) {
 			if ( $has_wrapper ) {
 				return sprintf( '<figure %1$s><div %2$s>%3$s</div></figure>', $wrapper_attributes, $image_wrapper_attributes, $content );
 			}
-			return sprintf( '<figure %1$s>%2$s</figure>', $wrapper_attributes, $content );
+			return sprintf( '<figure %1$s>%2$s%3$s</figure>', $wrapper_attributes, $content, $caption_content );
 		}
 
 		return '';

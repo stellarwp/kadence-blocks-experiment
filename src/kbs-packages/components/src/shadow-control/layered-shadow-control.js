@@ -260,7 +260,9 @@ export default function LayeredShadowControl({
 					label={
 						type == 'boxShadow'
 							? __('Box Shadow Presets', 'kadence-blocks')
-							: __('Text Shadow Presets', 'kadence-blocks')
+							: type == 'dropShadow'
+								? __('Drop Shadow Presets', 'kadence-blocks')
+								: __('Text Shadow Presets', 'kadence-blocks')
 					}
 					type={type}
 					attributes={attributes}
@@ -276,7 +278,11 @@ export default function LayeredShadowControl({
 			<>
 				<LayerTitleBar
 					label={
-						type == 'boxShadow' ? __('Box Shadow', 'kadence-blocks') : __('Text Shadow', 'kadence-blocks')
+						type == 'boxShadow'
+							? __('Box Shadow', 'kadence-blocks')
+							: type == 'dropShadow'
+								? __('Drop Shadow', 'kadence-blocks')
+								: __('Text Shadow', 'kadence-blocks')
 					}
 					reset={true}
 					onReset={onLayerReset}

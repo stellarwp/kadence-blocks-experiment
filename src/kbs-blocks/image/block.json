@@ -18,9 +18,9 @@
 		"preset": {
 			"type": "array"
 		},
-		"tagName": {
-			"type": "string",
-			"initial": "div"
+		"caption": {
+			"renderCSS": false,
+			"type": "object"
 		},
 		"padding": {
 			"type": "object",
@@ -70,13 +70,14 @@
 			"initial": {},
 			"type": "object"
 		},
-		"typography": {
+		"captionTypography": {
 			"renderCSS": true,
 			"component": "typography",
 			"varPrefix": "--kbs-image-",
 			"tag": "h1",
 			"initial": {},
-			"type": "object"
+			"type": "object",
+			"selectorSuffix": " .kbs-image-caption"
 		},
 		"globalStyleIds": {
 			"type": "array"

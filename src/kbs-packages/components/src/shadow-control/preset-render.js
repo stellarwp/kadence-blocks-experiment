@@ -16,10 +16,16 @@ import { cssGenerator } from '@kadence/kbsHelpers';
 function ShadowPresetCSSStyles(props) {
 	const { attributes, previewDevice, preset, uniqueID, meta, attributeMeta, attributeName, type } = props;
 	const cssOutput = useMemo(() => {
+		//needs to apply the propert directly instead of to a variable
+		const attributeMetaNonInheritableTemp = attributeMeta.nonInheritable;
+		attributeMeta.nonInheritable = true;
+
 		const selector = `.preset-${uniqueID}-${preset.value}` + (type === 'textShadow' ? ' span' : '');
-		const css = new cssGenerator(selector);
+		const css = new cssGenerator(selector, props, meta);
 		css.addComponent(attributeName, attributeMeta, props, meta);
 		const output = css.generate();
+
+		attributeMeta.nonInheritable = attributeMetaNonInheritableTemp;
 		return output;
 	}, [attributes?.layers, previewDevice, preset?.value, uniqueID, type]);
 	return <style>{cssOutput}</style>;

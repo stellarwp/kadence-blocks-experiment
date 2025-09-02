@@ -53,6 +53,20 @@
 
 		@include wrapper-styles;
 	}
+
+	.kbs-image-caption {
+		max-width: var(--kbs-image-max-width, 100%);
+
+		font-family: var(--kbs-image-font-family);
+		font-weight: var(--kbs-image-font-weight);
+		font-size: var(--kbs-image-font-size);
+		line-height: var(--kbs-image-line-height);
+		letter-spacing: var(--kbs-image-letter-spacing);
+		text-transform: var(--kbs-image-text-transform);
+		font-style: var(--kbs-image-font-style);
+		color: var(--kbs-image-color);
+		background: var(--kbs-image-background-color);
+	}
 }
 
 @include kbs-bg-layer;
