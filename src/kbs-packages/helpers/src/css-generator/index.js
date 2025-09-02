@@ -221,7 +221,7 @@ class CSSGenerator {
 			this.outputComponentDebug(attributeName, componentType, props, meta, metadata);
 		}
 
-		const generator = this.generators[componentType] ?? this.generators['simple'];
+		const generator = this.generators[componentType] ?? this.generators.simple;
 
 		if (generator) {
 			// Resolve all values for the component at once
