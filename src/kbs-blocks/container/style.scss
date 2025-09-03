@@ -8,6 +8,7 @@
 
 .kbs-container {
 	position: relative;
+	overflow: auto;
 	display: flex;
 	flex-direction: var(--kbs-cont-flex-direction, column);
 	justify-content: var(--kbs-cont-justify-content, flex-start);

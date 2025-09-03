@@ -22,6 +22,9 @@
 			"renderCSS": false,
 			"type": "object"
 		},
+		"align": {
+			"type": "string"
+		},
 		"padding": {
 			"type": "object",
 			"renderCSS": true,

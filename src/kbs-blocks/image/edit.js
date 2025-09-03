@@ -26,6 +26,7 @@ import { BackgroundStyles, MediaPlaceholder } from '@kadence/kbsComponents';
 import metadata from './block.json';
 import Inspector from './editing/inspector';
 import Styles from './editing/styles';
+import { ALLOWED_MEDIA_TYPES } from './constants';
 /**
  * Import WordPress
  */
@@ -33,19 +34,19 @@ import { __ } from '@wordpress/i18n';
 
 import { useSelect, select } from '@wordpress/data';
 import { useEffect, useMemo, useRef, useState, useCallback } from '@wordpress/element';
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, BlockAlignmentControl } from '@wordpress/block-editor';
 import { caption as captionIcon } from '@wordpress/icons';
 import { ToolbarButton, plusCircleFilled } from '@wordpress/components';
 import { usePrevious } from '@wordpress/compose';
-import { RichText } from '@wordpress/block-editor';
+import { RichText, MediaReplaceFlow } from '@wordpress/block-editor';
 import { createBlock } from '@wordpress/blocks';
 
 /**
  * Build the section edit.
  */
 export default function ImageEdit(props) {
-	const { attributes, setAttributes, isSelected, clientId, className } = props;
-	const { uniqueID, globalStyleIds, caption } = attributes;
+	const { attributes, setAttributes, isSelected, clientId, className, onUploadError } = props;
+	const { uniqueID, globalStyleIds, caption, align } = attributes;
 	const myElementRef = useRef(null);
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
@@ -58,25 +59,6 @@ export default function ImageEdit(props) {
 		[clientId]
 	);
 	uniqueIdHelper(props);
-
-	const prevCaption = usePrevious(caption);
-	// We need to show the caption when changes come from
-	// history navigation(undo/redo).
-	useEffect(() => {
-		if (caption && !prevCaption) {
-			onToggleCaption(true);
-		}
-	}, [caption, prevCaption]);
-
-	// Focus the caption when we click to add one.
-	const captionRef = useCallback(
-		(node) => {
-			if (node && !caption) {
-				node.focus();
-			}
-		},
-		[caption]
-	);
 
 	const onImageSelect = (value, device = 'none') => {
 		handleMultipleAttributeChange(
@@ -138,6 +120,25 @@ export default function ImageEdit(props) {
 	const hasWrapper = filterSimple || hasOverlay;
 	const hasCaption = (!RichText.isEmpty(caption) || isSelected) && captionEnableValue;
 
+	const prevCaption = usePrevious(captionValue);
+	// We need to show the caption when changes come from
+	// history navigation(undo/redo).
+	useEffect(() => {
+		if (captionValue && !prevCaption) {
+			onToggleCaption(true);
+		}
+	}, [captionValue, prevCaption]);
+
+	// Focus the caption when we click to add one.
+	const captionRef = useCallback(
+		(node) => {
+			if (node && !captionValue) {
+				node.focus();
+			}
+		},
+		[captionValue]
+	);
+
 	const onToggleCaption = (value = undefined) => {
 		handleAttributeChange(
 			value ? value : captionEnableValue ? false : true,
@@ -150,6 +151,16 @@ export default function ImageEdit(props) {
 			metadata
 		);
 	};
+
+	function updateAlignment(nextAlign) {
+		const extraUpdatedAttributes = ['wide', 'full'].includes(nextAlign)
+			? { width: undefined, height: undefined }
+			: {};
+		setAttributes({
+			...extraUpdatedAttributes,
+			align: nextAlign,
+		});
+	}
 
 	const globalStylesCss = getGlobalStylesCSSOutput(globalStylesIds);
 	const globalClasses = useMemo(() => {
@@ -171,6 +182,7 @@ export default function ImageEdit(props) {
 	});
 	const blockProps = useBlockProps({
 		className: classes,
+		'data-align': 'center' === align ? align : undefined,
 	});
 
 	const wrapperClasses = classnames('kbs-image-wrapper', {
@@ -215,6 +227,7 @@ export default function ImageEdit(props) {
 			{hasImage && (
 				<>
 					<BlockControls group="block">
+						<BlockAlignmentControl value={align} onChange={updateAlignment} />
 						<ToolbarButton
 							onClick={() => {
 								onToggleCaption();
@@ -226,6 +239,18 @@ export default function ImageEdit(props) {
 									? __('Remove caption', 'kadence-blocks')
 									: __('Add caption', 'kadence-blocks')
 							}
+						/>
+					</BlockControls>
+
+					<BlockControls group="other">
+						<MediaReplaceFlow
+							mediaId={imageIdResolvedValue?.appliedValue}
+							mediaURL={imageResolvedValue?.appliedValue}
+							allowedTypes={ALLOWED_MEDIA_TYPES}
+							accept="image/*"
+							onSelect={onImageSelect}
+							onSelectURL={onImageSelect}
+							onError={onUploadError}
 						/>
 					</BlockControls>
 					<figure {...blockProps}>
