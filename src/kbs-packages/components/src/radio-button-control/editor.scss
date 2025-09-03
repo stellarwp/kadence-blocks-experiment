@@ -568,6 +568,45 @@
 	}
 }
 
+.kbs-space-control.kbs-space-control-corner {
+	.kbs-radio-button-popup-grid-container {
+		grid-template-areas:
+			"header-left header header-right"
+			"main-left main-center main-right"
+			"footer-left footer footer-right";
+	}
+	.kbs-space-control-linking {
+		align-self: initial;
+		justify-self: initial;
+		height: initial;
+		display: initial;
+	}
+	.kbs-radio-button-control-popover-top-left {
+		grid-area: header-left;
+	}
+	.kbs-radio-button-control-popover-top-right {
+		grid-area: header-right;
+		.kbs-radio-button-control__toggle-group-input-title {
+			text-align: right;
+		}
+		.components-input-control__label {
+			text-align: right;
+		}
+	}
+	.kbs-radio-button-control-popover-bottom-left {
+		grid-area: footer-left;
+	}
+	.kbs-radio-button-control-popover-bottom-right {
+		grid-area: footer-right;
+		.kbs-radio-button-control__toggle-group-input-title {
+			text-align: right;
+		}
+		.components-input-control__label {
+			text-align: right;
+		}
+	}
+}
+
 // Hue control styles
 .kbs-radio-button-control__toggle-group-hue {
 	.kbs-radio-button-control__toggle_item-hue {

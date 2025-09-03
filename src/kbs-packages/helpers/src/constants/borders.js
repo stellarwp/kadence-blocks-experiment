@@ -8,25 +8,38 @@ export const BORDER_STYLES_DEFAULTS = {
 
 export const BORDER_RADIUS_SIZES_MAP = [
 	{
+		value: '0',
+		label: __('None', 'kadence-blocks'),
+		size: 0,
+		name: __('None', 'kadence-blocks'),
+	},
+	{
 		value: 'sm',
 		output: 'var(--global-kb-border-radius-sm, 5px)',
-		label: __('Slight', 'kadence-blocks'),
+		label: __('Small', 'kadence-blocks'),
 		size: 5,
-		name: __('Slight', 'kadence-blocks'),
+		name: __('SM', 'kadence-blocks'),
 	},
 	{
 		value: 'md',
 		output: 'var(--global-kb-border-radius-md, 15px)',
 		label: __('Medium', 'kadence-blocks'),
 		size: 15,
-		name: __('Medium', 'kadence-blocks'),
+		name: __('MD', 'kadence-blocks'),
 	},
 	{
 		value: 'lg',
 		output: 'var(--global-kb-border-radius-lg, 30px)',
-		label: __('Heavy', 'kadence-blocks'),
+		label: __('Large', 'kadence-blocks'),
 		size: 30,
-		name: __('Heavy', 'kadence-blocks'),
+		name: __('LG', 'kadence-blocks'),
+	},
+	{
+		value: 'xl',
+		output: 'var(--global-kb-border-radius-xl, 50px)',
+		label: __('X-Large', 'kadence-blocks'),
+		size: 60,
+		name: __('XL', 'kadence-blocks'),
 	},
 	{
 		value: 'full',

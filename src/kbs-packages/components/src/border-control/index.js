@@ -1,9 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import ToolsPanelBody from '../tools-panel-body';
-import RadioButtonControl from '../radio-button-control';
 import BorderStyleControl from './border-style-control';
 import PresetControl from '../preset-control';
-import { sectionLargeIcon, sectionMediumIcon, cardLargeIcon, cardMediumIcon } from '../constants/icons';
+import SpaceControl from '../space-control';
 import {
 	homeButton as homeButtonIcon,
 	caption as captionIcon,
@@ -71,18 +69,17 @@ export default function BorderControl({
 				/>
 			)}
 			{hasBorderRadius && (
-				<RadioButtonControl
-					label={labelBorderRadius}
+				<SpaceControl
+					label={__('Border Radius', 'kadence-blocks')}
 					attributes={attributes}
 					setAttributes={setAttributes}
 					attributeName={attributeName}
-					type={'borderRadius' + hoverSuffix}
-					radioType={'borderRadius'}
-					meta={meta?.attributes?.[attributeName]}
+					type={'borderRadius'}
 					previewDevice={previewDevice}
-					hasCustomControls={hasCustomControls}
-					hasAdvancedControls={hasAdvancedControls}
-					key={'borderRadius' + hoverSuffix}
+					hasPresetControl={false}
+					metaData={meta}
+					globalStylesIds={globalStylesIds}
+					cornerControlType={true}
 				/>
 			)}
 			{hasBorder && (

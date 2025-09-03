@@ -26,11 +26,12 @@ import {
 } from '@kadence/kbsHelpers';
 import TitleBar from '../title-bar';
 import RadioButtonSelect from '../radio-button-control/radio-button-select';
-import { getSpacingControls } from '../radio-button-control/controls-config';
+import { getSpacingControls, getBorderRadiusControls } from '../radio-button-control/controls-config';
 import { PaddingVisualizer, MarginVisualizer } from './spacing-visualizer';
 import PresetControl from '../preset-control';
 import RadioToggleGroupPopoverInputUI from '../radio-button-control/ui-toggle-group-popover-input';
 import { sectionLargeIcon, sectionMediumIcon, cardLargeIcon, cardMediumIcon } from '../constants/icons';
+import clsx from 'clsx';
 /**
  * Build the Measure controls
  * @returns {object} Measure settings.
@@ -62,22 +63,45 @@ export default function SpaceControl({
 	hasLeft = true,
 	hasRight = true,
 	hasBottom = true,
+	sideOptions,
+	cornerControlType = false,
 }) {
+	const defaultSideOptions = {
+		padding: {
+			top: { type: 'paddingTop', label: __('Top', 'kadence-blocks') },
+			left: { type: 'paddingLeft', label: __('Left', 'kadence-blocks') },
+			right: { type: 'paddingRight', label: __('Right', 'kadence-blocks') },
+			bottom: { type: 'paddingBottom', label: __('Bottom', 'kadence-blocks') },
+		},
+		margin: {
+			top: { type: 'marginTop', label: __('Top', 'kadence-blocks') },
+			left: { type: 'marginLeft', label: __('Left', 'kadence-blocks') },
+			right: { type: 'marginRight', label: __('Right', 'kadence-blocks') },
+			bottom: { type: 'marginBottom', label: __('Bottom', 'kadence-blocks') },
+		},
+		borderRadius: {
+			top: { type: 'borderTopLeftRadius', label: __('Top Left', 'kadence-blocks') },
+			left: { type: 'borderTopRightRadius', label: __('Top Right', 'kadence-blocks') },
+			right: { type: 'borderBottomRightRadius', label: __('Bottom Right', 'kadence-blocks') },
+			bottom: { type: 'borderBottomLeftRadius', label: __('Bottom Left', 'kadence-blocks') },
+		},
+	};
+	const sideOptionsToUse = sideOptions || defaultSideOptions[type];
 	const parentType = type;
 	const typeMouseOver = mouseOverVisualizer();
 	const [isCustom, setIsCustom] = useState(false);
 	const [isLinking, setIsLinking] = useState(false);
-	const topValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Top');
-	const rightValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Right');
-	const bottomValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Bottom');
-	const leftValue = getDeviceValue(attributeName, attributes, previewDevice, type + 'Left');
-	const controls = getSpacingControls();
+	const topValue = getDeviceValue(attributeName, attributes, previewDevice, sideOptionsToUse.top.type);
+	const rightValue = getDeviceValue(attributeName, attributes, previewDevice, sideOptionsToUse.right.type);
+	const bottomValue = getDeviceValue(attributeName, attributes, previewDevice, sideOptionsToUse.bottom.type);
+	const leftValue = getDeviceValue(attributeName, attributes, previewDevice, sideOptionsToUse.left.type);
+	const controls = type === 'borderRadius' ? getBorderRadiusControls() : getSpacingControls();
 	const inheritedTop = getInheritedDeviceValue(
 		attributeName,
 		attributes,
 		previewDevice,
 		metaData,
-		type + 'Top',
+		sideOptionsToUse.top.type,
 		globalStylesIds
 	);
 	const inheritedRight = getInheritedDeviceValue(
@@ -85,7 +109,7 @@ export default function SpaceControl({
 		attributes,
 		previewDevice,
 		metaData,
-		type + 'Right',
+		sideOptionsToUse.right.type,
 		globalStylesIds
 	);
 	const inheritedBottom = getInheritedDeviceValue(
@@ -93,7 +117,7 @@ export default function SpaceControl({
 		attributes,
 		previewDevice,
 		metaData,
-		type + 'Bottom',
+		sideOptionsToUse.bottom.type,
 		globalStylesIds
 	);
 	const inheritedLeft = getInheritedDeviceValue(
@@ -101,7 +125,7 @@ export default function SpaceControl({
 		attributes,
 		previewDevice,
 		metaData,
-		type + 'Left',
+		sideOptionsToUse.left.type,
 		globalStylesIds
 	);
 	const onReset = () => {
@@ -114,7 +138,6 @@ export default function SpaceControl({
 	// Memoize event handlers
 	const onSetAttributes = useCallback(
 		(newAttributes) => {
-			console.log('onSetAttributes', newAttributes, inheritedTop, inheritedBottom);
 			if (
 				newAttributes.padding?.preset &&
 				(inheritedTop?.inheritedType === 'preset' || inheritedBottom?.inheritedType === 'preset')
@@ -158,7 +181,6 @@ export default function SpaceControl({
 		[getInheritedValue, setAttributes, attributes, metaData, globalStylesIds, inheritedTop, inheritedBottom]
 	);
 	const onChange = (value, device, tempType, reset = false) => {
-		console.log('onChange', value, device, tempType);
 		if (isLinking || reset) {
 			handleMultipleAttributeChange(
 				[value, value, value, value],
@@ -167,7 +189,12 @@ export default function SpaceControl({
 				attributes,
 				parentType === 'padding' ? onSetAttributes : setAttributes,
 				customOnChange,
-				[type + 'Top', type + 'Left', type + 'Right', type + 'Bottom'],
+				[
+					sideOptionsToUse.top.type,
+					sideOptionsToUse.left.type,
+					sideOptionsToUse.right.type,
+					sideOptionsToUse.bottom.type,
+				],
 				metaData
 			);
 		} else {
@@ -205,6 +232,12 @@ export default function SpaceControl({
 			key: 'kbs-pd-card-md',
 		},
 	];
+	const containerClasses = clsx(
+		'components-base-control kbs-control kbs-space-control',
+		className,
+		cornerControlType ? 'kbs-space-control-corner' : ''
+	);
+
 	// Return the JSX directly, not inside an array
 	return (
 		<>
@@ -213,7 +246,7 @@ export default function SpaceControl({
 				onMouseOut={typeMouseOver.onMouseOut}
 				onFocus={typeMouseOver.onMouseOver}
 				onBlur={typeMouseOver.onMouseOut}
-				className={`components-base-control kbs-control kbs-space-control${className ? ' ' + className : ''}`}
+				className={containerClasses}
 			>
 				{hasPresetControl && type === 'padding' && (
 					<PresetControl
@@ -269,28 +302,32 @@ export default function SpaceControl({
 						<div className="kbs-radio-button-popup-grid-container">
 							{hasTop && (
 								<RadioToggleGroupPopoverInputUI
-									label={__('Top', 'kadence-blocks')}
+									label={sideOptionsToUse.top.label}
 									parentLabel={label}
-									type={type + 'Top'}
+									type={sideOptionsToUse.top.type}
 									hasCustomControls={true}
 									controls={controls}
 									isCustom={isCustom}
 									value={topValue}
 									inherited={inheritedTop}
-									onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Top')}
+									onChange={(itemValue) =>
+										onChange(itemValue, previewDevice, sideOptionsToUse.top.type)
+									}
 								/>
 							)}
 							{hasLeft && (
 								<RadioToggleGroupPopoverInputUI
-									label={__('Left', 'kadence-blocks')}
-									type={type + 'Left'}
+									label={sideOptionsToUse.left.label}
+									type={sideOptionsToUse.left.type}
 									parentLabel={label}
 									hasCustomControls={true}
 									value={leftValue}
 									controls={controls}
 									isCustom={isCustom}
 									inherited={inheritedLeft}
-									onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Left')}
+									onChange={(itemValue) =>
+										onChange(itemValue, previewDevice, sideOptionsToUse.left.type)
+									}
 								/>
 							)}
 							<div className={'kbs-space-control-linking'}>
@@ -305,28 +342,32 @@ export default function SpaceControl({
 							</div>
 							{hasRight && (
 								<RadioToggleGroupPopoverInputUI
-									label={__('Right', 'kadence-blocks')}
-									type={type + 'Right'}
+									label={sideOptionsToUse.right.label}
+									type={sideOptionsToUse.right.type}
 									parentLabel={label}
 									hasCustomControls={true}
 									value={rightValue}
 									controls={controls}
 									isCustom={isCustom}
 									inherited={inheritedRight}
-									onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Right')}
+									onChange={(itemValue) =>
+										onChange(itemValue, previewDevice, sideOptionsToUse.right.type)
+									}
 								/>
 							)}
 							{hasBottom && (
 								<RadioToggleGroupPopoverInputUI
-									label={__('Bottom', 'kadence-blocks')}
-									type={type + 'Bottom'}
+									label={sideOptionsToUse.bottom.label}
+									type={sideOptionsToUse.bottom.type}
 									hasCustomControls={true}
 									parentLabel={label}
 									isCustom={isCustom}
 									controls={controls}
 									value={bottomValue}
 									inherited={inheritedBottom}
-									onChange={(itemValue) => onChange(itemValue, previewDevice, type + 'Bottom')}
+									onChange={(itemValue) =>
+										onChange(itemValue, previewDevice, sideOptionsToUse.bottom.type)
+									}
 								/>
 							)}
 						</div>

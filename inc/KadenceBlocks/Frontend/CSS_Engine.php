@@ -225,9 +225,8 @@ class CSS_Engine {
 		'sm' => 'var(--global-kb-border-radius-sm, 5px)',
 		'md' => 'var(--global-kb-border-radius-md, 15px)',
 		'lg' => 'var(--global-kb-border-radius-lg, 30px)',
-		'xl' => 'var(--global-kb-border-radius-xl, 50px)',
-		'xxl' => 'var(--global-kb-border-radius-xxl, 100px)',
-		'3xl' => 'var(--global-kb-border-radius-3xl, 200px)',
+		'xl' => 'var(--global-kb-border-radius-xl, 60px)',
+		'full' => 'var(--global-kb-border-radius-full, 100%)',
 	);
 	/**
 	 * Line height variables used in string based line heights.

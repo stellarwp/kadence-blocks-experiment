@@ -3,6 +3,7 @@ import clsx from 'clsx';
  * WordPress dependencies
  */
 import { __, _x } from '@wordpress/i18n';
+import { kebabCase } from 'lodash';
 import { Dropdown, Button, ResizableBox, RangeControl } from '@wordpress/components';
 import { useEffect, useState, useMemo, useRef, useCallback } from '@wordpress/element';
 /**
@@ -224,7 +225,7 @@ function RadioToggleGroupPopoverInputUI({
 			key={label}
 			className={clsx(
 				'kbs-radio-button-control__toggle-group-input',
-				`kbs-radio-button-control-popover-${String(label).toLowerCase()}`
+				`kbs-radio-button-control-popover-${kebabCase(String(label).toLowerCase())}`
 			)}
 		>
 			{!isCustom && (

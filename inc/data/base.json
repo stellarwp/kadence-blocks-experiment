@@ -315,7 +315,10 @@
 							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
 							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
 							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-							"borderRadius": ["sm", "sm", "sm", "sm"]
+							"borderTopLeftRadius": "sm",
+							"borderTopRightRadius": "sm",
+							"borderBottomRightRadius": "sm",
+							"borderBottomLeftRadius": "sm"
 						}
 					}
 				},
@@ -329,7 +332,10 @@
 							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
 							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
 							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
-							"borderRadius": ["md", "md", "md", "md"]
+							"borderTopLeftRadius": "md",
+							"borderTopRightRadius": "md",
+							"borderBottomRightRadius": "md",
+							"borderBottomLeftRadius": "md"
 						}
 					}
 				},
@@ -343,7 +349,10 @@
 							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
 							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
 							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
-							"borderRadius": ["sm", "sm", "sm", "sm"]
+							"borderTopLeftRadius": "sm",
+							"borderTopRightRadius": "sm",
+							"borderBottomRightRadius": "sm",
+							"borderBottomLeftRadius": "sm"
 						}
 					}
 				},
@@ -357,7 +366,10 @@
 							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
 							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
 							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
-							"borderRadius": ["md", "md", "md", "md"]
+							"borderTopLeftRadius": "md",
+							"borderTopRightRadius": "md",
+							"borderBottomRightRadius": "md",
+							"borderBottomLeftRadius": "md"
 						}
 					}
 				}
@@ -516,7 +528,10 @@
 						},
 						"border": {
 							"desktop": {
-								"borderRadius": ["md", "md", "md", "md"],
+								"borderTopLeftRadius": "md",
+								"borderTopRightRadius": "md",
+								"borderBottomRightRadius": "md",
+								"borderBottomLeftRadius": "md",
 								"borderTop": "1px solid transparent",
 								"borderLeft": "1px solid transparent",
 								"borderRight": "1px solid transparent",
@@ -561,7 +576,10 @@
 						},
 						"border": {
 							"desktop": {
-								"borderRadius": ["md", "md", "md", "md"],
+								"borderTopLeftRadius": "md",
+								"borderTopRightRadius": "md",
+								"borderBottomRightRadius": "md",
+								"borderBottomLeftRadius": "md",
 								"borderTop": "1px solid var(--kbs-colors-palette1)",
 								"borderLeft": "1px solid var(--kbs-colors-palette1)",
 								"borderRight": "1px solid var(--kbs-colors-palette1)",
@@ -606,7 +624,10 @@
 						},
 						"border": {
 							"desktop": {
-								"borderRadius": ["md", "md", "md", "md"],
+								"borderTopLeftRadius": "md",
+								"borderTopRightRadius": "md",
+								"borderBottomRightRadius": "md",
+								"borderBottomLeftRadius": "md",
 								"borderTop": "1px solid transparent",
 								"borderLeft": "1px solid transparent",
 								"borderRight": "1px solid transparent",

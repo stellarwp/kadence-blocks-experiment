@@ -327,6 +327,16 @@ export const getBorderRadiusControls = () => [
 		name: __('LG', 'kadence-blocks'),
 		key: 'lg',
 	},
+	{
+		title: __('X-Large', 'kadence-blocks'),
+		name: __('XL', 'kadence-blocks'),
+		key: 'xl',
+	},
+	{
+		title: __('Full', 'kadence-blocks'),
+		name: __('Full', 'kadence-blocks'),
+		key: 'full',
+	},
 ];
 
 export const getMaskSizeControls = () => [

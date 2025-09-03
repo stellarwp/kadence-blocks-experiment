@@ -88,8 +88,7 @@
 			"nonInheritable": true,
 			"type": "object",
 			"varPrefix": "--kbs-cont-",
-			"classPrefix": "kbs-cont-border-",
-			"debug": true
+			"classPrefix": "kbs-cont-border-"
 		},
 		"variant": {
 			"renderCSS": false,
