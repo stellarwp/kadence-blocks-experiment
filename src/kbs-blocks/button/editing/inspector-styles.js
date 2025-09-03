@@ -21,14 +21,14 @@ import {
 	ToggleControl,
 	ButtonSettings,
 } from '@kadence/kbsComponents';
+import { getResolvedValue } from '@kadence/kbsHelpers';
 
 import metadata from '../block.json';
 /**
  * Import WordPress
  */
 import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-
+import { useState, useMemo } from '@wordpress/element';
 /**
  * Build the section edit.
  */
@@ -36,6 +36,12 @@ export default function InspectorStyles(props) {
 	const { attributes, setAttributes, previewDevice, globalStylesIds, globalStylesCss, blockElementRef, clientId } =
 		props;
 	const [isHover, setIsHover] = useState(false);
+
+	const iconAnyValue = useMemo(
+		() => getResolvedValue('icon', attributes, 'any', metadata, 'icon', globalStylesIds),
+		[attributes]
+	);
+	const iconValue = iconAnyValue?.appliedValue;
 
 	return (
 		<>
@@ -200,15 +206,17 @@ export default function InspectorStyles(props) {
 					hasSpacing={true}
 					hasRotation={true}
 				/>
-				<ToggleControl
-					label={__('Reveal Icon on Hover', 'kadence-blocks')}
-					titleBar={false}
-					attributeName={'iconReveal'}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					meta={metadata}
-					type={'iconReveal'}
-				/>
+				{iconValue && (
+					<ToggleControl
+						label={__('Reveal Icon on Hover', 'kadence-blocks')}
+						titleBar={false}
+						attributeName={'iconReveal'}
+						attributes={attributes}
+						setAttributes={setAttributes}
+						meta={metadata}
+						type={'iconReveal'}
+					/>
+				)}
 			</ToolsPanelBody>
 			<ToolsPanelBody
 				title={__('Text Orientation', 'kadence-blocks')}
