@@ -325,7 +325,11 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderRadius": ["sm", "sm", "sm", "sm"]
+							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
+							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
+							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
+							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
+							"borderRadius": ["md", "md", "md", "md"]
 						}
 					}
 				},
@@ -339,7 +343,7 @@
 							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
 							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
 							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
-							"borderRadius": ["md", "md", "md", "md"]
+							"borderRadius": ["sm", "sm", "sm", "sm"]
 						}
 					}
 				},
@@ -349,6 +353,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
+							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
+							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
+							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
+							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
 							"borderRadius": ["md", "md", "md", "md"]
 						}
 					}

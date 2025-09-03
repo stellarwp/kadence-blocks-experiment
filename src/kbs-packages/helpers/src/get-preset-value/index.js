@@ -54,6 +54,31 @@ export default function getPresetValue(
 			if (attributeValue !== undefined && attributeValue !== null && attributeValue !== '') {
 				return { value: attributeValue, source: 'preset' };
 			}
+		} else if (type?.includes('border') && type?.includes('Radius')) {
+			// Special handling for border radius stored as array (check after individual keys)
+			const isHover = type.includes('Hover');
+			const arrayKey = isHover ? 'borderRadiusHover' : 'borderRadius';
+
+			// Check if borderRadius is stored as an array at the attribute level
+			const borderRadiusArray = rawPresetData.attributes?.[device?.toLowerCase()]?.[arrayKey];
+
+			if (Array.isArray(borderRadiusArray)) {
+				let cornerValue;
+				// Map individual corner keys to array indices
+				if (type === 'borderTopLeftRadius' || type === 'borderTopLeftRadiusHover') {
+					cornerValue = borderRadiusArray[0];
+				} else if (type === 'borderTopRightRadius' || type === 'borderTopRightRadiusHover') {
+					cornerValue = borderRadiusArray[1];
+				} else if (type === 'borderBottomRightRadius' || type === 'borderBottomRightRadiusHover') {
+					cornerValue = borderRadiusArray[2];
+				} else if (type === 'borderBottomLeftRadius' || type === 'borderBottomLeftRadiusHover') {
+					cornerValue = borderRadiusArray[3];
+				}
+
+				if (cornerValue !== undefined && cornerValue !== null && cornerValue !== '') {
+					return { value: cornerValue, source: 'preset' };
+				}
+			}
 		} else {
 			// Find the attribute value within the preset data for the specific device and type
 			const attributeValue = rawPresetData.attributes?.[device?.toLowerCase()]?.[type];
