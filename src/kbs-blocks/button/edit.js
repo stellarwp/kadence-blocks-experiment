@@ -112,7 +112,7 @@ export default function ButtonEdit(props) {
 		undefined !== kadenceDynamic.content.enable &&
 		kadenceDynamic.content.enable;
 
-	let richTextFormatsBase = applyFilters(
+	const richTextFormatsBase = applyFilters(
 		'kadence.whitelist_richtext_formats',
 		[
 			'kbs/highlight',
