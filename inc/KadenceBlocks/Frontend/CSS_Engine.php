@@ -875,10 +875,10 @@ class CSS_Engine {
 	 * @return array
 	 */
 	public function get_attribute_meta( $block_instance, $attribute_name ) {
-		if ( is_object( $block_instance ) && isset( $block_instance->attributes[ $attribute_name ] ) ) {
-			return $block_instance->attributes[ $attribute_name ];
-		} elseif ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes[ $attribute_name ] ) ) {
+		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes[ $attribute_name ] ) ) {
 			return $block_instance->block_type->attributes[ $attribute_name ];
+		} elseif ( is_object( $block_instance ) && isset( $block_instance->attributes[ $attribute_name ] ) ) {
+			return $block_instance->attributes[ $attribute_name ];
 		}
 		return [];
 	}
