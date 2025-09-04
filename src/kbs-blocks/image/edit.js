@@ -8,6 +8,7 @@
  * Import Controls
  */
 import classnames from 'classnames';
+import { pick } from 'lodash';
 
 /**
  * Kadence Helpers.
@@ -27,6 +28,7 @@ import metadata from './block.json';
 import Inspector from './editing/inspector';
 import Styles from './editing/styles';
 import { ALLOWED_MEDIA_TYPES } from './constants';
+import useClientWidth from './editing/use-client-width';
 /**
  * Import WordPress
  */
@@ -38,8 +40,14 @@ import { useBlockProps, BlockControls, BlockAlignmentControl } from '@wordpress/
 import { caption as captionIcon } from '@wordpress/icons';
 import { ToolbarButton, plusCircleFilled } from '@wordpress/components';
 import { usePrevious } from '@wordpress/compose';
-import { RichText, MediaReplaceFlow } from '@wordpress/block-editor';
+import {
+	RichText,
+	MediaReplaceFlow,
+	__experimentalImageEditor as ImageEditor,
+	store as blockEditorStore,
+} from '@wordpress/block-editor';
 import { createBlock } from '@wordpress/blocks';
+import { crop } from '@wordpress/icons';
 
 /**
  * Build the section edit.
@@ -47,13 +55,21 @@ import { createBlock } from '@wordpress/blocks';
 export default function ImageEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId, className, onUploadError } = props;
 	const { uniqueID, globalStyleIds, caption, align } = attributes;
-	const myElementRef = useRef(null);
+	const myElementRef = useRef();
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
-	const { previewDevice } = useSelect(
+	const [isEditingImage, setIsEditingImage] = useState(false);
+	const [{ naturalWidth, naturalHeight }, setNaturalSize] = useState({});
+	const clientWidth = useClientWidth(myElementRef, [align]);
+
+	const { previewDevice, imageEditing } = useSelect(
 		(select) => {
+			const { getSettings } = select(blockEditorStore);
+			const settings = pick(getSettings(), ['imageEditing']);
+
 			return {
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
+				...settings,
 			};
 		},
 		[clientId]
@@ -77,6 +93,8 @@ export default function ImageEdit(props) {
 
 	const imageResolvedValue = getResolvedValue('image', attributes, 'none', metadata, 'image', globalStylesIds);
 	const imageIdResolvedValue = getResolvedValue('image', attributes, 'none', metadata, 'imageId', globalStylesIds);
+	const widthResolvedValue = getResolvedValue('width', attributes, 'none', metadata, 'width', globalStylesIds);
+	const heightResolvedValue = getResolvedValue('height', attributes, 'none', metadata, 'height', globalStylesIds);
 	const aspectRatioAnyResolvedValue = getResolvedValue(
 		'aspectRatio',
 		attributes,
@@ -120,6 +138,11 @@ export default function ImageEdit(props) {
 	const hasWrapper = filterSimple || hasOverlay;
 	const hasCaption = (!RichText.isEmpty(caption) || isSelected) && captionEnableValue;
 	const isWideAligned = ['wide', 'full'].includes(align);
+	const isSVG = imageResolvedValue?.appliedValue && imageResolvedValue?.appliedValue.endsWith('.svg') ? true : false;
+	const isDynamic = false;
+	const canEditImage =
+		imageIdResolvedValue?.appliedValue && naturalWidth && naturalHeight && imageEditing && !isDynamic && !isSVG;
+	const allowCrop = canEditImage && !isEditingImage;
 
 	const prevCaption = usePrevious(captionValue);
 	// We need to show the caption when changes come from
@@ -183,6 +206,7 @@ export default function ImageEdit(props) {
 		'kbs-image-is-wide-aligned': isWideAligned,
 	});
 	const blockProps = useBlockProps({
+		ref: myElementRef,
 		className: classes,
 		'data-align': align ? align : undefined,
 	});
@@ -191,7 +215,37 @@ export default function ImageEdit(props) {
 		[`kbs-filter-${filterSimple}`]: filterSimple,
 	});
 
-	const imgHTML = <img className="kbs-image-img" src={imageResolvedValue?.appliedValue} />;
+	const imgHTML =
+		canEditImage && isEditingImage ? (
+			<ImageEditor
+				id={imageIdResolvedValue?.appliedValue}
+				url={imageResolvedValue?.appliedValue}
+				width={widthResolvedValue?.appliedValue}
+				height={heightResolvedValue?.appliedValue}
+				clientWidth={clientWidth}
+				naturalHeight={naturalHeight}
+				naturalWidth={naturalWidth}
+				onSaveImage={(imageAttributes) => onImageSelect(imageAttributes)}
+				onFinishEditing={() => {
+					setIsEditingImage(false);
+				}}
+			/>
+		) : (
+			<img
+				className="kbs-image-img"
+				src={imageResolvedValue?.appliedValue}
+				onLoad={(event) => {
+					setNaturalSize(pick(event.target, ['naturalWidth', 'naturalHeight']));
+
+					//fix issue where chrome can fallback to 150 width/height when none are specified on some image types like svg imgs
+					const { naturalWidth, naturalHeight } = pick(event.target, ['naturalWidth', 'naturalHeight']);
+					const { width, height } = pick(event.target, ['width', 'height']);
+					if (naturalWidth == 150 && naturalHeight == 150 && width != 150 && height != 150) {
+						setNaturalSize({ naturalWidth: 0, naturalHeight: 0 });
+					}
+				}}
+			/>
+		);
 
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
@@ -242,19 +296,29 @@ export default function ImageEdit(props) {
 									: __('Add caption', 'kadence-blocks')
 							}
 						/>
+
+						{allowCrop && (
+							<ToolbarButton
+								onClick={() => setIsEditingImage(true)}
+								icon={crop}
+								label={__('Crop', 'kadence-blocks')}
+							/>
+						)}
 					</BlockControls>
 
-					<BlockControls group="other">
-						<MediaReplaceFlow
-							mediaId={imageIdResolvedValue?.appliedValue}
-							mediaURL={imageResolvedValue?.appliedValue}
-							allowedTypes={ALLOWED_MEDIA_TYPES}
-							accept="image/*"
-							onSelect={onImageSelect}
-							onSelectURL={onImageSelect}
-							onError={onUploadError}
-						/>
-					</BlockControls>
+					{!isEditingImage && !isDynamic && (
+						<BlockControls group="other">
+							<MediaReplaceFlow
+								mediaId={imageIdResolvedValue?.appliedValue}
+								mediaURL={imageResolvedValue?.appliedValue}
+								allowedTypes={ALLOWED_MEDIA_TYPES}
+								accept="image/*"
+								onSelect={onImageSelect}
+								onSelectURL={onImageSelect}
+								onError={onUploadError}
+							/>
+						</BlockControls>
+					)}
 					<figure {...blockProps}>
 						{hasWrapper && <div className={wrapperClasses}>{imgHTML}</div>}
 						{!hasWrapper && imgHTML}
