@@ -222,10 +222,10 @@ class CSS_Engine {
 	 * Border radius variables used in string based border radius values.
 	 */
 	protected $border_radius_sizes = array(
-		'sm' => 'var(--global-kb-border-radius-sm, 5px)',
-		'md' => 'var(--global-kb-border-radius-md, 15px)',
-		'lg' => 'var(--global-kb-border-radius-lg, 30px)',
-		'xl' => 'var(--global-kb-border-radius-xl, 60px)',
+		'sm' => 'var(--global-kb-border-radius-sm, clamp(5px, 3.4321px + 0.3484vw, 7px))',
+		'md' => 'var(--global-kb-border-radius-md, clamp(15px, 10.2962px + 1.0453vw, 21px))',
+		'lg' => 'var(--global-kb-border-radius-lg, clamp(30px, 20.5923px + 2.0906vw, 42px))',
+		'xl' => 'var(--global-kb-border-radius-xl, clamp(60px, 41.1847px + 4.1812vw, 84px))',
 		'full' => 'var(--global-kb-border-radius-full, 100%)',
 	);
 	/**
@@ -248,11 +248,11 @@ class CSS_Engine {
 	 * Icon size variables used in string based icon sizes.
 	 */
 	protected $icon_sizes = array(
-		'xs' => 'var(--kbs-icon-size-xs, 1rem)',
-		'sm' => 'var(--kbs-icon-size-sm, 2rem)',
-		'md' => 'var(--kbs-icon-size-md, 3rem)',
-		'lg' => 'var(--kbs-icon-size-lg, 4rem)',
-		'xl' => 'var(--kbs-icon-size-xl, 5rem)',
+		'xs' => 'var(--kbs-icon-size-xs, clamp(1rem, 0.843rem + 0.557vw, 1.2rem))',
+		'sm' => 'var(--kbs-icon-size-sm, clamp(2rem, 1.686rem + 1.115vw, 2.4rem))',
+		'md' => 'var(--kbs-icon-size-md, clamp(3rem, 2.53rem + 1.672vw, 3.6rem))',
+		'lg' => 'var(--kbs-icon-size-lg, clamp(4rem, 3.373rem + 2.23vw, 4.8rem))',
+		'xl' => 'var(--kbs-icon-size-xl, clamp(5rem, 4.216rem + 2.787vw, 6rem))',
 	);
 	/**
 	 * Gaps variables used in string based gutters.

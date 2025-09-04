@@ -55,6 +55,7 @@
 	}
 
 	.kbs-image-caption {
+		max-width: var(--kbs-image-max-width);
 		font-family: var(--kbs-image-font-family);
 		font-weight: var(--kbs-image-font-weight);
 		font-size: var(--kbs-image-font-size);
@@ -67,62 +68,41 @@
 	}
 }
 
-//Wrangle the width of the caption to the width of the image via grid styling
-:not([data-align]) > .kbs-image:not([data-align]):not(.has-warning):not(.kbs-image-has-ratio):has(figcaption) {
-	display: grid;
-	grid-template-columns: [image] minmax(0, max-content) [placeholder] auto;
-}
-:not([data-align]) > .kbs-image:not([data-align]):not(.has-warning):not(.kbs-image-has-ratio) > figcaption {
-	grid-column: image;
-	display: table-caption;
-	caption-side: bottom;
-}
-:not([data-align]) > .kbs-image:not([data-align]) .components-placeholder {
-	grid-column: placeholder;
-}
-
-[data-align="wide"] > .kbs-image,
-[data-align="full"] > .kbs-image {
-	img {
+.kbs-image.kbs-image-is-wide-aligned {
+	.kbs-image-img {
+		max-width: initial;
 		width: 100%;
 	}
-}
-.wp-block[data-align="left"],
-.wp-block[data-align="right"] {
-	> .kbs-image {
-		display: table;
-
-		> figcaption {
-			display: table-caption;
-			caption-side: bottom;
-		}
+	.kbs-image-caption {
+		max-width: initial;
 	}
 }
-.kbs-image[data-align="center"] {
-	display: table;
-	> figcaption {
-		display: table-caption;
-		/* autoprefixer: ignore next */
-		caption-side: bottom;
-	}
+
+//overide core max widths for wide and full alignments
+.block-editor-block-list__layout.is-root-container > .kbs-image[data-align="wide"] {
+	max-width: var(--global-content-wide-width, 1340px);
 }
-.wp-block[data-align="left"] > .kbs-image {
-	margin-right: 1em;
-	margin-left: 0;
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
+.block-editor-block-list__layout.is-root-container > .kbs-image[data-align="full"] {
+	max-width: none;
 }
 
-.wp-block[data-align="right"] > .kbs-image {
-	margin-left: 1em;
-	margin-right: 0;
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
+//switch to flex for alignments
+.kbs-image[data-align="left"],
+.kbs-image[data-align="right"],
+.kbs-image[data-align="center"] {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.kbs-image[data-align="left"] {
+	align-items: flex-start;
+}
+
+.kbs-image[data-align="right"] {
+	align-items: flex-end;
 }
 .kbs-image[data-align="center"] {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
+	align-items: center;
 }
 
 @include kbs-bg-layer;

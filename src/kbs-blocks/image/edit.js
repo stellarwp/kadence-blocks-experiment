@@ -119,6 +119,7 @@ export default function ImageEdit(props) {
 	const hasOverlay = false;
 	const hasWrapper = filterSimple || hasOverlay;
 	const hasCaption = (!RichText.isEmpty(caption) || isSelected) && captionEnableValue;
+	const isWideAligned = ['wide', 'full'].includes(align);
 
 	const prevCaption = usePrevious(captionValue);
 	// We need to show the caption when changes come from
@@ -179,10 +180,11 @@ export default function ImageEdit(props) {
 		'kbs-image-has-ratio': hasRatio,
 		'kbs-image-has-overlay': hasOverlay,
 		'kbs-image-has-wrapper': hasWrapper,
+		'kbs-image-is-wide-aligned': isWideAligned,
 	});
 	const blockProps = useBlockProps({
 		className: classes,
-		'data-align': 'center' === align ? align : undefined,
+		'data-align': align ? align : undefined,
 	});
 
 	const wrapperClasses = classnames('kbs-image-wrapper', {

@@ -45,7 +45,7 @@ export default function IconControl(props) {
 				attributeName={attributeName}
 				meta={meta}
 			/>
-			{iconName && (
+			{iconValue && (
 				<>
 					{hasPlacement && (
 						<RadioButtonControl

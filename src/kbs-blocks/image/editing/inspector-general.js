@@ -47,7 +47,7 @@ export default function InspectorGeneral(props) {
 		hasImage,
 	} = props;
 
-	const { link } = attributes;
+	const { link, align } = attributes;
 
 	const imageResolvedValue = getResolvedValue('image', attributes, 'none', metadata, 'image', globalStylesIds);
 	const objectPositionResolvedValue = getResolvedValue(
@@ -76,9 +76,12 @@ export default function InspectorGeneral(props) {
 	);
 	const hasDynamicAlt = altDynamicAnyResolvedValue?.appliedValue;
 
+	const isWideAligned = ['wide', 'full'].includes(align);
+	const showMaxWidth = !isWideAligned;
+
 	return (
 		<>
-			<ToolsPanelBody>
+			{/* <ToolsPanelBody>
 				<PresetControl
 					label={__('Image Presets', 'kadence-blocks')}
 					type={'imageVariant'}
@@ -90,7 +93,7 @@ export default function InspectorGeneral(props) {
 					globalStylesIds={globalStylesIds}
 					isBundlePreset={true}
 				/>
-			</ToolsPanelBody>
+			</ToolsPanelBody> */}
 			<ToolsPanelBody>
 				<ImageControl
 					label={''}
@@ -170,29 +173,19 @@ export default function InspectorGeneral(props) {
 						/>
 					</>
 				)}
-
-				{/* <RangeControl
-					label={__('Max Image Width', 'kadence-blocks')}
-					titleBar={false}
-					attributeName={'maxWidth'}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					meta={metadata}
-					type={'maxWidth'}
-					previewDevice={previewDevice}
-					hasDeviceControls={false}
-				*/}
-				<RadioButtonControl
-					label={__('Max Image Width', 'kadence-blocks')}
-					attributes={attributes}
-					setAttributes={setAttributes}
-					attributeName={'maxWidth'}
-					radioType={'maxWidth'}
-					type={'maxWidth'}
-					hasCustomControls={true}
-					meta={metadata}
-					previewDevice={previewDevice}
-				/>
+				{showMaxWidth && (
+					<RadioButtonControl
+						label={__('Max Image Width', 'kadence-blocks')}
+						attributes={attributes}
+						setAttributes={setAttributes}
+						attributeName={'maxWidth'}
+						radioType={'maxWidth'}
+						type={'maxWidth'}
+						hasCustomControls={true}
+						meta={metadata}
+						previewDevice={previewDevice}
+					/>
+				)}
 				<TextControl
 					label={__('Alt text (alternative text)', 'kadence-blocks')}
 					attributeName={'alt'}
