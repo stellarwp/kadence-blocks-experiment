@@ -46,6 +46,7 @@ export { BLOCK_COMPONENTS } from './constants';
 export { default as BlockComponentControls } from './block-component-controls';
 
 export { default as LinkControl } from './links/link-control';
+export { default as LinkControlToolbar } from './links/link-control-toolbar';
 export { default as LinkStyle } from './links/link-style';
 
 export { default as SizingControl } from './sizing-control';

@@ -234,13 +234,16 @@ export default function InspectorGeneral(props) {
 			>
 				<LinkControl
 					label={__('Image Link', 'kadence-blocks')}
-					value={link}
-					onChange={(value) => setAttributes({ link: value })}
 					additionalControls={true}
 					dynamicAttribute={'link'}
 					allowClear={true}
 					changeTargetType={false}
-					{...props}
+					setAttributes={setAttributes}
+					attributes={attributes}
+					meta={metadata}
+					previewDevice={'none'}
+					globalStylesIds={globalStylesIds}
+					attributeName={'link'}
 				/>
 				<TextControl
 					label={__('Link Label', 'kadence-blocks')}

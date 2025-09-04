@@ -133,7 +133,6 @@ const PanelBodyTitle = forwardRef(
 					className="components-panel__body-toggle"
 					aria-expanded={isOpened}
 					onClick={() => {
-						console.log('toggleOpened', componentName);
 						onToggle();
 					}}
 					ref={ref}

@@ -129,9 +129,6 @@
 			"enum": ["all", "insert", "contentOnly", false]
 		},
 		"link": {
-			"type": "string"
-		},
-		"linkExtras": {
 			"type": "object"
 		},
 		"minHeight": {

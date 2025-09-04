@@ -162,16 +162,20 @@ export default function TextEdit(props) {
 	let richTextFormatsBase = applyFilters(
 		'kadence.whitelist_richtext_formats',
 		[
-			'core/bold',
-			'core/italic',
-			'kadence/mark',
+			'kbs/highlight',
 			'kadence/typed',
 			'kadence/tooltips',
-			'core/strikethrough',
-			'core/superscript',
-			'core/superscript',
-			'toolset/inline-field',
+			'kadence/insert-dynamic',
 			'kadence/ai-text',
+			'core/bold',
+			'core/italic',
+			'core/strikethrough',
+			'core/underline',
+			'core/subscript',
+			'core/superscript',
+			'core/keyboard',
+			'core/language',
+			'core/footnote',
 		],
 		'kbs/text'
 	);

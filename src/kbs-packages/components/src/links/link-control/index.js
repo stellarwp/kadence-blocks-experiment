@@ -16,6 +16,7 @@ import './editor.scss';
 /**
  * Internal dependencies
  */
+import { getDeviceValue, getInheritedDeviceValue, handleAttributeChange, getResolvedValue } from '@kadence/kbsHelpers';
 import InputSearch from '../input-search';
 import TitleBar from '../../title-bar';
 /**
@@ -26,7 +27,6 @@ export default function LinkControl(props) {
 	const {
 		label,
 		onChange,
-		value,
 		additionalControls = true,
 		changeTargetType = true,
 		changeFollow = true,
@@ -37,20 +37,95 @@ export default function LinkControl(props) {
 		allowClear = true,
 		dynamicAttribute = '',
 		attributes,
+		attributeName,
+		setAttributes,
+		defaultValue,
+		reset = true,
+		previewDevice = 'none',
+		meta,
+		globalStylesIds,
 	} = props;
 
-	const linkObj = value;
+	// Get individual resolved values for each link property
+	const urlResolvedValue = getResolvedValue(attributeName, attributes, previewDevice, meta, 'url', globalStylesIds);
+	const targetResolvedValue = getResolvedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		'target',
+		globalStylesIds
+	);
+	const noFollowResolvedValue = getResolvedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		'noFollow',
+		globalStylesIds
+	);
+	const sponsoredResolvedValue = getResolvedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		'sponsored',
+		globalStylesIds
+	);
+	const downloadResolvedValue = getResolvedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		'download',
+		globalStylesIds
+	);
+	const titleResolvedValue = getResolvedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		'title',
+		globalStylesIds
+	);
+	const classNameResolvedValue = getResolvedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		'className',
+		globalStylesIds
+	);
+
+	// Extract applied values
+	const urlValue = urlResolvedValue?.appliedValue || '';
+	const targetValue = targetResolvedValue?.appliedValue || '_self';
+	const noFollowValue = noFollowResolvedValue?.appliedValue || false;
+	const sponsoredValue = sponsoredResolvedValue?.appliedValue || false;
+	const downloadValue = downloadResolvedValue?.appliedValue || false;
+	const titleValue = titleResolvedValue?.appliedValue || '';
+	const classNameValue = classNameResolvedValue?.appliedValue || '';
 
 	const [isEditingLink, setIsEditingLink] = useState(false);
 	const [isSettingsExpanded, setIsSettingsExpanded] = useState(false);
 	const [urlInput, setUrlInput] = useState(null);
+
+	const defaultOnChange = (value, device, type) => {
+		handleAttributeChange(value, device, attributeName, attributes, setAttributes, onChange, type, meta);
+	};
+
+	const onChangeToUse = onChange ?? defaultOnChange;
 
 	const toggleSettingsVisibility = () => {
 		setIsSettingsExpanded(!isSettingsExpanded);
 	};
 
 	const onReset = () => {
-		onChange(undefined);
+		let resetValue;
+		if (defaultValue) {
+			resetValue = defaultValue;
+		}
+		setAttributes({ [attributeName]: resetValue });
 	};
 
 	const advancedOptions = (
@@ -59,15 +134,15 @@ export default function LinkControl(props) {
 				<>
 					<SelectControl
 						label={__('Link Target', 'kadence-blocks')}
-						value={linkObj?.target || '_self'}
+						value={targetValue}
 						options={[
 							{ value: '_self', label: __('Same Tab/Window', 'kadence-blocks') },
 							{ value: '_blank', label: __('Open in New Tab', 'kadence-blocks') },
 							{ value: 'video', label: __('Video Popup', 'kadence-blocks') },
 						]}
-						onChange={(value) => onChange({ ...linkObj, target: value })}
+						onChange={(value) => onChangeToUse(value, previewDevice, 'target')}
 					/>
-					{linkObj?.target === 'video' && (
+					{targetValue === 'video' && (
 						<p>{__('NOTE: Video popup only works with youtube and vimeo links.', 'kadence-blocks')}</p>
 					)}
 				</>
@@ -75,36 +150,36 @@ export default function LinkControl(props) {
 			{!changeTargetType && (
 				<ToggleControl
 					label={__('Open in New Tab', 'kadence-blocks')}
-					onChange={(value) => onChange({ ...linkObj, target: value ? '_blank' : '' })}
-					checked={linkObj?.target === '_blank'}
+					onChange={(value) => onChangeToUse(value ? '_blank' : '', previewDevice, 'target')}
+					checked={targetValue === '_blank'}
 				/>
 			)}
 			{changeFollow && (
 				<ToggleControl
 					label={__('No Follow', 'kadence-blocks')}
-					onChange={(value) => onChange({ ...linkObj, noFollow: value })}
-					checked={linkObj?.noFollow}
+					onChange={(value) => onChangeToUse(value, previewDevice, 'noFollow')}
+					checked={noFollowValue}
 				/>
 			)}
 			{changeSponsored && (
 				<ToggleControl
 					label={__('Sponsored', 'kadence-blocks')}
-					onChange={(value) => onChange({ ...linkObj, sponsored: value })}
-					checked={linkObj?.sponsored}
+					onChange={(value) => onChangeToUse(value, previewDevice, 'sponsored')}
+					checked={sponsoredValue}
 				/>
 			)}
 			{changeDownload && (
 				<ToggleControl
 					label={__('Download', 'kadence-blocks')}
-					onChange={(value) => onChange({ ...linkObj, download: value })}
-					checked={linkObj?.download}
+					onChange={(value) => onChangeToUse(value, previewDevice, 'download')}
+					checked={downloadValue}
 				/>
 			)}
 			{changeTitle && (
 				<TextControl
 					label={__('Title', 'kadence-blocks')}
-					onChange={(value) => onChange({ ...linkObj, title: value })}
-					value={linkObj?.title || ''}
+					onChange={(value) => onChangeToUse(value, previewDevice, 'title')}
+					value={titleValue}
 					__next40pxDefaultSize
 					className={'kbs-text-control'}
 				/>
@@ -112,8 +187,8 @@ export default function LinkControl(props) {
 			{changeLinkClass && (
 				<TextControl
 					label={__('Link CSS Class', 'kadence-blocks')}
-					onChange={(value) => onChange({ ...linkObj, className: value })}
-					value={linkObj?.className || ''}
+					onChange={(value) => onChangeToUse(value, previewDevice, 'className')}
+					value={classNameValue}
 					__next40pxDefaultSize
 					className={'kbs-text-control'}
 				/>
@@ -128,7 +203,7 @@ export default function LinkControl(props) {
 			{label && (
 				<TitleBar
 					label={label}
-					reset={true}
+					reset={reset}
 					onReset={onReset}
 					isAdvanced={isSettingsExpanded}
 					onToggleView={toggleSettingsVisibility}
@@ -137,8 +212,8 @@ export default function LinkControl(props) {
 			)}
 			<InputSearch
 				{...props}
-				url={linkObj?.url || ''}
-				onChange={(url) => onChange({ ...linkObj, url })}
+				url={urlValue}
+				onChange={(value) => onChangeToUse(value, previewDevice, 'url')}
 				attributes={attributes}
 				dynamicAttribute={dynamicAttribute}
 				additionalControls={additionalControls}

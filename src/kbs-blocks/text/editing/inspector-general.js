@@ -89,13 +89,16 @@ export default function InspectorGeneral(props) {
 			>
 				<LinkControl
 					label={__('Text Wrap Link', 'kadence-blocks')}
-					value={link}
-					onChange={(value) => setAttributes({ link: value })}
 					additionalControls={true}
 					dynamicAttribute={'link'}
 					allowClear={true}
 					changeTargetType={false}
-					{...props}
+					setAttributes={setAttributes}
+					attributes={attributes}
+					meta={metadata}
+					previewDevice={'none'}
+					globalStylesIds={globalStylesIds}
+					attributeName={'link'}
 				/>
 				<LinkStyle
 					label={__('Link Style', 'kadence-blocks')}

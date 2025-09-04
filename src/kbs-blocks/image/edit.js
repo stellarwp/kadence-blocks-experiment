@@ -23,7 +23,7 @@ import {
 	handleMultipleAttributeChange,
 	handleAttributeChange,
 } from '@kadence/kbsHelpers';
-import { BackgroundStyles, MediaPlaceholder } from '@kadence/kbsComponents';
+import { BackgroundStyles, MediaPlaceholder, LinkControlToolbar } from '@kadence/kbsComponents';
 import metadata from './block.json';
 import Inspector from './editing/inspector';
 import Styles from './editing/styles';
@@ -140,6 +140,7 @@ export default function ImageEdit(props) {
 	const isWideAligned = ['wide', 'full'].includes(align);
 	const isSVG = imageResolvedValue?.appliedValue && imageResolvedValue?.appliedValue.endsWith('.svg') ? true : false;
 	const isDynamic = false;
+	const isDynamicLink = false;
 	const canEditImage =
 		imageIdResolvedValue?.appliedValue && naturalWidth && naturalHeight && imageEditing && !isDynamic && !isSVG;
 	const allowCrop = canEditImage && !isEditingImage;
@@ -302,6 +303,23 @@ export default function ImageEdit(props) {
 								onClick={() => setIsEditingImage(true)}
 								icon={crop}
 								label={__('Crop', 'kadence-blocks')}
+							/>
+						)}
+
+						{!isEditingImage && !isDynamic && !isDynamicLink && (
+							<LinkControlToolbar
+								additionalControls={true}
+								allowClear={true}
+								dynamicAttribute={'link'}
+								isSelected={isSelected}
+								attributes={attributes}
+								setAttributes={setAttributes}
+								name={'kadence/image'}
+								clientId={clientId}
+								attributeName={'link'}
+								previewDevice={'none'}
+								globalStylesIds={globalStylesIds}
+								meta={metadata}
 							/>
 						)}
 					</BlockControls>

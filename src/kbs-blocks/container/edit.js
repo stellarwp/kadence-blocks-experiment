@@ -18,6 +18,7 @@ import {
 	GlobalStylesContext,
 	useGlobalStylesIds,
 	getGlobalStylesCSSOutput,
+	getLinkHTML,
 } from '@kadence/kbsHelpers';
 import { BackgroundStyles, InlinePaddingResizer } from '@kadence/kbsComponents';
 import metadata from './block.json';
@@ -38,7 +39,7 @@ import { useMergeRefs } from '@wordpress/compose';
  */
 export default function ContainerEdit(props) {
 	const { attributes, setAttributes, isSelected, clientId, context, className, toggleSelection } = props;
-	const { uniqueID, templateLock, align, globalStyleIds, tagName: TagName = 'div' } = attributes;
+	const { uniqueID, templateLock, align, globalStyleIds, tagName: TagName = 'div', link } = attributes;
 	const myElementRef = useRef(null);
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
@@ -120,6 +121,34 @@ export default function ContainerEdit(props) {
 		ref: mergedRefs,
 		draggable: false,
 	};
+	const contentHTML = (
+		<TagName {...finalInnerBlocksProps}>
+			<BackgroundStyles
+				previewDevice={previewDevice}
+				meta={metadata}
+				globalStylesIds={globalStylesIds}
+				backgroundAttribute="background"
+				{...props}
+			/>
+			{children}
+			{isSelected && (
+				<InlinePaddingResizer
+					previewDevice={previewDevice}
+					type={'padding'}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					attributeName={'padding'}
+					meta={metadata}
+					globalStylesIds={globalStylesIds}
+					blockElementRef={myElementRef}
+					clientId={clientId}
+					uniqueID={uniqueID}
+					toggleSelection={toggleSelection}
+				/>
+			)}
+		</TagName>
+	);
+	const linkContentHTML = getLinkHTML(link, contentHTML);
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<Inspector
@@ -139,31 +168,8 @@ export default function ContainerEdit(props) {
 				globalStylesIds={globalStylesIds}
 				globalStylesCss={globalStylesCss}
 			/>
-			<TagName {...finalInnerBlocksProps}>
-				<BackgroundStyles
-					previewDevice={previewDevice}
-					meta={metadata}
-					globalStylesIds={globalStylesIds}
-					backgroundAttribute="background"
-					{...props}
-				/>
-				{children}
-				{isSelected && (
-					<InlinePaddingResizer
-						previewDevice={previewDevice}
-						type={'padding'}
-						attributes={attributes}
-						setAttributes={setAttributes}
-						attributeName={'padding'}
-						meta={metadata}
-						globalStylesIds={globalStylesIds}
-						blockElementRef={myElementRef}
-						clientId={clientId}
-						uniqueID={uniqueID}
-						toggleSelection={toggleSelection}
-					/>
-				)}
-			</TagName>
+			{link?.url && linkContentHTML}
+			{!link?.url && contentHTML}
 		</GlobalStylesContext.Provider>
 	);
 }

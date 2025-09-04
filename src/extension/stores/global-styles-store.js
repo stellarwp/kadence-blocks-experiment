@@ -99,7 +99,6 @@ const actions = {
 		};
 	},
 	*fetchGlobalStyles() {
-		console.log('fetchGlobalStyles');
 		// Check if we're already loading to prevent duplicate requests
 		const isLoading = yield {
 			type: 'SELECT',

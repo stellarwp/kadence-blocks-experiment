@@ -13,6 +13,7 @@ import Styles from './editing/styles';
 import Inspector from './editing/inspector';
 import '../text/formats/markformat';
 import '../text/formats/typed-text';
+import '../text/formats/tooltips';
 
 import metadata from './block.json';
 
@@ -43,6 +44,7 @@ import {
 	CopyPasteAttributes,
 	TextAlignToolbar,
 	HeadingLevelIcon,
+	LinkControlToolbar,
 } from '@kadence/kbsComponents';
 
 const nonTransAttrs = ['content', 'htmlTag', 'link'];
@@ -59,10 +61,9 @@ export default function ButtonEdit(props) {
 	// Get merged global styles IDs using the helper hook
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
 
-	const { previewDevice, allowedFormats } = useSelect((select) => {
+	const { previewDevice } = useSelect((select) => {
 		return {
 			previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
-			allowedFormats: select('core/rich-text').getFormatTypes(),
 		};
 	}, []);
 
@@ -114,26 +115,26 @@ export default function ButtonEdit(props) {
 	let richTextFormatsBase = applyFilters(
 		'kadence.whitelist_richtext_formats',
 		[
+			'kbs/highlight',
+			'kadence/typed',
+			'kadence/insert-dynamic',
+			'kadence/ai-text',
 			'core/bold',
 			'core/italic',
-			'kadence/mark',
-			'kadence/typed',
 			'core/strikethrough',
+			'core/underline',
+			'core/subscript',
 			'core/superscript',
-			'core/superscript',
-			'toolset/inline-field',
-			'kadence/ai-text',
+			'core/keyboard',
+			'core/language',
+			'core/footnote',
 		],
 		'kbs/button'
 	);
 
-	let richTextFormats = allowedFormats.map((format) => format.name);
-	if (link || kadenceDynamic?.content?.shouldReplace) {
-		richTextFormatsBase = !kadenceDynamic?.content?.shouldReplace
-			? [...['kadence/insert-dynamic'], ...richTextFormatsBase]
-			: richTextFormatsBase;
-		richTextFormats = richTextFormatsBase;
-	}
+	const richTextFormats = !kadenceDynamic?.content?.shouldReplace
+		? [...['kadence/insert-dynamic'], ...richTextFormatsBase]
+		: richTextFormatsBase;
 
 	// This is needed because spacing visualizer needs to be able to access the block element and so does core.
 	const mergedRefs = useMergeRefs([myElementRef, blockProps.ref]);
@@ -179,6 +180,20 @@ export default function ButtonEdit(props) {
 			<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 			<BlockControls>
 				<TextAlignToolbar {...props} />
+				<LinkControlToolbar
+					additionalControls={true}
+					allowClear={true}
+					dynamicAttribute={'link'}
+					isSelected={isSelected}
+					attributes={attributes}
+					setAttributes={setAttributes}
+					name={'kadence/button'}
+					clientId={clientId}
+					attributeName={'link'}
+					previewDevice={'none'}
+					globalStylesIds={globalStylesIds}
+					meta={metadata}
+				/>
 				<CopyPasteAttributes
 					attributes={attributes}
 					excludedAttrs={nonTransAttrs}

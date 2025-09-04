@@ -7,7 +7,7 @@ import TooltipsPopover from './tooltips-popover';
 import { tooltip } from '@kadence/icons';
 
 const name = 'kadence/tooltips';
-const allowedBlocks = ['kbs/text'];
+const allowedBlocks = ['kbs/text', 'kbs/button'];
 
 export const kadenceToolTips = {
 	title: __('Tooltips', 'kadence-blocks'),

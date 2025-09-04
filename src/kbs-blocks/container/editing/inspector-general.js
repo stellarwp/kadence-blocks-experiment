@@ -7,7 +7,7 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, SelectGlobalStyles, FlexBoxControl, PresetControl } from '@kadence/kbsComponents';
+import { ToolsPanelBody, SelectGlobalStyles, FlexBoxControl, PresetControl, LinkControl } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -52,6 +52,32 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 					globalStylesIds={globalStylesIds}
 					isBundlePreset={true}
+				/>
+			</ToolsPanelBody>
+			<ToolsPanelBody
+				title={__('Overlay Link', 'kadence-blocks')}
+				panelName={'container-link'}
+				componentName={'link-control'}
+				initialOpen={false}
+			>
+				<p className="kadence-sidebar-notice">
+					{__(
+						'Please note, If a link is added nothing else inside of the section will be selectable.',
+						'kadence-blocks'
+					)}
+				</p>
+				<LinkControl
+					label={__('Link entire container', 'kadence-blocks')}
+					additionalControls={true}
+					dynamicAttribute={'link'}
+					allowClear={true}
+					changeTargetType={false}
+					setAttributes={setAttributes}
+					attributes={attributes}
+					meta={metadata}
+					previewDevice={'none'}
+					globalStylesIds={globalStylesIds}
+					attributeName={'link'}
 				/>
 			</ToolsPanelBody>
 
