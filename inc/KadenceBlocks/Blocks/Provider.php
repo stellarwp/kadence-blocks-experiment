@@ -74,6 +74,10 @@ class Provider extends Service_Provider {
 		add_filter( 'kbs_blocks_to_generate_post_css', $this->container->callback( Image::class, 'register_blocks_to_generate_post_css' ) );
 		add_action( 'kbs_blocks_generate_post_css_kbs/image', $this->container->callback( Image::class, 'output_head_data' ), 10, 2 );
 		
+		// Register Editor Global Styles for preventing unstyled content while page is loading.
+		$this->container->singleton( Editor_Global_Styles::class, Editor_Global_Styles::class );
+		add_action( 'init', $this->container->callback( Editor_Global_Styles::class, 'on_init' ), 10 );
+		
 		// Register the editor scripts.
 		add_action( 'init', $this->container->callback( Editor_Assets::class, 'on_init_editor_assets' ), 10 );
 		add_action( 'enqueue_block_editor_assets', $this->container->callback( Editor_Assets::class, 'editor_plugin_enqueue' ), 10 );
