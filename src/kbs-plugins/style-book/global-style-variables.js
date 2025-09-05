@@ -90,59 +90,6 @@ export const GlobalStyleVariableOutput = () => {
 				});
 			}
 
-			// Loop through components
-			if (styleData?.components && typeof styleData.components === 'object') {
-				Object.entries(styleData.components).forEach(([component, componentData]) => {
-					// Loop through special presets on components
-					if (componentData?.presets && typeof componentData.presets === 'object') {
-						Object.entries(componentData.presets).forEach(([preset, presetData]) => {
-							if ('typography' === component && specialTypographyPresets.includes(preset)) {
-								// Try to get attributes for the current device
-								let attributes = presetData?.attributes?.[previewDevice.toLowerCase()];
-
-								// If attributes aren't found for the current device, check parent devices
-								if (!attributes && currentDeviceIndex > 0) {
-									for (let i = currentDeviceIndex - 1; i >= 0; i--) {
-										const parentDevice = deviceOptions[i];
-										const parentDeviceName = parentDevice.key || parentDevice.name;
-
-										if (presetData?.attributes?.[parentDeviceName]) {
-											attributes = presetData.attributes[parentDeviceName];
-											break;
-										}
-									}
-								}
-
-								if (typeof attributes === 'object' && attributes !== null) {
-									Object.entries(attributes).forEach(([key, value]) => {
-										const kebabCaseKey = String(key)
-											.replace(/([A-Z])/g, '-$1')
-											.replace(/^-+|-+$/g, '')
-											.toLowerCase();
-
-										// Initialize mappingValue variable
-										let mappingValue;
-
-										if (
-											key === 'fontSize' &&
-											styleData.mappings &&
-											styleData.mappings[key] &&
-											styleData.mappings[key][value]
-										) {
-											// Get mapping value
-											mappingValue = styleData.mappings[key][value];
-										}
-										const returnValue = mappingValue !== undefined ? mappingValue.value : value;
-										const variableName = getMappingVariableName(kebabCaseKey, preset);
-										currentCssBlock += `  ${variableName}: ${returnValue};\n`;
-									});
-								}
-							}
-						});
-					}
-				});
-			}
-
 			// Assign the generated CSS block to the correct scope
 			if (currentCssBlock) {
 				if (styleId === 'kbs-base') {
@@ -171,8 +118,6 @@ export const GlobalStyleVariableOutput = () => {
 			}
 		});
 
-		//console.log(finalCssString);
-
 		return finalCssString;
 	}, [globalStyles, previewDevice]);
 
@@ -190,7 +135,6 @@ export const GlobalStyleVariableOutput = () => {
 					},
 				];
 			} else if (data.weights && data.weights.length > 0) {
-				//const weights = data.weights.join(',');
 				return data.weights.map((weight) => {
 					return {
 						url: `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontFamily)}:wght@${weight}&display=swap`,
