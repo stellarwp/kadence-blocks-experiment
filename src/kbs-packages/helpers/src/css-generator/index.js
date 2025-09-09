@@ -13,6 +13,7 @@ import { IconGenerator } from './components/icon-generator';
 import { TextGenerator } from './components/text-generator';
 import { MaskGenerator } from './components/mask-generator';
 import { FilterGenerator } from './components/filter-generator';
+import { StickyGenerator } from './components/sticky-generator';
 
 /**
  * CSS Generator class for building CSS strings
@@ -42,6 +43,7 @@ class CSSGenerator {
 			textOrientation: new TextGenerator(this),
 			mask: new MaskGenerator(this),
 			filter: new FilterGenerator(this),
+            sticky: new StickyGenerator(this),
 
 			maxWidth: simpleGenerator,
 			maxHeight: simpleGenerator,

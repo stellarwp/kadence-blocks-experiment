@@ -92,6 +92,7 @@ class Component_Value_Resolver {
 			'transform'   => array( 'scale', 'translate', 'rotate', 'skew', 'origin' ),
 			'mask'        => array( 'shape', 'image' ),
 			'filter'      => array( 'dropShadow', 'simple' ),
+			'sticky'      => array( 'position', 'offset' ),
 		);
 		
 		return isset( $component_keys_map[ $component_type ] ) ? $component_keys_map[ $component_type ] : array( $component_type );
