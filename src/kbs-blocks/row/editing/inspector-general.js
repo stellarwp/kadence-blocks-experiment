@@ -15,6 +15,7 @@ import {
 	SelectGlobalStyles,
 	BlockComponentControls,
 	FlexBoxControl,
+	SharedInspectorGeneral,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -45,6 +46,7 @@ export default function InspectorGeneral(props) {
 			>
 				<SelectGlobalStyles attributes={attributes} setAttributes={setAttributes} />
 			</ToolsPanelBody>
+			<SharedInspectorGeneral metadata={metadata} {...props} />
 		</>
 	);
 }

@@ -16,6 +16,7 @@ import {
 	LayeredShadowControl,
 	SpaceControl,
 	RadioButtonControl,
+	SharedInspectorStyle,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -192,6 +193,7 @@ export default function InspectorStyles(props) {
 					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody>
+			<SharedInspectorStyle metadata={metadata} {...props} />
 		</>
 	);
 }

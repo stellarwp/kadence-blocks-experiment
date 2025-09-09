@@ -17,6 +17,7 @@ import {
 	FlexBoxControl,
 	FlexChildControl,
 	BackgroundControl,
+	SharedInspectorStyle,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -56,6 +57,7 @@ export default function InspectorStyles(props) {
 				globalStylesIds={globalStylesIds}
 				globalStylesCss={globalStylesCss}
 			/>
+			<SharedInspectorStyle metadata={metadata} {...props} />
 		</>
 	);
 }

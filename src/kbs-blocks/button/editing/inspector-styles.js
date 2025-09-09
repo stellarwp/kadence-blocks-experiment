@@ -20,6 +20,7 @@ import {
 	TabsControl,
 	ToggleControl,
 	ButtonSettings,
+	SharedInspectorStyle,
 } from '@kadence/kbsComponents';
 import { getResolvedValue } from '@kadence/kbsHelpers';
 
@@ -244,6 +245,7 @@ export default function InspectorStyles(props) {
 					previewDevice={previewDevice}
 				/>
 			</ToolsPanelBody>
+			<SharedInspectorStyle metadata={metadata} {...props} />
 		</>
 	);
 }

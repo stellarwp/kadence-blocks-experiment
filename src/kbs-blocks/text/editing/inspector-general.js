@@ -16,6 +16,7 @@ import {
 	RadioButtonControl,
 	RadioButtonSelect,
 	ToggleControl,
+	SharedInspectorGeneral,
 } from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
@@ -154,6 +155,7 @@ export default function InspectorGeneral(props) {
 					type={'iconReveal'}
 				/>
 			</ToolsPanelBody>
+			<SharedInspectorGeneral metadata={metadata} {...props} />
 		</>
 	);
 }

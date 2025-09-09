@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { doAction } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
@@ -21,18 +22,15 @@ import TransitionControl from '../transition-control';
  * @param {Object} props.metadata - Block metadata
  * @returns {JSX.Element}
  */
-export default function SharedInspectorAdvanced({
-	attributes,
-	setAttributes,
-	previewDevice,
-	globalStylesIds,
-	metadata,
-}) {
+export default function SharedInspectorAdvanced(props) {
+	const { attributes, setAttributes, previewDevice, globalStylesIds, metadata } = props;
+
 	const supportTransformControl = metadata?.attributes?.transform !== undefined;
 	const supportsTransitionControl = metadata?.attributes?.transition !== undefined;
 
 	return (
 		<>
+			{doAction('kbs.sharedInspectorAdvancedStart', props)}
 			{supportTransformControl && (
 				<TransformControl
 					attributes={attributes}
@@ -55,6 +53,7 @@ export default function SharedInspectorAdvanced({
 					hasHoverControls={true}
 				/>
 			)}
+			{doAction('kbs.sharedInspectorAdvancedEnd', props)}
 		</>
 	);
 }

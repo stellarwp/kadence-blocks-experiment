@@ -7,7 +7,14 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, SelectGlobalStyles, FlexBoxControl, PresetControl, LinkControl } from '@kadence/kbsComponents';
+import {
+	ToolsPanelBody,
+	SelectGlobalStyles,
+	FlexBoxControl,
+	PresetControl,
+	LinkControl,
+	SharedInspectorGeneral,
+} from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -103,6 +110,7 @@ export default function InspectorGeneral(props) {
 					globalStylesIds={globalStylesIds}
 				/>
 			</ToolsPanelBody> */}
+			<SharedInspectorGeneral metadata={metadata} {...props} />
 		</>
 	);
 }

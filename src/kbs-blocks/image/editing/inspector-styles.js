@@ -22,6 +22,7 @@ import {
 	ImageControl,
 	SelectBasicControl,
 	ShadowControl,
+	SharedInspectorStyle,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -218,6 +219,7 @@ export default function InspectorStyles(props) {
 					/>
 				)}
 			</ToolsPanelBody> */}
+			<SharedInspectorStyle metadata={metadata} {...props} />
 		</>
 	);
 }

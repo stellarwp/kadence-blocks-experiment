@@ -7,7 +7,13 @@
 /**
  * Kadence Components.
  */
-import { ToolsPanelBody, LinkControl, RadioButtonControl, PresetControl } from '@kadence/kbsComponents';
+import {
+	ToolsPanelBody,
+	LinkControl,
+	RadioButtonControl,
+	PresetControl,
+	SharedInspectorGeneral,
+} from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
@@ -93,6 +99,7 @@ export default function InspectorGeneral(props) {
 					previewDevice={previewDevice}
 				/>
 			</ToolsPanelBody>
+			<SharedInspectorGeneral metadata={metadata} {...props} />
 		</>
 	);
 }

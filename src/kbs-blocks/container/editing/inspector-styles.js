@@ -19,6 +19,7 @@ import {
 	BackgroundControl,
 	LayeredShadowControl,
 	BorderControl,
+	SharedInspectorStyle,
 } from '@kadence/kbsComponents';
 /**
  * Kadence Helpers.
@@ -91,6 +92,7 @@ export default function InspectorStyles(props) {
 					type={'boxShadow'}
 				/>
 			</ToolsPanelBody>
+			<SharedInspectorStyle metadata={metadata} {...props} />
 		</>
 	);
 }

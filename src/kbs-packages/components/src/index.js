@@ -66,6 +66,8 @@ export { default as CopyPasteAttributes } from './copy-paste-attributes';
 export { default as TransformControl } from './transform-control';
 export { default as TransitionControl } from './transition-control';
 export { default as SharedInspectorAdvanced } from './shared-inspector-advanced';
+export { default as SharedInspectorGeneral } from './shared-inspector-general';
+export { default as SharedInspectorStyle } from './shared-inspector-style';
 
 export { default as TextAlignToolbar } from './text-align-toolbar';
 export { default as HeadingLevelIcon } from './heading-level-icon';

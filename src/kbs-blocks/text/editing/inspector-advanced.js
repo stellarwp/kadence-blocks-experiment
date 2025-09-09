@@ -45,14 +45,7 @@ export default function InspectorAdvanced(props) {
 				showVisualizer={false}
 				blockElementRef={blockElementRef}
 			/>
-			<SharedInspectorAdvanced
-				attributes={attributes}
-				setAttributes={setAttributes}
-				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
-				metadata={metadata}
-				hasTransformControl={false}
-			/>
+			<SharedInspectorAdvanced metadata={metadata} hasTransformControl={false} {...props} />
 		</>
 	);
 }

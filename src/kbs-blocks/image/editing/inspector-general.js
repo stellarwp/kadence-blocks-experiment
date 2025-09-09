@@ -20,6 +20,7 @@ import {
 	RangeControl,
 	TextControl,
 	LinkControl,
+	SharedInspectorGeneral,
 } from '@kadence/kbsComponents';
 
 import { getResolvedValue } from '@kadence/kbsHelpers';
@@ -255,6 +256,7 @@ export default function InspectorGeneral(props) {
 					previewDevice={'none'}
 				/>
 			</ToolsPanelBody>
+			<SharedInspectorGeneral metadata={metadata} {...props} />
 		</>
 	);
 }

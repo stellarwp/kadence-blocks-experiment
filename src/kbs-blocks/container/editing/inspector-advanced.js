@@ -67,13 +67,7 @@ export default function InspectorAdvanced(props) {
 				globalStylesIds={globalStylesIds}
 				initialOpen={false}
 			/>
-			<SharedInspectorAdvanced
-				attributes={attributes}
-				setAttributes={setAttributes}
-				previewDevice={previewDevice}
-				globalStylesIds={globalStylesIds}
-				metadata={metadata}
-			/>
+			<SharedInspectorAdvanced metadata={metadata} {...props} />
 		</>
 	);
 }
