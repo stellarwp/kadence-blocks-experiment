@@ -14,6 +14,7 @@ import { undo } from '@wordpress/icons';
  * Internal dependencies
  */
 import RadioToggleGroupPopoverInputUI from '../radio-button-control/ui-toggle-group-popover-input';
+import Notice from '../notice';
 
 const GRID_SIZE = 120;
 const DOT_POSITIONS = [
@@ -29,7 +30,7 @@ const DOT_POSITIONS = [
 ];
 
 export default function TransformOrigin(props) {
-	const { onChange, resolvedValues } = props;
+	const { onChange, resolvedValues, hasTransformEffect = false } = props;
 
 	const [isDragging, setIsDragging] = useState(false);
 	const [visualOrigin, setVisualOrigin] = useState(null);
@@ -175,6 +176,12 @@ export default function TransformOrigin(props) {
 					aria-label={__('Reset origin to center (50%, 50%)', 'kadence-blocks')}
 				/>
 			</div>
+
+			{!hasTransformEffect && (
+				<Notice>
+					{__('Rotation or scale must be set for origin to be effective.', 'kadence-blocks')}
+				</Notice>
+			)}
 
 			<div className="kadence-transform-origin-visual">
 				<div className="kadence-transform-origin-container">

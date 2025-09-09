@@ -119,6 +119,41 @@ export default function TransformControl(props) {
 			globalStylesIds
 		);
 
+		// Check if transform effects are active for the origin component
+		let hasTransformEffect = false;
+		if (tab.name === 'origin') {
+			const scaleResolved = getResolvedValue(
+				currentAttributeName,
+				attributes,
+				previewDevice,
+				meta,
+				'scale',
+				globalStylesIds
+			);
+			const rotateResolved = getResolvedValue(
+				currentAttributeName,
+				attributes,
+				previewDevice,
+				meta,
+				'rotate',
+				globalStylesIds
+			);
+
+			const scale = scaleResolved?.appliedValue || scaleResolved?.directValue;
+			const rotate = rotateResolved?.appliedValue || rotateResolved?.directValue;
+
+			const hasRotation =
+				rotate &&
+				(parseFloat(rotate.x) !== 0 || parseFloat(rotate.y) !== 0 || parseFloat(rotate.z) !== 0);
+
+			const hasScale =
+				scale &&
+				((parseFloat(scale.x) !== 100 && parseFloat(scale.x) !== 1) ||
+				(parseFloat(scale.y) !== 100 && parseFloat(scale.y) !== 1));
+
+			hasTransformEffect = hasRotation || hasScale;
+		}
+
 		switch (tab.name) {
 			case 'scale':
 				return (
@@ -162,6 +197,7 @@ export default function TransformControl(props) {
 						resolvedValues={tabResolvedValue}
 						onChange={(value) => onChange({ origin: value }, previewDevice)}
 						isHover={isHover}
+						hasTransformEffect={hasTransformEffect}
 						{...props}
 					/>
 				);
