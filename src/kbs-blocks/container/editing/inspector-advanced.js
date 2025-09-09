@@ -7,7 +7,13 @@
 /**
  * Kadence Components.
  */
-import { FlexChildControl, SizingControl, SpacingControl, SharedInspectorAdvanced, StickyControl } from '@kadence/kbsComponents';
+import {
+	FlexChildControl,
+	SizingControl,
+	SpacingControl,
+	SharedInspectorAdvanced,
+	StickyControl,
+} from '@kadence/kbsComponents';
 
 import metadata from '../block.json';
 /**
