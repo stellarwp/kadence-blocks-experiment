@@ -24,7 +24,7 @@ export default function GenIcon(props) {
 	}
 
 	return (
-		<div
+		<span
 			style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}
 			className={`${className || ''}`}
 		>
@@ -38,7 +38,7 @@ export default function GenIcon(props) {
 				{title && <title>{title}</title>}
 				{icon && walkChildren(icon.cD)}
 			</svg>
-		</div>
+		</span>
 	);
 }
 

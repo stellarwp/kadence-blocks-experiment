@@ -107,6 +107,7 @@ class Text extends Abstract_Block {
 
 		$initial_tag     = $this->get_initial_attribute( $block_instance, 'htmlTag', 'div' );
 		$html_tag        = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
+		$typography_preset = self::get_resolved_value( 'typography', $attributes, 'none', $this->get_attribute_meta( $block_instance, 'typography' ), 'preset', [] );
 		$wrapper_classes = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
 		$wrapper_classes = array_merge( $wrapper_classes, $this->get_global_style_class( $attributes ) );
 		$content_classes = [];
@@ -123,6 +124,7 @@ class Text extends Abstract_Block {
 		$has_icon        = ! empty( $icon_any_value['appliedValue'] ) ? true : false;
 		$has_icon_reveal = ! empty( $icon_reveal_any_value['appliedValue'] ) ? true : false;
 		$has_gradient    = ! empty( $color_any_value['appliedValue'] ) && strpos( $color_any_value['appliedValue'], 'gradient(' ) !== false;
+		$has_typography_preset = ! empty( $typography_preset['appliedValue'] ) ? $typography_preset['appliedValue'] : false;
 
 		$should_wrap_content = $has_link || $has_max_width || $has_icon || $has_gradient || $has_typed_text;
 
@@ -135,6 +137,9 @@ class Text extends Abstract_Block {
 		}
 		if ( $has_icon && $has_icon_reveal ) {
 			$wrapper_classes[] = 'icon-reveal';
+		}
+		if ( $has_typography_preset ) {
+			$wrapper_classes[] = 'kbs-typography-' . $has_typography_preset;
 		}
 
 		$content_classes[]    = 'kbs-text-content';

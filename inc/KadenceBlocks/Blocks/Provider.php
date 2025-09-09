@@ -81,5 +81,6 @@ class Provider extends Service_Provider {
 		// Register the editor scripts.
 		add_action( 'init', $this->container->callback( Editor_Assets::class, 'on_init_editor_assets' ), 10 );
 		add_action( 'enqueue_block_editor_assets', $this->container->callback( Editor_Assets::class, 'editor_plugin_enqueue' ), 10 );
+		add_filter( 'kbs_editor_global_styles_css', $this->container->callback( Editor_Assets::class, 'editor_global_styles' ), 10 );
 	}
 }

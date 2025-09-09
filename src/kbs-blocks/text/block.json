@@ -78,7 +78,8 @@
 			"varPrefix": "--kbs-text-",
 			"initial": {},
 			"type": "object",
-			"nonInheritable": true
+			"nonInheritable": true,
+			"presetHasClass": true
 		},
 		"color": {
 			"renderCSS": true,

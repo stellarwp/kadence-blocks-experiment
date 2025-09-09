@@ -32,8 +32,8 @@
 			"initial": {
 				"desktop": {
 					"flexDirection": "row",
-					"justifyContent": "flex-start",
-					"alignItems": "stretch",
+					"justifyContent": "center",
+					"alignItems": "center",
 					"columnGap": "xs",
 					"rowGap": "xs",
 					"flexWrap": "wrap"

@@ -5,8 +5,10 @@
  */
 
 .kbs-button {
-	display: inline-block;
-
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 	font-family: var(--kbs-button-font-family);
 	font-weight: var(--kbs-button-font-weight);
 	font-size: var(--kbs-button-font-size);
@@ -31,19 +33,6 @@
 	padding-left: var(--kbs-button-padding-left);
 	transition: all 0.2s ease;
 	min-width: 0;
-
-	// Alignment classes
-	&.has-text-align-left {
-		text-align: left;
-	}
-
-	&.has-text-align-center {
-		text-align: center;
-	}
-
-	&.has-text-align-right {
-		text-align: right;
-	}
 
 	&:hover {
 		color: var(--kbs-button-color-hover, var(--kbs-button-color));
@@ -106,9 +95,7 @@
 	}
 
 	&.kbs-button-has-icon {
-		display: flex;
 		gap: var(--kbs-button-icon-gap, 0.25em);
-		align-items: var(--kbs-button-icon-align-items, center);
 	}
 
 	.kt-svg-icon-wrap {

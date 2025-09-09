@@ -11,9 +11,6 @@ import classnames from 'classnames';
 
 import Styles from './editing/styles';
 import Inspector from './editing/inspector';
-import '../text/formats/markformat';
-import '../text/formats/typed-text';
-import '../text/formats/tooltips';
 
 import metadata from './block.json';
 
@@ -55,7 +52,7 @@ const nonTransAttrs = ['content', 'htmlTag', 'link'];
 export default function ButtonEdit(props) {
 	const { attributes, setAttributes, className, isSelected, clientId, toggleSelection, mergeBlocks, onReplace } =
 		props;
-	const { uniqueID, content, textAlign, globalStyleIds, htmlTag, link, kadenceDynamic } = attributes;
+	const { uniqueID, content, globalStyleIds, link, kadenceDynamic } = attributes;
 	const myElementRef = useRef(null);
 
 	// Get merged global styles IDs using the helper hook
@@ -92,7 +89,6 @@ export default function ButtonEdit(props) {
 	const classes = classnames('kbs-button', {
 		[className]: className,
 		[`kbs-button-${uniqueID}`]: uniqueID,
-		[`has-text-align-${textAlign}`]: textAlign,
 		'kbs-button-has-icon': hasIcon,
 		'icon-reveal': hasIcon && hasIconReveal,
 	});
@@ -179,7 +175,6 @@ export default function ButtonEdit(props) {
 			/>
 			<Styles {...props} previewDevice={previewDevice} globalStylesIds={globalStylesIds} />
 			<BlockControls>
-				<TextAlignToolbar {...props} />
 				<LinkControlToolbar
 					additionalControls={true}
 					allowClear={true}

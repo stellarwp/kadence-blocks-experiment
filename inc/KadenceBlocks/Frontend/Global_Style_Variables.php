@@ -4,6 +4,7 @@
  */
 
 namespace KadenceWP\KadenceBlocks\Frontend;
+
 use KadenceWP\KadenceBlocks\Settings\Global_Style;
 use KadenceWP\KadenceBlocks\Settings\Global_Styles_Manager;
 use KadenceWP\KadenceBlocks\Settings\Global_Style_Item;
@@ -30,7 +31,7 @@ class Global_Style_Variables {
 	 * @var array
 	 */
 	private $global_styles = null;
-    // Note: device options were unused and removed for simplicity
+	// Note: device options were unused and removed for simplicity
 
 	/**
 	 * Map of global styles needed for the page
@@ -49,15 +50,15 @@ class Global_Style_Variables {
 	 */
 	private $all_used_variables = [];
 
-    /**
-     * Constructor
-     *
-     * @param CSS_Engine $css_engine The CSS Engine instance.
-     * @param mixed      $device_options Optional, ignored (kept for compatibility).
-     */
-    public function __construct( CSS_Engine $css_engine, $device_options = null ) {
-        $this->css = $css_engine;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param CSS_Engine $css_engine The CSS Engine instance.
+	 * @param mixed      $device_options Optional, ignored (kept for compatibility).
+	 */
+	public function __construct( CSS_Engine $css_engine, $device_options = null ) {
+		$this->css = $css_engine;
+	}
 
 	/**
 	 * Fetches global styles from the database.
@@ -80,22 +81,37 @@ class Global_Style_Variables {
 		return Global_Styles_Manager::get_global_styles_by_ids( array_keys( $unique_style_ids ) );
 	}
 
-    /**
-     * Create a combined style key from multiple style IDs.
-     * If one ID, returns that ID; if none, returns empty string.
-     *
-     * @param array $style_ids Array of style IDs.
-     * @return string Combined key.
-     */
-    private function create_combined_style_key( array $style_ids ) {
-        $style_ids = array_values( array_filter( $style_ids ) );
-        if ( empty( $style_ids ) ) {
-            return '';
-        }
-        return count( $style_ids ) > 1 ? implode( '__', $style_ids ) : $style_ids[0];
-    }
+	/**
+	 * Create a combined style key from multiple style IDs.
+	 * If one ID, returns that ID; if none, returns empty string.
+	 *
+	 * @param array $style_ids Array of style IDs.
+	 * @return string Combined key.
+	 */
+	private function create_combined_style_key( array $style_ids ) {
+		$style_ids = array_values( array_filter( $style_ids ) );
+		if ( empty( $style_ids ) ) {
+			return '';
+		}
+		return count( $style_ids ) > 1 ? implode( '__', $style_ids ) : $style_ids[0];
+	}
 
-    public function output_style_usage() {
+	/**
+	 * Output the global styles css.
+	 */
+	public function output_style_usage() {
+		$global_css = $this->get_output_global_css();
+		if ( ! empty( $global_css ) ) {
+			echo '<style id="kbs-global-styles-inline-css">' . $global_css . '</style>';
+		}
+	}
+
+	/**
+	 * Get the global styles css.
+	 *
+	 * @return string The global styles css.
+	 */
+	public function get_output_global_css() {
 		if ( null === $this->global_styles ) {
 			$this->global_styles = $this->fetch_global_styles();
 		}
@@ -107,156 +123,155 @@ class Global_Style_Variables {
 			$this->global_style_map['kbs-base'] = [ 'kbs-base' ];
 		}
 
-        // Prepare parsed variables once
-        $used_vars   = array_keys( $this->all_used_variables );
-        $parsed_vars = [];
-        foreach ( $used_vars as $var_name ) {
-            $parts = $this->parse_variable_name( $var_name );
-            if ( $parts ) {
-                $parsed_vars[] = [ 'name' => $var_name, 'parts' => $parts ];
-            }
-        }
-
-        // Cache style items and base style for palette resolution
-        $style_item_cache = [];
-        $base_style_item  = isset( $this->global_styles['kbs-base'] )
-            ? new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] )
-            : null;
-
-        // Always emit ALL kbs-base color variables to :root, regardless of usage
-        if ( $base_style_item ) {
-            $base_mappings = $base_style_item->get_mappings();
-            if ( isset( $base_mappings['colors'] ) && is_array( $base_mappings['colors'] ) ) {
-                $this->css->set_selector( ':root' );
-                foreach ( $base_mappings['colors'] as $token => $token_data ) {
-                    $value = isset( $token_data['value'] ) ? $token_data['value'] : null;
-                    if ( $value === null || $value === '' ) {
-                        continue;
-                    }
-                    if ( is_string( $value ) && strpos( $value, 'var(--global-palette' ) !== false ) {
-                        $value = $this->resolve_global_palette_references( $value, $base_style_item );
-                    }
-                    $var_name = self::get_mapping_variable_name( 'colors', (string) $token );
-                    $this->css->add_property( $var_name, $value );
-                }
-            }
-        }
-
-        // For each global style class key
-        foreach ( $this->global_style_map as $class_name => $global_styles ) {
-            $selector = ( 'kbs-base' === $class_name ) ? ':root' : '.kbs-global-style-' . $class_name;
-            $this->css->set_selector( $selector );
-
-            foreach ( $global_styles as $style_id ) {
-                if ( ! isset( $this->global_styles[ $style_id ] ) ) {
-                    continue;
-                }
-                if ( ! isset( $style_item_cache[ $style_id ] ) ) {
-                    $style_item_cache[ $style_id ] = new Global_Style_Item( $style_id, $this->global_styles[ $style_id ] );
-                }
-                $style_item = $style_item_cache[ $style_id ];
-
-                foreach ( $parsed_vars as $v ) {
-                    $value = $style_item->get_mapping_value( $v['parts']['category'], $v['parts']['token'] );
-                    if ( $value !== null ) {
-                        if ( is_string( $value ) && strpos( $value, 'var(--global-palette' ) !== false ) {
-                            $value = $this->resolve_global_palette_references( $value, $base_style_item );
-                        }
-                        $this->css->add_property( $v['name'], $value );
-                    }
-                }
-
-                // Emit preset component variables for this style, so var(--kbs-<prop>-<preset>) resolves in this scope
-                $components = $style_item->get_components();
-                if ( ! empty( $components ) && is_array( $components ) ) {
-                    foreach ( $components as $component_name => $component_data ) {
-                        if ( empty( $component_data['presets'] ) || ! is_array( $component_data['presets'] ) ) {
-                            continue;
-                        }
-                        
-                        // Get component keys dynamically based on component type
-                        $component_keys = \KadenceWP\KadenceBlocks\Frontend\Utils\Component_Value_Resolver::get_component_keys( $component_name );
-                        
-                        foreach ( $component_data['presets'] as $preset_key => $preset_data ) {
-                            if ( empty( $preset_data['attributes'] ) || ! is_array( $preset_data['attributes'] ) ) {
-                                continue;
-                            }
-                            
-                            // Determine attributes for desktop device as base
-                            $attrs = isset( $preset_data['attributes']['desktop'] ) && is_array( $preset_data['attributes']['desktop'] )
-                                ? $preset_data['attributes']['desktop'] : ( is_array( $preset_data['attributes'] ) ? $preset_data['attributes'] : array() );
-                            
-                            $token = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', $preset_key ) );
-                            
-                            // Process each component key dynamically
-                            foreach ( $component_keys as $attr_key ) {
-                                // Skip hover/active states for now (could be enhanced later)
-                                if ( strpos( $attr_key, 'Hover' ) !== false || strpos( $attr_key, 'Active' ) !== false ) {
-                                    continue;
-                                }
-                                
-                                if ( ! isset( $attrs[ $attr_key ] ) || $attrs[ $attr_key ] === '' ) {
-                                    continue;
-                                }
-                                
-                                $val = $attrs[ $attr_key ];
-                                
-                                // Process value through appropriate CSS engine methods based on property type
-                                if ( is_string( $val ) ) {
-                                    // Font size processing
-                                    if ( $attr_key === 'fontSize' ) {
-                                        $converted = $this->css->get_variable_font_size_value( $val );
-                                        if ( $converted ) {
-                                            $val = $converted;
-                                        }
-                                    }
-                                    // Line height processing
-                                    elseif ( $attr_key === 'lineHeight' ) {
-                                        $converted = $this->css->get_variable_line_height_value( $val );
-                                        if ( $converted ) {
-                                            $val = $converted;
-                                        }
-                                    }
-                                    // Letter spacing processing
-                                    elseif ( $attr_key === 'letterSpacing' ) {
-                                        $converted = $this->css->get_variable_letter_spacing_value( $val );
-                                        if ( $converted ) {
-                                            $val = $converted;
-                                        }
-                                    }
-                                    // Color processing
-                                    elseif ( strpos( $attr_key, 'color' ) !== false || strpos( $attr_key, 'Color' ) !== false ) {
-                                        $val = $this->css->sanitize_color( $val );
-                                    }
-                                    // Spacing values (padding, margin, etc.)
-                                    elseif ( preg_match( '/(padding|margin|gap|width|height|size|radius)/i', $attr_key ) ) {
-                                        $converted = $this->css->get_variable_spacing_value( $val );
-                                        if ( $converted ) {
-                                            $val = $converted;
-                                        }
-                                    }
-                                }
-                                
-                                // Skip non-string values to avoid warnings
-                                if ( is_array( $val ) || is_object( $val ) ) {
-                                    continue;
-                                }
-                                
-                                // Generate variable name using kebab-case conversion
-                                $var_name = sprintf( '--kbs-%s-%s', strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', $attr_key ) ), $token );
-                                $this->css->add_property( $var_name, $val );
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-		$css = $this->css->css_output();
-		if ( ! empty( $css ) ) {
-			echo '<style id="kbs-global-styles-inline-css">' . $css . '</style>';
+		// Prepare parsed variables once
+		$used_vars   = array_keys( $this->all_used_variables );
+		$parsed_vars = [];
+		foreach ( $used_vars as $var_name ) {
+			$parts = $this->parse_variable_name( $var_name );
+			if ( $parts ) {
+				$parsed_vars[] = [
+					'name'  => $var_name,
+					'parts' => $parts,
+				];
+			}
 		}
-		
+
+		// Cache style items and base style for palette resolution
+		$style_item_cache = [];
+		$base_style_item  = isset( $this->global_styles['kbs-base'] )
+			? new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] )
+			: null;
+
+		// Always emit ALL kbs-base color variables to :root, regardless of usage
+		if ( $base_style_item ) {
+			$base_mappings = $base_style_item->get_mappings();
+			if ( isset( $base_mappings['colors'] ) && is_array( $base_mappings['colors'] ) ) {
+				$this->css->set_selector( ':root' );
+				foreach ( $base_mappings['colors'] as $token => $token_data ) {
+					$value = $token_data['value'] ?? null;
+					if ( $value === null || $value === '' ) {
+						continue;
+					}
+					if ( is_string( $value ) && strpos( $value, 'var(--global-palette' ) !== false ) {
+						$value = $this->resolve_global_palette_references( $value, $base_style_item );
+					}
+					$var_name = self::get_mapping_variable_name( 'colors', (string) $token );
+					$this->css->add_property( $var_name, $value );
+				}
+			}
+		}
+
+		// For each global style class key
+		foreach ( $this->global_style_map as $class_name => $global_styles ) {
+			$selector = ( 'kbs-base' === $class_name ) ? ':root' : '.kbs-global-style-' . $class_name;
+			$this->css->set_selector( $selector );
+
+			foreach ( $global_styles as $style_id ) {
+				if ( ! isset( $this->global_styles[ $style_id ] ) ) {
+					continue;
+				}
+				if ( ! isset( $style_item_cache[ $style_id ] ) ) {
+					$style_item_cache[ $style_id ] = new Global_Style_Item( $style_id, $this->global_styles[ $style_id ] );
+				}
+				$style_item = $style_item_cache[ $style_id ];
+
+				foreach ( $parsed_vars as $v ) {
+					$value = $style_item->get_mapping_value( $v['parts']['category'], $v['parts']['token'] );
+					if ( $value !== null ) {
+						if ( is_string( $value ) && strpos( $value, 'var(--global-palette' ) !== false ) {
+							$value = $this->resolve_global_palette_references( $value, $base_style_item );
+						}
+						$this->css->add_property( $v['name'], $value );
+					}
+				}
+
+				// Emit preset component variables for this style, so var(--kbs-<prop>-<preset>) resolves in this scope
+				$components = $style_item->get_components();
+				if ( ! empty( $components ) && is_array( $components ) ) {
+					foreach ( $components as $component_name => $component_data ) {
+						if ( empty( $component_data['presets'] ) || ! is_array( $component_data['presets'] ) ) {
+							continue;
+						}
+						
+						// Get component keys dynamically based on component type
+						$component_keys = \KadenceWP\KadenceBlocks\Frontend\Utils\Component_Value_Resolver::get_component_keys( $component_name );
+						
+						foreach ( $component_data['presets'] as $preset_key => $preset_data ) {
+							if ( empty( $preset_data['attributes'] ) || ! is_array( $preset_data['attributes'] ) ) {
+								continue;
+							}
+							
+							// Determine attributes for desktop device as base
+							$attrs = isset( $preset_data['attributes']['desktop'] ) && is_array( $preset_data['attributes']['desktop'] )
+								? $preset_data['attributes']['desktop'] : ( is_array( $preset_data['attributes'] ) ? $preset_data['attributes'] : [] );
+							
+							$token = strtolower( preg_replace( '/[^a-zA-Z0-9-_]/', '-', $preset_key ) );
+							
+							// Process each component key dynamically
+							foreach ( $component_keys as $attr_key ) {
+								// Skip hover/active states for now (could be enhanced later)
+								if ( strpos( $attr_key, 'Hover' ) !== false || strpos( $attr_key, 'Active' ) !== false ) {
+									continue;
+								}
+								
+								if ( ! isset( $attrs[ $attr_key ] ) || $attrs[ $attr_key ] === '' ) {
+									continue;
+								}
+								
+								$val = $attrs[ $attr_key ];
+								
+								// Process value through appropriate CSS engine methods based on property type
+								if ( is_string( $val ) ) {
+									// Font size processing
+									if ( $attr_key === 'fontSize' ) {
+										$converted = $this->css->get_variable_font_size_value( $val );
+										if ( $converted ) {
+											$val = $converted;
+										}
+									}
+									// Line height processing
+									elseif ( $attr_key === 'lineHeight' ) {
+										$converted = $this->css->get_variable_line_height_value( $val );
+										if ( $converted ) {
+											$val = $converted;
+										}
+									}
+									// Letter spacing processing
+									elseif ( $attr_key === 'letterSpacing' ) {
+										$converted = $this->css->get_variable_letter_spacing_value( $val );
+										if ( $converted ) {
+											$val = $converted;
+										}
+									}
+									// Color processing
+									elseif ( strpos( $attr_key, 'color' ) !== false || strpos( $attr_key, 'Color' ) !== false ) {
+										$val = $this->css->sanitize_color( $val );
+									}
+									// Spacing values (padding, margin, etc.)
+									elseif ( preg_match( '/(padding|margin|gap|width|height|size|radius)/i', $attr_key ) ) {
+										$converted = $this->css->get_variable_spacing_value( $val );
+										if ( $converted ) {
+											$val = $converted;
+										}
+									}
+								}
+								
+								// Skip non-string values to avoid warnings
+								if ( is_array( $val ) || is_object( $val ) ) {
+									continue;
+								}
+								
+								// Generate variable name using kebab-case conversion
+								$var_name = sprintf( '--kbs-%s-%s', strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', $attr_key ) ), $token );
+								$this->css->add_property( $var_name, $val );
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return $this->css->css_output();
 	}
 
 	/**
@@ -266,31 +281,33 @@ class Global_Style_Variables {
 	 * @param string $value Raw mapping value (may include var(--global-paletteX) or color-mix with those)
 	 * @return string Resolved value
 	 */
-    private function resolve_global_palette_references( $value, $base_style = null ) {
-        if ( ! is_string( $value ) || strpos( $value, 'var(--global-palette' ) === false ) {
-            return $value;
-        }
+	private function resolve_global_palette_references( $value, $base_style = null ) {
+		if ( ! is_string( $value ) || strpos( $value, 'var(--global-palette' ) === false ) {
+			return $value;
+		}
 
-        if ( ! $base_style && isset( $this->global_styles['kbs-base'] ) ) {
-            $base_style = new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] );
-        }
+		if ( ! $base_style && isset( $this->global_styles['kbs-base'] ) ) {
+			$base_style = new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] );
+		}
 
-        $replaced = preg_replace_callback( '/var\(\s*--global-palette(-?[a-z0-9]+)\s*\)/i', function( $matches ) use ( $base_style ) {
-			$token = ltrim( $matches[1], '-' ); // e.g. '9' or 'alert'
-			$hex   = '';
-			if ( ctype_digit( $token ) ) {
-				// Numeric palette index 1-9
-				$hex = Global_Style::palette_option( 'palette' . $token );
-			} else {
-				// Named notice or complement colors
-				if ( $base_style ) {
-					$hex = $base_style->get_mapping_value( 'colors', 'palette-' . $token );
+		return preg_replace_callback(
+			'/var\(\s*--global-palette(-?[a-z0-9]+)\s*\)/i',
+			function ( $matches ) use ( $base_style ) {
+				$token = ltrim( $matches[1], '-' ); // e.g. '9' or 'alert'
+				$hex   = '';
+				if ( ctype_digit( $token ) ) {
+					// Numeric palette index 1-9
+					$hex = Global_Style::palette_option( 'palette' . $token );
+				} else {
+					// Named notice or complement colors
+					if ( $base_style ) {
+						$hex = $base_style->get_mapping_value( 'colors', 'palette-' . $token );
+					}
 				}
-			}
-			return $hex ? $hex : $matches[0];
-		}, $value );
-
-		return $replaced;
+				return $hex ? $hex : $matches[0];
+			},
+			$value 
+		);
 	}
 
 	/**
@@ -317,8 +334,8 @@ class Global_Style_Variables {
 				return;
 			}
 
-			$attributes = $block_instance->attributes;
-			$block_name = $block_instance->name ?? '';
+			$attributes   = $block_instance->attributes;
+			$block_name   = $block_instance->name ?? '';
 			$inner_blocks = $block_instance->inner_blocks;
 		}
 		// Handle raw attributes array (new behavior for output_head_data)
@@ -330,30 +347,29 @@ class Global_Style_Variables {
 			}
 			
 			// Create a minimal block instance for CSS_Variable_Detector
-			$block_instance = new \stdClass();
+			$block_instance             = new \stdClass();
 			$block_instance->block_type = $block_type;
-			$inner_blocks = [];
-		}
-		else {
+			$inner_blocks               = [];
+		} else {
 			return;
 		}
 
-		$global_style_ids = $attributes['globalStyleIds'] ?? [];
+		$global_style_ids  = $attributes['globalStyleIds'] ?? [];
 		$global_styles_key = $this->create_combined_style_key( $global_style_ids );
 		
-		if ( !empty( $global_styles_key ) && ! isset( $this->global_style_map[ $global_styles_key ] ) ) {
+		if ( ! empty( $global_styles_key ) && ! isset( $this->global_style_map[ $global_styles_key ] ) ) {
 			$this->global_style_map[ $global_styles_key ] = $global_style_ids;
 		}
 		
 		// Detect CSS variables used by this block
 		$used_variables = CSS_Variable_Detector::detect_variables( $attributes, $block_name, $block_instance );
 		
-        // Track globally used variables as a set
-        if ( ! empty( $used_variables ) ) {
-            foreach ( $used_variables as $variable ) {
-                $this->all_used_variables[ $variable ] = true;
-            }
-        }
+		// Track globally used variables as a set
+		if ( ! empty( $used_variables ) ) {
+			foreach ( $used_variables as $variable ) {
+				$this->all_used_variables[ $variable ] = true;
+			}
+		}
 	}
 
 	/**
@@ -395,9 +411,9 @@ class Global_Style_Variables {
 		}
 		
 		// Create a mock block instance
-		$mock_block = new \stdClass();
-		$mock_block->name = $block_data['blockName'];
-		$mock_block->attributes = $block_data['attrs'] ?? [];
+		$mock_block               = new \stdClass();
+		$mock_block->name         = $block_data['blockName'];
+		$mock_block->attributes   = $block_data['attrs'] ?? [];
 		$mock_block->inner_blocks = [];
 		
 		// Process inner blocks recursively
@@ -446,10 +462,10 @@ class Global_Style_Variables {
 		
 		// Convert kebab-case back to camelCase for certain categories
 		$camel_categories = [
-			'font-size' => 'fontSize',
-			'line-height' => 'lineHeight',
+			'font-size'      => 'fontSize',
+			'line-height'    => 'lineHeight',
 			'letter-spacing' => 'letterSpacing',
-			'icon-size' => 'iconSize',
+			'icon-size'      => 'iconSize',
 		];
 		
 		if ( isset( $camel_categories[ $category ] ) ) {
@@ -458,11 +474,11 @@ class Global_Style_Variables {
 		
 		return [
 			'category' => $category,
-			'token' => $token,
+			'token'    => $token,
 		];
 	}
 
-    /**
+	/**
 	 * Gets variable name from category and type (PHP equivalent of JS function).
 	 *
 	 * @param string $category The style category (e.g., 'color', 'typography').
@@ -481,5 +497,4 @@ class Global_Style_Variables {
 
 		return sprintf( '--kbs-%s-%s', $category_slug, $type_slug );
 	}
-
-} 
+}
