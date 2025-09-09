@@ -12,7 +12,6 @@ declare( strict_types=1 );
 namespace KadenceWP\KadenceBlocks\Blocks;
 
 use KadenceWP\KadenceBlocks\Settings\Global_Style;
-use KadenceWP\KadenceBlocks\Settings\Global_Styles_Manager;
 use KadenceWP\KadenceBlocks\Settings\Global_Style_Item;
 use KadenceWP\KadenceBlocks\Frontend\CSS_Engine;
 use function KadenceWP\KadenceBlocks\StellarWP\Uplink\is_authorized;
@@ -255,10 +254,7 @@ class Editor_Assets {
 
 		// For each global style class key
 		foreach ( $global_styles as $style_id => $style_data ) {
-			error_log( 'style_id' );
-			error_log( print_r( $style_id, true ) );
-			error_log( 'style_data' );
-			error_log( print_r( $style_data, true ) );
+
 			$selector = ( 'kbs-base' === $style_id ) ? ':root' : '.kbs-global-style-' . $style_id;
 			$this->css->set_selector( $selector );
 			if ( ! isset( $style_data ) ) {
@@ -268,29 +264,24 @@ class Editor_Assets {
 				$style_item_cache[ $style_id ] = new Global_Style_Item( $style_id, $style_data );
 			}
 			$style_item = $style_item_cache[ $style_id ];
-			$mappings = $style_item->get_mappings();
-			//error_log( 'mappings' );
-			//error_log( print_r( $mappings, true ) );
-			foreach ( $mappings as $map_item ) {
-				error_log( 'map_item' );
-				error_log( print_r( $map_item, true ) );
-				$v = $map_item;
-				foreach ( $map_item as $single_item ) {
-					error_log( 'single_item' );
-					error_log( print_r( $single_item, true ) );
+			$mappings   = $style_item->get_mappings();
+			// error_log( 'mappings' );
+			// error_log( print_r( $mappings, true ) );
+			foreach ( $mappings as $map_item_key => $map_item ) {
+				foreach ( $map_item as $single_item_key => $single_item ) {
 					$value = $single_item['value'] ?? null;
 					if ( $value !== null ) {
+						$var_name = self::get_mapping_variable_name( $map_item_key, $single_item_key );
 						if ( is_string( $value ) && strpos( $value, 'var(--global-palette' ) !== false ) {
 							$value = $this->resolve_global_palette_references( $value, $base_style_item );
 						}
-						$this->css->add_property( $single_item['name'], $value );
-					}
-
+						$this->css->add_property( $var_name, $value );
+					}               
 				}
 			}
 
-				// Emit preset component variables for this style, so var(--kbs-<prop>-<preset>) resolves in this scope
-				$components = $style_item->get_components();
+			// Emit preset component variables for this style, so var(--kbs-<prop>-<preset>) resolves in this scope
+			$components = $style_item->get_components();
 			if ( ! empty( $components ) && is_array( $components ) ) {
 				foreach ( $components as $component_name => $component_data ) {
 					if ( empty( $component_data['presets'] ) || ! is_array( $component_data['presets'] ) ) {
@@ -373,10 +364,42 @@ class Editor_Assets {
 				}
 			}
 		}
-		$css = $this->css->css_output();
-		// error_log( 'generated_css' );
-		// error_log( print_r( $css, true ) );
-		return $css;
+		return $this->css->css_output();
+	}
+	/**
+	 * Replace references to --global-palette* with actual hex values from the active palette
+	 * or known base mappings, so frontend CSS does not depend on undefined theme globals.
+	 *
+	 * @param string $value Raw mapping value (may include var(--global-paletteX) or color-mix with those)
+	 * @return string Resolved value
+	 */
+	private function resolve_global_palette_references( $value, $base_style = null ) {
+		if ( ! is_string( $value ) || strpos( $value, 'var(--global-palette' ) === false ) {
+			return $value;
+		}
+
+		if ( ! $base_style && isset( $this->global_styles['kbs-base'] ) ) {
+			$base_style = new Global_Style_Item( 'kbs-base', $this->global_styles['kbs-base'] );
+		}
+
+		return preg_replace_callback(
+			'/var\(\s*--global-palette(-?[a-z0-9]+)\s*\)/i',
+			function ( $matches ) use ( $base_style ) {
+				$token = ltrim( $matches[1], '-' ); // e.g. '9' or 'alert'
+				$hex   = '';
+				if ( ctype_digit( $token ) ) {
+					// Numeric palette index 1-9
+					$hex = Global_Style::palette_option( 'palette' . $token );
+				} else {
+					// Named notice or complement colors
+					if ( $base_style ) {
+						$hex = $base_style->get_mapping_value( 'colors', 'palette-' . $token );
+					}
+				}
+				return $hex ? $hex : $matches[0];
+			},
+			$value 
+		);
 	}
 
 	/**
@@ -390,8 +413,8 @@ class Editor_Assets {
 			return;
 		}
 		if (
-			wp_style_is( 'kbs-editor-global', 'registered' ) &&
-			! in_array( 'kbs-editor-global', $style->deps, true )
+		wp_style_is( 'kbs-editor-global', 'registered' ) &&
+		! in_array( 'kbs-editor-global', $style->deps, true )
 		) {
 			$style->deps[] = 'kbs-editor-global';
 		}
