@@ -143,13 +143,12 @@ export default function TransformControl(props) {
 			const rotate = rotateResolved?.appliedValue || rotateResolved?.directValue;
 
 			const hasRotation =
-				rotate &&
-				(parseFloat(rotate.x) !== 0 || parseFloat(rotate.y) !== 0 || parseFloat(rotate.z) !== 0);
+				rotate && (parseFloat(rotate.x) !== 0 || parseFloat(rotate.y) !== 0 || parseFloat(rotate.z) !== 0);
 
 			const hasScale =
 				scale &&
 				((parseFloat(scale.x) !== 100 && parseFloat(scale.x) !== 1) ||
-				(parseFloat(scale.y) !== 100 && parseFloat(scale.y) !== 1));
+					(parseFloat(scale.y) !== 100 && parseFloat(scale.y) !== 1));
 
 			hasTransformEffect = hasRotation || hasScale;
 		}

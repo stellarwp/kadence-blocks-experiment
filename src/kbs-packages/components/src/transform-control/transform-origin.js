@@ -178,9 +178,7 @@ export default function TransformOrigin(props) {
 			</div>
 
 			{!hasTransformEffect && (
-				<Notice>
-					{__('Rotation or scale must be set for origin to be effective.', 'kadence-blocks')}
-				</Notice>
+				<Notice>{__('Rotation or scale must be set for origin to be effective.', 'kadence-blocks')}</Notice>
 			)}
 
 			<div className="kadence-transform-origin-visual">
