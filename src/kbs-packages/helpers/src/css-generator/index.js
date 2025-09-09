@@ -43,7 +43,7 @@ class CSSGenerator {
 			textOrientation: new TextGenerator(this),
 			mask: new MaskGenerator(this),
 			filter: new FilterGenerator(this),
-            sticky: new StickyGenerator(this),
+			sticky: new StickyGenerator(this),
 
 			maxWidth: simpleGenerator,
 			maxHeight: simpleGenerator,

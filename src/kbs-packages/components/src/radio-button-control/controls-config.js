@@ -428,16 +428,16 @@ export const getColorMixControls = () => [
 ];
 
 export const getStickyEnabledControls = () => [
-    {
-        title: __('Disabled', 'kadence-blocks'),
-        name: __('Disabled', 'kadence-blocks'),
-        key: 'none',
-    },
-    {
-        title: __('Enabled', 'kadence-blocks'),
-        name: __('Enabled', 'kadence-blocks'),
-        key: 'top',
-    },
+	{
+		title: __('Disabled', 'kadence-blocks'),
+		name: __('Disabled', 'kadence-blocks'),
+		key: 'none',
+	},
+	{
+		title: __('Enabled', 'kadence-blocks'),
+		name: __('Enabled', 'kadence-blocks'),
+		key: 'top',
+	},
 ];
 export const getPatternSizeControls = () => [
 	{
