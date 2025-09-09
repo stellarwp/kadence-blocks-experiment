@@ -185,7 +185,16 @@
 			"classPrefix": "kbs-container-transition-",
 			"initial": {},
 			"type": "object"
-		}
+		},
+        "sticky": {
+            "renderCSS": true,
+            "component": "sticky",
+            "nonInheritable": true,
+            "initial": {
+                "desktop": { "position": "none", "offset": 0 }
+            },
+            "type": "object"
+        }
 	},
 	"supports": {
 		"anchor": true,

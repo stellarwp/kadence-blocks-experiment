@@ -76,3 +76,4 @@ export { default as FocalPointPicker } from './focal-point-picker';
 export { default as MediaPlaceholder } from './media-placeholder';
 
 export { default as RangeControl } from './range/range-control';
+export { default as StickyControl } from './sticky-control';

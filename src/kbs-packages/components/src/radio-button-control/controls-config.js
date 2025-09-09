@@ -264,6 +264,14 @@ export const getRadioConfig = (radioType, previewDirection) => {
 			UIComponent = RadioToggleGroupInputRangeUI;
 			controls = getFontSizeOptions();
 			break;
+		case 'sticky-enabled':
+		case 'stickyEnabled':
+			controls = getStickyEnabledControls();
+			break;
+		case 'sticky-offset':
+		case 'stickyOffset':
+			UIComponent = RadioToggleGroupInputRangeUI;
+			break;
 		case 'textTransform':
 			controls = getTextTransformControls();
 			break;
@@ -417,6 +425,19 @@ export const getColorMixControls = () => [
 		name: __('Mix', 'kadence-blocks'),
 		key: 'mix',
 	},
+];
+
+export const getStickyEnabledControls = () => [
+    {
+        title: __('Disabled', 'kadence-blocks'),
+        name: __('Disabled', 'kadence-blocks'),
+        key: 'none',
+    },
+    {
+        title: __('Enabled', 'kadence-blocks'),
+        name: __('Enabled', 'kadence-blocks'),
+        key: 'top',
+    },
 ];
 export const getPatternSizeControls = () => [
 	{

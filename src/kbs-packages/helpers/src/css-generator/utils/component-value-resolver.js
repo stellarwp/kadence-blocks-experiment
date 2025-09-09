@@ -74,6 +74,7 @@ function getComponentKeys(componentType) {
 		transform: ['scale', 'translate', 'rotate', 'skew', 'origin'],
 		mask: ['shape', 'image'],
 		filter: ['dropShadow', 'simple'],
+		sticky: ['position', 'offset'],
 	};
 
 	return componentKeysMap[componentType] || [componentType];
