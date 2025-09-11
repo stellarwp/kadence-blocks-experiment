@@ -51,6 +51,14 @@
 		// border-right: var(--kbs-cont-border-right-hover, var(--kbs-cont-border-right));
 		// border-bottom: var(--kbs-cont-border-bottom-hover, var(--kbs-cont-border-bottom));
 	}
+
+	.kbs-container-link-overlay {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+	}
 }
 
 //TODO this should be loaded in a more global way. Any block that has a background should have this included.

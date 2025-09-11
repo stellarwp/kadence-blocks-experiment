@@ -95,11 +95,12 @@ class Container extends Abstract_Block {
 
 		$bg_html = $this->get_background_html( 'background', $attributes, $block_instance );
 
-		$content_html =  sprintf( '<%1$s %2$s>%3$s%4$s</%1$s>', $html_tag, $wrapper_attributes, $bg_html, $content );
-
 		if ( $has_link ) {
-			$content_html = self::get_link_html( $attributes['link'], $content_html );
+			$link_overlay_html = self::get_link_html( $attributes['link'], '', 'kbs-container-link-overlay' );
 		}
+
+		$content_html =  sprintf( '<%1$s %2$s>%3$s%4$s%5$s</%1$s>', $html_tag, $wrapper_attributes, $bg_html, $content, $link_overlay_html );
+
 
 		return $content_html;
 	}

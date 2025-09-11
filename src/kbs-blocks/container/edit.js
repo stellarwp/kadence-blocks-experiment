@@ -148,7 +148,6 @@ export default function ContainerEdit(props) {
 			)}
 		</TagName>
 	);
-	const linkContentHTML = getLinkHTML(link, contentHTML);
 	return (
 		<GlobalStylesContext.Provider value={globalStylesIds}>
 			<Inspector
@@ -168,8 +167,7 @@ export default function ContainerEdit(props) {
 				globalStylesIds={globalStylesIds}
 				globalStylesCss={globalStylesCss}
 			/>
-			{link?.url && linkContentHTML}
-			{!link?.url && contentHTML}
+			{contentHTML}
 		</GlobalStylesContext.Provider>
 	);
 }
