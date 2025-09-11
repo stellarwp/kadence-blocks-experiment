@@ -209,14 +209,7 @@ const LinkControlToolbar = ({
 	});
 
 	const getLinkDestinations = () => {
-		const linkDestinations = [
-			{
-				linkDestination: LINK_DESTINATION_MEDIA,
-				title: __('Media File'),
-				url: mediaType === 'image' ? mediaUrl : undefined,
-				icon,
-			},
-		];
+		const linkDestinations = [];
 		if (mediaType === 'image' && mediaLink) {
 			linkDestinations.push({
 				linkDestination: LINK_DESTINATION_ATTACHMENT,
@@ -340,7 +333,8 @@ const LinkControlToolbar = ({
 					onClose={closeLinkUI}
 					renderSettings={() => (additionalControls ? advancedOptions : '')}
 					additionalControls={
-						!linkEditorValue && (
+						!linkEditorValue &&
+						getLinkDestinations().length > 0 && (
 							<NavigableMenu>
 								{map(getLinkDestinations(), (link) => (
 									<MenuItem
