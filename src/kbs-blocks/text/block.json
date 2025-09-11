@@ -188,7 +188,7 @@
 			"renderCSS": true,
 			"component": "icon",
 			"varPrefix": "--kbs-text-icon-",
-			"initial": {},
+			"initial": { "desktop": { "placement": "left" } },
 			"type": "object"
 		},
 		"globalStyleIds": {

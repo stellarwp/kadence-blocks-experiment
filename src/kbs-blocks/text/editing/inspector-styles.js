@@ -129,6 +129,7 @@ export default function InspectorStyles(props) {
 				title={__('Advanced Highlight Settings', 'kadence-blocks')}
 				panelName={'text-advanced-highlight'}
 				componentName={'advanced-highlight-control'}
+				hasDeviceControls={false}
 				initialOpen={false}
 			>
 				<Typography
