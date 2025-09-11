@@ -871,6 +871,7 @@ class CSS_Engine {
 
 	/**
 	 * Get the attribute meta from the block instance.
+	 * Note that this is designed to handle $block_instance objects that come during block render, but also during header style generation based on parse_blocks
 	 *
 	 * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
 	 * @param string $attribute_name The name of the attribute to get.
@@ -879,6 +880,8 @@ class CSS_Engine {
 	public function get_attribute_meta( $block_instance, $attribute_name ) {
 		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes[ $attribute_name ] ) ) {
 			return $block_instance->block_type->attributes[ $attribute_name ];
+		} elseif ( is_object( $block_instance ) && isset( $block_instance->attributes[ $attribute_name ] ) ) {
+			return $block_instance->attributes[ $attribute_name ];
 		}
 		return [];
 	}
