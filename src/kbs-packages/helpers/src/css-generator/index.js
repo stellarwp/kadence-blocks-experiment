@@ -130,6 +130,11 @@ class CSSGenerator {
 						// If the variant has attributes, merge them
 						if (variantData?.attributes) {
 							Object.entries(variantData.attributes).forEach(([componentName, componentValue]) => {
+								// If the child component already has a preset selected, skip merging entirely
+								if (props?.attributes?.[componentName]?.preset) {
+									return;
+								}
+
 								// Ensure the component attribute exists
 								if (!modifiedAttributes[componentName]) {
 									// If the attribute doesn't exist at all, add the entire value
