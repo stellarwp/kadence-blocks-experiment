@@ -311,10 +311,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
-							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette3)",
+							"borderTop": "solid 1px var(--kbs-colors-palette3)",
+							"borderLeft": "solid 1px var(--kbs-colors-palette3)",
+							"borderRight": "solid 1px var(--kbs-colors-palette3)",
+							"borderBottom": "solid 1px var(--kbs-colors-palette3)",
 							"borderTopLeftRadius": "sm",
 							"borderTopRightRadius": "sm",
 							"borderBottomRightRadius": "sm",
@@ -328,10 +328,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
-							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
-							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
-							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette3)",
+							"borderTop": "solid 3px var(--kbs-colors-palette3)",
+							"borderLeft": "solid 3px var(--kbs-colors-palette3)",
+							"borderRight": "solid 3px var(--kbs-colors-palette3)",
+							"borderBottom": "solid 3px var(--kbs-colors-palette3)",
 							"borderTopLeftRadius": "md",
 							"borderTopRightRadius": "md",
 							"borderBottomRightRadius": "md",
@@ -345,10 +345,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
-							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
-							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
-							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-default-width,1px) var(--kbs-colors-palette1)",
+							"borderTop": "solid 1px var(--kbs-colors-palette1)",
+							"borderLeft": "solid 1px var(--kbs-colors-palette1)",
+							"borderRight": "solid 1px var(--kbs-colors-palette1)",
+							"borderBottom": "solid 1px var(--kbs-colors-palette1)",
 							"borderTopLeftRadius": "sm",
 							"borderTopRightRadius": "sm",
 							"borderBottomRightRadius": "sm",
@@ -362,10 +362,10 @@
 					"locked": true,
 					"attributes": {
 						"desktop": {
-							"borderTop": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
-							"borderLeft": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
-							"borderRight": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
-							"borderBottom": "var(--kbs-border-default-style,solid) var(--kbs-border-md-width,3px) var(--kbs-colors-palette1)",
+							"borderTop": "solid 3px var(--kbs-colors-palette1)",
+							"borderLeft": "solid 3px var(--kbs-colors-palette1)",
+							"borderRight": "solid 3px var(--kbs-colors-palette1)",
+							"borderBottom": "solid 3px var(--kbs-colors-palette1)",
 							"borderTopLeftRadius": "md",
 							"borderTopRightRadius": "md",
 							"borderBottomRightRadius": "md",
