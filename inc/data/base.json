@@ -828,11 +828,18 @@
 			}
 		},
 		"iconSize": {
-			"xs": { "value": "1rem" },
-			"sm": { "value": "2rem" },
-			"md": { "value": "3rem" },
-			"lg": { "value": "4rem" },
-			"xl": { "value": "5rem" }
+			"xs": { "value": "clamp(1rem, 0.843rem + 0.557vw, 1.2rem)", "label": "X Small", "name": "XS" },
+			"sm": { "value": "clamp(2rem, 1.686rem + 1.115vw, 2.4rem)", "label": "Small", "name": "SM" },
+			"md": { "value": "clamp(3rem, 2.53rem + 1.672vw, 3.6rem)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(4rem, 3.373rem + 2.23vw, 4.8rem)", "label": "Large", "name": "LG" },
+			"xl": { "value": "clamp(5rem, 4.216rem + 2.787vw, 6rem)", "label": "X Large", "name": "XL" }
+		},
+		"borderRadius": {
+			"sm": { "value": "clamp(5px, 3.4321px + 0.3484vw, 7px)", "label": "Small", "name": "SM" },
+			"md": { "value": "clamp(15px, 10.2962px + 1.0453vw, 21px)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(30px, 20.5923px + 2.0906vw, 42px)", "label": "Large", "name": "LG" },
+			"xl": { "value": "clamp(60px, 41.1847px + 4.1812vw, 84px)", "label": "X Large", "name": "XL" },
+			"full": { "value": "100%", "label": "Full", "name": "Full" }
 		},
 		"colors": {
 			"palette1": {

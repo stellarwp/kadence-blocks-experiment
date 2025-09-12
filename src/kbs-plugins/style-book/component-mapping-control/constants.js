@@ -23,4 +23,7 @@ export const MAPPING_COMPONENT_OPTIONS = {
 	gap: {
 		label: __('Gap', 'kadence-blocks'),
 	},
+	borderRadius: {
+		label: __('Border Radius', 'kadence-blocks'),
+	},
 };

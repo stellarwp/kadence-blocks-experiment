@@ -195,81 +195,81 @@ class CSS_Engine {
 	 * Spacing variables used in string based padding / margin.
 	 */
 	protected $spacing_sizes = array(
-		'none' => 'var(--global-kb-spacing-none, 0rem )',
-		'ss-auto' => 'var(--global-kb-spacing-auto, auto)',
-		'xxs' => 'var(--global-kb-spacing-xxs, 0.5rem)',
-		'xs' => 'var(--global-kb-spacing-xs, 1rem)',
-		'sm' => 'var(--global-kb-spacing-sm, 1.5rem)',
-		'md' => 'var(--global-kb-spacing-md, 2rem)',
-		'lg' => 'var(--global-kb-spacing-lg, 3rem)',
-		'xl' => 'var(--global-kb-spacing-xl, 4rem)',
-		'xxl' => 'var(--global-kb-spacing-xxl, 5rem)',
-		'3xl' => 'var(--global-kb-spacing-3xl, 6.5rem)',
-		'4xl' => 'var(--global-kb-spacing-4xl, 8rem)',
-		'5xl' => 'var(--global-kb-spacing-5xl, 10rem)'
+		'none' => 'var(--global-kbs-spacing-none, 0rem )',
+		'ss-auto' => 'var(--global-kbs-spacing-auto, auto)',
+		'xxs' => 'var(--global-kbs-spacing-xxs, 0.5rem)',
+		'xs' => 'var(--global-kbs-spacing-xs, 1rem)',
+		'sm' => 'var(--global-kbs-spacing-sm, 1.5rem)',
+		'md' => 'var(--global-kbs-spacing-md, 2rem)',
+		'lg' => 'var(--global-kbs-spacing-lg, 3rem)',
+		'xl' => 'var(--global-kbs-spacing-xl, 4rem)',
+		'xxl' => 'var(--global-kbs-spacing-xxl, 5rem)',
+		'3xl' => 'var(--global-kbs-spacing-3xl, 6.5rem)',
+		'4xl' => 'var(--global-kbs-spacing-4xl, 8rem)',
+		'5xl' => 'var(--global-kbs-spacing-5xl, 10rem)'
 	);
 	/**
 	 * Font size variables used in string based font sizes.
 	 */
 	protected $font_sizes = array(
-		'sm' => 'var(--kbs-font-size-sm, 0.9rem)',
-		'md' => 'var(--kbs-font-size-md, 1.25rem)',
-		'lg' => 'var(--kbs-font-size-lg, 2rem)',
-		'xl' => 'var(--kbs-font-size-xl, 3rem)',
-		'xxl' => 'var(--kbs-font-size-xxl, 4rem)',
-		'3xl' => 'var(--kbs-font-size-3xl, 5rem)',
+		'sm' => 'var(--kbs-fontsize-sm, 0.9rem)',
+		'md' => 'var(--kbs-fontsize-md, 1.25rem)',
+		'lg' => 'var(--kbs-fontsize-lg, 2rem)',
+		'xl' => 'var(--kbs-fontsize-xl, 3rem)',
+		'xxl' => 'var(--kbs-fontsize-xxl, 4rem)',
+		'3xl' => 'var(--kbs-fontsize-3xl, 5rem)',
 	);
 	/**
 	 * Border radius variables used in string based border radius values.
 	 */
 	protected $border_radius_sizes = array(
-		'sm' => 'var(--global-kb-border-radius-sm, clamp(5px, 3.4321px + 0.3484vw, 7px))',
-		'md' => 'var(--global-kb-border-radius-md, clamp(15px, 10.2962px + 1.0453vw, 21px))',
-		'lg' => 'var(--global-kb-border-radius-lg, clamp(30px, 20.5923px + 2.0906vw, 42px))',
-		'xl' => 'var(--global-kb-border-radius-xl, clamp(60px, 41.1847px + 4.1812vw, 84px))',
-		'full' => 'var(--global-kb-border-radius-full, 100%)',
+		'sm' => 'var(--global-kbs-borderradius-sm, clamp(5px, 3.4321px + 0.3484vw, 7px))',
+		'md' => 'var(--global-kbs-borderradius-md, clamp(15px, 10.2962px + 1.0453vw, 21px))',
+		'lg' => 'var(--global-kbs-borderradius-lg, clamp(30px, 20.5923px + 2.0906vw, 42px))',
+		'xl' => 'var(--global-kbs-borderradius-xl, clamp(60px, 41.1847px + 4.1812vw, 84px))',
+		'full' => 'var(--global-kbs-borderradius-full, 100%)',
 	);
 	/**
 	 * Line height variables used in string based line heights.
 	 */
 	protected $line_heights = array(
-		'sm' => 'var(--kbs-line-height-sm, 1.2)',
-		'md' => 'var(--kbs-line-height-md, 1.5)',
-		'lg' => 'var(--kbs-line-height-lg, 1.8)',
+		'sm' => 'var(--kbs-lineheight-sm, 1.2)',
+		'md' => 'var(--kbs-lineheight-md, 1.5)',
+		'lg' => 'var(--kbs-lineheight-lg, 1.8)',
 	);
 	/**
 	 * Letter spacing variables used in string based letter spacing.
 	 */
 	protected $letter_spacings = array(
-		'sm' => 'var(--kbs-letter-spacing-sm, -0.05em)',
-		'md' => 'var(--kbs-letter-spacing-md, 0)',
-		'lg' => 'var(--kbs-letter-spacing-lg, 0.05em)',
+		'sm' => 'var(--kbs-letterspacing-sm, -0.05em)',
+		'md' => 'var(--kbs-letterspacing-md, 0)',
+		'lg' => 'var(--kbs-letterspacing-lg, 0.05em)',
 	);
 	/**
 	 * Icon size variables used in string based icon sizes.
 	 */
 	protected $icon_sizes = array(
-		'xs' => 'var(--kbs-icon-size-xs, clamp(1rem, 0.843rem + 0.557vw, 1.2rem))',
-		'sm' => 'var(--kbs-icon-size-sm, clamp(2rem, 1.686rem + 1.115vw, 2.4rem))',
-		'md' => 'var(--kbs-icon-size-md, clamp(3rem, 2.53rem + 1.672vw, 3.6rem))',
-		'lg' => 'var(--kbs-icon-size-lg, clamp(4rem, 3.373rem + 2.23vw, 4.8rem))',
-		'xl' => 'var(--kbs-icon-size-xl, clamp(5rem, 4.216rem + 2.787vw, 6rem))',
+		'xs' => 'var(--kbs-iconsize-xs, clamp(1rem, 0.843rem + 0.557vw, 1.2rem))',
+		'sm' => 'var(--kbs-iconsize-sm, clamp(2rem, 1.686rem + 1.115vw, 2.4rem))',
+		'md' => 'var(--kbs-iconsize-md, clamp(3rem, 2.53rem + 1.672vw, 3.6rem))',
+		'lg' => 'var(--kbs-iconsize-lg, clamp(4rem, 3.373rem + 2.23vw, 4.8rem))',
+		'xl' => 'var(--kbs-iconsize-xl, clamp(5rem, 4.216rem + 2.787vw, 6rem))',
 	);
 	/**
 	 * Gaps variables used in string based gutters.
 	 */
 	protected $gap_sizes = array(
-		'none' => 'var(--global-kb-gap-none, 0rem )',
-		'skinny' => 'var(--global-kb-gap-sm, 1rem)',
+		'none' => 'var(--global-kbs-gap-none, 0rem )',
+		'skinny' => 'var(--global-kbs-gap-sm, 1rem)',
 		'narrow' => '20px',
 		'wide' => '40px',
 		'widest' => '80px',
-		'default' => 'var(--global-kb-gap-md, 2rem)',
-		'wider' => 'var(--global-kb-gap-lg, 4rem)',
-		'xs' => 'var(--global-kb-gap-xs, 0.5rem )',
-		'sm' => 'var(--global-kb-gap-sm, 1rem)',
-		'md' => 'var(--global-kb-gap-md, 2rem)',
-		'lg' => 'var(--global-kb-gap-lg, 4rem)',
+		'default' => 'var(--global-kbs-gap-md, 2rem)',
+		'wider' => 'var(--global-kbs-gap-lg, 4rem)',
+		'xs' => 'var(--global-kbs-gap-xs, 0.5rem )',
+		'sm' => 'var(--global-kbs-gap-sm, 1rem)',
+		'md' => 'var(--global-kbs-gap-md, 2rem)',
+		'lg' => 'var(--global-kbs-gap-lg, 4rem)',
 	);
 	/**
 	 * Content width variables used in dimension values.

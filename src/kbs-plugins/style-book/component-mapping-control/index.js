@@ -24,6 +24,8 @@ function MappingControl(props) {
 			);
 		case 'spacing':
 		case 'gap':
+		case 'iconSize':
+		case 'borderRadius':
 			return (
 				<RadioButtonSelect
 					labelPosition="clampMapping"
@@ -42,7 +44,7 @@ function MappingControl(props) {
 /**
  * Build the component preset
  */
-export default function ComponentPresetControl(props) {
+export default function ComponentMappingControl(props) {
 	const { globalStyleId, selectedMappingComponent, setSelectedMappingComponent, setNeedsSave } = props;
 
 	const { styleBookLocalGlobalStyles } = useSelect((select) => {
