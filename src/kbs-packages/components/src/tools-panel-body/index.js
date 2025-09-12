@@ -207,6 +207,7 @@ export function UnforwardedToolsPanelBody(props, ref) {
 		componentName,
 		panelName,
 		resetAll,
+		reset,
 		setAttributes,
 		attributeName,
 		canResetAll = true,
@@ -241,6 +242,8 @@ export function UnforwardedToolsPanelBody(props, ref) {
 	const onResetAll = () => {
 		if (typeof resetAll === 'function') {
 			resetAll();
+		} else if (typeof reset === 'function') {
+			reset();
 		} else if (setAttributes && attributeName) {
 			setAttributes({ [attributeName]: undefined });
 		}

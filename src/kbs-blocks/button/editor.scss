@@ -12,12 +12,6 @@
 	@include mixins.kbs-block-resets;
 }
 
-.kbs-button {
-	a {
-		cursor: text;
-	}
-}
-
 .kbs-button-content {
 	&:focus {
 		outline: none;

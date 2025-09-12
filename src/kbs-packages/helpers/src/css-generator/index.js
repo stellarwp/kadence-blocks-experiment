@@ -74,14 +74,14 @@ class CSSGenerator {
 		Object.keys(source).forEach((key) => {
 			if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
 				// If target doesn't have this key at all, add the entire source value
-				if (!result[key]) {
+				if (!result?.[key]) {
 					result[key] = source[key];
-				} else if (typeof result[key] === 'object' && !Array.isArray(result[key])) {
+				} else if (typeof result?.[key] === 'object' && !Array.isArray(result?.[key])) {
 					// Both are objects, recurse
 					result[key] = this.deepMergeWithPriority(result[key], source[key]);
 				}
 				// If target has a value that's not an object, keep it (user override)
-			} else if (result[key] === undefined || result[key] === null || result[key] === '') {
+			} else if (result?.[key] === undefined || result?.[key] === null || result?.[key] === '') {
 				// For primitive values and arrays, only set if target doesn't have a value
 				result[key] = source[key];
 			}
@@ -217,7 +217,6 @@ class CSSGenerator {
 		}
 
 		const componentType = meta.component;
-
 		// Check if debugging is enabled for this component
 		if (meta?.debug === true) {
 			this.outputComponentDebug(attributeName, componentType, props, meta, metadata);

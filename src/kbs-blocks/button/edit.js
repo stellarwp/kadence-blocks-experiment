@@ -29,7 +29,6 @@ import {
 	uniqueIdHelper,
 	GlobalStylesContext,
 	useGlobalStylesIds,
-	getLinkHTML,
 	getResolvedValue,
 	getColorOutput,
 	handleAttributeChange,
@@ -111,8 +110,6 @@ export default function ButtonEdit(props) {
 	const richTextFormatsBase = applyFilters(
 		'kadence.whitelist_richtext_formats',
 		[
-			'kbs/highlight',
-			'kadence/typed',
 			'kadence/insert-dynamic',
 			'kadence/ai-text',
 			'core/bold',
@@ -163,8 +160,6 @@ export default function ButtonEdit(props) {
 		/>
 	);
 
-	const linkContentHTML = getLinkHTML(link, contentHTML);
-
 	const controlsAndStylesHTML = (
 		<>
 			<Inspector
@@ -208,8 +203,7 @@ export default function ButtonEdit(props) {
 			{controlsAndStylesHTML}
 			<span {...finalBlocksProps}>
 				{previewIconPlacement !== 'right' && <IconRender attributeName={'icon'} attributes={attributes} />}
-				{link?.url && linkContentHTML}
-				{!link?.url && contentHTML}
+				{contentHTML}
 				{previewIconPlacement === 'right' && <IconRender attributeName={'icon'} attributes={attributes} />}
 			</span>
 		</GlobalStylesContext.Provider>

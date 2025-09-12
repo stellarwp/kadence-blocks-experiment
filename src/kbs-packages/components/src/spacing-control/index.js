@@ -68,7 +68,7 @@ export default function SpacingControl({
 	return (
 		<ToolsPanelBody
 			title={title}
-			reset={onAllReset}
+			resetAll={onAllReset}
 			panelName={'container-spacing'}
 			componentName={'spacing-control'}
 			initialOpen={initialOpen}

@@ -185,14 +185,41 @@ export const handleMultipleAttributeChange = (
 	const deviceOptions = window?.kbs_params?.responsive_device_options || [];
 	let newAttributes = JSON.parse(JSON.stringify(attributes));
 	if (Array.isArray(type)) {
+		// Check if every value in the value array is undefined.
 		type.forEach((itemType, index) => {
 			if (device === 'all') {
-				newAttributes = handleAllDevices(value[index], newAttributes, attributeName, deviceOptions, itemType);
+				if (value.every((item) => item === undefined)) {
+					newAttributes[attributeName] = undefined;
+				} else {
+					newAttributes = handleAllDevices(
+						value[index],
+						newAttributes,
+						attributeName,
+						deviceOptions,
+						itemType
+					);
+				}
 			} else if (device === 'none') {
-				newAttributes = handleNoDevice(value[index], newAttributes, attributeName, itemType);
+				if (value.every((item) => item === undefined)) {
+					newAttributes[attributeName] = undefined;
+				} else {
+					newAttributes = handleNoDevice(value[index], newAttributes, attributeName, itemType);
+				}
 			} else {
 				const deviceSlug = getDeviceAttributeSlug(device);
-				newAttributes = handleSpecificDevice(value[index], newAttributes, attributeName, deviceSlug, itemType);
+				if (value.every((item) => item === undefined)) {
+					if (newAttributes?.[attributeName]?.[deviceSlug]) {
+						delete newAttributes[attributeName][deviceSlug];
+					}
+				} else {
+					newAttributes = handleSpecificDevice(
+						value[index],
+						newAttributes,
+						attributeName,
+						deviceSlug,
+						itemType
+					);
+				}
 			}
 		});
 		setAttributes(newAttributes);

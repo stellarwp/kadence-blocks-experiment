@@ -45,7 +45,7 @@ export default function SpaceControl({
 	globalStylesIds,
 	placeholder = '',
 	className = '',
-	defaultValue = '',
+	defaultValue = null,
 	previewDevice = 'Desktop',
 	max = 200,
 	min = 0,
@@ -182,21 +182,25 @@ export default function SpaceControl({
 	);
 	const onChange = (value, device, tempType, reset = false) => {
 		if (isLinking || reset) {
-			handleMultipleAttributeChange(
-				[value, value, value, value],
-				device,
-				attributeName,
-				attributes,
-				parentType === 'padding' ? onSetAttributes : setAttributes,
-				customOnChange,
-				[
-					sideOptionsToUse.top.type,
-					sideOptionsToUse.left.type,
-					sideOptionsToUse.right.type,
-					sideOptionsToUse.bottom.type,
-				],
-				metaData
-			);
+			if (device === 'all') {
+				setAttributes({ [attributeName]: undefined });
+			} else {
+				handleMultipleAttributeChange(
+					[value, value, value, value],
+					device,
+					attributeName,
+					attributes,
+					parentType === 'padding' ? onSetAttributes : setAttributes,
+					customOnChange,
+					[
+						sideOptionsToUse.top.type,
+						sideOptionsToUse.left.type,
+						sideOptionsToUse.right.type,
+						sideOptionsToUse.bottom.type,
+					],
+					metaData
+				);
+			}
 		} else {
 			handleMultipleAttributeChange(
 				value,
