@@ -50,3 +50,4 @@ export { SHADOW_STYLES_DEFAULTS, TEXT_SHADOW_STYLES_DEFAULTS } from './constants
 export { kadenceIcon } from './constants/icons';
 export { default as getTransferableAttributes } from './get-transferable-attributes';
 export { default as registerGoogleFonts } from './register-google-fonts';
+export { createBlockStylesComponent } from './block-styles';

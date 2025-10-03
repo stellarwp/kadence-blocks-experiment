@@ -1,7 +1,7 @@
 /**
- * BLOCK: Kadence Column
+ * BLOCK: KBS Button
  *
- * Registering a basic block with Gutenberg.
+ * Inspector Advanced
  */
 
 /**
@@ -43,6 +43,7 @@ export default function InspectorAdvanced(props) {
 				title={__('Spacing Settings', 'kadence-blocks')}
 				types={['padding', 'margin']}
 				clientId={clientId}
+				hasPresetControl={false}
 				showVisualizer={false}
 				blockElementRef={blockElementRef}
 			/>

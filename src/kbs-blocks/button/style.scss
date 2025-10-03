@@ -3,7 +3,12 @@
  *
  * CSS for both Frontend+Backend.
  */
-
+.kbs-button.wp-block-kbs-button {
+	margin-top: var(--kbs-button-margin-top, 0);
+	margin-right: var(--kbs-button-margin-right, 0);
+	margin-bottom: var(--kbs-button-margin-bottom, 0);
+	margin-left: var(--kbs-button-margin-left, 0);
+}
 .kbs-button {
 	display: inline-flex;
 	justify-content: center;

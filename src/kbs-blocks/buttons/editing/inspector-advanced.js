@@ -1,7 +1,7 @@
 /**
- * BLOCK: Kadence Column
+ * BLOCK: KBS Buttons
  *
- * Registering a basic block with Gutenberg.
+ * Inspector Advanced
  */
 
 /**

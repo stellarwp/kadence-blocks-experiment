@@ -79,8 +79,8 @@ class Container extends Abstract_Block {
 		$html_tag    = $this->get_html_tag( $attributes, 'htmlTag', $initial_tag, $this->allowed_html_tags );
 		$classes     = [ $this->root_selector_class, $this->root_selector_class . $unique_id ];
 		$classes     = array_merge( $classes, $this->get_global_style_class( $attributes ) );
-		$link_value = self::get_resolved_value( 'link', $attributes, 'none', $this->get_attribute_meta( $block_instance, 'link' ), 'url', [] );
-		$has_link = ! empty( $link_value['appliedValue'] ) ? true : false;
+		$link_value  = self::get_resolved_value( 'link', $attributes, 'none', $this->get_attribute_meta( $block_instance, 'link' ), 'url', [] );
+		$has_link    = ! empty( $link_value['appliedValue'] ) ? true : false;
 
 
 		$wrapper_args = [
@@ -93,15 +93,12 @@ class Container extends Abstract_Block {
 		$wrapper_args       = apply_filters( 'kbs_wrapper_args', $wrapper_args, $attributes, $this->block_name, $unique_id, $block_instance );
 		$wrapper_attributes = get_block_wrapper_attributes( $wrapper_args );
 
-		$bg_html = $this->get_background_html( 'background', $attributes, $block_instance );
-
+		$bg_html           = $this->get_background_html( 'background', $attributes, $block_instance );
+		$link_overlay_html = '';
 		if ( $has_link ) {
 			$link_overlay_html = self::get_link_html( $attributes['link'], '', 'kbs-container-link-overlay' );
 		}
 
-		$content_html =  sprintf( '<%1$s %2$s>%3$s%4$s%5$s</%1$s>', $html_tag, $wrapper_attributes, $bg_html, $content, $link_overlay_html );
-
-
-		return $content_html;
+		return sprintf( '<%1$s %2$s>%3$s%4$s%5$s</%1$s>', $html_tag, $wrapper_attributes, $bg_html, $content, $link_overlay_html );
 	}
 }

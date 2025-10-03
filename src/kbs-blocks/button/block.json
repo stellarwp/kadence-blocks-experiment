@@ -61,9 +61,6 @@
 		"link": {
 			"type": "object"
 		},
-		"background": {
-			"type": "object"
-		},
 		"padding": {
 			"type": "object",
 			"renderCSS": true,
@@ -75,7 +72,7 @@
 			"type": "object",
 			"renderCSS": true,
 			"component": "margin",
-			"nonInheritable": true,
+			"nonInheritable": false,
 			"varPrefix": "--kbs-button-"
 		},
 		"shadow": {

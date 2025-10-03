@@ -1,19 +1,23 @@
 /**
- * Kadence Text Block CSS
+ * Kadence Button Block CSS
  */
 
-/**
- * Import External
- */
-import { useMemo, useEffect } from '@wordpress/element';
-import { select } from '@wordpress/data';
+import { useMemo } from '@wordpress/element';
 import { cssGenerator } from '@kadence/kbsHelpers';
 import metadata from '../block.json';
 
 export default function Styles(props) {
 	const { attributes, previewDevice, globalStylesCss, globalStylesIds } = props;
-	// Get all merged global styles for the block
-	const mergedGlobalStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(globalStylesIds);
+
+	// Create stable hash of attributes for memoization
+	const attributesHash = useMemo(() => {
+		return JSON.stringify(attributes);
+	}, [attributes]);
+
+	// Create stable hash of globalStylesIds for memoization
+	const globalStylesHash = useMemo(() => {
+		return JSON.stringify(globalStylesIds);
+	}, [globalStylesIds]);
 
 	const cssOutput = useMemo(() => {
 		const selector = `.kbs-button-${attributes?.uniqueID || 'unknown'}`;
@@ -24,7 +28,7 @@ export default function Styles(props) {
 			output = output + attributes.kbsCSS.replace(/selector/g, selector);
 		}
 		return output;
-	}, [attributes, attributes?.uniqueID, previewDevice, mergedGlobalStyles]);
+	}, [attributesHash, previewDevice, globalStylesHash, attributes?.uniqueID, attributes?.kbsCSS]);
 
 	const globalStylesCssOutput = useMemo(() => {
 		if (!globalStylesCss) {

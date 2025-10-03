@@ -15,6 +15,9 @@ import { MaskGenerator } from './components/mask-generator';
 import { FilterGenerator } from './components/filter-generator';
 import { StickyGenerator } from './components/sticky-generator';
 
+// Cache for propagated variant presets to avoid re-computation
+const variantPresetCache = new WeakMap();
+
 /**
  * CSS Generator class for building CSS strings
  */
@@ -105,6 +108,15 @@ class CSSGenerator {
 			return props;
 		}
 
+		// Check cache first
+		if (variantPresetCache.has(props.attributes)) {
+			const cached = variantPresetCache.get(props.attributes);
+			// Verify cache is still valid by checking globalStylesIds
+			if (JSON.stringify(cached.globalStylesIds) === JSON.stringify(props.globalStylesIds)) {
+				return { ...props, attributes: cached.attributes };
+			}
+		}
+
 		// Create a copy of props to avoid mutations
 		const modifiedProps = { ...props };
 		const modifiedAttributes = { ...props.attributes };
@@ -155,6 +167,13 @@ class CSSGenerator {
 
 		// Return the modified props
 		modifiedProps.attributes = modifiedAttributes;
+
+		// Cache the result
+		variantPresetCache.set(props.attributes, {
+			attributes: modifiedAttributes,
+			globalStylesIds: props.globalStylesIds,
+		});
+
 		return modifiedProps;
 	}
 

@@ -5,7 +5,9 @@
       "Bash(grep:*)",
       "Bash(git checkout:*)",
       "Bash(cat:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(npm start)",
+      "WebSearch"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
