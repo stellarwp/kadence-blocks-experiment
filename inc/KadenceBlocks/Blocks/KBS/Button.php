@@ -70,12 +70,6 @@ class Button extends Abstract_Block {
 
 		$css->add_attributes( $attributes, $block_instance );
 
-		// Add text alignment if set.
-		if ( ! empty( $attributes['align'] ) ) {
-			$css->set_selector( $root_selector );
-			$css->add_property( 'text-align', $attributes['align'] );
-		}
-
 		$css = $this->add_custom_css( $css, $attributes, $root_selector );
 
 		return $css->css_output();
@@ -126,7 +120,7 @@ class Button extends Abstract_Block {
 
 		$button_tag = $has_link ? 'a' : 'span';
 
-		$should_wrap_content = $has_link || $has_max_width || $has_icon || $has_gradient || $has_typed_text;
+		$should_wrap_content = $has_icon || $has_typed_text;
 
 
 		if ( ! empty( $attributes['align'] ) ) {
@@ -206,6 +200,16 @@ class Button extends Abstract_Block {
 			$content = str_replace( 'class="kbs-button-content"', $content_class_string, $content );
 			return sprintf( '<%1$s %2$s>%3$s</%1$s>', $button_tag, $wrapper_attributes, $content );
 		} else {
+			if ( $button_tag !== 'span' ) {
+				$content = trim( $content );
+				// Remove opening tag from the beginning and add span tag.
+				$opening_tag_length = strlen( '<span' );
+				$content            = '<' . $button_tag . substr( $content, $opening_tag_length );
+				
+				// Remove closing tag from the end and add span closing tag.
+				$closing_tag_length = strlen( '</span>' );
+				$content            = substr( $content, 0, -( $closing_tag_length ) ) . '</' . $button_tag . '>';
+			}
 			$content = str_replace( 'class="kbs-button-content"', $wrapper_attributes, $content );
 			return $content;
 		}

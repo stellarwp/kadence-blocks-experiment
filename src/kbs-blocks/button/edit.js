@@ -146,15 +146,6 @@ export default function ButtonEdit(props) {
 			placeholder={__('Write something…', 'kadence-blocks')}
 			allowedFormats={richTextFormats}
 			onMerge={mergeBlocks}
-			onSplit={(value) => {
-				if (!value) {
-					return createBlock('core/paragraph');
-				}
-				return createBlock('kadence/advancedheading', {
-					...attributes,
-					content: value ?? '',
-				});
-			}}
 			onReplace={onReplace}
 			onRemove={() => onReplace([])}
 		/>

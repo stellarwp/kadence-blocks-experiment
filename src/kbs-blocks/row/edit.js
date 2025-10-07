@@ -45,7 +45,7 @@ function RowEdit(props) {
 	const globalStylesIds = useGlobalStylesIds(globalStyleIds);
 	const { hasInnerBlocks, inRowBlock, inFormBlock, previewDevice } = useSelect(
 		(select) => {
-			const { getBlock, getBlockRootClientId, getBlockParentsByBlockName, getBlocksByClientId } =
+			const { getBlock, getBlockRootClientId, getBlockParentsByBlockName, getBlockName } =
 				select(blockEditorStore);
 			const block = getBlock(clientId);
 			const rootID = getBlockRootClientId(clientId);
@@ -53,15 +53,9 @@ function RowEdit(props) {
 			let inFormBlock = false;
 			if (rootID) {
 				const hasForm = getBlockParentsByBlockName(clientId, 'kadence/advanced-form');
-				const parentBlock = getBlocksByClientId(rootID);
+				const parentBlockName = getBlockName(rootID);
 				inFormBlock = undefined !== hasForm && hasForm.length ? true : false;
-				inRowBlock =
-					undefined !== parentBlock &&
-					undefined !== parentBlock[0] &&
-					undefined !== parentBlock[0].name &&
-					parentBlock[0].name === 'kadence/rowlayout'
-						? true
-						: false;
+				inRowBlock = parentBlockName === 'kadence/rowlayout';
 			}
 			return {
 				inRowBlock,

@@ -53,18 +53,12 @@ export default function SectionToolbar(props) {
 
 	const { inRowBlock } = useSelect(
 		(select) => {
-			const { getBlockRootClientId, getBlocksByClientId } = select(blockEditorStore);
+			const { getBlockRootClientId, getBlockName } = select(blockEditorStore);
 			const rootID = getBlockRootClientId(clientId);
 			let inRowBlock = false;
 			if (rootID) {
-				const parentBlock = getBlocksByClientId(rootID);
-				inRowBlock =
-					undefined !== parentBlock &&
-					undefined !== parentBlock[0] &&
-					undefined !== parentBlock[0].name &&
-					parentBlock[0].name === 'kadence/rowlayout'
-						? true
-						: false;
+				const parentBlockName = getBlockName(rootID);
+				inRowBlock = parentBlockName === 'kadence/rowlayout';
 			}
 			return {
 				inRowBlock,

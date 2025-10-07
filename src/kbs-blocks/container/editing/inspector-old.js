@@ -229,18 +229,22 @@ export default function Inspector(props) {
 	const { addUniqueID } = useDispatch('kadenceblocks/data');
 	const { isUniqueID, isUniqueBlock, previewDevice, parentData } = useSelect(
 		(select) => {
+			const rootBlockId = select('core/block-editor').getBlockHierarchyRootClientId(clientId);
+			const rootBlock = select('core/block-editor').getBlock(rootBlockId);
+			const reusableParentId = select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0];
+
 			return {
 				isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
 				isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 				previewDevice: select('kadenceblocks/data').getPreviewDeviceType(),
 				parentData: {
-					rootBlock: select('core/block-editor').getBlock(
-						select('core/block-editor').getBlockHierarchyRootClientId(clientId)
-					),
+					// Only return the specific properties needed, not the entire block object
+					rootBlock: rootBlock ? {
+						name: rootBlock.name,
+						attributes: rootBlock.attributes?.slug ? { slug: rootBlock.attributes.slug } : {}
+					} : null,
 					postId: select('core/editor')?.getCurrentPostId() ? select('core/editor')?.getCurrentPostId() : '',
-					reusableParent: select('core/block-editor').getBlockAttributes(
-						select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0]
-					),
+					reusableParent: select('core/block-editor').getBlockAttributes(reusableParentId),
 					editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
 				},
 			};

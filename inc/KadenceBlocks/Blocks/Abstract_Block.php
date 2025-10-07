@@ -257,6 +257,8 @@ class Abstract_Block {
 		$attributes_meta = [];
 		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
 			$attributes_meta = $block_instance->block_type->attributes;
+		} elseif ( is_object( $block_instance ) && isset( $block_instance->attributes ) ) {
+			$attributes_meta = $block_instance->attributes;
 		}
 
 		// Process fonts through the font engine
@@ -1259,9 +1261,13 @@ class Abstract_Block {
 	// END DEVICE VALUE FUNCTIONS (PORTED FROM KBS-HELPERS 7/15/25).
 
 	public static function get_wrapper_attributes( $attributes_array ) {
-		$attributes_array = array_map( function( $key, $value ) {
-			return sprintf( '%s="%s"', esc_attr( $key ), esc_attr( $value ) );
-		}, array_keys( $attributes_array ), $attributes_array );
+		$attributes_array = array_map(
+			function ( $key, $value ) {
+				return sprintf( '%s="%s"', esc_attr( $key ), esc_attr( $value ) );
+			},
+			array_keys( $attributes_array ),
+			$attributes_array 
+		);
 		return implode( ' ', $attributes_array );
 	}
 }

@@ -14,23 +14,30 @@ export default function uniqueIdHelper(props) {
 	const select = useSelect((select) => select, [clientId]);
 
 	// Memoize the functions to prevent unnecessary re-renders
-	const { isUniqueID, isUniqueBlock, parentData } = useMemo(
-		() => ({
+	const { isUniqueID, isUniqueBlock, parentData } = useMemo(() => {
+		const rootBlockId = select('core/block-editor').getBlockHierarchyRootClientId(clientId);
+		const rootBlock = select('core/block-editor').getBlock(rootBlockId);
+		const reusableParentId = select('core/block-editor')
+			.getBlockParentsByBlockName(clientId, 'core/block')
+			.slice(-1)[0];
+
+		return {
 			isUniqueID: (value) => select('kadenceblocks/data').isUniqueID(value),
 			isUniqueBlock: (value, clientId) => select('kadenceblocks/data').isUniqueBlock(value, clientId),
 			parentData: {
-				rootBlock: select('core/block-editor').getBlock(
-					select('core/block-editor').getBlockHierarchyRootClientId(clientId)
-				),
+				// Only return the specific properties needed, not the entire block object
+				rootBlock: rootBlock
+					? {
+							name: rootBlock.name,
+							attributes: rootBlock.attributes?.slug ? { slug: rootBlock.attributes.slug } : {},
+						}
+					: null,
 				postId: select('core/editor')?.getCurrentPostId() ? select('core/editor')?.getCurrentPostId() : '',
-				reusableParent: select('core/block-editor').getBlockAttributes(
-					select('core/block-editor').getBlockParentsByBlockName(clientId, 'core/block').slice(-1)[0]
-				),
+				reusableParent: select('core/block-editor').getBlockAttributes(reusableParentId),
 				editedPostId: select('core/edit-site') ? select('core/edit-site').getEditedPostId() : false,
 			},
-		}),
-		[select, clientId]
-	);
+		};
+	}, [select, clientId]);
 
 	const updateUniqueID = (newUniqueID) => {
 		if (!isUniqueID(newUniqueID)) {
@@ -57,7 +64,6 @@ export default function uniqueIdHelper(props) {
 
 		return blockPostId;
 	};
-
 	// Set uniqueID immediately if not defined
 	if (!attributes?.uniqueID) {
 		const blockPostId = getBlockPostId(parentData);

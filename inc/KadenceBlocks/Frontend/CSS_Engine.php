@@ -1056,7 +1056,7 @@ class CSS_Engine {
 			// Check if this is a bundle preset attribute
 			if ( ! empty( $attribute_meta['bundlePreset'] ) ) {
 				// Get the variant value
-				$variant_value = isset( $attributes[ $attribute_name ] ) ? $attributes[ $attribute_name ] : 
+				$variant_value = !empty( $attributes[ $attribute_name ] ) ? $attributes[ $attribute_name ] : 
 				                ( isset( $attribute_meta['initial'] ) ? $attribute_meta['initial'] : null );
 				
 				if ( $variant_value && ! empty( $attribute_meta['component'] ) ) {
@@ -1064,7 +1064,6 @@ class CSS_Engine {
 					
 					// Get the variant's preset data
 					$variant_data = $this->get_preset_data( $variant_value, $bundle_preset_component, $global_styles_ids );
-					
 					// If the variant has attributes, merge them
 					if ( ! empty( $variant_data['attributes'] ) ) {
 						foreach ( $variant_data['attributes'] as $component_name => $component_value ) {
@@ -1101,10 +1100,11 @@ class CSS_Engine {
 		$attributes = $this->propagate_variant_presets( $attributes, $block_instance );
 
 		$global_styles_ids = $this->get_global_styles_ids( $attributes, $block_instance );
-		if ( is_object( $block_instance ) && isset( $block_instance->attributes ) ) {
-			$block_instance_attributes = $block_instance->attributes;
-		} elseif ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
+		// Check for the block_type attributes first since if that is available it's the complete list of attributes to loop through.
+		if ( is_object( $block_instance ) && isset( $block_instance->block_type->attributes ) ) {
 			$block_instance_attributes = $block_instance->block_type->attributes;
+		} elseif ( is_object( $block_instance ) && isset( $block_instance->attributes ) ) {
+			$block_instance_attributes = $block_instance->attributes;
 		}
 		if ( ! empty( $block_instance_attributes ) && is_array( $block_instance_attributes ) ) {
 			foreach ( $block_instance_attributes as $key => $attribute ) {
@@ -1385,7 +1385,7 @@ class CSS_Engine {
 		}
 
 		$generator = isset($this->generators[ $component_type ]) ? $this->generators[ $component_type ] : $this->generators['simple'];
-		
+
 		// Check if we have a generator for this component type
 		if ( ! empty( $component_type ) && $generator ) {
 			// Prepare metadata in the expected format

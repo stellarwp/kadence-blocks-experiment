@@ -5,7 +5,6 @@
  * which makes it higher in priority.
  */
 @use "../mixins.scss" as mixins;
-@use "./style.scss";
 
 // Remove WP margin added to all blocks.
 .wp-block-kbs-button {
@@ -17,5 +16,3 @@
 		outline: none;
 	}
 }
-
-//TODO create and include ai text styling partial (find in text block editor styles)
