@@ -231,6 +231,20 @@ The `fixtures/` directory stores reusable test data:
 
 ## Running Tests
 
+Prior to running tests, ensure the WordPress test environment is up and running.
+Use the following command to start the environment:
+
+```bash
+# Start the test environment
+npm run e2e:start
+```
+
+> [!TIP]
+> Desktop docker environment should be running.
+
+
+Use following commands to run the tests, view reports, and generate code snippets:
+
 ```bash
 # Run all tests
 npm run test:e2e
