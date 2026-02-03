@@ -1,11 +1,11 @@
 actor: Tester
-bootstrap: _bootstrap.php
+bootstrap: tests/codeception/_bootstrap.php
 paths:
-    tests: tests
-    log: tests/_output
-    output: tests/_output
-    data: tests/_data
-    helpers: tests/_support
+    tests: tests/codeception
+    log: tests/codeception/_output
+    output: tests/codeception/_output
+    data: tests/codeception/_data
+    helpers: tests/codeception/_support
     wp_root: '%WP_ROOT_FOLDER%'
 settings:
     colors: true
