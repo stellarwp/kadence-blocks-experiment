@@ -12,31 +12,36 @@ jobs:
     e2e:
         runs-on: ubuntu-latest
 
+        env:
+            COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.COMPOSER_TOKEN }}"}}'
+
         steps:
-            -   name: Checkout
-                uses: actions/checkout@v4
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                submodules: 'true'
 
-            -   name: Setup Node.js
-                uses: actions/setup-node@v3
+            - name: Install dependencies
+              run: |
+                composer install --no-dev --no-scripts
+                composer run strauss-release
+                npm install --legacy-peer-deps
 
-            -   name: Setup
-                run: composer install --no-dev && npm install
+            - name: Build plugin
+              run: npm run build
 
-            -   name: Build Project
-                run: npm run build
+            - name: Install Playwright Browsers
+              run: npx playwright install chromium
 
-            -   name: Install Playwright Browsers
-                run: npx playwright install chromium
+            - name: Setup WP environment
+              run: npm run env:start
 
-            -   name: Setup WP environment
-                run: npm run env:start
+            - name: Run E2E Test
+              run: npm run test:e2e
 
-            -   name: Run E2E Test
-                run: npm run test:e2e
-
-            -   uses: actions/upload-artifact@v4
-                if: always()
-                with:
+            - uses: actions/upload-artifact@v4
+              if: always()
+              with:
                     name: E2E Test Report
                     path: tests/e2e/test-results/report
                     retention-days: 2
