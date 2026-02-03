@@ -1,0 +1,44 @@
+name: E2E test
+
+on:
+    push:
+        branches:
+            - develop
+            - main
+    pull_request:
+    workflow_call:
+
+jobs:
+    e2e:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v3
+                with:
+                    node-version-file: '.nvmrc'
+
+            -   name: Setup
+                run: composer install --no-dev && npm install
+
+            -   name: Build Project
+                run: npm run build
+
+            -   name: Install Playwright Browsers
+                run: npx playwright install chromium
+
+            -   name: Setup WP environment
+                run: npm run env:start
+
+            -   name: Run E2E Test
+                run: npm run test:e2e
+
+            -   uses: actions/upload-artifact@v4
+                if: always()
+                with:
+                    name: E2E Test Report
+                    path: tests/e2e/test-results/report
+                    retention-days: 2
