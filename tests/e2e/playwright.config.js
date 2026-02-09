@@ -5,16 +5,19 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = (async () => {
-	// Get Base URL from wp-env.
-	const wpEnvConfig = await loadConfig('./');
-	let baseUrl = 'http://localhost';
-	if (wpEnvConfig) {
-		const port = wpEnvConfig.env.tests.port || null;
+	const baseUrl = process.env.WORDPRESS_URL || 'http://wordpress.test';
 
-		if (port) {
-			baseUrl = wpEnvConfig.env.tests.config.WP_SITEURL;
-		}
-	}
+	// if (!process.env.WP_URL && !process.env.PLAYWRIGHT_BASE_URL) {
+	// 	// Get Base URL from wp-env.
+	// 	const wpEnvConfig = await loadConfig('./');
+	// 	if (wpEnvConfig) {
+	// 		const port = wpEnvConfig.env.tests.port || null;
+
+	// 		if (port) {
+	// 			baseUrl = wpEnvConfig.env.tests.config.WP_SITEURL;
+	// 		}
+	// 	}
+	// }
 
 	return defineConfig({
 		testDir: '../../tests',

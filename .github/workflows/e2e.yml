@@ -21,27 +21,38 @@ jobs:
               with:
                 submodules: 'true'
 
+            - name: Install slic
+              run: |
+                git clone https://github.com/stellarwp/slic.git "$HOME/slic"
+                echo "$HOME/slic" >> $GITHUB_PATH
+
+            - name: Configure slic target
+              run: |
+                cd "$GITHUB_WORKSPACE/.."
+                slic here
+                slic use "$(basename "$GITHUB_WORKSPACE")"
+
             - name: Install dependencies
               run: |
-                composer install --no-dev --no-scripts
-                composer run strauss-release
-                npm install --legacy-peer-deps
+                slic composer install --no-dev --no-scripts
+                slic composer run strauss-release
+                slic npm install --legacy-peer-deps
 
             - name: Build plugin
-              run: npm run build
+              run: slic npm run build
+
+            - name: Start slic stack
+              run: slic up
 
             - name: Install Playwright Browsers
-              run: npx playwright install chromium
-
-            - name: Setup WP environment
-              run: npm run env:start
+              run: slic playwright install
 
             - name: Run E2E Test
-              run: npm run test:e2e
+              run: slic playwright test --config tests/e2e/playwright.config.js
 
             - uses: actions/upload-artifact@v4
               if: always()
               with:
                     name: E2E Test Report
-                    path: tests/e2e/test-results/report
+                    path: tests/e2e/test-results
                     retention-days: 2

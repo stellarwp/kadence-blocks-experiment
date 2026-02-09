@@ -28,6 +28,8 @@ test.describe('Admin can login and make sure kadence blocks extension is activat
 		await page.goto('/wp-admin/plugins.php');
 
 		// Kadence Blocks plugin relies on an expected ID attribute to show the Deactivation modal.
-		await expect(page.locator('#deactivate-kadence-blocks')).toHaveCount(1);
+		await expect(page.locator('#deactivate-kadence-blocks-gutenberg-blocks-for-page-builder-features')).toHaveCount(
+			1
+		);
 	});
 });
