@@ -3,7 +3,6 @@ name: E2E test
 on:
     push:
         branches:
-            - setup-e2e-tests
             - develop
             - main
     pull_request:
