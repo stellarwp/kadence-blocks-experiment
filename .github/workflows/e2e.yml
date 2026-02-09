@@ -8,7 +8,6 @@ on:
             - main
     pull_request:
     workflow_call:
-    workflow_dispatch:
 
 jobs:
     e2e:
@@ -80,17 +79,14 @@ jobs:
                 composer run strauss-release
                 npm install --legacy-peer-deps
                 npm run build
-                ${SLIC_BIN} use "$(basename "$GITHUB_WORKSPACE")"
-                ${SLIC_BIN} wp plugin activate "$(basename "$GITHUB_WORKSPACE")"
-
-            - name: WordPress Setup Validation
-              run: ${SLIC_BIN} site-cli
 
             - name: Start slic stack
-              run: ${SLIC_BIN} up
-
-            - name: Install Playwright Browsers
-              run: ${SLIC_BIN} playwright install chromium
+              run: |
+                ${SLIC_BIN} use "$(basename "$GITHUB_WORKSPACE")"
+                ${SLIC_BIN} up
+                ${SLIC_BIN} playwright install chromium
+                ${SLIC_BIN} site-cli
+                ${SLIC_BIN} wp plugin activate "$(basename "$GITHUB_WORKSPACE")"
 
             - name: Run E2E Test
               run: ${SLIC_BIN} playwright test --config tests/e2e/playwright.config.js
