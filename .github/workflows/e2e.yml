@@ -29,17 +29,12 @@ jobs:
                   path: slic
                   fetch-depth: 1
 
-            - name: Get Composer Cache Directory
-              id: get-composer-cache-dir
-              run: |
-                  echo "dir=$(composer config cache-files-dir)-${{ secrets.COMPOSER_CACHE_KEY }}" >> $GITHUB_OUTPUT
-
             - name: Cache Composer dependencies
               uses: actions/cache@v4
               id: composer-cache
               with:
-                  path: ${{ steps.get-composer-cache-dir.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ secrets.COMPOSER_CACHE_KEY }}-${{ hashFiles('**/composer.lock') }}
+                  path: ~/.cache/composer
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                   restore-keys: |
                       ${{ runner.os }}-composer-
 
@@ -74,7 +69,6 @@ jobs:
                 ${SLIC_BIN} build-prompt off
                 ${SLIC_BIN} build-subdir off
                 ${SLIC_BIN} xdebug off
-                ${SLIC_BIN} composer-cache set /home/runner/.cache/composer
                 ${SLIC_BIN} debug on
                 ${SLIC_BIN} info
                 ${SLIC_BIN} config
