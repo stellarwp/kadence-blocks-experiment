@@ -46,14 +46,46 @@ tests/e2e/
 └── playwright.config.js            # Playwright configuration
 ```
 
+## Setup Tests
+
+**Setup slic**
+
+Follow the [installation guide](https://github.com/stellarwp/slic?tab=readme-ov-file#installation) to set up slic on your system.
+
+**Setup project**
+
+1. **Configure plugin directory**: Set up your [plugins directory](https://github.com/stellarwp/slic?tab=readme-ov-file#1-plugins-directory) for slic to work with.
+
+2. **Point slic to your project**: Configure slic to [target your plugin directory](https://github.com/stellarwp/slic?tab=readme-ov-file#point-slic-at-your-project).
+
+**Validate WordPress Installation**
+
+Run the following command to validate your WordPress installation. This is required to prevent redirects to the installation page when accessing `wp-admin`:
+
+```bash
+slic site-cli
+```
+
+**Install Playwright**
+```bash
+slic shell
+> npx playwright install chromium
+```
+
+You are now ready to run tests! 🚀
+
+
 ## Running Tests
 
 Prior to running tests, ensure the WordPress test environment is up and running.
 Use the following command to start the environment:
 
 ```bash
+# Open shell
+slic shell
+
 # Start the test environment
-npm run e2e:start
+> npm run e2e:start
 ```
 
 > [!TIP]
@@ -64,16 +96,16 @@ Use following commands to run the tests, view reports, and generate code snippet
 
 ```bash
 # Run all tests
-npm run test:e2e
+> npm run test:e2e
 
 # Run with UI mode (helpful for debugging)
-npm run test:e2e-debug
+> npm run test:e2e-debug
 
 # Generate code snippets
-npm run test:e2e-codegen
+> npm run test:e2e-codegen
 
 # View test reports
-npm run test:e2e-report
+> npm run test:e2e-report
 ```
 
 ## Conclusion
