@@ -1,5 +1,5 @@
 actor: Tester
-bootstrap: tests/codeception/_bootstrap.php
+bootstrap: _bootstrap.php
 paths:
     tests: tests/codeception
     log: tests/codeception/_output
