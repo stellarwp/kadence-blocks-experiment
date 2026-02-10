@@ -68,10 +68,10 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Tests\\": "tests/",
-			"Tests\\Acceptance\\": "tests/acceptance/",
-			"Tests\\Support\\": "tests/_support/",
-			"Tests\\Support\\Classes\\": "tests/_support/Classes"
+			"Tests\\": "tests/php/",
+			"Tests\\Acceptance\\": "tests/php/acceptance/",
+			"Tests\\Support\\": "tests/php/_support/",
+			"Tests\\Support\\Classes\\": "tests/php/_support/Classes"
 		}
 	},
 	"scripts": {
