@@ -1,0 +1,12 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+@use "../mixins.scss" as mixins;
+@use "./style.scss";
+
+.wp-block-kbs-buttons {
+	@include mixins.kbs-block-resets;
+}

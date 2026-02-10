@@ -1,0 +1,193 @@
+{
+	"apiVersion": 3,
+	"title": "Image",
+	"name": "kbs/image",
+	"category": "kadence-blocks",
+	"usesContext": ["postId", "queryId", "kbs/parentGlobalStyles"],
+	"textdomain": "kadence-blocks",
+	"providesContext": {
+		"kbs/parentGlobalStyles": "globalStyleIds"
+	},
+	"attributes": {
+		"uniqueID": {
+			"type": "string"
+		},
+		"anchor": {
+			"type": "string"
+		},
+		"preset": {
+			"type": "array"
+		},
+		"caption": {
+			"renderCSS": false,
+			"type": "object"
+		},
+		"align": {
+			"type": "string"
+		},
+		"padding": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-image-"
+		},
+		"margin": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-image-",
+			"selectorSuffix": "%selector%"
+		},
+		"boxShadow": {
+			"renderCSS": true,
+			"component": "boxShadow",
+			"nonInheritable": false,
+			"type": "object",
+			"varPrefix": "--kbs-image-",
+			"classPrefix": "kbs-image-shadow-",
+			"hasLayers": true
+		},
+		"border": {
+			"renderCSS": true,
+			"component": "border",
+			"nonInheritable": false,
+			"type": "object",
+			"varPrefix": "--kbs-image-",
+			"classPrefix": "kbs-image-border-",
+			"selectorSuffix": " .kbs-image-img"
+		},
+		"variant": {
+			"renderCSS": false,
+			"component": "imageVariant",
+			"bundlePreset": true,
+			"nonInheritable": true,
+			"type": "string"
+		},
+		"minHeight": {
+			"renderCSS": true,
+			"component": "minHeight",
+			"varPrefix": "--kbs-image-",
+			"nonInheritable": true,
+			"initial": {},
+			"type": "object"
+		},
+		"captionTypography": {
+			"renderCSS": true,
+			"component": "typography",
+			"varPrefix": "--kbs-image-",
+			"tag": "h1",
+			"initial": {},
+			"type": "object",
+			"selectorSuffix": " .kbs-image-caption"
+		},
+		"globalStyleIds": {
+			"type": "array"
+		},
+		"transform": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-image-transform-",
+			"classPrefix": "kbs-image-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transformHover": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-image-transform-",
+			"classPrefix": "kbs-image-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transition": {
+			"renderCSS": true,
+			"component": "transition",
+			"nonInheritable": true,
+			"selector": "--kbs-image-transition-",
+			"classPrefix": "kbs-image-transition-",
+			"initial": {},
+			"type": "object"
+		},
+		"image": {
+			"renderCSS": false,
+			"type": "object"
+		},
+		"mask": {
+			"renderCSS": true,
+			"component": "mask",
+			"nonInheritable": false,
+			"type": "object",
+			"varPrefix": "--kbs-image-",
+			"selectorSuffix": " .kbs-image-img"
+		},
+		"filter": {
+			"renderCSS": true,
+			"component": "filter",
+			"nonInheritable": false,
+			"type": "object",
+			"varPrefix": "--kbs-image-",
+			"selectorSuffix": " .kbs-image-img"
+		},
+		"objectPosition": {
+			"renderCSS": true,
+			"component": "objectPosition",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-image-",
+			"classPrefix": "kbs-image-",
+			"selectorSuffix": " .kbs-image-img"
+		},
+		"aspectRatio": {
+			"renderCSS": true,
+			"component": "aspectRatio",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-image-",
+			"classPrefix": "kbs-image-",
+			"selectorSuffix": " .kbs-image-img"
+		},
+		"maxWidth": {
+			"renderCSS": true,
+			"component": "maxWidth",
+			"type": "object",
+			"varPrefix": "--kbs-image-",
+			"classPrefix": "kbs-image-"
+		},
+		"alt": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"title": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"link": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"linkTitle": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"ktanimate": true,
+		"ktanimateadd": true,
+		"ktanimatepreview": true,
+		"ktanimateswipe": true,
+		"ktdynamic": true,
+		"kbcss": true,
+		"kbMetadata": true
+	},
+	"editorStyle": "kbs-section-editor",
+	"style": "kbs-section"
+}

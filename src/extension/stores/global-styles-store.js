@@ -1,0 +1,836 @@
+import { createReduxStore, register, select } from '@wordpress/data';
+import { deepMerge } from '@kadence/kbsHelpers';
+import apiFetch from '@wordpress/api-fetch';
+import { components } from 'react-select';
+import memize from 'memize';
+
+/**
+ * Default state for the global styles store
+ */
+const DEFAULT_STATE = {
+	globalStyles: window?.kbs_params?.global_styles,
+	globalPresets: {},
+	globalMappings: {},
+	styleBookLocalGlobalStyles: window?.kbs_params?.global_styles,
+	styleBookLocalGlobalStylesChanges: {},
+	styleBookAttributes: { globalStyleIds: ['kbs-base'] },
+	isLoading: false,
+	isSavingStyleBook: false,
+	hasResolved: false,
+	error: null,
+};
+
+/**
+ * Controls for handling API requests
+ */
+const controls = {
+	API_FETCH({ request }) {
+		return apiFetch(request);
+	},
+	SELECT({ storeName, selectorName, args }) {
+		return select(storeName)[selectorName](...args);
+	},
+};
+
+/**
+ * Store actions
+ */
+const actions = {
+	setGlobalStyles(globalStyles) {
+		return {
+			type: 'SET_GLOBAL_STYLES',
+			globalStyles,
+		};
+	},
+	getGlobalPresets(globalStyles) {
+		const globalPresets = Object.keys(globalStyles['kbs-base'].components).reduce((acc, component) => {
+			acc[component] = globalStyles['kbs-base'].components[component].presets;
+			return acc;
+		}, {});
+		return globalPresets;
+	},
+	setGlobalPresets(globalPresets) {
+		return {
+			type: 'SET_GLOBAL_PRESETS',
+			globalPresets,
+		};
+	},
+	setGlobalMappings(globalMappings) {
+		return {
+			type: 'SET_GLOBAL_MAPPINGS',
+			globalMappings,
+		};
+	},
+	getGlobalMappings(globalStyles) {
+		const globalMappings = Object.keys(globalStyles['kbs-base'].mappings).reduce((acc, component) => {
+			acc[component] = globalStyles['kbs-base'].mappings[component];
+			return acc;
+		}, {});
+		return globalMappings;
+	},
+	setIsLoading(isLoading) {
+		return {
+			type: 'SET_IS_LOADING',
+			isLoading,
+		};
+	},
+	setIsSavingStyleBook(isSavingStyleBook) {
+		return {
+			type: 'SET_IS_SAVING_STYLE_BOOK',
+			isSavingStyleBook,
+		};
+	},
+	setHasResolved(hasResolved) {
+		return {
+			type: 'SET_HAS_RESOLVED',
+			hasResolved,
+		};
+	},
+	setError(error) {
+		return {
+			type: 'SET_ERROR',
+			error,
+		};
+	},
+	setStyleBookAttributes(styleBookAttributes) {
+		return {
+			type: 'SET_STYLE_BOOK_ATTRIBUTES',
+			styleBookAttributes,
+		};
+	},
+	*fetchGlobalStyles() {
+		// Check if we're already loading to prevent duplicate requests
+		const isLoading = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'isLoading',
+			args: [],
+		};
+
+		// If already loading, don't make another request
+		if (isLoading) {
+			// Return current state of global styles
+			return yield {
+				type: 'SELECT',
+				storeName: 'kadenceblocks/global-styles',
+				selectorName: 'getGlobalStyles',
+				args: [],
+			};
+		}
+
+		yield actions.setIsLoading(true);
+		// const path = '/kadence-blocks/v1/global-styles/get-demo';
+		const path = '/kadence-blocks/v1/global-styles';
+		try {
+			const globalStyles = yield {
+				type: 'API_FETCH',
+				request: { path },
+			};
+			yield actions.setGlobalStyles(globalStyles);
+			const globalPresets = yield actions.getGlobalPresets(globalStyles);
+			yield actions.setGlobalPresets(globalPresets);
+			const globalMappings = yield actions.getGlobalMappings(globalStyles);
+			yield actions.setGlobalMappings(globalMappings);
+			yield actions.setHasResolved(true);
+			yield actions.setIsLoading(false);
+			return globalStyles;
+		} catch (error) {
+			console.error('Error fetching global styles:', error);
+			yield actions.setError(error);
+			yield actions.setHasResolved(true);
+			yield actions.setIsLoading(false);
+			return [];
+		}
+	},
+	*fetchStyleBookLocalGlobalStyles() {
+		const styleBookLocalGlobalStyles = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'getStyleBookLocalGlobalStyles',
+			args: [],
+		};
+		//if we don't have any local global styles yet, use the global styles from the server.
+		if (styleBookLocalGlobalStyles) {
+			return styleBookLocalGlobalStyles;
+		}
+		const globalStyles = yield actions.fetchGlobalStyles();
+		yield actions.setStyleBookLocalGlobalStyles(globalStyles);
+		return globalStyles;
+	},
+	*setStyleBookLocalGlobalStyles(styleBookLocalGlobalStyles) {
+		return {
+			type: 'SET_STYLE_BOOK_LOCAL_GLOBAL_STYLES',
+			styleBookLocalGlobalStyles,
+		};
+	},
+	*updateStyleBookLocalGlobalStyles(styleBookLocalGlobalStyles) {
+		return {
+			type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLES',
+			styleBookLocalGlobalStyles,
+		};
+	},
+	*updateStyleBookLocalGlobalStyle(globalStyleId, styleBookLocalGlobalStyle) {
+		return {
+			type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLE',
+			globalStyleId,
+			styleBookLocalGlobalStyle,
+		};
+	},
+	*setStyleBookComponentPresetByStyleId(styleId, componentId, presetId, presetVal) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_ID',
+			styleId,
+			componentId,
+			presetId,
+			presetVal,
+		};
+	},
+	*setStyleBookComponentPresetAttributesByStyleId(styleId, componentId, presetId, presetAttrs) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_PRESET_ATTRIBUTES_BY_STYLE_ID',
+			styleId,
+			componentId,
+			presetId,
+			presetAttrs,
+		};
+	},
+	*setStyleBookComponentBundledPresetAttributesByStyleId(styleId, componentId, presetId, presetAttrs) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_BUNDLED_PRESET_ATTRIBUTES_BY_STYLE_ID',
+			styleId,
+			componentId,
+			presetId,
+			presetAttrs,
+		};
+	},
+	*setStyleBookComponentMappingsByStyleId(styleId, componentId, mappings) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_MAPPINGS_BY_STYLE_ID',
+			styleId,
+			componentId,
+			mappings,
+		};
+	},
+	*setStyleBookComponentMappingByStyleId(styleId, componentId, mappingKey, mapping) {
+		return {
+			type: 'SET_STYLE_BOOK_COMPONENT_MAPPING_BY_STYLE_ID',
+			styleId,
+			componentId,
+			mappingKey,
+			mapping,
+		};
+	},
+	*saveStyleBookGlobalStyles() {
+		// Check if we're already loading to prevent duplicate requests
+		const isSavingStyleBook = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'isSavingStyleBook',
+			args: [],
+		};
+
+		// If already loading, don't make another request
+		if (isSavingStyleBook) {
+			return isSavingStyleBook;
+		}
+		yield actions.setIsSavingStyleBook(true);
+
+		const styleBookLocalGlobalStyles = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'getStyleBookLocalGlobalStyles',
+			args: [],
+		};
+		if (!styleBookLocalGlobalStyles) {
+			return false;
+		}
+
+		const path = '/kadence-blocks/v1/global-styles/save';
+		try {
+			const result = yield {
+				type: 'API_FETCH',
+				request: {
+					path,
+					method: 'POST',
+					data: { data: styleBookLocalGlobalStyles },
+				},
+			};
+
+			//the saving might have modified the global styles, namely adding a postId so update the data store as well
+			if (result.success && result.data) {
+				yield {
+					type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLES',
+					styleBookLocalGlobalStyles: result.data,
+				};
+			}
+			yield actions.setIsSavingStyleBook(false);
+			return result;
+		} catch (error) {
+			console.error('Error saving global styles:', error);
+			yield actions.setError(error);
+			yield actions.setIsSavingStyleBook(false);
+			return [];
+		}
+	},
+	*saveStyleBookGlobalStyle(currentGlobalStyleId) {
+		// Check if we're already loading to prevent duplicate requests
+		const isSavingStyleBook = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'isSavingStyleBook',
+			args: [],
+		};
+
+		// If already loading, don't make another request
+		if (isSavingStyleBook) {
+			return isSavingStyleBook;
+		}
+		yield actions.setIsSavingStyleBook(true);
+
+		const styleBookLocalGlobalStyles = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'getStyleBookLocalGlobalStyles',
+			args: [],
+		};
+		const styleBookLocalGlobalStylesChanges = yield {
+			type: 'SELECT',
+			storeName: 'kadenceblocks/global-styles',
+			selectorName: 'getStyleBookLocalGlobalStylesChanges',
+			args: [],
+		};
+
+		if (
+			!styleBookLocalGlobalStyles?.[currentGlobalStyleId] ||
+			!styleBookLocalGlobalStylesChanges?.[currentGlobalStyleId]
+		) {
+			return false;
+		}
+
+		const path = '/kadence-blocks/v1/global-styles/save-single';
+		try {
+			const result = yield {
+				type: 'API_FETCH',
+				request: {
+					path,
+					method: 'POST',
+					data: {
+						data: styleBookLocalGlobalStyles[currentGlobalStyleId],
+						changes: styleBookLocalGlobalStylesChanges[currentGlobalStyleId],
+					},
+				},
+			};
+
+			//the saving might have modified the global styles, namely adding a postId so update the data store as well
+			if (result.success && result.data) {
+				if (result?.data?.postID) {
+					styleBookLocalGlobalStyles[currentGlobalStyleId].postId = result.data.postID;
+				}
+				console.log('styleBookLocalGlobalStyles', styleBookLocalGlobalStyles);
+				yield actions.setGlobalStyles(styleBookLocalGlobalStyles);
+				const globalPresets = yield actions.getGlobalPresets(styleBookLocalGlobalStyles);
+				yield actions.setGlobalPresets(globalPresets);
+				const globalMappings = yield actions.getGlobalMappings(styleBookLocalGlobalStyles);
+				yield actions.setGlobalMappings(globalMappings);
+				yield {
+					type: 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLE',
+					globalStyleId: currentGlobalStyleId,
+					styleBookLocalGlobalStyle: styleBookLocalGlobalStyles[currentGlobalStyleId],
+				};
+			}
+			yield actions.setIsSavingStyleBook(false);
+			return result;
+		} catch (error) {
+			console.error('Error saving global styles:', error);
+			yield actions.setError(error);
+			yield actions.setIsSavingStyleBook(false);
+			return [];
+		}
+	},
+};
+
+/**
+ * Standalone function for merging styles, to be memoized.
+ *
+ * @param {Object} globalStyles - The full globalStyles object from the state.
+ * @param {string[]} styleIds - Array of global style IDs to merge.
+ * @returns {Object} The deeply merged style object.
+ */
+const performStyleMerge = (globalStyles, styleIds) => {
+	// Ensure 'kbs-base' is always included and handle potential null/undefined styleIds
+	const fullStyleIds = ['kbs-base', ...(styleIds || [])].filter(Boolean);
+
+	// Filter and retrieve the actual style objects from the state
+	const stylesToMerge = fullStyleIds.map((id) => globalStyles?.[id]).filter(Boolean); // Remove any undefined/falsey values
+
+	if (stylesToMerge.length === 0) {
+		return {}; // Return empty object if no styles found
+	}
+
+	// Deep merge the styles, with later items in the array taking precedence
+	const mergedStyles = deepMerge(stylesToMerge);
+
+	// Remove the id property from the merged result if it exists (optional cleanup)
+	if (mergedStyles.id) {
+		delete mergedStyles.id;
+	}
+
+	return mergedStyles;
+};
+
+// Memoized merge of global styles merge function.
+const getMemoizedMergedStyles = memize(performStyleMerge);
+
+// Memoized function to get style book component preset
+const getMemoizedStyleBookComponentPreset = memize((styleBookLocalGlobalStyles, styleId, componentId, presetId) => {
+	if (styleBookLocalGlobalStyles) {
+		const presetToReturn = styleBookLocalGlobalStyles?.[styleId]?.components?.[componentId]?.presets?.[presetId];
+		if (presetToReturn) {
+			return presetToReturn;
+		}
+	}
+	return null;
+});
+
+/**
+ * Resolvers for the store
+ */
+const resolvers = {
+	*getGlobalStyles() {
+		// Fetch global styles if not already loaded
+		yield actions.fetchGlobalStyles();
+	},
+	*getGlobalPresets() {
+		// Fetch global styles first to ensure presets are available
+		yield actions.fetchGlobalStyles();
+	},
+	*getGlobalMappings() {
+		// Fetch global styles first to ensure mappings are available
+		yield actions.fetchGlobalStyles();
+	},
+	*getMergedStylesByIds() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getStyleBookLocalGlobalStyles() {
+		// Directly initiate the fetch without any checks for the first load
+		yield actions.fetchStyleBookLocalGlobalStyles();
+	},
+	*getStyleBookLocalGlobalStylesChanges() {
+		// This selector just returns local state, no fetching needed
+	},
+	*getGlobalStyleByName() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getGlobalStyleById() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getComponentPresets() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getComponentPresetsBystyleId() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getMergedGlobalStyle() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getResolvedGlobalData() {
+		yield resolvers.getGlobalStyles();
+	},
+	*getResolvedStyleData() {
+		yield resolvers.getGlobalStyles();
+	},
+};
+
+/**
+ * The global styles store
+ */
+const store = createReduxStore('kadenceblocks/global-styles', {
+	reducer(state = DEFAULT_STATE, action) {
+		switch (action.type) {
+			case 'SET_GLOBAL_STYLES':
+				return {
+					...state,
+					globalStyles: action.globalStyles,
+				};
+			case 'SET_GLOBAL_PRESETS':
+				return {
+					...state,
+					globalPresets: action.globalPresets,
+				};
+			case 'SET_GLOBAL_MAPPINGS':
+				return {
+					...state,
+					globalMappings: action.globalMappings,
+				};
+			case 'SET_IS_LOADING':
+				return {
+					...state,
+					isLoading: action.isLoading,
+				};
+			case 'SET_IS_SAVING_STYLE_BOOK':
+				return {
+					...state,
+					isSavingStyleBook: action.isSavingStyleBook,
+				};
+			case 'SET_STYLE_BOOK_LOCAL_GLOBAL_STYLES':
+				return {
+					...state,
+					styleBookLocalGlobalStyles: action.styleBookLocalGlobalStyles,
+				};
+			case 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLES':
+				const stateObject = state?.styleBookLocalGlobalStyles ? state.styleBookLocalGlobalStyles : {};
+				return {
+					...state,
+					styleBookLocalGlobalStyles: Object.assign(stateObject, action.styleBookLocalGlobalStyles),
+				};
+			case 'UPDATE_STYLE_BOOK_LOCAL_GLOBAL_STYLE':
+				const stateObject2 = state?.styleBookLocalGlobalStyles ? state.styleBookLocalGlobalStyles : {};
+				return {
+					...state,
+					styleBookLocalGlobalStyles: Object.assign(stateObject2, {
+						[action.globalStyleId]: action.styleBookLocalGlobalStyle,
+					}),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_PRESET_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.presetId,
+				// action.presetVal,
+
+				const presetObjectToSet = {
+					[action.styleId]: {
+						components: {
+							[action.componentId]: {
+								presets: {
+									[action.presetId]: action.presetVal,
+								},
+							},
+						},
+					},
+				};
+				return {
+					...state,
+					styleBookLocalGlobalStylesChanges: deepMerge([
+						state.styleBookLocalGlobalStylesChanges,
+						presetObjectToSet,
+					]),
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, presetObjectToSet]),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_PRESET_ATTRIBUTES_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.presetId,
+				// action.presetAttrs,
+				const presetVal = {
+					attributes: action.presetAttrs[action.componentId],
+				};
+
+				const presetObjectToSet2 = {
+					[action.styleId]: {
+						components: {
+							[action.componentId]: {
+								presets: {
+									[action.presetId]: presetVal,
+								},
+							},
+						},
+					},
+				};
+				return {
+					...state,
+					styleBookLocalGlobalStylesChanges: deepMerge([
+						state.styleBookLocalGlobalStylesChanges,
+						presetObjectToSet2,
+					]),
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, presetObjectToSet2]),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_BUNDLED_PRESET_ATTRIBUTES_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.presetId,
+				// action.presetAttrs,
+				const presetBundledVal = {
+					attributes: action.presetAttrs,
+				};
+
+				const presetBundledObjectToSet = {
+					[action.styleId]: {
+						components: {
+							[action.componentId]: {
+								presets: {
+									[action.presetId]: presetBundledVal,
+								},
+							},
+						},
+					},
+				};
+				// // In order to allow resets to work we have to clear the state.styleBookLocalGlobalStylesChanges.styleID.components.componentID.presets.presetID
+				const styleBookLocalGlobalStylesChanges = state.styleBookLocalGlobalStylesChanges;
+				if (
+					styleBookLocalGlobalStylesChanges?.[action.styleId]?.components?.[action.componentId]?.presets?.[
+						action.presetId
+					]?.attributes
+				) {
+					delete styleBookLocalGlobalStylesChanges[action.styleId].components[action.componentId].presets[
+						action.presetId
+					].attributes;
+				}
+				// // In order to allow resets to work we have to clear the state.styleBookLocalGlobalStylesChanges.styleID.components.componentID.presets.presetID
+				const styleBookLocalGlobalStyles = state.styleBookLocalGlobalStyles;
+				if (
+					styleBookLocalGlobalStyles?.[action.styleId]?.components?.[action.componentId]?.presets?.[
+						action.presetId
+					]?.attributes
+				) {
+					delete styleBookLocalGlobalStyles[action.styleId].components[action.componentId].presets[
+						action.presetId
+					].attributes;
+				}
+				return {
+					...state,
+					styleBookLocalGlobalStylesChanges: deepMerge([
+						styleBookLocalGlobalStylesChanges,
+						presetBundledObjectToSet,
+					]),
+					styleBookLocalGlobalStyles: deepMerge([styleBookLocalGlobalStyles, presetBundledObjectToSet]),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_MAPPINGS_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.mappings
+
+				const mappingsObjectToSet = {
+					[action.styleId]: {
+						mappings: {
+							[action.componentId]: action.mappings,
+						},
+					},
+				};
+				return {
+					...state,
+					styleBookLocalGlobalStylesChanges: deepMerge([
+						state.styleBookLocalGlobalStylesChanges,
+						mappingsObjectToSet,
+					]),
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, mappingsObjectToSet]),
+				};
+			case 'SET_STYLE_BOOK_COMPONENT_MAPPING_BY_STYLE_ID':
+				// action.styleId,
+				// action.componentId,
+				// action.mappingKey
+				// action.mapping
+
+				const mappingObjectToSet = {
+					[action.styleId]: {
+						mappings: {
+							[action.componentId]: { [action.mappingKey]: { value: action.mapping } },
+						},
+					},
+				};
+				return {
+					...state,
+					styleBookLocalGlobalStylesChanges: deepMerge([
+						state.styleBookLocalGlobalStylesChanges,
+						mappingObjectToSet,
+					]),
+					styleBookLocalGlobalStyles: deepMerge([state.styleBookLocalGlobalStyles, mappingObjectToSet]),
+				};
+			case 'SET_HAS_RESOLVED':
+				return {
+					...state,
+					hasResolved: action.hasResolved,
+				};
+			case 'SET_ERROR':
+				return {
+					...state,
+					error: action.error,
+				};
+			case 'SET_STYLE_BOOK_ATTRIBUTES':
+				// return {
+				// 	...state,
+				// 	styleBookAttributes: Object.assign(state.styleBookAttributes, action.styleBookAttributes),
+				// };
+				return {
+					...state,
+					styleBookAttributes: { ...state.styleBookAttributes, ...action.styleBookAttributes },
+				};
+			default:
+				return state;
+		}
+	},
+	actions,
+	controls,
+	selectors: {
+		getGlobalStyles(state) {
+			return state.globalStyles;
+		},
+		getGlobalPresets(state) {
+			if (!state?.globalPresets?.length) {
+				const globalPresets = actions.getGlobalPresets(state.globalStyles);
+				actions.setGlobalPresets(globalPresets);
+				return globalPresets;
+			}
+			return state.globalPresets;
+		},
+		getGlobalMappings(state) {
+			if (!state?.globalMappings?.length) {
+				const globalMappings = actions.getGlobalMappings(state.globalStyles);
+				actions.setGlobalMappings(globalMappings);
+				return globalMappings;
+			}
+			return state.globalMappings;
+		},
+		getStyleBookAttributes(state) {
+			return state.styleBookAttributes;
+		},
+		/**
+		 * Gets merged global styles based on provided IDs using a memoized function.
+		 *
+		 * @param {Object} state - The store state.
+		 * @param {string[]} styleIds - Array of global style IDs to merge.
+		 * @returns {Object} The deeply merged style object (memoized).
+		 */
+		getMergedStylesByIds(state, styleIds) {
+			return getMemoizedMergedStyles(state.globalStyles, styleIds);
+		},
+
+		// Original getMergedGlobalStyle - kept for potential backward compatibility or other uses
+		getMergedGlobalStyle(state, styleIds, forStyleBook = false) {
+			styleIds = ['kbs-base', ...styleIds];
+
+			// Filter styles that match the provided IDs
+			const stylesToMerge = !forStyleBook
+				? styleIds.map((id) => state.globalStyles?.[id]).filter(Boolean)
+				: styleIds.map((id) => state.styleBookLocalGlobalStyles?.[id]).filter(Boolean); // Remove any undefined values
+
+			if (stylesToMerge.length === 0) {
+				return null;
+			}
+
+			// Deep merge the styles, with later items in array taking precedence
+			const mergedStyles = deepMerge(stylesToMerge);
+
+			// Remove the id property from the merged result
+			if (mergedStyles.id) {
+				delete mergedStyles.id;
+			}
+
+			return mergedStyles;
+		},
+		isLoading(state) {
+			return state.isLoading;
+		},
+		isSavingStyleBook(state) {
+			return state.isSavingStyleBook;
+		},
+		styleBookLocalGlobalStyles(state) {
+			return state.styleBookLocalGlobalStyles;
+		},
+		getStyleBookLocalGlobalStyles(state) {
+			return state.styleBookLocalGlobalStyles;
+		},
+		getStyleBookLocalGlobalStylesChanges(state) {
+			return state.styleBookLocalGlobalStylesChanges;
+		},
+		getStyleBookComponentPresetByStyleId(state, styleId, componentId, presetId) {
+			return getMemoizedStyleBookComponentPreset(
+				state.styleBookLocalGlobalStyles,
+				styleId,
+				componentId,
+				presetId
+			);
+		},
+		getStyleBookComponentPresetsByStyleId(state, styleId, componentId) {
+			if (state.styleBookLocalGlobalStyles) {
+				const presetToReturn = state.styleBookLocalGlobalStyles?.[styleId]?.components?.[componentId]?.presets;
+				if (presetToReturn) {
+					return presetToReturn;
+				}
+			}
+			return null;
+		},
+		getGlobalStylesComponentPresetByStyleId(state, styleId, componentId, presetId) {
+			if (state.globalStyles) {
+				const presetToReturn = state.globalStyles?.[styleId]?.components?.[componentId]?.presets?.[presetId];
+				if (presetToReturn) {
+					return presetToReturn;
+				}
+			}
+			return null;
+		},
+		getGlobalStylesComponentPresetsByStyleId(state, styleId, componentId) {
+			if (state.globalStyles) {
+				const presetToReturn = state.globalStyles?.[styleId]?.components?.[componentId]?.presets;
+				if (presetToReturn) {
+					return presetToReturn;
+				}
+			}
+			return null;
+		},
+		hasResolved(state) {
+			return state.hasResolved;
+		},
+		getError(state) {
+			return state.error;
+		},
+		/**
+		 * Uses the memoized getMergedStylesByIds selector and then extracts the raw style data
+		 * for a specific component attribute path.
+		 *
+		 * @param {Object} state - The store state.
+		 * @param {string[]} styleIds - Array of global style IDs to merge.
+		 * @param {string} subItemName - The name of the sub item (e.g., 'components', 'mappings').
+		 * @returns {Object|undefined} The raw style data object or undefined if not found.
+		 */
+		getResolvedGlobalData(state, styleIds, subItemName) {
+			console.log('getResolvedGlobalData', styleIds);
+			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIds);
+			if (!subItemName) {
+				return mergedStyles;
+			}
+			if (mergedStyles?.[subItemName]) {
+				return mergedStyles?.[subItemName];
+			}
+
+			// Nothing found.
+			return undefined;
+		},
+		/**
+		 * Uses the memoized getMergedStylesByIds selector and then extracts the raw style data
+		 * for a specific component attribute path.
+		 *
+		 * @param {Object} state - The store state.
+		 * @param {string[]} styleIds - Array of global style IDs to merge.
+		 * @param {string} componentName - The name of the component (e.g., 'button', 'typography').
+		 * @param {string} attributeName - The attribute path (e.g., 'color', 'typography.fontSize', 'presets.primary').
+		 * @returns {Object|undefined} The raw style data object or undefined if not found.
+		 */
+		getResolvedStyleData(state, styleIds, componentName, attributeName) {
+			const mergedStyles = select('kadenceblocks/global-styles').getMergedStylesByIds(styleIds);
+			// Safely access component styles from the merged styles
+			const componentStyles = mergedStyles?.components?.[componentName];
+			if (!componentStyles) {
+				return undefined; // Component not found in merged styles
+			}
+
+			// Navigate the attribute path (e.g., 'typography.fontSize' or 'presets.primary')
+			const attributePath = attributeName.split('.');
+			let rawValueData = componentStyles;
+			for (const key of attributePath) {
+				// Ensure we are traversing objects and the key exists
+				if (rawValueData && typeof rawValueData === 'object' && key in rawValueData) {
+					rawValueData = rawValueData[key];
+				} else {
+					rawValueData = undefined; // Path broken or not found
+					break;
+				}
+			}
+
+			// Return the raw data found at the end of the path
+			return rawValueData;
+		},
+	},
+	resolvers,
+});
+
+register(store);

@@ -1,5 +1,6 @@
 import { createReduxStore, register, createRegistrySelector, createRegistryControl } from '@wordpress/data';
 import { get } from 'lodash';
+import apiFetch from '@wordpress/api-fetch';
 
 const DEFAULT_STATE = {
 	previewDevice: 'Desktop',
@@ -12,6 +13,23 @@ const DEFAULT_STATE = {
 	imagePickerMultiSelection: [],
 	imagePickerResults: {},
 	imagePickerDownloadedImages: [],
+	fonts: {
+		standard: [],
+		google: [],
+		theme: [],
+		custom: [],
+		system: [],
+		loaded: false,
+	},
+	icons: {
+		solidIcons: {},
+		lineIcons: {},
+		custom: {},
+		combinedIcons: {},
+		loaded: false,
+	},
+	googleFonts: {},
+	spacingMap: {},
 };
 
 const actions = {
@@ -94,6 +112,13 @@ const actions = {
 			frame,
 		};
 	},
+	addGoogleFont(fontFamily, data) {
+		return {
+			type: 'ADD_GOOGLE_FONT',
+			fontFamily,
+			data,
+		};
+	},
 	setImagePickerQuery(query) {
 		return {
 			type: 'SET_IMAGE_PICKER_QUERY',
@@ -124,6 +149,140 @@ const actions = {
 			images,
 		};
 	},
+	*setFonts(fonts) {
+		return {
+			type: 'SET_FONTS',
+			fonts,
+		};
+	},
+	*fetchFonts() {
+		const path = '/kb-fonts/v1/fonts';
+		try {
+			const response = yield {
+				type: 'API_FETCH',
+				request: { path },
+			};
+			return {
+				type: 'SET_FONTS',
+				fonts: {
+					google: response?.google || [],
+					theme: response?.theme || [],
+					custom: response?.custom || [],
+					system: response?.system || [],
+					loaded: true,
+				},
+			};
+		} catch (error) {
+			console.error('Error fetching fonts:', error);
+			return {
+				type: 'SET_FONTS',
+				fonts: {
+					google: [],
+					theme: [],
+					custom: [],
+					system: [],
+					loaded: true,
+				},
+			};
+		}
+	},
+	*setIcons(icons) {
+		return {
+			type: 'SET_ICONS',
+			icons,
+		};
+	},
+	*fetchIcons() {
+		const path = '/kb-icons/v1/icons';
+		const cacheKey = 'kadence-icons-cache-v1';
+
+		if (!('caches' in window)) {
+			// No cache support, just fetch from network.
+			try {
+				const response = yield { type: 'API_FETCH', request: { path } };
+				return {
+					type: 'SET_ICONS',
+					icons: {
+						solidIcons: response?.solidIcons || {},
+						lineIcons: response?.lineIcons || {},
+						custom: response?.custom || {},
+						combinedIcons: {
+							...(response?.solidIcons || {}),
+							...(response?.lineIcons || {}),
+							...(response?.custom || {}),
+						},
+						loaded: true,
+					},
+				};
+			} catch (error) {
+				console.error('Error fetching icons:', error);
+				return {
+					type: 'SET_ICONS',
+					icons: { solidIcons: {}, lineIcons: {}, custom: {}, combinedIcons: {}, loaded: true },
+				};
+			}
+		}
+
+		let cachedData = null;
+		try {
+			const cache = yield { type: 'CACHE_OPEN', cacheKey };
+			const cachedResponse = yield { type: 'CACHE_MATCH', cache, request: path };
+
+			if (cachedResponse) {
+				cachedData = yield { type: 'RESPONSE_JSON', response: cachedResponse.clone() };
+				if (cachedData && cachedData.cache_key) {
+					yield {
+						type: 'SET_ICONS',
+						icons: {
+							solidIcons: cachedData?.solidIcons || {},
+							lineIcons: cachedData?.lineIcons || {},
+							custom: cachedData?.custom || {},
+							combinedIcons: {
+								...(cachedData?.solidIcons || {}),
+								...(cachedData?.lineIcons || {}),
+								...(cachedData?.custom || {}),
+							},
+							loaded: true,
+						},
+					};
+				}
+			}
+
+			// Fetch from network to update.
+			const networkResponse = yield { type: 'API_FETCH', request: { path } };
+
+			if (networkResponse?.cache_key && networkResponse.cache_key !== cachedData?.cache_key) {
+				yield {
+					type: 'SET_ICONS',
+					icons: {
+						solidIcons: networkResponse?.solidIcons || {},
+						lineIcons: networkResponse?.lineIcons || {},
+						custom: networkResponse?.custom || {},
+						combinedIcons: {
+							...(networkResponse?.solidIcons || {}),
+							...(networkResponse?.lineIcons || {}),
+							...(networkResponse?.custom || {}),
+						},
+						loaded: true,
+					},
+				};
+				const responseToCache = new Response(JSON.stringify(networkResponse), {
+					headers: { 'Content-Type': 'application/json' },
+				});
+				const cacheForPut = yield { type: 'CACHE_OPEN', cacheKey };
+				yield { type: 'CACHE_PUT', cache: cacheForPut, request: path, response: responseToCache };
+			}
+		} catch (error) {
+			console.error('Error fetching or caching icons:', error);
+		}
+	},
+	*setSpacingResizeMap(globalStylesIds, spacingMap) {
+		return {
+			type: 'SET_SPACING_RESIZE_MAP',
+			globalStylesIds,
+			spacingMap,
+		};
+	},
 };
 
 const controls = {
@@ -148,6 +307,21 @@ const controls = {
 				return false;
 			}
 	),
+	API_FETCH({ request }) {
+		return apiFetch(request);
+	},
+	CACHE_OPEN: ({ cacheKey }) => {
+		return window.caches.open(cacheKey);
+	},
+	CACHE_MATCH: ({ cache, request }) => {
+		return cache.match(request);
+	},
+	CACHE_PUT: ({ cache, request, response }) => {
+		return cache.put(request, response);
+	},
+	RESPONSE_JSON: ({ response }) => {
+		return response.json();
+	},
 };
 
 const getPreviewDeviceType = createRegistrySelector((select) => (state) => {
@@ -168,10 +342,10 @@ const getPreviewDeviceType = createRegistrySelector((select) => (state) => {
 		return editPost.__experimentalGetPreviewDeviceType();
 	}
 
-	const editSite = select('core/edit-site');
+	const editSite = select('core/editor');
 
 	if (editSite) {
-		return editSite.__experimentalGetPreviewDeviceType();
+		return editSite.getDeviceType();
 	}
 
 	return state.previewDevice;
@@ -228,11 +402,10 @@ const store = createReduxStore('kadenceblocks/data', {
 				};
 			case 'SWITCH_EDITOR_TAB_OPENED':
 				const { tabName, key } = action;
-
 				return {
 					...state,
 					editorTabs: {
-						...state.editorPanels,
+						...state.editorTabs,
 						[tabName]: key,
 					},
 				};
@@ -279,6 +452,37 @@ const store = createReduxStore('kadenceblocks/data', {
 					...state,
 					webFonts: updatedFonts,
 				};
+			case 'ADD_GOOGLE_FONT':
+				const updatedGoogleFonts = { ...state.googleFonts };
+				const fontFamily = action.fontFamily.toString();
+
+				// Initialize the font family entry if it doesn't exist
+				if (!updatedGoogleFonts[fontFamily]) {
+					updatedGoogleFonts[fontFamily] = {
+						weights: [],
+						styles: [],
+						variable: action.data?.variable || undefined,
+					};
+				}
+				if (action.data?.variable) {
+					updatedGoogleFonts[fontFamily].variable = action.data.variable;
+				} else if (
+					action.data?.weight &&
+					!updatedGoogleFonts[fontFamily].weights.includes(action.data.weight)
+				) {
+					// Add unique weight if it exists and isn't already in the array
+					updatedGoogleFonts[fontFamily].weights.push(action.data.weight);
+				}
+
+				// Add unique style if it exists and isn't already in the array
+				if (action.data?.style && !updatedGoogleFonts[fontFamily].styles.includes(action.data.style)) {
+					updatedGoogleFonts[fontFamily].styles.push(action.data.style);
+				}
+
+				return {
+					...state,
+					googleFonts: updatedGoogleFonts,
+				};
 			case 'SET_IMAGE_PICKER_QUERY':
 				return {
 					...state,
@@ -303,6 +507,32 @@ const store = createReduxStore('kadenceblocks/data', {
 				return {
 					...state,
 					imagePickerDownloadedImages: action.images,
+				};
+			case 'SET_FONTS':
+				return {
+					...state,
+					fonts: {
+						...state.fonts,
+						...action.fonts,
+						loaded: true,
+					},
+				};
+			case 'SET_ICONS':
+				return {
+					...state,
+					icons: {
+						...state.icons,
+						...action.icons,
+						loaded: true,
+					},
+				};
+			case 'SET_SPACING_RESIZE_MAP':
+				return {
+					...state,
+					spacingMap: {
+						...state.spacingMap,
+						[JSON.stringify(action?.globalStylesIds || [])]: action.spacingMap,
+					},
 				};
 			default:
 				return state;
@@ -380,6 +610,27 @@ const store = createReduxStore('kadenceblocks/data', {
 			}
 			return isUniqueFont;
 		},
+		isUniqueGoogleFont(state, fontFamily, fontData) {
+			const { googleFonts } = state;
+			let isUniqueGoogleFont = true;
+			if (fontData?.variable) {
+				// Since we don't need to update to add new weights or styles we can just check if the font family exists.
+				if (googleFonts.hasOwnProperty(fontFamily)) {
+					isUniqueGoogleFont = false;
+				}
+			} else if (googleFonts.hasOwnProperty(fontFamily)) {
+				// Since we need to update to add new weights or styles we need to check if the font family exists and if the weights and styles are the same.
+				if (!fontData?.weight) {
+					isUniqueGoogleFont = false;
+				} else if (
+					googleFonts[fontFamily]?.weights &&
+					googleFonts[fontFamily].weights.includes(fontData?.weight)
+				) {
+					isUniqueGoogleFont = false;
+				}
+			}
+			return isUniqueGoogleFont;
+		},
 		getOpenHeaderVisualBuilderId(state) {
 			return get(state, ['headerVisualBuilder', 'open'], null);
 		},
@@ -419,6 +670,29 @@ const store = createReduxStore('kadenceblocks/data', {
 		getImagePickerDownloadedImages(state) {
 			const { imagePickerDownloadedImages } = state;
 			return imagePickerDownloadedImages;
+		},
+		getFonts(state) {
+			return state.fonts;
+		},
+		areFontsLoaded(state) {
+			return state.fonts.loaded;
+		},
+		getIcons(state) {
+			return state.icons;
+		},
+		areIconsLoaded(state) {
+			return state.icons.loaded;
+		},
+		getSpacingResizeMap(state, globalStylesIds) {
+			// Convert the global styles ids to a string.
+			const globalStylesIdsKey = JSON.stringify(globalStylesIds);
+			if (state.spacingMap?.[globalStylesIdsKey]) {
+				return state.spacingMap?.[globalStylesIdsKey];
+			}
+			return [];
+		},
+		getGoogleFonts(state) {
+			return state.googleFonts;
 		},
 	},
 });

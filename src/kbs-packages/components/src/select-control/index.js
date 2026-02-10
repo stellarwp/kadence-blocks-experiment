@@ -1,0 +1,172 @@
+/**
+ * ResponsiveSelect Control
+ */
+
+/**
+ * WordPress dependencies
+ */
+import { __, isRTL } from '@wordpress/i18n';
+import { useMemo } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import SelectStyled from '../select-styled';
+
+// RTL configuration is determined once at module load
+const IS_RTL = isRTL();
+
+/**
+ * Internal dependencies
+ */
+import { getResolvedValue, handleAttributeChange } from '@kadence/kbsHelpers';
+import TitleBar from '../title-bar';
+import { DOT_STYLES } from './constants';
+import { getPlaceholderLabel, useSelectOptions } from './helpers';
+import './editor.scss';
+
+/**
+ * Custom styles for the Select component
+ */
+const getCustomStyles = (isInherited) => ({
+	placeholder: (styles) => ({
+		...styles,
+		...(isInherited && DOT_STYLES),
+		color: `var(--kb-text-color-opacity, rgba(0, 0, 0, ${isInherited ? 0.6 : 1.0}))`,
+	}),
+	menu: (base) => ({
+		...base,
+		zIndex: 10, // Add a higher z-index to ensure the menu appears above other content
+	}),
+});
+
+/**
+ * Build the Font Select control
+ *
+ * @param {Object} props Component props.
+ * @return {JSX.Element} Font select control.
+ */
+export default function SelectControl({
+	label,
+	customOnChange,
+	defaultValue,
+	attributeName,
+	type = 'fontFamily',
+	attributes,
+	setAttributes,
+	reset = true,
+	previewDevice,
+	meta,
+	globalStylesIds,
+	forStyleBook,
+}) {
+	const { directValue, inheritedValue, inheritedSource, isInherited, appliedValue, inheritedType } = getResolvedValue(
+		attributeName,
+		attributes,
+		previewDevice,
+		meta,
+		type,
+		globalStylesIds
+	);
+
+	const customStyles = useMemo(() => getCustomStyles(isInherited), [isInherited]);
+	const attributeMeta = meta?.attributes?.[attributeName];
+
+	const { options, isLoadingOptions, loadingMessage } = useSelectOptions({
+		type,
+		attributes,
+		attributeName,
+		previewDevice,
+		attributeMeta,
+		appliedValue,
+		globalStylesIds,
+		forStyleBook,
+	});
+
+	const inheritedPlaceholderLabel = getPlaceholderLabel(directValue, inheritedValue, type, options);
+
+	const onReset = () => {
+		onChange(defaultValue ?? undefined, type === 'preset' ? 'none' : 'all', type);
+	};
+
+	const onChange = (value, device, type) => {
+		let updatedAttributes = value;
+
+		switch (type) {
+			case 'fontFamily': {
+				if (value === undefined) {
+					updatedAttributes = {
+						[type]: undefined,
+						fontSource: undefined,
+						fontVariable: undefined,
+						fontWeight: undefined,
+						fontStyle: undefined,
+					};
+					break;
+				}
+				if (directValue === value) {
+					updatedAttributes = {
+						[type]: value,
+						fontSource: selectedOption.source,
+						fontVariable: selectedOption?.isVariable ? selectedOption?.isVariable : undefined,
+					};
+					break;
+				}
+
+				// Set the font source too
+				const selectedOption = options
+					.flatMap((group) => group.options)
+					.find((option) => option.value === value);
+				updatedAttributes = {
+					[type]: value,
+					fontSource: selectedOption.source,
+					fontVariable: selectedOption?.isVariable ? selectedOption?.isVariable : undefined,
+					fontWeight: undefined,
+					fontStyle: undefined,
+				};
+
+				break;
+			}
+			default:
+				break;
+		}
+
+		handleAttributeChange(
+			updatedAttributes,
+			device,
+			attributeName,
+			attributes,
+			setAttributes,
+			customOnChange,
+			type,
+			meta
+		);
+	};
+
+	return (
+		<div className={`components-base-control kbs-${type}-select-control`}>
+			{label && <TitleBar label={label} reset={reset} onReset={onReset} />}
+			<div className="kbs-select-control-inner">
+				<SelectStyled
+					key={previewDevice + appliedValue}
+					isClearable={!isInherited}
+					value={
+						directValue
+							? options.flatMap((opt) => opt.options || []).find((opt) => opt.value === directValue)
+							: null
+					}
+					options={options}
+					onChange={(selectedOption) => onChange(selectedOption?.value, previewDevice, type)}
+					className="kb-select-control"
+					styles={customStyles}
+					placeholder={inheritedPlaceholderLabel}
+					isSearchable={true}
+					isLoading={isLoadingOptions}
+					loadingMessage={() => loadingMessage}
+					noOptionsMessage={() => __('No results', 'kadence-blocks')}
+					isRtl={IS_RTL}
+				/>
+			</div>
+		</div>
+	);
+}

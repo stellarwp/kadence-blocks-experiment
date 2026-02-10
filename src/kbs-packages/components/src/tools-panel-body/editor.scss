@@ -1,0 +1,102 @@
+// Global Settings.
+.admin-color-modern {
+	--kb-subtle-background: #f0f3fe;
+	--kb-subtle-focus-background: #dde4fc;
+	--kb-border-color: #64748b;
+}
+
+.kbs-tools-panel-body.components-panel {
+	h2.kbs-tools-panel-body__title {
+		padding: 16px;
+		margin: -16px -16px 5px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		color: var(--wp-components-color-foreground, #1e1e1e);
+	}
+	.components-panel__body-title-text.kbs-tools-panel-body__title-text-with-icon {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		svg {
+			color: currentColor;
+			margin: 0px;
+		}
+	}
+	.kbs-tools-panel-body__tools {
+		margin: -8px 0;
+		position: relative;
+		z-index: 11;
+	}
+	.kbs-tools-panel-body__tools-dropdown-advanced .components-dropdown-menu__toggle {
+		background: var(--kb-subtle-background, #edf2f7);
+	}
+}
+.components-panel__body.kbs-tools-panel-body {
+	.components-panel__body-title {
+		position: relative;
+		background: transparent;
+		overflow: hidden;
+		&:hover {
+			background: transparent;
+		}
+		.kbs-tools-panel-body__tools {
+			position: absolute;
+			right: -100px;
+			opacity: 0;
+			top: 0;
+			height: 47px;
+			gap: 4px;
+			display: flex;
+			align-items: center;
+			transition: opacity 0.2s ease-in-out;
+			.components-button {
+				height: 36px;
+				min-width: 30px;
+				padding: 0;
+				color: var(--wp-components-color-foreground, #1e1e1e);
+				background: transparent;
+				box-shadow: inset 0px 0px 0px 1px transparent;
+				&:hover {
+					color: var(--wp-components-color-foreground, #1e1e1e);
+					background: color-mix(in srgb, var(--kb-subtle-background, #edf2f7) 50%, transparent);
+					box-shadow: inset 0px 0px 0px 1px var(--kb-border-subtle-color, #d9e7ec);
+				}
+				&.is-pressed {
+					background: var(--kb-subtle-background, #edf2f7);
+					box-shadow: inset 0px 0px 0px 1px var(--wp-components-color-foreground, #1e1e1e);
+				}
+			}
+		}
+	}
+	.kbs-expanded-padding {
+		.components-panel__body-toggle.components-button {
+			padding: 16px 78px 16px 16px;
+		}
+	}
+	.kbs-full-expanded-padding {
+		.components-panel__body-toggle.components-button {
+			padding: 16px 108px 16px 16px;
+		}
+	}
+	.components-panel__body-toggle.components-button {
+		background: transparent;
+		color: var(--wp-components-color-foreground, #1e1e1e);
+		&:hover {
+			color: var(--wp-components-color-foreground, #1e1e1e);
+			background: color-mix(in srgb, var(--kb-subtle-background, #edf2f7) 50%, transparent);
+		}
+	}
+}
+.components-panel__body.kbs-tools-panel-body.is-opened {
+	.components-panel__body-title {
+		.kbs-tools-panel-body__tools {
+			right: 42px;
+			opacity: 1;
+		}
+	}
+}
+.components-panel__body.kbs-tools-panel-body {
+	border-color: var(--kb-border-subtle-color, #d9e7ec);
+}

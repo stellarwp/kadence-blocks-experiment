@@ -1,0 +1,109 @@
+/**
+ * #.# Styles
+ *
+ * CSS for both Frontend+Backend.
+ */
+
+@import "../mixins.scss";
+
+@mixin wrapper-styles {
+	overflow: auto;
+	mask-size: auto;
+	mask-repeat: no-repeat;
+	mask-position: center;
+
+	border-top-left-radius: var(--kbs-image-border-top-left-radius);
+	border-top-right-radius: var(--kbs-image-border-top-right-radius);
+	border-bottom-right-radius: var(--kbs-image-border-bottom-right-radius);
+	border-bottom-left-radius: var(--kbs-image-border-bottom-left-radius);
+	border-top: var(--kbs-image-border-top);
+	border-right: var(--kbs-image-border-right);
+	border-bottom: var(--kbs-image-border-bottom);
+	border-left: var(--kbs-image-border-left);
+
+	mask-image: var(--kbs-image-mask-image);
+	box-shadow: var(--kbs-image-box-shadow);
+	filter: var(--kbs-image-filter);
+}
+
+.kbs-image {
+	.kbs-image-img {
+		display: block;
+
+		max-width: var(--kbs-image-max-width, 100%);
+
+		//padding?
+		//margin?
+	}
+
+	// If there's a wrapper, apply certain styles to the wrapper instead of directly on the img
+	&:not(.kbs-image-has-wrapper) .kbs-image-img {
+		@include wrapper-styles;
+	}
+
+	&.kbs-image-has-ratio {
+		.kbs-image-img {
+			object-fit: cover;
+		}
+	}
+
+	.kbs-image-wrapper {
+		position: relative;
+		width: fit-content;
+
+		@include wrapper-styles;
+	}
+
+	.kbs-image-caption {
+		max-width: var(--kbs-image-max-width);
+		font-family: var(--kbs-image-font-family);
+		font-weight: var(--kbs-image-font-weight);
+		font-size: var(--kbs-image-font-size);
+		line-height: var(--kbs-image-line-height);
+		letter-spacing: var(--kbs-image-letter-spacing);
+		text-transform: var(--kbs-image-text-transform);
+		font-style: var(--kbs-image-font-style);
+		color: var(--kbs-image-color);
+		background: var(--kbs-image-background-color);
+	}
+}
+
+.kbs-image.kbs-image-is-wide-aligned {
+	.kbs-image-img {
+		max-width: initial;
+		width: 100%;
+	}
+	.kbs-image-caption {
+		max-width: initial;
+	}
+}
+
+//overide core max widths for wide and full alignments
+.block-editor-block-list__layout.is-root-container > .kbs-image[data-align="wide"] {
+	max-width: var(--global-content-wide-width, 1340px);
+}
+.block-editor-block-list__layout.is-root-container > .kbs-image[data-align="full"] {
+	max-width: none;
+}
+
+//switch to flex for alignments
+.kbs-image[data-align="left"],
+.kbs-image[data-align="right"],
+.kbs-image[data-align="center"] {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.kbs-image[data-align="left"] {
+	align-items: flex-start;
+}
+
+.kbs-image[data-align="right"] {
+	align-items: flex-end;
+}
+.kbs-image[data-align="center"] {
+	align-items: center;
+}
+
+@include kbs-bg-layer;
+@include kbs-filters;

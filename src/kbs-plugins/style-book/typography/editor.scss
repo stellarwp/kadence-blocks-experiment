@@ -1,0 +1,74 @@
+.kbs-style-book-style-guide.kbs-style-book-style-guide-typography {
+	display: block;
+}
+.kbs-typography-mapping {
+	.components-button.kbs-typography-control-btn {
+		padding: 12px;
+		border-radius: 4px;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+		background: white;
+		display: flex;
+		justify-content: space-between;
+		color: var(--wp-components-color-foreground, #1e1e1e);
+		height: auto;
+		width: 100%;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+		color: var(--kbs-colors-palette3);
+		background: var(--kbs-colors-palette9);
+		&:hover {
+			color: var(--kbs-colors-palette3);
+			background: var(--kbs-colors-palette8);
+			box-shadow: inset 0px 0px 0px 1px var(--kbs-colors-palette7);
+		}
+		&.is-pressed {
+			background: var(--kbs-colors-palette7);
+			box-shadow: inset 0px 0px 0px 1px var(--kbs-colors-palette3);
+		}
+		.kbs-typography-control-inner-info {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+		}
+		.kbs-typography-control-preview {
+			font-size: 1rem;
+			line-height: 1.5;
+			text-align: left;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: calc(100%);
+		}
+		.kbs-typography-control-label {
+			font-size: 1rem;
+			line-height: 1.5;
+			text-align: left;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: calc(100% - 36px);
+		}
+		.kbs-typography-control-meta {
+			display: flex;
+			flex-direction: row;
+			gap: 0px;
+			text-align: right;
+		}
+		.kbs-typography-control-size-divider {
+			margin: 0 8px;
+		}
+		.kbs-typography-control-label-wrap {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			max-width: calc(100% - 100px);
+			width: 100%;
+		}
+	}
+	.kbs-control-inner.kbs-typography-mapping-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+	}
+}

@@ -26,6 +26,7 @@ import { getAIContentHelper } from './fetch-ai';
 import { convertStreamDataToJson } from './convert-stream-data-to-json';
 import { insert, replace, remove, create, registerFormatType, toggleFormat, applyFormat } from '@wordpress/rich-text';
 import { sendEvent } from '../../../extension/analytics/send-event';
+console.log(1);
 const name = 'kadence/ai-text';
 const allowedBlocks = ['kadence/advancedheading'];
 export const AIText = {

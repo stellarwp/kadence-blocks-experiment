@@ -1,0 +1,285 @@
+{
+	"globalStyleId1": {
+		"name": "Global Style Example",
+		"postId": 1234,
+		"styleId": "globalStyleId1",
+		"version": "1.0.0",
+		"components": {
+			"flex": {
+				"presets": {
+					"uniqueID": {
+						"label": "Vertical",
+						"name": "Basic Vertical",
+						"description": "A basic vertical flex container",
+						"clear": false,
+						"attributes": {
+							"flexContainer": {
+								"desktop": {
+									"direction": "column",
+									"justify": "flex-start",
+									"alignItems": "stretch",
+									"alignContent": "initial",
+									"wrap": "wrap",
+									"rowGap": "none",
+									"columnGap": "initial",
+									"flexShrink": "initial",
+									"flexGrow": "initial",
+									"flexBasis": "auto"
+								}
+							}
+						}
+					},
+					"uniqueID2": {
+						"label": "Horizontal",
+						"name": "Basic Vertical",
+						"description": "A basic vertical flex container",
+						"clear": false,
+						"attributes": {
+							"flexContainer": {
+								"desktop": {
+									"direction": "column",
+									"justify": "flex-start",
+									"alignItems": "stretch",
+									"alignContent": "initial",
+									"wrap": "wrap",
+									"rowGap": "none",
+									"columnGap": "initial",
+									"flexShrink": "initial",
+									"flexGrow": "initial",
+									"flexBasis": "auto"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"kadence/image": {
+			"attributes": {
+				"borderStyles": {
+					"preset": "little-curve",
+					"desktop": {
+						"borderWidth": "2px"
+					}
+				},
+				"maxWidth": {
+					"preset": "half-width",
+					"mobile": {
+						"maxWidth": "20%"
+					}
+				}
+			}
+		},
+		"settings": {
+			"spacing": {
+				"gaps": {
+					"none": {
+						"output": "var(--global-kb-spacing-none, 0rem)",
+						"size": 0,
+						"label": "None",
+						"name": "None"
+					},
+					"xxs": {
+						"output": "var(--global-kb-spacing-xxs, 0.5rem)",
+						"size": 8,
+						"label": "XXS",
+						"name": "2X Small"
+					},
+					"xs": {
+						"output": "var(--global-kb-spacing-xs, 1rem)",
+						"size": 16,
+						"label": "XS",
+						"name": "X Small"
+					},
+					"sm": {
+						"output": "var(--global-kb-spacing-sm, 1.5rem)",
+						"size": 24,
+						"label": "SM",
+						"name": "Small"
+					},
+					"md": {
+						"output": "var(--global-kb-spacing-md, 2rem)",
+						"size": 32,
+						"label": "MD",
+						"name": "Medium"
+					},
+					"lg": {
+						"output": "var(--global-kb-spacing-lg, 3rem)",
+						"size": 48,
+						"label": "LG",
+						"name": "Large"
+					},
+					"xl": {
+						"output": "var(--global-kb-spacing-xl, 4rem)",
+						"size": 64,
+						"label": "XL",
+						"name": "X Large"
+					},
+					"xxl": {
+						"output": "var(--global-kb-spacing-xxl, 5rem)",
+						"size": 80,
+						"label": "XXL",
+						"name": "2X Large"
+					},
+					"3xl": {
+						"output": "var(--global-kb-spacing-3xl, 6.5rem)",
+						"size": 104,
+						"label": "3XL",
+						"name": "3X Large"
+					},
+					"4xl": {
+						"output": "var(--global-kb-spacing-4xl, 8rem)",
+						"size": 128,
+						"label": "4XL",
+						"name": "4X Large"
+					},
+					"5xl": {
+						"output": "var(--global-kb-spacing-5xl, 10rem)",
+						"size": 160,
+						"label": "5XL",
+						"name": "5X Large"
+					}
+				}
+			},
+			"font-sizes": {
+				"sizes": {
+					"none": {
+						"output": "var(--global-kb-spacing-none, 0rem)",
+						"size": 0,
+						"label": "None",
+						"name": "None"
+					},
+					"xxs": {
+						"output": "4px",
+						"size": 4,
+						"label": "h6",
+						"name": "My Custom h6"
+					},
+					"xs": {
+						"output": "var(--global-kb-spacing-xs, 1rem)",
+						"size": 16,
+						"label": "XS",
+						"name": "X Small"
+					},
+					"sm": {
+						"output": "var(--global-kb-spacing-sm, 1.5rem)",
+						"size": 24,
+						"label": "SM",
+						"name": "Small"
+					},
+					"md": {
+						"output": "var(--global-kb-spacing-md, 2rem)",
+						"size": 32,
+						"label": "MD",
+						"name": "Medium"
+					},
+					"lg": {
+						"output": "var(--global-kb-spacing-lg, 3rem)",
+						"size": 48,
+						"label": "LG",
+						"name": "Large"
+					},
+					"xl": {
+						"output": "var(--global-kb-spacing-xl, 4rem)",
+						"size": 64,
+						"label": "XL",
+						"name": "X Large"
+					},
+					"xxl": {
+						"output": "var(--global-kb-spacing-xxl, 5rem)",
+						"size": 80,
+						"label": "XXL",
+						"name": "2X Large"
+					},
+					"3xl": {
+						"output": "var(--global-kb-spacing-3xl, 6.5rem)",
+						"size": 104,
+						"label": "3XL",
+						"name": "3X Large"
+					},
+					"4xl": {
+						"output": "var(--global-kb-spacing-4xl, 8rem)",
+						"size": 128,
+						"label": "4XL",
+						"name": "4X Large"
+					},
+					"5xl": {
+						"output": "var(--global-kb-spacing-5xl, 10rem)",
+						"size": 160,
+						"label": "5XL",
+						"name": "5X Large"
+					}
+				}
+			},
+			"colors": {
+				"color-pallete": {
+					"palette1": "#3182CE",
+					"palette2": "#2B6CB0",
+					"palette3": "#1A202C",
+					"palette4": "#2D3748",
+					"palette5": "#4A5568",
+					"palette6": "#718096",
+					"palette7": "#EDF2F7",
+					"palette8": "#F7FAFC",
+					"palette9": "#FFFFFF"
+				}
+			}
+		}
+	},
+	"globalStyleId2": {
+		"name": "Global Style Example 2",
+		"postId": 1235,
+		"styleId": "globalStyleId2",
+		"version": "1.0.0",
+		"components": {
+			"flex": {
+				"presets": {
+					"uniqueID": {
+						"label": "Vertical",
+						"name": "Basic Vertical",
+						"description": "A basic vertical flex container",
+						"clear": false,
+						"attributes": {
+							"flexContainer": {
+								"desktop": {
+									"direction": "column",
+									"justify": "flex-start",
+									"alignItems": "stretch",
+									"alignContent": "initial",
+									"wrap": "wrap",
+									"rowGap": "none",
+									"columnGap": "initial",
+									"flexShrink": "initial",
+									"flexGrow": "initial",
+									"flexBasis": "auto"
+								}
+							}
+						}
+					},
+					"uniqueID2": {
+						"label": "Horizontal",
+						"name": "Basic Vertical",
+						"description": "A basic vertical flex container",
+						"clear": false,
+						"attributes": {
+							"flexContainer": {
+								"desktop": {
+									"direction": "column",
+									"justify": "flex-start",
+									"alignItems": "stretch",
+									"alignContent": "initial",
+									"wrap": "wrap",
+									"rowGap": "none",
+									"columnGap": "initial",
+									"flexShrink": "initial",
+									"flexGrow": "initial",
+									"flexBasis": "auto"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

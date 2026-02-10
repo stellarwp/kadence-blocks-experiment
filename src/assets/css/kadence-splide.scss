@@ -1,4 +1,4 @@
-@import "./variables";
+@use "./variables" as *;
 
 .kb-splide.splide__container {
 	box-sizing: border-box;

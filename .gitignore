@@ -19,3 +19,6 @@ bin/wp-cli.phar
 
 #  E2E test
 tests/e2e/test-results/
+
+# Assets
+includes/assets

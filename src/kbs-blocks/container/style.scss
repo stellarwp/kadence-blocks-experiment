@@ -1,0 +1,65 @@
+/**
+ * #.# Styles
+ *
+ * CSS for both Frontend+Backend.
+ */
+
+@import "../mixins.scss";
+
+.kbs-container {
+	position: relative;
+	overflow: auto;
+	display: flex;
+	flex-direction: var(--kbs-cont-flex-direction, column);
+	justify-content: var(--kbs-cont-justify-content, flex-start);
+	align-items: var(--kbs-cont-align-items, stretch);
+	align-content: var(--kbs-cont-align-content, initial);
+	flex-wrap: var(--kbs-cont-flex-wrap, initial);
+	min-width: 0;
+	min-height: 0;
+	column-gap: var(--kbs-cont-column-gap, var(--global-kb-spacing-xs, 1rem));
+	row-gap: var(--kbs-cont-row-gap, initial);
+
+	max-height: var(--kbs-cont-max-height, unset);
+
+	border-top-left-radius: var(--kbs-cont-border-top-left-radius);
+	border-top-right-radius: var(--kbs-cont-border-top-right-radius);
+	border-bottom-right-radius: var(--kbs-cont-border-bottom-right-radius);
+	border-bottom-left-radius: var(--kbs-cont-border-bottom-left-radius);
+	// border-top: var(--kbs-cont-border-top);
+	// border-left: var(--kbs-cont-border-left);
+	// border-right: var(--kbs-cont-border-right);
+	// border-bottom: var(--kbs-cont-border-bottom);
+
+	box-shadow: var(--kbs-cont-box-shadow);
+	> :where(*) {
+		margin-left: 0;
+		margin-right: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+		position: relative;
+	}
+	> .kbs-container {
+		flex: var(--kbs-cont-flex, auto);
+		align-self: var(--kbs-cont-align-self, initial);
+		justify-self: var(--kbs-cont-justify-self, initial);
+	}
+
+	&:hover {
+		// border-top: var(--kbs-cont-border-top-hover, var(--kbs-cont-border-top));
+		// border-left: var(--kbs-cont-border-left-hover, var(--kbs-cont-border-left));
+		// border-right: var(--kbs-cont-border-right-hover, var(--kbs-cont-border-right));
+		// border-bottom: var(--kbs-cont-border-bottom-hover, var(--kbs-cont-border-bottom));
+	}
+
+	.kbs-container-link-overlay {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+	}
+}
+
+//TODO this should be loaded in a more global way. Any block that has a background should have this included.
+@include kbs-bg-layer;

@@ -1,0 +1,82 @@
+.kbs-control-title-bar {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 6px;
+	min-height: 22px;
+	.kbs-control-hover-indicator {
+		width: 20px;
+		padding: 0 2px;
+		display: flex;
+		color: var(--wp-admin-theme-color, #00669b);
+		justify-content: center;
+		svg {
+			fill: currentColor;
+		}
+	}
+	.kbs-control-title-bar-inner {
+		flex-grow: 1;
+		display: flex;
+		align-items: center;
+		.components-base-control {
+			margin-bottom: 0;
+		}
+	}
+	.kbs-control-title {
+		font-size: 11px;
+		font-weight: 500;
+		line-height: 1.4;
+		text-transform: uppercase;
+	}
+	.kbs-reset-wrap {
+		overflow: hidden;
+		width: 24px;
+		padding: 0 2px;
+		.components-button.kbs-reset-button {
+			background: transparent;
+			border: 0;
+			box-shadow: none;
+			color: var(--kb-subtle-color, #a0aec0);
+			display: flex;
+			font-size: 18px;
+			height: auto;
+			height: 18px;
+			margin: 0 0 0 -22px;
+			min-width: 20px;
+			outline: 0;
+			padding: 0;
+			width: 20px;
+			svg {
+				width: 1em;
+				height: 1em;
+			}
+		}
+	}
+	&:hover {
+		.kbs-reset-wrap .components-button.kbs-reset-button {
+			margin: 0 0 0 0;
+		}
+	}
+	.kbs-advanced-controls-button,
+	.kbs-custom-controls-button {
+		color: var(--kb-subtle-color, #a0aec0);
+		font-size: 16px;
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+		height: auto;
+		margin-bottom: 0;
+		outline: 0;
+		padding: 2px 4px;
+		width: auto;
+		min-width: 0;
+		&:hover {
+			color: var(--wp-admin-theme-color, #00669b);
+		}
+		&.is-pressed:not(:disabled, [aria-disabled="true"]) {
+			background: var(--wp-components-color-foreground, #1e1e1e);
+			color: var(--wp-components-color-foreground-inverted, #fff);
+		}
+	}
+}

@@ -1,0 +1,18 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+@use "../mixins.scss" as mixins;
+
+// Remove WP margin added to all blocks.
+.wp-block-kbs-button {
+	@include mixins.kbs-block-resets;
+}
+
+.kbs-button-content {
+	&:focus {
+		outline: none;
+	}
+}

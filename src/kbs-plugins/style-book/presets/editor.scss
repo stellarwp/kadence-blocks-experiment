@@ -1,0 +1,127 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+.kbs-background-presets-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
+	padding: 0px;
+	background: transparent;
+	border-radius: 2px;
+	.kbs-radio-preset-control-button {
+		flex: 1;
+		border-radius: 3px;
+		background: transparent;
+		box-shadow: none;
+		padding: 0;
+		height: 150px;
+		border: 2px solid transparent;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+		padding: 1px;
+		outline: none;
+		.kbs-radio-preset-control-style {
+			display: block;
+			width: 100%;
+			height: 100%;
+			position: relative;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-attachment: scroll;
+			overflow: hidden;
+			transition: all 0.3s ease-in-out;
+			&.has-no-background {
+				background: #fff linear-gradient(-45deg, rgba(0, 0, 0, 0) 48%, #ddd 0, #ddd 52%, rgba(0, 0, 0, 0) 0);
+			}
+		}
+		&:hover {
+			box-shadow: none;
+			outline: none;
+			background: transparent;
+			outline: none;
+			box-shadow: inset 0 0 0 1px var(--kb-border-color, #859cb6);
+		}
+		&.is-pressed {
+			box-shadow: none;
+			outline: none;
+			background: transparent;
+			border-color: var(--wp-components-color-foreground, #1e1e1e);
+			box-shadow: inset 0 0 0 1px white;
+		}
+		&.is-pressed:hover:not(:disabled, [aria-disabled="true"]) {
+			background: transparent;
+		}
+	}
+}
+.kbs-storybook-section-header {
+	display: flex;
+	margin-bottom: 12px;
+	align-items: center;
+
+	.kbs-storybook-header-title {
+		margin: 0;
+		flex-grow: 1;
+		font-size: 1.2rem;
+		line-height: 1.4;
+		font-weight: 500;
+	}
+}
+.kbs-style-book-design-system {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.kbs-button-presets-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
+	padding: 0px;
+	background: transparent;
+	border-radius: 2px;
+	.kbs-radio-preset-control-button {
+		flex: 1;
+		border-radius: 3px;
+		background: transparent;
+		box-shadow: none;
+		padding: 0;
+		min-height: 50px;
+		border: 2px solid transparent;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+		padding: 1px;
+		outline: none;
+		color: inherit;
+		height: auto;
+		padding: 12px;
+		.kbs-radio-preset-control-style {
+			display: block;
+			width: 100%;
+			min-height: 50px;
+			transition: all 0.3s ease-in-out;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		&:hover {
+			box-shadow: none;
+			outline: none;
+			background: transparent;
+			outline: none;
+			box-shadow: inset 0 0 0 1px var(--kb-border-color, #859cb6);
+		}
+		&.is-pressed {
+			box-shadow: none;
+			color: inherit;
+			outline: none;
+			background: transparent;
+			border-color: var(--wp-components-color-foreground, #1e1e1e);
+			box-shadow: inset 0 0 0 1px white;
+		}
+		&.is-pressed:hover:not(:disabled, [aria-disabled="true"]) {
+			background: transparent;
+		}
+	}
+}

@@ -1,0 +1,937 @@
+{
+	"styleId": "kbs-base",
+	"label": "Base Style",
+	"version": "1.0.0",
+	"components": {
+		"padding": {
+			"presets": {
+				"kbs-pd-sec-xxl": {
+					"label": "Section XXL",
+					"description": "A section padding preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"paddingLeft": "",
+							"paddingRight": "",
+							"paddingTop": "xxl",
+							"paddingBottom": "xxl"
+						}
+					}
+				},
+				"kbs-pd-sec-xl": {
+					"label": "Section XL",
+					"description": "A section padding preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"paddingLeft": "",
+							"paddingRight": "",
+							"paddingTop": "xl",
+							"paddingBottom": "xl"
+						}
+					}
+				},
+				"kbs-pd-card-lg": {
+					"label": "Card Large",
+					"description": "A card padding preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"paddingLeft": "lg",
+							"paddingRight": "lg",
+							"paddingTop": "lg",
+							"paddingBottom": "lg"
+						}
+					}
+				},
+				"kbs-pd-card-md": {
+					"label": "Card Medium",
+					"description": "A card padding preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"paddingLeft": "md",
+							"paddingRight": "md",
+							"paddingTop": "md",
+							"paddingBottom": "md"
+						}
+					}
+				}
+			}
+		},
+		"background": {
+			"presets": {
+				"kbs-bg-base": {
+					"label": "Base",
+					"description": "A base background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette9"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-1": {
+					"label": "Variant 1",
+					"description": "A variant 1 background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette8"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-2": {
+					"label": "Variant 2",
+					"description": "A variant 2 background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette7"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-3": {
+					"label": "Variant 3",
+					"description": "A variant 3 background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"type": "gradient",
+									"gradient": "var(--kbs-gradients-gradient5)"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-4": {
+					"label": "Variant 4",
+					"description": "A variant 4 background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"type": "gradient",
+									"gradient": "var(--kbs-gradients-gradient5)"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-5": {
+					"label": "Variant 5",
+					"description": "A variant 5 background preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"type": "gradient",
+									"gradient": "var(--kbs-gradients-gradient6)"
+								}
+							}
+						]
+					}
+				}
+			}
+		},
+		"typography": {
+			"presets": {
+				"title-3xl": {
+					"label": "Title 3XL",
+					"name": "Title 3XL",
+					"description": "Huge title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "",
+							"fontSource": "",
+							"fontSize": "3xl",
+							"color": "palette3",
+							"fontWeight": "700",
+							"lineHeight": "sm"
+						}
+					}
+				},
+				"title-xxl": {
+					"label": "Title XXL",
+					"name": "Title XXL",
+					"description": "Extra large title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "",
+							"fontSource": "",
+							"fontSize": "xxl",
+							"color": "palette3",
+							"fontWeight": "700",
+							"lineHeight": "sm"
+						}
+					}
+				},
+				"title-xl": {
+					"label": "Title XL",
+					"name": "Title XL",
+					"description": "Large title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "",
+							"fontSource": "system",
+							"fontSize": "xl",
+							"color": "palette3",
+							"fontWeight": "700",
+							"lineHeight": "sm"
+						}
+					}
+				},
+				"title-lg": {
+					"label": "Title LG",
+					"name": "Title LG",
+					"description": "Large title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "",
+							"fontSource": "",
+							"fontSize": "lg",
+							"color": "palette4",
+							"fontWeight": "500",
+							"lineHeight": "base"
+						}
+					}
+				},
+				"title-md": {
+					"label": "Title MD",
+					"name": "Title MD",
+					"description": "Medium title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "",
+							"fontSource": "",
+							"fontSize": "md",
+							"color": "palette4",
+							"fontWeight": "400",
+							"lineHeight": "base"
+						}
+					}
+				},
+				"title-sm": {
+					"label": "Title SM",
+					"name": "Title SM",
+					"description": "Small title text for hero and call to action sections",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "",
+							"fontSource": "",
+							"fontSize": "sm",
+							"color": "palette4",
+							"fontWeight": "400",
+							"lineHeight": "base"
+						}
+					}
+				},
+				"text-body": {
+					"label": "Body",
+					"name": "Body",
+					"description": "Body text for paragraphs and other body content",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "",
+							"fontSource": "",
+							"fontSize": "base",
+							"color": "palette5",
+							"fontWeight": "400",
+							"lineHeight": "base"
+						}
+					}
+				},
+				"overline": {
+					"label": "Overline",
+					"name": "Overline",
+					"description": "Small text for overlines and other small text content",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontFamily": "",
+							"fontSource": "",
+							"fontSize": "base",
+							"color": "palette5",
+							"lineHeight": "base"
+						}
+					}
+				},
+				"accent": {
+					"label": "Accent",
+					"name": "Accent",
+					"description": "Accent text for accent content",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"fontStyle": "italic"
+						}
+					}
+				},
+				"accent-alt": {
+					"label": "Accent Alt",
+					"name": "Accent Alt",
+					"description": "Accent text for accent content",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"color": "palette1"
+						}
+					}
+				}
+			}
+		},
+		"border": {
+			"presets": {
+				"card": {
+					"label": "Card",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderTop": "solid 1px var(--kbs-colors-palette3)",
+							"borderLeft": "solid 1px var(--kbs-colors-palette3)",
+							"borderRight": "solid 1px var(--kbs-colors-palette3)",
+							"borderBottom": "solid 1px var(--kbs-colors-palette3)",
+							"borderTopLeftRadius": "sm",
+							"borderTopRightRadius": "sm",
+							"borderBottomRightRadius": "sm",
+							"borderBottomLeftRadius": "sm"
+						}
+					}
+				},
+				"card-alt": {
+					"label": "Card Alt",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderTop": "solid 3px var(--kbs-colors-palette3)",
+							"borderLeft": "solid 3px var(--kbs-colors-palette3)",
+							"borderRight": "solid 3px var(--kbs-colors-palette3)",
+							"borderBottom": "solid 3px var(--kbs-colors-palette3)",
+							"borderTopLeftRadius": "md",
+							"borderTopRightRadius": "md",
+							"borderBottomRightRadius": "md",
+							"borderBottomLeftRadius": "md"
+						}
+					}
+				},
+				"image": {
+					"label": "Image",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderTop": "solid 1px var(--kbs-colors-palette1)",
+							"borderLeft": "solid 1px var(--kbs-colors-palette1)",
+							"borderRight": "solid 1px var(--kbs-colors-palette1)",
+							"borderBottom": "solid 1px var(--kbs-colors-palette1)",
+							"borderTopLeftRadius": "sm",
+							"borderTopRightRadius": "sm",
+							"borderBottomRightRadius": "sm",
+							"borderBottomLeftRadius": "sm"
+						}
+					}
+				},
+				"image-alt": {
+					"label": "Image Alt",
+					"description": "A border preset",
+					"locked": true,
+					"attributes": {
+						"desktop": {
+							"borderTop": "solid 3px var(--kbs-colors-palette1)",
+							"borderLeft": "solid 3px var(--kbs-colors-palette1)",
+							"borderRight": "solid 3px var(--kbs-colors-palette1)",
+							"borderBottom": "solid 3px var(--kbs-colors-palette1)",
+							"borderTopLeftRadius": "md",
+							"borderTopRightRadius": "md",
+							"borderBottomRightRadius": "md",
+							"borderBottomLeftRadius": "md"
+						}
+					}
+				}
+			}
+		},
+		"boxShadow": {
+			"presets": {
+				"kbs-box-shadow-base": {
+					"label": "Base",
+					"description": "A base box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "var(--kbs-text-shadow-default-color,#00000066)"
+								}
+							}
+						]
+					}
+				},
+				"kbs-box-shadow-variant-1": {
+					"label": "Variant 1",
+					"description": "A variant 1 box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "6px",
+									"y": "6px",
+									"blur": "0px",
+									"spread": "0px"
+								}
+							},
+							{
+								"desktop": {
+									"color": "palette9",
+									"x": "6px",
+									"y": "6px",
+									"blur": "0px",
+									"spread": "-3px"
+								}
+							}
+						]
+					}
+				},
+				"kbs-box-shadow-variant-2": {
+					"label": "Variant 2",
+					"description": "A variant 2 box shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "6px",
+									"y": "6px",
+									"blur": "0px",
+									"spread": "0px"
+								}
+							}
+						]
+					}
+				}
+			}
+		},
+		"textShadow": {
+			"presets": {
+				"kbs-text-shadow-base": {
+					"label": "Base",
+					"description": "A base text shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "var(--kbs-text-shadow-default-color,#00000066)"
+								}
+							}
+						]
+					}
+				},
+				"kbs-text-shadow-variant-1": {
+					"label": "Variant 1",
+					"description": "A variant 1 text shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "0px",
+									"y": "0px",
+									"blur": "6px"
+								}
+							}
+						]
+					}
+				},
+				"kbs-text-shadow-variant-2": {
+					"label": "Variant 2",
+					"description": "A variant 2 text shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "2px",
+									"y": "2px",
+									"blur": "0px"
+								}
+							}
+						]
+					}
+				},
+				"kbs-text-shadow-variant-3": {
+					"label": "Variant 3",
+					"description": "A variant 3 text shadow preset",
+					"locked": true,
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette3",
+									"x": "-2px",
+									"y": "-2px",
+									"blur": "5px"
+								}
+							}
+						]
+					}
+				}
+			}
+		},
+		"buttonVariant": {
+			"presets": {
+				"primary": {
+					"label": "Primary",
+					"description": "A primary button variant preset",
+					"locked": true,
+					"attributes": {
+						"color": {
+							"desktop": {
+								"color": "#ffffff",
+								"colorHover": "#ffffff"
+							}
+						},
+						"backgroundColor": {
+							"desktop": {
+								"color": "palette1",
+								"colorHover": "palette2"
+							}
+						},
+						"border": {
+							"desktop": {
+								"borderTopLeftRadius": "md",
+								"borderTopRightRadius": "md",
+								"borderBottomRightRadius": "md",
+								"borderBottomLeftRadius": "md",
+								"borderTop": "1px solid transparent",
+								"borderLeft": "1px solid transparent",
+								"borderRight": "1px solid transparent",
+								"borderBottom": "1px solid transparent",
+								"borderTopHover": "1px solid transparent",
+								"borderLeftHover": "1px solid transparent",
+								"borderRightHover": "1px solid transparent",
+								"borderBottomHover": "1px solid transparent"
+							}
+						},
+						"padding": {
+							"desktop": {
+								"paddingTop": "xs",
+								"paddingRight": "sm",
+								"paddingBottom": "xs",
+								"paddingLeft": "sm"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "sm"
+							}
+						}
+					}
+				},
+				"secondary": {
+					"label": "Secondary",
+					"description": "A secondary button variant preset",
+					"locked": true,
+					"attributes": {
+						"color": {
+							"desktop": {
+								"color": "palette1",
+								"colorHover": "#ffffff"
+							}
+						},
+						"backgroundColor": {
+							"desktop": {
+								"color": "transparent",
+								"colorHover": "palette1"
+							}
+						},
+						"border": {
+							"desktop": {
+								"borderTopLeftRadius": "md",
+								"borderTopRightRadius": "md",
+								"borderBottomRightRadius": "md",
+								"borderBottomLeftRadius": "md",
+								"borderTop": "1px solid var(--kbs-colors-palette1)",
+								"borderLeft": "1px solid var(--kbs-colors-palette1)",
+								"borderRight": "1px solid var(--kbs-colors-palette1)",
+								"borderBottom": "1px solid var(--kbs-colors-palette1)",
+								"borderTopHover": "1px solid var(--kbs-colors-palette1)",
+								"borderLeftHover": "1px solid var(--kbs-colors-palette1)",
+								"borderRightHover": "1px solid var(--kbs-colors-palette1)",
+								"borderBottomHover": "1px solid var(--kbs-colors-palette1)"
+							}
+						},
+						"padding": {
+							"desktop": {
+								"paddingTop": "xs",
+								"paddingRight": "sm",
+								"paddingBottom": "xs",
+								"paddingLeft": "sm"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "sm"
+							}
+						}
+					}
+				},
+				"tertiary": {
+					"label": "Tertiary",
+					"description": "A tertiary button variant preset",
+					"locked": true,
+					"attributes": {
+						"color": {
+							"desktop": {
+								"color": "palette9",
+								"colorHover": "palette9"
+							}
+						},
+						"backgroundColor": {
+							"desktop": {
+								"color": "palette3",
+								"colorHover": "palette4"
+							}
+						},
+						"border": {
+							"desktop": {
+								"borderTopLeftRadius": "md",
+								"borderTopRightRadius": "md",
+								"borderBottomRightRadius": "md",
+								"borderBottomLeftRadius": "md",
+								"borderTop": "1px solid transparent",
+								"borderLeft": "1px solid transparent",
+								"borderRight": "1px solid transparent",
+								"borderBottom": "1px solid transparent",
+								"borderTopHover": "1px solid transparent",
+								"borderLeftHover": "1px solid transparent",
+								"borderRightHover": "1px solid transparent",
+								"borderBottomHover": "1px solid transparent"
+							}
+						},
+						"padding": {
+							"desktop": {
+								"paddingTop": "xs",
+								"paddingRight": "sm",
+								"paddingBottom": "xs",
+								"paddingLeft": "sm"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "sm"
+							}
+						}
+					}
+				}
+			}
+		},
+		"buttonSize": {
+			"presets": {
+				"sm": {
+					"label": "SM",
+					"description": "A small button size preset",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"desktop": {
+								"paddingTop": "xxs",
+								"paddingRight": "xs",
+								"paddingBottom": "xxs",
+								"paddingLeft": "xs"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "sm"
+							}
+						}
+					}
+				},
+				"lg": {
+					"label": "LG",
+					"description": "A large button size preset",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"desktop": {
+								"paddingTop": "sm",
+								"paddingRight": "md",
+								"paddingBottom": "sm",
+								"paddingLeft": "md"
+							}
+						},
+						"typography": {
+							"desktop": {
+								"fontSize": "lg"
+							}
+						}
+					}
+				}
+			}
+		},
+		"containerVariant": {
+			"presets": {
+				"card": {
+					"label": "Card",
+					"description": "A container variant for cards",
+					"locked": true,
+					"attributes": {
+						"border": {
+							"preset": "card"
+						},
+						"boxShadow": {
+							"preset": "kbs-box-shadow-base"
+						},
+						"padding": {
+							"preset": "kbs-pd-card-lg"
+						}
+					}
+				},
+				"card-alt": {
+					"label": "Card Alt",
+					"description": "A container variant for cards with an alt background",
+					"locked": true,
+					"attributes": {
+						"border": {
+							"preset": "card"
+						},
+						"boxShadow": {
+							"preset": "kbs-box-shadow-variant-2"
+						},
+						"padding": {
+							"preset": "kbs-pd-card-md"
+						}
+					}
+				},
+				"section": {
+					"label": "Section",
+					"description": "A container variant for sections",
+					"locked": true,
+					"attributes": {
+						"padding": {
+							"preset": "kbs-pd-sec-xl"
+						},
+						"background": {
+							"preset": "kbs-bg-variant-2"
+						}
+					}
+				}
+			}
+		}
+	},
+	"mappings": {
+		"fontSize": {
+			"sm": { "value": "clamp(0.8rem, 0.7286rem + 0.2286vw, 0.9rem)", "label": "Small", "name": "SM" },
+			"base": { "value": "clamp(1rem, 0.9071rem + 0.2971vw, 1.13rem)", "label": "Base", "name": "Base" },
+			"md": { "value": "clamp(1.25rem, 1.1429rem + 0.3429vw, 1.4rem)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(2rem, 1.7143rem + 0.9143vw, 2.4rem)", "label": "Large", "name": "LG" },
+			"xl": { "value": "clamp(3rem, 2.5714rem + 1.3714vw, 3.6rem)", "label": "X Large", "name": "XL" },
+			"xxl": { "value": "clamp(4rem, 3.4286rem + 1.8286vw, 4.8rem)", "label": "XX Large", "name": "XXL" },
+			"3xl": { "value": "clamp(5rem, 4.2857rem + 2.2857vw, 6rem)", "label": "3X Large", "name": "3XL" }
+		},
+		"letterSpacing": {
+			"sm": { "value": "-0.02em", "label": "Narrow", "name": "Narrow" },
+			"normal": { "value": "normal", "label": "Normal", "name": "Normal" },
+			"lg": { "value": "0.08em", "label": "Wide", "name": "Wide" }
+		},
+		"lineHeight": {
+			"sm": { "value": "1.2", "label": "Small", "name": "Small" },
+			"base": { "value": "1.4", "label": "Base", "name": "Base" },
+			"lg": { "value": "1.8", "label": "Large", "name": "Large" }
+		},
+		"gap": {
+			"none": { "value": "0rem", "label": "None", "name": "0" },
+			"xxs": { "value": "clamp(0.25rem, 0.0714rem + 0.5714vw, 0.5rem)", "label": "XX Small", "name": "XXS" },
+			"xs": { "value": "clamp(0.75rem, 0.5714rem + 0.5714vw, 1rem)", "label": "X Small", "name": "XS" },
+			"sm": { "value": "clamp(1.25rem, 1.0714rem + 0.5714vw, 1.5rem)", "label": "Small", "name": "SM" },
+			"md": { "value": "clamp(1.65rem, 1.4rem + 0.8vw, 2rem)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(2.5rem, 2.1429rem + 1.1429vw, 3rem)", "label": "Large", "name": "LG" }
+		},
+		"spacing": {
+			"xxs": { "value": "clamp(0.25rem, 0.0714rem + 0.5714vw, 0.5rem)", "label": "XX Small", "name": "XXS" },
+			"xs": { "value": "clamp(0.75rem, 0.5714rem + 0.5714vw, 1rem)", "label": "X Small", "name": "XS" },
+			"sm": { "value": "clamp(1.25rem, 1.0714rem + 0.5714vw, 1.5rem)", "label": "Small", "name": "SM" },
+			"md": { "value": "clamp(1.65rem, 1.4rem + 0.8vw, 2rem)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(2.5rem, 2.1429rem + 1.1429vw, 3rem)", "label": "Large", "name": "LG" },
+			"xl": { "value": "clamp(3.25rem, 2.7143rem + 1.7143vw, 4rem)", "label": "X Large", "name": "XL" },
+			"xxl": { "value": "clamp(4rem, 3.2857rem + 2.2857vw, 5rem)", "label": "XX Large", "name": "XXL" },
+			"3xl": { "value": "clamp(5.25rem, 4.3571rem + 2.8571vw, 6.5rem)", "label": "3X Large", "name": "3XL" },
+			"4xl": { "value": "clamp(6.5rem, 5.4286rem + 3.4286vw, 8rem)", "label": "4X Large", "name": "4XL" },
+			"5xl": { "value": "clamp(8rem, 6.5714rem + 4.5714vw, 10rem)", "label": "5X Large", "name": "5XL" }
+		},
+		"gradients": {
+			"gradient1": {
+				"locked": true,
+				"label": "Accent Gradient 1",
+				"value": "linear-gradient(90deg, var(--kbs-colors-palette1) 0%, var(--kbs-colors-palette2) 100%)",
+				"category": "accent"
+			},
+			"gradient2": {
+				"locked": true,
+				"label": "Accent Gradient 2",
+				"value": "radial-gradient(ellipse at 100% 100%, var(--kbs-colors-palette1) 0%, var(--kbs-colors-palette2) 100%)",
+				"category": "accent"
+			},
+			"gradient3": {
+				"locked": true,
+				"label": "Contrast Gradient 1",
+				"value": "linear-gradient(90deg, var(--kbs-colors-palette3) 0%, var(--kbs-colors-palette5) 100%)",
+				"category": "contrast"
+			},
+			"gradient4": {
+				"locked": true,
+				"label": "Contrast Gradient 2",
+				"value": "linear-gradient(180deg, var(--kbs-colors-palette6) 0%, var(--kbs-colors-palette4) 100%)",
+				"category": "contrast"
+			},
+			"gradient5": {
+				"locked": true,
+				"label": "Background Gradient 1",
+				"value": "radial-gradient(ellipse at 100% 100%, var(--kbs-colors-palette7) 0%, var(--kbs-colors-palette9) 100%)",
+				"category": "background"
+			},
+			"gradient6": {
+				"locked": true,
+				"label": "Background Gradient 2",
+				"value": "linear-gradient(180deg, var(--kbs-colors-palette8) 0%, var(--kbs-colors-palette9) 100%)",
+				"category": "background"
+			}
+		},
+		"iconSize": {
+			"xs": { "value": "clamp(1rem, 0.843rem + 0.557vw, 1.2rem)", "label": "X Small", "name": "XS" },
+			"sm": { "value": "clamp(2rem, 1.686rem + 1.115vw, 2.4rem)", "label": "Small", "name": "SM" },
+			"md": { "value": "clamp(3rem, 2.53rem + 1.672vw, 3.6rem)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(4rem, 3.373rem + 2.23vw, 4.8rem)", "label": "Large", "name": "LG" },
+			"xl": { "value": "clamp(5rem, 4.216rem + 2.787vw, 6rem)", "label": "X Large", "name": "XL" }
+		},
+		"borderRadius": {
+			"sm": { "value": "clamp(5px, 3.4321px + 0.3484vw, 7px)", "label": "Small", "name": "SM" },
+			"md": { "value": "clamp(15px, 10.2962px + 1.0453vw, 21px)", "label": "Medium", "name": "MD" },
+			"lg": { "value": "clamp(30px, 20.5923px + 2.0906vw, 42px)", "label": "Large", "name": "LG" },
+			"xl": { "value": "clamp(60px, 41.1847px + 4.1812vw, 84px)", "label": "X Large", "name": "XL" },
+			"full": { "value": "100%", "label": "Full", "name": "Full" }
+		},
+		"colors": {
+			"palette1": {
+				"label": "Accent",
+				"value": "var(--global-palette1)",
+				"locked": true,
+				"category": "accent"
+			},
+			"palette2": {
+				"label": "Accent - alt",
+				"value": "var(--global-palette2)",
+				"locked": true,
+				"category": "accent"
+			},
+			"palette-complement": {
+				"label": "Accent - Complement",
+				"value": "oklch(from var(--global-palette1) calc(l + 0.10 * (1 - l)) calc(c * 1.00) calc(h + 180) / 100%)",
+				"locked": true,
+				"category": "accent"
+			},
+			"palette3": {
+				"label": "Strongest Contrast",
+				"value": "var(--global-palette3)",
+				"locked": true,
+				"category": "contrast"
+			},
+			"palette4": {
+				"label": "Strong Contrast",
+				"value": "var(--global-palette4)",
+				"locked": true,
+				"category": "contrast"
+			},
+			"palette5": {
+				"label": "Medium Contrast",
+				"value": "var(--global-palette5)",
+				"locked": true,
+				"category": "contrast"
+			},
+			"palette6": {
+				"label": "Subtle Contrast",
+				"value": "var(--global-palette6)",
+				"locked": true,
+				"category": "contrast"
+			},
+			"palette7": {
+				"label": "Variant Background",
+				"value": "var(--global-palette7)",
+				"locked": true,
+				"category": "background"
+			},
+			"palette8": {
+				"label": "Subtle Background",
+				"value": "var(--global-palette8)",
+				"locked": true,
+				"category": "background"
+			},
+			"palette9": {
+				"label": "Base Background",
+				"value": "var(--global-palette9)",
+				"locked": true,
+				"category": "background"
+			},
+			"palette-success": {
+				"label": "Success",
+				"value": "#13612e",
+				"locked": true,
+				"category": "notices"
+			},
+			"palette-info": {
+				"label": "Info",
+				"value": "#1159af",
+				"locked": true,
+				"category": "notices"
+			},
+			"palette-alert": {
+				"label": "Alert",
+				"value": "#b82105",
+				"locked": true,
+				"category": "notices"
+			},
+			"palette-warning": {
+				"label": "Warning",
+				"value": "#f7630c",
+				"locked": true,
+				"category": "notices"
+			},
+			"palette-rating": {
+				"label": "Rating",
+				"value": "#f5a524",
+				"locked": true,
+				"category": "notices"
+			}
+		}
+	}
+}

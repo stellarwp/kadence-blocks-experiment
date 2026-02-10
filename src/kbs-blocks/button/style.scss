@@ -1,0 +1,172 @@
+/**
+ * #.# Styles
+ *
+ * CSS for both Frontend+Backend.
+ */
+.kbs-button.wp-block-kbs-button {
+	margin-top: var(--kbs-button-margin-top, 0);
+	margin-right: var(--kbs-button-margin-right, 0);
+	margin-bottom: var(--kbs-button-margin-bottom, 0);
+	margin-left: var(--kbs-button-margin-left, 0);
+}
+.kbs-button {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-family: var(--kbs-button-font-family);
+	font-weight: var(--kbs-button-font-weight);
+	font-size: var(--kbs-button-font-size);
+	line-height: var(--kbs-button-line-height);
+	letter-spacing: var(--kbs-button-letter-spacing);
+	text-transform: var(--kbs-button-text-transform);
+	font-style: var(--kbs-button-font-style);
+	color: var(--kbs-button-color);
+	background: var(--kbs-button-background-color);
+	text-decoration: var(--kbs-button-link-text-decoration);
+	box-shadow: var(--kbs-button-box-shadow);
+	border-top-left-radius: var(--kbs-button-border-top-left-radius);
+	border-top-right-radius: var(--kbs-button-border-top-right-radius);
+	border-bottom-right-radius: var(--kbs-button-border-bottom-right-radius);
+	border-bottom-left-radius: var(--kbs-button-border-bottom-left-radius);
+	border-top: var(--kbs-button-border-top);
+	border-left: var(--kbs-button-border-left);
+	border-right: var(--kbs-button-border-right);
+	border-bottom: var(--kbs-button-border-bottom);
+	padding-top: var(--kbs-button-padding-top);
+	padding-right: var(--kbs-button-padding-right);
+	padding-bottom: var(--kbs-button-padding-bottom);
+	padding-left: var(--kbs-button-padding-left);
+	transition: all 0.2s ease;
+	min-width: 0;
+
+	&:hover {
+		color: var(--kbs-button-color-hover, var(--kbs-button-color));
+		background: var(--kbs-button-background-color-hover, var(--kbs-button-background-color));
+		text-decoration: var(--kbs-button-link-text-decoration-hover, var(--kbs-button-link-text-decoration));
+		box-shadow: var(--kbs-button-box-shadow-hover, var(--kbs-button-box-shadow));
+		border-top-left-radius: var(
+			--kbs-button-border-top-left-radius-hover,
+			var(--kbs-button-border-top-left-radius)
+		);
+		border-top-right-radius: var(
+			--kbs-button-border-top-right-radius-hover,
+			var(--kbs-button-border-top-right-radius)
+		);
+		border-bottom-right-radius: var(
+			--kbs-button-border-bottom-right-radius-hover,
+			var(--kbs-button-border-bottom-right-radius)
+		);
+		border-bottom-left-radius: var(
+			--kbs-button-border-bottom-left-radius-hover,
+			var(--kbs-button-border-bottom-left-radius)
+		);
+		border-top: var(--kbs-button-border-top-hover, var(--kbs-button-border-top));
+		border-left: var(--kbs-button-border-left-hover, var(--kbs-button-border-left));
+		border-right: var(--kbs-button-border-right-hover, var(--kbs-button-border-right));
+		border-bottom: var(--kbs-button-border-bottom-hover, var(--kbs-button-border-bottom));
+	}
+
+	&.has-gradient {
+		.kbs-button-content {
+			background-image: var(--kbs-button-color);
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			box-decoration-break: clone;
+		}
+		&:not(.has-gradient-highlight) {
+			.kbs-highlight {
+				background-clip: initial;
+				-webkit-text-fill-color: initial;
+				box-decoration-break: clone;
+			}
+		}
+	}
+	&.has-gradient-highlight {
+		.kbs-highlight {
+			background-image: var(--kbs-button-highlight-color);
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			box-decoration-break: clone;
+		}
+	}
+
+	&.kbs-button-has-icon {
+		gap: var(--kbs-button-icon-gap, 0.25em);
+	}
+
+	.kt-svg-icon-wrap {
+		transition:
+			transform 0.3s ease-in-out,
+			width 0.3s ease-in-out,
+			opacity 0.3s ease-in-out;
+
+		color: var(--kbs-button-icon-color);
+		stroke-width: var(--kbs-button-icon-stroke-width);
+		width: var(--kbs-button-icon-font-size, 1em);
+		height: var(--kbs-button-icon-font-size, 1em);
+		font-size: var(--kbs-button-icon-font-size, 1em);
+		padding-left: var(--kbs-button-icon-padding-left, 0);
+		padding-right: var(--kbs-button-icon-padding-right, 0);
+		padding-top: var(--kbs-button-icon-padding-top, 0);
+		padding-bottom: var(--kbs-button-icon-padding-bottom, 0);
+		transform: var(--kbs-button-icon-transform, var(--kbs-button-icon-rotation));
+
+		svg {
+			width: 100%;
+			height: 100%;
+		}
+
+		&.kbs-icon-tooltip-dash {
+			border-bottom: 1px dashed var(--kbs-button-icon-tooltip-dash-color, currentColor);
+		}
+	}
+
+	&:hover {
+		border-top: var(--kbs-button-border-top-hover, var(--kbs-button-border-top));
+		border-left: var(--kbs-button-border-left-hover, var(--kbs-button-border-left));
+		border-right: var(--kbs-button-border-right-hover, var(--kbs-button-border-right));
+		border-bottom: var(--kbs-button-border-bottom-hover, var(--kbs-button-border-bottom));
+
+		.kt-svg-icon-wrap {
+			color: var(--kbs-button-icon-color-hover, var(--kbs-button-icon-color));
+			stroke-width: var(--kbs-button-icon-stroke-width-hover, var(--kbs-button-icon-stroke-width));
+			width: var(--kbs-button-icon-font-size-hover, var(--kbs-button-icon-font-size, 1em));
+			height: var(--kbs-button-icon-font-size-hover, var(--kbs-button-icon-font-size, 1em));
+			padding-left: var(--kbs-button-icon-padding-hover-left, var(--kbs-button-icon-padding-left));
+			padding-right: var(--kbs-button-icon-padding-hover-right, var(--kbs-button-icon-padding-right));
+			padding-top: var(--kbs-button-icon-padding-hover-top, var(--kbs-button-icon-padding-top));
+			padding-bottom: var(--kbs-button-icon-padding-hover-bottom, var(--kbs-button-icon-padding-bottom));
+			transform: var(
+				--kbs-button-icon-transform,
+				var(--kbs-button-icon-rotation-hover, var(--kbs-button-icon-rotation))
+			);
+		}
+	}
+
+	a[data-kb-tooltip-content]:not([href]) {
+		border-bottom: 1px dashed var(--kbs-button-icon-tooltip-dash-color, currentColor);
+	}
+
+	//reveal icon by setting it's width and opacity to 0 and then on hover, set it's width and opacity to the icon size and 1.
+	&.icon-reveal {
+		$icon-size: var(--kbs-button-icon-font-size, 1em);
+
+		.kt-svg-icon-wrap {
+			width: 0;
+			opacity: 0;
+		}
+
+		&:hover {
+			.kt-svg-icon-wrap {
+				width: $icon-size;
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.kbs-button-content {
+	margin: 0;
+	padding: 0;
+}

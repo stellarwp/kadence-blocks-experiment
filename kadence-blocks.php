@@ -5,7 +5,7 @@
  * Description: Advanced Page Building Blocks for Gutenberg. Create custom column layouts, backgrounds, dual buttons, icons etc.
  * Author: Kadence WP
  * Author URI: https://www.kadencewp.com
- * Version: 3.5.17
+ * Version: 4.0.0
  * Requires PHP: 7.4
  * Text Domain: kadence-blocks
  * License: GPL2+
@@ -20,18 +20,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 define( 'KADENCE_BLOCKS_PATH', realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR );
 define( 'KADENCE_BLOCKS_URL', plugin_dir_url( __FILE__ ) );
-define( 'KADENCE_BLOCKS_VERSION', '3.5.17' );
+define( 'KADENCE_BLOCKS_VERSION', '4.0.0' );
 
+/**
+ * Feature flag constants for version switching.
+ * Users can define these in their wp-config.php file to control which version(s) are enabled.
+ */
+if ( ! defined( 'KADENCE_BLOCKS_V3_ENABLED' ) ) {
+	define( 'KADENCE_BLOCKS_V3_ENABLED', false );
+}
+// Load autoloaders
 require_once plugin_dir_path( __FILE__ ) . 'vendor/vendor-prefixed/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-use KadenceWP\KadenceBlocks\App;
+// Import 3.0 dependencie
 use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\Container\ContainerAdapter;
-use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Config;
-use KadenceWP\KadenceBlocks\StellarWP\Telemetry\Core as Telemetry;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Config as UplinkConfig;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Register;
-use KadenceWP\KadenceBlocks\StellarWP\Uplink\Uplink;
+
+// Both 3.0 and 4.0 use the newer App class
+require_once plugin_dir_path( __FILE__ ) . '/inc/functions/app.php';
+
+// Initialize the container
+add_action(
+    'plugins_loaded',
+    static function (): void {
+        // Get the Core instance
+        $core = kbs_plugin();
+		$core->init();
+    },
+    0
+);
 
 /**
  * Add a check before redirecting.
@@ -42,13 +59,13 @@ function kadence_blocks_activate(): void {
 register_activation_hook( __FILE__, 'kadence_blocks_activate' );
 
 /**
- * Load Plugin.
+ * Load 3.0 Plugin.
  */
-function kadence_blocks_init(): void {
-	$container = new ContainerAdapter( new \KadenceWP\KadenceBlocks\lucatume\DI52\Container() );
-
-	// The Kadence Blocks Application.
-	App::instance( $container );
+function kadence_blocks_init_v3(): void {	
+    // Use the unified V4 container under all circumstances (even for v3 boot).
+    $shared_container = kbs_container();
+    // Adapt the shared DI52 container to the Prophecy container interface for v3 compatibility.
+    $adapter = new ContainerAdapter( $shared_container->container() );
 
 	require_once KADENCE_BLOCKS_PATH . 'includes/init.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/form-ajax.php';
@@ -61,8 +78,6 @@ function kadence_blocks_init(): void {
 	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-css.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-frontend.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-table-of-contents.php';
-	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-duplicate-post.php';
-	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-cpt-import-export.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-abstract-block.php';
 
 	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-row-layout-block.php';
@@ -102,7 +117,6 @@ function kadence_blocks_init(): void {
 	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-videopopup-block.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/blocks/class-kadence-blocks-vector-block.php';
 	
-	require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-settings.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-posts-rest-api.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-prebuilt-library-rest-api.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/class-mailerlite-form-rest-api.php';
@@ -132,56 +146,12 @@ function kadence_blocks_init(): void {
 	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-image-picker-rest.php';
 	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-image-picker.php';
 
-	/**
-	 * Site Health.
-	 */
-	require_once KADENCE_BLOCKS_PATH . 'includes/settings/class-kadence-blocks-site-health.php';
-
-	/**
-	 * Telemetry.
-	 */
-	Config::set_container( $container );
-	Config::set_server_url( 'https://telemetry.stellarwp.com/api/v1' );
-	Config::set_hook_prefix( 'kadence-blocks' );
-	Config::set_stellar_slug( 'kadence-blocks' );
-	Telemetry::instance()->init( __FILE__ );
-	/**
-	 * AI-specific usage tracking. Only track if AI is opted in by user.
-	 */
-	require_once KADENCE_BLOCKS_PATH . 'includes/class-kadence-blocks-ai-events.php';
-	$ai_events = new Kadence_Blocks_AI_Events();
-	$ai_events->register();
-
-	/**
-	 * Uplink.
-	 */
-	UplinkConfig::set_container( $container );
-	UplinkConfig::set_hook_prefix( 'kadence-blocks' );
-	UplinkConfig::set_token_auth_prefix( 'kadence' );
-	UplinkConfig::set_auth_cache_expiration( WEEK_IN_SECONDS );
-	Uplink::init();
-
-	Register::plugin(
-		'kadence-blocks',
-		'Kadence Blocks',
-		KADENCE_BLOCKS_VERSION,
-		'kadence-blocks/kadence-blocks.php',
-		Kadence_Blocks::class
-	);
-
-	do_action( 'kadence_blocks_uplink_loaded' );
-
-	add_filter( 'stellarwp/uplink/kadence-blocks/prevent_update_check', '__return_true' );
-	add_filter(
-		'stellarwp/uplink/kadence-blocks/api_get_base_url',
-		static function () {
-			return 'https://licensing.kadencewp.com';
-		},
-		10,
-		0
-	);
 }
-add_action( 'plugins_loaded', 'kadence_blocks_init', 1 );
+
+// Initialize 3.0 version if enabled
+if ( KADENCE_BLOCKS_V3_ENABLED ) {
+	add_action( 'plugins_loaded', 'kadence_blocks_init_v3', 2 );
+}
 
 /**
  * Load the plugin textdomain

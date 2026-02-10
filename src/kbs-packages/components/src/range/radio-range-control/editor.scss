@@ -1,0 +1,90 @@
+/**
+ * Radio Range Control Styles
+ */
+
+.kbs-radio-range-control {
+    margin-bottom: 24px;
+
+    .kbs-radio-range__header {
+        margin-bottom: 8px;
+    }
+
+    .kbs-controls-content {
+        position: relative;
+    }
+
+    .kbs-radio-container-control {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+        gap: 8px;
+        
+        .kbs-radio-item {
+            flex: 1;
+            text-align: center;
+            padding-left: 6px;
+            padding-right: 6px;
+            min-width: 20px;
+            height: 35px;
+            font-size: 11px;
+            font-weight: 600;
+            
+            &.only-icon {
+                max-width: 40px;
+                flex: 0 0 40px;
+            }
+            
+            &.kbs-radio-btn-outline {
+                border-radius: 4px;
+                color: #555;
+                background: transparent;
+                justify-content: center;
+                
+                &.is-selected {
+                    border-color: #007cba;
+                    color: #fff;
+                    background: #007cba;
+                }
+
+                &.is-inherited {
+                    border-color: #BA3E00;
+                    color: #555;
+                    background: rgba(8, 115, 230, 0.2);
+                }
+                
+                &:hover:not(.is-selected) {
+                    background: #f5f5f5;
+                    color: #333;
+                }
+            }
+        }
+    }
+
+    .kbs-range-control-inner {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .kbs-range-control-range {
+        flex: 1;
+        min-width: 50%;
+    }
+
+    .kbs-units {
+        margin-left: 8px;
+        margin-top: 5px;
+    }
+
+    .kbs-measure-control-select-wrapper {
+        position: relative;
+        
+        .kbs-measure-control-select {
+            height: 30px;
+            margin: 0;
+            padding: 0 8px;
+            position: relative;
+            border-radius: 3px;
+            border: 1px solid #8d96a0;
+        }
+    }
+} 

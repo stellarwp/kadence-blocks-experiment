@@ -1,0 +1,47 @@
+.kbs-device-options.kbs-device-button-group {
+	&:hover,
+	&:focus,
+	&:focus-within,
+	&:active {
+		border: 1px solid;
+		border-color: transparent;
+		box-shadow: none;
+	}
+
+	display: inline-flex;
+
+	.components-toggle-group-control-option-base.kbs-device-btn {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+		color: var(--kb-subtle-color, #a0aec0);
+		font-size: 16px;
+		height: auto;
+		margin-bottom: 0;
+		outline: 0;
+		padding: 2px 4px;
+		width: auto;
+		svg {
+			font-size: 16px;
+			width: 1em;
+			height: 1em;
+		}
+		&:hover,
+		&:focus {
+			color: var(--kb-subtle-focus-color, #718096);
+			background: transparent;
+		}
+		&.is-active {
+			background: transparent;
+			color: var(--wp-admin-theme-color, #00669b);
+		}
+	}
+}
+.kbs-device-options-compact {
+	.components-dropdown-menu__toggle {
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+}

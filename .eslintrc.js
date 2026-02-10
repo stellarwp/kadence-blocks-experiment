@@ -14,6 +14,7 @@ const eslintConfig = {
 	},
 	globals: {
 		kt_blocks_params: 'readonly',
+		kbs_params: 'readonly',
 		kadenceHeaderConfig: 'readonly',
 		kadence_blocks_params: 'writable',
 		kt_deregister_params: 'readonly',
@@ -74,7 +75,15 @@ const eslintConfig = {
 		'import/no-unresolved': [
 			'error',
 			{
-				ignore: ['@kadence/icons', '@kadence/components', '@kadence/helpers', '@wordpress/*'],
+				ignore: [
+					'@kadence/icons',
+					'@kadence/components',
+					'@kadence/helpers',
+					'@kadence/kbsComponents',
+					'@kadence/kbsHelpers',
+					'@kadence/kbsIcons',
+					'@wordpress/*',
+				],
 			},
 		],
 		'import/no-extraneous-dependencies': 'off',

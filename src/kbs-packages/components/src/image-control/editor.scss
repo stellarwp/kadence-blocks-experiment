@@ -1,0 +1,113 @@
+.kbs-image-control {
+	.kbs-image-upload-placeholder {
+		box-shadow: inset 0 0 0 1px var(--kb-border-subtle-color, #d9e7ec);
+		background: var(--kb-background-color, #fff);
+		.components-button.is-primary {
+			height: 100px;
+			width: 100%;
+			justify-content: center;
+			background: var(--kb-subtle-background, #edf2f7);
+			color: var(--wp-admin-theme-color);
+		}
+	}
+}
+.kbs-image-upload-placeholder {
+	.block-editor-media-placeholder__dynamic-input-container {
+		margin: 0;
+		.kbs-dynamic-control__dropdown {
+			width: 100%;
+		}
+	}
+}
+.kbs-image-edit-wrap {
+	display: flex;
+	gap: 4px;
+	background: var(--kb-subtle-background, #edf2f7);
+	padding: 4px;
+	border-radius: 3px;
+	.components-button.kbs-upload-edit-btn {
+		flex-grow: 1;
+	}
+	.kbs-image-size-control__dropdown {
+		.components-button {
+			svg {
+				width: 16px;
+				height: 16px;
+			}
+		}
+	}
+	.components-button.has-icon {
+		box-shadow: inset 0px 0px 0px 1px var(--kb-border-subtle-color, #d9e7ec);
+		background: var(--kb-background-color, #fff);
+		color: var(--wp-components-color-foreground, #1e1e1e);
+		outline: none;
+		&:hover,
+		&:focus {
+			background: var(--kb-background-color, #fff);
+			box-shadow: inset 0px 0px 0px 1px var(--kb-border-color, #859cb6);
+			color: var(--wp-components-color-foreground, #1e1e1e);
+		}
+	}
+	.kbs-dynamic-control__dropdown {
+		.kb-dynamic-image-sidebar {
+			svg {
+				width: 16px;
+				height: 16px;
+			}
+		}
+	}
+}
+.kbs-image-button-selector-control__content {
+	z-index: 159990;
+	.components-popover__content {
+		padding: 12px;
+		min-width: 300px;
+		min-height: 300px;
+		width: 340px;
+		height: auto;
+	}
+	.kbs-control-title-bar {
+		margin-bottom: 0px;
+		height: 40px;
+	}
+	.kbs-image-button-selector-control__preview {
+		height: 0;
+		padding-bottom: 50%;
+		position: relative;
+		border-radius: 4px;
+		overflow: hidden;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	}
+	.kbs-image-button-selector-inner.kbs-image-control {
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.kbs-image-button-selector-control__dropdown-content-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		.components-button {
+			height: 36px;
+			width: 40px;
+			padding: 0;
+			justify-content: center;
+			border-radius: 3px;
+			svg {
+				width: 18px;
+				height: 18px;
+			}
+		}
+	}
+}

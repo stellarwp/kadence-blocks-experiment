@@ -304,10 +304,11 @@ class Editor_Assets {
 		$font_sizes       = apply_filters( 'kadence_blocks_variable_font_sizes', $font_sizes );
 		$subscribed       = class_exists( 'Kadence_Blocks_Pro' ) || class_exists( 'KadenceWP\CreativeKit' ) ? true : get_option( 'kadence_blocks_wire_subscribe' );
 		$gfont_names_path = KADENCE_BLOCKS_PATH . 'includes/gfonts-names-array.php';
-		$icon_names_path  = KADENCE_BLOCKS_PATH . 'includes/icon-names-array.php';
-		$icon_ico_path    = KADENCE_BLOCKS_PATH . 'includes/icons-ico-array.php';
-		$icons_path       = KADENCE_BLOCKS_PATH . 'includes/icons-array.php';
-		$icons_kbcustom_path = KADENCE_BLOCKS_PATH . 'includes/icons-kbcustom-array.php';
+
+		$icon_names_path  = KADENCE_BLOCKS_PATH . 'inc/data/icons/Icon_Names_Array.php';
+		$icon_ico_path    = KADENCE_BLOCKS_PATH . 'inc/data/icons/Icons_Ico_Array.php';
+		$icons_path       = KADENCE_BLOCKS_PATH . 'inc/data/icons/Icons_Array.php';
+
 		$current_user     = wp_get_current_user();
 		$user_email       = $current_user->user_email;
 		$recent_posts     = wp_get_recent_posts( [ 'numberposts' => '1' ] );
@@ -329,6 +330,7 @@ class Editor_Assets {
 				'site_name'              => sanitize_title( get_bloginfo( 'name' ) ),
 				'pSlug'                  => apply_filters( 'kadence-blocks-auth-slug', 'kadence-blocks' ),
 				'pVersion'               => KADENCE_BLOCKS_VERSION,
+				'v3Enabled'              => KADENCE_BLOCKS_V3_ENABLED,
 				'sidebar_size'           => $sidebar_size,
 				'nosidebar_size'         => $nosidebar_size,
 				'default_size'           => $jssize,
@@ -415,7 +417,7 @@ class Editor_Assets {
 			'kadence-blocks-js',
 			'kadence_blocks_params_kbcustomicons',
 			[
-				'icons' => file_exists( $icons_kbcustom_path ) ? include $icons_kbcustom_path : [],
+				'icons' => isset( $icons_kbcustom_path ) && file_exists( $icons_kbcustom_path ) ? include $icons_kbcustom_path : [],
 			]
 		);
 		$fast_load_patterns = class_exists( 'GFForms' ) ? false : true;

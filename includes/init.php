@@ -2,7 +2,7 @@
 /**
  * Enqueue admin CSS/JS and edit width functions
  *
- * @since   1.0.0
+ * @since 1.0.0
  * @package Kadence Blocks
  */
 
@@ -11,12 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use KadenceWP\KadenceBlocks\App;
 use KadenceWP\KadenceBlocks\StellarWP\ContainerContract\ContainerInterface;
 
-use function KadenceWP\KadenceBlocks\StellarWP\Uplink\get_license_domain;
-use function KadenceWP\KadenceBlocks\StellarWP\Uplink\get_authorization_token;
-use function KadenceWP\KadenceBlocks\StellarWP\Uplink\is_authorized;
 
 
 /**
@@ -24,27 +20,27 @@ use function KadenceWP\KadenceBlocks\StellarWP\Uplink\is_authorized;
  *
  * @return array
  */
-function kadence_blocks_get_post_types( $other_args = array() ) {
-	$args = array(
+function kadence_blocks_get_post_types( $other_args = [] ) {
+	$args = [
 		'public'       => true,
 		'show_in_rest' => true,
-	);
+	];
 	if ( ! empty( $other_args ) ) {
 		$args = array_merge( $args, $other_args );
 	}
 	$post_types = get_post_types( $args, 'objects' );
-	$output = array();
+	$output     = [];
 	foreach ( $post_types as $post_type ) {
 		// if ( 'product' == $post_type->name || 'attachment' == $post_type->name ) {
-		// 	continue;
+		// continue;
 		// }
 		if ( 'attachment' == $post_type->name ) {
 			continue;
 		}
-		$output[] = array(
+		$output[] = [
 			'value' => $post_type->name,
 			'label' => $post_type->label,
-		);
+		];
 	}
 	return apply_filters( 'kadence_blocks_post_types', $output );
 }
@@ -56,22 +52,22 @@ function kadence_blocks_convert_custom_fonts() {
 	if ( ! is_admin() ) {
 		return;
 	}
-	$convert_fonts = apply_filters( 'kadence_blocks_add_custom_fonts', array() );
+	$convert_fonts = apply_filters( 'kadence_blocks_add_custom_fonts', [] );
 	if ( ! empty( $convert_fonts ) && is_array( $convert_fonts ) ) {
 		add_filter(
 			'kadence_blocks_custom_fonts',
-			function( $custom_fonts ) use( $convert_fonts ) {
+			function ( $custom_fonts ) use ( $convert_fonts ) {
 				foreach ( $convert_fonts as $font_name => $args ) {
-					$weights_arg = array();
+					$weights_arg = [];
 					if ( is_array( $args ) && isset( $args['weights'] ) && is_array( $args['weights'] ) ) {
 						$weights_arg = $args['weights'];
 					}
-					$font_slug = ( is_array( $args ) && isset( $args['fallback'] ) && ! empty( $args['fallback'] ) ? '"' . $font_name . '", ' . $args['fallback'] : $font_name );
-					$custom_fonts[ $font_slug  ] = array(
+					$font_slug                  = ( is_array( $args ) && isset( $args['fallback'] ) && ! empty( $args['fallback'] ) ? '"' . $font_name . '", ' . $args['fallback'] : $font_name );
+					$custom_fonts[ $font_slug ] = [
 						'name'    => $font_slug,
 						'weights' => $weights_arg,
-						'styles'  => array(),
-					);
+						'styles'  => [],
+					];
 				}
 				return $custom_fonts;
 			},
@@ -97,16 +93,16 @@ function kadence_blocks_post_block_get_excerpt_length() {
  */
 function kadence_blocks_add_global_gutenberg_inline_styles() {
 	global $content_width;
-	$font_sizes = array(
-		'sm' => 'clamp(0.8rem, 0.73rem + 0.217vw, 0.9rem)',
-		'md' => 'clamp(1.1rem, 0.995rem + 0.326vw, 1.25rem)',
-		'lg' => 'clamp(1.75rem, 1.576rem + 0.543vw, 2rem)',
-		'xl' => 'clamp(2.25rem, 1.728rem + 1.63vw, 3rem)',
-		'xxl' => 'clamp(2.5rem, 1.456rem + 3.26vw, 4rem)',
+	$font_sizes = [
+		'sm'   => 'clamp(0.8rem, 0.73rem + 0.217vw, 0.9rem)',
+		'md'   => 'clamp(1.1rem, 0.995rem + 0.326vw, 1.25rem)',
+		'lg'   => 'clamp(1.75rem, 1.576rem + 0.543vw, 2rem)',
+		'xl'   => 'clamp(2.25rem, 1.728rem + 1.63vw, 3rem)',
+		'xxl'  => 'clamp(2.5rem, 1.456rem + 3.26vw, 4rem)',
 		'xxxl' => 'clamp(2.75rem, 0.489rem + 7.065vw, 6rem)',
-	);
+	];
 	$font_sizes = apply_filters( 'kadence_blocks_variable_font_sizes', $font_sizes );
-	$css = ':root {';
+	$css        = ':root {';
 	foreach ( $font_sizes as $key => $value ) {
 		$css .= '--global-kb-font-size-' . $key . ':' . $value . ';';
 	}
@@ -149,6 +145,12 @@ function kadence_blocks_add_global_gutenberg_inline_styles() {
 		--global-kb-gutter-md: 2rem;
 		--global-kb-gutter-lg: 3rem;
 		--global-kb-gutter-xl: 5rem;
+		--global-kb-border-radius-sm: 5px;
+		--global-kb-border-radius-md: 15px;
+		--global-kb-border-radius-lg: 30px;
+		--global-kb-border-radius-xl: 50px;
+		--global-kb-border-radius-xxl: 100px;
+		--global-kb-border-radius-3xl: 200px;
 		--global-kb-editor-admin-sidebar: 0px;
 		--global-kb-editor-sidebar: 0px;
 		--global-kb-editor-sidebar-secondary: 0px;
@@ -172,7 +174,7 @@ function kadence_blocks_add_global_gutenberg_inline_styles() {
 		--global-row-edge-theme: calc( var(--global-content-edge-padding) + 2rem);
 	}';
 	if ( ! class_exists( 'Kadence\Theme' ) ) {
-		$global_colors = array(
+		$global_colors = [
 			'--global-palette1' => '#3182CE',
 			'--global-palette2' => '#2B6CB0',
 			'--global-palette3' => '#1A202C',
@@ -182,9 +184,9 @@ function kadence_blocks_add_global_gutenberg_inline_styles() {
 			'--global-palette7' => '#EDF2F7',
 			'--global-palette8' => '#F7FAFC',
 			'--global-palette9' => '#ffffff',
-		);
+		];
 		$global_colors = apply_filters( 'kadence_blocks_pattern_global_colors', $global_colors );
-		$css .= ':root {';
+		$css          .= ':root {';
 		foreach ( $global_colors as $key => $value ) {
 			$css .= esc_attr( $key ) . ': ' . esc_attr( $value ) . ';';
 		}
@@ -216,22 +218,22 @@ add_action( 'admin_init', 'kadence_blocks_update_global_gutenberg_inline_styles_
  * Add global styles into the frontend.
  */
 function kadence_blocks_add_global_gutenberg_styles_frontend() {
-	$font_sizes = array(
-		'sm' => 'clamp(0.8rem, 0.73rem + 0.217vw, 0.9rem)',
-		'md' => 'clamp(1.1rem, 0.995rem + 0.326vw, 1.25rem)',
-		'lg' => 'clamp(1.75rem, 1.576rem + 0.543vw, 2rem)',
-		'xl' => 'clamp(2.25rem, 1.728rem + 1.63vw, 3rem)',
-		'xxl' => 'clamp(2.5rem, 1.456rem + 3.26vw, 4rem)',
+	$font_sizes = [
+		'sm'   => 'clamp(0.8rem, 0.73rem + 0.217vw, 0.9rem)',
+		'md'   => 'clamp(1.1rem, 0.995rem + 0.326vw, 1.25rem)',
+		'lg'   => 'clamp(1.75rem, 1.576rem + 0.543vw, 2rem)',
+		'xl'   => 'clamp(2.25rem, 1.728rem + 1.63vw, 3rem)',
+		'xxl'  => 'clamp(2.5rem, 1.456rem + 3.26vw, 4rem)',
 		'xxxl' => 'clamp(2.75rem, 0.489rem + 7.065vw, 6rem)',
-	);
+	];
 	$font_sizes = apply_filters( 'kadence_blocks_variable_font_sizes', $font_sizes );
-	$css = ':root {';
+	$css        = ':root {';
 	foreach ( $font_sizes as $key => $value ) {
 		$css .= '--global-kb-font-size-' . $key . ':' . $value . ';';
 	}
 	$css .= '}';
 	if ( ! class_exists( 'Kadence\Theme' ) ) {
-		$global_colors = array(
+		$global_colors = [
 			'--global-palette1' => '#3182CE',
 			'--global-palette2' => '#2B6CB0',
 			'--global-palette3' => '#1A202C',
@@ -241,9 +243,9 @@ function kadence_blocks_add_global_gutenberg_styles_frontend() {
 			'--global-palette7' => '#EDF2F7',
 			'--global-palette8' => '#F7FAFC',
 			'--global-palette9' => '#ffffff',
-		);
+		];
 		$global_colors = apply_filters( 'kadence_blocks_pattern_global_colors', $global_colors );
-		$css .= ':root {';
+		$css          .= ':root {';
 		foreach ( $global_colors as $key => $value ) {
 			$css .= esc_attr( $key ) . ': ' . esc_attr( $value ) . ';';
 		}
@@ -291,12 +293,12 @@ add_filter( 'admin_body_class', 'kadence_blocks_admin_body_class' );
  */
 function kadence_blocks_block_category( $categories, $post ) {
 	return array_merge(
-		array(
-			array(
+		[
+			[
 				'slug'  => 'kadence-blocks',
 				'title' => __( 'Kadence Blocks', 'kadence-blocks' ),
-			),
-		),
+			],
+		],
 		$categories
 	);
 }
@@ -313,17 +315,17 @@ add_action( 'init', 'kadence_blocks_check_for_old_wp_block_category_filter' );
 /**
  * Add block category for Kadence Blocks.
  *
- * @param array  $categories the array of block categories.
+ * @param array                   $categories the array of block categories.
  * @param WP_Block_Editor_Context $block_editor_context The current block editor context.
  */
 function kadence_blocks_block_category_all( $categories, $block_editor_context ) {
 	return array_merge(
-		array(
-			array(
+		[
+			[
 				'slug'  => 'kadence-blocks',
 				'title' => __( 'Kadence Blocks', 'kadence-blocks' ),
-			),
-		),
+			],
+		],
 		$categories
 	);
 }
@@ -337,8 +339,8 @@ add_filter( 'block_categories_all', 'kadence_blocks_block_category_all', 10, 2 )
  * @param string $template_path Template path. (default: '').
  * @param string $default_path  Default path. (default: '').
  */
-function kadence_blocks_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
-	$cache_key = sanitize_key( implode( '-', array( 'template', $template_name, $template_path, $default_path, KADENCE_BLOCKS_VERSION ) ) );
+function kadence_blocks_get_template( $template_name, $args = [], $template_path = '', $default_path = '' ) {
+	$cache_key = sanitize_key( implode( '-', [ 'template', $template_name, $template_path, $default_path, KADENCE_BLOCKS_VERSION ] ) );
 	$template  = (string) wp_cache_get( $cache_key, 'kadence-blocks' );
 
 	if ( ! $template ) {
@@ -356,12 +358,12 @@ function kadence_blocks_get_template( $template_name, $args = array(), $template
 		$template = $filter_template;
 	}
 
-	$action_args = array(
+	$action_args = [
 		'template_name' => $template_name,
 		'template_path' => $template_path,
 		'located'       => $template,
 		'args'          => $args,
-	);
+	];
 
 	if ( ! empty( $args ) && is_array( $args ) ) {
 		if ( isset( $args['action_args'] ) ) {
@@ -387,7 +389,7 @@ function kadence_blocks_get_template( $template_name, $args = array(), $template
  *
  * @return string
  */
-function kadence_blocks_get_template_html( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
+function kadence_blocks_get_template_html( $template_name, $args = [], $template_path = '', $default_path = '' ) {
 	ob_start();
 	kadence_blocks_get_template( $template_name, $args, $template_path, $default_path );
 	return ob_get_clean();
@@ -417,19 +419,19 @@ function kadence_blocks_locate_template( $template_name, $template_path = '', $d
 
 	// Look within passed path within the theme - this is priority.
 	$template = locate_template(
-		array(
+		[
 			trailingslashit( $template_path ) . $template_name,
 			$template_name,
-		)
+		]
 	);
 	// Check depreciated path template.
 	if ( ! $template ) {
 		$template_path = 'kadenceblocks/';
-		$template = locate_template(
-			array(
+		$template      = locate_template(
+			[
 				trailingslashit( $template_path ) . $template_name,
 				$template_name,
-			)
+			]
 		);
 	}
 	// Get default template/.
@@ -459,7 +461,7 @@ function kadence_blocks_print_icon( $icon = 'arrow-right-alt', $icon_title = '',
  */
 function kadence_blocks_get_icon( $icon = 'arrow-right-alt', $icon_title = '', $base = true, $aria = false ) {
 	$display_title = apply_filters( 'kadence_svg_icons_have_title', true );
-	$output = '<span class="kadence-svg-iconset' . ( $base ? ' svg-baseline' : '' ) . '">';
+	$output        = '<span class="kadence-svg-iconset' . ( $base ? ' svg-baseline' : '' ) . '">';
 	switch ( $icon ) {
 		case 'arrow-right-alt':
 			$output .= '<svg' . ( ! $aria ? ' aria-hidden="true"' : '' ) . ' class="kadence-svg-icon kadence-arrow-right-alt-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="27" height="28" viewBox="0 0 27 28">';
@@ -490,26 +492,26 @@ function wpmlcore_7207_fix_kadence_form_block( array $block ) {
 	if ( 'kadence/form' === $block['blockName'] && class_exists( 'WPML\PB\Gutenberg\ConvertIdsInBlock\Composite' ) && class_exists( 'WPML\PB\Gutenberg\ConvertIdsInBlock\TagAttributes' ) && class_exists( 'WPML\PB\Gutenberg\ConvertIdsInBlock\BlockAttributes' ) ) {
 		$slug      = get_post_type();
 		$converter = new WPML\PB\Gutenberg\ConvertIdsInBlock\Composite(
-			array(
+			[
 				new WPML\PB\Gutenberg\ConvertIdsInBlock\TagAttributes(
-					array(
-						array(
+					[
+						[
 							'xpath' => '//*[@name="_kb_form_post_id"]/@value',
-							'slug' => $slug,
-							'type' => 'post',
-						),
-					)
+							'slug'  => $slug,
+							'type'  => 'post',
+						],
+					]
 				),
 				new WPML\PB\Gutenberg\ConvertIdsInBlock\BlockAttributes(
-					array(
-						array(
+					[
+						[
 							'name' => 'postID',
 							'slug' => $slug,
 							'type' => 'post',
-						),
-					)
+						],
+					]
 				),
-			)
+			]
 		);
 		return $converter->convert( $block );
 	}
@@ -550,7 +552,7 @@ add_action( 'rest_api_init', 'kadence_blocks_register_api_endpoints' );
 function kadence_blocks_register_lottie_custom_post_type() {
 	register_post_type(
 		'kadence_lottie',
-		array(
+		[
 			'label'        => _x( 'Lottie Animations', 'Lottie animation' ),
 			'description'  => __( 'Lottie Animations imported in Kadence' ),
 			'public'       => false,
@@ -558,7 +560,7 @@ function kadence_blocks_register_lottie_custom_post_type() {
 			'show_in_menu' => false,
 			'show_in_rest' => true,
 			'rewrite'      => false,
-			'capabilities' => array(
+			'capabilities' => [
 				'read'                   => 'edit_theme_options',
 				'create_posts'           => 'edit_theme_options',
 				'edit_posts'             => 'edit_theme_options',
@@ -566,14 +568,14 @@ function kadence_blocks_register_lottie_custom_post_type() {
 				'delete_published_posts' => 'edit_theme_options',
 				'edit_others_posts'      => 'edit_theme_options',
 				'delete_others_posts'    => 'edit_theme_options',
-			),
+			],
 			'map_meta_cap' => true,
-			'supports'     => array(
+			'supports'     => [
 				'title',
 				'editor',
 				'revisions',
-			),
-		)
+			],
+		]
 	);
 }
 
@@ -614,14 +616,18 @@ function kadence_blocks_register_vector_custom_post_type() {
 
 add_action( 'init', 'kadence_blocks_register_vector_custom_post_type' );
 
-/* Sashicons are not enqueue by default when iFraming in block editor
-   https://github.com/WordPress/gutenberg/issues/53528
-*/
-add_action('enqueue_block_assets', function (): void {
-	if( is_admin() ) {
-		wp_enqueue_style( 'dashicons' );
+/**
+ * Dashicons are not enqueue by default when iFraming in block editor
+ * https://github.com/WordPress/gutenberg/issues/53528
+ */
+add_action(
+	'enqueue_block_assets',
+	function (): void {
+		if ( is_admin() ) {
+			wp_enqueue_style( 'dashicons' );
+		}
 	}
-});
+);
 
 
 /**
@@ -651,7 +657,7 @@ function kadence_blocks_events_custom_excerpt_stop_style_output( $enabled, $name
 /**
  * Filter to remove block rendering when events builds their custom excerpts.
  *
- * @param bool $remove_blocks Whether to remove blocks or not.
+ * @param bool    $remove_blocks Whether to remove blocks or not.
  * @param WP_Post $post The post object.
  */
 function kadence_blocks_events_custom_excerpt_fix( $remove_blocks, $post ) {
@@ -687,5 +693,6 @@ add_filter( 'tribe_events_get_the_excerpt', 'kadence_blocks_events_custom_excerp
  * @throws InvalidArgumentException
  */
 function kadence_blocks(): ContainerInterface {
-	return App::instance()->container();
+	// Use the new kbs_container() function which has better error handling
+	return kbs_container();
 }

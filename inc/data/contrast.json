@@ -1,0 +1,80 @@
+{
+	"styleId": "kbs-contrast",
+	"label": "Contrast Style",
+	"components": {
+		"background": {
+			"presets": {
+				"kbs-bg-base": {
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"color": "palette9"
+								}
+							}
+						]
+					}
+				},
+				"kbs-bg-variant-1": {
+					"attributes": {
+						"layers": [
+							{
+								"desktop": {
+									"gradient": "radial-gradient(ellipse at 83% 67%,var(\u002d\u002dkbs-colors-palette9) 0%,var(\u002d\u002dkbs-colors-palette7) 100%)",
+									"type": "gradient",
+									"opacity": "0%",
+									"opacityHover": "100%"
+								}
+							},
+							{
+								"desktop": {
+									"gradient": "radial-gradient(ellipse at 1% 6%,var(\u002d\u002dkbs-colors-palette9) 0%,var(\u002d\u002dkbs-colors-palette7) 100%)",
+									"type": "gradient"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"mappings": {
+		"gradients": {
+			"gradient1": {
+				"value": "linear-gradient(90deg, var(--kbs-colors-palette1) 0%, var(--kbs-colors-palette2) 100%)"
+			},
+			"gradient2": {
+				"value": "radial-gradient(ellipse at 100% 100%, var(--kbs-colors-palette1) 0%, var(--kbs-colors-palette2) 100%)"
+			},
+			"gradient3": {
+				"value": "linear-gradient(90deg, var(--kbs-colors-palette3) 0%, var(--kbs-colors-palette5) 100%)"
+			},
+			"gradient4": {
+				"value": "linear-gradient(180deg, var(--kbs-colors-palette4) 0%, var(--kbs-colors-palette6) 100%)"
+			},
+			"gradient5": {
+				"value": "radial-gradient(ellipse at 100% 100%, var(--kbs-colors-palette7) 0%, var(--kbs-colors-palette9) 100%)"
+			},
+			"gradient6": {
+				"value": "linear-gradient(180deg, var(--kbs-colors-palette8) 0%, var(--kbs-colors-palette9) 100%)"
+			}
+		},
+		"colors": {
+			"palette1": { "value": "var(--global-palette1)" },
+			"palette2": { "value": "var(--global-palette2)" },
+			"palette-complement": { "value": "var(--global-palette-complement)" },
+			"palette3": { "value": "var(--global-palette9)" },
+			"palette4": { "value": "var(--global-palette8)" },
+			"palette5": { "value": "var(--global-palette7)" },
+			"palette6": { "value": "color-mix(in srgb, var(--global-palette7) 90%, black)" },
+			"palette7": { "value": "var(--global-palette5)" },
+			"palette8": { "value": "var(--global-palette4)" },
+			"palette9": { "value": "var(--global-palette3)" },
+			"palette-success": { "value": "color-mix(in srgb, var(--global-palette-success) 60%, white)" },
+			"palette-info": { "value": "color-mix(in srgb, var(--global-palette-info) 60%, white)" },
+			"palette-alert": { "value": "color-mix(in srgb, var(--global-palette-alert) 60%, white)" },
+			"palette-warning": { "value": "color-mix(in srgb, var(--global-palette-warning) 60%, white)" },
+			"palette-rating": { "value": "color-mix(in srgb, var(--global-palette-rating) 60%, white)" }
+		}
+	}
+}

@@ -1,0 +1,265 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+
+$editor-top-bar-height: 60px;
+$editor-bottom-bar-height: 25px;
+$editor-control-sidebar-width: 300px;
+
+// Style Book Modal Styles
+.kbs-style-book-modal-overlay {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: $editor-top-bar-height;
+	height: calc(100% - ($editor-top-bar-height + $editor-bottom-bar-height));
+	width: calc(100% - $editor-control-sidebar-width);
+	background: rgba(0, 0, 0, 0.7);
+}
+
+.kbs-style-book-modal {
+	max-width: 95%;
+	width: 100%;
+	max-height: 90%;
+	height: 100%;
+	.components-modal__header-heading-container {
+		flex-grow: 0;
+		padding-right: 24px;
+	}
+	.kbs-style-book-header-actions {
+		flex-grow: 10;
+	}
+}
+.kbs-style-book-style-guide-left {
+	padding-top: 20px;
+}
+.kbs-style-book-style-guide {
+	display: grid;
+	grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+	gap: 54px;
+}
+
+.kbs-style-book-preview-heading {
+	margin-top: 0;
+	font-size: 1.2rem;
+	line-height: 1.4;
+	font-weight: 500;
+}
+
+.kbs-style-book-content {
+}
+
+// Block Preview Styles
+.kbs-style-book-component-preview-container {
+	background-color: #f5f5f5;
+	padding: 20px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+
+.kbs-style-book-preview-element {
+	cursor: pointer;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	margin-bottom: 1rem;
+	padding: 1rem;
+	transition: all 0.2s ease;
+
+	&:hover,
+	&:focus-visible,
+	&.is-selected {
+		border-color: var(--wp-admin-theme-color);
+		box-shadow: 0 0 0 1px var(--wp-admin-theme-color);
+	}
+}
+
+.kbs-flex,
+.kbs-flex-horizontal {
+	display: flex;
+
+	&-horizontal {
+		flex-direction: row;
+
+		&.kbs-flex-gap-sm {
+			gap: 5px;
+		}
+		&.kbs-flex-gap-md {
+			gap: 10px;
+		}
+		&.kbs-flex-gap-lg {
+			gap: 20px;
+		}
+		&.kbs-flex-gap-xl {
+			gap: 40px;
+		}
+	}
+
+	.kbs-column {
+		flex: 1;
+	}
+}
+
+.kbs-control-heading {
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-transform: capitalize;
+	margin-bottom: 10px;
+}
+
+// Tab Styles
+.kbs-style-book-tabs {
+	.components-tab-panel__tabs {
+		border-bottom: 1px solid #ddd;
+		margin-bottom: 1.5rem;
+	}
+
+	.components-tab-panel__tabs-item {
+		padding: 8px 16px;
+		margin-bottom: -1px;
+		border: none;
+		border-bottom: 2px solid transparent;
+		background: transparent;
+		cursor: pointer;
+
+		&.is-active {
+			border-bottom-color: var(--wp-admin-theme-color);
+			color: var(--wp-admin-theme-color);
+		}
+	}
+}
+
+// Preview hook ups
+.kbs-style-book-component-preview {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p {
+		font-family: var(--kbs-preview-font-family);
+		font-weight: var(--kbs-preview-font-weight);
+		font-size: var(--kbs-preview-font-size);
+		line-height: initial;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin: 0;
+	}
+}
+.kbs-heading-main-preview {
+	--kbs-preview-font-family: var(--kbs-preview-heading-font-family);
+	--kbs-preview-font-weight: var(--kbs-preview-heading-font-weight);
+	--kbs-preview-font-size: var(--kbs-preview-heading-font-size);
+}
+.kbs-heading-1-preview {
+	--kbs-preview-font-family: var(--kbs-preview-heading-1-font-family, var(--kbs-preview-heading-font-family));
+	--kbs-preview-font-weight: var(--kbs-preview-heading-1-font-weight, var(--kbs-preview-heading-font-weight));
+	--kbs-preview-font-size: var(--kbs-preview-heading-1-font-size, var(--kbs-preview-heading-font-size));
+}
+.kbs-heading-2-preview {
+	--kbs-preview-font-family: var(--kbs-preview-heading-2-font-family, var(--kbs-preview-heading-font-family));
+	--kbs-preview-font-weight: var(--kbs-preview-heading-2-font-weight, var(--kbs-preview-heading-font-weight));
+	--kbs-preview-font-size: var(--kbs-preview-heading-2-font-size, var(--kbs-preview-heading-font-size));
+}
+.kbs-heading-3-preview {
+	--kbs-preview-font-family: var(--kbs-preview-heading-3-font-family, var(--kbs-preview-heading-font-family));
+	--kbs-preview-font-weight: var(--kbs-preview-heading-3-font-weight, var(--kbs-preview-heading-font-weight));
+	--kbs-preview-font-size: var(--kbs-preview-heading-3-font-size, var(--kbs-preview-heading-font-size));
+}
+.kbs-heading-4-preview {
+	--kbs-preview-font-family: var(--kbs-preview-heading-4-font-family, var(--kbs-preview-heading-font-family));
+	--kbs-preview-font-weight: var(--kbs-preview-heading-4-font-weight, var(--kbs-preview-heading-font-weight));
+	--kbs-preview-font-size: var(--kbs-preview-heading-4-font-size, var(--kbs-preview-heading-font-size));
+}
+.kbs-heading-5-preview {
+	--kbs-preview-font-family: var(--kbs-preview-heading-5-font-family, var(--kbs-preview-heading-font-family));
+	--kbs-preview-font-weight: var(--kbs-preview-heading-5-font-weight, var(--kbs-preview-heading-font-weight));
+	--kbs-preview-font-size: var(--kbs-preview-heading-5-font-size, var(--kbs-preview-heading-font-size));
+}
+.kbs-heading-6-preview {
+	--kbs-preview-font-family: var(--kbs-preview-heading-6-font-family, var(--kbs-preview-heading-font-family));
+	--kbs-preview-font-weight: var(--kbs-preview-heading-6-font-weight, var(--kbs-preview-heading-font-weight));
+	--kbs-preview-font-size: var(--kbs-preview-heading-6-font-size, var(--kbs-preview-heading-font-size));
+}
+.kbs-body-preview {
+	--kbs-preview-font-family: var(--kbs-preview-body-font-family);
+	--kbs-preview-font-weight: var(--kbs-preview-body-font-weight);
+	--kbs-preview-font-size: var(--kbs-preview-body-font-size);
+}
+
+// Sidebar.
+.kbs-style-book-controls .components-panel__body-title.kbs-style-book-control-title {
+	margin: -16px -16px 5px;
+	position: relative;
+	background: transparent;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	padding: 0 16px;
+	min-height: 47px;
+	.kbs-control-title-bar-inner {
+		flex-grow: 1;
+	}
+	.components-button {
+		height: 36px;
+		min-width: 30px;
+		padding: 0;
+		color: var(--wp-components-color-foreground, #1e1e1e);
+		background: transparent;
+		box-shadow: inset 0px 0px 0px 1px transparent;
+		&:hover {
+			color: var(--wp-components-color-foreground, #1e1e1e);
+			background: color-mix(in srgb, var(--kb-subtle-background, #edf2f7) 50%, transparent);
+			box-shadow: inset 0px 0px 0px 1px var(--kb-border-subtle-color, #d9e7ec);
+		}
+		&.is-pressed {
+			background: var(--kb-subtle-background, #edf2f7);
+			box-shadow: inset 0px 0px 0px 1px var(--wp-components-color-foreground, #1e1e1e);
+		}
+	}
+}
+.kbs-popover-add-global-style-content .components-popover__content {
+	padding: 12px;
+	min-width: 240px;
+	min-height: 100px;
+	height: auto;
+	width: 240px;
+	.kbs-popover-add-global-style-content-title {
+		margin: 0 0 12px;
+		font-size: 1.1em;
+	}
+	.kbs-popover-add-global-style-content-items {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+}
+
+// Mapping styles.
+.kbs-style-book-settings-group {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	.kbs-control-title-bar .kbs-control-title {
+		font-size: 14px;
+		font-weight: 600;
+	}
+}
+.kbs-style-book-style-guide-divider {
+	border-top: 1px solid var(--wp-components-color-border, #d9e7ec);
+	margin: 24px 0;
+}
+
+.kbs-style-book-close-modal-actions {
+	display: flex;
+	gap: 12px;
+}

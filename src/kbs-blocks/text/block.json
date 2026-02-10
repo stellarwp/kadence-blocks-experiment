@@ -1,0 +1,238 @@
+{
+	"apiVersion": 3,
+	"title": "Text",
+	"name": "kbs/text",
+	"category": "kadence-blocks",
+	"usesContext": [
+		"postId",
+		"queryId",
+		"kbs/globalStyles",
+		"kadence/dynamicSource",
+		"kadence/repeaterRowData",
+		"kadence/repeaterRow"
+	],
+	"textdomain": "kadence-blocks",
+	"attributes": {
+		"uniqueID": {
+			"type": "string"
+		},
+		"anchor": {
+			"type": "string"
+		},
+		"htmlTag": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "string",
+			"default": "p"
+		},
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": ".kbs-text-content",
+			"default": "",
+			"role": "content"
+		},
+		"preset": {
+			"type": "array"
+		},
+		"textAlign": {
+			"renderCSS": true,
+			"component": "textAlign",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-"
+		},
+		"link": {
+			"type": "object"
+		},
+		"linkStyle": {
+			"renderCSS": true,
+			"component": "linkStyle",
+			"varPrefix": "--kbs-text-link-",
+			"initial": {},
+			"type": "object"
+		},
+		"background": {
+			"type": "object"
+		},
+		"padding": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-text-"
+		},
+		"margin": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-text-"
+		},
+		"visibility": {
+			"type": "object"
+		},
+		"typography": {
+			"renderCSS": true,
+			"component": "typography",
+			"varPrefix": "--kbs-text-",
+			"initial": {},
+			"type": "object",
+			"nonInheritable": true,
+			"presetHasClass": true
+		},
+		"color": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-text-",
+			"classPrefix": "kbs-text-color-"
+		},
+		"backgroundColor": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-text-background-",
+			"classPrefix": "kbs-text-background-color"
+		},
+		"border": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"varPrefix": "--kbs-text-",
+			"classPrefix": "kbs-text-border-"
+		},
+		"colorHighlight": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-text-highlight-",
+			"classPrefix": "kbs-text-color-highlight-"
+		},
+		"backgroundColorHighlight": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-text-highlight-background-",
+			"classPrefix": "kbs-text-background-highlight-"
+		},
+		"borderHighlight": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"varPrefix": "--kbs-text-highlight-",
+			"classPrefix": "kbs-text-border-highlight-"
+		},
+		"typographyHighlight": {
+			"renderCSS": true,
+			"component": "typography",
+			"initial": {},
+			"type": "object",
+			"varPrefix": "--kbs-text-highlight-",
+			"selectorSuffix": " mark",
+			"nonInheritable": true
+		},
+		"paddingHighlight": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-text-highlight-",
+			"selectorSuffix": " mark"
+		},
+		"colorLink": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-text-link-",
+			"classPrefix": "kbs-text-color-link-",
+			"selectorSuffix": " a"
+		},
+		"textShadow": {
+			"renderCSS": true,
+			"component": "textShadow",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-",
+			"classPrefix": "kbs-text-shadow-",
+			"hasLayers": true
+		},
+		"textOrientation": {
+			"renderCSS": true,
+			"component": "textOrientation",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-"
+		},
+		"maxHeight": {
+			"renderCSS": true,
+			"component": "maxHeight",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-"
+		},
+		"maxWidth": {
+			"renderCSS": true,
+			"component": "maxWidth",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-text-",
+			"selectorSuffix": " .kbs-text-content"
+		},
+		"iconReveal": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"icon": {
+			"renderCSS": true,
+			"component": "icon",
+			"varPrefix": "--kbs-text-icon-",
+			"initial": { "desktop": { "placement": "left" } },
+			"type": "object"
+		},
+		"globalStyleIds": {
+			"type": "string"
+		},
+		"transform": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-text-transform-",
+			"classPrefix": "kbs-text-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transformHover": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-text-transform-",
+			"classPrefix": "kbs-text-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transition": {
+			"renderCSS": true,
+			"component": "transition",
+			"nonInheritable": true,
+			"selector": "--kbs-text-transition-",
+			"classPrefix": "kbs-text-transition-",
+			"initial": {},
+			"type": "object"
+		}
+	},
+	"supports": {
+		"splitting": true,
+		"anchor": true,
+		"ktanimate": true,
+		"ktanimateadd": true,
+		"ktanimatepreview": true,
+		"ktanimateswipe": true,
+		"ktdynamic": true,
+		"kbcss": true,
+		"kbMetadata": true
+	},
+	"editorStyle": "kbs-text-editor",
+	"style": "kbs-text"
+}

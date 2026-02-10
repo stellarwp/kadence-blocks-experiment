@@ -1,0 +1,191 @@
+{
+	"apiVersion": 3,
+	"title": "Button",
+	"name": "kbs/button",
+	"parent": ["kbs/buttons"],
+	"category": "kadence-blocks",
+	"textdomain": "kadence-blocks",
+	"usesContext": [
+		"postId",
+		"queryId",
+		"kbs/globalStyles",
+		"kadence/dynamicSource",
+		"kadence/repeaterRowData",
+		"kadence/repeaterRow"
+	],
+	"attributes": {
+		"uniqueID": {
+			"type": "string"
+		},
+		"anchor": {
+			"type": "string"
+		},
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": ".kbs-button-content",
+			"default": "",
+			"__experimentalRole": "content"
+		},
+		"size": {
+			"renderCSS": false,
+			"component": "buttonSize",
+			"bundlePreset": true,
+			"nonInheritable": true,
+			"type": "string",
+			"initial": "md"
+		},
+		"variant": {
+			"renderCSS": false,
+			"component": "buttonVariant",
+			"bundlePreset": true,
+			"nonInheritable": true,
+			"type": "string",
+			"initial": "primary"
+		},
+		"buttonRole": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"iconReveal": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"ariaLabel": {
+			"renderCSS": false,
+			"nonInheritable": true,
+			"type": "object"
+		},
+		"link": {
+			"type": "object"
+		},
+		"padding": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "padding",
+			"nonInheritable": true,
+			"varPrefix": "--kbs-button-"
+		},
+		"margin": {
+			"type": "object",
+			"renderCSS": true,
+			"component": "margin",
+			"nonInheritable": false,
+			"varPrefix": "--kbs-button-"
+		},
+		"shadow": {
+			"type": "object"
+		},
+		"visibility": {
+			"type": "object"
+		},
+		"typography": {
+			"renderCSS": true,
+			"component": "typography",
+			"varPrefix": "--kbs-button-",
+			"initial": {},
+			"type": "object"
+		},
+		"color": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"classPrefix": "kbs-button-color-"
+		},
+		"backgroundColor": {
+			"renderCSS": true,
+			"component": "color",
+			"type": "object",
+			"varPrefix": "--kbs-button-background-",
+			"classPrefix": "kbs-button-background-color"
+		},
+		"border": {
+			"renderCSS": true,
+			"component": "border",
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"classPrefix": "kbs-button-border-"
+		},
+		"boxShadow": {
+			"renderCSS": true,
+			"component": "boxShadow",
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"classPrefix": "kbs-button-shadow-",
+			"hasLayers": true
+		},
+		"boxShadowHover": {
+			"renderCSS": true,
+			"component": "boxShadow",
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"varSuffix": "-hover",
+			"classPrefix": "kbs-button-shadow-hover-",
+			"hasLayers": true
+		},
+		"width": {
+			"renderCSS": true,
+			"component": "width",
+			"nonInheritable": true,
+			"type": "object",
+			"varPrefix": "--kbs-button-",
+			"initial": {
+				"desktop": {
+					"width": "auto"
+				}
+			}
+		},
+		"icon": {
+			"renderCSS": true,
+			"component": "icon",
+			"varPrefix": "--kbs-button-icon-",
+			"initial": {},
+			"type": "object"
+		},
+		"globalStyleIds": {
+			"type": "string"
+		},
+		"transform": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-button-transform-",
+			"classPrefix": "kbs-button-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transformHover": {
+			"renderCSS": true,
+			"component": "transform",
+			"nonInheritable": true,
+			"selector": "--kbs-button-transform-",
+			"classPrefix": "kbs-button-transform-",
+			"initial": {},
+			"type": "object"
+		},
+		"transition": {
+			"renderCSS": true,
+			"component": "transition",
+			"nonInheritable": true,
+			"selector": "--kbs-button-transition-",
+			"classPrefix": "kbs-button-transition-",
+			"initial": {},
+			"type": "object"
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"ktanimate": true,
+		"ktanimateadd": true,
+		"ktanimatepreview": true,
+		"ktanimateswipe": true,
+		"ktdynamic": true,
+		"kbcss": true,
+		"kbMetadata": true
+	},
+	"editorStyle": "kbs-button-editor",
+	"style": "kbs-button"
+}
