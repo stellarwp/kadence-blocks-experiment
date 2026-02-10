@@ -19,6 +19,6 @@ modules:
             title: 'Kadence Blocks Tests'
             theme: twentytwentythree
             plugins:
-                - kadence-blocks/kadence-blocks.php
+                - kadence-blocks-experiment/kadence-blocks.php
             activatePlugins:
-                - kadence-blocks/kadence-blocks.php
+                - kadence-blocks-experiment/kadence-blocks.php

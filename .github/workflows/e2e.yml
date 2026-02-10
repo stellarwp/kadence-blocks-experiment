@@ -1,0 +1,98 @@
+name: E2E test
+
+on:
+    push:
+        branches:
+            - develop
+            - main
+    pull_request:
+    workflow_call:
+
+jobs:
+    e2e:
+        runs-on: ubuntu-latest
+
+        env:
+            COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.COMPOSER_TOKEN }}"}}'
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Checkout slic
+              uses: actions/checkout@v4
+              with:
+                  repository: stellarwp/slic
+                  ref: main
+                  path: slic
+                  fetch-depth: 1
+
+            - name: Cache Composer dependencies
+              uses: actions/cache@v4
+              id: composer-cache
+              with:
+                  path: ~/.cache/composer
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: 'npm'
+
+            - name: Set up slic env vars
+              run: |
+                echo "SLIC_BIN=${GITHUB_WORKSPACE}/slic/slic" >> $GITHUB_ENV
+                echo "SLIC_WP_DIR=${GITHUB_WORKSPACE}/slic/_wordpress" >> $GITHUB_ENV
+                echo "SLIC_WORDPRESS_DOCKERFILE=Dockerfile.base" >> $GITHUB_ENV
+
+            - name: Set run context for slic
+              run: echo "SLIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
+
+            - name: Start ssh-agent
+              run: |
+                mkdir -p "${HOME}/.ssh"
+                ssh-agent -a /tmp/ssh_agent.sock
+
+            - name: Export SSH_AUTH_SOCK env var
+              run: echo "SSH_AUTH_SOCK=/tmp/ssh_agent.sock" >> $GITHUB_ENV
+
+            - name: Set up slic for CI
+              run: |
+                cd ${GITHUB_WORKSPACE}/..
+                ${SLIC_BIN} here
+                ${SLIC_BIN} interactive off
+                ${SLIC_BIN} build-prompt off
+                ${SLIC_BIN} build-subdir off
+                ${SLIC_BIN} xdebug off
+                ${SLIC_BIN} debug on
+                ${SLIC_BIN} info
+                ${SLIC_BIN} config
+
+            - name: Install & Build Plugin
+              run: |
+                cd "$GITHUB_WORKSPACE"
+                composer install --no-dev --no-scripts
+                composer run strauss-release
+                npm install --legacy-peer-deps
+                npm run build
+
+            - name: Start slic stack
+              run: |
+                ${SLIC_BIN} use "$(basename "$GITHUB_WORKSPACE")"
+                ${SLIC_BIN} up
+                ${SLIC_BIN} playwright install chromium
+                ${SLIC_BIN} site-cli
+                ${SLIC_BIN} wp plugin activate "$(basename "$GITHUB_WORKSPACE")"
+
+            - name: Run E2E Test
+              run: ${SLIC_BIN} playwright test --config tests/e2e/playwright.config.js
+
+            - uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                name: E2E Test Report
+                path: tests/e2e/test-results
+                retention-days: 7

@@ -18,7 +18,11 @@
 		"build:custom": "wp-scripts build --webpack-bundle-analyzer",
 		"lint-js": "wp-scripts lint-js",
 		"lint-js-fix": "wp-scripts lint-js --fix",
-		"format": "wp-scripts format"
+		"format": "wp-scripts format",
+		"test:e2e": "npx playwright test --config tests/e2e/playwright.config.js",
+		"test:e2e-debug": "npx playwright test --config tests/e2e/playwright.config.js --debug",
+		"test:e2e-codegen": "npx playwright codegen",
+		"test:e2e-report": "npx playwright show-report tests/e2e/test-results/playwright-report"
 	},
 	"dependencies": {
 		"@algolia/autocomplete-js": "^1.10.0",
@@ -66,12 +70,13 @@
 	"devDependencies": {
 		"@babel/preset-react": "^7.16.7",
 		"@babel/eslint-parser": "^7.25.1",
+		"@playwright/test": "^1.58.1",
 		"@wordpress/dependency-extraction-webpack-plugin": "^6.26.0",
 		"@wordpress/eslint-plugin": "^22.12.0",
-		"ajv": "^8.17.1",
 		"@wordpress/i18n": "^5.26.0",
 		"@wordpress/prettier-config": "^4.26.0",
 		"@wordpress/scripts": "^30.19.0",
+		"ajv": "^8.17.1",
 		"concurrently": "^9.2.0",
 		"del": "^8.0.0",
 		"eslint-import-resolver-webpack": "^0.13.8",

@@ -1,11 +1,11 @@
 actor: Tester
 bootstrap: _bootstrap.php
 paths:
-    tests: tests
-    log: tests/_output
-    output: tests/_output
-    data: tests/_data
-    helpers: tests/_support
+    tests: tests/php
+    log: tests/php/_output
+    output: tests/php/_output
+    data: tests/php/_data
+    helpers: tests/php/_support
     wp_root: '%WP_ROOT_FOLDER%'
 settings:
     colors: true
